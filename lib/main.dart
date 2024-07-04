@@ -1,12 +1,16 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'firebase_options.dart';
 import 'src/pages/home_page.dart';
 import 'src/providers/cache_provider.dart';
 
 void main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   WidgetsFlutterBinding.ensureInitialized();
   final sharePref = await SharedPreferences.getInstance();
   await initSupabase();

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "739352974848",
+    "project_id": "kfa-mobile-942f0",
+    "storage_bucket": "kfa-mobile-942f0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:739352974848:android:51ef161f6ed2686f04aae5",
+        "android_client_info": {
+          "package_name": "com.example.kfa_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9oyCc9P4l9u1FhPGd6FwAk-nBGSFJ9t0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:739352974848:android:de9967269670bbfd04aae5",
+        "android_client_info": {
+          "package_name": "com.meng.kfamobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9oyCc9P4l9u1FhPGd6FwAk-nBGSFJ9t0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

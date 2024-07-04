@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gcm_defaultSenderId" translatable="false">739352974848</string>
+    <string name="google_api_key" translatable="false">AIzaSyC9oyCc9P4l9u1FhPGd6FwAk-nBGSFJ9t0</string>
+    <string name="google_app_id" translatable="false">1:739352974848:android:51ef161f6ed2686f04aae5</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyC9oyCc9P4l9u1FhPGd6FwAk-nBGSFJ9t0</string>
+    <string name="google_storage_bucket" translatable="false">kfa-mobile-942f0.appspot.com</string>
+    <string name="project_id" translatable="false">kfa-mobile-942f0</string>
+</resources>

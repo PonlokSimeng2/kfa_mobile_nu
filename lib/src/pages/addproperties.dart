@@ -2,8 +2,8 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:getwidget/components/shimmer/gf_shimmer.dart';
+// import 'package:geolocator/geolocator.dart';
+// import 'package:getwidget/components/shimmer/gf_shimmer.dart';
 import 'package:http/http.dart' as http;
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
@@ -51,13 +51,13 @@ class _Add_verbal_saleState extends State<Add_properties> {
   String? commune;
   String? district;
   Future<void> _getCurrentPosition() async {
-    final Position position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
-    );
+    // final Position position = await Geolocator.getCurrentPosition(
+    //   desiredAccuracy: LocationAccuracy.high,
+    // );
 
     setState(() {
-      lat = position.latitude;
-      log = position.longitude;
+      // lat = position.latitude;
+      // log = position.longitude;
     });
     final response = await http.get(
       Uri.parse(
@@ -319,45 +319,45 @@ class _Add_verbal_saleState extends State<Add_properties> {
                                           errorWidget: (context, url, error) =>
                                               Icon(Icons.error),
                                         ),
-                                        Positioned(
-                                          left: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.09,
-                                          top: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.05,
-                                          child: GFShimmer(
-                                            child: Text(
-                                              'Select Image',
-                                              style: TextStyle(
-                                                fontSize: 30,
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                            ),
-                                            showGradient: true,
-                                            gradient: LinearGradient(
-                                              begin: Alignment.bottomRight,
-                                              end: Alignment.centerLeft,
-                                              stops: const <double>[
-                                                0.2,
-                                                0.7,
-                                                0.8,
-                                                0.9,
-                                                1
-                                              ],
-                                              colors: [
-                                                Color.fromARGB(255, 5, 10, 159)
-                                                    .withOpacity(0.1),
-                                                Color.fromARGB(255, 5, 9, 114),
-                                                Color.fromARGB(255, 4, 8, 103),
-                                                Color.fromARGB(255, 5, 8, 93),
-                                                Color.fromARGB(255, 4, 6, 82),
-                                              ],
-                                            ),
-                                          ),
-                                        )
+                                        // Positioned(
+                                        //   left: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height *
+                                        //       0.09,
+                                        //   top: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height *
+                                        //       0.05,
+                                        // child: GFShimmer(
+                                        //   child: Text(
+                                        //     'Select Image',
+                                        //     style: TextStyle(
+                                        //       fontSize: 30,
+                                        //       fontWeight: FontWeight.w700,
+                                        //     ),
+                                        //   ),
+                                        //   showGradient: true,
+                                        //   gradient: LinearGradient(
+                                        //     begin: Alignment.bottomRight,
+                                        //     end: Alignment.centerLeft,
+                                        //     stops: const <double>[
+                                        //       0.2,
+                                        //       0.7,
+                                        //       0.8,
+                                        //       0.9,
+                                        //       1
+                                        //     ],
+                                        //     colors: [
+                                        //       Color.fromARGB(255, 5, 10, 159)
+                                        //           .withOpacity(0.1),
+                                        //       Color.fromARGB(255, 5, 9, 114),
+                                        //       Color.fromARGB(255, 4, 8, 103),
+                                        //       Color.fromARGB(255, 5, 8, 93),
+                                        //       Color.fromARGB(255, 4, 6, 82),
+                                        //     ],
+                                        //   ),
+                                        // ),
+                                        // )
                                       ],
                                     ),
                             ),
@@ -369,33 +369,33 @@ class _Add_verbal_saleState extends State<Add_properties> {
                       ),
                       InkWell(
                         onTap: () {
-                          context.push(
-                            (context) => Map_verbal_address_Sale_page(
-                              get_province: (value) {
-                                setState(() {
-                                  songkat = value.toString();
-                                });
-                              },
-                              get_district: (value) {
-                                setState(() {
-                                  provice_map = value.toString();
-                                });
-                              },
-                              get_commune: (value) {
-                                setState(() {
-                                  khan = value.toString();
-                                });
-                              },
-                              get_log: (value) {
-                                setState(() {
-                                  log = double.parse(value);
-                                });
-                              },
-                              get_lat: (value) {
-                                lat = double.parse(value);
-                              },
-                            ),
-                          );
+                          // context.push(
+                          //   (context) => Map_verbal_address_Sale_page(
+                          //     get_province: (value) {
+                          //       setState(() {
+                          //         songkat = value.toString();
+                          //       });
+                          //     },
+                          //     get_district: (value) {
+                          //       setState(() {
+                          //         provice_map = value.toString();
+                          //       });
+                          //     },
+                          //     get_commune: (value) {
+                          //       setState(() {
+                          //         khan = value.toString();
+                          //       });
+                          //     },
+                          //     get_log: (value) {
+                          //       setState(() {
+                          //         log = double.parse(value);
+                          //       });
+                          //     },
+                          //     get_lat: (value) {
+                          //       lat = double.parse(value);
+                          //     },
+                          //   ),
+                          // );
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(right: 30, left: 30),

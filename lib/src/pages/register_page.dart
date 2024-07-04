@@ -4,7 +4,7 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:getwidget/components/avatar/gf_avatar.dart';
+// import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -215,11 +215,11 @@ class _RegisterState extends State<Register> {
                           alignment: AlignmentDirectional.bottomCenter,
                           // ignore: prefer_const_literals_to_create_immutables
                           children: [
-                            GFAvatar(
-                              size: 100,
-                              backgroundImage:
-                                  AssetImage('assets/images/user-avatar.png'),
-                            ),
+                            // GFAvatar(
+                            //   size: 100,
+                            //   backgroundImage:
+                            //       AssetImage('assets/images/user-avatar.png'),
+                            // ),
                             Container(
                               height: 20,
                               width: 30,
@@ -238,10 +238,10 @@ class _RegisterState extends State<Register> {
                       : Stack(
                           alignment: AlignmentDirectional.bottomCenter,
                           children: [
-                            GFAvatar(
-                              size: 100,
-                              backgroundImage: MemoryImage(get_bytes!),
-                            ),
+                            // GFAvatar(
+                            //   size: 100,
+                            //   backgroundImage: MemoryImage(get_bytes!),
+                            // ),
                             Container(
                               height: 20,
                               width: 30,

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+// import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kfa_mobile_nu/constaints.dart';
 
@@ -30,32 +30,32 @@ class Login extends ConsumerStatefulWidget {
 }
 
 class _LoginState extends ConsumerState<Login> {
-  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
+  // late StreamSubscription<ConnectivityResult> _connectivitySubscription;
   bool chec_internet = false;
   @override
   void dispose() {
-    _connectivitySubscription.cancel();
+    // _connectivitySubscription.cancel();
     super.dispose();
   }
 
-  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
-    switch (result) {
-      case ConnectivityResult.wifi:
-      case ConnectivityResult.mobile:
-      case ConnectivityResult.none:
-        break;
-      default:
-        setState(() {
-          final snackBar = const SnackBar(
-            backgroundColor: Colors.black12,
-            content: Text('Offline'),
-          );
+  // Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+  //   switch (result) {
+  //     case ConnectivityResult.wifi:
+  //     case ConnectivityResult.mobile:
+  //     case ConnectivityResult.none:
+  //       break;
+  //     default:
+  //       setState(() {
+  //         final snackBar = const SnackBar(
+  //           backgroundColor: Colors.black12,
+  //           content: Text('Offline'),
+  //         );
 
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        });
-        break;
-    }
-  }
+  //         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  //       });
+  //       break;
+  //   }
+  // }
 
   bool _isObscure = true;
   bool status = false;

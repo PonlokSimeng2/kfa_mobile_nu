@@ -8,10 +8,11 @@ import 'src/pages/home_page.dart';
 import 'src/providers/cache_provider.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  WidgetsFlutterBinding.ensureInitialized();
+
   final sharePref = await SharedPreferences.getInstance();
   await initSupabase();
 

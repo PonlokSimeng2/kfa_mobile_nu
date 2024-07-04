@@ -1,0 +1,59 @@
+import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter/services.dart';
+import 'package:kfa_mobile_nu/exports.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'src/pages/home_page.dart';
+import 'src/providers/cache_provider.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final sharePref = await SharedPreferences.getInstance();
+  await initSupabase();
+
+  runApp(
+    ProviderScope(
+      overrides: [sharePrefProvider.overrideWithValue(sharePref)],
+      child: const MyApp(),
+    ),
+  );
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+
+    SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          backgroundColor: kwhite_new,
+          foregroundColor: Colors.white,
+          elevation: 0,
+          centerTitle: true,
+        ),
+        listTileTheme: const ListTileThemeData(
+          iconColor: kImageColor,
+        ),
+      ),
+      themeMode: ThemeMode.light,
+      home: const HomePage(),
+      builder: BotToastInit(),
+    );
+  }
+}

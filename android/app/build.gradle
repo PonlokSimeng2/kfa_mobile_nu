@@ -26,6 +26,7 @@ if (flutterVersionName == null) {
 android {
     namespace = "com.example.kfa_mobile_nu"
     compileSdk = flutter.compileSdkVersion
+    compileSdkVersion 34
     // ndkVersion = flutter.ndkVersion
     ndkVersion "25.1.8937393"
 
@@ -43,6 +44,7 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
+        minSdkVersion flutter.minSdkVersion
     }
 
     buildTypes {

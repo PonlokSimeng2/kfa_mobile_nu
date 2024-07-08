@@ -2,9 +2,14 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:kfa_mobile_nu/exports.dart';
+import 'package:kfa_mobile_nu/src/pages/account_page.dart';
+import 'package:kfa_mobile_nu/src/pages/add_property_page.dart';
+import 'package:kfa_mobile_nu/src/pages/home_page.dart';
+import 'package:kfa_mobile_nu/src/pages/login_page.dart';
+import 'package:kfa_mobile_nu/src/pages/map_in_add_verbal_page.dart';
+import 'package:kfa_mobile_nu/src/pages/register_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
-import 'src/pages/home_page.dart';
 import 'src/providers/cache_provider.dart';
 
 void main() async {
@@ -58,6 +63,13 @@ class _MyAppState extends State<MyApp> {
       ),
       themeMode: ThemeMode.light,
       home: const HomePage(),
+      // home: AddPropertyPage.AddPropertyPage(
+      //   refresh_homeScreen: (value) {},
+      // ),
+      //home: MapSample(),
+      //home: AccountPage(),
+      //home: RegisterPage(),
+      //home: LoginPage(),
       builder: BotToastInit(),
     );
   }

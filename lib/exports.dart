@@ -7,3 +7,4 @@ export 'package:kimapp/kimapp.dart';
 export './src/widgets/async_value_widget.dart';
 export 'package:dartx/dartx.dart';
 export 'package:cached_network_image/cached_network_image.dart';
+export 'package:flutter_hooks/flutter_hooks.dart';

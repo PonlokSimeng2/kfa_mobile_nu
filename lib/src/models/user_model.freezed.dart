@@ -36,6 +36,8 @@ mixin _$UserModel {
   String get phone => throw _privateConstructorUsedError;
   @JsonKey(name: 'vpoints')
   int get vpoints => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_admin')
+  bool get isAdmin => throw _privateConstructorUsedError;
   @JsonKey(name: 'joined_at')
   DateTime get joinedAt => throw _privateConstructorUsedError;
 
@@ -59,6 +61,7 @@ abstract class $UserModelCopyWith<$Res> {
       @JsonKey(name: 'email') String email,
       @JsonKey(name: 'phone') String phone,
       @JsonKey(name: 'vpoints') int vpoints,
+      @JsonKey(name: 'is_admin') bool isAdmin,
       @JsonKey(name: 'joined_at') DateTime joinedAt});
 }
 
@@ -83,6 +86,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? email = null,
     Object? phone = null,
     Object? vpoints = null,
+    Object? isAdmin = null,
     Object? joinedAt = null,
   }) {
     return _then(_value.copyWith(
@@ -118,6 +122,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.vpoints
           : vpoints // ignore: cast_nullable_to_non_nullable
               as int,
+      isAdmin: null == isAdmin
+          ? _value.isAdmin
+          : isAdmin // ignore: cast_nullable_to_non_nullable
+              as bool,
       joinedAt: null == joinedAt
           ? _value.joinedAt
           : joinedAt // ignore: cast_nullable_to_non_nullable
@@ -143,6 +151,7 @@ abstract class _$$UserModelImplCopyWith<$Res>
       @JsonKey(name: 'email') String email,
       @JsonKey(name: 'phone') String phone,
       @JsonKey(name: 'vpoints') int vpoints,
+      @JsonKey(name: 'is_admin') bool isAdmin,
       @JsonKey(name: 'joined_at') DateTime joinedAt});
 }
 
@@ -165,6 +174,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? email = null,
     Object? phone = null,
     Object? vpoints = null,
+    Object? isAdmin = null,
     Object? joinedAt = null,
   }) {
     return _then(_$UserModelImpl(
@@ -200,6 +210,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.vpoints
           : vpoints // ignore: cast_nullable_to_non_nullable
               as int,
+      isAdmin: null == isAdmin
+          ? _value.isAdmin
+          : isAdmin // ignore: cast_nullable_to_non_nullable
+              as bool,
       joinedAt: null == joinedAt
           ? _value.joinedAt
           : joinedAt // ignore: cast_nullable_to_non_nullable
@@ -221,6 +235,7 @@ class _$UserModelImpl extends _UserModel {
       @JsonKey(name: 'email') required this.email,
       @JsonKey(name: 'phone') required this.phone,
       @JsonKey(name: 'vpoints') required this.vpoints,
+      @JsonKey(name: 'is_admin') required this.isAdmin,
       @JsonKey(name: 'joined_at') required this.joinedAt})
       : super._();
 
@@ -252,12 +267,15 @@ class _$UserModelImpl extends _UserModel {
   @JsonKey(name: 'vpoints')
   final int vpoints;
   @override
+  @JsonKey(name: 'is_admin')
+  final bool isAdmin;
+  @override
   @JsonKey(name: 'joined_at')
   final DateTime joinedAt;
 
   @override
   String toString() {
-    return 'UserModel(id: $id, userId: $userId, photo: $photo, firstName: $firstName, lastName: $lastName, email: $email, phone: $phone, vpoints: $vpoints, joinedAt: $joinedAt)';
+    return 'UserModel(id: $id, userId: $userId, photo: $photo, firstName: $firstName, lastName: $lastName, email: $email, phone: $phone, vpoints: $vpoints, isAdmin: $isAdmin, joinedAt: $joinedAt)';
   }
 
   @override
@@ -275,6 +293,7 @@ class _$UserModelImpl extends _UserModel {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.vpoints, vpoints) || other.vpoints == vpoints) &&
+            (identical(other.isAdmin, isAdmin) || other.isAdmin == isAdmin) &&
             (identical(other.joinedAt, joinedAt) ||
                 other.joinedAt == joinedAt));
   }
@@ -282,7 +301,7 @@ class _$UserModelImpl extends _UserModel {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, userId, photo, firstName,
-      lastName, email, phone, vpoints, joinedAt);
+      lastName, email, phone, vpoints, isAdmin, joinedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -308,6 +327,7 @@ abstract class _UserModel extends UserModel {
           @JsonKey(name: 'email') required final String email,
           @JsonKey(name: 'phone') required final String phone,
           @JsonKey(name: 'vpoints') required final int vpoints,
+          @JsonKey(name: 'is_admin') required final bool isAdmin,
           @JsonKey(name: 'joined_at') required final DateTime joinedAt}) =
       _$UserModelImpl;
   _UserModel._() : super._();
@@ -339,6 +359,9 @@ abstract class _UserModel extends UserModel {
   @override
   @JsonKey(name: 'vpoints')
   int get vpoints;
+  @override
+  @JsonKey(name: 'is_admin')
+  bool get isAdmin;
   @override
   @JsonKey(name: 'joined_at')
   DateTime get joinedAt;

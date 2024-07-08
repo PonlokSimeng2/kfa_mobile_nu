@@ -1,19 +1,51 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:kfa_mobile_nu/gen/assets.gen.dart';
-import 'package:kfa_mobile_nu/src/pages/property_list_widget.dart';
+import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
+import 'package:kfa_mobile_nu/src/pages/account_page.dart';
+import 'package:kfa_mobile_nu/src/pages/add_property_page.dart';
+import 'package:kfa_mobile_nu/src/pages/contact_us_page.dart';
+import 'package:kfa_mobile_nu/src/pages/property_list_page.dart';
+import 'package:kfa_mobile_nu/src/pages/report_verbal_page.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
+import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 
 import '../../exports.dart';
 
-class HomePage extends ConsumerStatefulWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
-  ConsumerState<HomePage> createState() => _HomePageState();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userAsync = ref.watch(currentUserProvider);
+
+    return userAsync.onData((user) {
+      if (user == null || user.isAdmin == false) {
+        return _UserHome();
+      }
+
+      return _AdminHome();
+    });
+  }
 }
 
-class _HomePageState extends ConsumerState<HomePage> {
+class _AdminHome extends ConsumerWidget {
+  const _AdminHome({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Container();
+  }
+}
+
+class _UserHome extends ConsumerStatefulWidget {
+  const _UserHome({super.key});
+
+  @override
+  ConsumerState<_UserHome> createState() => __UserHomeState();
+}
+
+class __UserHomeState extends ConsumerState<_UserHome> {
   Widget _buildDrawer(BuildContext context) {
     return Drawer(
       width: 270,
@@ -22,7 +54,9 @@ class _HomePageState extends ConsumerState<HomePage> {
           ListTile(
             leading: const Icon(Icons.account_box),
             title: const Text('Account'),
-            onTap: () {},
+            onTap: () {
+              context.push((context) => const AccountPage());
+            },
           ),
           ListTile(
             leading: const Icon(Icons.add_to_photos_sharp),
@@ -31,18 +65,21 @@ class _HomePageState extends ConsumerState<HomePage> {
           ),
           ListTile(
             leading: const Icon(Icons.compare_sharp),
-            title: const Text('Comparable'),
-            onTap: () {},
-          ),
-          ListTile(
-            leading: const Icon(Icons.compare_sharp),
             title: const Text('Sale & Rent Property'),
-            onTap: () {},
+            onTap: () {
+              context.push(
+                (context) => AddPropertyPage.AddPropertyPage(
+                  refresh_homeScreen: (value) {},
+                ),
+              );
+            },
           ),
           ListTile(
             leading: const Icon(Icons.format_list_numbered_rtl_rounded),
             title: const Text('Report'),
-            onTap: () {},
+            onTap: () {
+              context.push((context) => const ReportVerbalPage());
+            },
           ),
           ListTile(
             leading: const Icon(Icons.money_off),
@@ -52,7 +89,9 @@ class _HomePageState extends ConsumerState<HomePage> {
           ListTile(
             leading: const Icon(Icons.contact_phone),
             title: const Text('Contact Us'),
-            onTap: () {},
+            onTap: () {
+              context.push((context) => const ContactUsPage());
+            },
           ),
         ],
       ),
@@ -206,7 +245,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           const Expanded(
             child: Padding(
               padding: EdgeInsets.all(3.0),
-              child: PropertyListWidget(),
+              child: PropertyListPage(),
             ),
           ),
         ],

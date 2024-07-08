@@ -20,6 +20,7 @@ class UserModel with _$UserModel {
     @JsonKey(name: 'email') required String email,
     @JsonKey(name: 'phone') required String phone,
     @JsonKey(name: 'vpoints') required int vpoints,
+    @JsonKey(name: 'is_admin') required bool isAdmin,
     @JsonKey(name: 'joined_at') required DateTime joinedAt,
   }) = _UserModel;
 

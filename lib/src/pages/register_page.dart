@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 // import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/gestures.dart';
@@ -138,7 +136,7 @@ class _RegisterState extends State<Register> {
       ),
       backgroundColor: kwhite_new,
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: kwhite,
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(30.0),
@@ -146,8 +144,8 @@ class _RegisterState extends State<Register> {
           ),
         ),
         child: SingleChildScrollView(
-            //child:
-            ),
+          child: register(context),
+        ),
       ),
     );
   }
@@ -160,7 +158,7 @@ class _RegisterState extends State<Register> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Text(
+              const Text(
                 'Register to KFA system',
                 style: TextStyle(
                   fontSize: 20.0,
@@ -168,7 +166,7 @@ class _RegisterState extends State<Register> {
                   color: kwhite_new,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               // Text.rich(
@@ -225,10 +223,10 @@ class _RegisterState extends State<Register> {
                               width: 30,
                               alignment: Alignment.bottomCenter,
                               decoration: BoxDecoration(
-                                color: Color.fromARGB(96, 102, 102, 102),
+                                color: const Color.fromARGB(96, 102, 102, 102),
                                 borderRadius: BorderRadius.circular(5),
                               ),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.camera_alt_outlined,
                                 color: Colors.white,
                               ),
@@ -247,10 +245,10 @@ class _RegisterState extends State<Register> {
                               width: 30,
                               alignment: Alignment.bottomCenter,
                               decoration: BoxDecoration(
-                                color: Color.fromARGB(96, 102, 102, 102),
+                                color: const Color.fromARGB(96, 102, 102, 102),
                                 borderRadius: BorderRadius.circular(5),
                               ),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.crop,
                                 color: Colors.white,
                               ),
@@ -259,7 +257,7 @@ class _RegisterState extends State<Register> {
                         ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20.0,
               ),
               if (user_last_id != null)
@@ -268,7 +266,7 @@ class _RegisterState extends State<Register> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         'This\'s your personal id:',
                         //initialValue: '${set_id_user}',
                         style: TextStyle(
@@ -280,7 +278,7 @@ class _RegisterState extends State<Register> {
                       Text(
                         '$set_id_user',
                         //initialValue: '${set_id_user}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
                           color: kwhite_new,
@@ -305,16 +303,16 @@ class _RegisterState extends State<Register> {
                     // requestModel.last_name = input!;
                   });
                 },
-                icon1: Icon(
+                icon1: const Icon(
                   Icons.person,
                   color: kImageColor,
                 ),
-                icon2: Icon(
+                icon2: const Icon(
                   Icons.person,
                   color: kImageColor,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               // FormValidate(
@@ -324,234 +322,273 @@ class _RegisterState extends State<Register> {
               //       Icons.person,
               //       color: kImageColor,
               //     )),
-              SizedBox(
-                height: 10,
-              ),
-              //ignore: sized_box_for_whitespace
-              Container(
-                height: 60,
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                  child: DropdownButtonFormField<String>(
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        genderValue = newValue!;
-                        // requestModel.gender = genderValue.toString();
-                        // print(newValue);
-                      });
-                    },
-                    items: gender
-                        .map<DropdownMenuItem<String>>(
-                          (String value) => DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          ),
-                        )
-                        .toList(),
-                    // add extra sugar..
-                    icon: Icon(
-                      Icons.arrow_drop_down,
-                      color: kImageColor,
-                    ),
-                    decoration: InputDecoration(
-                      fillColor: kwhite,
-                      filled: true,
-                      labelText: 'Gender',
-                      hintText: 'Select one',
-                      prefixIcon: Icon(
-                        Icons.accessibility_new_sharp,
-                        color: kImageColor,
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: kPrimaryColor, width: 2.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          width: 1,
-                          color: kPrimaryColor,
-                        ),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                  ),
+              // FormValidate(
+              //   // onSaved: (input) => requestModel.username = input!,
+              //     label: 'Email',
+              //     iconname: Icon(
+              //       Icons.email,
+              //       color: kImageColor,
+              //     )),
+              // FormValidate(
+              //   // onSaved: (input) => requestModel.username = input!,
+              //     label: 'Phone',
+              //     iconname: Icon(
+              //       Icons.phone,
+              //       color: kImageColor,
+              //     )),
+              FormTwin(
+                Label1: 'Email',
+                Label2: 'Phone',
+                onSaved1: (input) {
+                  setState(() {
+                    // requestModel.email = input!;
+                  });
+                },
+                onSaved2: (input) {
+                  setState(() {
+                    // requestModel.phone = input!;
+                  });
+                },
+                icon1: const Icon(
+                  Icons.email,
+                  color: kImageColor,
+                ),
+                icon2: const Icon(
+                  Icons.phone,
+                  color: kImageColor,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                child: FormBuilderTextField(
-                  name: 'email',
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                  ),
-                  validator: FormBuilderValidators.compose([
-                    FormBuilderValidators.required(),
-                    FormBuilderValidators.email(),
-                  ]),
-                  keyboardType: TextInputType.emailAddress,
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                  padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                  child: FormBuilderTextField(
-                    name: 'Phone Number',
-                    decoration: InputDecoration(
-                      labelText: 'Phone Number',
-                    ),
-                    validator: FormBuilderValidators.compose([
-                      FormBuilderValidators.required(),
-                      FormBuilderValidators.email(),
-                    ]),
-                    keyboardType: TextInputType.emailAddress,
-                  )
-                  //  FormValidate(
-                  //   onSaved: (input) {
-                  //     setState(() {
-                  //       requestModel.tel_num = input!;
-                  //     });
-                  //   },
-                  //   label: 'Phone Number',
-                  //   type: TextInputType.phone,
-                  //   iconname: Icon(
-                  //     Icons.phone,
-                  //     color: kImageColor,
-                  //   ),
-                  // ),
-                  ),
-              Padding(
-                  padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
-                  child: FormBuilderTextField(
-                    name: 'Enter password',
-                    decoration: InputDecoration(
-                      labelText: 'Enter password',
-                    ),
-                    validator: FormBuilderValidators.compose([
-                      FormBuilderValidators.required(),
-                      FormBuilderValidators.email(),
-                    ]),
-                    keyboardType: TextInputType.emailAddress,
-                  )),
-              Padding(
-                padding: EdgeInsets.fromLTRB(30, 0, 30, 10),
-                child: FormBuilderTextField(
-                  name: 'Enter confirm password',
-                  decoration: InputDecoration(
-                    labelText: 'Enter confirm password',
-                  ),
-                  validator: FormBuilderValidators.compose([
-                    FormBuilderValidators.required(),
-                    FormBuilderValidators.email(),
-                  ]),
-                  keyboardType: TextInputType.emailAddress,
-                ),
-              ),
-              // ignore: sized_box_for_whitespace
-              // Container(
-              //   height: 70,
-              //   child: Padding(
-              //     padding: EdgeInsets.fromLTRB(30, 0, 30, 10),
-              //     child: DropdownButtonFormField<String>(
-              //       //value: fromValue,
-              //       onSaved: (input) => requestModel.known_from = input!,
-              //       onChanged: (String? newValue) {
-              //         setState(() {
-              //           fromValue = newValue!;
-              //           requestModel.known_from = newValue;
-              //         });
-              //       },
-              //       items: from
-              //           .map<DropdownMenuItem<String>>(
-              //             (String value) => DropdownMenuItem<String>(
-              //               value: value,
-              //               child: Text(value),
-              //             ),
-              //           )
-              //           .toList(),
-              //       // add extra sugar..
-              //       icon: Icon(
-              //         Icons.arrow_drop_down,
-              //         color: kImageColor,
-              //       ),
-
-              //       decoration: InputDecoration(
-              //         fillColor: kwhite,
-              //         filled: true,
-              //         labelText: 'From',
-              //         hintText: 'Select one',
-              //         prefixIcon: Icon(
-              //           Icons.business_outlined,
-              //           color: kImageColor,
-              //         ),
-              //         focusedBorder: OutlineInputBorder(
-              //           borderSide:
-              //               const BorderSide(color: kPrimaryColor, width: 2.0),
-              //           borderRadius: BorderRadius.circular(10.0),
-              //         ),
-              //         enabledBorder: OutlineInputBorder(
-              //           borderSide: BorderSide(
-              //             width: 1,
-              //             color: kPrimaryColor,
-              //           ),
-              //           borderRadius: BorderRadius.circular(10.0),
-              //         ),
-              //         errorBorder: OutlineInputBorder(
-              //           borderSide: BorderSide(
-              //             width: 1,
-              //             color: kerror,
-              //           ),
-              //           borderRadius: BorderRadius.circular(10.0),
-              //         ),
-              //         focusedErrorBorder: OutlineInputBorder(
-              //           borderSide: BorderSide(
-              //             width: 2,
-              //             color: kerror,
-              //           ),
-              //           borderRadius: BorderRadius.circular(10.0),
-              //         ),
-              //         //   decoration: InputDecoration(
-              //         //       labelText: 'From',
-              //         //       prefixIcon: Icon(Icons.business_outlined)),
-              //       ),
-              //     ),
+              // FormTwin(
+              //   Label1: 'From',
+              //   Label2: 'Gender',
+              //   onSaved1: (input) {
+              //     setState(() {
+              //       requestModel.from = input!;
+              //     });
+              //   },
+              //   onSaved2: (input) {
+              //     setState(() {
+              //       requestModel.gender = input!;
+              //     });
+              //   },
+              //   icon1: Icon(
+              //     Icons.wallet_travel,
+              //     color: kImageColor,
+              //   ),
+              //   icon2: Icon(
+              //     Icons.wc,
+              //     color: kImageColor,
               //   ),
               // ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      const Text(
+                        'From',
+                        style: TextStyle(
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold,
+                          color: kwhite_new,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5.0,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(left: 10),
+                        width: MediaQuery.of(context).size.width / 2.4,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: kwhite_new,
+                        ),
+                        child: DropdownButton(
+                          // Initial Value
+                          value: fromValue,
+                          // Down Arrow Icon
+                          icon: const Icon(
+                            Icons.keyboard_arrow_down,
+                            color: kImageColor,
+                          ),
+                          // Array list of items
+                          items: from.map((String items) {
+                            return DropdownMenuItem(
+                              value: items,
+                              child: Text(
+                                items,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: kImageColor,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                          // After selecting the desired option,it will
+                          // change button value to selected value
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              fromValue = newValue!;
+                              // requestModel.from = newValue;
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 10.0,
+                  ),
+                  Column(
+                    children: [
+                      const Text(
+                        'Gender',
+                        style: TextStyle(
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold,
+                          color: kwhite_new,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5.0,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(left: 10),
+                        width: MediaQuery.of(context).size.width / 2.4,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: kwhite_new,
+                        ),
+                        child: DropdownButton(
+                          // Initial Value
+                          value: genderValue,
+                          // Down Arrow Icon
+                          icon: const Icon(
+                            Icons.keyboard_arrow_down,
+                            color: kImageColor,
+                          ),
+                          // Array list of items
+                          items: gender.map((String items) {
+                            return DropdownMenuItem(
+                              value: items,
+                              child: Text(
+                                items,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: kImageColor,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                          // After selecting the desired option,it will
+                          // change button value to selected value
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              genderValue = newValue!;
+                              // requestModel.gender = newValue;
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                height: 40,
+                width: MediaQuery.of(context).size.width / 1.3,
+                child: MaterialButton(
+                  color: kwhite,
+                  onPressed: () {
+                    // if (validateAndSave()) {
+                    //   print(requestModel.toJson());
+                    //   setState(() {
+                    //     isApiCallProcess = true;
+                    //   });
+
+                    //   APIService apiService = new APIService();
+                    //   apiService.createAccount(requestModel).then((value) {
+                    //     setState(() {
+                    //       isApiCallProcess = false;
+                    //     });
+
+                    //     if (value == "error") {
+                    //       final snackBar = SnackBar(
+                    //           content: Text("Already have a email or phone"));
+                    //       _scaffoldKey.currentState!.showSnackBar(snackBar);
+                    //     } else {
+                    //       final snackBar =
+                    //           SnackBar(content: Text("Successfully Register"));
+                    //       _scaffoldKey.currentState!.showSnackBar(snackBar);
+                    //       Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //           builder: (context) => VerifyScreen(
+                    //             verificationId: value,
+                    //             requestModel: requestModel,
+                    //           ),
+                    //         ),
+                    //       );
+                    //     }
+                    //   });
+                    // }
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                    side: const BorderSide(color: kwhite),
+                  ),
+                  padding: const EdgeInsets.all(10.0),
+                  child: const Text(
+                    'Submit',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                      color: kImageColor,
+                    ),
+                  ),
+                ),
+              ),
               const SizedBox(
                 height: 20.0,
               ),
-              Text.rich(
-                TextSpan(
-                  children: [
+              RichText(
+                text: TextSpan(
+                  children: <TextSpan>[
                     const TextSpan(
-                      text: "Already have account? ",
-                      style: TextStyle(fontSize: 16.0, color: kTextLightColor),
+                      text: "Already have an account?",
+                      style: TextStyle(
+                        color: kwhite_new,
+                      ),
                     ),
                     TextSpan(
-                      text: 'Log In',
+                      text: ' Login here',
+                      style: const TextStyle(
+                        color: kImageColor,
+                      ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          Navigator.pushReplacement(
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => Login(),
+                              builder: (context) => LoginPage(),
                             ),
                           );
                         },
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        color: kImageColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    )
                   ],
                 ),
               ),
+              const SizedBox(
+                height: 20,
+              )
             ],
           ),
         ),
@@ -559,18 +596,8 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  bool validateAndSave() {
-    final form = _formKey.currentState;
-    if (form!.validate()) {
-      form.save();
-      return true;
-    }
-    return false;
-  }
-
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return _uiSteup(context);
   }
 }

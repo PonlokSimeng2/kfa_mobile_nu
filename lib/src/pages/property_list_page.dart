@@ -4,8 +4,8 @@ import 'package:kfa_mobile_nu/src/providers/property_provider.dart';
 
 import '../../exports.dart';
 
-class PropertyListWidget extends ConsumerWidget {
-  const PropertyListWidget({super.key});
+class PropertyListPage extends ConsumerWidget {
+  const PropertyListPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -16,6 +16,7 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       email: json['email'] as String,
       phone: json['phone'] as String,
       vpoints: (json['vpoints'] as num).toInt(),
+      isAdmin: json['is_admin'] as bool,
       joinedAt: DateTime.parse(json['joined_at'] as String),
     );
 
@@ -29,6 +30,7 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'email': instance.email,
       'phone': instance.phone,
       'vpoints': instance.vpoints,
+      'is_admin': instance.isAdmin,
       'joined_at': instance.joinedAt.toIso8601String(),
     };
 
@@ -47,6 +49,7 @@ const _tableUserModel = TableBuilder(
     ColumnBuilder('email'),
     ColumnBuilder('phone'),
     ColumnBuilder('vpoints'),
+    ColumnBuilder('is_admin'),
     ColumnBuilder('joined_at'),
   ],
 );

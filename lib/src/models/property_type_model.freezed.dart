@@ -107,7 +107,7 @@ class __$$PropertyTypeModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-@TableModel('property_types')
+@TableModel('properties_types')
 class _$PropertyTypeModelImpl extends _PropertyTypeModel {
   _$PropertyTypeModelImpl({required this.id, required this.name}) : super._();
 

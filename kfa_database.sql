@@ -140,8 +140,6 @@ create table if not exists public.properties(
     land_width numeric not null,
     building_length numeric not null,
     building_width numeric not null,
-    house_length numeric,
-    house_width numeric,
     created_at timestamp with time zone default now() not null
 );
 

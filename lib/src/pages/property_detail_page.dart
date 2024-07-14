@@ -383,16 +383,16 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
                                       height:
                                           MediaQuery.of(context).size.height *
                                               0.13,
-                                      child: const SingleChildScrollView(
+                                      child: SingleChildScrollView(
                                         reverse: false,
                                         child: ReadMoreText(
-                                          'This may seem like a no-brainer, but your real estate listing description should be accurate. If the house is barely 900 square feet, writing that the space is “sprawling” is dishonest. When you say a home is in “excellent condition” and there is water damage throughout the house and the back deck is rotting, a potential buyer will be turned off by seeing this on arrival. Setting unrealistic expectations helps no one.',
+                                          widget.data.description,
                                           trimMode: TrimMode.Line,
                                           trimLines: 3,
                                           colorClickableText: Colors.pink,
                                           trimCollapsedText: 'Show more',
                                           trimExpandedText: 'Show less',
-                                          moreStyle: TextStyle(
+                                          moreStyle: const TextStyle(
                                             fontSize: 15,
                                             fontWeight: FontWeight.bold,
                                           ),

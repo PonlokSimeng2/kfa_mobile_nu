@@ -68,9 +68,7 @@ class __UserHomeState extends ConsumerState<_UserHome> {
             title: const Text('Sale & Rent Property'),
             onTap: () {
               context.push(
-                (context) => AddPropertyPage.AddPropertyPage(
-                  refresh_homeScreen: (value) {},
-                ),
+                (context) => AddPropertyPage(),
               );
             },
           ),

@@ -138,8 +138,7 @@ class _AccountState extends ConsumerState<AccountPage> {
 
   @override
   Widget build(BuildContext context) {
-    // final user = ref.watch(authProvider.select((value) => value?.user));
-
+    final user = ref.watch(authProvider.select((value) => value));
     // final controller = TextEditingController(text: user?.username);
     return AuthWrapperWidget(
       child: Scaffold(

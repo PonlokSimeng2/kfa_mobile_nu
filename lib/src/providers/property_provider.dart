@@ -1,9 +1,16 @@
+import 'dart:io';
+
+import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter/foundation.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:kfa_mobile_nu/src/models/property_type_model.dart';
+import 'package:kfa_mobile_nu/src/models/province_model.dart';
+import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../exports.dart';
 import '../models/property_model.dart';
-
 import 'package:freezed_annotation/freezed_annotation.dart';
-
+import 'package:path/path.dart' as p;
 part 'property_provider.freezed.dart';
 part 'property_provider.g.dart';
 
@@ -58,7 +65,9 @@ class InsertPropertyState
 
   const factory InsertPropertyState({
     required PropertyListingType propertyListingType,
-    required String image,
+    required IList<XFile> imageFiles,
+    required ProvinceModel? province,
+    required PropertyTypeModel? propertyType,
     required String title,
     required String description,
     required double longitude,
@@ -75,8 +84,6 @@ class InsertPropertyState
     required double landWidth,
     required double buildingLength,
     required double buildingWidth,
-    required double houseLength,
-    required double houseWidth,
     @Default(ProviderStatus.initial()) ProviderStatus<void> status,
   }) = _InsertPropertyState;
   @override
@@ -91,11 +98,13 @@ class InsertProperty extends _$InsertProperty with _$InsertPropertyForm {
   @override
   InsertPropertyState build() => const InsertPropertyState(
         propertyListingType: PropertyListingType.rent,
-        image: '',
+        imageFiles: IList.empty(),
+        province: null,
+        propertyType: null,
         title: '',
         description: '',
-        longitude: 0,
-        latitude: 0,
+        longitude: 104.9282,
+        latitude: 11.5564,
         price: 0,
         sqm: 0,
         bedrooms: 0,
@@ -108,38 +117,67 @@ class InsertProperty extends _$InsertProperty with _$InsertPropertyForm {
         landWidth: 0,
         buildingLength: 0,
         buildingWidth: 0,
-        houseLength: 0,
-        houseWidth: 0,
       );
 
   Future<ProviderStatus<void>> call() async {
     return await perform<void>(
       (state) async {
+        if (state.imageFiles.isEmpty) throw 'Images is empty';
+        final userId = ref.watch(authProvider);
+        if (userId == null) throw 'User must be login';
+        if (state.province == null) throw 'Province is required';
+        if (state.propertyType == null) throw 'Property type is required';
+        if (state.title.isEmpty) throw 'Title is required';
+
         final sb = ref.watch(supabaseProvider).client;
-        await sb.from(PropertyModel.table.tableName).insert(
-          {
-            'listing_type': state.propertyListingType.name,
-            'image': state.image,
-            'title': state.title,
-            'description': state.description,
-            'longitude': state.longitude,
-            'latitude': state.latitude,
-            'price': state.price,
-            'sqm': state.sqm,
-            'bedrooms': state.bedrooms,
-            'bathrooms': state.bathrooms,
-            'floors': state.floors,
-            'parking': state.parking,
-            'price_per_sqm': state.pricePerSqm,
-            'living_rooms': state.livingRooms,
-            'land_length': state.landLength,
-            'land_width': state.landWidth,
-            'building_length': state.buildingLength,
-            'building_width': state.buildingWidth,
-            'house_length': state.houseLength,
-            'house_width': state.houseWidth,
-          },
-        );
+
+        final List<String> paths = [];
+        final List<String> imageUrls = [];
+        // upload image and get url
+        for (final xFile in state.imageFiles) {
+          final path = xFile.path;
+          final file = File(path);
+          final newPath =
+              '${DateTime.now().microsecondsSinceEpoch}${p.extension(path)}';
+
+          await sb.storage.from('files').upload(newPath, file);
+
+          paths.add(newPath);
+          final imageUrl = sb.storage.from('files').getPublicUrl(newPath);
+          imageUrls.add(imageUrl);
+        }
+
+        try {
+          await sb.from(PropertyModel.table.tableName).insert(
+            {
+              'listing_type': state.propertyListingType.name,
+              'images': imageUrls,
+              'title': state.title,
+              'description': state.description,
+              'longitude': state.longitude,
+              'latitude': state.latitude,
+              'price': state.price,
+              'sqm': state.sqm,
+              'bedrooms': state.bedrooms,
+              'bathrooms': state.bathrooms,
+              'floors': state.floors,
+              'parking': state.parking,
+              'price_per_sqm': state.pricePerSqm,
+              'living_rooms': state.livingRooms,
+              'land_length': state.landLength,
+              'land_width': state.landWidth,
+              'building_length': state.buildingLength,
+              'building_width': state.buildingWidth,
+              'user_id': userId,
+              'province_id': state.province!.id,
+              'property_type_id': state.propertyType!.id,
+            },
+          );
+        } catch (e) {
+          // delete uploaded images
+          await sb.storage.from('files').remove(paths);
+          rethrow;
+        }
 
         // DateTime.now().toIso8601String();
       },

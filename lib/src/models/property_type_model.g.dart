@@ -25,7 +25,7 @@ Map<String, dynamic> _$$PropertyTypeModelImplToJson(
 // **************************************************************************
 
 const _tablePropertyTypeModel = TableBuilder(
-  tableName: "property_types",
+  tableName: "properties_types",
   columns: [
     ColumnBuilder('id'),
     ColumnBuilder('name'),

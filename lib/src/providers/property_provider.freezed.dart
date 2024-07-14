@@ -18,7 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$InsertPropertyState {
   PropertyListingType get propertyListingType =>
       throw _privateConstructorUsedError;
-  String get image => throw _privateConstructorUsedError;
+  IList<XFile> get imageFiles => throw _privateConstructorUsedError;
+  ProvinceModel? get province => throw _privateConstructorUsedError;
+  PropertyTypeModel? get propertyType => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   double get longitude => throw _privateConstructorUsedError;
@@ -35,8 +37,6 @@ mixin _$InsertPropertyState {
   double get landWidth => throw _privateConstructorUsedError;
   double get buildingLength => throw _privateConstructorUsedError;
   double get buildingWidth => throw _privateConstructorUsedError;
-  double get houseLength => throw _privateConstructorUsedError;
-  double get houseWidth => throw _privateConstructorUsedError;
   ProviderStatus<void> get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -52,7 +52,9 @@ abstract class $InsertPropertyStateCopyWith<$Res> {
   @useResult
   $Res call(
       {PropertyListingType propertyListingType,
-      String image,
+      IList<XFile> imageFiles,
+      ProvinceModel? province,
+      PropertyTypeModel? propertyType,
       String title,
       String description,
       double longitude,
@@ -69,10 +71,10 @@ abstract class $InsertPropertyStateCopyWith<$Res> {
       double landWidth,
       double buildingLength,
       double buildingWidth,
-      double houseLength,
-      double houseWidth,
       ProviderStatus<void> status});
 
+  $ProvinceModelCopyWith<$Res>? get province;
+  $PropertyTypeModelCopyWith<$Res>? get propertyType;
   $ProviderStatusCopyWith<void, $Res> get status;
 }
 
@@ -90,7 +92,9 @@ class _$InsertPropertyStateCopyWithImpl<$Res, $Val extends InsertPropertyState>
   @override
   $Res call({
     Object? propertyListingType = null,
-    Object? image = null,
+    Object? imageFiles = null,
+    Object? province = freezed,
+    Object? propertyType = freezed,
     Object? title = null,
     Object? description = null,
     Object? longitude = null,
@@ -107,8 +111,6 @@ class _$InsertPropertyStateCopyWithImpl<$Res, $Val extends InsertPropertyState>
     Object? landWidth = null,
     Object? buildingLength = null,
     Object? buildingWidth = null,
-    Object? houseLength = null,
-    Object? houseWidth = null,
     Object? status = null,
   }) {
     return _then(_value.copyWith(
@@ -116,10 +118,18 @@ class _$InsertPropertyStateCopyWithImpl<$Res, $Val extends InsertPropertyState>
           ? _value.propertyListingType
           : propertyListingType // ignore: cast_nullable_to_non_nullable
               as PropertyListingType,
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String,
+      imageFiles: null == imageFiles
+          ? _value.imageFiles
+          : imageFiles // ignore: cast_nullable_to_non_nullable
+              as IList<XFile>,
+      province: freezed == province
+          ? _value.province
+          : province // ignore: cast_nullable_to_non_nullable
+              as ProvinceModel?,
+      propertyType: freezed == propertyType
+          ? _value.propertyType
+          : propertyType // ignore: cast_nullable_to_non_nullable
+              as PropertyTypeModel?,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -184,19 +194,35 @@ class _$InsertPropertyStateCopyWithImpl<$Res, $Val extends InsertPropertyState>
           ? _value.buildingWidth
           : buildingWidth // ignore: cast_nullable_to_non_nullable
               as double,
-      houseLength: null == houseLength
-          ? _value.houseLength
-          : houseLength // ignore: cast_nullable_to_non_nullable
-              as double,
-      houseWidth: null == houseWidth
-          ? _value.houseWidth
-          : houseWidth // ignore: cast_nullable_to_non_nullable
-              as double,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as ProviderStatus<void>,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ProvinceModelCopyWith<$Res>? get province {
+    if (_value.province == null) {
+      return null;
+    }
+
+    return $ProvinceModelCopyWith<$Res>(_value.province!, (value) {
+      return _then(_value.copyWith(province: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PropertyTypeModelCopyWith<$Res>? get propertyType {
+    if (_value.propertyType == null) {
+      return null;
+    }
+
+    return $PropertyTypeModelCopyWith<$Res>(_value.propertyType!, (value) {
+      return _then(_value.copyWith(propertyType: value) as $Val);
+    });
   }
 
   @override
@@ -218,7 +244,9 @@ abstract class _$$InsertPropertyStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {PropertyListingType propertyListingType,
-      String image,
+      IList<XFile> imageFiles,
+      ProvinceModel? province,
+      PropertyTypeModel? propertyType,
       String title,
       String description,
       double longitude,
@@ -235,10 +263,12 @@ abstract class _$$InsertPropertyStateImplCopyWith<$Res>
       double landWidth,
       double buildingLength,
       double buildingWidth,
-      double houseLength,
-      double houseWidth,
       ProviderStatus<void> status});
 
+  @override
+  $ProvinceModelCopyWith<$Res>? get province;
+  @override
+  $PropertyTypeModelCopyWith<$Res>? get propertyType;
   @override
   $ProviderStatusCopyWith<void, $Res> get status;
 }
@@ -255,7 +285,9 @@ class __$$InsertPropertyStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? propertyListingType = null,
-    Object? image = null,
+    Object? imageFiles = null,
+    Object? province = freezed,
+    Object? propertyType = freezed,
     Object? title = null,
     Object? description = null,
     Object? longitude = null,
@@ -272,8 +304,6 @@ class __$$InsertPropertyStateImplCopyWithImpl<$Res>
     Object? landWidth = null,
     Object? buildingLength = null,
     Object? buildingWidth = null,
-    Object? houseLength = null,
-    Object? houseWidth = null,
     Object? status = null,
   }) {
     return _then(_$InsertPropertyStateImpl(
@@ -281,10 +311,18 @@ class __$$InsertPropertyStateImplCopyWithImpl<$Res>
           ? _value.propertyListingType
           : propertyListingType // ignore: cast_nullable_to_non_nullable
               as PropertyListingType,
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String,
+      imageFiles: null == imageFiles
+          ? _value.imageFiles
+          : imageFiles // ignore: cast_nullable_to_non_nullable
+              as IList<XFile>,
+      province: freezed == province
+          ? _value.province
+          : province // ignore: cast_nullable_to_non_nullable
+              as ProvinceModel?,
+      propertyType: freezed == propertyType
+          ? _value.propertyType
+          : propertyType // ignore: cast_nullable_to_non_nullable
+              as PropertyTypeModel?,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -349,14 +387,6 @@ class __$$InsertPropertyStateImplCopyWithImpl<$Res>
           ? _value.buildingWidth
           : buildingWidth // ignore: cast_nullable_to_non_nullable
               as double,
-      houseLength: null == houseLength
-          ? _value.houseLength
-          : houseLength // ignore: cast_nullable_to_non_nullable
-              as double,
-      houseWidth: null == houseWidth
-          ? _value.houseWidth
-          : houseWidth // ignore: cast_nullable_to_non_nullable
-              as double,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -367,10 +397,13 @@ class __$$InsertPropertyStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$InsertPropertyStateImpl extends _InsertPropertyState {
+class _$InsertPropertyStateImpl extends _InsertPropertyState
+    with DiagnosticableTreeMixin {
   const _$InsertPropertyStateImpl(
       {required this.propertyListingType,
-      required this.image,
+      required this.imageFiles,
+      required this.province,
+      required this.propertyType,
       required this.title,
       required this.description,
       required this.longitude,
@@ -387,15 +420,17 @@ class _$InsertPropertyStateImpl extends _InsertPropertyState {
       required this.landWidth,
       required this.buildingLength,
       required this.buildingWidth,
-      required this.houseLength,
-      required this.houseWidth,
       this.status = const ProviderStatus.initial()})
       : super._();
 
   @override
   final PropertyListingType propertyListingType;
   @override
-  final String image;
+  final IList<XFile> imageFiles;
+  @override
+  final ProvinceModel? province;
+  @override
+  final PropertyTypeModel? propertyType;
   @override
   final String title;
   @override
@@ -429,16 +464,40 @@ class _$InsertPropertyStateImpl extends _InsertPropertyState {
   @override
   final double buildingWidth;
   @override
-  final double houseLength;
-  @override
-  final double houseWidth;
-  @override
   @JsonKey()
   final ProviderStatus<void> status;
 
   @override
-  String toString() {
-    return 'InsertPropertyState(propertyListingType: $propertyListingType, image: $image, title: $title, description: $description, longitude: $longitude, latitude: $latitude, price: $price, sqm: $sqm, bedrooms: $bedrooms, bathrooms: $bathrooms, floors: $floors, parking: $parking, pricePerSqm: $pricePerSqm, livingRooms: $livingRooms, landLength: $landLength, landWidth: $landWidth, buildingLength: $buildingLength, buildingWidth: $buildingWidth, houseLength: $houseLength, houseWidth: $houseWidth, status: $status)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'InsertPropertyState(propertyListingType: $propertyListingType, imageFiles: $imageFiles, province: $province, propertyType: $propertyType, title: $title, description: $description, longitude: $longitude, latitude: $latitude, price: $price, sqm: $sqm, bedrooms: $bedrooms, bathrooms: $bathrooms, floors: $floors, parking: $parking, pricePerSqm: $pricePerSqm, livingRooms: $livingRooms, landLength: $landLength, landWidth: $landWidth, buildingLength: $buildingLength, buildingWidth: $buildingWidth, status: $status)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'InsertPropertyState'))
+      ..add(DiagnosticsProperty('propertyListingType', propertyListingType))
+      ..add(DiagnosticsProperty('imageFiles', imageFiles))
+      ..add(DiagnosticsProperty('province', province))
+      ..add(DiagnosticsProperty('propertyType', propertyType))
+      ..add(DiagnosticsProperty('title', title))
+      ..add(DiagnosticsProperty('description', description))
+      ..add(DiagnosticsProperty('longitude', longitude))
+      ..add(DiagnosticsProperty('latitude', latitude))
+      ..add(DiagnosticsProperty('price', price))
+      ..add(DiagnosticsProperty('sqm', sqm))
+      ..add(DiagnosticsProperty('bedrooms', bedrooms))
+      ..add(DiagnosticsProperty('bathrooms', bathrooms))
+      ..add(DiagnosticsProperty('floors', floors))
+      ..add(DiagnosticsProperty('parking', parking))
+      ..add(DiagnosticsProperty('pricePerSqm', pricePerSqm))
+      ..add(DiagnosticsProperty('livingRooms', livingRooms))
+      ..add(DiagnosticsProperty('landLength', landLength))
+      ..add(DiagnosticsProperty('landWidth', landWidth))
+      ..add(DiagnosticsProperty('buildingLength', buildingLength))
+      ..add(DiagnosticsProperty('buildingWidth', buildingWidth))
+      ..add(DiagnosticsProperty('status', status));
   }
 
   @override
@@ -448,7 +507,12 @@ class _$InsertPropertyStateImpl extends _InsertPropertyState {
             other is _$InsertPropertyStateImpl &&
             (identical(other.propertyListingType, propertyListingType) ||
                 other.propertyListingType == propertyListingType) &&
-            (identical(other.image, image) || other.image == image) &&
+            const DeepCollectionEquality()
+                .equals(other.imageFiles, imageFiles) &&
+            (identical(other.province, province) ||
+                other.province == province) &&
+            (identical(other.propertyType, propertyType) ||
+                other.propertyType == propertyType) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -476,10 +540,6 @@ class _$InsertPropertyStateImpl extends _InsertPropertyState {
                 other.buildingLength == buildingLength) &&
             (identical(other.buildingWidth, buildingWidth) ||
                 other.buildingWidth == buildingWidth) &&
-            (identical(other.houseLength, houseLength) ||
-                other.houseLength == houseLength) &&
-            (identical(other.houseWidth, houseWidth) ||
-                other.houseWidth == houseWidth) &&
             (identical(other.status, status) || other.status == status));
   }
 
@@ -487,7 +547,9 @@ class _$InsertPropertyStateImpl extends _InsertPropertyState {
   int get hashCode => Object.hashAll([
         runtimeType,
         propertyListingType,
-        image,
+        const DeepCollectionEquality().hash(imageFiles),
+        province,
+        propertyType,
         title,
         description,
         longitude,
@@ -504,8 +566,6 @@ class _$InsertPropertyStateImpl extends _InsertPropertyState {
         landWidth,
         buildingLength,
         buildingWidth,
-        houseLength,
-        houseWidth,
         status
       ]);
 
@@ -520,7 +580,9 @@ class _$InsertPropertyStateImpl extends _InsertPropertyState {
 abstract class _InsertPropertyState extends InsertPropertyState {
   const factory _InsertPropertyState(
       {required final PropertyListingType propertyListingType,
-      required final String image,
+      required final IList<XFile> imageFiles,
+      required final ProvinceModel? province,
+      required final PropertyTypeModel? propertyType,
       required final String title,
       required final String description,
       required final double longitude,
@@ -537,15 +599,17 @@ abstract class _InsertPropertyState extends InsertPropertyState {
       required final double landWidth,
       required final double buildingLength,
       required final double buildingWidth,
-      required final double houseLength,
-      required final double houseWidth,
       final ProviderStatus<void> status}) = _$InsertPropertyStateImpl;
   const _InsertPropertyState._() : super._();
 
   @override
   PropertyListingType get propertyListingType;
   @override
-  String get image;
+  IList<XFile> get imageFiles;
+  @override
+  ProvinceModel? get province;
+  @override
+  PropertyTypeModel? get propertyType;
   @override
   String get title;
   @override
@@ -578,10 +642,6 @@ abstract class _InsertPropertyState extends InsertPropertyState {
   double get buildingLength;
   @override
   double get buildingWidth;
-  @override
-  double get houseLength;
-  @override
-  double get houseWidth;
   @override
   ProviderStatus<void> get status;
   @override

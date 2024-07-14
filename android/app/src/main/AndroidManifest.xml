@@ -3,11 +3,14 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-
+    <uses-permission android:name="android.permission.INTERNET" /> 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:label="kfa_mobile_nu"
         android:icon="@mipmap/ic_launcher">
-        
+    <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -20,11 +23,7 @@
             
             <meta-data
                 android:name="io.flutter.embedding.android.NormalTheme"
-                android:resource="@style/NormalTheme"/>
-                
-            <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI"/>
+                android:resource="@style/NormalTheme"/>         
             
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -35,6 +34,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2"/>
+       
     </application>
 
     <queries>
@@ -43,4 +43,5 @@
             <data android:mimeType="text/plain"/>
         </intent>
     </queries>
+    
 </manifest>

@@ -11,8 +11,12 @@ mixin _$InsertPropertyForm on _$InsertProperty {
   void onPropertyListingTypeChanged(
           PropertyListingType newPropertyListingType) =>
       state = state.copyWith(propertyListingType: newPropertyListingType);
-  void onImageChanged(String newImage) =>
-      state = state.copyWith(image: newImage);
+  void onImageFilesChanged(IList<XFile> newImageFiles) =>
+      state = state.copyWith(imageFiles: newImageFiles);
+  void onProvinceChanged(ProvinceModel? newProvince) =>
+      state = state.copyWith(province: newProvince);
+  void onPropertyTypeChanged(PropertyTypeModel? newPropertyType) =>
+      state = state.copyWith(propertyType: newPropertyType);
   void onTitleChanged(String newTitle) =>
       state = state.copyWith(title: newTitle);
   void onDescriptionChanged(String newDescription) =>
@@ -44,10 +48,6 @@ mixin _$InsertPropertyForm on _$InsertProperty {
       state = state.copyWith(buildingLength: newBuildingLength);
   void onBuildingWidthChanged(double newBuildingWidth) =>
       state = state.copyWith(buildingWidth: newBuildingWidth);
-  void onHouseLengthChanged(double newHouseLength) =>
-      state = state.copyWith(houseLength: newHouseLength);
-  void onHouseWidthChanged(double newHouseWidth) =>
-      state = state.copyWith(houseWidth: newHouseWidth);
 }
 
 bool _debugCheckHasInsertPropertyFormWidget(BuildContext context) {
@@ -165,26 +165,21 @@ class InsertPropertyPropertyListingTypeFieldWidget extends HookConsumerWidget {
   }
 }
 
-typedef InsertPropertyImageChildBuilder = Widget Function(
+typedef InsertPropertyImageFilesChildBuilder = Widget Function(
   WidgetRef ref,
-  TextEditingController textController,
-  String image,
-  void Function(String newImage) changeImage,
+  IList<XFile> imageFiles,
+  void Function(IList<XFile> newImageFiles) changeImageFiles,
   bool showValidation,
 );
 
-/// Widget form field for property [image]. To use this widget. You will need to add [InsertPropertyFormWidget] widget as ancestor
+/// Widget form field for property [imageFiles]. To use this widget. You will need to add [InsertPropertyFormWidget] widget as ancestor
 /// otherwise assert error will be thrown
-class InsertPropertyImageFieldWidget extends HookConsumerWidget {
-  const InsertPropertyImageFieldWidget({
+class InsertPropertyImageFilesFieldWidget extends HookConsumerWidget {
+  const InsertPropertyImageFilesFieldWidget({
     super.key,
-    this.controller,
     required this.builder,
   });
-  final InsertPropertyImageChildBuilder builder;
-
-  /// TextEditingController of text field widget. If null it will create by widget
-  final TextEditingController? controller;
+  final InsertPropertyImageFilesChildBuilder builder;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -192,31 +187,84 @@ class InsertPropertyImageFieldWidget extends HookConsumerWidget {
 
     final notifier = ref.watch(insertPropertyProvider.notifier);
     final state =
-        ref.watch(insertPropertyProvider.select((value) => value.image));
-    final textController = controller ?? useTextEditingController(text: state);
-    useMemoized(() {
-      textController.addListener(() {
-        Future.microtask(() => notifier.onImageChanged(textController.text));
-      });
-      return null;
-    });
-
-    ref.listen(insertPropertyProvider.select((value) => value.image),
-        (previous, current) {
-      if (previous != current) {
-        if (current != textController.text) {
-          Future.microtask(() => textController.text = current);
-        }
-      }
-    });
+        ref.watch(insertPropertyProvider.select((value) => value.imageFiles));
 
     final showValidation = ref.watch(
         insertPropertyProvider.select((value) => value.status.isFailure));
     return builder(
       ref,
-      textController,
       state,
-      notifier.onImageChanged,
+      notifier.onImageFilesChanged,
+      showValidation,
+    );
+  }
+}
+
+typedef InsertPropertyProvinceChildBuilder = Widget Function(
+  WidgetRef ref,
+  ProvinceModel? province,
+  void Function(ProvinceModel? newProvince) changeProvince,
+  bool showValidation,
+);
+
+/// Widget form field for property [province]. To use this widget. You will need to add [InsertPropertyFormWidget] widget as ancestor
+/// otherwise assert error will be thrown
+class InsertPropertyProvinceFieldWidget extends HookConsumerWidget {
+  const InsertPropertyProvinceFieldWidget({
+    super.key,
+    required this.builder,
+  });
+  final InsertPropertyProvinceChildBuilder builder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasInsertPropertyFormWidget(context));
+
+    final notifier = ref.watch(insertPropertyProvider.notifier);
+    final state =
+        ref.watch(insertPropertyProvider.select((value) => value.province));
+
+    final showValidation = ref.watch(
+        insertPropertyProvider.select((value) => value.status.isFailure));
+    return builder(
+      ref,
+      state,
+      notifier.onProvinceChanged,
+      showValidation,
+    );
+  }
+}
+
+typedef InsertPropertyPropertyTypeChildBuilder = Widget Function(
+  WidgetRef ref,
+  PropertyTypeModel? propertyType,
+  void Function(PropertyTypeModel? newPropertyType) changePropertyType,
+  bool showValidation,
+);
+
+/// Widget form field for property [propertyType]. To use this widget. You will need to add [InsertPropertyFormWidget] widget as ancestor
+/// otherwise assert error will be thrown
+class InsertPropertyPropertyTypeFieldWidget extends HookConsumerWidget {
+  const InsertPropertyPropertyTypeFieldWidget({
+    super.key,
+    required this.builder,
+  });
+  final InsertPropertyPropertyTypeChildBuilder builder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasInsertPropertyFormWidget(context));
+
+    final notifier = ref.watch(insertPropertyProvider.notifier);
+    final state =
+        ref.watch(insertPropertyProvider.select((value) => value.propertyType));
+
+    final showValidation = ref.watch(
+        insertPropertyProvider.select((value) => value.status.isFailure));
+    return builder(
+      ref,
+      state,
+      notifier.onPropertyTypeChanged,
       showValidation,
     );
   }
@@ -827,76 +875,6 @@ class InsertPropertyBuildingWidthFieldWidget extends HookConsumerWidget {
   }
 }
 
-typedef InsertPropertyHouseLengthChildBuilder = Widget Function(
-  WidgetRef ref,
-  double houseLength,
-  void Function(double newHouseLength) changeHouseLength,
-  bool showValidation,
-);
-
-/// Widget form field for property [houseLength]. To use this widget. You will need to add [InsertPropertyFormWidget] widget as ancestor
-/// otherwise assert error will be thrown
-class InsertPropertyHouseLengthFieldWidget extends HookConsumerWidget {
-  const InsertPropertyHouseLengthFieldWidget({
-    super.key,
-    required this.builder,
-  });
-  final InsertPropertyHouseLengthChildBuilder builder;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    assert(_debugCheckHasInsertPropertyFormWidget(context));
-
-    final notifier = ref.watch(insertPropertyProvider.notifier);
-    final state =
-        ref.watch(insertPropertyProvider.select((value) => value.houseLength));
-
-    final showValidation = ref.watch(
-        insertPropertyProvider.select((value) => value.status.isFailure));
-    return builder(
-      ref,
-      state,
-      notifier.onHouseLengthChanged,
-      showValidation,
-    );
-  }
-}
-
-typedef InsertPropertyHouseWidthChildBuilder = Widget Function(
-  WidgetRef ref,
-  double houseWidth,
-  void Function(double newHouseWidth) changeHouseWidth,
-  bool showValidation,
-);
-
-/// Widget form field for property [houseWidth]. To use this widget. You will need to add [InsertPropertyFormWidget] widget as ancestor
-/// otherwise assert error will be thrown
-class InsertPropertyHouseWidthFieldWidget extends HookConsumerWidget {
-  const InsertPropertyHouseWidthFieldWidget({
-    super.key,
-    required this.builder,
-  });
-  final InsertPropertyHouseWidthChildBuilder builder;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    assert(_debugCheckHasInsertPropertyFormWidget(context));
-
-    final notifier = ref.watch(insertPropertyProvider.notifier);
-    final state =
-        ref.watch(insertPropertyProvider.select((value) => value.houseWidth));
-
-    final showValidation = ref.watch(
-        insertPropertyProvider.select((value) => value.status.isFailure));
-    return builder(
-      ref,
-      state,
-      notifier.onHouseWidthChanged,
-      showValidation,
-    );
-  }
-}
-
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
@@ -1183,7 +1161,7 @@ class _PropertyAtIndexProviderElement
   int get index => (origin as PropertyAtIndexProvider).index;
 }
 
-String _$insertPropertyHash() => r'e465139863f7033088ab7772c7d2a42f0d236df9';
+String _$insertPropertyHash() => r'4932c1c556270e032c431c2b76422e53ce0c20e9';
 
 /// See also [InsertProperty].
 @ProviderFor(InsertProperty)

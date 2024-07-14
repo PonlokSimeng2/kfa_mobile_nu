@@ -16,85 +16,22 @@ import 'package:kfa_mobile_nu/src/providers/cache_provider.dart';
 const _cacheEmailKey = "cached-email-key";
 const _cachePasswordKey = "cached-password-key";
 
-// ignore: must_be_immutable
-class LoginPage extends StatelessWidget {
-  LoginPage({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Login();
-  }
-}
-
-class Login extends ConsumerStatefulWidget {
-  const Login({Key? key, this.openAsPage = false}) : super(key: key);
+class LoginPage extends ConsumerStatefulWidget {
+  const LoginPage({Key? key, this.openAsPage = false}) : super(key: key);
 
   final bool openAsPage;
 
   @override
-  ConsumerState<Login> createState() => _LoginState();
+  ConsumerState<LoginPage> createState() => _LoginState();
 }
 
-class _LoginState extends ConsumerState<Login> {
+class _LoginState extends ConsumerState<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  //final Connectivity _connectivity = Connectivity();
-  //late StreamSubscription<ConnectivityResult> _connectivitySubscription;
-  bool chec_internet = false;
+
   @override
   void dispose() {
-    //_connectivitySubscription.cancel();
     super.dispose();
   }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initConnectivity() async {
-    //ConnectivityResult result = ConnectivityResult.none;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      // result = await _connectivity.checkConnectivity();
-      // if (result != ConnectivityResult.none) {
-      //   setState(() {
-      //     chec_internet = true;
-      //   });
-      // } else {
-      //   setState(() {
-      //     chec_internet = false;
-      //   });
-      // }
-    } on PlatformException catch (e) {
-      print(e.toString());
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) {
-      return Future.value(null);
-    }
-
-    //return _updateConnectionStatus(result);
-  }
-
-  // Future<void> _updateConnectionStatus(ConnectivityResult result) async {
-  //   switch (result) {
-  //     case ConnectivityResult.wifi:
-  //     case ConnectivityResult.mobile:
-  //     case ConnectivityResult.none:
-  //       break;
-  //     default:
-  //       setState(() {
-  //         final snackBar = const SnackBar(
-  //           backgroundColor: Colors.black12,
-  //           content: Text('Offline'),
-  //         );
-
-  //         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  //       });
-  //       break;
-  //   }
-  // }
 
   bool _isObscure = true;
   bool status = false;
@@ -104,9 +41,6 @@ class _LoginState extends ConsumerState<Login> {
   @override
   void initState() {
     super.initState();
-    initConnectivity();
-    // _connectivitySubscription =
-    //     _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
 
     final cache = ref.read(sharePrefProvider);
     final cachedEmail = cache.getString(_cacheEmailKey);
@@ -274,69 +208,65 @@ class _LoginState extends ConsumerState<Login> {
                 text: 'Login',
                 color: kwhite_new,
                 pressEvent: () async {
-                  if (chec_internet) {
-                    _formKey.currentState?.save();
-                    if (!_formKey.currentState!.validate()) return;
+                  _formKey.currentState?.save();
+                  if (!_formKey.currentState!.validate()) return;
 
-                    final close = BotToast.showLoading();
-                    final provider = ref.read(authProvider.notifier);
-                    final errorOrNull = await provider.login(
+                  final close = BotToast.showLoading();
+                  final provider = ref.read(authProvider.notifier);
+                  final errorOrNull = await provider.login(
+                    emailCtr.text.trim(),
+                    passwordCtr.text.trim(),
+                  );
+                  close();
+
+                  if (errorOrNull == null && context.mounted) {
+                    // cache success login
+                    final cache = ref.read(sharePrefProvider);
+                    cache.setString(
+                      _cacheEmailKey,
                       emailCtr.text.trim(),
-                      passwordCtr.text.trim(),
-                      // email: emailCtr.text.trim(),
-                      // password: passwordCtr.text.trim(),
                     );
-                    close();
+                    cache.setString(
+                      _cachePasswordKey,
+                      passwordCtr.text.trim(),
+                    );
 
-                    if (errorOrNull == null && context.mounted) {
-                      // cache success login
-                      final cache = ref.read(sharePrefProvider);
-                      cache.setString(
-                        _cacheEmailKey,
-                        emailCtr.text.trim(),
-                      );
-                      cache.setString(
-                        _cachePasswordKey,
-                        passwordCtr.text.trim(),
-                      );
-
-                      if (widget.openAsPage) {
-                        AwesomeDialog(
-                          context: context,
-                          animType: AnimType.leftSlide,
-                          headerAnimationLoop: false,
-                          dialogType: DialogType.success,
-                          dismissOnTouchOutside: true,
-                          showCloseIcon: false,
-                          title: "Login Successfully!",
-                          autoHide: const Duration(seconds: 3),
-                          onDismissCallback: (type) {
-                            setState(() {});
-                            context.push((context) => const HomePage());
-                            // Navigator.push<void>(
-                            //   context,
-                            //   MaterialPageRoute<void>(
-                            //     builder: (BuildContext context) =>
-                            //         const HomePage1(),
-                            //   ),
-                            // );
-                          },
-                        ).show();
-                      } else {
-                        BotToast.showText(text: "Login Successfully!");
-                      }
-                    } else {
+                    if (widget.openAsPage) {
                       AwesomeDialog(
                         context: context,
-                        dialogType: DialogType.error,
-                        animType: AnimType.rightSlide,
+                        animType: AnimType.leftSlide,
                         headerAnimationLoop: false,
-                        title: 'Error',
-                        desc: errorOrNull,
-                        btnOkIcon: Icons.cancel,
-                        btnOkColor: Colors.red,
+                        dialogType: DialogType.success,
+                        dismissOnTouchOutside: true,
+                        showCloseIcon: false,
+                        title: "Login Successfully!",
+                        autoHide: const Duration(seconds: 3),
+                        onDismissCallback: (type) {
+                          setState(() {});
+                          context.push((context) => const HomePage());
+                          // Navigator.push<void>(
+                          //   context,
+                          //   MaterialPageRoute<void>(
+                          //     builder: (BuildContext context) =>
+                          //         const HomePage1(),
+                          //   ),
+                          // );
+                        },
                       ).show();
+                    } else {
+                      BotToast.showText(text: "Login Successfully!");
                     }
+                  } else {
+                    AwesomeDialog(
+                      context: context,
+                      dialogType: DialogType.error,
+                      animType: AnimType.rightSlide,
+                      headerAnimationLoop: false,
+                      title: 'Error',
+                      desc: errorOrNull,
+                      btnOkIcon: Icons.cancel,
+                      btnOkColor: Colors.red,
+                    ).show();
                   }
                 },
               ),
@@ -383,7 +313,7 @@ class _LoginState extends ConsumerState<Login> {
         Padding(
           padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
           child: TextFormField(
-            //controller: emailCtr,
+            controller: emailCtr,
             decoration: InputDecoration(
               fillColor: const Color.fromARGB(255, 255, 255, 255),
               filled: true,
@@ -434,7 +364,7 @@ class _LoginState extends ConsumerState<Login> {
         Padding(
           padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
           child: TextFormField(
-            //controller: passwordCtr,
+            controller: passwordCtr,
             obscureText: _isObscure,
             decoration: InputDecoration(
               fillColor: kwhite,

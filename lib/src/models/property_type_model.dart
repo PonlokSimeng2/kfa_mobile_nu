@@ -8,7 +8,7 @@ part 'property_type_model.g.dart';
 class PropertyTypeModel with _$PropertyTypeModel {
   const PropertyTypeModel._();
 
-  @TableModel('property_types')
+  @TableModel('properties_types')
   factory PropertyTypeModel({
     required int id,
     required String name,

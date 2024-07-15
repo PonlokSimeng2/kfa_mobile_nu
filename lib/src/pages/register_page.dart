@@ -2,17 +2,12 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'package:kfa_mobile_nu/constaints.dart';
-import 'package:kfa_mobile_nu/exports.dart';
-import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
-import 'package:kfa_mobile_nu/src/pages/home_page.dart';
-import 'package:kfa_mobile_nu/src/pages/login_page.dart';
-import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
-import 'package:kfa_mobile_nu/src/widgets/formTwin.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../../exports.dart';
+import '../helpers/build_context_helper.dart';
+import 'home_page.dart';
+import 'login_page.dart';
+import '../providers/auth_provider.dart';
 
 class RegisterPage extends ConsumerStatefulWidget {
   const RegisterPage({super.key});
@@ -88,7 +83,8 @@ class _RegisterState extends ConsumerState<RegisterPage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
             child: Form(
               key: _formKey,
               child: Column(
@@ -204,7 +200,6 @@ class _RegisterState extends ConsumerState<RegisterPage> {
     return ElevatedButton(
       onPressed: _handleSubmit,
       style: ElevatedButton.styleFrom(
-        primary: kPrimaryColor,
         padding: const EdgeInsets.symmetric(vertical: 16.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),

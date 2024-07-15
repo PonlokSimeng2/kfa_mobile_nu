@@ -3,11 +3,13 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/gestures.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../exports.dart';
 import '../helpers/build_context_helper.dart';
 import 'home_page.dart';
 import 'login_page.dart';
 import '../providers/auth_provider.dart';
+import '../providers/property_provider.dart';
 
 class RegisterPage extends ConsumerStatefulWidget {
   const RegisterPage({super.key});
@@ -36,11 +38,8 @@ class _RegisterState extends ConsumerState<RegisterPage> {
     'Male',
     'Other',
   ];
-  Uint8List? imagebytes;
-  String imagepath = "";
-  File? imagefile;
-
-  Random random = Random();
+  XFile? _imageFile;
+  String? _imageUrl;
 
   bool isApiCallProcess = false;
   @override
@@ -122,19 +121,50 @@ class _RegisterState extends ConsumerState<RegisterPage> {
 
   Widget _buildProfileImagePicker() {
     return GestureDetector(
-      onTap: () async {
-        // Implement image picking logic here
-      },
+      onTap: _pickImage,
       child: CircleAvatar(
         radius: 50,
         backgroundColor: Colors.grey[200],
-        child: const Icon(
-          Icons.camera_alt,
-          size: 40,
-          color: kPrimaryColor,
-        ),
+        backgroundImage: _imageFile != null ? FileImage(File(_imageFile!.path)) : null,
+        child: _imageFile == null
+            ? const Icon(
+                Icons.camera_alt,
+                size: 40,
+                color: kPrimaryColor,
+              )
+            : null,
       ),
     );
+  }
+
+  Future<void> _pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      setState(() {
+        _imageFile = image;
+      });
+      await _uploadImage();
+    }
+  }
+
+  Future<void> _uploadImage() async {
+    if (_imageFile == null) return;
+
+    final sb = ref.read(supabaseProvider).client;
+    final file = File(_imageFile!.path);
+    final newPath = '${DateTime.now().microsecondsSinceEpoch}${p.extension(_imageFile!.path)}';
+
+    try {
+      await sb.storage.from('files').upload(newPath, file);
+      final imageUrl = sb.storage.from('files').getPublicUrl(newPath);
+      setState(() {
+        _imageUrl = imageUrl;
+      });
+    } catch (e) {
+      print('Error uploading image: $e');
+      // Handle error (show a message to the user)
+    }
   }
 
   Widget _buildNameFields() {
@@ -240,14 +270,22 @@ class _RegisterState extends ConsumerState<RegisterPage> {
 
   void _handleSubmit() async {
     if (_formKey.currentState!.validate()) {
+      setState(() {
+        isApiCallProcess = true;
+      });
+      
       final result = await ref.read(authProvider.notifier).signUp(
             email: _emailController.text,
             password: _passwordController.text,
-            photo: null, // Handle photo upload
+            photo: _imageUrl,
             firstName: _firstNameController.text,
             lastName: _lastNameController.text,
             phone: _phoneController.text,
           );
+
+      setState(() {
+        isApiCallProcess = false;
+      });
 
       if (result == null) {
         _showSuccessDialog();

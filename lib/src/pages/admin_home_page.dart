@@ -11,25 +11,25 @@ class AdminHomePage extends StatelessWidget {
         child: ListView(
           children: [
             ListTile(
-              title: Text('User List'),
+              title: const Text('User List'),
               onTap: () {
                 // TODO: Implement navigation to user list
               },
             ),
             ListTile(
-              title: Text('Property'),
+              title: const Text('Property'),
               onTap: () {
                 // TODO: Implement navigation to property
               },
             ),
             ListTile(
-              title: Text('Report'),
+              title: const Text('Report'),
               onTap: () {
                 // TODO: Implement navigation to report
               },
             ),
             ListTile(
-              title: Text('Sign out'),
+              title: const Text('Sign out'),
               onTap: () {
                 // TODO: Implement sign out logic
               },

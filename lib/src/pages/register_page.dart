@@ -72,254 +72,226 @@ class _RegisterState extends ConsumerState<RegisterPage> {
         centerTitle: true,
         title: Image.asset(
           'assets/images/KFA-Logo.png',
-          height: 160,
-          width: 160,
+          height: 80,
+          width: 80,
         ),
-        toolbarHeight: 100,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
           icon: const Icon(
-            Icons.chevron_left_outlined,
-            color: Colors.white,
-            size: 40,
+            Icons.arrow_back_ios,
+            color: kPrimaryColor,
           ),
         ),
       ),
-      backgroundColor: kwhite_new,
-      body: Container(
-        decoration: const BoxDecoration(
-          color: kwhite,
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(30.0),
-            topLeft: Radius.circular(30.0),
-          ),
-        ),
+      body: SafeArea(
         child: SingleChildScrollView(
-          child: register(context),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Text(
+                    'Create an Account',
+                    style: TextStyle(
+                      fontSize: 28.0,
+                      fontWeight: FontWeight.bold,
+                      color: kPrimaryColor,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 32.0),
+                  _buildProfileImagePicker(),
+                  const SizedBox(height: 24.0),
+                  _buildNameFields(),
+                  const SizedBox(height: 16.0),
+                  _buildEmailPasswordFields(),
+                  const SizedBox(height: 16.0),
+                  _buildPhoneField(),
+                  const SizedBox(height: 32.0),
+                  _buildSubmitButton(),
+                  const SizedBox(height: 16.0),
+                  _buildLoginLink(),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );
   }
 
-  Padding register(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-      child: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const Text(
-                'Register to KFA system',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                  color: kwhite_new,
-                ),
-              ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              InkWell(
-                onTap: () async {},
-                child: Center(
-                    child: Stack(
-                  alignment: AlignmentDirectional.bottomCenter,
-                  children: [
-                    Container(
-                      height: 20,
-                      width: 30,
-                      alignment: Alignment.bottomCenter,
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(96, 102, 102, 102),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: const Icon(
-                        Icons.camera_alt_outlined,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                )),
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              FormTwin(
-                Label1: 'First Name',
-                Label2: 'Last Name',
-                onSaved1: (input) {
-                  _firstNameController.text = input!;
-                },
-                onSaved2: (input) {
-                  _lastNameController.text = input!;
-                },
-                icon1: const Icon(
-                  Icons.person,
-                  color: kImageColor,
-                ),
-                icon2: const Icon(
-                  Icons.person,
-                  color: kImageColor,
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              FormTwin(
-                Label1: 'Email',
-                Label2: 'Password',
-                onSaved1: (input) {
-                  _emailController.text = input!;
-                },
-                onSaved2: (input) {
-                  _passwordController.text = input!;
-                },
-                icon1: const Icon(
-                  Icons.email,
-                  color: kImageColor,
-                ),
-                icon2: const Icon(
-                  Icons.password,
-                  color: kImageColor,
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-                child: TextFormField(
-                  //controller: email,
-                  onChanged: (phone) {
-                    _phoneController.text = phone;
-                  },
-                  decoration: InputDecoration(
-                    fillColor: kwhite,
-                    filled: true,
-                    labelText: 'Phone Number',
-                    prefixIcon: const Icon(
-                      color: kImageColor,
-                      Icons.phone,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(color: kPrimaryColor, width: 2.0),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        width: 1,
-                        color: kPrimaryColor,
-                      ),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                height: 40,
-                width: MediaQuery.of(context).size.width / 1.3,
-                child: MaterialButton(
-                  color: kwhite,
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      final result =
-                          await ref.read(authProvider.notifier).signUp(
-                                email: _emailController.text,
-                                password: _passwordController.text,
-                                photo: null, // Handle photo upload
-                                firstName: _firstNameController.text,
-                                lastName: _lastNameController.text,
-                                phone: _phoneController.text,
-                              );
-
-                      if (result == null) {
-                        AwesomeDialog(
-                          context: context,
-                          animType: AnimType.leftSlide,
-                          headerAnimationLoop: false,
-                          dialogType: DialogType.success,
-                          dismissOnTouchOutside: true,
-                          showCloseIcon: false,
-                          title: "Register Successfully!",
-                          autoHide: const Duration(seconds: 3),
-                          onDismissCallback: (type) {
-                            context.push((context) => const HomePage());
-                          },
-                        ).show(); // Handle successful sign up or perform other actions
-                      } else {
-                        AwesomeDialog(
-                          context: context,
-                          animType: AnimType.leftSlide,
-                          headerAnimationLoop: false,
-                          dialogType: DialogType.error,
-                          dismissOnTouchOutside: true,
-                          showCloseIcon: false,
-                          title: "Register Failed!",
-                          autoHide: const Duration(seconds: 3),
-                          onDismissCallback: (type) {},
-                        ).show();
-                      }
-                    }
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                    side: const BorderSide(color: kwhite),
-                  ),
-                  padding: const EdgeInsets.all(10.0),
-                  child: const Text(
-                    'Submit',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      color: kImageColor,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              RichText(
-                text: TextSpan(
-                  children: <TextSpan>[
-                    const TextSpan(
-                      text: "Already have an account?",
-                      style: TextStyle(
-                        color: kwhite_new,
-                      ),
-                    ),
-                    TextSpan(
-                      text: ' Login here',
-                      style: const TextStyle(
-                        color: kImageColor,
-                      ),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const LoginPage(),
-                            ),
-                          );
-                        },
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              )
-            ],
-          ),
+  Widget _buildProfileImagePicker() {
+    return GestureDetector(
+      onTap: () async {
+        // Implement image picking logic here
+      },
+      child: CircleAvatar(
+        radius: 50,
+        backgroundColor: Colors.grey[200],
+        child: const Icon(
+          Icons.camera_alt,
+          size: 40,
+          color: kPrimaryColor,
         ),
       ),
     );
+  }
+
+  Widget _buildNameFields() {
+    return Row(
+      children: [
+        Expanded(
+          child: TextFormField(
+            controller: _firstNameController,
+            decoration: const InputDecoration(
+              labelText: 'First Name',
+              prefixIcon: Icon(Icons.person, color: kPrimaryColor),
+            ),
+          ),
+        ),
+        const SizedBox(width: 16.0),
+        Expanded(
+          child: TextFormField(
+            controller: _lastNameController,
+            decoration: const InputDecoration(
+              labelText: 'Last Name',
+              prefixIcon: Icon(Icons.person, color: kPrimaryColor),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildEmailPasswordFields() {
+    return Column(
+      children: [
+        TextFormField(
+          controller: _emailController,
+          decoration: const InputDecoration(
+            labelText: 'Email',
+            prefixIcon: Icon(Icons.email, color: kPrimaryColor),
+          ),
+        ),
+        const SizedBox(height: 16.0),
+        TextFormField(
+          controller: _passwordController,
+          obscureText: true,
+          decoration: const InputDecoration(
+            labelText: 'Password',
+            prefixIcon: Icon(Icons.lock, color: kPrimaryColor),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPhoneField() {
+    return TextFormField(
+      controller: _phoneController,
+      decoration: const InputDecoration(
+        labelText: 'Phone Number',
+        prefixIcon: Icon(Icons.phone, color: kPrimaryColor),
+      ),
+    );
+  }
+
+  Widget _buildSubmitButton() {
+    return ElevatedButton(
+      onPressed: _handleSubmit,
+      style: ElevatedButton.styleFrom(
+        primary: kPrimaryColor,
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+      ),
+      child: const Text(
+        'Create Account',
+        style: TextStyle(fontSize: 18.0),
+      ),
+    );
+  }
+
+  Widget _buildLoginLink() {
+    return RichText(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+        style: const TextStyle(color: Colors.black87),
+        children: [
+          const TextSpan(text: "Already have an account? "),
+          TextSpan(
+            text: 'Login here',
+            style: const TextStyle(
+              color: kPrimaryColor,
+              fontWeight: FontWeight.bold,
+            ),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+              },
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _handleSubmit() async {
+    if (_formKey.currentState!.validate()) {
+      final result = await ref.read(authProvider.notifier).signUp(
+            email: _emailController.text,
+            password: _passwordController.text,
+            photo: null, // Handle photo upload
+            firstName: _firstNameController.text,
+            lastName: _lastNameController.text,
+            phone: _phoneController.text,
+          );
+
+      if (result == null) {
+        _showSuccessDialog();
+      } else {
+        _showErrorDialog();
+      }
+    }
+  }
+
+  void _showSuccessDialog() {
+    AwesomeDialog(
+      context: context,
+      animType: AnimType.leftSlide,
+      headerAnimationLoop: false,
+      dialogType: DialogType.success,
+      showCloseIcon: true,
+      title: 'Success',
+      desc: 'Account created successfully!',
+      btnOkOnPress: () {
+        context.push((context) => const HomePage());
+      },
+      btnOkIcon: Icons.check_circle,
+      onDismissCallback: (type) {
+        context.push((context) => const HomePage());
+      },
+    ).show();
+  }
+
+  void _showErrorDialog() {
+    AwesomeDialog(
+      context: context,
+      dialogType: DialogType.error,
+      animType: AnimType.rightSlide,
+      headerAnimationLoop: false,
+      title: 'Error',
+      desc: 'Failed to create account. Please try again.',
+      btnOkOnPress: () {},
+      btnOkIcon: Icons.cancel,
+      btnOkColor: Colors.red,
+    ).show();
   }
 }

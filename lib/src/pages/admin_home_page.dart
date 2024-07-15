@@ -7,6 +7,7 @@ class AdminHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       drawer: Drawer(
         child: ListView(
           children: [

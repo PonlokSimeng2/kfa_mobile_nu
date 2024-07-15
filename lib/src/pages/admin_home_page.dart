@@ -61,13 +61,13 @@ class AdminHomePage extends StatelessWidget {
                       radius: 100,
                     ),
                     PieChartSectionData(
-                      color: Colors.red,
+                      color: Colors.blue,
                       value: 15,
                       title: 'Inactive',
                       radius: 100,
                     ),
                     PieChartSectionData(
-                      color: Colors.green,
+                      color: Colors.blue,
                       value: 55,
                       title: 'New',
                       radius: 100,

@@ -7,6 +7,36 @@ class AdminHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            ListTile(
+              title: Text('User List'),
+              onTap: () {
+                // TODO: Implement navigation to user list
+              },
+            ),
+            ListTile(
+              title: Text('Property'),
+              onTap: () {
+                // TODO: Implement navigation to property
+              },
+            ),
+            ListTile(
+              title: Text('Report'),
+              onTap: () {
+                // TODO: Implement navigation to report
+              },
+            ),
+            ListTile(
+              title: Text('Sign out'),
+              onTap: () {
+                // TODO: Implement sign out logic
+              },
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
         title: const Text('Admin Dashboard'),
       ),

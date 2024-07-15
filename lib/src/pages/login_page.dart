@@ -1,17 +1,15 @@
-import 'dart:async';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:kfa_mobile_nu/constaints.dart';
-import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
-import 'package:kfa_mobile_nu/src/pages/home_page.dart';
-import 'package:kfa_mobile_nu/src/pages/register_page.dart';
-import 'package:kfa_mobile_nu/src/widgets/responsive.dart';
-import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
-import 'package:kfa_mobile_nu/src/providers/cache_provider.dart';
+import '../../constaints.dart';
+import '../helpers/build_context_helper.dart';
+import 'home_page.dart';
+import 'register_page.dart';
+import '../widgets/responsive.dart';
+import '../providers/auth_provider.dart';
+import '../providers/cache_provider.dart';
 
 const _cacheEmailKey = "cached-email-key";
 const _cachePasswordKey = "cached-password-key";
@@ -242,15 +240,9 @@ class _LoginState extends ConsumerState<LoginPage> {
                         title: "Login Successfully!",
                         autoHide: const Duration(seconds: 3),
                         onDismissCallback: (type) {
-                          setState(() {});
-                          context.push((context) => const HomePage());
-                          // Navigator.push<void>(
-                          //   context,
-                          //   MaterialPageRoute<void>(
-                          //     builder: (BuildContext context) =>
-                          //         const HomePage1(),
-                          //   ),
-                          // );
+                          if (context.mounted) {
+                            context.push((context) => const HomePage());
+                          }
                         },
                       ).show();
                     } else {
@@ -288,7 +280,7 @@ class _LoginState extends ConsumerState<LoginPage> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Register(),
+                            builder: (context) => RegisterPage(),
                           ),
                         );
                       },

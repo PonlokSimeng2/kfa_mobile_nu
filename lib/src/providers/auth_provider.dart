@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:kfa_mobile_nu/src/providers/supabase_provider.dart';
+import 'supabase_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'auth_provider.g.dart';
 

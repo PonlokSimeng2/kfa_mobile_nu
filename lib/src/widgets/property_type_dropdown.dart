@@ -1,5 +1,5 @@
-import 'package:kfa_mobile_nu/src/models/property_type_model.dart';
-import 'package:kfa_mobile_nu/src/providers/property_type_provider.dart';
+import '../models/property_type_model.dart';
+import '../providers/property_type_provider.dart';
 
 import '../../exports.dart';
 

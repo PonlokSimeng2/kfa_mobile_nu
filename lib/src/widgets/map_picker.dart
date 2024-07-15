@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
+import '../helpers/build_context_helper.dart';
 
 import '../../../exports.dart';
 

@@ -1,35 +1,35 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
-// import 'package:getwidget/components/avatar/gf_avatar.dart';
-import 'package:http/http.dart' as http;
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:kfa_mobile_nu/constaints.dart';
+import 'package:kfa_mobile_nu/exports.dart';
+import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
+import 'package:kfa_mobile_nu/src/pages/home_page.dart';
 import 'package:kfa_mobile_nu/src/pages/login_page.dart';
+import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/widgets/formTwin.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class RegisterPage extends StatelessWidget {
-  const RegisterPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Register();
-  }
-}
-
-class Register extends StatefulWidget {
-  const Register({Key? key}) : super(key: key);
+class RegisterPage extends ConsumerStatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<Register> createState() => _RegisterState();
+  ConsumerState<RegisterPage> createState() => _RegisterState();
 }
 
-class _RegisterState extends State<Register> {
+class _RegisterState extends ConsumerState<RegisterPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String fromValue = 'Bank';
   String genderValue = 'Female';
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
   // List of items in our dropdown menu
   var from = [
     'Bank',
@@ -45,73 +45,26 @@ class _RegisterState extends State<Register> {
   String imagepath = "";
   File? imagefile;
 
-  Future cut_again() async {
-    imagepath = imagefile!.path;
-
-    get_bytes = await imagefile!.readAsBytes(); //convert to bytes
-    setState(() {
-      get_bytes;
-      imagepath = imagefile!.path;
-      imagefile = File(imagepath); //convert Path to File
-    });
-  }
-
-  // FirebaseAuth auth = FirebaseAuth.instance;
-  // PhoneAuthCredential? credential;
-  String? smsCode;
-  String? set_id_user;
-  int? user_last_id;
   Random random = Random();
-
-  Uint8List? get_bytes;
-  void get_user_last_id() async {
-    setState(() {});
-    // await Firebase.initializeApp();
-    var rs = await http.get(
-      Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_last_user',
-      ),
-    );
-    if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
-
-      setState(() {
-        user_last_id = jsonData;
-        set_id_user =
-            '${user_last_id.toString()}K${random.nextInt(999).toString()}F${user_last_id.toString()}A';
-      });
-    }
-  }
-
-  Future<void> uploadImage() async {
-    if (get_bytes != null) {
-      var request = http.MultipartRequest(
-        'POST',
-        Uri.parse(
-          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_profile_user',
-        ),
-      );
-      request.fields['id_user'] = set_id_user ?? '';
-      request.files.add(
-        http.MultipartFile.fromBytes(
-          'image',
-          get_bytes!,
-          filename: 'User ID :$set_id_user photo ${random.nextInt(999)}.jpg',
-        ),
-      );
-    }
-  }
 
   bool isApiCallProcess = false;
   @override
   void initState() {
-    get_user_last_id();
-    // mydb.open();
-
     super.initState();
   }
 
-  Widget _uiSteup(BuildContext context) {
+  @override
+  void dispose() {
+    _firstNameController.dispose();
+    _passwordController.dispose();
+    _lastNameController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kwhite_new,
@@ -127,7 +80,7 @@ class _RegisterState extends State<Register> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.chevron_left_outlined,
             color: Colors.white,
             size: 40,
@@ -169,139 +122,39 @@ class _RegisterState extends State<Register> {
               const SizedBox(
                 height: 10.0,
               ),
-              // Text.rich(
-              //   TextSpan(
-              //     // ignore: prefer_const_literals_to_create_immutables
-              //     children: [
-              //       TextSpan(
-              //         text: "ONE CLICK ",
-              //         style: TextStyle(
-              //           fontSize: 20.0,
-              //           fontWeight: FontWeight.bold,
-              //           color: kImageColor,
-              //         ),
-              //       ),
-              //       TextSpan(
-              //         text: "1\$",
-              //         style: TextStyle(
-              //           fontSize: 30.0,
-              //           fontWeight: FontWeight.bold,
-              //           color: kerror,
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
               InkWell(
-                onTap: () async {
-                  if (get_bytes == null) {
-                  } else {
-                    await cut_again();
-                    setState(() {
-                      imagefile;
-                      get_bytes;
-                    });
-                  }
-                  setState(() {
-                    get_bytes;
-                    imagefile;
-                  });
-                },
+                onTap: () async {},
                 child: Center(
-                  child: (get_bytes == null)
-                      ? Stack(
-                          alignment: AlignmentDirectional.bottomCenter,
-                          // ignore: prefer_const_literals_to_create_immutables
-                          children: [
-                            // GFAvatar(
-                            //   size: 100,
-                            //   backgroundImage:
-                            //       AssetImage('assets/images/user-avatar.png'),
-                            // ),
-                            Container(
-                              height: 20,
-                              width: 30,
-                              alignment: Alignment.bottomCenter,
-                              decoration: BoxDecoration(
-                                color: const Color.fromARGB(96, 102, 102, 102),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: const Icon(
-                                Icons.camera_alt_outlined,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        )
-                      : Stack(
-                          alignment: AlignmentDirectional.bottomCenter,
-                          children: [
-                            // GFAvatar(
-                            //   size: 100,
-                            //   backgroundImage: MemoryImage(get_bytes!),
-                            // ),
-                            Container(
-                              height: 20,
-                              width: 30,
-                              alignment: Alignment.bottomCenter,
-                              decoration: BoxDecoration(
-                                color: const Color.fromARGB(96, 102, 102, 102),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: const Icon(
-                                Icons.crop,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                ),
+                    child: Stack(
+                  alignment: AlignmentDirectional.bottomCenter,
+                  children: [
+                    Container(
+                      height: 20,
+                      width: 30,
+                      alignment: Alignment.bottomCenter,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(96, 102, 102, 102),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: const Icon(
+                        Icons.camera_alt_outlined,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                )),
               ),
               const SizedBox(
                 height: 20.0,
               ),
-              if (user_last_id != null)
-                SizedBox(
-                  height: 58,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'This\'s your personal id:',
-                        //initialValue: '${set_id_user}',
-                        style: TextStyle(
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.bold,
-                          color: kwhite_new,
-                        ),
-                      ),
-                      Text(
-                        '$set_id_user',
-                        //initialValue: '${set_id_user}',
-                        style: const TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                          color: kwhite_new,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              // SizedBox(
-              //   height: 10.0,
-              // ),
               FormTwin(
                 Label1: 'First Name',
                 Label2: 'Last Name',
                 onSaved1: (input) {
-                  setState(() {
-                    // requestModel.first_name = input!;
-                  });
+                  _firstNameController.text = input!;
                 },
                 onSaved2: (input) {
-                  setState(() {
-                    // requestModel.last_name = input!;
-                  });
+                  _lastNameController.text = input!;
                 },
                 icon1: const Icon(
                   Icons.person,
@@ -315,189 +168,56 @@ class _RegisterState extends State<Register> {
               const SizedBox(
                 height: 10,
               ),
-              // FormValidate(
-              //   //  onSaved: (input) => requestModel.username = input!,
-              //     label: 'Username',
-              //     iconname: Icon(
-              //       Icons.person,
-              //       color: kImageColor,
-              //     )),
-              // FormValidate(
-              //   // onSaved: (input) => requestModel.username = input!,
-              //     label: 'Email',
-              //     iconname: Icon(
-              //       Icons.email,
-              //       color: kImageColor,
-              //     )),
-              // FormValidate(
-              //   // onSaved: (input) => requestModel.username = input!,
-              //     label: 'Phone',
-              //     iconname: Icon(
-              //       Icons.phone,
-              //       color: kImageColor,
-              //     )),
               FormTwin(
                 Label1: 'Email',
-                Label2: 'Phone',
+                Label2: 'Password',
                 onSaved1: (input) {
-                  setState(() {
-                    // requestModel.email = input!;
-                  });
+                  _emailController.text = input!;
                 },
                 onSaved2: (input) {
-                  setState(() {
-                    // requestModel.phone = input!;
-                  });
+                  _passwordController.text = input!;
                 },
                 icon1: const Icon(
                   Icons.email,
                   color: kImageColor,
                 ),
                 icon2: const Icon(
-                  Icons.phone,
+                  Icons.password,
                   color: kImageColor,
                 ),
               ),
               const SizedBox(
                 height: 10,
               ),
-              // FormTwin(
-              //   Label1: 'From',
-              //   Label2: 'Gender',
-              //   onSaved1: (input) {
-              //     setState(() {
-              //       requestModel.from = input!;
-              //     });
-              //   },
-              //   onSaved2: (input) {
-              //     setState(() {
-              //       requestModel.gender = input!;
-              //     });
-              //   },
-              //   icon1: Icon(
-              //     Icons.wallet_travel,
-              //     color: kImageColor,
-              //   ),
-              //   icon2: Icon(
-              //     Icons.wc,
-              //     color: kImageColor,
-              //   ),
-              // ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    children: [
-                      const Text(
-                        'From',
-                        style: TextStyle(
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.bold,
-                          color: kwhite_new,
-                        ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                child: TextFormField(
+                  //controller: email,
+                  onChanged: (phone) {
+                    _phoneController.text = phone;
+                  },
+                  decoration: InputDecoration(
+                    fillColor: kwhite,
+                    filled: true,
+                    labelText: 'Phone Number',
+                    prefixIcon: const Icon(
+                      color: kImageColor,
+                      Icons.phone,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: kPrimaryColor, width: 2.0),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        width: 1,
+                        color: kPrimaryColor,
                       ),
-                      const SizedBox(
-                        height: 5.0,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(left: 10),
-                        width: MediaQuery.of(context).size.width / 2.4,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: kwhite_new,
-                        ),
-                        child: DropdownButton(
-                          // Initial Value
-                          value: fromValue,
-                          // Down Arrow Icon
-                          icon: const Icon(
-                            Icons.keyboard_arrow_down,
-                            color: kImageColor,
-                          ),
-                          // Array list of items
-                          items: from.map((String items) {
-                            return DropdownMenuItem(
-                              value: items,
-                              child: Text(
-                                items,
-                                style: const TextStyle(
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: kImageColor,
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                          // After selecting the desired option,it will
-                          // change button value to selected value
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              fromValue = newValue!;
-                              // requestModel.from = newValue;
-                            });
-                          },
-                        ),
-                      ),
-                    ],
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
                   ),
-                  const SizedBox(
-                    width: 10.0,
-                  ),
-                  Column(
-                    children: [
-                      const Text(
-                        'Gender',
-                        style: TextStyle(
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.bold,
-                          color: kwhite_new,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5.0,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(left: 10),
-                        width: MediaQuery.of(context).size.width / 2.4,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: kwhite_new,
-                        ),
-                        child: DropdownButton(
-                          // Initial Value
-                          value: genderValue,
-                          // Down Arrow Icon
-                          icon: const Icon(
-                            Icons.keyboard_arrow_down,
-                            color: kImageColor,
-                          ),
-                          // Array list of items
-                          items: gender.map((String items) {
-                            return DropdownMenuItem(
-                              value: items,
-                              child: Text(
-                                items,
-                                style: const TextStyle(
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: kImageColor,
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                          // After selecting the desired option,it will
-                          // change button value to selected value
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              genderValue = newValue!;
-                              // requestModel.gender = newValue;
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                ),
               ),
               const SizedBox(
                 height: 20,
@@ -507,39 +227,46 @@ class _RegisterState extends State<Register> {
                 width: MediaQuery.of(context).size.width / 1.3,
                 child: MaterialButton(
                   color: kwhite,
-                  onPressed: () {
-                    // if (validateAndSave()) {
-                    //   print(requestModel.toJson());
-                    //   setState(() {
-                    //     isApiCallProcess = true;
-                    //   });
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      final result =
+                          await ref.read(authProvider.notifier).signUp(
+                                email: _emailController.text,
+                                password: _passwordController.text,
+                                photo: null, // Handle photo upload
+                                firstName: _firstNameController.text,
+                                lastName: _lastNameController.text,
+                                phone: _phoneController.text,
+                              );
 
-                    //   APIService apiService = new APIService();
-                    //   apiService.createAccount(requestModel).then((value) {
-                    //     setState(() {
-                    //       isApiCallProcess = false;
-                    //     });
-
-                    //     if (value == "error") {
-                    //       final snackBar = SnackBar(
-                    //           content: Text("Already have a email or phone"));
-                    //       _scaffoldKey.currentState!.showSnackBar(snackBar);
-                    //     } else {
-                    //       final snackBar =
-                    //           SnackBar(content: Text("Successfully Register"));
-                    //       _scaffoldKey.currentState!.showSnackBar(snackBar);
-                    //       Navigator.push(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //           builder: (context) => VerifyScreen(
-                    //             verificationId: value,
-                    //             requestModel: requestModel,
-                    //           ),
-                    //         ),
-                    //       );
-                    //     }
-                    //   });
-                    // }
+                      if (result == null) {
+                        AwesomeDialog(
+                          context: context,
+                          animType: AnimType.leftSlide,
+                          headerAnimationLoop: false,
+                          dialogType: DialogType.success,
+                          dismissOnTouchOutside: true,
+                          showCloseIcon: false,
+                          title: "Register Successfully!",
+                          autoHide: const Duration(seconds: 3),
+                          onDismissCallback: (type) {
+                            context.push((context) => const HomePage());
+                          },
+                        ).show(); // Handle successful sign up or perform other actions
+                      } else {
+                        AwesomeDialog(
+                          context: context,
+                          animType: AnimType.leftSlide,
+                          headerAnimationLoop: false,
+                          dialogType: DialogType.error,
+                          dismissOnTouchOutside: true,
+                          showCloseIcon: false,
+                          title: "Register Failed!",
+                          autoHide: const Duration(seconds: 3),
+                          onDismissCallback: (type) {},
+                        ).show();
+                      }
+                    }
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
@@ -578,11 +305,11 @@ class _RegisterState extends State<Register> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => LoginPage(),
+                              builder: (context) => const LoginPage(),
                             ),
                           );
                         },
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -594,10 +321,5 @@ class _RegisterState extends State<Register> {
         ),
       ),
     );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return _uiSteup(context);
   }
 }

@@ -1,5 +1,5 @@
-import 'package:kfa_mobile_nu/src/models/user_model.dart';
-import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
+import '../models/user_model.dart';
+import 'auth_provider.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

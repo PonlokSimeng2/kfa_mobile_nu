@@ -1,10 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:kfa_mobile_nu/exports.dart';
-import 'package:kfa_mobile_nu/src/models/property_model.dart';
-import 'package:kfa_mobile_nu/src/pages/contact_us_page.dart';
-import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
+import '../../exports.dart';
+import '../models/property_model.dart';
+import 'contact_us_page.dart';
+import '../providers/auth_provider.dart';
 import 'package:readmore/readmore.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../widgets/auth_wrapper_widget.dart';

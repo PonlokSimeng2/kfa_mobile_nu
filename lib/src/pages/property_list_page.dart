@@ -1,6 +1,6 @@
-import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
-import 'package:kfa_mobile_nu/src/pages/property_detail_page.dart';
-import 'package:kfa_mobile_nu/src/providers/property_provider.dart';
+import '../helpers/build_context_helper.dart';
+import 'property_detail_page.dart';
+import '../providers/property_provider.dart';
 
 import '../../exports.dart';
 

@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:kfa_mobile_nu/constaints.dart';
-import 'package:kfa_mobile_nu/src/pages/detail_verbal_page.dart';
-import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
+import '../../constaints.dart';
+import 'detail_verbal_page.dart';
+import '../widgets/auth_wrapper_widget.dart';
 
 // ignore: must_be_immutable
 class ReportVerbalPage extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:kfa_mobile_nu/src/pages/login_page.dart';
-import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
+import '../pages/login_page.dart';
+import '../providers/auth_provider.dart';
 
 class AuthWrapperWidget extends ConsumerStatefulWidget {
   const AuthWrapperWidget({super.key, required this.child});

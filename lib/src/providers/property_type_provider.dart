@@ -1,4 +1,4 @@
-import 'package:kfa_mobile_nu/src/models/property_type_model.dart';
+import '../models/property_type_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../exports.dart';

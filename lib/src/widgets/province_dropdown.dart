@@ -1,5 +1,5 @@
-import 'package:kfa_mobile_nu/src/models/province_model.dart';
-import 'package:kfa_mobile_nu/src/providers/province_provider.dart';
+import '../models/province_model.dart';
+import '../providers/province_provider.dart';
 
 import '../../exports.dart';
 

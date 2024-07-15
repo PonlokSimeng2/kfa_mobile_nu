@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:kfa_mobile_nu/exports.dart';
+import '../../exports.dart';
 
 part 'property_type_model.freezed.dart';
 part 'property_type_model.g.dart';

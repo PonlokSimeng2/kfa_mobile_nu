@@ -1,14 +1,14 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:kfa_mobile_nu/gen/assets.gen.dart';
-import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
-import 'package:kfa_mobile_nu/src/pages/account_page.dart';
-import 'package:kfa_mobile_nu/src/pages/add_property_page.dart';
-import 'package:kfa_mobile_nu/src/pages/contact_us_page.dart';
-import 'package:kfa_mobile_nu/src/pages/property_list_page.dart';
-import 'package:kfa_mobile_nu/src/pages/report_verbal_page.dart';
-import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
-import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
+import '../../gen/assets.gen.dart';
+import '../helpers/build_context_helper.dart';
+import 'account_page.dart';
+import 'add_property_page.dart';
+import 'contact_us_page.dart';
+import 'property_list_page.dart';
+import 'report_verbal_page.dart';
+import '../providers/auth_provider.dart';
+import '../providers/user_provider.dart';
 
 import '../../exports.dart';
 

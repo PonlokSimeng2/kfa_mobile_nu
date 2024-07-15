@@ -10,6 +10,7 @@ import 'home_page.dart';
 import 'login_page.dart';
 import '../providers/auth_provider.dart';
 import '../providers/property_provider.dart';
+import 'package:path/path.dart' as p;
 
 class RegisterPage extends ConsumerStatefulWidget {
   const RegisterPage({super.key});
@@ -125,7 +126,8 @@ class _RegisterState extends ConsumerState<RegisterPage> {
       child: CircleAvatar(
         radius: 50,
         backgroundColor: Colors.grey[200],
-        backgroundImage: _imageFile != null ? FileImage(File(_imageFile!.path)) : null,
+        backgroundImage:
+            _imageFile != null ? FileImage(File(_imageFile!.path)) : null,
         child: _imageFile == null
             ? const Icon(
                 Icons.camera_alt,
@@ -153,7 +155,8 @@ class _RegisterState extends ConsumerState<RegisterPage> {
 
     final sb = ref.read(supabaseProvider).client;
     final file = File(_imageFile!.path);
-    final newPath = '${DateTime.now().microsecondsSinceEpoch}${p.extension(_imageFile!.path)}';
+    final newPath =
+        '${DateTime.now().microsecondsSinceEpoch}${p.extension(_imageFile!.path)}';
 
     try {
       await sb.storage.from('files').upload(newPath, file);
@@ -273,7 +276,7 @@ class _RegisterState extends ConsumerState<RegisterPage> {
       setState(() {
         isApiCallProcess = true;
       });
-      
+
       final result = await ref.read(authProvider.notifier).signUp(
             email: _emailController.text,
             password: _passwordController.text,

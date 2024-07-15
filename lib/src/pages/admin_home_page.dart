@@ -41,15 +41,6 @@ class AdminHomePage extends StatelessWidget {
         title: const Text('Admin Dashboard'),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ...,
-          ],
-        ),
-        padding: const EdgeInsets.all(16.0),
-        backgroundColor: kwhite_new, // Add this line
-      ),
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'src/pages/login_page.dart';
 import 'src/pages/register_page.dart';
 import 'exports.dart';
@@ -16,7 +17,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
+  OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+  OneSignal.initialize("4c477f3d-2679-457e-87b0-57808114f822");
+  OneSignal.Notifications.requestPermission(true);
   final sharePref = await SharedPreferences.getInstance();
   await initSupabase();
 

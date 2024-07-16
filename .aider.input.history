@@ -1,0 +1,9 @@
+
+# 2024-07-15 22:06:47.046214
++help clean the code in `lib/src/pages/register_page.dart` improve the ux/ui make it more align and better look
+
+# 2024-07-15 22:12:24.914670
++implement image picker logic using existing image_picker library. you should implement logic to upload the image and get the url and pass that url to sign up provider. The implementation of upload image should use reference to `lib/src/providers/property_provider.dart` 
+
+# 2024-07-15 22:16:55.323516
++I don't like the new look of register page you changed, can you revert it back to the orignal. but keep the cleaniness and structure the same

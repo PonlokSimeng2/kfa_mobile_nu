@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kfa_mobile_nu/src/models/property_model.dart';
 import '../helpers/build_context_helper.dart';
 import 'property_detail_page.dart';
 import '../providers/property_provider.dart';
@@ -66,14 +67,17 @@ class _PropertyListPageState extends ConsumerState<PropertyListPage> {
   }
 
   Widget _buildFilterButton(String label, IconData icon) {
-    final isSelected = _selectedFilter == label || (label == 'All' && _selectedFilter == null);
+    final isSelected =
+        _selectedFilter == label || (label == 'All' && _selectedFilter == null);
     return ElevatedButton.icon(
-      onPressed: () => setState(() => _selectedFilter = label == 'All' ? null : label),
+      onPressed: () =>
+          setState(() => _selectedFilter = label == 'All' ? null : label),
       icon: Icon(icon, color: isSelected ? Colors.white : Colors.grey),
       label: Text(label),
       style: ElevatedButton.styleFrom(
-        primary: isSelected ? Theme.of(context).primaryColor : Colors.white,
-        onPrimary: isSelected ? Colors.white : Colors.black,
+        foregroundColor: isSelected ? Colors.white : Colors.black,
+        backgroundColor:
+            isSelected ? Theme.of(context).primaryColor : Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
     );
@@ -97,15 +101,18 @@ class _GridView extends ConsumerWidget {
       itemBuilder: (context, index) {
         final paginated = ref.watch(propertyAtIndexProvider(index: index));
         return paginated?.when(
-          loading: () => const Center(child: CircularProgressIndicator()),
-          error: (error, stack) => Center(child: Text('Error: $error')),
-          data: (item) {
-            if (filter != null && item.listingType.name.toLowerCase() != filter!.toLowerCase()) {
-              return const SizedBox.shrink();
-            }
-            return _buildPropertyCard(context, item);
-          },
-        ) ?? const SizedBox.shrink();
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (error, stack) => Center(child: Text('Error: $error')),
+              data: (item) {
+                if (filter != null &&
+                    item.listingType.name.toLowerCase() !=
+                        filter!.toLowerCase()) {
+                  return const SizedBox.shrink();
+                }
+                return _buildPropertyCard(context, item);
+              },
+            ) ??
+            const SizedBox.shrink();
       },
     );
   }
@@ -121,12 +128,14 @@ class _GridView extends ConsumerWidget {
           children: [
             Expanded(
               child: ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(10)),
                 child: CachedNetworkImage(
                   imageUrl: item.images.first,
                   fit: BoxFit.cover,
                   width: double.infinity,
-                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                  placeholder: (context, url) =>
+                      const Center(child: CircularProgressIndicator()),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
@@ -145,13 +154,18 @@ class _GridView extends ConsumerWidget {
                   const SizedBox(height: 4),
                   Text(
                     '${item.price} \$',
-                    style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 4),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
-                      color: item.listingType.name.toLowerCase() == 'rent' ? Colors.blue : Colors.green,
+                      color: item.listingType.name.toLowerCase() == 'rent'
+                          ? Colors.blue
+                          : Colors.green,
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(

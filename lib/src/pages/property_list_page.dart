@@ -43,7 +43,7 @@ class _PropertyListPageState extends ConsumerState<PropertyListPage> {
                     ),
                   );
                 }
-                return _GridView(filter: _selectedFilter);
+                return _GridView(filter: _selectedFilter?.toLowerCase());
               },
             ),
           ),
@@ -90,25 +90,40 @@ class _GridView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return GridView.builder(
-      padding: const EdgeInsets.all(8),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 0.75,
-        mainAxisSpacing: 10,
-        crossAxisSpacing: 10,
-      ),
-      itemBuilder: (context, index) {
-        final paginated = ref.watch(propertyAtIndexProvider(index: index));
-        return paginated.when(
-          loading: () => const Center(child: CircularProgressIndicator()),
-          error: (error, _) => Center(child: Text('Error: $error')),
-          data: (item) {
-            if (filter != null &&
-                item.listingType.name.toLowerCase() != filter!.toLowerCase()) {
-              return const SizedBox.shrink();
-            }
-            return _buildPropertyCard(context, item);
+    return Consumer(
+      builder: (context, ref, _) {
+        final filteredItems = <PropertyModel>[];
+
+        // Pre-filter the items
+        for (int i = 0;; i++) {
+          final paginated = ref.watch(propertyAtIndexProvider(index: i));
+          if (paginated == null)
+            break; // Stop when we reach the end of the list
+
+          paginated.when(
+            loading: (_) {}, // Do nothing while loading
+            error: (_) {}, // Do nothing on error
+            data: (item) {
+              if (filter == null ||
+                  item.listingType.name.toLowerCase() ==
+                      filter!.toLowerCase()) {
+                filteredItems.add(item);
+              }
+            },
+          );
+        }
+
+        return GridView.builder(
+          padding: const EdgeInsets.all(8),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 0.75,
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
+          ),
+          itemCount: filteredItems.length,
+          itemBuilder: (context, index) {
+            return _buildPropertyCard(context, filteredItems[index]);
           },
         );
       },

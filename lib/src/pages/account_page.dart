@@ -1,145 +1,101 @@
-// ignore_for_file: prefer_const_constructors, import_of_legacy_library_into_null_safe, prefer_const_literals_to_create_immutables, deprecated_member_use, must_be_immutable, use_build_context_synchronously, non_constant_identifier_names, unused_field, unused_local_variable, prefer_typing_uninitialized_variables, unnecessary_string_interpolations, unused_import
-
-import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
-import 'package:getwidget/getwidget.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_cropper/image_cropper.dart';
+import 'package:flutter/foundation.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kfa_mobile_nu/constaints.dart';
-import 'package:kfa_mobile_nu/memorylocal/Local_data.dart';
-import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
-import 'package:kfa_mobile_nu/src/pages/login_page.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:getwidget/getwidget.dart';
+import 'package:kfa_mobile_nu/exports.dart';
+import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
+import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/cache_provider.dart';
-import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
-import 'package:kfa_mobile_nu/src/widgets/contantsWidget.dart';
-import 'package:kfa_mobile_nu/src/widgets/fieldBoxWidget.dart';
-import 'package:kfa_mobile_nu/src/widgets/singleBoxWidget.dart';
-import 'package:kfa_mobile_nu/src/widgets/twinBox_widget.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:kfa_mobile_nu/src/models/user_model.dart';
 
 class AccountPage extends ConsumerStatefulWidget {
-  const AccountPage({
-    Key? key,
-  }) : super(key: key);
+  const AccountPage({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<AccountPage> createState() => _AccountState();
+  ConsumerState<AccountPage> createState() => _AccountPageState();
 }
 
-class _AccountState extends ConsumerState<AccountPage> {
-//update data from api
-  String url =
-      "https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/users";
-
-//get image and crop
-  String? _imagepath;
-  File? _imagefile;
+class _AccountPageState extends ConsumerState<AccountPage> {
+  XFile? _file;
+  Uint8List? _imageBytes;
   bool _isObscure = true;
   final ImagePicker _picker = ImagePicker();
   final ImageCropper _cropper = ImageCropper();
-  var bank = [
-    'Bank',
-    'Private',
-    'Other',
-  ];
-  Random random = Random();
 
-  late File _image;
-  final picker = ImagePicker();
-  late String base64string;
-  XFile? _file;
-  Uint8List? imagebytes;
-  final ImagePicker imgpicker = ImagePicker();
-  String imagepath = "";
-  Future openImage() async {
+  TextEditingController _firstNameController = TextEditingController();
+  TextEditingController _lastNameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _openImage() async {
     try {
-      XFile? pickedFile =
-          await ImagePicker().pickImage(source: ImageSource.gallery);
-      //you can use ImageCourse.camera for Camera capture
+      final XFile? pickedFile =
+          await _picker.pickImage(source: ImageSource.gallery);
       if (pickedFile != null) {
-        imagepath = pickedFile.path;
-        CroppedFile? cropFile = await ImageCropper().cropImage(
+        CroppedFile? croppedFile = await _cropper.cropImage(
           sourcePath: pickedFile.path,
+          // aspectRatioPresets: [CropAspectRatioPreset.square],
           uiSettings: [
             AndroidUiSettings(
-              lockAspectRatio: false,
-              backgroundColor: Colors.blue,
-              initAspectRatio: CropAspectRatioPreset.original,
-            )
+              toolbarTitle: 'Crop Image',
+              toolbarColor: Colors.blue,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.square,
+              lockAspectRatio: true,
+            ),
+            IOSUiSettings(title: 'Crop Image'),
           ],
-          // aspectRatioPresets: [
-          //   CropAspectRatioPreset.original,
-          //   CropAspectRatioPreset.ratio16x9,
-          //   CropAspectRatioPreset.ratio3x2,
-          //   CropAspectRatioPreset.ratio4x3,
-          //   CropAspectRatioPreset.ratio5x3,
-          //   CropAspectRatioPreset.ratio5x4,
-          //   CropAspectRatioPreset.ratio7x5,
-          //   CropAspectRatioPreset.square,
-          // ],
         );
-        _file = XFile(cropFile!.path);
-        // imagebytes = _file.path;
-        // imagepath = pickedFile.path;
-        File? imagefile = File(cropFile.path); //convert Path to File
-        imagebytes = await imagefile.readAsBytes(); //convert to bytes
-        final String base64string =
-            base64.encode(imagebytes!); //convert bytes to base64 string
-        final Uint8List decodedbytes = base64.decode(base64string);
-        //decode base64 stirng to bytes
-        setState(() {
-          _file = imagefile as XFile;
-        });
-      } else {
-        print("No image is selected.");
+
+        if (croppedFile != null) {
+          final bytes = await File(croppedFile.path).readAsBytes();
+          setState(() {
+            _file = XFile(croppedFile.path);
+            _imageBytes = bytes;
+          });
+        }
       }
     } catch (e) {
-      print("error while picking file.");
+      print("Error picking or cropping image: $e");
     }
   }
 
-  List list_User_by_id = [];
-  var set_id_user;
-
-  Future logOut() async {
-    final prefs = ref.read(sharePrefProvider);
-    prefs.clear();
-    await ref.read(authProvider.notifier).signOut();
-    Fluttertoast.showToast(
-      msg: 'Log Out',
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
-      textColor: Colors.blue,
-      fontSize: 20,
-    );
-
-    //context.pushReplace((context) => Login(openAsPage: true));
+  Future<void> _updateUserData(UserModel user) async {
+    // Implement your update logic here
+    // For example:
+    // await ref.read(userProvider.notifier).updateUser(user);
+    Fluttertoast.showToast(msg: 'User data updated successfully');
   }
 
-  static List<PeopleModel> list = [];
-  //RegisterRequestModel_update? requestModel;
-  TextEditingController? Password;
-
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      // get_control_user_image;
-    });
+  Future<void> _logOut() async {
+    final prefs = ref.read(sharePrefProvider);
+    await prefs.clear();
+    await ref.read(authProvider.notifier).signOut();
+    ref.invalidate(currentUserProvider);
+    Fluttertoast.showToast(msg: 'Logged out successfully');
+    // Navigate to login page
   }
 
   @override
   Widget build(BuildContext context) {
-    final user = ref.watch(authProvider.select((value) => value));
-    // final controller = TextEditingController(text: user?.username);
+    final userAsync = ref.watch(currentUserProvider);
+
     return AuthWrapperWidget(
       child: Scaffold(
         backgroundColor: Color.fromARGB(255, 245, 250, 246),
@@ -148,353 +104,312 @@ class _AccountState extends ConsumerState<AccountPage> {
           elevation: 0,
           centerTitle: true,
           leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.chevron_left,
-              size: 35,
-            ),
+            onPressed: () => Navigator.pop(context),
+            icon: Icon(Icons.chevron_left, size: 35),
           ),
           title: Text(
             'Account',
             style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
+                color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
           ),
           toolbarHeight: 70,
         ),
-        body: SingleChildScrollView(
-          child: Container(
-            constraints: BoxConstraints(
-              maxWidth: double.infinity,
-              maxHeight: 750,
-            ),
-            decoration: BoxDecoration(
-              color: Colors.white,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: 200,
-                      decoration: BoxDecoration(
-                        color: kwhite_new,
-                        borderRadius: kBottomBorderRadius,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          left: 50,
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: InkWell(
-                                onTap: () async {
-                                  await openImage();
-                                  setState(() {
-                                    _file;
-                                  });
-                                },
-                                child: Stack(
-                                  alignment: Alignment.bottomCenter,
-                                  children: [
-                                    if (_file == null)
-                                      GFAvatar(
-                                        size: 65,
-                                        backgroundImage: NetworkImage(user?.photo ?? ''),
-                                      ),
-                                    if (_file != null)
-                                      GFAvatar(
-                                        size: 65,
-                                        backgroundImage:
-                                            MemoryImage(imagebytes!),
-                                      ),
-                                    Container(
-                                      height: 20,
-                                      width: 50,
-                                      alignment: Alignment.bottomCenter,
-                                      decoration: BoxDecoration(
-                                        color: Color.fromARGB(95, 67, 67, 67),
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                      child: Icon(
-                                        Icons.edit,
-                                        color: Colors.white,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Name : ${user?.firstName} ${user?.lastName}',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    'ID : ${user?.userId}',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        TwinBox(
-                          labelText1: 'Firstname',
-                          labelText2: 'Lastname',
-                          fname: '',
-                          lname: '',
-                          get_fname: (value) {
-                            setState(() {
-                              // requestModel!.first_name = value;
-                            });
-                          },
-                          get_lname: (value) {
-                            setState(() {
-                              // requestModel!.last_name = value;
-                            });
-                          },
-                        ),
-                        SizedBox(
-                          height: 2,
-                        ),
-                        //
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //     Dropdown(
-                        //       gender: widget.gender,
-                        //       get_gender: (value) {
-                        //         setState(() {
-                        //           requestModel!.gender = value;
-                        //         });
-                        //       },
-                        //     ),
-                        //     SizedBox(
-                        //       width: 6,
-                        //     ),
-                        //     // បិទសឹនបើមានការUpdate ដោយអនុញ្ញាតិអោយគេអាចធ្វើការកែប្រែបានចាំបើក​ SizedBoxខាងក្រោម ។
-                        //     SizedBox(
-                        //       height: 59,
-                        //       width: 140,
-                        //       child: DropdownButtonFormField<String>(
-                        //         onChanged: (String? newValue) {
-                        //           setState(() {
-                        //             requestModel!.known_from = newValue!;
-                        //           });
-                        //         },
-                        //         // validator: (String? value) {
-                        //         //   if (value?.isEmpty ?? true) {
-                        //         //     return 'Please select bank';
-                        //         //   }
-                        //         //   return null;
-                        //         // },
-                        //         value: widget.from,
-                        //         items: bank
-                        //             .map<DropdownMenuItem<String>>(
-                        //               (String value) =>
-                        //                   DropdownMenuItem<String>(
-                        //                 value: value,
-                        //                 child: Text(value),
-                        //               ),
-                        //             )
-                        //             .toList(),
-                        //         // add extra sugar..
-                        //         icon: Icon(
-                        //           Icons.arrow_drop_down,
-                        //           color: kwhite_new,
-                        //         ),
-
-                        //         decoration: InputDecoration(
-                        //           fillColor: Colors.white,
-                        //           filled: true,
-                        //           labelText: 'Bank',
-                        //           hintText: 'Select',
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
-                        SizedBox(
-                          height: 2,
-                        ),
-                        SingleBoxWidget(
-                          phone: '',
-                        ),
-                        SizedBox(
-                          height: 2,
-                        ),
-                        FieldBoxWidget(
-                          name: 'email',
-                          email: '',
-                          get_email: (value) {
-                            setState(() {
-                              // requestModel!.email = value;
-                            });
-                          },
-                        ),
-                        SizedBox(
-                          height: 2,
-                        ),
-                        if (Password != null)
-                          SizedBox(
-                            height: 60,
-                            width: 280,
-                            child: TextFormField(
-                              controller: Password,
-                              // initialValue: "list[0].password",
-                              onChanged: (input) {
-                                setState(() {
-                                  //requestModel!.password = input;
-                                });
-                              },
-                              obscureText: _isObscure,
-                              decoration: InputDecoration(
-                                fillColor: Color.fromARGB(255, 255, 255, 255),
-                                filled: true,
-                                labelText: 'Your Password',
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    color: Color.fromRGBO(169, 203, 56, 1),
-                                    _isObscure
-                                        ? Icons.visibility
-                                        : Icons.visibility_off,
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      _isObscure = !_isObscure;
-                                    });
-                                  },
-                                ),
-                              ),
-                              validator: (input) {
-                                if (input == null || input.isEmpty) {
-                                  return 'require *';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                      ],
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(60.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ElevatedButton(
-                            child: Text('Save Change'),
-                            onPressed: () async {
-                              if (_file != null) {
-                                // await uploadImage();
-                              }
-                              //final APIservice apIservice = APIservice();
-                              // await apIservice.update_user(
-                              //   requestModel!,
-                              //   user!.id,
-                              // );
-                              logOut();
-                            },
-                          ),
-                          SizedBox(width: 15),
-                          ElevatedButton(
-                            child: Text('Log Out'),
-                            onPressed: () {
-                              logOut();
-                            },
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-
-                // Column(
-                //   children: [
-
-                //   ],
-                // ),
-              ],
-            ),
-          ),
+        body: userAsync.when(
+          data: (user) => _buildContent(context, user),
+          loading: () => Center(child: CircularProgressIndicator()),
+          error: (error, stack) => Center(child: Text('Error: $error')),
         ),
       ),
     );
   }
-}
 
-class EditPicture extends StatelessWidget {
-  final String title;
-  final icon;
-  final press;
-  const EditPicture({
-    Key? key,
-    required this.title,
-    required this.icon,
-    this.press,
-  }) : super(key: key);
+  Widget _buildContent(BuildContext context, UserModel? user) {
+    if (user == null) {
+      return const Center(child: Text('No user data available'));
+    }
 
-  @override
-  Widget build(BuildContext context) {
-    return ListBody(
-      children: [
-        InkWell(
-          onTap: press,
-          splashColor: Colors.lightBlue,
-          child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Icon(
-                  icon,
-                  color: kwhite_new,
+    _firstNameController.text = user.firstName ?? '';
+    _lastNameController.text = user.lastName ?? '';
+    _emailController.text = user.email ?? '';
+    _phoneController.text = user.phone ?? '';
+
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          _buildProfileHeader(user),
+          _buildForm(user),
+          _buildActionButtons(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProfileHeader(UserModel user) {
+    return Container(
+      width: double.infinity,
+      height: 200,
+      decoration: const BoxDecoration(
+        color: Colors.blue, // kwhite_new
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(20),
+          bottomRight: Radius.circular(20),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 50),
+        child: Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: InkWell(
+                onTap: _openImage,
+                child: Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    GFAvatar(
+                      size: 65,
+                      backgroundImage: _imageBytes != null
+                          ? MemoryImage(_imageBytes!)
+                          : NetworkImage('') as ImageProvider,
+                    ),
+                    Container(
+                      height: 20,
+                      width: 50,
+                      alignment: Alignment.bottomCenter,
+                      decoration: BoxDecoration(
+                        color: Colors.black54,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child:
+                          const Icon(Icons.edit, color: Colors.white, size: 16),
+                    )
+                  ],
                 ),
               ),
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
-                ),
-              )
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              flex: 2,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Name: ${user.firstName} ${user.lastName}',
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    'ID: ${user.userId}',
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildForm(UserModel user) {
+    return Container(
+      padding: const EdgeInsets.all(32.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(30),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.blue.withOpacity(0.1),
+            spreadRadius: 10,
+            blurRadius: 20,
+            offset: Offset(0, 10),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Personal Information',
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: Colors.blue[800],
+              letterSpacing: 1.2,
+            ),
+          ),
+          SizedBox(height: 10),
+          Text(
+            'Update your profile details below',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.grey[600],
+              letterSpacing: 0.5,
+            ),
+          ),
+          SizedBox(height: 32),
+          _buildInputField(
+            icon: Icons.person,
+            label: 'First Name',
+            initialValue: user.firstName ?? '',
+            onChanged: (value) => _firstNameController.text = value,
+          ),
+          SizedBox(height: 24),
+          _buildInputField(
+            icon: Icons.person_outline,
+            label: 'Last Name',
+            initialValue: user.lastName ?? '',
+            onChanged: (value) => _lastNameController.text = value,
+          ),
+          SizedBox(height: 24),
+          _buildInputField(
+            icon: Icons.phone_android,
+            label: 'Phone',
+            initialValue: user.phone ?? '',
+            onChanged: (value) => _phoneController.text = value,
+            keyboardType: TextInputType.phone,
+          ),
+          SizedBox(height: 24),
+          _buildInputField(
+            icon: Icons.alternate_email,
+            label: 'Email',
+            initialValue: user.email ?? '',
+            onChanged: (value) => _emailController.text = value,
+            keyboardType: TextInputType.emailAddress,
+          ),
+          SizedBox(height: 24),
+          _buildPasswordField(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInputField({
+    required IconData icon,
+    required String label,
+    required String initialValue,
+    required Function(String) onChanged,
+    TextInputType keyboardType = TextInputType.text,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: Colors.grey[100],
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 3,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
+      child: TextFormField(
+        initialValue: initialValue,
+        onChanged: onChanged,
+        keyboardType: keyboardType,
+        style: TextStyle(fontSize: 16, color: Colors.black87),
+        decoration: InputDecoration(
+          prefixIcon: Icon(icon, color: Colors.blue[600], size: 22),
+          labelText: label,
+          labelStyle: TextStyle(color: Colors.grey[600], fontSize: 14),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide.none,
+          ),
+          filled: true,
+          fillColor: Colors.transparent,
+          contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPasswordField() {
+    return StatefulBuilder(
+      builder: (context, setState) {
+        return Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            color: Colors.grey[100],
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.1),
+                spreadRadius: 1,
+                blurRadius: 3,
+                offset: Offset(0, 2),
+              ),
             ],
           ),
-        ),
-      ],
+          child: TextFormField(
+            controller: _passwordController,
+            obscureText: _isObscure,
+            style: const TextStyle(fontSize: 16, color: Colors.black87),
+            decoration: InputDecoration(
+              prefixIcon:
+                  Icon(Icons.lock_outline, color: Colors.blue[600], size: 22),
+              labelText: 'Password',
+              labelStyle: TextStyle(color: Colors.grey[600], fontSize: 14),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: BorderSide.none,
+              ),
+              filled: true,
+              fillColor: Colors.transparent,
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _isObscure
+                      ? Icons.visibility_outlined
+                      : Icons.visibility_off_outlined,
+                  color: Colors.blue[600],
+                  size: 22,
+                ),
+                onPressed: () => setState(() => _isObscure = !_isObscure),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildActionButtons() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 24.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ElevatedButton(
+            child: const Text('Save Changes'),
+            onPressed: () async {
+              final updatedUser = UserModel(
+                id: ref.read(currentUserProvider).value!.id,
+                firstName: _firstNameController.text,
+                lastName: _lastNameController.text,
+                email: _emailController.text,
+                phone: _phoneController.text, userId: '', photo: '', vpoints: 0,
+                isAdmin: false, joinedAt: DateTime.now(),
+                // Add other fields as necessary
+              );
+              await _updateUserData(updatedUser);
+            },
+          ),
+          const SizedBox(width: 16),
+          ElevatedButton(
+            child: Text('Log Out'),
+            onPressed: _logOut,
+          )
+        ],
+      ),
     );
   }
 }
-
-// UpdateUserInfo()async{
-//   var username =
-// }

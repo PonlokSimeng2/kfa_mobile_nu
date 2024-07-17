@@ -69,7 +69,7 @@ class _MyAppState extends State<MyApp> {
       ),
       themeMode: ThemeMode.light,
       //home: TestPickImage(),
-      // home: const HomePage(),
+      home: const HomePage(),
       // home: AuthWrapperWidget(child: AddPropertyPage()),
       // home: Map_verbal_address_Sale_page(
       //   get_province: (value) {},
@@ -80,7 +80,7 @@ class _MyAppState extends State<MyApp> {
       // ),
       //home: GoogleMapScreen(),
       //home: AccountPage(),
-      home: RegisterPage(),
+      //home: RegisterPage(),
       //home: LoginPage(openAsPage: true),
       builder: BotToastInit(),
     );

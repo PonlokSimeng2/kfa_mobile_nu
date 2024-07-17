@@ -28,4 +28,6 @@ class UserModel with _$UserModel {
       _$UserModelFromJson(json);
 
   static const TableBuilder table = _tableUserModel;
+
+  get username => null;
 }

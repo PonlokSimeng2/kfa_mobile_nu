@@ -154,8 +154,7 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
                                   child: Column(
                                     children: [
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
                                             '${widget.data.listingType.name.capitalize()}',
@@ -165,20 +164,31 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
+                                          Text(
+                                            '${widget.data.price} \$',
+                                            style: const TextStyle(
+                                              color: Colors.blue,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
                                         ],
                                       ),
-                                      const SizedBox(
-                                        height: 5,
+                                      const SizedBox(height: 5),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              widget.data.title,
+                                              style: const TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 16,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      // Row(
-                                      //   mainAxisAlignment:
-                                      //       MainAxisAlignment.start,
-                                      //   children: [
-                                      //     Text(
-                                      //       widget.data.title.toString(),
-                                      //     ),
-                                      //   ],
-                                      // )
                                     ],
                                   ),
                                 ),
@@ -196,154 +206,31 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
                                     child: ListView(
                                       scrollDirection: Axis.horizontal,
                                       children: [
-                                        SizedBox(
-                                          height: MediaQuery.of(context)
-                                              .size
-                                              .height,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.2,
-                                          child: Column(
-                                            children: [
-                                              const Icon(
-                                                Icons.bathtub,
-                                                size: 45,
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    '${widget.data.floors}',
-                                                    style: textstyleblackbold,
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 5,
-                                                  ),
-                                                  Text(
-                                                    'Floor',
-                                                    style: textstyleblackbold,
-                                                  ),
-                                                ],
-                                              )
-                                            ],
-                                          ),
+                                        _buildFeatureItem(
+                                          icon: Icons.layers,
+                                          value: widget.data.floors,
+                                          label: 'Floor',
                                         ),
                                         const SizedBox(
                                           width: 10,
                                         ),
-                                        SizedBox(
-                                          // color: Colors.amber,
-                                          height: MediaQuery.of(context)
-                                              .size
-                                              .height,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.3,
-                                          child: Column(
-                                            children: [
-                                              const Icon(
-                                                Icons.bed,
-                                                size: 45,
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    '${widget.data.bedrooms}',
-                                                    style: textstyleblackbold,
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 5,
-                                                  ),
-                                                  Text(
-                                                    'Bed',
-                                                    style: textstyleblackbold,
-                                                  ),
-                                                ],
-                                              )
-                                            ],
-                                          ),
+                                        _buildFeatureItem(
+                                          icon: Icons.bed,
+                                          value: widget.data.bedrooms,
+                                          label: 'Bed',
                                         ),
-                                        const SizedBox(
-                                          width: 10,
+                                        const SizedBox(width: 10),
+                                        _buildFeatureItem(
+                                          icon: Icons.bathtub,
+                                          value: widget.data.bathrooms,
+                                          label: 'Bath',
                                         ),
-                                        SizedBox(
-                                          //color: Colors.amber,
-                                          height: MediaQuery.of(context)
-                                              .size
-                                              .height,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.2,
-                                          child: Column(
-                                            children: [
-                                              const Icon(
-                                                Icons.bathtub,
-                                                size: 45,
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    '${widget.data.bathrooms}',
-                                                    style: textstyleblackbold,
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 5,
-                                                  ),
-                                                  Text(
-                                                    'Bath',
-                                                    style: textstyleblackbold,
-                                                  ),
-                                                ],
-                                              )
-                                            ],
-                                          ),
+                                        const SizedBox(width: 10),
+                                        _buildFeatureItem(
+                                          icon: Icons.weekend,
+                                          value: widget.data.livingRooms,
+                                          label: 'Living',
                                         ),
-                                        const SizedBox(
-                                          width: 4,
-                                        ),
-                                        SizedBox(
-                                          // color: Colors.amber,
-                                          height: MediaQuery.of(context)
-                                              .size
-                                              .height,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.4,
-                                          child: Column(
-                                            children: [
-                                              const Icon(
-                                                Icons.bathtub,
-                                                size: 45,
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    '${widget.data.livingRooms}',
-                                                    style: textstyleblackbold,
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 5,
-                                                  ),
-                                                  Text(
-                                                    'Living Room',
-                                                    style: textstyleblackbold,
-                                                  ),
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                        )
                                       ],
                                     ),
                                   ),
@@ -522,6 +409,29 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildFeatureItem({
+    required IconData icon,
+    required int value,
+    required String label,
+  }) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.2,
+      child: Column(
+        children: [
+          Icon(icon, size: 45),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('$value', style: textstyleblackbold),
+              const SizedBox(width: 5),
+              Text(label, style: textstyleblackbold),
+            ],
+          )
+        ],
       ),
     );
   }

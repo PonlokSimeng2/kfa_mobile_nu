@@ -12,13 +12,15 @@ class AdminHomePage extends StatelessWidget {
         child: ListView(
           children: [
             ListTile(
+              leading: const Icon(Icons.list),
               title: const Text('User List'),
               onTap: () {
                 // TODO: Implement navigation to user list
+                // Navigate to the user list page
               },
             ),
             ListTile(
-              title: const Text('Property'),
+              title: const Text('Property '),
               onTap: () {
                 // TODO: Implement navigation to property
               },

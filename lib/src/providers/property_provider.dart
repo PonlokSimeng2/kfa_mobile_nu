@@ -1,16 +1,18 @@
 import 'dart:io';
 
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as p;
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../../exports.dart';
+import '../models/property_model.dart';
+import '../models/property_model.table.dart';
 import '../models/property_type_model.dart';
 import '../models/province_model.dart';
 import 'auth_provider.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../../exports.dart';
-import '../models/property_model.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:path/path.dart' as p;
+
 part 'property_provider.freezed.dart';
 part 'property_provider.g.dart';
 
@@ -58,9 +60,7 @@ PaginatedItem<PropertyModel>? propertyAtIndex(
 
 @freezed
 class InsertPropertyState
-    with
-        _$InsertPropertyState,
-        ProviderStatusClassMixin<InsertPropertyState, void> {
+    with _$InsertPropertyState, ProviderStatusClassMixin<InsertPropertyState, void> {
   const InsertPropertyState._();
 
   const factory InsertPropertyState({
@@ -137,8 +137,7 @@ class InsertProperty extends _$InsertProperty with _$InsertPropertyForm {
         for (final xFile in state.imageFiles) {
           final path = xFile.path;
           final file = File(path);
-          final newPath =
-              '${DateTime.now().microsecondsSinceEpoch}${p.extension(path)}';
+          final newPath = '${DateTime.now().microsecondsSinceEpoch}${p.extension(path)}';
 
           await sb.storage.from('files').upload(newPath, file);
 
@@ -150,27 +149,27 @@ class InsertProperty extends _$InsertProperty with _$InsertPropertyForm {
         try {
           await sb.from(PropertyModel.table.tableName).insert(
             {
-              'listing_type': state.propertyListingType.name,
-              'images': imageUrls,
-              'title': state.title,
-              'description': state.description,
-              'longitude': state.longitude,
-              'latitude': state.latitude,
-              'price': state.price,
-              'sqm': state.sqm,
-              'bedrooms': state.bedrooms,
-              'bathrooms': state.bathrooms,
-              'floors': state.floors,
-              'parking': state.parking,
-              'price_per_sqm': state.pricePerSqm,
-              'living_rooms': state.livingRooms,
-              'land_length': state.landLength,
-              'land_width': state.landWidth,
-              'building_length': state.buildingLength,
-              'building_width': state.buildingWidth,
-              'user_id': userId,
-              'province_id': state.province!.id,
-              'property_type_id': state.propertyType!.id,
+              PropertyTable.listingType: state.propertyListingType.name,
+              PropertyTable.images: imageUrls,
+              PropertyTable.title: state.title,
+              PropertyTable.description: state.description,
+              PropertyTable.longitude: state.longitude,
+              PropertyTable.latitude: state.latitude,
+              PropertyTable.price: state.price,
+              PropertyTable.sqm: state.sqm,
+              PropertyTable.bedrooms: state.bedrooms,
+              PropertyTable.bathrooms: state.bathrooms,
+              PropertyTable.floors: state.floors,
+              PropertyTable.parking: state.parking,
+              PropertyTable.pricePerSqm: state.pricePerSqm,
+              PropertyTable.livingRooms: state.livingRooms,
+              PropertyTable.landLength: state.landLength,
+              PropertyTable.landWidth: state.landWidth,
+              PropertyTable.houseLength: state.buildingLength,
+              PropertyTable.houseWidth: state.buildingWidth,
+              PropertyTable.userId: userId,
+              PropertyTable.provinceId: state.province!.id,
+              PropertyTable.propertyTypeId: state.propertyType!.id,
             },
           );
         } catch (e) {

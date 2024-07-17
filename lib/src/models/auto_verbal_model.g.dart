@@ -10,36 +10,60 @@ _$AutoVerbalModelImpl _$$AutoVerbalModelImplFromJson(
         Map<String, dynamic> json) =>
     _$AutoVerbalModelImpl(
       id: (json['id'] as num).toInt(),
-      autoVerbalId: json['autoVerbalId'] as String,
+      autoVerbalId: json['auto_verbal_id'] as String,
       image: json['image'] as String,
-      propertyTypeId: (json['propertyTypeId'] as num).toInt(),
-      bankid: (json['bankid'] as num?)?.toInt(),
+      propertyTypeId: (json['property_type_id'] as num).toInt(),
+      bankId: (json['bank_id'] as num?)?.toInt(),
       latitude: (json['latitude'] as num).toDouble(),
       longitude: (json['longitude'] as num).toDouble(),
-      userId: json['userId'] as String,
-      ownerName: json['ownerName'] as String,
-      ownerPhone: json['ownerPhone'] as String,
-      bankOfficerName: json['bankOfficerName'] as String?,
-      bankOfficerPhone: json['bankOfficerPhone'] as String?,
+      userId: json['user_id'] as String,
+      ownerName: json['owner_name'] as String,
+      ownerPhone: json['owner_phone'] as String,
+      bankOfficerName: json['bank_officer_name'] as String?,
+      bankOfficerPhone: json['bank_officer_phone'] as String?,
       address: json['address'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
+      createdAt: DateTime.parse(json['created_at'] as String),
     );
 
 Map<String, dynamic> _$$AutoVerbalModelImplToJson(
         _$AutoVerbalModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'autoVerbalId': instance.autoVerbalId,
+      'auto_verbal_id': instance.autoVerbalId,
       'image': instance.image,
-      'propertyTypeId': instance.propertyTypeId,
-      'bankid': instance.bankid,
+      'property_type_id': instance.propertyTypeId,
+      'bank_id': instance.bankId,
       'latitude': instance.latitude,
       'longitude': instance.longitude,
-      'userId': instance.userId,
-      'ownerName': instance.ownerName,
-      'ownerPhone': instance.ownerPhone,
-      'bankOfficerName': instance.bankOfficerName,
-      'bankOfficerPhone': instance.bankOfficerPhone,
+      'user_id': instance.userId,
+      'owner_name': instance.ownerName,
+      'owner_phone': instance.ownerPhone,
+      'bank_officer_name': instance.bankOfficerName,
+      'bank_officer_phone': instance.bankOfficerPhone,
       'address': instance.address,
-      'createdAt': instance.createdAt.toIso8601String(),
+      'created_at': instance.createdAt.toIso8601String(),
     };
+
+// **************************************************************************
+// TableModelGenerator
+// **************************************************************************
+
+const _tableAutoVerbalModel = TableBuilder(
+  tableName: "auto_verbals",
+  columns: [
+    ColumnBuilder('id'),
+    ColumnBuilder('auto_verbal_id'),
+    ColumnBuilder('image'),
+    ColumnBuilder('property_type_id'),
+    ColumnBuilder('bank_id'),
+    ColumnBuilder('latitude'),
+    ColumnBuilder('longitude'),
+    ColumnBuilder('user_id'),
+    ColumnBuilder('owner_name'),
+    ColumnBuilder('owner_phone'),
+    ColumnBuilder('bank_officer_name'),
+    ColumnBuilder('bank_officer_phone'),
+    ColumnBuilder('address'),
+    ColumnBuilder('created_at'),
+  ],
+);

@@ -1161,7 +1161,7 @@ class _PropertyAtIndexProviderElement
   int get index => (origin as PropertyAtIndexProvider).index;
 }
 
-String _$insertPropertyHash() => r'4932c1c556270e032c431c2b76422e53ce0c20e9';
+String _$insertPropertyHash() => r'9063ebc5ccde9b895fc6d75059eaad103e57c067';
 
 /// See also [InsertProperty].
 @ProviderFor(InsertProperty)

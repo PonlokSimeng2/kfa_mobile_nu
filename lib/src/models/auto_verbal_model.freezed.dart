@@ -20,19 +20,33 @@ AutoVerbalModel _$AutoVerbalModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AutoVerbalModel {
+  @JsonKey(name: AutoVerbalTable.id)
   int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.autoVerbalId)
   String get autoVerbalId => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.image)
   String get image => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.propertyTypeId)
   int get propertyTypeId => throw _privateConstructorUsedError;
-  int? get bankid => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.bankId)
+  int? get bankId => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.latitude)
   double get latitude => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.longitude)
   double get longitude => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.userId)
   String get userId => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.ownerName)
   String get ownerName => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.ownerPhone)
   String get ownerPhone => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.bankOfficerName)
   String? get bankOfficerName => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.bankOfficerPhone)
   String? get bankOfficerPhone => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.address)
   String get address => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.createdAt)
   DateTime get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -48,20 +62,20 @@ abstract class $AutoVerbalModelCopyWith<$Res> {
       _$AutoVerbalModelCopyWithImpl<$Res, AutoVerbalModel>;
   @useResult
   $Res call(
-      {int id,
-      String autoVerbalId,
-      String image,
-      int propertyTypeId,
-      int? bankid,
-      double latitude,
-      double longitude,
-      String userId,
-      String ownerName,
-      String ownerPhone,
-      String? bankOfficerName,
-      String? bankOfficerPhone,
-      String address,
-      DateTime createdAt});
+      {@JsonKey(name: AutoVerbalTable.id) int id,
+      @JsonKey(name: AutoVerbalTable.autoVerbalId) String autoVerbalId,
+      @JsonKey(name: AutoVerbalTable.image) String image,
+      @JsonKey(name: AutoVerbalTable.propertyTypeId) int propertyTypeId,
+      @JsonKey(name: AutoVerbalTable.bankId) int? bankId,
+      @JsonKey(name: AutoVerbalTable.latitude) double latitude,
+      @JsonKey(name: AutoVerbalTable.longitude) double longitude,
+      @JsonKey(name: AutoVerbalTable.userId) String userId,
+      @JsonKey(name: AutoVerbalTable.ownerName) String ownerName,
+      @JsonKey(name: AutoVerbalTable.ownerPhone) String ownerPhone,
+      @JsonKey(name: AutoVerbalTable.bankOfficerName) String? bankOfficerName,
+      @JsonKey(name: AutoVerbalTable.bankOfficerPhone) String? bankOfficerPhone,
+      @JsonKey(name: AutoVerbalTable.address) String address,
+      @JsonKey(name: AutoVerbalTable.createdAt) DateTime createdAt});
 }
 
 /// @nodoc
@@ -81,7 +95,7 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
     Object? autoVerbalId = null,
     Object? image = null,
     Object? propertyTypeId = null,
-    Object? bankid = freezed,
+    Object? bankId = freezed,
     Object? latitude = null,
     Object? longitude = null,
     Object? userId = null,
@@ -109,9 +123,9 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
           ? _value.propertyTypeId
           : propertyTypeId // ignore: cast_nullable_to_non_nullable
               as int,
-      bankid: freezed == bankid
-          ? _value.bankid
-          : bankid // ignore: cast_nullable_to_non_nullable
+      bankId: freezed == bankId
+          ? _value.bankId
+          : bankId // ignore: cast_nullable_to_non_nullable
               as int?,
       latitude: null == latitude
           ? _value.latitude
@@ -162,20 +176,20 @@ abstract class _$$AutoVerbalModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
-      String autoVerbalId,
-      String image,
-      int propertyTypeId,
-      int? bankid,
-      double latitude,
-      double longitude,
-      String userId,
-      String ownerName,
-      String ownerPhone,
-      String? bankOfficerName,
-      String? bankOfficerPhone,
-      String address,
-      DateTime createdAt});
+      {@JsonKey(name: AutoVerbalTable.id) int id,
+      @JsonKey(name: AutoVerbalTable.autoVerbalId) String autoVerbalId,
+      @JsonKey(name: AutoVerbalTable.image) String image,
+      @JsonKey(name: AutoVerbalTable.propertyTypeId) int propertyTypeId,
+      @JsonKey(name: AutoVerbalTable.bankId) int? bankId,
+      @JsonKey(name: AutoVerbalTable.latitude) double latitude,
+      @JsonKey(name: AutoVerbalTable.longitude) double longitude,
+      @JsonKey(name: AutoVerbalTable.userId) String userId,
+      @JsonKey(name: AutoVerbalTable.ownerName) String ownerName,
+      @JsonKey(name: AutoVerbalTable.ownerPhone) String ownerPhone,
+      @JsonKey(name: AutoVerbalTable.bankOfficerName) String? bankOfficerName,
+      @JsonKey(name: AutoVerbalTable.bankOfficerPhone) String? bankOfficerPhone,
+      @JsonKey(name: AutoVerbalTable.address) String address,
+      @JsonKey(name: AutoVerbalTable.createdAt) DateTime createdAt});
 }
 
 /// @nodoc
@@ -193,7 +207,7 @@ class __$$AutoVerbalModelImplCopyWithImpl<$Res>
     Object? autoVerbalId = null,
     Object? image = null,
     Object? propertyTypeId = null,
-    Object? bankid = freezed,
+    Object? bankId = freezed,
     Object? latitude = null,
     Object? longitude = null,
     Object? userId = null,
@@ -221,9 +235,9 @@ class __$$AutoVerbalModelImplCopyWithImpl<$Res>
           ? _value.propertyTypeId
           : propertyTypeId // ignore: cast_nullable_to_non_nullable
               as int,
-      bankid: freezed == bankid
-          ? _value.bankid
-          : bankid // ignore: cast_nullable_to_non_nullable
+      bankId: freezed == bankId
+          ? _value.bankId
+          : bankId // ignore: cast_nullable_to_non_nullable
               as int?,
       latitude: null == latitude
           ? _value.latitude
@@ -267,58 +281,77 @@ class __$$AutoVerbalModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AutoVerbalModelImpl implements _AutoVerbalModel {
+@TableModel(AutoVerbalTable.table)
+class _$AutoVerbalModelImpl extends _AutoVerbalModel {
   _$AutoVerbalModelImpl(
-      {required this.id,
-      required this.autoVerbalId,
-      required this.image,
+      {@JsonKey(name: AutoVerbalTable.id) required this.id,
+      @JsonKey(name: AutoVerbalTable.autoVerbalId) required this.autoVerbalId,
+      @JsonKey(name: AutoVerbalTable.image) required this.image,
+      @JsonKey(name: AutoVerbalTable.propertyTypeId)
       required this.propertyTypeId,
-      required this.bankid,
-      required this.latitude,
-      required this.longitude,
-      required this.userId,
-      required this.ownerName,
-      required this.ownerPhone,
+      @JsonKey(name: AutoVerbalTable.bankId) required this.bankId,
+      @JsonKey(name: AutoVerbalTable.latitude) required this.latitude,
+      @JsonKey(name: AutoVerbalTable.longitude) required this.longitude,
+      @JsonKey(name: AutoVerbalTable.userId) required this.userId,
+      @JsonKey(name: AutoVerbalTable.ownerName) required this.ownerName,
+      @JsonKey(name: AutoVerbalTable.ownerPhone) required this.ownerPhone,
+      @JsonKey(name: AutoVerbalTable.bankOfficerName)
       required this.bankOfficerName,
+      @JsonKey(name: AutoVerbalTable.bankOfficerPhone)
       required this.bankOfficerPhone,
-      required this.address,
-      required this.createdAt});
+      @JsonKey(name: AutoVerbalTable.address) required this.address,
+      @JsonKey(name: AutoVerbalTable.createdAt) required this.createdAt})
+      : super._();
 
   factory _$AutoVerbalModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$AutoVerbalModelImplFromJson(json);
 
   @override
+  @JsonKey(name: AutoVerbalTable.id)
   final int id;
   @override
+  @JsonKey(name: AutoVerbalTable.autoVerbalId)
   final String autoVerbalId;
   @override
+  @JsonKey(name: AutoVerbalTable.image)
   final String image;
   @override
+  @JsonKey(name: AutoVerbalTable.propertyTypeId)
   final int propertyTypeId;
   @override
-  final int? bankid;
+  @JsonKey(name: AutoVerbalTable.bankId)
+  final int? bankId;
   @override
+  @JsonKey(name: AutoVerbalTable.latitude)
   final double latitude;
   @override
+  @JsonKey(name: AutoVerbalTable.longitude)
   final double longitude;
   @override
+  @JsonKey(name: AutoVerbalTable.userId)
   final String userId;
   @override
+  @JsonKey(name: AutoVerbalTable.ownerName)
   final String ownerName;
   @override
+  @JsonKey(name: AutoVerbalTable.ownerPhone)
   final String ownerPhone;
   @override
+  @JsonKey(name: AutoVerbalTable.bankOfficerName)
   final String? bankOfficerName;
   @override
+  @JsonKey(name: AutoVerbalTable.bankOfficerPhone)
   final String? bankOfficerPhone;
   @override
+  @JsonKey(name: AutoVerbalTable.address)
   final String address;
   @override
+  @JsonKey(name: AutoVerbalTable.createdAt)
   final DateTime createdAt;
 
   @override
   String toString() {
-    return 'AutoVerbalModel(id: $id, autoVerbalId: $autoVerbalId, image: $image, propertyTypeId: $propertyTypeId, bankid: $bankid, latitude: $latitude, longitude: $longitude, userId: $userId, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, address: $address, createdAt: $createdAt)';
+    return 'AutoVerbalModel(id: $id, autoVerbalId: $autoVerbalId, image: $image, propertyTypeId: $propertyTypeId, bankId: $bankId, latitude: $latitude, longitude: $longitude, userId: $userId, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, address: $address, createdAt: $createdAt)';
   }
 
   @override
@@ -332,7 +365,7 @@ class _$AutoVerbalModelImpl implements _AutoVerbalModel {
             (identical(other.image, image) || other.image == image) &&
             (identical(other.propertyTypeId, propertyTypeId) ||
                 other.propertyTypeId == propertyTypeId) &&
-            (identical(other.bankid, bankid) || other.bankid == bankid) &&
+            (identical(other.bankId, bankId) || other.bankId == bankId) &&
             (identical(other.latitude, latitude) ||
                 other.latitude == latitude) &&
             (identical(other.longitude, longitude) ||
@@ -359,7 +392,7 @@ class _$AutoVerbalModelImpl implements _AutoVerbalModel {
       autoVerbalId,
       image,
       propertyTypeId,
-      bankid,
+      bankId,
       latitude,
       longitude,
       userId,
@@ -385,53 +418,74 @@ class _$AutoVerbalModelImpl implements _AutoVerbalModel {
   }
 }
 
-abstract class _AutoVerbalModel implements AutoVerbalModel {
+abstract class _AutoVerbalModel extends AutoVerbalModel {
   factory _AutoVerbalModel(
-      {required final int id,
+      {@JsonKey(name: AutoVerbalTable.id) required final int id,
+      @JsonKey(name: AutoVerbalTable.autoVerbalId)
       required final String autoVerbalId,
-      required final String image,
+      @JsonKey(name: AutoVerbalTable.image) required final String image,
+      @JsonKey(name: AutoVerbalTable.propertyTypeId)
       required final int propertyTypeId,
-      required final int? bankid,
-      required final double latitude,
-      required final double longitude,
-      required final String userId,
-      required final String ownerName,
+      @JsonKey(name: AutoVerbalTable.bankId) required final int? bankId,
+      @JsonKey(name: AutoVerbalTable.latitude) required final double latitude,
+      @JsonKey(name: AutoVerbalTable.longitude) required final double longitude,
+      @JsonKey(name: AutoVerbalTable.userId) required final String userId,
+      @JsonKey(name: AutoVerbalTable.ownerName) required final String ownerName,
+      @JsonKey(name: AutoVerbalTable.ownerPhone)
       required final String ownerPhone,
+      @JsonKey(name: AutoVerbalTable.bankOfficerName)
       required final String? bankOfficerName,
+      @JsonKey(name: AutoVerbalTable.bankOfficerPhone)
       required final String? bankOfficerPhone,
-      required final String address,
+      @JsonKey(name: AutoVerbalTable.address) required final String address,
+      @JsonKey(name: AutoVerbalTable.createdAt)
       required final DateTime createdAt}) = _$AutoVerbalModelImpl;
+  _AutoVerbalModel._() : super._();
 
   factory _AutoVerbalModel.fromJson(Map<String, dynamic> json) =
       _$AutoVerbalModelImpl.fromJson;
 
   @override
+  @JsonKey(name: AutoVerbalTable.id)
   int get id;
   @override
+  @JsonKey(name: AutoVerbalTable.autoVerbalId)
   String get autoVerbalId;
   @override
+  @JsonKey(name: AutoVerbalTable.image)
   String get image;
   @override
+  @JsonKey(name: AutoVerbalTable.propertyTypeId)
   int get propertyTypeId;
   @override
-  int? get bankid;
+  @JsonKey(name: AutoVerbalTable.bankId)
+  int? get bankId;
   @override
+  @JsonKey(name: AutoVerbalTable.latitude)
   double get latitude;
   @override
+  @JsonKey(name: AutoVerbalTable.longitude)
   double get longitude;
   @override
+  @JsonKey(name: AutoVerbalTable.userId)
   String get userId;
   @override
+  @JsonKey(name: AutoVerbalTable.ownerName)
   String get ownerName;
   @override
+  @JsonKey(name: AutoVerbalTable.ownerPhone)
   String get ownerPhone;
   @override
+  @JsonKey(name: AutoVerbalTable.bankOfficerName)
   String? get bankOfficerName;
   @override
+  @JsonKey(name: AutoVerbalTable.bankOfficerPhone)
   String? get bankOfficerPhone;
   @override
+  @JsonKey(name: AutoVerbalTable.address)
   String get address;
   @override
+  @JsonKey(name: AutoVerbalTable.createdAt)
   DateTime get createdAt;
   @override
   @JsonKey(ignore: true)

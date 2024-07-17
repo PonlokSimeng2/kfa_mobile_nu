@@ -2,12 +2,11 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:kfa_mobile_nu/src/pages/login_page.dart';
-import 'package:kfa_mobile_nu/src/pages/register_page.dart';
-import 'exports.dart';
-import 'provider_observers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'exports.dart';
 import 'firebase_options.dart';
+import 'provider_observers.dart';
 import 'src/pages/home_page.dart';
 import 'src/providers/cache_provider.dart';
 
@@ -65,8 +64,8 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       themeMode: ThemeMode.light,
-      //home: TestPickImage(),
       home: const HomePage(),
+      //home: TestPickImage(),
       // home: AuthWrapperWidget(child: AddPropertyPage()),
       // home: Map_verbal_address_Sale_page(
       //   get_province: (value) {},

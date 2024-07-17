@@ -28,14 +28,23 @@ _$PropertyModelImpl _$$PropertyModelImplFromJson(Map<String, dynamic> json) =>
       landLength: (json['land_length'] as num).toDouble(),
       landWidth: (json['land_width'] as num).toDouble(),
       houseLength: (json['house_length'] as num?)?.toDouble(),
-      houseWidth: (json['house_width'] as num?)?.toDouble(),
       pricePerSqm: (json['price_per_sqm'] as num).toDouble(),
+      houseWidth: (json['house_width'] as num?)?.toDouble(),
       createdAt: DateTime.parse(json['created_at'] as String),
       user: UserModel.fromJson(json['user'] as Map<String, dynamic>),
       propertyType: PropertyTypeModel.fromJson(
           json['propertyType'] as Map<String, dynamic>),
       province:
           ProvinceModel.fromJson(json['province'] as Map<String, dynamic>),
+      approvedAt: json['approved_at'] == null
+          ? null
+          : DateTime.parse(json['approved_at'] as String),
+      approvedBy: json['approvedBy'] == null
+          ? null
+          : UserModel.fromJson(json['approvedBy'] as Map<String, dynamic>),
+      rejectedAt: json['rejected_at'] == null
+          ? null
+          : DateTime.parse(json['rejected_at'] as String),
     );
 
 Map<String, dynamic> _$$PropertyModelImplToJson(_$PropertyModelImpl instance) =>
@@ -58,12 +67,15 @@ Map<String, dynamic> _$$PropertyModelImplToJson(_$PropertyModelImpl instance) =>
       'land_length': instance.landLength,
       'land_width': instance.landWidth,
       'house_length': instance.houseLength,
-      'house_width': instance.houseWidth,
       'price_per_sqm': instance.pricePerSqm,
+      'house_width': instance.houseWidth,
       'created_at': instance.createdAt.toIso8601String(),
       'user': instance.user.toJson(),
       'propertyType': instance.propertyType.toJson(),
       'province': instance.province.toJson(),
+      'approved_at': instance.approvedAt?.toIso8601String(),
+      'approvedBy': instance.approvedBy?.toJson(),
+      'rejected_at': instance.rejectedAt?.toIso8601String(),
     };
 
 const _$PropertyListingTypeEnumMap = {
@@ -96,8 +108,8 @@ const _tablePropertyModel = TableBuilder(
     ColumnBuilder('land_length'),
     ColumnBuilder('land_width'),
     ColumnBuilder('house_length'),
-    ColumnBuilder('house_width'),
     ColumnBuilder('price_per_sqm'),
+    ColumnBuilder('house_width'),
     ColumnBuilder('created_at'),
     ColumnBuilder.join(UserModel.table,
         key: "user", candidateKey: null, foreignKey: 'user_id'),
@@ -107,5 +119,9 @@ const _tablePropertyModel = TableBuilder(
         foreignKey: 'property_type_id'),
     ColumnBuilder.join(ProvinceModel.table,
         key: "province", candidateKey: null, foreignKey: 'province_id'),
+    ColumnBuilder('approved_at'),
+    ColumnBuilder.join(UserModel.table,
+        key: "approvedBy", candidateKey: null, foreignKey: 'approved_by'),
+    ColumnBuilder('rejected_at'),
   ],
 );

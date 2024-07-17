@@ -1,0 +1,21 @@
+
+# 2024-07-15 22:06:47.046214
++help clean the code in `lib/src/pages/register_page.dart` improve the ux/ui make it more align and better look
+
+# 2024-07-15 22:12:24.914670
++implement image picker logic using existing image_picker library. you should implement logic to upload the image and get the url and pass that url to sign up provider. The implementation of upload image should use reference to `lib/src/providers/property_provider.dart` 
+
+# 2024-07-15 22:16:55.323516
++I don't like the new look of register page you changed, can you revert it back to the orignal. but keep the cleaniness and structure the same
+
+# 2024-07-17 11:02:33.280987
++I want to add filter Rent and Sale button in `lib/src/pages/property_list_page.dart` to make user can see type of Rent or Sale Property 
+
+# 2024-07-17 11:25:47.619373
++could you generate lib/src/pages/property_list_page.dart to make it more beautiful and select Rent Sale or All it sort data and don't make it blank when no data
+
+# 2024-07-17 11:46:17.420009
++it still show blank on UI and I got error in GridView.builder on `loading:`The argument type 'Center Function()' can't be assigned to the parameter type 'Widget? Function(bool)'.and on error:The argument type 'Center Function(Failure, dynamic)' can't be assigned to the parameter type 'Widget? Function(Failure)'.
+
+# 2024-07-17 14:20:13.665696
++I want to show Image , Name, ID, Firstname,Lastname and email in `lib/src/pages/account_page.dart`affter user login account. User data is already  in `lib/src/models/user_model.dart`you can check it 

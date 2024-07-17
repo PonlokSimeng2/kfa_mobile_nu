@@ -162,6 +162,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                             border: Border.all(color: Colors.lightBlue),
                           ),
                           child: GoogleMap(
+                            mapType: MapType.hybrid,
                             onMapCreated: _onMapCreated,
                             markers: _markers,
                             initialCameraPosition: CameraPosition(

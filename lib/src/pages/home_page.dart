@@ -80,11 +80,11 @@ class __UserHomeState extends ConsumerState<_UserHome> {
               context.push((context) => const ReportVerbalPage());
             },
           ),
-          ListTile(
-            leading: const Icon(Icons.money_off),
-            title: const Text('Top Up'),
-            onTap: () {},
-          ),
+          // ListTile(
+          //   leading: const Icon(Icons.money_off),
+          //   title: const Text('Top Up'),
+          //   onTap: () {},
+          // ),
           ListTile(
             leading: const Icon(Icons.contact_phone),
             title: const Text('Contact Us'),

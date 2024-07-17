@@ -208,7 +208,7 @@ class _AccountState extends ConsumerState<AccountPage> {
                                     if (_file == null)
                                       GFAvatar(
                                         size: 65,
-                                        backgroundImage: NetworkImage('$url'),
+                                        backgroundImage: NetworkImage(user?.photo ?? ''),
                                       ),
                                     if (_file != null)
                                       GFAvatar(
@@ -225,8 +225,7 @@ class _AccountState extends ConsumerState<AccountPage> {
                                         borderRadius: BorderRadius.circular(5),
                                       ),
                                       child: Icon(
-                                        // ignore: unnecessary_null_comparison
-                                        (url != null) ? Icons.edit : Icons.crop,
+                                        Icons.edit,
                                         color: Colors.white,
                                       ),
                                     )
@@ -244,8 +243,7 @@ class _AccountState extends ConsumerState<AccountPage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    // controller: controller,
-                                    'Name : ',
+                                    'Name : ${user?.firstName} ${user?.lastName}',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 18,
@@ -253,25 +251,13 @@ class _AccountState extends ConsumerState<AccountPage> {
                                     ),
                                   ),
                                   Text(
-                                    // controller: controller,
-                                    'ID : ',
+                                    'ID : ${user?.userId}',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  if (list_User_by_id.isNotEmpty)
-                                    Text(
-                                      'ID : ${list_User_by_id[0]['control_user'] ?? ''}',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    )
                                 ],
                               ),
                             )

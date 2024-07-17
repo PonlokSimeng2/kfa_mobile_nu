@@ -254,7 +254,7 @@ class _AccountState extends ConsumerState<AccountPage> {
                                   ),
                                   Text(
                                     // controller: controller,
-                                    'Name : ',
+                                    'ID : ',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 18,
@@ -264,14 +264,14 @@ class _AccountState extends ConsumerState<AccountPage> {
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  // if (list_User_by_id.isNotEmpty)
-                                  //   Text(
-                                  //     'ID : ${list_User_by_id[0]['control_user'] ?? ''}',
-                                  //     style: TextStyle(
-                                  //         color: Colors.white,
-                                  //         fontSize: 18,
-                                  //         fontWeight: FontWeight.bold),
-                                  //   )
+                                  if (list_User_by_id.isNotEmpty)
+                                    Text(
+                                      'ID : ${list_User_by_id[0]['control_user'] ?? ''}',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    )
                                 ],
                               ),
                             )

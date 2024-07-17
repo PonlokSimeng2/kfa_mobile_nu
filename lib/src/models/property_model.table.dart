@@ -36,4 +36,6 @@ class PropertyTable {
   static const String approvedAt = "approved_at";
   static const String approvedBy = "approved_by";
   static const String rejectedAt = "rejected_at";
+  static const String rejectReason = "reject_reason";
+  static const String status = "status";
 }

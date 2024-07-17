@@ -9,6 +9,7 @@ part of 'property_model.dart';
 _$PropertyModelImpl _$$PropertyModelImplFromJson(Map<String, dynamic> json) =>
     _$PropertyModelImpl(
       id: (json['id'] as num).toInt(),
+      status: $enumDecode(_$PropertyStatusEnumMap, json['status']),
       propertyId: json['property_id'] as String,
       listingType:
           $enumDecode(_$PropertyListingTypeEnumMap, json['listing_type']),
@@ -45,11 +46,13 @@ _$PropertyModelImpl _$$PropertyModelImplFromJson(Map<String, dynamic> json) =>
       rejectedAt: json['rejected_at'] == null
           ? null
           : DateTime.parse(json['rejected_at'] as String),
+      rejectReason: json['reject_reason'] as String?,
     );
 
 Map<String, dynamic> _$$PropertyModelImplToJson(_$PropertyModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'status': _$PropertyStatusEnumMap[instance.status]!,
       'property_id': instance.propertyId,
       'listing_type': _$PropertyListingTypeEnumMap[instance.listingType]!,
       'images': instance.images,
@@ -76,7 +79,14 @@ Map<String, dynamic> _$$PropertyModelImplToJson(_$PropertyModelImpl instance) =>
       'approved_at': instance.approvedAt?.toIso8601String(),
       'approvedBy': instance.approvedBy?.toJson(),
       'rejected_at': instance.rejectedAt?.toIso8601String(),
+      'reject_reason': instance.rejectReason,
     };
+
+const _$PropertyStatusEnumMap = {
+  PropertyStatus.pending: 'pending',
+  PropertyStatus.approved: 'approved',
+  PropertyStatus.rejected: 'rejected',
+};
 
 const _$PropertyListingTypeEnumMap = {
   PropertyListingType.sale: 'sale',
@@ -91,6 +101,7 @@ const _tablePropertyModel = TableBuilder(
   tableName: "properties",
   columns: [
     ColumnBuilder('id'),
+    ColumnBuilder('status'),
     ColumnBuilder('property_id'),
     ColumnBuilder('listing_type'),
     ColumnBuilder('images'),
@@ -123,5 +134,6 @@ const _tablePropertyModel = TableBuilder(
     ColumnBuilder.join(UserModel.table,
         key: "approvedBy", candidateKey: null, foreignKey: 'approved_by'),
     ColumnBuilder('rejected_at'),
+    ColumnBuilder('reject_reason'),
   ],
 );

@@ -30,7 +30,8 @@ FutureOr<IList<PropertyModel>> propertyList(
   final result = await sb
       .from(PropertyModel.table.tableName)
       .select(PropertyModel.table.selectStatement)
-      .order('created_at', ascending: false)
+      .eq(PropertyTable.status, PropertyStatus.approved) // only approved property
+      .order(PropertyTable.createdAt, ascending: false)
       .limit(_limit)
       .range(offset, offset + _limit)
       .withConverter((jsons) {
@@ -177,8 +178,6 @@ class InsertProperty extends _$InsertProperty with _$InsertPropertyForm {
           await sb.storage.from('files').remove(paths);
           rethrow;
         }
-
-        // DateTime.now().toIso8601String();
       },
       onSuccess: (success) {
         ref.invalidate(propertyListProvider);

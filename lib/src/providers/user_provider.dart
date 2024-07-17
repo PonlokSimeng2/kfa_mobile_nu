@@ -1,9 +1,8 @@
-import '../models/user_model.dart';
-import 'auth_provider.dart';
-
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../exports.dart';
+import '../models/user_model.dart';
+import 'auth_provider.dart';
 
 part 'user_provider.g.dart';
 
@@ -17,4 +16,10 @@ FutureOr<UserModel?> currentUser(CurrentUserRef ref) async {
   final sb = ref.watch(supabaseProvider).client;
   final json = await sb.from(_userTable).select().eq('id', userId).single();
   return UserModel.fromJson(json);
+}
+
+@riverpod
+bool isAdmin(IsAdminRef ref) {
+  final isAdmin = ref.watch(currentUserProvider.select((v) => v.valueOrNull?.isAdmin ?? false));
+  return isAdmin;
 }

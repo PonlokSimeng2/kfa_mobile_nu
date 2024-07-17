@@ -1,7 +1,10 @@
 import 'dart:developer';
 
-import 'supabase_provider.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import 'supabase_provider.dart';
+
 part 'auth_provider.g.dart';
 
 @Riverpod(keepAlive: true)
@@ -13,14 +16,19 @@ class Auth extends _$Auth {
     return session.user.id;
   }
 
+  Future<void> _initializeOneSignal(String userId) async {
+    await OneSignal.login(userId);
+  }
+
   Future<String?> login(String email, String password) async {
     try {
-      await ref
+      final result = await ref
           .watch(supabaseProvider)
           .client
           .auth
           .signInWithPassword(email: email, password: password);
       ref.invalidateSelf();
+      await _initializeOneSignal(result.user!.id);
       return null;
     } catch (e) {
       log("Error login", error: e);
@@ -30,6 +38,7 @@ class Auth extends _$Auth {
 
   Future<void> signOut() async {
     await ref.watch(supabaseProvider).client.auth.signOut();
+    await OneSignal.logout();
     ref.invalidateSelf();
   }
 
@@ -42,7 +51,7 @@ class Auth extends _$Auth {
     required String phone,
   }) async {
     try {
-      await ref.watch(supabaseProvider).client.auth.signUp(
+      final result = await ref.watch(supabaseProvider).client.auth.signUp(
         email: email,
         password: password,
         data: {
@@ -52,6 +61,8 @@ class Auth extends _$Auth {
           'phone': phone,
         },
       );
+
+      await _initializeOneSignal(result.user!.id);
 
       ref.invalidateSelf();
       return null;

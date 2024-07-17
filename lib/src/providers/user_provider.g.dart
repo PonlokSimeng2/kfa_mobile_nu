@@ -20,5 +20,19 @@ final currentUserProvider = AutoDisposeFutureProvider<UserModel?>.internal(
 );
 
 typedef CurrentUserRef = AutoDisposeFutureProviderRef<UserModel?>;
+String _$isAdminHash() => r'73f7ce1ac990a02d22da095e48b669bfc790c96f';
+
+/// See also [isAdmin].
+@ProviderFor(isAdmin)
+final isAdminProvider = AutoDisposeProvider<bool>.internal(
+  isAdmin,
+  name: r'isAdminProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$isAdminHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef IsAdminRef = AutoDisposeProviderRef<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

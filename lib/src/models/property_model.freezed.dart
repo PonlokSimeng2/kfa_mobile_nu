@@ -22,6 +22,8 @@ PropertyModel _$PropertyModelFromJson(Map<String, dynamic> json) {
 mixin _$PropertyModel {
   @JsonKey(name: PropertyTable.id)
   int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: PropertyTable.status)
+  PropertyStatus get status => throw _privateConstructorUsedError;
   @JsonKey(name: PropertyTable.propertyId)
   String get propertyId => throw _privateConstructorUsedError;
   @JsonKey(name: PropertyTable.listingType)
@@ -74,6 +76,8 @@ mixin _$PropertyModel {
   UserModel? get approvedBy => throw _privateConstructorUsedError;
   @JsonKey(name: PropertyTable.rejectedAt)
   DateTime? get rejectedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: PropertyTable.rejectReason)
+  String? get rejectReason => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -89,6 +93,7 @@ abstract class $PropertyModelCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: PropertyTable.id) int id,
+      @JsonKey(name: PropertyTable.status) PropertyStatus status,
       @JsonKey(name: PropertyTable.propertyId) String propertyId,
       @JsonKey(name: PropertyTable.listingType) PropertyListingType listingType,
       @JsonKey(name: PropertyTable.images) List<String> images,
@@ -116,7 +121,8 @@ abstract class $PropertyModelCopyWith<$Res> {
       ProvinceModel province,
       @JsonKey(name: PropertyTable.approvedAt) DateTime? approvedAt,
       @JoinedColumn(foreignKey: PropertyTable.approvedBy) UserModel? approvedBy,
-      @JsonKey(name: PropertyTable.rejectedAt) DateTime? rejectedAt});
+      @JsonKey(name: PropertyTable.rejectedAt) DateTime? rejectedAt,
+      @JsonKey(name: PropertyTable.rejectReason) String? rejectReason});
 
   $UserModelCopyWith<$Res> get user;
   $PropertyTypeModelCopyWith<$Res> get propertyType;
@@ -138,6 +144,7 @@ class _$PropertyModelCopyWithImpl<$Res, $Val extends PropertyModel>
   @override
   $Res call({
     Object? id = null,
+    Object? status = null,
     Object? propertyId = null,
     Object? listingType = null,
     Object? images = null,
@@ -164,12 +171,17 @@ class _$PropertyModelCopyWithImpl<$Res, $Val extends PropertyModel>
     Object? approvedAt = freezed,
     Object? approvedBy = freezed,
     Object? rejectedAt = freezed,
+    Object? rejectReason = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as PropertyStatus,
       propertyId: null == propertyId
           ? _value.propertyId
           : propertyId // ignore: cast_nullable_to_non_nullable
@@ -274,6 +286,10 @@ class _$PropertyModelCopyWithImpl<$Res, $Val extends PropertyModel>
           ? _value.rejectedAt
           : rejectedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      rejectReason: freezed == rejectReason
+          ? _value.rejectReason
+          : rejectReason // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -324,6 +340,7 @@ abstract class _$$PropertyModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: PropertyTable.id) int id,
+      @JsonKey(name: PropertyTable.status) PropertyStatus status,
       @JsonKey(name: PropertyTable.propertyId) String propertyId,
       @JsonKey(name: PropertyTable.listingType) PropertyListingType listingType,
       @JsonKey(name: PropertyTable.images) List<String> images,
@@ -351,7 +368,8 @@ abstract class _$$PropertyModelImplCopyWith<$Res>
       ProvinceModel province,
       @JsonKey(name: PropertyTable.approvedAt) DateTime? approvedAt,
       @JoinedColumn(foreignKey: PropertyTable.approvedBy) UserModel? approvedBy,
-      @JsonKey(name: PropertyTable.rejectedAt) DateTime? rejectedAt});
+      @JsonKey(name: PropertyTable.rejectedAt) DateTime? rejectedAt,
+      @JsonKey(name: PropertyTable.rejectReason) String? rejectReason});
 
   @override
   $UserModelCopyWith<$Res> get user;
@@ -375,6 +393,7 @@ class __$$PropertyModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? status = null,
     Object? propertyId = null,
     Object? listingType = null,
     Object? images = null,
@@ -401,12 +420,17 @@ class __$$PropertyModelImplCopyWithImpl<$Res>
     Object? approvedAt = freezed,
     Object? approvedBy = freezed,
     Object? rejectedAt = freezed,
+    Object? rejectReason = freezed,
   }) {
     return _then(_$PropertyModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as PropertyStatus,
       propertyId: null == propertyId
           ? _value.propertyId
           : propertyId // ignore: cast_nullable_to_non_nullable
@@ -511,6 +535,10 @@ class __$$PropertyModelImplCopyWithImpl<$Res>
           ? _value.rejectedAt
           : rejectedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      rejectReason: freezed == rejectReason
+          ? _value.rejectReason
+          : rejectReason // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -521,6 +549,7 @@ class __$$PropertyModelImplCopyWithImpl<$Res>
 class _$PropertyModelImpl extends _PropertyModel {
   _$PropertyModelImpl(
       {@JsonKey(name: PropertyTable.id) required this.id,
+      @JsonKey(name: PropertyTable.status) required this.status,
       @JsonKey(name: PropertyTable.propertyId) required this.propertyId,
       @JsonKey(name: PropertyTable.listingType) required this.listingType,
       @JsonKey(name: PropertyTable.images) required final List<String> images,
@@ -548,7 +577,8 @@ class _$PropertyModelImpl extends _PropertyModel {
       required this.province,
       @JsonKey(name: PropertyTable.approvedAt) this.approvedAt,
       @JoinedColumn(foreignKey: PropertyTable.approvedBy) this.approvedBy,
-      @JsonKey(name: PropertyTable.rejectedAt) this.rejectedAt})
+      @JsonKey(name: PropertyTable.rejectedAt) this.rejectedAt,
+      @JsonKey(name: PropertyTable.rejectReason) this.rejectReason})
       : _images = images,
         super._();
 
@@ -558,6 +588,9 @@ class _$PropertyModelImpl extends _PropertyModel {
   @override
   @JsonKey(name: PropertyTable.id)
   final int id;
+  @override
+  @JsonKey(name: PropertyTable.status)
+  final PropertyStatus status;
   @override
   @JsonKey(name: PropertyTable.propertyId)
   final String propertyId;
@@ -642,10 +675,13 @@ class _$PropertyModelImpl extends _PropertyModel {
   @override
   @JsonKey(name: PropertyTable.rejectedAt)
   final DateTime? rejectedAt;
+  @override
+  @JsonKey(name: PropertyTable.rejectReason)
+  final String? rejectReason;
 
   @override
   String toString() {
-    return 'PropertyModel(id: $id, propertyId: $propertyId, listingType: $listingType, images: $images, title: $title, description: $description, latitude: $latitude, longitude: $longitude, price: $price, sqm: $sqm, bedrooms: $bedrooms, bathrooms: $bathrooms, floors: $floors, parking: $parking, livingRooms: $livingRooms, landLength: $landLength, landWidth: $landWidth, houseLength: $houseLength, pricePerSqm: $pricePerSqm, houseWidth: $houseWidth, createdAt: $createdAt, user: $user, propertyType: $propertyType, province: $province, approvedAt: $approvedAt, approvedBy: $approvedBy, rejectedAt: $rejectedAt)';
+    return 'PropertyModel(id: $id, status: $status, propertyId: $propertyId, listingType: $listingType, images: $images, title: $title, description: $description, latitude: $latitude, longitude: $longitude, price: $price, sqm: $sqm, bedrooms: $bedrooms, bathrooms: $bathrooms, floors: $floors, parking: $parking, livingRooms: $livingRooms, landLength: $landLength, landWidth: $landWidth, houseLength: $houseLength, pricePerSqm: $pricePerSqm, houseWidth: $houseWidth, createdAt: $createdAt, user: $user, propertyType: $propertyType, province: $province, approvedAt: $approvedAt, approvedBy: $approvedBy, rejectedAt: $rejectedAt, rejectReason: $rejectReason)';
   }
 
   @override
@@ -654,6 +690,7 @@ class _$PropertyModelImpl extends _PropertyModel {
         (other.runtimeType == runtimeType &&
             other is _$PropertyModelImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.propertyId, propertyId) ||
                 other.propertyId == propertyId) &&
             (identical(other.listingType, listingType) ||
@@ -698,7 +735,9 @@ class _$PropertyModelImpl extends _PropertyModel {
             (identical(other.approvedBy, approvedBy) ||
                 other.approvedBy == approvedBy) &&
             (identical(other.rejectedAt, rejectedAt) ||
-                other.rejectedAt == rejectedAt));
+                other.rejectedAt == rejectedAt) &&
+            (identical(other.rejectReason, rejectReason) ||
+                other.rejectReason == rejectReason));
   }
 
   @JsonKey(ignore: true)
@@ -706,6 +745,7 @@ class _$PropertyModelImpl extends _PropertyModel {
   int get hashCode => Object.hashAll([
         runtimeType,
         id,
+        status,
         propertyId,
         listingType,
         const DeepCollectionEquality().hash(_images),
@@ -731,7 +771,8 @@ class _$PropertyModelImpl extends _PropertyModel {
         province,
         approvedAt,
         approvedBy,
-        rejectedAt
+        rejectedAt,
+        rejectReason
       ]);
 
   @JsonKey(ignore: true)
@@ -751,6 +792,7 @@ class _$PropertyModelImpl extends _PropertyModel {
 abstract class _PropertyModel extends PropertyModel {
   factory _PropertyModel(
       {@JsonKey(name: PropertyTable.id) required final int id,
+      @JsonKey(name: PropertyTable.status) required final PropertyStatus status,
       @JsonKey(name: PropertyTable.propertyId) required final String propertyId,
       @JsonKey(name: PropertyTable.listingType)
       required final PropertyListingType listingType,
@@ -785,8 +827,9 @@ abstract class _PropertyModel extends PropertyModel {
       @JsonKey(name: PropertyTable.approvedAt) final DateTime? approvedAt,
       @JoinedColumn(foreignKey: PropertyTable.approvedBy)
       final UserModel? approvedBy,
-      @JsonKey(name: PropertyTable.rejectedAt)
-      final DateTime? rejectedAt}) = _$PropertyModelImpl;
+      @JsonKey(name: PropertyTable.rejectedAt) final DateTime? rejectedAt,
+      @JsonKey(name: PropertyTable.rejectReason)
+      final String? rejectReason}) = _$PropertyModelImpl;
   _PropertyModel._() : super._();
 
   factory _PropertyModel.fromJson(Map<String, dynamic> json) =
@@ -795,6 +838,9 @@ abstract class _PropertyModel extends PropertyModel {
   @override
   @JsonKey(name: PropertyTable.id)
   int get id;
+  @override
+  @JsonKey(name: PropertyTable.status)
+  PropertyStatus get status;
   @override
   @JsonKey(name: PropertyTable.propertyId)
   String get propertyId;
@@ -873,6 +919,9 @@ abstract class _PropertyModel extends PropertyModel {
   @override
   @JsonKey(name: PropertyTable.rejectedAt)
   DateTime? get rejectedAt;
+  @override
+  @JsonKey(name: PropertyTable.rejectReason)
+  String? get rejectReason;
   @override
   @JsonKey(ignore: true)
   _$$PropertyModelImplCopyWith<_$PropertyModelImpl> get copyWith =>

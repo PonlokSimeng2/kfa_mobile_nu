@@ -6,13 +6,9 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'exports.dart';
-import 'exports.dart';
 import 'firebase_options.dart';
 import 'provider_observers.dart';
-import 'provider_observers.dart';
 import 'src/pages/home_page.dart';
-import 'src/pages/login_page.dart';
-import 'src/pages/register_page.dart';
 import 'src/providers/cache_provider.dart';
 
 void main() async {
@@ -23,6 +19,7 @@ void main() async {
   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
   OneSignal.initialize("4c477f3d-2679-457e-87b0-57808114f822");
   OneSignal.Notifications.requestPermission(true);
+
   final sharePref = await SharedPreferences.getInstance();
   await initSupabase();
 

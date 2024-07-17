@@ -12,6 +12,8 @@ part 'property_model.g.dart';
 
 enum PropertyListingType { sale, rent }
 
+enum PropertyStatus { pending, approved, rejected }
+
 @TableStructure(
   'properties',
   classPrefixName: 'Property',
@@ -43,6 +45,8 @@ enum PropertyListingType { sale, rent }
     'approved_at',
     'approved_by',
     'rejected_at',
+    'reject_reason',
+    'status',
   ],
 )
 @freezed
@@ -52,6 +56,7 @@ class PropertyModel with _$PropertyModel {
   @TableModel(PropertyTable.table)
   factory PropertyModel({
     @JsonKey(name: PropertyTable.id) required int id,
+    @JsonKey(name: PropertyTable.status) required PropertyStatus status,
     @JsonKey(name: PropertyTable.propertyId) required String propertyId,
     @JsonKey(name: PropertyTable.listingType) required PropertyListingType listingType,
     @JsonKey(name: PropertyTable.images) required List<String> images,
@@ -78,6 +83,7 @@ class PropertyModel with _$PropertyModel {
     @JsonKey(name: PropertyTable.approvedAt) DateTime? approvedAt,
     @JoinedColumn(foreignKey: PropertyTable.approvedBy) UserModel? approvedBy,
     @JsonKey(name: PropertyTable.rejectedAt) DateTime? rejectedAt,
+    @JsonKey(name: PropertyTable.rejectReason) String? rejectReason,
   }) = _PropertyModel;
 
   factory PropertyModel.fromJson(Map<String, dynamic> json) => _$PropertyModelFromJson(json);

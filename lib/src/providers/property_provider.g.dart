@@ -8,7 +8,8 @@ part of 'property_provider.dart';
 
 /// Mixin use for update properties. You will need to add this mixin to provider in order to make it work
 mixin _$InsertPropertyForm on _$InsertProperty {
-  void onPropertyListingTypeChanged(PropertyListingType newPropertyListingType) =>
+  void onPropertyListingTypeChanged(
+          PropertyListingType newPropertyListingType) =>
       state = state.copyWith(propertyListingType: newPropertyListingType);
   void onImageFilesChanged(IList<XFile> newImageFiles) =>
       state = state.copyWith(imageFiles: newImageFiles);
@@ -16,24 +17,33 @@ mixin _$InsertPropertyForm on _$InsertProperty {
       state = state.copyWith(province: newProvince);
   void onPropertyTypeChanged(PropertyTypeModel? newPropertyType) =>
       state = state.copyWith(propertyType: newPropertyType);
-  void onTitleChanged(String newTitle) => state = state.copyWith(title: newTitle);
+  void onTitleChanged(String newTitle) =>
+      state = state.copyWith(title: newTitle);
   void onDescriptionChanged(String newDescription) =>
       state = state.copyWith(description: newDescription);
-  void onLongitudeChanged(double newLongitude) => state = state.copyWith(longitude: newLongitude);
-  void onLatitudeChanged(double newLatitude) => state = state.copyWith(latitude: newLatitude);
-  void onPriceChanged(double newPrice) => state = state.copyWith(price: newPrice);
+  void onLongitudeChanged(double newLongitude) =>
+      state = state.copyWith(longitude: newLongitude);
+  void onLatitudeChanged(double newLatitude) =>
+      state = state.copyWith(latitude: newLatitude);
+  void onPriceChanged(double newPrice) =>
+      state = state.copyWith(price: newPrice);
   void onSqmChanged(double newSqm) => state = state.copyWith(sqm: newSqm);
-  void onBedroomsChanged(int newBedrooms) => state = state.copyWith(bedrooms: newBedrooms);
-  void onBathroomsChanged(int newBathrooms) => state = state.copyWith(bathrooms: newBathrooms);
-  void onFloorsChanged(int newFloors) => state = state.copyWith(floors: newFloors);
-  void onParkingChanged(int newParking) => state = state.copyWith(parking: newParking);
+  void onBedroomsChanged(int newBedrooms) =>
+      state = state.copyWith(bedrooms: newBedrooms);
+  void onBathroomsChanged(int newBathrooms) =>
+      state = state.copyWith(bathrooms: newBathrooms);
+  void onFloorsChanged(int newFloors) =>
+      state = state.copyWith(floors: newFloors);
+  void onParkingChanged(int newParking) =>
+      state = state.copyWith(parking: newParking);
   void onPricePerSqmChanged(double newPricePerSqm) =>
       state = state.copyWith(pricePerSqm: newPricePerSqm);
   void onLivingRoomsChanged(int newLivingRooms) =>
       state = state.copyWith(livingRooms: newLivingRooms);
   void onLandLengthChanged(double newLandLength) =>
       state = state.copyWith(landLength: newLandLength);
-  void onLandWidthChanged(double newLandWidth) => state = state.copyWith(landWidth: newLandWidth);
+  void onLandWidthChanged(double newLandWidth) =>
+      state = state.copyWith(landWidth: newLandWidth);
   void onBuildingLengthChanged(double newBuildingLength) =>
       state = state.copyWith(buildingLength: newBuildingLength);
   void onBuildingWidthChanged(double newBuildingWidth) =>
@@ -43,7 +53,8 @@ mixin _$InsertPropertyForm on _$InsertProperty {
 bool _debugCheckHasInsertPropertyFormWidget(BuildContext context) {
   assert(() {
     if (context.widget is! InsertPropertyFormWidget &&
-        context.findAncestorWidgetOfExactType<InsertPropertyFormWidget>() == null) {
+        context.findAncestorWidgetOfExactType<InsertPropertyFormWidget>() ==
+            null) {
       throw FlutterError.fromParts(<DiagnosticsNode>[
         ErrorSummary('No InsertPropertyFormWidget found'),
         ErrorDescription(
@@ -98,7 +109,8 @@ class InsertPropertyFormWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final cachedFormKey = useMemoized(() => formKey ?? GlobalKey<FormState>());
 
-    final status = ref.watch(insertPropertyProvider.select((value) => value.status));
+    final status =
+        ref.watch(insertPropertyProvider.select((value) => value.status));
     final isProgressing = status.isInProgress;
     final failure = status.failure;
     final controller = ref.watch(insertPropertyProvider.notifier);
@@ -120,7 +132,8 @@ class InsertPropertyFormWidget extends HookConsumerWidget {
 typedef InsertPropertyPropertyListingTypeChildBuilder = Widget Function(
   WidgetRef ref,
   PropertyListingType propertyListingType,
-  void Function(PropertyListingType newPropertyListingType) changePropertyListingType,
+  void Function(PropertyListingType newPropertyListingType)
+      changePropertyListingType,
   bool showValidation,
 );
 
@@ -138,10 +151,11 @@ class InsertPropertyPropertyListingTypeFieldWidget extends HookConsumerWidget {
     assert(_debugCheckHasInsertPropertyFormWidget(context));
 
     final notifier = ref.watch(insertPropertyProvider.notifier);
-    final state = ref.watch(insertPropertyProvider.select((value) => value.propertyListingType));
+    final state = ref.watch(
+        insertPropertyProvider.select((value) => value.propertyListingType));
 
-    final showValidation =
-        ref.watch(insertPropertyProvider.select((value) => value.status.isFailure));
+    final showValidation = ref.watch(
+        insertPropertyProvider.select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -172,10 +186,11 @@ class InsertPropertyImageFilesFieldWidget extends HookConsumerWidget {
     assert(_debugCheckHasInsertPropertyFormWidget(context));
 
     final notifier = ref.watch(insertPropertyProvider.notifier);
-    final state = ref.watch(insertPropertyProvider.select((value) => value.imageFiles));
+    final state =
+        ref.watch(insertPropertyProvider.select((value) => value.imageFiles));
 
-    final showValidation =
-        ref.watch(insertPropertyProvider.select((value) => value.status.isFailure));
+    final showValidation = ref.watch(
+        insertPropertyProvider.select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -206,10 +221,11 @@ class InsertPropertyProvinceFieldWidget extends HookConsumerWidget {
     assert(_debugCheckHasInsertPropertyFormWidget(context));
 
     final notifier = ref.watch(insertPropertyProvider.notifier);
-    final state = ref.watch(insertPropertyProvider.select((value) => value.province));
+    final state =
+        ref.watch(insertPropertyProvider.select((value) => value.province));
 
-    final showValidation =
-        ref.watch(insertPropertyProvider.select((value) => value.status.isFailure));
+    final showValidation = ref.watch(
+        insertPropertyProvider.select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -240,10 +256,11 @@ class InsertPropertyPropertyTypeFieldWidget extends HookConsumerWidget {
     assert(_debugCheckHasInsertPropertyFormWidget(context));
 
     final notifier = ref.watch(insertPropertyProvider.notifier);
-    final state = ref.watch(insertPropertyProvider.select((value) => value.propertyType));
+    final state =
+        ref.watch(insertPropertyProvider.select((value) => value.propertyType));
 
-    final showValidation =
-        ref.watch(insertPropertyProvider.select((value) => value.status.isFailure));
+    final showValidation = ref.watch(
+        insertPropertyProvider.select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -279,7 +296,8 @@ class InsertPropertyTitleFieldWidget extends HookConsumerWidget {
     assert(_debugCheckHasInsertPropertyFormWidget(context));
 
     final notifier = ref.watch(insertPropertyProvider.notifier);
-    final state = ref.watch(insertPropertyProvider.select((value) => value.title));
+    final state =
+        ref.watch(insertPropertyProvider.select((value) => value.title));
     final textController = controller ?? useTextEditingController(text: state);
     useMemoized(() {
       textController.addListener(() {
@@ -288,7 +306,8 @@ class InsertPropertyTitleFieldWidget extends HookConsumerWidget {
       return null;
     });
 
-    ref.listen(insertPropertyProvider.select((value) => value.title), (previous, current) {
+    ref.listen(insertPropertyProvider.select((value) => value.title),
+        (previous, current) {
       if (previous != current) {
         if (current != textController.text) {
           Future.microtask(() => textController.text = current);
@@ -296,8 +315,8 @@ class InsertPropertyTitleFieldWidget extends HookConsumerWidget {
       }
     });
 
-    final showValidation =
-        ref.watch(insertPropertyProvider.select((value) => value.status.isFailure));
+    final showValidation = ref.watch(
+        insertPropertyProvider.select((value) => value.status.isFailure));
     return builder(
       ref,
       textController,
@@ -334,16 +353,19 @@ class InsertPropertyDescriptionFieldWidget extends HookConsumerWidget {
     assert(_debugCheckHasInsertPropertyFormWidget(context));
 
     final notifier = ref.watch(insertPropertyProvider.notifier);
-    final state = ref.watch(insertPropertyProvider.select((value) => value.description));
+    final state =
+        ref.watch(insertPropertyProvider.select((value) => value.description));
     final textController = controller ?? useTextEditingController(text: state);
     useMemoized(() {
       textController.addListener(() {
-        Future.microtask(() => notifier.onDescriptionChanged(textController.text));
+        Future.microtask(
+            () => notifier.onDescriptionChanged(textController.text));
       });
       return null;
     });
 
-    ref.listen(insertPropertyProvider.select((value) => value.description), (previous, current) {
+    ref.listen(insertPropertyProvider.select((value) => value.description),
+        (previous, current) {
       if (previous != current) {
         if (current != textController.text) {
           Future.microtask(() => textController.text = current);
@@ -351,8 +373,8 @@ class InsertPropertyDescriptionFieldWidget extends HookConsumerWidget {
       }
     });
 
-    final showValidation =
-        ref.watch(insertPropertyProvider.select((value) => value.status.isFailure));
+    final showValidation = ref.watch(
+        insertPropertyProvider.select((value) => value.status.isFailure));
     return builder(
       ref,
       textController,
@@ -384,10 +406,11 @@ class InsertPropertyLongitudeFieldWidget extends HookConsumerWidget {
     assert(_debugCheckHasInsertPropertyFormWidget(context));
 
     final notifier = ref.watch(insertPropertyProvider.notifier);
-    final state = ref.watch(insertPropertyProvider.select((value) => value.longitude));
+    final state =
+        ref.watch(insertPropertyProvider.select((value) => value.longitude));
 
-    final showValidation =
-        ref.watch(insertPropertyProvider.select((value) => value.status.isFailure));
+    final showValidation = ref.watch(
+        insertPropertyProvider.select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -418,10 +441,11 @@ class InsertPropertyLatitudeFieldWidget extends HookConsumerWidget {
     assert(_debugCheckHasInsertPropertyFormWidget(context));
 
     final notifier = ref.watch(insertPropertyProvider.notifier);
-    final state = ref.watch(insertPropertyProvider.select((value) => value.latitude));
+    final state =
+        ref.watch(insertPropertyProvider.select((value) => value.latitude));
 
-    final showValidation =
-        ref.watch(insertPropertyProvider.select((value) => value.status.isFailure));
+    final showValidation = ref.watch(
+        insertPropertyProvider.select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -452,10 +476,11 @@ class InsertPropertyPriceFieldWidget extends HookConsumerWidget {
     assert(_debugCheckHasInsertPropertyFormWidget(context));
 
     final notifier = ref.watch(insertPropertyProvider.notifier);
-    final state = ref.watch(insertPropertyProvider.select((value) => value.price));
+    final state =
+        ref.watch(insertPropertyProvider.select((value) => value.price));
 
-    final showValidation =
-        ref.watch(insertPropertyProvider.select((value) => value.status.isFailure));
+    final showValidation = ref.watch(
+        insertPropertyProvider.select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -486,10 +511,11 @@ class InsertPropertySqmFieldWidget extends HookConsumerWidget {
     assert(_debugCheckHasInsertPropertyFormWidget(context));
 
     final notifier = ref.watch(insertPropertyProvider.notifier);
-    final state = ref.watch(insertPropertyProvider.select((value) => value.sqm));
+    final state =
+        ref.watch(insertPropertyProvider.select((value) => value.sqm));
 
-    final showValidation =
-        ref.watch(insertPropertyProvider.select((value) => value.status.isFailure));
+    final showValidation = ref.watch(
+        insertPropertyProvider.select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -520,10 +546,11 @@ class InsertPropertyBedroomsFieldWidget extends HookConsumerWidget {
     assert(_debugCheckHasInsertPropertyFormWidget(context));
 
     final notifier = ref.watch(insertPropertyProvider.notifier);
-    final state = ref.watch(insertPropertyProvider.select((value) => value.bedrooms));
+    final state =
+        ref.watch(insertPropertyProvider.select((value) => value.bedrooms));
 
-    final showValidation =
-        ref.watch(insertPropertyProvider.select((value) => value.status.isFailure));
+    final showValidation = ref.watch(
+        insertPropertyProvider.select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -554,10 +581,11 @@ class InsertPropertyBathroomsFieldWidget extends HookConsumerWidget {
     assert(_debugCheckHasInsertPropertyFormWidget(context));
 
     final notifier = ref.watch(insertPropertyProvider.notifier);
-    final state = ref.watch(insertPropertyProvider.select((value) => value.bathrooms));
+    final state =
+        ref.watch(insertPropertyProvider.select((value) => value.bathrooms));
 
-    final showValidation =
-        ref.watch(insertPropertyProvider.select((value) => value.status.isFailure));
+    final showValidation = ref.watch(
+        insertPropertyProvider.select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -588,10 +616,11 @@ class InsertPropertyFloorsFieldWidget extends HookConsumerWidget {
     assert(_debugCheckHasInsertPropertyFormWidget(context));
 
     final notifier = ref.watch(insertPropertyProvider.notifier);
-    final state = ref.watch(insertPropertyProvider.select((value) => value.floors));
+    final state =
+        ref.watch(insertPropertyProvider.select((value) => value.floors));
 
-    final showValidation =
-        ref.watch(insertPropertyProvider.select((value) => value.status.isFailure));
+    final showValidation = ref.watch(
+        insertPropertyProvider.select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -622,10 +651,11 @@ class InsertPropertyParkingFieldWidget extends HookConsumerWidget {
     assert(_debugCheckHasInsertPropertyFormWidget(context));
 
     final notifier = ref.watch(insertPropertyProvider.notifier);
-    final state = ref.watch(insertPropertyProvider.select((value) => value.parking));
+    final state =
+        ref.watch(insertPropertyProvider.select((value) => value.parking));
 
-    final showValidation =
-        ref.watch(insertPropertyProvider.select((value) => value.status.isFailure));
+    final showValidation = ref.watch(
+        insertPropertyProvider.select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -656,10 +686,11 @@ class InsertPropertyPricePerSqmFieldWidget extends HookConsumerWidget {
     assert(_debugCheckHasInsertPropertyFormWidget(context));
 
     final notifier = ref.watch(insertPropertyProvider.notifier);
-    final state = ref.watch(insertPropertyProvider.select((value) => value.pricePerSqm));
+    final state =
+        ref.watch(insertPropertyProvider.select((value) => value.pricePerSqm));
 
-    final showValidation =
-        ref.watch(insertPropertyProvider.select((value) => value.status.isFailure));
+    final showValidation = ref.watch(
+        insertPropertyProvider.select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -690,10 +721,11 @@ class InsertPropertyLivingRoomsFieldWidget extends HookConsumerWidget {
     assert(_debugCheckHasInsertPropertyFormWidget(context));
 
     final notifier = ref.watch(insertPropertyProvider.notifier);
-    final state = ref.watch(insertPropertyProvider.select((value) => value.livingRooms));
+    final state =
+        ref.watch(insertPropertyProvider.select((value) => value.livingRooms));
 
-    final showValidation =
-        ref.watch(insertPropertyProvider.select((value) => value.status.isFailure));
+    final showValidation = ref.watch(
+        insertPropertyProvider.select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -724,10 +756,11 @@ class InsertPropertyLandLengthFieldWidget extends HookConsumerWidget {
     assert(_debugCheckHasInsertPropertyFormWidget(context));
 
     final notifier = ref.watch(insertPropertyProvider.notifier);
-    final state = ref.watch(insertPropertyProvider.select((value) => value.landLength));
+    final state =
+        ref.watch(insertPropertyProvider.select((value) => value.landLength));
 
-    final showValidation =
-        ref.watch(insertPropertyProvider.select((value) => value.status.isFailure));
+    final showValidation = ref.watch(
+        insertPropertyProvider.select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -758,10 +791,11 @@ class InsertPropertyLandWidthFieldWidget extends HookConsumerWidget {
     assert(_debugCheckHasInsertPropertyFormWidget(context));
 
     final notifier = ref.watch(insertPropertyProvider.notifier);
-    final state = ref.watch(insertPropertyProvider.select((value) => value.landWidth));
+    final state =
+        ref.watch(insertPropertyProvider.select((value) => value.landWidth));
 
-    final showValidation =
-        ref.watch(insertPropertyProvider.select((value) => value.status.isFailure));
+    final showValidation = ref.watch(
+        insertPropertyProvider.select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -792,10 +826,11 @@ class InsertPropertyBuildingLengthFieldWidget extends HookConsumerWidget {
     assert(_debugCheckHasInsertPropertyFormWidget(context));
 
     final notifier = ref.watch(insertPropertyProvider.notifier);
-    final state = ref.watch(insertPropertyProvider.select((value) => value.buildingLength));
+    final state = ref
+        .watch(insertPropertyProvider.select((value) => value.buildingLength));
 
-    final showValidation =
-        ref.watch(insertPropertyProvider.select((value) => value.status.isFailure));
+    final showValidation = ref.watch(
+        insertPropertyProvider.select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -826,10 +861,11 @@ class InsertPropertyBuildingWidthFieldWidget extends HookConsumerWidget {
     assert(_debugCheckHasInsertPropertyFormWidget(context));
 
     final notifier = ref.watch(insertPropertyProvider.notifier);
-    final state = ref.watch(insertPropertyProvider.select((value) => value.buildingWidth));
+    final state = ref
+        .watch(insertPropertyProvider.select((value) => value.buildingWidth));
 
-    final showValidation =
-        ref.watch(insertPropertyProvider.select((value) => value.status.isFailure));
+    final showValidation = ref.watch(
+        insertPropertyProvider.select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -843,7 +879,7 @@ class InsertPropertyBuildingWidthFieldWidget extends HookConsumerWidget {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$propertyListHash() => r'7d8989ee534fa42dc975627c08e8ee9dbacc2e0c';
+String _$propertyListHash() => r'1183572dacca1e53037729abfb29789cdc27d6f7';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -901,14 +937,16 @@ class PropertyListFamily extends Family<AsyncValue<IList<PropertyModel>>> {
   static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
 
   @override
   String? get name => r'propertyListProvider';
 }
 
 /// See also [propertyList].
-class PropertyListProvider extends AutoDisposeFutureProvider<IList<PropertyModel>> {
+class PropertyListProvider
+    extends AutoDisposeFutureProvider<IList<PropertyModel>> {
   /// See also [propertyList].
   PropertyListProvider({
     required int page,
@@ -920,9 +958,12 @@ class PropertyListProvider extends AutoDisposeFutureProvider<IList<PropertyModel
           from: propertyListProvider,
           name: r'propertyListProvider',
           debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product') ? null : _$propertyListHash,
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$propertyListHash,
           dependencies: PropertyListFamily._dependencies,
-          allTransitiveDependencies: PropertyListFamily._allTransitiveDependencies,
+          allTransitiveDependencies:
+              PropertyListFamily._allTransitiveDependencies,
           page: page,
         );
 
@@ -980,7 +1021,8 @@ mixin PropertyListRef on AutoDisposeFutureProviderRef<IList<PropertyModel>> {
   int get page;
 }
 
-class _PropertyListProviderElement extends AutoDisposeFutureProviderElement<IList<PropertyModel>>
+class _PropertyListProviderElement
+    extends AutoDisposeFutureProviderElement<IList<PropertyModel>>
     with PropertyListRef {
   _PropertyListProviderElement(super.provider);
 
@@ -1025,14 +1067,16 @@ class PropertyAtIndexFamily extends Family<PaginatedItem<PropertyModel>?> {
   static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
 
   @override
   String? get name => r'propertyAtIndexProvider';
 }
 
 /// See also [propertyAtIndex].
-class PropertyAtIndexProvider extends AutoDisposeProvider<PaginatedItem<PropertyModel>?> {
+class PropertyAtIndexProvider
+    extends AutoDisposeProvider<PaginatedItem<PropertyModel>?> {
   /// See also [propertyAtIndex].
   PropertyAtIndexProvider({
     required int index,
@@ -1044,9 +1088,12 @@ class PropertyAtIndexProvider extends AutoDisposeProvider<PaginatedItem<Property
           from: propertyAtIndexProvider,
           name: r'propertyAtIndexProvider',
           debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product') ? null : _$propertyAtIndexHash,
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$propertyAtIndexHash,
           dependencies: PropertyAtIndexFamily._dependencies,
-          allTransitiveDependencies: PropertyAtIndexFamily._allTransitiveDependencies,
+          allTransitiveDependencies:
+              PropertyAtIndexFamily._allTransitiveDependencies,
           index: index,
         );
 
@@ -1099,20 +1146,22 @@ class PropertyAtIndexProvider extends AutoDisposeProvider<PaginatedItem<Property
   }
 }
 
-mixin PropertyAtIndexRef on AutoDisposeProviderRef<PaginatedItem<PropertyModel>?> {
+mixin PropertyAtIndexRef
+    on AutoDisposeProviderRef<PaginatedItem<PropertyModel>?> {
   /// The parameter `index` of this provider.
   int get index;
 }
 
 class _PropertyAtIndexProviderElement
-    extends AutoDisposeProviderElement<PaginatedItem<PropertyModel>?> with PropertyAtIndexRef {
+    extends AutoDisposeProviderElement<PaginatedItem<PropertyModel>?>
+    with PropertyAtIndexRef {
   _PropertyAtIndexProviderElement(super.provider);
 
   @override
   int get index => (origin as PropertyAtIndexProvider).index;
 }
 
-String _$insertPropertyHash() => r'f53a9d2af046a737a5fc7be67cd850d2a12de0d4';
+String _$insertPropertyHash() => r'9063ebc5ccde9b895fc6d75059eaad103e57c067';
 
 /// See also [InsertProperty].
 @ProviderFor(InsertProperty)
@@ -1120,8 +1169,9 @@ final insertPropertyProvider =
     AutoDisposeNotifierProvider<InsertProperty, InsertPropertyState>.internal(
   InsertProperty.new,
   name: r'insertPropertyProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$insertPropertyHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$insertPropertyHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

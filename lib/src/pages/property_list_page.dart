@@ -100,19 +100,17 @@ class _GridView extends ConsumerWidget {
       ),
       itemBuilder: (context, index) {
         final paginated = ref.watch(propertyAtIndexProvider(index: index));
-        return paginated?.when(
-              loading: () => const Center(child: CircularProgressIndicator()),
-              error: (error, stack) => Center(child: Text('Error: $error')),
-              data: (item) {
-                if (filter != null &&
-                    item.listingType.name.toLowerCase() !=
-                        filter!.toLowerCase()) {
-                  return const SizedBox.shrink();
-                }
-                return _buildPropertyCard(context, item);
-              },
-            ) ??
-            const SizedBox.shrink();
+        return paginated.when(
+          loading: () => const Center(child: CircularProgressIndicator()),
+          error: (error, _) => Center(child: Text('Error: $error')),
+          data: (item) {
+            if (filter != null &&
+                item.listingType.name.toLowerCase() != filter!.toLowerCase()) {
+              return const SizedBox.shrink();
+            }
+            return _buildPropertyCard(context, item);
+          },
+        );
       },
     );
   }

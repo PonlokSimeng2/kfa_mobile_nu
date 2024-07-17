@@ -4,32 +4,67 @@ import '../providers/property_provider.dart';
 
 import '../../exports.dart';
 
-class PropertyListPage extends ConsumerWidget {
+class PropertyListPage extends ConsumerStatefulWidget {
   const PropertyListPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<PropertyListPage> createState() => _PropertyListPageState();
+}
+
+class _PropertyListPageState extends ConsumerState<PropertyListPage> {
+  String? _selectedFilter;
+
+  @override
+  Widget build(BuildContext context) {
     final firstPageCountAsync = ref.watch(
       propertyListProvider(page: 0).select((v) => v.whenData((v) => v.length)),
     );
 
-    return firstPageCountAsync.onData((count) {
-      if (count == 0) {
-        return const Center(
-          child: Text(
-            'No Data',
-            style: TextStyle(color: Colors.white),
-          ),
-        );
-      }
+    return Column(
+      children: [
+        _buildFilterButtons(),
+        Expanded(
+          child: firstPageCountAsync.onData((count) {
+            if (count == 0) {
+              return const Center(
+                child: Text(
+                  'No Data',
+                  style: TextStyle(color: Colors.white),
+                ),
+              );
+            }
 
-      return const _GridView();
-    });
+            return _GridView(filter: _selectedFilter);
+          }),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFilterButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        ElevatedButton(
+          onPressed: () => setState(() => _selectedFilter = 'Rent'),
+          child: const Text('Rent'),
+        ),
+        ElevatedButton(
+          onPressed: () => setState(() => _selectedFilter = 'Sale'),
+          child: const Text('Sale'),
+        ),
+        ElevatedButton(
+          onPressed: () => setState(() => _selectedFilter = null),
+          child: const Text('All'),
+        ),
+      ],
+    );
   }
 }
 
 class _GridView extends ConsumerWidget {
-  const _GridView();
+  final String? filter;
+  const _GridView({this.filter});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -46,6 +81,9 @@ class _GridView extends ConsumerWidget {
             return const Center(child: CircularProgressIndicator());
           },
           data: (item) {
+            if (filter != null && item.listingType.name.toLowerCase() != filter!.toLowerCase()) {
+              return const SizedBox.shrink();
+            }
             return Stack(
               children: [
                 InkWell(

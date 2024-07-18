@@ -81,7 +81,7 @@ class InsertAutoVerbalFormWidget extends HookConsumerWidget {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$insertAutoVerbalHash() => r'ccda0feba9eec173900600096246814cafc0ffa0';
+String _$insertAutoVerbalHash() => r'8506aa4b764f01b85c1eff32fba0309013ff507c';
 
 /// See also [InsertAutoVerbal].
 @ProviderFor(InsertAutoVerbal)

@@ -13,12 +13,13 @@ class PropertyListPage extends ConsumerStatefulWidget {
 }
 
 class _PropertyListPageState extends ConsumerState<PropertyListPage> {
-  String? _selectedFilter;
+  PropertyListingType? _type;
 
   @override
   Widget build(BuildContext context) {
     final firstPageCountAsync = ref.watch(
-      propertyListProvider(page: 0).select((v) => v.whenData((v) => v.length)),
+      propertyListProvider(page: 0, type: _type)
+          .select((v) => v.whenData((v) => v.length)),
     );
 
     return Scaffold(
@@ -43,7 +44,7 @@ class _PropertyListPageState extends ConsumerState<PropertyListPage> {
                     ),
                   );
                 }
-                return _GridView(filter: _selectedFilter?.toLowerCase());
+                return _GridView(type: _type);
               },
             ),
           ),
@@ -58,20 +59,20 @@ class _PropertyListPageState extends ConsumerState<PropertyListPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildFilterButton('Rent', Icons.home),
-          _buildFilterButton('Sale', Icons.sell),
-          _buildFilterButton('All', Icons.list),
+          _buildFilterButton('Rent', Icons.home, PropertyListingType.rent),
+          _buildFilterButton('Sale', Icons.sell, PropertyListingType.sale),
+          _buildFilterButton('All', Icons.list, null),
         ],
       ),
     );
   }
 
-  Widget _buildFilterButton(String label, IconData icon) {
+  Widget _buildFilterButton(
+      String label, IconData icon, PropertyListingType? _valueType) {
     final isSelected =
-        _selectedFilter == label || (label == 'All' && _selectedFilter == null);
+        (_type == null && _valueType == null) || _type == _valueType;
     return ElevatedButton.icon(
-      onPressed: () =>
-          setState(() => _selectedFilter = label == 'All' ? null : label),
+      onPressed: () => setState(() => _type = _valueType),
       icon: Icon(icon, color: isSelected ? Colors.white : Colors.grey),
       label: Text(label),
       style: ElevatedButton.styleFrom(
@@ -85,45 +86,30 @@ class _PropertyListPageState extends ConsumerState<PropertyListPage> {
 }
 
 class _GridView extends ConsumerWidget {
-  final String? filter;
-  const _GridView({this.filter});
+  final PropertyListingType? type;
+  const _GridView({this.type});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Consumer(
-      builder: (context, ref, _) {
-        final filteredItems = <PropertyModel>[];
-
-        // Pre-filter the items
-        for (int i = 0;; i++) {
-          final paginated = ref.watch(propertyAtIndexProvider(index: i));
-          if (paginated == null)
-            break; // Stop when we reach the end of the list
-
-          paginated.when(
-            loading: (_) {}, // Do nothing while loading
-            error: (_) {}, // Do nothing on error
-            data: (item) {
-              if (filter == null ||
-                  item.listingType.name.toLowerCase() ==
-                      filter!.toLowerCase()) {
-                filteredItems.add(item);
-              }
-            },
-          );
-        }
-
-        return GridView.builder(
-          padding: const EdgeInsets.all(8),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 0.75,
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
-          ),
-          itemCount: filteredItems.length,
-          itemBuilder: (context, index) {
-            return _buildPropertyCard(context, filteredItems[index]);
+    return GridView.builder(
+      padding: const EdgeInsets.all(8),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 0.75,
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
+      ),
+      itemBuilder: (context, index) {
+        final paginated =
+            ref.watch(propertyAtIndexProvider(index: index, type: type));
+        return paginated?.whenOrNull(
+          loading: (isFirstItem) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+          data: (item) {
+            return _buildPropertyCard(context, item);
           },
         );
       },

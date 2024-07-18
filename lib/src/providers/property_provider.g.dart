@@ -879,7 +879,7 @@ class InsertPropertyBuildingWidthFieldWidget extends HookConsumerWidget {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$propertyListHash() => r'1183572dacca1e53037729abfb29789cdc27d6f7';
+String _$propertyListHash() => r'904d723ada3f414f5ab253a3572f955b955e2b87';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -914,9 +914,11 @@ class PropertyListFamily extends Family<AsyncValue<IList<PropertyModel>>> {
   /// See also [propertyList].
   PropertyListProvider call({
     required int page,
+    PropertyListingType? type,
   }) {
     return PropertyListProvider(
       page: page,
+      type: type,
     );
   }
 
@@ -926,6 +928,7 @@ class PropertyListFamily extends Family<AsyncValue<IList<PropertyModel>>> {
   ) {
     return call(
       page: provider.page,
+      type: provider.type,
     );
   }
 
@@ -950,10 +953,12 @@ class PropertyListProvider
   /// See also [propertyList].
   PropertyListProvider({
     required int page,
+    PropertyListingType? type,
   }) : this._internal(
           (ref) => propertyList(
             ref as PropertyListRef,
             page: page,
+            type: type,
           ),
           from: propertyListProvider,
           name: r'propertyListProvider',
@@ -965,6 +970,7 @@ class PropertyListProvider
           allTransitiveDependencies:
               PropertyListFamily._allTransitiveDependencies,
           page: page,
+          type: type,
         );
 
   PropertyListProvider._internal(
@@ -975,9 +981,11 @@ class PropertyListProvider
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.page,
+    required this.type,
   }) : super.internal();
 
   final int page;
+  final PropertyListingType? type;
 
   @override
   Override overrideWith(
@@ -993,6 +1001,7 @@ class PropertyListProvider
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         page: page,
+        type: type,
       ),
     );
   }
@@ -1004,13 +1013,16 @@ class PropertyListProvider
 
   @override
   bool operator ==(Object other) {
-    return other is PropertyListProvider && other.page == page;
+    return other is PropertyListProvider &&
+        other.page == page &&
+        other.type == type;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, page.hashCode);
+    hash = _SystemHash.combine(hash, type.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -1019,6 +1031,9 @@ class PropertyListProvider
 mixin PropertyListRef on AutoDisposeFutureProviderRef<IList<PropertyModel>> {
   /// The parameter `page` of this provider.
   int get page;
+
+  /// The parameter `type` of this provider.
+  PropertyListingType? get type;
 }
 
 class _PropertyListProviderElement
@@ -1028,9 +1043,11 @@ class _PropertyListProviderElement
 
   @override
   int get page => (origin as PropertyListProvider).page;
+  @override
+  PropertyListingType? get type => (origin as PropertyListProvider).type;
 }
 
-String _$propertyAtIndexHash() => r'70d859bb4f1ab4fe4a38f25d29b47dc604741ed2';
+String _$propertyAtIndexHash() => r'bef1128d90fc86e6d2d6f0ecaa6a7f57a504ae10';
 
 /// See also [propertyAtIndex].
 @ProviderFor(propertyAtIndex)
@@ -1044,9 +1061,11 @@ class PropertyAtIndexFamily extends Family<PaginatedItem<PropertyModel>?> {
   /// See also [propertyAtIndex].
   PropertyAtIndexProvider call({
     required int index,
+    PropertyListingType? type,
   }) {
     return PropertyAtIndexProvider(
       index: index,
+      type: type,
     );
   }
 
@@ -1056,6 +1075,7 @@ class PropertyAtIndexFamily extends Family<PaginatedItem<PropertyModel>?> {
   ) {
     return call(
       index: provider.index,
+      type: provider.type,
     );
   }
 
@@ -1080,10 +1100,12 @@ class PropertyAtIndexProvider
   /// See also [propertyAtIndex].
   PropertyAtIndexProvider({
     required int index,
+    PropertyListingType? type,
   }) : this._internal(
           (ref) => propertyAtIndex(
             ref as PropertyAtIndexRef,
             index: index,
+            type: type,
           ),
           from: propertyAtIndexProvider,
           name: r'propertyAtIndexProvider',
@@ -1095,6 +1117,7 @@ class PropertyAtIndexProvider
           allTransitiveDependencies:
               PropertyAtIndexFamily._allTransitiveDependencies,
           index: index,
+          type: type,
         );
 
   PropertyAtIndexProvider._internal(
@@ -1105,9 +1128,11 @@ class PropertyAtIndexProvider
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.index,
+    required this.type,
   }) : super.internal();
 
   final int index;
+  final PropertyListingType? type;
 
   @override
   Override overrideWith(
@@ -1123,6 +1148,7 @@ class PropertyAtIndexProvider
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         index: index,
+        type: type,
       ),
     );
   }
@@ -1134,13 +1160,16 @@ class PropertyAtIndexProvider
 
   @override
   bool operator ==(Object other) {
-    return other is PropertyAtIndexProvider && other.index == index;
+    return other is PropertyAtIndexProvider &&
+        other.index == index &&
+        other.type == type;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, index.hashCode);
+    hash = _SystemHash.combine(hash, type.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -1150,6 +1179,9 @@ mixin PropertyAtIndexRef
     on AutoDisposeProviderRef<PaginatedItem<PropertyModel>?> {
   /// The parameter `index` of this provider.
   int get index;
+
+  /// The parameter `type` of this provider.
+  PropertyListingType? get type;
 }
 
 class _PropertyAtIndexProviderElement
@@ -1159,6 +1191,8 @@ class _PropertyAtIndexProviderElement
 
   @override
   int get index => (origin as PropertyAtIndexProvider).index;
+  @override
+  PropertyListingType? get type => (origin as PropertyAtIndexProvider).type;
 }
 
 String _$insertPropertyHash() => r'9063ebc5ccde9b895fc6d75059eaad103e57c067';

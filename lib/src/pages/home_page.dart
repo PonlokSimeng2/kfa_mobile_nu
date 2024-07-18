@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:kfa_mobile_nu/src/pages/report_page_test.dart';
 import '../../gen/assets.gen.dart';
 import '../helpers/build_context_helper.dart';
 import 'account_page.dart';
@@ -76,7 +77,8 @@ class __UserHomeState extends ConsumerState<_UserHome> {
             leading: const Icon(Icons.format_list_numbered_rtl_rounded),
             title: const Text('Report'),
             onTap: () {
-              context.push((context) => const ReportVerbalPage());
+              context.push((context) => const BeautifulPieChartScreen());
+              //context.push((context) => const ReportVerbalPage());
             },
           ),
           // ListTile(

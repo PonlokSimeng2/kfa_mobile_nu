@@ -2,6 +2,8 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:kfa_mobile_nu/src/pages/add_autoverbal_page.dart';
+import 'package:kfa_mobile_nu/src/pages/report_page_test.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'src/pages/login_page.dart';
 import 'src/pages/register_page.dart';
@@ -68,17 +70,9 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       themeMode: ThemeMode.light,
-      //home: TestPickImage(),
+      //home: const BeautifulPieChartScreen(),
       home: const HomePage(),
-      // home: AuthWrapperWidget(child: AddPropertyPage()),
-      // home: Map_verbal_address_Sale_page(
-      //   get_province: (value) {},
-      //   get_district: (value) {},
-      //   get_commune: (value) {},
-      //   get_log: (value) {},
-      //   get_lat: (value) {},
-      // ),
-      //home: GoogleMapScreen(),
+      //home: AddAutoVerbalPage(),
       //home: AccountPage(),
       //home: RegisterPage(),
       //home: LoginPage(openAsPage: true),

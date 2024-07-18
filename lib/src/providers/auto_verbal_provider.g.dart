@@ -7,16 +7,17 @@ part of 'auto_verbal_provider.dart';
 // **************************************************************************
 
 /// Mixin use for update properties. You will need to add this mixin to provider in order to make it work
-mixin _$nameForm on _$name {}
+mixin _$InsertAutoVerbalForm on _$InsertAutoVerbal {}
 
-bool _debugCheckHasnameFormWidget(BuildContext context) {
+bool _debugCheckHasInsertAutoVerbalFormWidget(BuildContext context) {
   assert(() {
-    if (context.widget is! nameFormWidget &&
-        context.findAncestorWidgetOfExactType<nameFormWidget>() == null) {
+    if (context.widget is! InsertAutoVerbalFormWidget &&
+        context.findAncestorWidgetOfExactType<InsertAutoVerbalFormWidget>() ==
+            null) {
       throw FlutterError.fromParts(<DiagnosticsNode>[
-        ErrorSummary('No nameFormWidget found'),
+        ErrorSummary('No InsertAutoVerbalFormWidget found'),
         ErrorDescription(
-            '${context.widget.runtimeType} widgets require a nameFormWidget widget ancestor.'),
+            '${context.widget.runtimeType} widgets require a InsertAutoVerbalFormWidget widget ancestor.'),
       ]);
     }
     return true;
@@ -24,20 +25,20 @@ bool _debugCheckHasnameFormWidget(BuildContext context) {
   return true;
 }
 
-typedef nameFormChildBuilder = Widget Function(
+typedef InsertAutoVerbalFormChildBuilder = Widget Function(
   WidgetRef ref,
-  ProviderStatus<InvalidType> status,
+  ProviderStatus<void> status,
   bool isProgressing,
   Failure? failure,
-  Future<ProviderStatus<InvalidType>> Function() submit,
+  Future<ProviderStatus<void>> Function() submit,
 );
 
 /// Base form widget for [InsertAutoVerbal] provider
 ///
 /// It required to add this as parent widget of fields widget if [InsertAutoVerbal] is a family provider
 /// , otherwise it's optional
-class nameFormWidget extends HookConsumerWidget {
-  const nameFormWidget({
+class InsertAutoVerbalFormWidget extends HookConsumerWidget {
+  const InsertAutoVerbalFormWidget({
     super.key,
     required this.builder,
   });
@@ -56,14 +57,15 @@ class nameFormWidget extends HookConsumerWidget {
   ///   ... submit(...);
   /// }
   /// ```
-  final nameFormChildBuilder builder;
+  final InsertAutoVerbalFormChildBuilder builder;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final status = ref.watch(nameProvider.select((value) => value.status));
+    final status =
+        ref.watch(insertAutoVerbalProvider.select((value) => value.status));
     final isProgressing = status.isInProgress;
     final failure = status.failure;
-    final controller = ref.watch(nameProvider.notifier);
+    final controller = ref.watch(insertAutoVerbalProvider.notifier);
 
     return builder(
       ref,
@@ -79,20 +81,21 @@ class nameFormWidget extends HookConsumerWidget {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$nameHash() => r'6678ada0d909a319affc6a647598b8f132f8ac93';
+String _$insertAutoVerbalHash() => r'ccda0feba9eec173900600096246814cafc0ffa0';
 
 /// See also [InsertAutoVerbal].
 @ProviderFor(InsertAutoVerbal)
-final nameProvider =
-    AutoDisposeNotifierProvider<InsertAutoVerbal, nameState>.internal(
+final insertAutoVerbalProvider = AutoDisposeNotifierProvider<InsertAutoVerbal,
+    InsertAutoVerbalState>.internal(
   InsertAutoVerbal.new,
-  name: r'nameProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$nameHash,
+  name: r'insertAutoVerbalProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$insertAutoVerbalHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$name = AutoDisposeNotifier<nameState>;
+typedef _$InsertAutoVerbal = AutoDisposeNotifier<InsertAutoVerbalState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

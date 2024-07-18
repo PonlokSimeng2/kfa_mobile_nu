@@ -2,6 +2,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:kimapp/kimapp.dart';
 
+import '../../exports.dart';
+
 part 'auto_verbal_provider.freezed.dart';
 part 'auto_verbal_provider.g.dart';
 
@@ -31,8 +33,7 @@ class InsertAutoVerbal extends _$InsertAutoVerbal with _$InsertAutoVerbalForm {
   Future<ProviderStatus<void>> call() async {
     return await perform<void>(
       (state) async {
-        final result = await ref.read();
-        return result.getOrThrow();
+        throw UnimplementedError();
       },
       onSuccess: (success) {},
     );

@@ -49,8 +49,10 @@ class AsyncValueWidget<T> extends StatelessWidget {
 }
 
 extension AsyncUI<T> on AsyncValue<T> {
-  Widget onData(Widget Function(T data) onData,
-      {Widget Function()? loadingWidget}) {
+  Widget onData(
+    Widget Function(T data) onData, {
+    Widget Function()? loadingWidget,
+  }) {
     return AsyncValueWidget(
       value: this,
       data: onData,

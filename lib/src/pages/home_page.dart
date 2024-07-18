@@ -1,17 +1,17 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:kfa_mobile_nu/src/pages/report_page_test.dart';
+
+import '../../exports.dart';
 import '../../gen/assets.gen.dart';
 import '../helpers/build_context_helper.dart';
+import '../providers/auth_provider.dart';
+import '../providers/user_provider.dart';
 import 'account_page.dart';
 import 'add_property_page.dart';
+import 'admin/admin_home_page.dart';
 import 'contact_us_page.dart';
 import 'property_list_page.dart';
 import 'report_verbal_page.dart';
-import '../providers/auth_provider.dart';
-import '../providers/user_provider.dart';
-
-import '../../exports.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -22,25 +22,25 @@ class HomePage extends ConsumerWidget {
 
     return userAsync.onData((user) {
       if (user == null || user.isAdmin == false) {
-        return _UserHome();
+        return const _UserHome();
       }
 
-      return _AdminHome();
+      return const _AdminHome();
     });
   }
 }
 
 class _AdminHome extends ConsumerWidget {
-  const _AdminHome({super.key});
+  const _AdminHome();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container();
+    return const AdminHomePage();
   }
 }
 
 class _UserHome extends ConsumerStatefulWidget {
-  const _UserHome({super.key});
+  const _UserHome();
 
   @override
   ConsumerState<_UserHome> createState() => __UserHomeState();
@@ -112,8 +112,8 @@ class __UserHomeState extends ConsumerState<_UserHome> {
                   phone: '081553000',
                 );
           },
-          icon: Icon(Icons.person_add),
-        )
+          icon: const Icon(Icons.person_add),
+        ),
       ],
       title: Row(
         mainAxisAlignment: MainAxisAlignment.start,

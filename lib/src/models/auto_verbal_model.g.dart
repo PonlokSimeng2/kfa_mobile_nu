@@ -6,8 +6,7 @@ part of 'auto_verbal_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AutoVerbalModelImpl _$$AutoVerbalModelImplFromJson(
-        Map<String, dynamic> json) =>
+_$AutoVerbalModelImpl _$$AutoVerbalModelImplFromJson(Map<String, dynamic> json) =>
     _$AutoVerbalModelImpl(
       id: (json['id'] as num).toInt(),
       autoVerbalId: json['auto_verbal_id'] as String,
@@ -23,18 +22,14 @@ _$AutoVerbalModelImpl _$$AutoVerbalModelImplFromJson(
       address: json['address'] as String,
       createdAt: DateTime.parse(json['created_at'] as String),
       approvedAt: DateTime.parse(json['approved_at'] as String),
-      rejectedAt: json['reject_at'] == null
-          ? null
-          : DateTime.parse(json['reject_at'] as String),
+      rejectedAt: json['reject_at'] == null ? null : DateTime.parse(json['reject_at'] as String),
       status: json['status'] as String?,
       rejectReason: json['reject_reason'] as String?,
       user: UserModel.fromJson(json['user'] as Map<String, dynamic>),
-      approvedBy:
-          UserModel.fromJson(json['approvedBy'] as Map<String, dynamic>),
+      approvedBy: UserModel.fromJson(json['approvedBy'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$AutoVerbalModelImplToJson(
-        _$AutoVerbalModelImpl instance) =>
+Map<String, dynamic> _$$AutoVerbalModelImplToJson(_$AutoVerbalModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'auto_verbal_id': instance.autoVerbalId,
@@ -81,8 +76,7 @@ const _tableAutoVerbalModel = TableBuilder(
     ColumnBuilder('reject_at'),
     ColumnBuilder('status'),
     ColumnBuilder('reject_reason'),
-    ColumnBuilder.join(UserModel.table,
-        key: "user", candidateKey: null, foreignKey: 'user_id'),
+    ColumnBuilder.join(UserModel.table, key: "user", candidateKey: null, foreignKey: 'user_id'),
     ColumnBuilder.join(UserModel.table,
         key: "approvedBy", candidateKey: null, foreignKey: 'approved_by'),
   ],

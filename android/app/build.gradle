@@ -54,13 +54,17 @@ android {
             signingConfig = signingConfigs.debug
         }
     }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 flutter {
     source = "../.."
 }
 dependencies {
-  implementation 'com.google.android.gms:play-services-maps:17.0.0'
-  implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
 }
-

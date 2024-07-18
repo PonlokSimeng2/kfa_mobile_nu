@@ -20,54 +20,64 @@ PropertyModel _$PropertyModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$PropertyModel {
-  @JsonKey(name: 'id')
+  @JsonKey(name: PropertyTable.id)
   int get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'property_id')
+  @JsonKey(name: PropertyTable.status)
+  PropertyStatus get status => throw _privateConstructorUsedError;
+  @JsonKey(name: PropertyTable.propertyId)
   String get propertyId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'listing_type')
+  @JsonKey(name: PropertyTable.listingType)
   PropertyListingType get listingType => throw _privateConstructorUsedError;
-  @JsonKey(name: 'images')
+  @JsonKey(name: PropertyTable.images)
   List<String> get images => throw _privateConstructorUsedError;
-  @JsonKey(name: 'title')
+  @JsonKey(name: PropertyTable.title)
   String get title => throw _privateConstructorUsedError;
-  @JsonKey(name: 'description')
+  @JsonKey(name: PropertyTable.description)
   String get description => throw _privateConstructorUsedError;
-  @JsonKey(name: 'latitude')
+  @JsonKey(name: PropertyTable.latitude)
   double get latitude => throw _privateConstructorUsedError;
-  @JsonKey(name: 'longitude')
+  @JsonKey(name: PropertyTable.longitude)
   double get longitude => throw _privateConstructorUsedError;
-  @JsonKey(name: 'price')
+  @JsonKey(name: PropertyTable.price)
   double get price => throw _privateConstructorUsedError;
-  @JsonKey(name: 'sqm')
+  @JsonKey(name: PropertyTable.sqm)
   double get sqm => throw _privateConstructorUsedError;
-  @JsonKey(name: 'bedrooms')
+  @JsonKey(name: PropertyTable.bedrooms)
   int? get bedrooms => throw _privateConstructorUsedError;
-  @JsonKey(name: 'bathrooms')
+  @JsonKey(name: PropertyTable.bathrooms)
   int? get bathrooms => throw _privateConstructorUsedError;
-  @JsonKey(name: 'floors')
+  @JsonKey(name: PropertyTable.floors)
   int? get floors => throw _privateConstructorUsedError;
-  @JsonKey(name: 'parking')
+  @JsonKey(name: PropertyTable.parking)
   int? get parking => throw _privateConstructorUsedError;
-  @JsonKey(name: 'living_rooms')
+  @JsonKey(name: PropertyTable.livingRooms)
   int? get livingRooms => throw _privateConstructorUsedError;
-  @JsonKey(name: 'land_length')
+  @JsonKey(name: PropertyTable.landLength)
   double get landLength => throw _privateConstructorUsedError;
-  @JsonKey(name: 'land_width')
+  @JsonKey(name: PropertyTable.landWidth)
   double get landWidth => throw _privateConstructorUsedError;
-  @JsonKey(name: 'house_length')
+  @JsonKey(name: PropertyTable.houseLength)
   double? get houseLength => throw _privateConstructorUsedError;
-  @JsonKey(name: 'house_width')
-  double? get houseWidth => throw _privateConstructorUsedError;
-  @JsonKey(name: 'price_per_sqm')
+  @JsonKey(name: PropertyTable.pricePerSqm)
   double get pricePerSqm => throw _privateConstructorUsedError;
-  @JsonKey(name: 'created_at')
+  @JsonKey(name: PropertyTable.houseWidth)
+  double? get houseWidth => throw _privateConstructorUsedError;
+  @JsonKey(name: PropertyTable.createdAt)
   DateTime get createdAt => throw _privateConstructorUsedError;
-  @JoinedColumn(foreignKey: 'user_id')
+  @JoinedColumn(foreignKey: PropertyTable.userId)
   UserModel get user => throw _privateConstructorUsedError;
-  @JoinedColumn(foreignKey: 'property_type_id')
+  @JoinedColumn(foreignKey: PropertyTable.propertyTypeId)
   PropertyTypeModel get propertyType => throw _privateConstructorUsedError;
-  @JoinedColumn(foreignKey: 'province_id')
+  @JoinedColumn(foreignKey: PropertyTable.provinceId)
   ProvinceModel get province => throw _privateConstructorUsedError;
+  @JsonKey(name: PropertyTable.approvedAt)
+  DateTime? get approvedAt => throw _privateConstructorUsedError;
+  @JoinedColumn(foreignKey: PropertyTable.approvedBy)
+  UserModel? get approvedBy => throw _privateConstructorUsedError;
+  @JsonKey(name: PropertyTable.rejectedAt)
+  DateTime? get rejectedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: PropertyTable.rejectReason)
+  String? get rejectReason => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -82,35 +92,42 @@ abstract class $PropertyModelCopyWith<$Res> {
       _$PropertyModelCopyWithImpl<$Res, PropertyModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'id') int id,
-      @JsonKey(name: 'property_id') String propertyId,
-      @JsonKey(name: 'listing_type') PropertyListingType listingType,
-      @JsonKey(name: 'images') List<String> images,
-      @JsonKey(name: 'title') String title,
-      @JsonKey(name: 'description') String description,
-      @JsonKey(name: 'latitude') double latitude,
-      @JsonKey(name: 'longitude') double longitude,
-      @JsonKey(name: 'price') double price,
-      @JsonKey(name: 'sqm') double sqm,
-      @JsonKey(name: 'bedrooms') int? bedrooms,
-      @JsonKey(name: 'bathrooms') int? bathrooms,
-      @JsonKey(name: 'floors') int? floors,
-      @JsonKey(name: 'parking') int? parking,
-      @JsonKey(name: 'living_rooms') int? livingRooms,
-      @JsonKey(name: 'land_length') double landLength,
-      @JsonKey(name: 'land_width') double landWidth,
-      @JsonKey(name: 'house_length') double? houseLength,
-      @JsonKey(name: 'house_width') double? houseWidth,
-      @JsonKey(name: 'price_per_sqm') double pricePerSqm,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JoinedColumn(foreignKey: 'user_id') UserModel user,
-      @JoinedColumn(foreignKey: 'property_type_id')
+      {@JsonKey(name: PropertyTable.id) int id,
+      @JsonKey(name: PropertyTable.status) PropertyStatus status,
+      @JsonKey(name: PropertyTable.propertyId) String propertyId,
+      @JsonKey(name: PropertyTable.listingType) PropertyListingType listingType,
+      @JsonKey(name: PropertyTable.images) List<String> images,
+      @JsonKey(name: PropertyTable.title) String title,
+      @JsonKey(name: PropertyTable.description) String description,
+      @JsonKey(name: PropertyTable.latitude) double latitude,
+      @JsonKey(name: PropertyTable.longitude) double longitude,
+      @JsonKey(name: PropertyTable.price) double price,
+      @JsonKey(name: PropertyTable.sqm) double sqm,
+      @JsonKey(name: PropertyTable.bedrooms) int? bedrooms,
+      @JsonKey(name: PropertyTable.bathrooms) int? bathrooms,
+      @JsonKey(name: PropertyTable.floors) int? floors,
+      @JsonKey(name: PropertyTable.parking) int? parking,
+      @JsonKey(name: PropertyTable.livingRooms) int? livingRooms,
+      @JsonKey(name: PropertyTable.landLength) double landLength,
+      @JsonKey(name: PropertyTable.landWidth) double landWidth,
+      @JsonKey(name: PropertyTable.houseLength) double? houseLength,
+      @JsonKey(name: PropertyTable.pricePerSqm) double pricePerSqm,
+      @JsonKey(name: PropertyTable.houseWidth) double? houseWidth,
+      @JsonKey(name: PropertyTable.createdAt) DateTime createdAt,
+      @JoinedColumn(foreignKey: PropertyTable.userId) UserModel user,
+      @JoinedColumn(foreignKey: PropertyTable.propertyTypeId)
       PropertyTypeModel propertyType,
-      @JoinedColumn(foreignKey: 'province_id') ProvinceModel province});
+      @JoinedColumn(foreignKey: PropertyTable.provinceId)
+      ProvinceModel province,
+      @JsonKey(name: PropertyTable.approvedAt) DateTime? approvedAt,
+      @JoinedColumn(foreignKey: PropertyTable.approvedBy) UserModel? approvedBy,
+      @JsonKey(name: PropertyTable.rejectedAt) DateTime? rejectedAt,
+      @JsonKey(name: PropertyTable.rejectReason) String? rejectReason});
 
   $UserModelCopyWith<$Res> get user;
   $PropertyTypeModelCopyWith<$Res> get propertyType;
   $ProvinceModelCopyWith<$Res> get province;
+  $UserModelCopyWith<$Res>? get approvedBy;
 }
 
 /// @nodoc
@@ -127,6 +144,7 @@ class _$PropertyModelCopyWithImpl<$Res, $Val extends PropertyModel>
   @override
   $Res call({
     Object? id = null,
+    Object? status = null,
     Object? propertyId = null,
     Object? listingType = null,
     Object? images = null,
@@ -144,18 +162,26 @@ class _$PropertyModelCopyWithImpl<$Res, $Val extends PropertyModel>
     Object? landLength = null,
     Object? landWidth = null,
     Object? houseLength = freezed,
-    Object? houseWidth = freezed,
     Object? pricePerSqm = null,
+    Object? houseWidth = freezed,
     Object? createdAt = null,
     Object? user = null,
     Object? propertyType = null,
     Object? province = null,
+    Object? approvedAt = freezed,
+    Object? approvedBy = freezed,
+    Object? rejectedAt = freezed,
+    Object? rejectReason = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as PropertyStatus,
       propertyId: null == propertyId
           ? _value.propertyId
           : propertyId // ignore: cast_nullable_to_non_nullable
@@ -224,14 +250,14 @@ class _$PropertyModelCopyWithImpl<$Res, $Val extends PropertyModel>
           ? _value.houseLength
           : houseLength // ignore: cast_nullable_to_non_nullable
               as double?,
-      houseWidth: freezed == houseWidth
-          ? _value.houseWidth
-          : houseWidth // ignore: cast_nullable_to_non_nullable
-              as double?,
       pricePerSqm: null == pricePerSqm
           ? _value.pricePerSqm
           : pricePerSqm // ignore: cast_nullable_to_non_nullable
               as double,
+      houseWidth: freezed == houseWidth
+          ? _value.houseWidth
+          : houseWidth // ignore: cast_nullable_to_non_nullable
+              as double?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -248,6 +274,22 @@ class _$PropertyModelCopyWithImpl<$Res, $Val extends PropertyModel>
           ? _value.province
           : province // ignore: cast_nullable_to_non_nullable
               as ProvinceModel,
+      approvedAt: freezed == approvedAt
+          ? _value.approvedAt
+          : approvedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      approvedBy: freezed == approvedBy
+          ? _value.approvedBy
+          : approvedBy // ignore: cast_nullable_to_non_nullable
+              as UserModel?,
+      rejectedAt: freezed == rejectedAt
+          ? _value.rejectedAt
+          : rejectedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      rejectReason: freezed == rejectReason
+          ? _value.rejectReason
+          : rejectReason // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -274,6 +316,18 @@ class _$PropertyModelCopyWithImpl<$Res, $Val extends PropertyModel>
       return _then(_value.copyWith(province: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserModelCopyWith<$Res>? get approvedBy {
+    if (_value.approvedBy == null) {
+      return null;
+    }
+
+    return $UserModelCopyWith<$Res>(_value.approvedBy!, (value) {
+      return _then(_value.copyWith(approvedBy: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -285,31 +339,37 @@ abstract class _$$PropertyModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'id') int id,
-      @JsonKey(name: 'property_id') String propertyId,
-      @JsonKey(name: 'listing_type') PropertyListingType listingType,
-      @JsonKey(name: 'images') List<String> images,
-      @JsonKey(name: 'title') String title,
-      @JsonKey(name: 'description') String description,
-      @JsonKey(name: 'latitude') double latitude,
-      @JsonKey(name: 'longitude') double longitude,
-      @JsonKey(name: 'price') double price,
-      @JsonKey(name: 'sqm') double sqm,
-      @JsonKey(name: 'bedrooms') int? bedrooms,
-      @JsonKey(name: 'bathrooms') int? bathrooms,
-      @JsonKey(name: 'floors') int? floors,
-      @JsonKey(name: 'parking') int? parking,
-      @JsonKey(name: 'living_rooms') int? livingRooms,
-      @JsonKey(name: 'land_length') double landLength,
-      @JsonKey(name: 'land_width') double landWidth,
-      @JsonKey(name: 'house_length') double? houseLength,
-      @JsonKey(name: 'house_width') double? houseWidth,
-      @JsonKey(name: 'price_per_sqm') double pricePerSqm,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JoinedColumn(foreignKey: 'user_id') UserModel user,
-      @JoinedColumn(foreignKey: 'property_type_id')
+      {@JsonKey(name: PropertyTable.id) int id,
+      @JsonKey(name: PropertyTable.status) PropertyStatus status,
+      @JsonKey(name: PropertyTable.propertyId) String propertyId,
+      @JsonKey(name: PropertyTable.listingType) PropertyListingType listingType,
+      @JsonKey(name: PropertyTable.images) List<String> images,
+      @JsonKey(name: PropertyTable.title) String title,
+      @JsonKey(name: PropertyTable.description) String description,
+      @JsonKey(name: PropertyTable.latitude) double latitude,
+      @JsonKey(name: PropertyTable.longitude) double longitude,
+      @JsonKey(name: PropertyTable.price) double price,
+      @JsonKey(name: PropertyTable.sqm) double sqm,
+      @JsonKey(name: PropertyTable.bedrooms) int? bedrooms,
+      @JsonKey(name: PropertyTable.bathrooms) int? bathrooms,
+      @JsonKey(name: PropertyTable.floors) int? floors,
+      @JsonKey(name: PropertyTable.parking) int? parking,
+      @JsonKey(name: PropertyTable.livingRooms) int? livingRooms,
+      @JsonKey(name: PropertyTable.landLength) double landLength,
+      @JsonKey(name: PropertyTable.landWidth) double landWidth,
+      @JsonKey(name: PropertyTable.houseLength) double? houseLength,
+      @JsonKey(name: PropertyTable.pricePerSqm) double pricePerSqm,
+      @JsonKey(name: PropertyTable.houseWidth) double? houseWidth,
+      @JsonKey(name: PropertyTable.createdAt) DateTime createdAt,
+      @JoinedColumn(foreignKey: PropertyTable.userId) UserModel user,
+      @JoinedColumn(foreignKey: PropertyTable.propertyTypeId)
       PropertyTypeModel propertyType,
-      @JoinedColumn(foreignKey: 'province_id') ProvinceModel province});
+      @JoinedColumn(foreignKey: PropertyTable.provinceId)
+      ProvinceModel province,
+      @JsonKey(name: PropertyTable.approvedAt) DateTime? approvedAt,
+      @JoinedColumn(foreignKey: PropertyTable.approvedBy) UserModel? approvedBy,
+      @JsonKey(name: PropertyTable.rejectedAt) DateTime? rejectedAt,
+      @JsonKey(name: PropertyTable.rejectReason) String? rejectReason});
 
   @override
   $UserModelCopyWith<$Res> get user;
@@ -317,6 +377,8 @@ abstract class _$$PropertyModelImplCopyWith<$Res>
   $PropertyTypeModelCopyWith<$Res> get propertyType;
   @override
   $ProvinceModelCopyWith<$Res> get province;
+  @override
+  $UserModelCopyWith<$Res>? get approvedBy;
 }
 
 /// @nodoc
@@ -331,6 +393,7 @@ class __$$PropertyModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? status = null,
     Object? propertyId = null,
     Object? listingType = null,
     Object? images = null,
@@ -348,18 +411,26 @@ class __$$PropertyModelImplCopyWithImpl<$Res>
     Object? landLength = null,
     Object? landWidth = null,
     Object? houseLength = freezed,
-    Object? houseWidth = freezed,
     Object? pricePerSqm = null,
+    Object? houseWidth = freezed,
     Object? createdAt = null,
     Object? user = null,
     Object? propertyType = null,
     Object? province = null,
+    Object? approvedAt = freezed,
+    Object? approvedBy = freezed,
+    Object? rejectedAt = freezed,
+    Object? rejectReason = freezed,
   }) {
     return _then(_$PropertyModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as PropertyStatus,
       propertyId: null == propertyId
           ? _value.propertyId
           : propertyId // ignore: cast_nullable_to_non_nullable
@@ -428,14 +499,14 @@ class __$$PropertyModelImplCopyWithImpl<$Res>
           ? _value.houseLength
           : houseLength // ignore: cast_nullable_to_non_nullable
               as double?,
-      houseWidth: freezed == houseWidth
-          ? _value.houseWidth
-          : houseWidth // ignore: cast_nullable_to_non_nullable
-              as double?,
       pricePerSqm: null == pricePerSqm
           ? _value.pricePerSqm
           : pricePerSqm // ignore: cast_nullable_to_non_nullable
               as double,
+      houseWidth: freezed == houseWidth
+          ? _value.houseWidth
+          : houseWidth // ignore: cast_nullable_to_non_nullable
+              as double?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -452,39 +523,62 @@ class __$$PropertyModelImplCopyWithImpl<$Res>
           ? _value.province
           : province // ignore: cast_nullable_to_non_nullable
               as ProvinceModel,
+      approvedAt: freezed == approvedAt
+          ? _value.approvedAt
+          : approvedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      approvedBy: freezed == approvedBy
+          ? _value.approvedBy
+          : approvedBy // ignore: cast_nullable_to_non_nullable
+              as UserModel?,
+      rejectedAt: freezed == rejectedAt
+          ? _value.rejectedAt
+          : rejectedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      rejectReason: freezed == rejectReason
+          ? _value.rejectReason
+          : rejectReason // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-@TableModel('properties')
+@TableModel(PropertyTable.table)
 class _$PropertyModelImpl extends _PropertyModel {
   _$PropertyModelImpl(
-      {@JsonKey(name: 'id') required this.id,
-      @JsonKey(name: 'property_id') required this.propertyId,
-      @JsonKey(name: 'listing_type') required this.listingType,
-      @JsonKey(name: 'images') required final List<String> images,
-      @JsonKey(name: 'title') required this.title,
-      @JsonKey(name: 'description') required this.description,
-      @JsonKey(name: 'latitude') required this.latitude,
-      @JsonKey(name: 'longitude') required this.longitude,
-      @JsonKey(name: 'price') required this.price,
-      @JsonKey(name: 'sqm') required this.sqm,
-      @JsonKey(name: 'bedrooms') required this.bedrooms,
-      @JsonKey(name: 'bathrooms') required this.bathrooms,
-      @JsonKey(name: 'floors') required this.floors,
-      @JsonKey(name: 'parking') required this.parking,
-      @JsonKey(name: 'living_rooms') required this.livingRooms,
-      @JsonKey(name: 'land_length') required this.landLength,
-      @JsonKey(name: 'land_width') required this.landWidth,
-      @JsonKey(name: 'house_length') required this.houseLength,
-      @JsonKey(name: 'house_width') required this.houseWidth,
-      @JsonKey(name: 'price_per_sqm') required this.pricePerSqm,
-      @JsonKey(name: 'created_at') required this.createdAt,
-      @JoinedColumn(foreignKey: 'user_id') required this.user,
-      @JoinedColumn(foreignKey: 'property_type_id') required this.propertyType,
-      @JoinedColumn(foreignKey: 'province_id') required this.province})
+      {@JsonKey(name: PropertyTable.id) required this.id,
+      @JsonKey(name: PropertyTable.status) required this.status,
+      @JsonKey(name: PropertyTable.propertyId) required this.propertyId,
+      @JsonKey(name: PropertyTable.listingType) required this.listingType,
+      @JsonKey(name: PropertyTable.images) required final List<String> images,
+      @JsonKey(name: PropertyTable.title) required this.title,
+      @JsonKey(name: PropertyTable.description) required this.description,
+      @JsonKey(name: PropertyTable.latitude) required this.latitude,
+      @JsonKey(name: PropertyTable.longitude) required this.longitude,
+      @JsonKey(name: PropertyTable.price) required this.price,
+      @JsonKey(name: PropertyTable.sqm) required this.sqm,
+      @JsonKey(name: PropertyTable.bedrooms) required this.bedrooms,
+      @JsonKey(name: PropertyTable.bathrooms) required this.bathrooms,
+      @JsonKey(name: PropertyTable.floors) required this.floors,
+      @JsonKey(name: PropertyTable.parking) required this.parking,
+      @JsonKey(name: PropertyTable.livingRooms) required this.livingRooms,
+      @JsonKey(name: PropertyTable.landLength) required this.landLength,
+      @JsonKey(name: PropertyTable.landWidth) required this.landWidth,
+      @JsonKey(name: PropertyTable.houseLength) required this.houseLength,
+      @JsonKey(name: PropertyTable.pricePerSqm) required this.pricePerSqm,
+      @JsonKey(name: PropertyTable.houseWidth) required this.houseWidth,
+      @JsonKey(name: PropertyTable.createdAt) required this.createdAt,
+      @JoinedColumn(foreignKey: PropertyTable.userId) required this.user,
+      @JoinedColumn(foreignKey: PropertyTable.propertyTypeId)
+      required this.propertyType,
+      @JoinedColumn(foreignKey: PropertyTable.provinceId)
+      required this.province,
+      @JsonKey(name: PropertyTable.approvedAt) this.approvedAt,
+      @JoinedColumn(foreignKey: PropertyTable.approvedBy) this.approvedBy,
+      @JsonKey(name: PropertyTable.rejectedAt) this.rejectedAt,
+      @JsonKey(name: PropertyTable.rejectReason) this.rejectReason})
       : _images = images,
         super._();
 
@@ -492,17 +586,20 @@ class _$PropertyModelImpl extends _PropertyModel {
       _$$PropertyModelImplFromJson(json);
 
   @override
-  @JsonKey(name: 'id')
+  @JsonKey(name: PropertyTable.id)
   final int id;
   @override
-  @JsonKey(name: 'property_id')
+  @JsonKey(name: PropertyTable.status)
+  final PropertyStatus status;
+  @override
+  @JsonKey(name: PropertyTable.propertyId)
   final String propertyId;
   @override
-  @JsonKey(name: 'listing_type')
+  @JsonKey(name: PropertyTable.listingType)
   final PropertyListingType listingType;
   final List<String> _images;
   @override
-  @JsonKey(name: 'images')
+  @JsonKey(name: PropertyTable.images)
   List<String> get images {
     if (_images is EqualUnmodifiableListView) return _images;
     // ignore: implicit_dynamic_type
@@ -510,69 +607,81 @@ class _$PropertyModelImpl extends _PropertyModel {
   }
 
   @override
-  @JsonKey(name: 'title')
+  @JsonKey(name: PropertyTable.title)
   final String title;
   @override
-  @JsonKey(name: 'description')
+  @JsonKey(name: PropertyTable.description)
   final String description;
   @override
-  @JsonKey(name: 'latitude')
+  @JsonKey(name: PropertyTable.latitude)
   final double latitude;
   @override
-  @JsonKey(name: 'longitude')
+  @JsonKey(name: PropertyTable.longitude)
   final double longitude;
   @override
-  @JsonKey(name: 'price')
+  @JsonKey(name: PropertyTable.price)
   final double price;
   @override
-  @JsonKey(name: 'sqm')
+  @JsonKey(name: PropertyTable.sqm)
   final double sqm;
   @override
-  @JsonKey(name: 'bedrooms')
+  @JsonKey(name: PropertyTable.bedrooms)
   final int? bedrooms;
   @override
-  @JsonKey(name: 'bathrooms')
+  @JsonKey(name: PropertyTable.bathrooms)
   final int? bathrooms;
   @override
-  @JsonKey(name: 'floors')
+  @JsonKey(name: PropertyTable.floors)
   final int? floors;
   @override
-  @JsonKey(name: 'parking')
+  @JsonKey(name: PropertyTable.parking)
   final int? parking;
   @override
-  @JsonKey(name: 'living_rooms')
+  @JsonKey(name: PropertyTable.livingRooms)
   final int? livingRooms;
   @override
-  @JsonKey(name: 'land_length')
+  @JsonKey(name: PropertyTable.landLength)
   final double landLength;
   @override
-  @JsonKey(name: 'land_width')
+  @JsonKey(name: PropertyTable.landWidth)
   final double landWidth;
   @override
-  @JsonKey(name: 'house_length')
+  @JsonKey(name: PropertyTable.houseLength)
   final double? houseLength;
   @override
-  @JsonKey(name: 'house_width')
-  final double? houseWidth;
-  @override
-  @JsonKey(name: 'price_per_sqm')
+  @JsonKey(name: PropertyTable.pricePerSqm)
   final double pricePerSqm;
   @override
-  @JsonKey(name: 'created_at')
+  @JsonKey(name: PropertyTable.houseWidth)
+  final double? houseWidth;
+  @override
+  @JsonKey(name: PropertyTable.createdAt)
   final DateTime createdAt;
   @override
-  @JoinedColumn(foreignKey: 'user_id')
+  @JoinedColumn(foreignKey: PropertyTable.userId)
   final UserModel user;
   @override
-  @JoinedColumn(foreignKey: 'property_type_id')
+  @JoinedColumn(foreignKey: PropertyTable.propertyTypeId)
   final PropertyTypeModel propertyType;
   @override
-  @JoinedColumn(foreignKey: 'province_id')
+  @JoinedColumn(foreignKey: PropertyTable.provinceId)
   final ProvinceModel province;
+  @override
+  @JsonKey(name: PropertyTable.approvedAt)
+  final DateTime? approvedAt;
+  @override
+  @JoinedColumn(foreignKey: PropertyTable.approvedBy)
+  final UserModel? approvedBy;
+  @override
+  @JsonKey(name: PropertyTable.rejectedAt)
+  final DateTime? rejectedAt;
+  @override
+  @JsonKey(name: PropertyTable.rejectReason)
+  final String? rejectReason;
 
   @override
   String toString() {
-    return 'PropertyModel(id: $id, propertyId: $propertyId, listingType: $listingType, images: $images, title: $title, description: $description, latitude: $latitude, longitude: $longitude, price: $price, sqm: $sqm, bedrooms: $bedrooms, bathrooms: $bathrooms, floors: $floors, parking: $parking, livingRooms: $livingRooms, landLength: $landLength, landWidth: $landWidth, houseLength: $houseLength, houseWidth: $houseWidth, pricePerSqm: $pricePerSqm, createdAt: $createdAt, user: $user, propertyType: $propertyType, province: $province)';
+    return 'PropertyModel(id: $id, status: $status, propertyId: $propertyId, listingType: $listingType, images: $images, title: $title, description: $description, latitude: $latitude, longitude: $longitude, price: $price, sqm: $sqm, bedrooms: $bedrooms, bathrooms: $bathrooms, floors: $floors, parking: $parking, livingRooms: $livingRooms, landLength: $landLength, landWidth: $landWidth, houseLength: $houseLength, pricePerSqm: $pricePerSqm, houseWidth: $houseWidth, createdAt: $createdAt, user: $user, propertyType: $propertyType, province: $province, approvedAt: $approvedAt, approvedBy: $approvedBy, rejectedAt: $rejectedAt, rejectReason: $rejectReason)';
   }
 
   @override
@@ -581,6 +690,7 @@ class _$PropertyModelImpl extends _PropertyModel {
         (other.runtimeType == runtimeType &&
             other is _$PropertyModelImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.propertyId, propertyId) ||
                 other.propertyId == propertyId) &&
             (identical(other.listingType, listingType) ||
@@ -609,17 +719,25 @@ class _$PropertyModelImpl extends _PropertyModel {
                 other.landWidth == landWidth) &&
             (identical(other.houseLength, houseLength) ||
                 other.houseLength == houseLength) &&
-            (identical(other.houseWidth, houseWidth) ||
-                other.houseWidth == houseWidth) &&
             (identical(other.pricePerSqm, pricePerSqm) ||
                 other.pricePerSqm == pricePerSqm) &&
+            (identical(other.houseWidth, houseWidth) ||
+                other.houseWidth == houseWidth) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.user, user) || other.user == user) &&
             (identical(other.propertyType, propertyType) ||
                 other.propertyType == propertyType) &&
             (identical(other.province, province) ||
-                other.province == province));
+                other.province == province) &&
+            (identical(other.approvedAt, approvedAt) ||
+                other.approvedAt == approvedAt) &&
+            (identical(other.approvedBy, approvedBy) ||
+                other.approvedBy == approvedBy) &&
+            (identical(other.rejectedAt, rejectedAt) ||
+                other.rejectedAt == rejectedAt) &&
+            (identical(other.rejectReason, rejectReason) ||
+                other.rejectReason == rejectReason));
   }
 
   @JsonKey(ignore: true)
@@ -627,6 +745,7 @@ class _$PropertyModelImpl extends _PropertyModel {
   int get hashCode => Object.hashAll([
         runtimeType,
         id,
+        status,
         propertyId,
         listingType,
         const DeepCollectionEquality().hash(_images),
@@ -644,12 +763,16 @@ class _$PropertyModelImpl extends _PropertyModel {
         landLength,
         landWidth,
         houseLength,
-        houseWidth,
         pricePerSqm,
+        houseWidth,
         createdAt,
         user,
         propertyType,
-        province
+        province,
+        approvedAt,
+        approvedBy,
+        rejectedAt,
+        rejectReason
       ]);
 
   @JsonKey(ignore: true)
@@ -668,110 +791,137 @@ class _$PropertyModelImpl extends _PropertyModel {
 
 abstract class _PropertyModel extends PropertyModel {
   factory _PropertyModel(
-      {@JsonKey(name: 'id') required final int id,
-      @JsonKey(name: 'property_id') required final String propertyId,
-      @JsonKey(name: 'listing_type')
+      {@JsonKey(name: PropertyTable.id) required final int id,
+      @JsonKey(name: PropertyTable.status) required final PropertyStatus status,
+      @JsonKey(name: PropertyTable.propertyId) required final String propertyId,
+      @JsonKey(name: PropertyTable.listingType)
       required final PropertyListingType listingType,
-      @JsonKey(name: 'images') required final List<String> images,
-      @JsonKey(name: 'title') required final String title,
-      @JsonKey(name: 'description') required final String description,
-      @JsonKey(name: 'latitude') required final double latitude,
-      @JsonKey(name: 'longitude') required final double longitude,
-      @JsonKey(name: 'price') required final double price,
-      @JsonKey(name: 'sqm') required final double sqm,
-      @JsonKey(name: 'bedrooms') required final int? bedrooms,
-      @JsonKey(name: 'bathrooms') required final int? bathrooms,
-      @JsonKey(name: 'floors') required final int? floors,
-      @JsonKey(name: 'parking') required final int? parking,
-      @JsonKey(name: 'living_rooms') required final int? livingRooms,
-      @JsonKey(name: 'land_length') required final double landLength,
-      @JsonKey(name: 'land_width') required final double landWidth,
-      @JsonKey(name: 'house_length') required final double? houseLength,
-      @JsonKey(name: 'house_width') required final double? houseWidth,
-      @JsonKey(name: 'price_per_sqm') required final double pricePerSqm,
-      @JsonKey(name: 'created_at') required final DateTime createdAt,
-      @JoinedColumn(foreignKey: 'user_id') required final UserModel user,
-      @JoinedColumn(foreignKey: 'property_type_id')
+      @JsonKey(name: PropertyTable.images) required final List<String> images,
+      @JsonKey(name: PropertyTable.title) required final String title,
+      @JsonKey(name: PropertyTable.description)
+      required final String description,
+      @JsonKey(name: PropertyTable.latitude) required final double latitude,
+      @JsonKey(name: PropertyTable.longitude) required final double longitude,
+      @JsonKey(name: PropertyTable.price) required final double price,
+      @JsonKey(name: PropertyTable.sqm) required final double sqm,
+      @JsonKey(name: PropertyTable.bedrooms) required final int? bedrooms,
+      @JsonKey(name: PropertyTable.bathrooms) required final int? bathrooms,
+      @JsonKey(name: PropertyTable.floors) required final int? floors,
+      @JsonKey(name: PropertyTable.parking) required final int? parking,
+      @JsonKey(name: PropertyTable.livingRooms) required final int? livingRooms,
+      @JsonKey(name: PropertyTable.landLength) required final double landLength,
+      @JsonKey(name: PropertyTable.landWidth) required final double landWidth,
+      @JsonKey(name: PropertyTable.houseLength)
+      required final double? houseLength,
+      @JsonKey(name: PropertyTable.pricePerSqm)
+      required final double pricePerSqm,
+      @JsonKey(name: PropertyTable.houseWidth)
+      required final double? houseWidth,
+      @JsonKey(name: PropertyTable.createdAt) required final DateTime createdAt,
+      @JoinedColumn(foreignKey: PropertyTable.userId)
+      required final UserModel user,
+      @JoinedColumn(foreignKey: PropertyTable.propertyTypeId)
       required final PropertyTypeModel propertyType,
-      @JoinedColumn(foreignKey: 'province_id')
-      required final ProvinceModel province}) = _$PropertyModelImpl;
+      @JoinedColumn(foreignKey: PropertyTable.provinceId)
+      required final ProvinceModel province,
+      @JsonKey(name: PropertyTable.approvedAt) final DateTime? approvedAt,
+      @JoinedColumn(foreignKey: PropertyTable.approvedBy)
+      final UserModel? approvedBy,
+      @JsonKey(name: PropertyTable.rejectedAt) final DateTime? rejectedAt,
+      @JsonKey(name: PropertyTable.rejectReason)
+      final String? rejectReason}) = _$PropertyModelImpl;
   _PropertyModel._() : super._();
 
   factory _PropertyModel.fromJson(Map<String, dynamic> json) =
       _$PropertyModelImpl.fromJson;
 
   @override
-  @JsonKey(name: 'id')
+  @JsonKey(name: PropertyTable.id)
   int get id;
   @override
-  @JsonKey(name: 'property_id')
+  @JsonKey(name: PropertyTable.status)
+  PropertyStatus get status;
+  @override
+  @JsonKey(name: PropertyTable.propertyId)
   String get propertyId;
   @override
-  @JsonKey(name: 'listing_type')
+  @JsonKey(name: PropertyTable.listingType)
   PropertyListingType get listingType;
   @override
-  @JsonKey(name: 'images')
+  @JsonKey(name: PropertyTable.images)
   List<String> get images;
   @override
-  @JsonKey(name: 'title')
+  @JsonKey(name: PropertyTable.title)
   String get title;
   @override
-  @JsonKey(name: 'description')
+  @JsonKey(name: PropertyTable.description)
   String get description;
   @override
-  @JsonKey(name: 'latitude')
+  @JsonKey(name: PropertyTable.latitude)
   double get latitude;
   @override
-  @JsonKey(name: 'longitude')
+  @JsonKey(name: PropertyTable.longitude)
   double get longitude;
   @override
-  @JsonKey(name: 'price')
+  @JsonKey(name: PropertyTable.price)
   double get price;
   @override
-  @JsonKey(name: 'sqm')
+  @JsonKey(name: PropertyTable.sqm)
   double get sqm;
   @override
-  @JsonKey(name: 'bedrooms')
+  @JsonKey(name: PropertyTable.bedrooms)
   int? get bedrooms;
   @override
-  @JsonKey(name: 'bathrooms')
+  @JsonKey(name: PropertyTable.bathrooms)
   int? get bathrooms;
   @override
-  @JsonKey(name: 'floors')
+  @JsonKey(name: PropertyTable.floors)
   int? get floors;
   @override
-  @JsonKey(name: 'parking')
+  @JsonKey(name: PropertyTable.parking)
   int? get parking;
   @override
-  @JsonKey(name: 'living_rooms')
+  @JsonKey(name: PropertyTable.livingRooms)
   int? get livingRooms;
   @override
-  @JsonKey(name: 'land_length')
+  @JsonKey(name: PropertyTable.landLength)
   double get landLength;
   @override
-  @JsonKey(name: 'land_width')
+  @JsonKey(name: PropertyTable.landWidth)
   double get landWidth;
   @override
-  @JsonKey(name: 'house_length')
+  @JsonKey(name: PropertyTable.houseLength)
   double? get houseLength;
   @override
-  @JsonKey(name: 'house_width')
-  double? get houseWidth;
-  @override
-  @JsonKey(name: 'price_per_sqm')
+  @JsonKey(name: PropertyTable.pricePerSqm)
   double get pricePerSqm;
   @override
-  @JsonKey(name: 'created_at')
+  @JsonKey(name: PropertyTable.houseWidth)
+  double? get houseWidth;
+  @override
+  @JsonKey(name: PropertyTable.createdAt)
   DateTime get createdAt;
   @override
-  @JoinedColumn(foreignKey: 'user_id')
+  @JoinedColumn(foreignKey: PropertyTable.userId)
   UserModel get user;
   @override
-  @JoinedColumn(foreignKey: 'property_type_id')
+  @JoinedColumn(foreignKey: PropertyTable.propertyTypeId)
   PropertyTypeModel get propertyType;
   @override
-  @JoinedColumn(foreignKey: 'province_id')
+  @JoinedColumn(foreignKey: PropertyTable.provinceId)
   ProvinceModel get province;
+  @override
+  @JsonKey(name: PropertyTable.approvedAt)
+  DateTime? get approvedAt;
+  @override
+  @JoinedColumn(foreignKey: PropertyTable.approvedBy)
+  UserModel? get approvedBy;
+  @override
+  @JsonKey(name: PropertyTable.rejectedAt)
+  DateTime? get rejectedAt;
+  @override
+  @JsonKey(name: PropertyTable.rejectReason)
+  String? get rejectReason;
   @override
   @JsonKey(ignore: true)
   _$$PropertyModelImplCopyWith<_$PropertyModelImpl> get copyWith =>

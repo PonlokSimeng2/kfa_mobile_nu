@@ -879,7 +879,7 @@ class InsertPropertyBuildingWidthFieldWidget extends HookConsumerWidget {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$propertyListHash() => r'7d8989ee534fa42dc975627c08e8ee9dbacc2e0c';
+String _$propertyListHash() => r'1183572dacca1e53037729abfb29789cdc27d6f7';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -1161,7 +1161,7 @@ class _PropertyAtIndexProviderElement
   int get index => (origin as PropertyAtIndexProvider).index;
 }
 
-String _$insertPropertyHash() => r'f53a9d2af046a737a5fc7be67cd850d2a12de0d4';
+String _$insertPropertyHash() => r'9063ebc5ccde9b895fc6d75059eaad103e57c067';
 
 /// See also [InsertProperty].
 @ProviderFor(InsertProperty)

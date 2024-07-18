@@ -77,7 +77,8 @@ class __UserHomeState extends ConsumerState<_UserHome> {
             leading: const Icon(Icons.format_list_numbered_rtl_rounded),
             title: const Text('Report'),
             onTap: () {
-              context.push((context) => const ReportVerbalPage());
+              context.push((context) => const BeautifulPieChartScreen());
+              //context.push((context) => const ReportVerbalPage());
             },
           ),
           // ListTile(

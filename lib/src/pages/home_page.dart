@@ -12,7 +12,6 @@ import 'add_property_page.dart';
 import 'admin/admin_home_page.dart';
 import 'contact_us_page.dart';
 import 'property_list_page.dart';
-import 'report_verbal_page.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});

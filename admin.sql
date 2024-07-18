@@ -18,22 +18,31 @@ CREATE OR REPLACE FUNCTION public.send_onesignal_notification(
   user_ids UUID[]
 )
 RETURNS VOID AS $$
+DECLARE
+    _request_id bigint;
+    _url constant text := 'https://api.onesignal.com/notifications';
+    _onesignal_app_id constant text := '4c477f3d-2679-457e-87b0-57808114f822';
+    _onesignal_rest_api_key constant text := 'MzYxOTgxYzgtZWFiOC00YThhLWJlMmEtYWNmZGRiOWJkNzdk';
+    _headers jsonb := jsonb_build_object(
+        'Content-Type', 'application/json',
+        'Authorization', CONCAT('Basic ', _onesignal_rest_api_key)
+    );
+    timeout_ms constant integer := 2000;
 BEGIN
-  PERFORM net.http_post(
-    url := 'https://api.onesignal.com/notifications',
-    headers := '{"Content-Type": "application/json", "Authorization": "Basic MzYxOTgxYzgtZWFiOC00YThhLWJlMmEtYWNmZGRiOWJkNzdk"}',
-    body := json_build_object(
-      'target_channel', 'push',
-      'app_id', '4c477f3d-2679-457e-87b0-57808114f822',
-      'include_external_user_ids', user_ids,
-      'contents', json_build_object(
-        'en', message
-      ),
-      'headings', json_build_object(
-        'en', heading
-      )
-    )::text
-  );
+    SELECT http_post INTO _request_id
+    FROM net.http_post(
+        _url,
+        jsonb_build_object(
+            'app_id', _onesignal_app_id,
+            'include_external_user_ids', user_ids,
+            'contents', jsonb_build_object('en', message),
+            'headings', jsonb_build_object('en', heading),
+            'target_channel', 'push'
+        ),
+        NULL,
+        _headers,
+        timeout_ms
+    );
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
@@ -98,7 +107,7 @@ DECLARE
   notification_title TEXT;
 BEGIN
   -- Get the user ID of the property owner
-  SELECT created_by INTO user_id
+  SELECT properties.user_id INTO user_id
   FROM public.properties
   WHERE property_id = NEW.property_id;
 

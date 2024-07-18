@@ -8,7 +8,7 @@ import '../providers/auth_provider.dart';
 import '../providers/user_provider.dart';
 import 'account_page.dart';
 import 'add_property_page.dart';
-import 'admin_home_page.dart';
+import 'admin/admin_home_page.dart';
 import 'contact_us_page.dart';
 import 'property_list_page.dart';
 import 'report_verbal_page.dart';

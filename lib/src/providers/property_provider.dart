@@ -23,15 +23,17 @@ FutureOr<IList<PropertyModel>> propertyList(
   PropertyListRef ref, {
   required int page,
   PropertyListingType? type,
+  PropertyStatus? status = PropertyStatus.approved,
 }) async {
   final sb = ref.watch(supabaseProvider).client;
 
   final offset = page * _limit;
 
-  var query = sb
-      .from(PropertyModel.table.tableName)
-      .select(PropertyModel.table.selectStatement)
-      .eq(PropertyTable.status, PropertyStatus.approved.name);
+  var query = sb.from(PropertyModel.table.tableName).select(PropertyModel.table.selectStatement);
+
+  if (status != null) {
+    query = query.eq(PropertyTable.status, status.name);
+  }
 
   if (type != null) {
     query = query.eq(PropertyTable.listingType, type.name);
@@ -51,12 +53,12 @@ PaginatedItem<PropertyModel>? propertyAtIndex(
   PropertyAtIndexRef ref, {
   required int index,
   PropertyListingType? type,
+  PropertyStatus? status = PropertyStatus.approved,
 }) {
   final page = index ~/ _limit;
 
-  final pageItems = ref.watch(propertyListProvider(page: page, type: type));
-  final hasNextPage =
-      ref.exists(propertyListProvider(page: page + 1, type: type));
+  final pageItems = ref.watch(propertyListProvider(page: page, type: type, status: status));
+  final hasNextPage = ref.exists(propertyListProvider(page: page + 1, type: type, status: status));
 
   return PaginatedItem.build(
     pageItems: pageItems,
@@ -68,9 +70,7 @@ PaginatedItem<PropertyModel>? propertyAtIndex(
 
 @freezed
 class InsertPropertyState
-    with
-        _$InsertPropertyState,
-        ProviderStatusClassMixin<InsertPropertyState, void> {
+    with _$InsertPropertyState, ProviderStatusClassMixin<InsertPropertyState, void> {
   const InsertPropertyState._();
 
   const factory InsertPropertyState({
@@ -147,8 +147,7 @@ class InsertProperty extends _$InsertProperty with _$InsertPropertyForm {
         for (final xFile in state.imageFiles) {
           final path = xFile.path;
           final file = File(path);
-          final newPath =
-              '${DateTime.now().microsecondsSinceEpoch}${p.extension(path)}';
+          final newPath = '${DateTime.now().microsecondsSinceEpoch}${p.extension(path)}';
 
           await sb.storage.from('files').upload(newPath, file);
 

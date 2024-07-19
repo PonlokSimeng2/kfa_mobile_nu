@@ -1,120 +1,39 @@
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
+import 'package:kfa_mobile_nu/exports.dart';
+import 'package:kfa_mobile_nu/src/pages/admin/admin_account_page.dart';
+import 'package:kfa_mobile_nu/src/pages/admin/property_report_page.dart';
+import 'package:kfa_mobile_nu/src/pages/admin/user_list_page.dart';
 
-class AdminHomePage extends StatelessWidget {
+class AdminHomePage extends HookConsumerWidget {
   const AdminHomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            ListTile(
-              leading: const Icon(Icons.list),
-              title: const Text('User List'),
-              onTap: () {
-                // TODO: Implement navigation to user list
-                // Navigate to the user list page
-              },
-            ),
-            ListTile(
-              title: const Text('Property '),
-              onTap: () {
-                // TODO: Implement navigation to property
-              },
-            ),
-            ListTile(
-              title: const Text('Report'),
-              onTap: () {
-                // TODO: Implement navigation to report
-              },
-            ),
-            ListTile(
-              title: const Text('Sign out'),
-              onTap: () {
-                // TODO: Implement sign out logic
-              },
-            ),
-          ],
-        ),
-      ),
-      appBar: AppBar(
-        title: const Text('Admin Dashboard'),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'User Statistics',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: 300,
-              child: PieChart(
-                PieChartData(
-                  sections: [
-                    PieChartSectionData(
-                      color: Colors.blue,
-                      value: 30,
-                      title: 'Active',
-                      radius: 100,
-                    ),
-                    PieChartSectionData(
-                      color: Colors.red,
-                      value: 15,
-                      title: 'Inactive',
-                      radius: 100,
-                    ),
-                    PieChartSectionData(
-                      color: Colors.green,
-                      value: 55,
-                      title: 'New',
-                      radius: 100,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            _buildInfoCard('Today\'s Added Properties', '12'),
-            const SizedBox(height: 20),
-            _buildInfoCard('Pending Properties for Approval', '5'),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // TODO: Implement navigation to pending properties list
-              },
-              child: const Text('View Pending Properties'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  Widget build(BuildContext context, ref) {
+    final activeIndex = useState(0);
 
-  Widget _buildInfoCard(String title, String value) {
-    return Card(
-      elevation: 4,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              value,
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
+    return Scaffold(
+      body: switch (activeIndex.value) {
+        0 => const PropertyReportPage(),
+        1 => const UserListPage(),
+        2 => const AdminAccountPage(),
+        _ => Container(),
+      },
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (value) => activeIndex.value = value,
+        currentIndex: activeIndex.value,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: 'User List',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle),
+            label: 'Account',
+          ),
+        ],
       ),
     );
   }

@@ -56,6 +56,11 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: kwhite_new,
+          brightness: Brightness.light,
+        ),
         primaryColor: kwhite_new,
         appBarTheme: const AppBarTheme(
           backgroundColor: kwhite_new,

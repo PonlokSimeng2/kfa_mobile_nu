@@ -48,6 +48,16 @@ mixin _$AutoVerbalModel {
   String get address => throw _privateConstructorUsedError;
   @JsonKey(name: AutoVerbalTable.createdAt)
   DateTime get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.approvedAt)
+  DateTime? get approvedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.approvedBy)
+  String? get approvedBy => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.rejectAt)
+  DateTime? get rejectAt => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.status)
+  String? get status => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.rejectReason)
+  String? get rejectReason => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -75,7 +85,12 @@ abstract class $AutoVerbalModelCopyWith<$Res> {
       @JsonKey(name: AutoVerbalTable.bankOfficerName) String? bankOfficerName,
       @JsonKey(name: AutoVerbalTable.bankOfficerPhone) String? bankOfficerPhone,
       @JsonKey(name: AutoVerbalTable.address) String address,
-      @JsonKey(name: AutoVerbalTable.createdAt) DateTime createdAt});
+      @JsonKey(name: AutoVerbalTable.createdAt) DateTime createdAt,
+      @JsonKey(name: AutoVerbalTable.approvedAt) DateTime? approvedAt,
+      @JsonKey(name: AutoVerbalTable.approvedBy) String? approvedBy,
+      @JsonKey(name: AutoVerbalTable.rejectAt) DateTime? rejectAt,
+      @JsonKey(name: AutoVerbalTable.status) String? status,
+      @JsonKey(name: AutoVerbalTable.rejectReason) String? rejectReason});
 }
 
 /// @nodoc
@@ -105,6 +120,11 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
     Object? bankOfficerPhone = freezed,
     Object? address = null,
     Object? createdAt = null,
+    Object? approvedAt = freezed,
+    Object? approvedBy = freezed,
+    Object? rejectAt = freezed,
+    Object? status = freezed,
+    Object? rejectReason = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -163,6 +183,26 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      approvedAt: freezed == approvedAt
+          ? _value.approvedAt
+          : approvedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      approvedBy: freezed == approvedBy
+          ? _value.approvedBy
+          : approvedBy // ignore: cast_nullable_to_non_nullable
+              as String?,
+      rejectAt: freezed == rejectAt
+          ? _value.rejectAt
+          : rejectAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      rejectReason: freezed == rejectReason
+          ? _value.rejectReason
+          : rejectReason // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -189,7 +229,12 @@ abstract class _$$AutoVerbalModelImplCopyWith<$Res>
       @JsonKey(name: AutoVerbalTable.bankOfficerName) String? bankOfficerName,
       @JsonKey(name: AutoVerbalTable.bankOfficerPhone) String? bankOfficerPhone,
       @JsonKey(name: AutoVerbalTable.address) String address,
-      @JsonKey(name: AutoVerbalTable.createdAt) DateTime createdAt});
+      @JsonKey(name: AutoVerbalTable.createdAt) DateTime createdAt,
+      @JsonKey(name: AutoVerbalTable.approvedAt) DateTime? approvedAt,
+      @JsonKey(name: AutoVerbalTable.approvedBy) String? approvedBy,
+      @JsonKey(name: AutoVerbalTable.rejectAt) DateTime? rejectAt,
+      @JsonKey(name: AutoVerbalTable.status) String? status,
+      @JsonKey(name: AutoVerbalTable.rejectReason) String? rejectReason});
 }
 
 /// @nodoc
@@ -217,6 +262,11 @@ class __$$AutoVerbalModelImplCopyWithImpl<$Res>
     Object? bankOfficerPhone = freezed,
     Object? address = null,
     Object? createdAt = null,
+    Object? approvedAt = freezed,
+    Object? approvedBy = freezed,
+    Object? rejectAt = freezed,
+    Object? status = freezed,
+    Object? rejectReason = freezed,
   }) {
     return _then(_$AutoVerbalModelImpl(
       id: null == id
@@ -275,6 +325,26 @@ class __$$AutoVerbalModelImplCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      approvedAt: freezed == approvedAt
+          ? _value.approvedAt
+          : approvedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      approvedBy: freezed == approvedBy
+          ? _value.approvedBy
+          : approvedBy // ignore: cast_nullable_to_non_nullable
+              as String?,
+      rejectAt: freezed == rejectAt
+          ? _value.rejectAt
+          : rejectAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      rejectReason: freezed == rejectReason
+          ? _value.rejectReason
+          : rejectReason // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -300,7 +370,12 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
       @JsonKey(name: AutoVerbalTable.bankOfficerPhone)
       required this.bankOfficerPhone,
       @JsonKey(name: AutoVerbalTable.address) required this.address,
-      @JsonKey(name: AutoVerbalTable.createdAt) required this.createdAt})
+      @JsonKey(name: AutoVerbalTable.createdAt) required this.createdAt,
+      @JsonKey(name: AutoVerbalTable.approvedAt) this.approvedAt,
+      @JsonKey(name: AutoVerbalTable.approvedBy) this.approvedBy,
+      @JsonKey(name: AutoVerbalTable.rejectAt) this.rejectAt,
+      @JsonKey(name: AutoVerbalTable.status) this.status,
+      @JsonKey(name: AutoVerbalTable.rejectReason) this.rejectReason})
       : super._();
 
   factory _$AutoVerbalModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -348,10 +423,25 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
   @override
   @JsonKey(name: AutoVerbalTable.createdAt)
   final DateTime createdAt;
+  @override
+  @JsonKey(name: AutoVerbalTable.approvedAt)
+  final DateTime? approvedAt;
+  @override
+  @JsonKey(name: AutoVerbalTable.approvedBy)
+  final String? approvedBy;
+  @override
+  @JsonKey(name: AutoVerbalTable.rejectAt)
+  final DateTime? rejectAt;
+  @override
+  @JsonKey(name: AutoVerbalTable.status)
+  final String? status;
+  @override
+  @JsonKey(name: AutoVerbalTable.rejectReason)
+  final String? rejectReason;
 
   @override
   String toString() {
-    return 'AutoVerbalModel(id: $id, autoVerbalId: $autoVerbalId, image: $image, propertyTypeId: $propertyTypeId, bankId: $bankId, latitude: $latitude, longitude: $longitude, userId: $userId, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, address: $address, createdAt: $createdAt)';
+    return 'AutoVerbalModel(id: $id, autoVerbalId: $autoVerbalId, image: $image, propertyTypeId: $propertyTypeId, bankId: $bankId, latitude: $latitude, longitude: $longitude, userId: $userId, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, address: $address, createdAt: $createdAt, approvedAt: $approvedAt, approvedBy: $approvedBy, rejectAt: $rejectAt, status: $status, rejectReason: $rejectReason)';
   }
 
   @override
@@ -381,27 +471,42 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
                 other.bankOfficerPhone == bankOfficerPhone) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+                other.createdAt == createdAt) &&
+            (identical(other.approvedAt, approvedAt) ||
+                other.approvedAt == approvedAt) &&
+            (identical(other.approvedBy, approvedBy) ||
+                other.approvedBy == approvedBy) &&
+            (identical(other.rejectAt, rejectAt) ||
+                other.rejectAt == rejectAt) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.rejectReason, rejectReason) ||
+                other.rejectReason == rejectReason));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      autoVerbalId,
-      image,
-      propertyTypeId,
-      bankId,
-      latitude,
-      longitude,
-      userId,
-      ownerName,
-      ownerPhone,
-      bankOfficerName,
-      bankOfficerPhone,
-      address,
-      createdAt);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        autoVerbalId,
+        image,
+        propertyTypeId,
+        bankId,
+        latitude,
+        longitude,
+        userId,
+        ownerName,
+        ownerPhone,
+        bankOfficerName,
+        bankOfficerPhone,
+        address,
+        createdAt,
+        approvedAt,
+        approvedBy,
+        rejectAt,
+        status,
+        rejectReason
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -439,7 +544,13 @@ abstract class _AutoVerbalModel extends AutoVerbalModel {
       required final String? bankOfficerPhone,
       @JsonKey(name: AutoVerbalTable.address) required final String address,
       @JsonKey(name: AutoVerbalTable.createdAt)
-      required final DateTime createdAt}) = _$AutoVerbalModelImpl;
+      required final DateTime createdAt,
+      @JsonKey(name: AutoVerbalTable.approvedAt) final DateTime? approvedAt,
+      @JsonKey(name: AutoVerbalTable.approvedBy) final String? approvedBy,
+      @JsonKey(name: AutoVerbalTable.rejectAt) final DateTime? rejectAt,
+      @JsonKey(name: AutoVerbalTable.status) final String? status,
+      @JsonKey(name: AutoVerbalTable.rejectReason)
+      final String? rejectReason}) = _$AutoVerbalModelImpl;
   _AutoVerbalModel._() : super._();
 
   factory _AutoVerbalModel.fromJson(Map<String, dynamic> json) =
@@ -487,6 +598,21 @@ abstract class _AutoVerbalModel extends AutoVerbalModel {
   @override
   @JsonKey(name: AutoVerbalTable.createdAt)
   DateTime get createdAt;
+  @override
+  @JsonKey(name: AutoVerbalTable.approvedAt)
+  DateTime? get approvedAt;
+  @override
+  @JsonKey(name: AutoVerbalTable.approvedBy)
+  String? get approvedBy;
+  @override
+  @JsonKey(name: AutoVerbalTable.rejectAt)
+  DateTime? get rejectAt;
+  @override
+  @JsonKey(name: AutoVerbalTable.status)
+  String? get status;
+  @override
+  @JsonKey(name: AutoVerbalTable.rejectReason)
+  String? get rejectReason;
   @override
   @JsonKey(ignore: true)
   _$$AutoVerbalModelImplCopyWith<_$AutoVerbalModelImpl> get copyWith =>

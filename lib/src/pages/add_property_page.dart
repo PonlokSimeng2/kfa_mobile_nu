@@ -87,6 +87,9 @@ class AddPropertyPage extends HookConsumerWidget {
                       final result = await submit();
                       close();
                       if (result.isSuccess) {
+                        if (context.mounted) {
+                          //  Navigator.pop(context);
+                        }
                         AwesomeDialog(
                           context: context,
                           dialogType: DialogType.success,

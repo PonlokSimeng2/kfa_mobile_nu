@@ -23,4 +23,9 @@ class AutoVerbalTable {
   static const String bankOfficerPhone = "bank_officer_phone";
   static const String address = "address";
   static const String createdAt = "created_at";
+  static const String approvedAt = "approved_at";
+  static const String approvedBy = "approved_by";
+  static const String rejectAt = "reject_at";
+  static const String status = "status";
+  static const String rejectReason = "reject_reason";
 }

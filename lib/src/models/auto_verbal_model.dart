@@ -25,6 +25,11 @@ part 'auto_verbal_model.g.dart';
     'bank_officer_phone',
     'address',
     'created_at',
+    'approved_at',
+    'approved_by',
+    'reject_at',
+    'status',
+    'reject_reason',
   ],
 )
 @freezed
@@ -49,6 +54,11 @@ class AutoVerbalModel with _$AutoVerbalModel {
     required String? bankOfficerPhone,
     @JsonKey(name: AutoVerbalTable.address) required String address,
     @JsonKey(name: AutoVerbalTable.createdAt) required DateTime createdAt,
+    @JsonKey(name: AutoVerbalTable.approvedAt) DateTime? approvedAt,
+    @JsonKey(name: AutoVerbalTable.approvedBy) String? approvedBy,
+    @JsonKey(name: AutoVerbalTable.rejectAt) DateTime? rejectAt,
+    @JsonKey(name: AutoVerbalTable.status) String? status,
+    @JsonKey(name: AutoVerbalTable.rejectReason) String? rejectReason,
   }) = _AutoVerbalModel;
 
   factory AutoVerbalModel.fromJson(Map<String, dynamic> json) =>

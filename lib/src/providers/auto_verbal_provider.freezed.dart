@@ -16,6 +16,16 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$InsertAutoVerbalState {
+  String get image => throw _privateConstructorUsedError;
+  PropertyTypeModel? get propertyType =>
+      throw _privateConstructorUsedError; //required ProvinceModel? province,
+  double get latitude => throw _privateConstructorUsedError;
+  double get longitude => throw _privateConstructorUsedError;
+  String get ownerName => throw _privateConstructorUsedError;
+  String get ownerPhone => throw _privateConstructorUsedError;
+  String get bankOfficerName => throw _privateConstructorUsedError;
+  String get bankOfficerPhone => throw _privateConstructorUsedError;
+  String get address => throw _privateConstructorUsedError;
   ProviderStatus<void> get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -29,8 +39,19 @@ abstract class $InsertAutoVerbalStateCopyWith<$Res> {
           $Res Function(InsertAutoVerbalState) then) =
       _$InsertAutoVerbalStateCopyWithImpl<$Res, InsertAutoVerbalState>;
   @useResult
-  $Res call({ProviderStatus<void> status});
+  $Res call(
+      {String image,
+      PropertyTypeModel? propertyType,
+      double latitude,
+      double longitude,
+      String ownerName,
+      String ownerPhone,
+      String bankOfficerName,
+      String bankOfficerPhone,
+      String address,
+      ProviderStatus<void> status});
 
+  $PropertyTypeModelCopyWith<$Res>? get propertyType;
   $ProviderStatusCopyWith<void, $Res> get status;
 }
 
@@ -48,14 +69,71 @@ class _$InsertAutoVerbalStateCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? image = null,
+    Object? propertyType = freezed,
+    Object? latitude = null,
+    Object? longitude = null,
+    Object? ownerName = null,
+    Object? ownerPhone = null,
+    Object? bankOfficerName = null,
+    Object? bankOfficerPhone = null,
+    Object? address = null,
     Object? status = null,
   }) {
     return _then(_value.copyWith(
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String,
+      propertyType: freezed == propertyType
+          ? _value.propertyType
+          : propertyType // ignore: cast_nullable_to_non_nullable
+              as PropertyTypeModel?,
+      latitude: null == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: null == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      ownerName: null == ownerName
+          ? _value.ownerName
+          : ownerName // ignore: cast_nullable_to_non_nullable
+              as String,
+      ownerPhone: null == ownerPhone
+          ? _value.ownerPhone
+          : ownerPhone // ignore: cast_nullable_to_non_nullable
+              as String,
+      bankOfficerName: null == bankOfficerName
+          ? _value.bankOfficerName
+          : bankOfficerName // ignore: cast_nullable_to_non_nullable
+              as String,
+      bankOfficerPhone: null == bankOfficerPhone
+          ? _value.bankOfficerPhone
+          : bankOfficerPhone // ignore: cast_nullable_to_non_nullable
+              as String,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as ProviderStatus<void>,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PropertyTypeModelCopyWith<$Res>? get propertyType {
+    if (_value.propertyType == null) {
+      return null;
+    }
+
+    return $PropertyTypeModelCopyWith<$Res>(_value.propertyType!, (value) {
+      return _then(_value.copyWith(propertyType: value) as $Val);
+    });
   }
 
   @override
@@ -76,8 +154,20 @@ abstract class _$$InsertAutoVerbalStateImplCopyWith<$Res>
       __$$InsertAutoVerbalStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ProviderStatus<void> status});
+  $Res call(
+      {String image,
+      PropertyTypeModel? propertyType,
+      double latitude,
+      double longitude,
+      String ownerName,
+      String ownerPhone,
+      String bankOfficerName,
+      String bankOfficerPhone,
+      String address,
+      ProviderStatus<void> status});
 
+  @override
+  $PropertyTypeModelCopyWith<$Res>? get propertyType;
   @override
   $ProviderStatusCopyWith<void, $Res> get status;
 }
@@ -94,9 +184,54 @@ class __$$InsertAutoVerbalStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? image = null,
+    Object? propertyType = freezed,
+    Object? latitude = null,
+    Object? longitude = null,
+    Object? ownerName = null,
+    Object? ownerPhone = null,
+    Object? bankOfficerName = null,
+    Object? bankOfficerPhone = null,
+    Object? address = null,
     Object? status = null,
   }) {
     return _then(_$InsertAutoVerbalStateImpl(
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String,
+      propertyType: freezed == propertyType
+          ? _value.propertyType
+          : propertyType // ignore: cast_nullable_to_non_nullable
+              as PropertyTypeModel?,
+      latitude: null == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: null == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      ownerName: null == ownerName
+          ? _value.ownerName
+          : ownerName // ignore: cast_nullable_to_non_nullable
+              as String,
+      ownerPhone: null == ownerPhone
+          ? _value.ownerPhone
+          : ownerPhone // ignore: cast_nullable_to_non_nullable
+              as String,
+      bankOfficerName: null == bankOfficerName
+          ? _value.bankOfficerName
+          : bankOfficerName // ignore: cast_nullable_to_non_nullable
+              as String,
+      bankOfficerPhone: null == bankOfficerPhone
+          ? _value.bankOfficerPhone
+          : bankOfficerPhone // ignore: cast_nullable_to_non_nullable
+              as String,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -109,16 +244,44 @@ class __$$InsertAutoVerbalStateImplCopyWithImpl<$Res>
 
 class _$InsertAutoVerbalStateImpl extends _InsertAutoVerbalState {
   const _$InsertAutoVerbalStateImpl(
-      {this.status = const ProviderStatus.initial()})
+      {required this.image,
+      required this.propertyType,
+      required this.latitude,
+      required this.longitude,
+      required this.ownerName,
+      required this.ownerPhone,
+      required this.bankOfficerName,
+      required this.bankOfficerPhone,
+      required this.address,
+      this.status = const ProviderStatus.initial()})
       : super._();
 
+  @override
+  final String image;
+  @override
+  final PropertyTypeModel? propertyType;
+//required ProvinceModel? province,
+  @override
+  final double latitude;
+  @override
+  final double longitude;
+  @override
+  final String ownerName;
+  @override
+  final String ownerPhone;
+  @override
+  final String bankOfficerName;
+  @override
+  final String bankOfficerPhone;
+  @override
+  final String address;
   @override
   @JsonKey()
   final ProviderStatus<void> status;
 
   @override
   String toString() {
-    return 'InsertAutoVerbalState(status: $status)';
+    return 'InsertAutoVerbalState(image: $image, propertyType: $propertyType, latitude: $latitude, longitude: $longitude, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, address: $address, status: $status)';
   }
 
   @override
@@ -126,11 +289,38 @@ class _$InsertAutoVerbalStateImpl extends _InsertAutoVerbalState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InsertAutoVerbalStateImpl &&
+            (identical(other.image, image) || other.image == image) &&
+            (identical(other.propertyType, propertyType) ||
+                other.propertyType == propertyType) &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
+            (identical(other.ownerName, ownerName) ||
+                other.ownerName == ownerName) &&
+            (identical(other.ownerPhone, ownerPhone) ||
+                other.ownerPhone == ownerPhone) &&
+            (identical(other.bankOfficerName, bankOfficerName) ||
+                other.bankOfficerName == bankOfficerName) &&
+            (identical(other.bankOfficerPhone, bankOfficerPhone) ||
+                other.bankOfficerPhone == bankOfficerPhone) &&
+            (identical(other.address, address) || other.address == address) &&
             (identical(other.status, status) || other.status == status));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status);
+  int get hashCode => Object.hash(
+      runtimeType,
+      image,
+      propertyType,
+      latitude,
+      longitude,
+      ownerName,
+      ownerPhone,
+      bankOfficerName,
+      bankOfficerPhone,
+      address,
+      status);
 
   @JsonKey(ignore: true)
   @override
@@ -141,10 +331,37 @@ class _$InsertAutoVerbalStateImpl extends _InsertAutoVerbalState {
 }
 
 abstract class _InsertAutoVerbalState extends InsertAutoVerbalState {
-  const factory _InsertAutoVerbalState({final ProviderStatus<void> status}) =
-      _$InsertAutoVerbalStateImpl;
+  const factory _InsertAutoVerbalState(
+      {required final String image,
+      required final PropertyTypeModel? propertyType,
+      required final double latitude,
+      required final double longitude,
+      required final String ownerName,
+      required final String ownerPhone,
+      required final String bankOfficerName,
+      required final String bankOfficerPhone,
+      required final String address,
+      final ProviderStatus<void> status}) = _$InsertAutoVerbalStateImpl;
   const _InsertAutoVerbalState._() : super._();
 
+  @override
+  String get image;
+  @override
+  PropertyTypeModel? get propertyType;
+  @override //required ProvinceModel? province,
+  double get latitude;
+  @override
+  double get longitude;
+  @override
+  String get ownerName;
+  @override
+  String get ownerPhone;
+  @override
+  String get bankOfficerName;
+  @override
+  String get bankOfficerPhone;
+  @override
+  String get address;
   @override
   ProviderStatus<void> get status;
   @override

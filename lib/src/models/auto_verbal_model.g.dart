@@ -23,6 +23,15 @@ _$AutoVerbalModelImpl _$$AutoVerbalModelImplFromJson(
       bankOfficerPhone: json['bank_officer_phone'] as String?,
       address: json['address'] as String,
       createdAt: DateTime.parse(json['created_at'] as String),
+      approvedAt: json['approved_at'] == null
+          ? null
+          : DateTime.parse(json['approved_at'] as String),
+      approvedBy: json['approved_by'] as String?,
+      rejectAt: json['reject_at'] == null
+          ? null
+          : DateTime.parse(json['reject_at'] as String),
+      status: json['status'] as String?,
+      rejectReason: json['reject_reason'] as String?,
     );
 
 Map<String, dynamic> _$$AutoVerbalModelImplToJson(
@@ -42,6 +51,11 @@ Map<String, dynamic> _$$AutoVerbalModelImplToJson(
       'bank_officer_phone': instance.bankOfficerPhone,
       'address': instance.address,
       'created_at': instance.createdAt.toIso8601String(),
+      'approved_at': instance.approvedAt?.toIso8601String(),
+      'approved_by': instance.approvedBy,
+      'reject_at': instance.rejectAt?.toIso8601String(),
+      'status': instance.status,
+      'reject_reason': instance.rejectReason,
     };
 
 // **************************************************************************
@@ -65,5 +79,10 @@ const _tableAutoVerbalModel = TableBuilder(
     ColumnBuilder('bank_officer_phone'),
     ColumnBuilder('address'),
     ColumnBuilder('created_at'),
+    ColumnBuilder('approved_at'),
+    ColumnBuilder('approved_by'),
+    ColumnBuilder('reject_at'),
+    ColumnBuilder('status'),
+    ColumnBuilder('reject_reason'),
   ],
 );

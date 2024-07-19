@@ -6,43 +6,7 @@ part of 'admin_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$pendingPropertyListHash() =>
-    r'b69671cbb6ea1395b5e4e9f05fd029e4056325ca';
-
-/// See also [pendingPropertyList].
-@ProviderFor(pendingPropertyList)
-final pendingPropertyListProvider =
-    AutoDisposeFutureProvider<IList<PropertyModel>>.internal(
-  pendingPropertyList,
-  name: r'pendingPropertyListProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$pendingPropertyListHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef PendingPropertyListRef
-    = AutoDisposeFutureProviderRef<IList<PropertyModel>>;
-String _$rejectedPropertyListHash() =>
-    r'24d009a9dd24bc7544cb11fe489b933cdc65c426';
-
-/// See also [rejectedPropertyList].
-@ProviderFor(rejectedPropertyList)
-final rejectedPropertyListProvider =
-    AutoDisposeFutureProvider<IList<PropertyModel>>.internal(
-  rejectedPropertyList,
-  name: r'rejectedPropertyListProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$rejectedPropertyListHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef RejectedPropertyListRef
-    = AutoDisposeFutureProviderRef<IList<PropertyModel>>;
-String _$rejectPropertyHash() => r'f3bf417737cf6806423d9a655273c5ec56ef0293';
+String _$userListHash() => r'f92f108fbef6a34b97b46c4b147e3f00c5e197e9';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -64,6 +28,298 @@ class _SystemHash {
     return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
   }
 }
+
+/// See also [userList].
+@ProviderFor(userList)
+const userListProvider = UserListFamily();
+
+/// See also [userList].
+class UserListFamily extends Family<AsyncValue<IList<UserModel>>> {
+  /// See also [userList].
+  const UserListFamily();
+
+  /// See also [userList].
+  UserListProvider call({
+    required int page,
+    String? searchString,
+  }) {
+    return UserListProvider(
+      page: page,
+      searchString: searchString,
+    );
+  }
+
+  @override
+  UserListProvider getProviderOverride(
+    covariant UserListProvider provider,
+  ) {
+    return call(
+      page: provider.page,
+      searchString: provider.searchString,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'userListProvider';
+}
+
+/// See also [userList].
+class UserListProvider extends AutoDisposeFutureProvider<IList<UserModel>> {
+  /// See also [userList].
+  UserListProvider({
+    required int page,
+    String? searchString,
+  }) : this._internal(
+          (ref) => userList(
+            ref as UserListRef,
+            page: page,
+            searchString: searchString,
+          ),
+          from: userListProvider,
+          name: r'userListProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$userListHash,
+          dependencies: UserListFamily._dependencies,
+          allTransitiveDependencies: UserListFamily._allTransitiveDependencies,
+          page: page,
+          searchString: searchString,
+        );
+
+  UserListProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.page,
+    required this.searchString,
+  }) : super.internal();
+
+  final int page;
+  final String? searchString;
+
+  @override
+  Override overrideWith(
+    FutureOr<IList<UserModel>> Function(UserListRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: UserListProvider._internal(
+        (ref) => create(ref as UserListRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        page: page,
+        searchString: searchString,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<IList<UserModel>> createElement() {
+    return _UserListProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is UserListProvider &&
+        other.page == page &&
+        other.searchString == searchString;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, page.hashCode);
+    hash = _SystemHash.combine(hash, searchString.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin UserListRef on AutoDisposeFutureProviderRef<IList<UserModel>> {
+  /// The parameter `page` of this provider.
+  int get page;
+
+  /// The parameter `searchString` of this provider.
+  String? get searchString;
+}
+
+class _UserListProviderElement
+    extends AutoDisposeFutureProviderElement<IList<UserModel>>
+    with UserListRef {
+  _UserListProviderElement(super.provider);
+
+  @override
+  int get page => (origin as UserListProvider).page;
+  @override
+  String? get searchString => (origin as UserListProvider).searchString;
+}
+
+String _$userAtIndexHash() => r'560c648ec785e375a1bdf16f666dfdd1fa890026';
+
+/// See also [userAtIndex].
+@ProviderFor(userAtIndex)
+const userAtIndexProvider = UserAtIndexFamily();
+
+/// See also [userAtIndex].
+class UserAtIndexFamily extends Family<PaginatedItem<UserModel>?> {
+  /// See also [userAtIndex].
+  const UserAtIndexFamily();
+
+  /// See also [userAtIndex].
+  UserAtIndexProvider call({
+    required int index,
+    String? searchString,
+  }) {
+    return UserAtIndexProvider(
+      index: index,
+      searchString: searchString,
+    );
+  }
+
+  @override
+  UserAtIndexProvider getProviderOverride(
+    covariant UserAtIndexProvider provider,
+  ) {
+    return call(
+      index: provider.index,
+      searchString: provider.searchString,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'userAtIndexProvider';
+}
+
+/// See also [userAtIndex].
+class UserAtIndexProvider
+    extends AutoDisposeProvider<PaginatedItem<UserModel>?> {
+  /// See also [userAtIndex].
+  UserAtIndexProvider({
+    required int index,
+    String? searchString,
+  }) : this._internal(
+          (ref) => userAtIndex(
+            ref as UserAtIndexRef,
+            index: index,
+            searchString: searchString,
+          ),
+          from: userAtIndexProvider,
+          name: r'userAtIndexProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$userAtIndexHash,
+          dependencies: UserAtIndexFamily._dependencies,
+          allTransitiveDependencies:
+              UserAtIndexFamily._allTransitiveDependencies,
+          index: index,
+          searchString: searchString,
+        );
+
+  UserAtIndexProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.index,
+    required this.searchString,
+  }) : super.internal();
+
+  final int index;
+  final String? searchString;
+
+  @override
+  Override overrideWith(
+    PaginatedItem<UserModel>? Function(UserAtIndexRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: UserAtIndexProvider._internal(
+        (ref) => create(ref as UserAtIndexRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        index: index,
+        searchString: searchString,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeProviderElement<PaginatedItem<UserModel>?> createElement() {
+    return _UserAtIndexProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is UserAtIndexProvider &&
+        other.index == index &&
+        other.searchString == searchString;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, index.hashCode);
+    hash = _SystemHash.combine(hash, searchString.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin UserAtIndexRef on AutoDisposeProviderRef<PaginatedItem<UserModel>?> {
+  /// The parameter `index` of this provider.
+  int get index;
+
+  /// The parameter `searchString` of this provider.
+  String? get searchString;
+}
+
+class _UserAtIndexProviderElement
+    extends AutoDisposeProviderElement<PaginatedItem<UserModel>?>
+    with UserAtIndexRef {
+  _UserAtIndexProviderElement(super.provider);
+
+  @override
+  int get index => (origin as UserAtIndexProvider).index;
+  @override
+  String? get searchString => (origin as UserAtIndexProvider).searchString;
+}
+
+String _$rejectPropertyHash() => r'5ee899c566a710b30a5d22cd6177a0fecbb4418f';
 
 abstract class _$RejectProperty
     extends BuildlessAutoDisposeNotifier<ProviderStatus<void>> {
@@ -207,7 +463,7 @@ class _RejectPropertyProviderElement extends AutoDisposeNotifierProviderElement<
   int get propertyId => (origin as RejectPropertyProvider).propertyId;
 }
 
-String _$approvePropertyHash() => r'4d03c61a41b5cc1dd4134e79e1f1b522cc4afcdc';
+String _$approvePropertyHash() => r'2d2a23f621cc316dfe48637d528046f410db45ab';
 
 abstract class _$ApproveProperty
     extends BuildlessAutoDisposeNotifier<ProviderStatus<void>> {

@@ -5,12 +5,12 @@ import 'package:kfa_mobile_nu/src/pages/report_page_test.dart';
 import '../../exports.dart';
 import '../../gen/assets.gen.dart';
 import '../helpers/build_context_helper.dart';
-import '../providers/auth_provider.dart';
 import '../providers/user_provider.dart';
 import 'account_page.dart';
 import 'add_property_page.dart';
 import 'admin/admin_home_page.dart';
 import 'contact_us_page.dart';
+import 'login_page.dart';
 import 'property_list_page.dart';
 
 class HomePage extends ConsumerWidget {
@@ -20,13 +20,41 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final userAsync = ref.watch(currentUserProvider);
 
-    return userAsync.onData((user) {
-      if (user == null || user.isAdmin == false) {
-        return const _UserHome();
-      }
+    return userAsync.onData(
+      (user) {
+        if (user == null || user.isAdmin == false) {
+          return const _UserHome();
+        }
 
-      return const _AdminHome();
-    });
+        return const _AdminHome();
+      },
+      loadingWidget: () {
+        return _buildLoadingScreen();
+      },
+    );
+  }
+
+  Scaffold _buildLoadingScreen() {
+    return Scaffold(
+      backgroundColor: kwhite_new,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Assets.images.kFALogo.image(
+              width: 200,
+              height: 200,
+            ),
+            const SizedBox(
+              width: 100,
+              child: LinearProgressIndicator(),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -50,47 +78,67 @@ class __UserHomeState extends ConsumerState<_UserHome> {
   Widget _buildDrawer(BuildContext context) {
     return Drawer(
       width: 270,
-      child: ListView(
+      child: Column(
         children: [
-          ListTile(
-            leading: const Icon(Icons.account_box),
-            title: const Text('Account'),
-            onTap: () {
-              context.push((context) => const AccountPage());
-            },
+          Expanded(
+            child: ListView(
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.account_box),
+                  title: const Text('Account'),
+                  onTap: () {
+                    context.push((context) => const AccountPage());
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.add_to_photos_sharp),
+                  title: const Text('Add Auto Verbal'),
+                  onTap: () {},
+                ),
+                ListTile(
+                  leading: const Icon(Icons.compare_sharp),
+                  title: const Text('Sale & Rent Property'),
+                  onTap: () {
+                    context.push(
+                      (context) => AddPropertyPage(),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.format_list_numbered_rtl_rounded),
+                  title: const Text('Report'),
+                  onTap: () {
+                    context.push((context) => const BeautifulPieChartScreen());
+                    //context.push((context) => const ReportVerbalPage());
+                  },
+                ),
+                // ListTile(
+                //   leading: const Icon(Icons.money_off),
+                //   title: const Text('Top Up'),
+                //   onTap: () {},
+                // ),
+                ListTile(
+                  leading: const Icon(Icons.contact_phone),
+                  title: const Text('Contact Us'),
+                  onTap: () {
+                    context.push((context) => const ContactUsPage());
+                  },
+                ),
+              ],
+            ),
           ),
-          ListTile(
-            leading: const Icon(Icons.add_to_photos_sharp),
-            title: const Text('Add Auto Verbal'),
-            onTap: () {},
-          ),
-          ListTile(
-            leading: const Icon(Icons.compare_sharp),
-            title: const Text('Sale & Rent Property'),
-            onTap: () {
+          TextButton.icon(
+            label: const Text('Sign in?'),
+            icon: const Icon(
+              Icons.login,
+              size: 18,
+            ),
+            onPressed: () {
               context.push(
-                (context) => AddPropertyPage(),
+                (context) => const LoginPage(
+                  openAsPage: true,
+                ),
               );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.format_list_numbered_rtl_rounded),
-            title: const Text('Report'),
-            onTap: () {
-              context.push((context) => const BeautifulPieChartScreen());
-              //context.push((context) => const ReportVerbalPage());
-            },
-          ),
-          // ListTile(
-          //   leading: const Icon(Icons.money_off),
-          //   title: const Text('Top Up'),
-          //   onTap: () {},
-          // ),
-          ListTile(
-            leading: const Icon(Icons.contact_phone),
-            title: const Text('Contact Us'),
-            onTap: () {
-              context.push((context) => const ContactUsPage());
             },
           ),
         ],
@@ -100,21 +148,6 @@ class __UserHomeState extends ConsumerState<_UserHome> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      actions: [
-        IconButton(
-          onPressed: () async {
-            ref.read(authProvider.notifier).signUp(
-                  email: 'long@gmail.com',
-                  password: '123456',
-                  photo: null,
-                  firstName: 'Kim',
-                  lastName: 'Long',
-                  phone: '081553000',
-                );
-          },
-          icon: const Icon(Icons.person_add),
-        ),
-      ],
       title: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

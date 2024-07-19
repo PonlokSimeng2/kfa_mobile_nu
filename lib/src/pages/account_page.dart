@@ -1,20 +1,19 @@
 import 'dart:io';
-import 'package:flutter/material.dart';
+
 import 'package:flutter/foundation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:kfa_mobile_nu/exports.dart';
-import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
-import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
+import 'package:kfa_mobile_nu/src/models/user_model.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/cache_provider.dart';
-import 'package:kfa_mobile_nu/src/models/user_model.dart';
+import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
+import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
 
 class AccountPage extends ConsumerStatefulWidget {
-  const AccountPage({Key? key}) : super(key: key);
+  const AccountPage({super.key});
 
   @override
   ConsumerState<AccountPage> createState() => _AccountPageState();
@@ -27,11 +26,11 @@ class _AccountPageState extends ConsumerState<AccountPage> {
   final ImagePicker _picker = ImagePicker();
   final ImageCropper _cropper = ImageCropper();
 
-  TextEditingController _firstNameController = TextEditingController();
-  TextEditingController _lastNameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _phoneController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void dispose() {
@@ -45,10 +44,9 @@ class _AccountPageState extends ConsumerState<AccountPage> {
 
   Future<void> _openImage() async {
     try {
-      final XFile? pickedFile =
-          await _picker.pickImage(source: ImageSource.gallery);
+      final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
       if (pickedFile != null) {
-        CroppedFile? croppedFile = await _cropper.cropImage(
+        final CroppedFile? croppedFile = await _cropper.cropImage(
           sourcePath: pickedFile.path,
           // aspectRatioPresets: [CropAspectRatioPreset.square],
           uiSettings: [
@@ -98,25 +96,28 @@ class _AccountPageState extends ConsumerState<AccountPage> {
 
     return AuthWrapperWidget(
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 245, 250, 246),
+        backgroundColor: const Color.fromARGB(255, 245, 250, 246),
         appBar: AppBar(
           backgroundColor: kwhite_new,
           elevation: 0,
           centerTitle: true,
           leading: IconButton(
             onPressed: () => Navigator.pop(context),
-            icon: Icon(Icons.chevron_left, size: 35),
+            icon: const Icon(Icons.chevron_left, size: 35),
           ),
-          title: Text(
+          title: const Text(
             'Account',
             style: TextStyle(
-                color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+              color: Colors.white,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           toolbarHeight: 70,
         ),
         body: userAsync.when(
           data: (user) => _buildContent(context, user),
-          loading: () => Center(child: CircularProgressIndicator()),
+          loading: () => const Center(child: CircularProgressIndicator()),
           error: (error, stack) => Center(child: Text('Error: $error')),
         ),
       ),
@@ -149,7 +150,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
       width: double.infinity,
       height: 200,
       decoration: const BoxDecoration(
-        color: Colors.blue, // kwhite_new
+        color: kwhite_new,
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(20),
           bottomRight: Radius.circular(20),
@@ -170,7 +171,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                       size: 65,
                       backgroundImage: _imageBytes != null
                           ? MemoryImage(_imageBytes!)
-                          : NetworkImage('') as ImageProvider,
+                          : const NetworkImage('') as ImageProvider,
                     ),
                     Container(
                       height: 20,
@@ -180,9 +181,8 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                         color: Colors.black54,
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      child:
-                          const Icon(Icons.edit, color: Colors.white, size: 16),
-                    )
+                      child: const Icon(Icons.edit, color: Colors.white, size: 16),
+                    ),
                   ],
                 ),
               ),
@@ -197,21 +197,23 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                   Text(
                     'Name: ${user.firstName} ${user.lastName}',
                     style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 10),
                   Text(
                     'ID: ${user.userId}',
                     style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -229,7 +231,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             color: Colors.blue.withOpacity(0.1),
             spreadRadius: 10,
             blurRadius: 20,
-            offset: Offset(0, 10),
+            offset: const Offset(0, 10),
           ),
         ],
       ),
@@ -245,7 +247,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
               letterSpacing: 1.2,
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Text(
             'Update your profile details below',
             style: TextStyle(
@@ -254,21 +256,21 @@ class _AccountPageState extends ConsumerState<AccountPage> {
               letterSpacing: 0.5,
             ),
           ),
-          SizedBox(height: 32),
+          const SizedBox(height: 32),
           _buildInputField(
             icon: Icons.person,
             label: 'First Name',
             initialValue: user.firstName ?? '',
             onChanged: (value) => _firstNameController.text = value,
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
           _buildInputField(
             icon: Icons.person_outline,
             label: 'Last Name',
             initialValue: user.lastName ?? '',
             onChanged: (value) => _lastNameController.text = value,
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
           _buildInputField(
             icon: Icons.phone_android,
             label: 'Phone',
@@ -276,7 +278,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             onChanged: (value) => _phoneController.text = value,
             keyboardType: TextInputType.phone,
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
           _buildInputField(
             icon: Icons.alternate_email,
             label: 'Email',
@@ -284,7 +286,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             onChanged: (value) => _emailController.text = value,
             keyboardType: TextInputType.emailAddress,
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
           _buildPasswordField(),
         ],
       ),
@@ -307,7 +309,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             color: Colors.grey.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 3,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -315,7 +317,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
         initialValue: initialValue,
         onChanged: onChanged,
         keyboardType: keyboardType,
-        style: TextStyle(fontSize: 16, color: Colors.black87),
+        style: const TextStyle(fontSize: 16, color: Colors.black87),
         decoration: InputDecoration(
           prefixIcon: Icon(icon, color: Colors.blue[600], size: 22),
           labelText: label,
@@ -326,7 +328,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
           ),
           filled: true,
           fillColor: Colors.transparent,
-          contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+          contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
         ),
       ),
     );
@@ -344,7 +346,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                 color: Colors.grey.withOpacity(0.1),
                 spreadRadius: 1,
                 blurRadius: 3,
-                offset: Offset(0, 2),
+                offset: const Offset(0, 2),
               ),
             ],
           ),
@@ -353,8 +355,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             obscureText: _isObscure,
             style: const TextStyle(fontSize: 16, color: Colors.black87),
             decoration: InputDecoration(
-              prefixIcon:
-                  Icon(Icons.lock_outline, color: Colors.blue[600], size: 22),
+              prefixIcon: Icon(Icons.lock_outline, color: Colors.blue[600], size: 22),
               labelText: 'Password',
               labelStyle: TextStyle(color: Colors.grey[600], fontSize: 14),
               border: OutlineInputBorder(
@@ -363,13 +364,10 @@ class _AccountPageState extends ConsumerState<AccountPage> {
               ),
               filled: true,
               fillColor: Colors.transparent,
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+              contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
               suffixIcon: IconButton(
                 icon: Icon(
-                  _isObscure
-                      ? Icons.visibility_outlined
-                      : Icons.visibility_off_outlined,
+                  _isObscure ? Icons.visibility_outlined : Icons.visibility_off_outlined,
                   color: Colors.blue[600],
                   size: 22,
                 ),
@@ -388,7 +386,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ElevatedButton(
+          FilledButton(
             child: const Text('Save Changes'),
             onPressed: () async {
               final updatedUser = UserModel(
@@ -404,10 +402,10 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             },
           ),
           const SizedBox(width: 16),
-          ElevatedButton(
-            child: Text('Log Out'),
+          FilledButton(
             onPressed: _logOut,
-          )
+            child: const Text('Log Out'),
+          ),
         ],
       ),
     );

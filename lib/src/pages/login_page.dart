@@ -1,21 +1,22 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../constaints.dart';
 import '../helpers/build_context_helper.dart';
-import 'home_page.dart';
-import 'register_page.dart';
-import '../widgets/responsive.dart';
 import '../providers/auth_provider.dart';
 import '../providers/cache_provider.dart';
+import '../widgets/responsive.dart';
+import 'home_page.dart';
+import 'register_page.dart';
 
 const _cacheEmailKey = "cached-email-key";
 const _cachePasswordKey = "cached-password-key";
 
 class LoginPage extends ConsumerStatefulWidget {
-  const LoginPage({Key? key, this.openAsPage = false}) : super(key: key);
+  const LoginPage({super.key, this.openAsPage = false});
 
   final bool openAsPage;
 
@@ -86,7 +87,7 @@ class _LoginState extends ConsumerState<LoginPage> {
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
             desktop: Row(
@@ -101,7 +102,7 @@ class _LoginState extends ConsumerState<LoginPage> {
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
             phone: login(context),
@@ -150,7 +151,7 @@ class _LoginState extends ConsumerState<LoginPage> {
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
             desktop: Row(
@@ -165,7 +166,7 @@ class _LoginState extends ConsumerState<LoginPage> {
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
             phone: login(context),
@@ -241,7 +242,7 @@ class _LoginState extends ConsumerState<LoginPage> {
                         autoHide: const Duration(seconds: 3),
                         onDismissCallback: (type) {
                           if (context.mounted) {
-                            context.push((context) => const HomePage());
+                            context.pushReplace((context) => const HomePage());
                           }
                         },
                       ).show();
@@ -280,7 +281,7 @@ class _LoginState extends ConsumerState<LoginPage> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => RegisterPage(),
+                            builder: (context) => const RegisterPage(),
                           ),
                         );
                       },

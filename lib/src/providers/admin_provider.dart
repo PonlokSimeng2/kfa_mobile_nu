@@ -1,3 +1,4 @@
+import 'package:kfa_mobile_nu/src/models/user_model.table.dart';
 import 'package:kfa_mobile_nu/src/providers/property_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -5,24 +6,9 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../exports.dart';
 import '../models/property_model.dart';
 import '../models/property_model.table.dart';
+import '../models/user_model.dart';
 
 part 'admin_provider.g.dart';
-
-@riverpod
-FutureOr<IList<PropertyModel>> pendingPropertyList(PendingPropertyListRef ref) async {
-  final sb = ref.watch(supabaseProvider).client;
-
-  final result = await sb
-      .from(PropertyModel.table.tableName)
-      .select(PropertyModel.table.selectStatement)
-      .eq(PropertyTable.status, PropertyStatus.pending) // only pending properties
-      .order(PropertyTable.createdAt, ascending: false)
-      .withConverter((jsons) {
-    return jsons.map((e) => PropertyModel.fromJson(e)).toIList();
-  });
-
-  return result;
-}
 
 @riverpod
 class RejectProperty extends _$RejectProperty {
@@ -41,34 +27,16 @@ class RejectProperty extends _$RejectProperty {
 
         final sb = ref.watch(supabaseProvider).client;
         await sb.from(PropertyTable.table).update({
-          PropertyTable.status: PropertyStatus.rejected,
+          PropertyTable.status: PropertyStatus.rejected.name,
           PropertyTable.rejectReason: reason,
           PropertyTable.rejectedAt: DateTime.now().toIso8601String(),
         }).eq(PropertyTable.id, propertyId);
       },
       onSuccess: (_) {
-        ref.invalidate(pendingPropertyListProvider);
         ref.invalidate(propertyListProvider);
-        ref.invalidate(rejectedPropertyListProvider);
       },
     );
   }
-}
-
-@riverpod
-FutureOr<IList<PropertyModel>> rejectedPropertyList(RejectedPropertyListRef ref) async {
-  final sb = ref.watch(supabaseProvider).client;
-
-  final result = await sb
-      .from(PropertyModel.table.tableName)
-      .select(PropertyModel.table.selectStatement)
-      .eq(PropertyTable.status, PropertyStatus.rejected) // only rejected properties
-      .order(PropertyTable.rejectedAt, ascending: false)
-      .withConverter((jsons) {
-    return jsons.map((e) => PropertyModel.fromJson(e)).toIList();
-  });
-
-  return result;
 }
 
 @riverpod
@@ -88,15 +56,61 @@ class ApproveProperty extends _$ApproveProperty {
         final currentUser = await ref.watch(currentUserProvider.future);
 
         await sb.from(PropertyTable.table).update({
-          PropertyTable.status: PropertyStatus.approved,
+          PropertyTable.status: PropertyStatus.approved.name,
           PropertyTable.approvedAt: DateTime.now().toIso8601String(),
           PropertyTable.approvedBy: currentUser?.id,
         }).eq(PropertyTable.id, propertyId);
       },
       onSuccess: (_) {
-        ref.invalidate(pendingPropertyListProvider);
         ref.invalidate(propertyListProvider);
       },
     );
   }
+}
+
+@riverpod
+FutureOr<IList<UserModel>> userList(
+  UserListRef ref, {
+  required int page,
+  String? searchString,
+}) async {
+  final sb = ref.watch(supabaseProvider).client;
+  const limit = 20;
+  final offset = page * limit;
+
+  var query = sb.from(UserModel.table.tableName).select(UserModel.table.selectStatement);
+
+  if (searchString != null && searchString.isNotEmpty) {
+    query = query.or(
+      'first_name.ilike.%$searchString%,last_name.ilike.%$searchString%,email.ilike.%$searchString%',
+    );
+  }
+
+  return await query
+      .order(UserTable.joinedAt, ascending: false)
+      .limit(limit)
+      .range(offset, offset + limit)
+      .withConverter((jsons) {
+    return jsons.map((e) => UserModel.fromJson(e)).toIList();
+  });
+}
+
+@riverpod
+PaginatedItem<UserModel>? userAtIndex(
+  UserAtIndexRef ref, {
+  required int index,
+  String? searchString,
+}) {
+  const limit = 20;
+  final page = index ~/ limit;
+
+  final pageItems = ref.watch(userListProvider(page: page, searchString: searchString));
+  final hasNextPage = ref.exists(userListProvider(page: page + 1, searchString: searchString));
+
+  return PaginatedItem.build(
+    pageItems: pageItems,
+    limit: limit,
+    index: index,
+    showLoadingInAllItem: hasNextPage,
+  );
 }

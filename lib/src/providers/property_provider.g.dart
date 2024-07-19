@@ -879,7 +879,7 @@ class InsertPropertyBuildingWidthFieldWidget extends HookConsumerWidget {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$propertyListHash() => r'904d723ada3f414f5ab253a3572f955b955e2b87';
+String _$propertyListHash() => r'289618e987d375c6ea7765b1569f610db34559f1';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -915,10 +915,12 @@ class PropertyListFamily extends Family<AsyncValue<IList<PropertyModel>>> {
   PropertyListProvider call({
     required int page,
     PropertyListingType? type,
+    PropertyStatus? status = PropertyStatus.approved,
   }) {
     return PropertyListProvider(
       page: page,
       type: type,
+      status: status,
     );
   }
 
@@ -929,6 +931,7 @@ class PropertyListFamily extends Family<AsyncValue<IList<PropertyModel>>> {
     return call(
       page: provider.page,
       type: provider.type,
+      status: provider.status,
     );
   }
 
@@ -954,11 +957,13 @@ class PropertyListProvider
   PropertyListProvider({
     required int page,
     PropertyListingType? type,
+    PropertyStatus? status = PropertyStatus.approved,
   }) : this._internal(
           (ref) => propertyList(
             ref as PropertyListRef,
             page: page,
             type: type,
+            status: status,
           ),
           from: propertyListProvider,
           name: r'propertyListProvider',
@@ -971,6 +976,7 @@ class PropertyListProvider
               PropertyListFamily._allTransitiveDependencies,
           page: page,
           type: type,
+          status: status,
         );
 
   PropertyListProvider._internal(
@@ -982,10 +988,12 @@ class PropertyListProvider
     required super.from,
     required this.page,
     required this.type,
+    required this.status,
   }) : super.internal();
 
   final int page;
   final PropertyListingType? type;
+  final PropertyStatus? status;
 
   @override
   Override overrideWith(
@@ -1002,6 +1010,7 @@ class PropertyListProvider
         debugGetCreateSourceHash: null,
         page: page,
         type: type,
+        status: status,
       ),
     );
   }
@@ -1015,7 +1024,8 @@ class PropertyListProvider
   bool operator ==(Object other) {
     return other is PropertyListProvider &&
         other.page == page &&
-        other.type == type;
+        other.type == type &&
+        other.status == status;
   }
 
   @override
@@ -1023,6 +1033,7 @@ class PropertyListProvider
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, page.hashCode);
     hash = _SystemHash.combine(hash, type.hashCode);
+    hash = _SystemHash.combine(hash, status.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -1034,6 +1045,9 @@ mixin PropertyListRef on AutoDisposeFutureProviderRef<IList<PropertyModel>> {
 
   /// The parameter `type` of this provider.
   PropertyListingType? get type;
+
+  /// The parameter `status` of this provider.
+  PropertyStatus? get status;
 }
 
 class _PropertyListProviderElement
@@ -1045,9 +1059,11 @@ class _PropertyListProviderElement
   int get page => (origin as PropertyListProvider).page;
   @override
   PropertyListingType? get type => (origin as PropertyListProvider).type;
+  @override
+  PropertyStatus? get status => (origin as PropertyListProvider).status;
 }
 
-String _$propertyAtIndexHash() => r'bef1128d90fc86e6d2d6f0ecaa6a7f57a504ae10';
+String _$propertyAtIndexHash() => r'e9cdcc8192ad974e2d87be6626bd958a2b1dd310';
 
 /// See also [propertyAtIndex].
 @ProviderFor(propertyAtIndex)
@@ -1062,10 +1078,12 @@ class PropertyAtIndexFamily extends Family<PaginatedItem<PropertyModel>?> {
   PropertyAtIndexProvider call({
     required int index,
     PropertyListingType? type,
+    PropertyStatus? status = PropertyStatus.approved,
   }) {
     return PropertyAtIndexProvider(
       index: index,
       type: type,
+      status: status,
     );
   }
 
@@ -1076,6 +1094,7 @@ class PropertyAtIndexFamily extends Family<PaginatedItem<PropertyModel>?> {
     return call(
       index: provider.index,
       type: provider.type,
+      status: provider.status,
     );
   }
 
@@ -1101,11 +1120,13 @@ class PropertyAtIndexProvider
   PropertyAtIndexProvider({
     required int index,
     PropertyListingType? type,
+    PropertyStatus? status = PropertyStatus.approved,
   }) : this._internal(
           (ref) => propertyAtIndex(
             ref as PropertyAtIndexRef,
             index: index,
             type: type,
+            status: status,
           ),
           from: propertyAtIndexProvider,
           name: r'propertyAtIndexProvider',
@@ -1118,6 +1139,7 @@ class PropertyAtIndexProvider
               PropertyAtIndexFamily._allTransitiveDependencies,
           index: index,
           type: type,
+          status: status,
         );
 
   PropertyAtIndexProvider._internal(
@@ -1129,10 +1151,12 @@ class PropertyAtIndexProvider
     required super.from,
     required this.index,
     required this.type,
+    required this.status,
   }) : super.internal();
 
   final int index;
   final PropertyListingType? type;
+  final PropertyStatus? status;
 
   @override
   Override overrideWith(
@@ -1149,6 +1173,7 @@ class PropertyAtIndexProvider
         debugGetCreateSourceHash: null,
         index: index,
         type: type,
+        status: status,
       ),
     );
   }
@@ -1162,7 +1187,8 @@ class PropertyAtIndexProvider
   bool operator ==(Object other) {
     return other is PropertyAtIndexProvider &&
         other.index == index &&
-        other.type == type;
+        other.type == type &&
+        other.status == status;
   }
 
   @override
@@ -1170,6 +1196,7 @@ class PropertyAtIndexProvider
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, index.hashCode);
     hash = _SystemHash.combine(hash, type.hashCode);
+    hash = _SystemHash.combine(hash, status.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -1182,6 +1209,9 @@ mixin PropertyAtIndexRef
 
   /// The parameter `type` of this provider.
   PropertyListingType? get type;
+
+  /// The parameter `status` of this provider.
+  PropertyStatus? get status;
 }
 
 class _PropertyAtIndexProviderElement
@@ -1193,6 +1223,8 @@ class _PropertyAtIndexProviderElement
   int get index => (origin as PropertyAtIndexProvider).index;
   @override
   PropertyListingType? get type => (origin as PropertyAtIndexProvider).type;
+  @override
+  PropertyStatus? get status => (origin as PropertyAtIndexProvider).status;
 }
 
 String _$insertPropertyHash() => r'9063ebc5ccde9b895fc6d75059eaad103e57c067';

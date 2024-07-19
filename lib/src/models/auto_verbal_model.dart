@@ -48,10 +48,8 @@ class AutoVerbalModel with _$AutoVerbalModel {
     @JsonKey(name: AutoVerbalTable.userId) required String userId,
     @JsonKey(name: AutoVerbalTable.ownerName) required String ownerName,
     @JsonKey(name: AutoVerbalTable.ownerPhone) required String ownerPhone,
-    @JsonKey(name: AutoVerbalTable.bankOfficerName)
-    required String? bankOfficerName,
-    @JsonKey(name: AutoVerbalTable.bankOfficerPhone)
-    required String? bankOfficerPhone,
+    @JsonKey(name: AutoVerbalTable.bankOfficerName) required String? bankOfficerName,
+    @JsonKey(name: AutoVerbalTable.bankOfficerPhone) required String? bankOfficerPhone,
     @JsonKey(name: AutoVerbalTable.address) required String address,
     @JsonKey(name: AutoVerbalTable.createdAt) required DateTime createdAt,
     @JsonKey(name: AutoVerbalTable.approvedAt) DateTime? approvedAt,
@@ -61,8 +59,7 @@ class AutoVerbalModel with _$AutoVerbalModel {
     @JsonKey(name: AutoVerbalTable.rejectReason) String? rejectReason,
   }) = _AutoVerbalModel;
 
-  factory AutoVerbalModel.fromJson(Map<String, dynamic> json) =>
-      _$AutoVerbalModelFromJson(json);
+  factory AutoVerbalModel.fromJson(Map<String, dynamic> json) => _$AutoVerbalModelFromJson(json);
 
   static const TableBuilder table = _tableAutoVerbalModel;
 }

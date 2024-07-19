@@ -1,15 +1,20 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
+import 'package:kfa_mobile_nu/exports.dart';
+import 'package:kfa_mobile_nu/gen/assets.gen.dart';
+import 'package:kfa_mobile_nu/src/models/property_model.dart';
 
-class RealEstateAdminDashboard extends StatefulWidget {
-  const RealEstateAdminDashboard({super.key});
+import 'widgets/admin_property_list_widget.dart';
+
+class PropertyReportPage extends StatefulWidget {
+  const PropertyReportPage({super.key});
 
   @override
-  _RealEstateAdminDashboardState createState() => _RealEstateAdminDashboardState();
+  _PropertyReportPageState createState() => _PropertyReportPageState();
 }
 
-class _RealEstateAdminDashboardState extends State<RealEstateAdminDashboard> {
-  String activeTab = 'pending';
+class _PropertyReportPageState extends State<PropertyReportPage> {
+  PropertyStatus? _status = PropertyStatus.pending;
 
   final List<Map<String, dynamic>> properties = [
     {
@@ -42,18 +47,84 @@ class _RealEstateAdminDashboardState extends State<RealEstateAdminDashboard> {
     },
   ];
 
+  AppBar _buildAppBar() {
+    return AppBar(
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Assets.images.kFALogo.image(
+            width: 55,
+            height: 55,
+          ),
+          DefaultTextStyle(
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.bold,
+            ),
+            child: AnimatedTextKit(
+              animatedTexts: [
+                WavyAnimatedText(
+                  'MOBILE  ',
+                  textAlign: TextAlign.center,
+                  textStyle: const TextStyle(color: Colors.white),
+                ),
+              ],
+              pause: const Duration(milliseconds: 300),
+              isRepeatingAnimation: true,
+              repeatForever: true,
+              onTap: () {},
+            ),
+          ),
+          DefaultTextStyle(
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.bold,
+            ),
+            child: AnimatedTextKit(
+              animatedTexts: [
+                WavyAnimatedText(
+                  '',
+                  textAlign: TextAlign.center,
+                  textStyle: const TextStyle(
+                    color: Colors.yellow,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    shadows: [
+                      Shadow(
+                        blurRadius: 5.0,
+                        color: Colors.yellow,
+                        offset: Offset(1.5, 1.5),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+              pause: const Duration(milliseconds: 300),
+              isRepeatingAnimation: true,
+              repeatForever: true,
+              onTap: () {},
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: _buildAppBar(),
       body: Container(
         color: Colors.grey[100],
         child: SafeArea(
           child: Column(
             children: [
               Container(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16).copyWith(top: 0),
                 decoration: BoxDecoration(
-                  color: Colors.grey[900],
+                  color: Theme.of(context).primaryColor,
                   borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(30),
                     bottomRight: Radius.circular(30),
@@ -70,7 +141,7 @@ class _RealEstateAdminDashboardState extends State<RealEstateAdminDashboard> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 8),
                     SizedBox(
                       height: 200,
                       child: PieChart(
@@ -103,41 +174,32 @@ class _RealEstateAdminDashboardState extends State<RealEstateAdminDashboard> {
                   ],
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                margin: const EdgeInsets.all(16),
-                child: Column(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(color: Colors.grey[200]!),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  margin: const EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(color: Colors.grey[200]!),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            _buildTabButton(null),
+                            ...PropertyStatus.values.map((status) => _buildTabButton(status)),
+                          ],
                         ),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: ['All', 'Pending', 'Approved', 'Rejected']
-                            .map((tab) => _buildTabButton(tab))
-                            .toList(),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 300, // Adjust this value as needed
-                      child: ListView(
-                        children: properties
-                            .where(
-                              (prop) =>
-                                  activeTab.toLowerCase() == 'all' ||
-                                  prop['status'] == activeTab.toLowerCase(),
-                            )
-                            .map((prop) => _buildListItem(prop))
-                            .toList(),
-                      ),
-                    ),
-                  ],
+                      Expanded(child: AdminPropertyListWidget(status: _status)),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -147,11 +209,11 @@ class _RealEstateAdminDashboardState extends State<RealEstateAdminDashboard> {
     );
   }
 
-  Widget _buildTabButton(String label) {
+  Widget _buildTabButton(PropertyStatus? status) {
     return GestureDetector(
       onTap: () {
         setState(() {
-          activeTab = label.toLowerCase();
+          _status = status;
         });
       },
       child: Container(
@@ -159,16 +221,15 @@ class _RealEstateAdminDashboardState extends State<RealEstateAdminDashboard> {
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
-              color:
-                  activeTab.toLowerCase() == label.toLowerCase() ? Colors.blue : Colors.transparent,
+              color: _status == status ? Colors.blue : Colors.transparent,
               width: 2,
             ),
           ),
         ),
         child: Text(
-          label,
+          status?.name.capitalize() ?? 'All',
           style: TextStyle(
-            color: activeTab.toLowerCase() == label.toLowerCase() ? Colors.blue : Colors.grey,
+            color: _status == status ? Colors.blue : Colors.grey,
             fontWeight: FontWeight.bold,
           ),
         ),

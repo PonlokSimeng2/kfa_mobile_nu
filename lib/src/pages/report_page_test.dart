@@ -10,7 +10,7 @@ class BeautifulPieChartScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.purple[900], // Dark purple background
       appBar: AppBar(
-        title: const Text('Reports'),
+        title: const Text('Reports of add_autoverbal_page.dart'),
         centerTitle: false,
         backgroundColor: Colors.purple[800],
         elevation: 0,

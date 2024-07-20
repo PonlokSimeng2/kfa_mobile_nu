@@ -106,9 +106,9 @@ class MyDataSource extends DataTableSource {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => const detail_verbal_page(
-                  set_data_verbal: '219K591F219Aacxfdiqmu',
-                ),
+                builder: (context) => DetailVerbalPage(
+                    // set_data_verbal: '219K591F219Aacxfdiqmu',
+                    ),
               ),
             );
           },

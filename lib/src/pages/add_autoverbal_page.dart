@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/models/property_model.dart';
+import 'package:kfa_mobile_nu/src/providers/auto_verbal_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/property_provider.dart';
 import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
 import 'package:kfa_mobile_nu/src/widgets/map_picker.dart';
@@ -66,667 +67,695 @@ class AddAutoVerbalPage extends HookConsumerWidget {
   String? get_re = '202301';
   String? await_functino;
   var _size_10 = SizedBox(height: 10);
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return InsertPropertyFormWidget(
-        builder: (ref, formKey, status, isProgressing, failure, submit) {
-      return AuthWrapperWidget(
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text('Add Auto Verbal'),
-            centerTitle: true,
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: GFButton(
-                  onPressed: () async {
-                    if (formKey.currentState!.validate()) {
-                      final close = BotToast.showLoading();
-                      final result = await submit();
-                      close();
-                      if (result.isSuccess) {
-                        AwesomeDialog(
-                          context: context,
-                          dialogType: DialogType.success,
-                          animType: AnimType.rightSlide,
-                          headerAnimationLoop: false,
-                          title: 'Success',
-                          btnOkIcon: Icons.cancel,
-                          btnOkColor: Colors.green,
-                          onDismissCallback: (type) {
-                            if (context.mounted) {
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                            }
-                          },
-                        ).show();
-                      } else {
-                        log("Error", error: result);
-                        AwesomeDialog(
-                          context: context,
-                          dialogType: DialogType.error,
-                          animType: AnimType.rightSlide,
-                          headerAnimationLoop: false,
-                          title: 'Failed',
-                          btnOkIcon: Icons.error,
-                          btnOkColor: Colors.red,
-                        ).show();
-                      }
-                    }
-                  },
-                  child: isProgressing ? Text('SAVING') : Text('SAVE'),
-                ),
-              ),
-            ],
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SingleChildScrollView(
-              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _ImagePicker(),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  InsertPropertyLatitudeFieldWidget(
-                    builder: (ref, latitude, changeLatitude, showValidation) {
-                      return InsertPropertyLongitudeFieldWidget(
-                        builder:
-                            (ref, longitude, changeLongitude, showValidation) {
-                          final mapUrl =
-                              "https://maps.googleapis.com/maps/api/staticmap?center=$latitude,$longitude&zoom=18&size=1080x920&maptype=hybrid&markers=color:red%7C%7C$latitude,$longitude&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI";
-                          return InkWell(
-                            onTap: () async {
-                              final result = await MapPickerPage.show(
-                                context,
-                                initialLat: latitude,
-                                initialLng: longitude,
-                              );
-                              if (result != null) {
-                                changeLatitude(result.latitude);
-                                changeLongitude(result.longitude);
+    return InsertAutoVerbalFormWidget(
+      builder: (ref, formKey, status, isProgressing, failure, submit) {
+        return AuthWrapperWidget(
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text('Add Auto Verbal'),
+              centerTitle: true,
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: GFButton(
+                    onPressed: () async {
+                      if (formKey.currentState!.validate()) {
+                        final close = BotToast.showLoading();
+                        final result = await submit();
+                        close();
+                        if (result.isSuccess) {
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.success,
+                            animType: AnimType.rightSlide,
+                            headerAnimationLoop: false,
+                            title: 'Success',
+                            btnOkIcon: Icons.cancel,
+                            btnOkColor: Colors.green,
+                            onDismissCallback: (type) {
+                              if (context.mounted) {
+                                Navigator.pop(context);
+                                Navigator.pop(context);
                               }
                             },
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 30, left: 30),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(width: 1),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                height:
-                                    MediaQuery.of(context).size.height * 0.3,
-                                width: MediaQuery.of(context).size.width,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: FadeInImage.assetNetwork(
-                                    fit: BoxFit.cover,
-                                    placeholderFit: BoxFit.contain,
-                                    placeholder: 'assets/earth.gif',
-                                    image: mapUrl,
+                          ).show();
+                        } else {
+                          log("Error", error: result);
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.error,
+                            animType: AnimType.rightSlide,
+                            headerAnimationLoop: false,
+                            title: 'Failed',
+                            btnOkIcon: Icons.error,
+                            btnOkColor: Colors.red,
+                          ).show();
+                        }
+                      }
+                    },
+                    child: isProgressing ? Text('SAVING') : Text('SAVE'),
+                  ),
+                ),
+              ],
+            ),
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SingleChildScrollView(
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 10,
+                    ),
+                    _ImagePicker(),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    _LatLog(),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    InsertAutoVerbalProvinceFieldWidget(
+                      builder: (ref, province, changeProvince, showValidation) {
+                        return Padding(
+                          padding:
+                              EdgeInsets.only(right: 30, left: 30, top: 10),
+                          child: Container(
+                            child: ProvinceDropDown(
+                              onChanged: (value) {
+                                changeProvince(value);
+                              },
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    InsertAutoVerbalPropertyTypeFieldWidget(
+                      builder: (ref, propertyType, changePropertyType,
+                          showValidation) {
+                        return Padding(
+                          padding:
+                              EdgeInsets.only(right: 30, left: 30, top: 10),
+                          child: Container(
+                            child: PropertyTypeDropDown(
+                              onChanged: (value) {
+                                changePropertyType(value);
+                              },
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: InsertAutoVerbalMinValueFieldWidget(
+                              builder: (ref, minValue, changeMinValue,
+                                  showValidation) {
+                                return TextFormField(
+                                  onChanged: (value) {
+                                    changeMinValue(double.parse(value));
+                                  },
+                                  keyboardType: TextInputType.number,
+                                  style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.015,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                ),
+                                  decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: 8),
+                                    prefixIcon: Icon(
+                                      Icons.feed_outlined,
+                                      color: kImageColor,
+                                    ),
+                                    hintText: 'Min Value',
+                                    fillColor: kwhite,
+                                    filled: true,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: kPrimaryColor,
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: kPrimaryColor,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: InsertAutoVerbalMaxValueFieldWidget(
+                              builder: (ref, maxValue, changeMaxValue,
+                                  showValidation) {
+                                return TextFormField(
+                                  onChanged: (value) {
+                                    changeMaxValue(double.parse(value));
+                                  },
+                                  keyboardType: TextInputType.number,
+                                  style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.015,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: 8),
+                                    prefixIcon: Icon(
+                                      Icons.feed_outlined,
+                                      color: kImageColor,
+                                    ),
+                                    hintText: 'Max Value',
+                                    fillColor: kwhite,
+                                    filled: true,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: kPrimaryColor,
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: kPrimaryColor,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: InsertAutoVerbalMinValueSqmFieldWidget(
+                              builder: (ref, minValueSqm, changeMinValueSqm,
+                                  showValidation) {
+                                return TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.015,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  onChanged: (value) {
+                                    changeMinValueSqm(double.parse(value));
+                                  },
+                                  decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: 8),
+                                    prefixIcon: Icon(
+                                      Icons.feed_outlined,
+                                      color: kImageColor,
+                                    ),
+                                    hintText: 'Min Value/sqm',
+                                    fillColor: kwhite,
+                                    filled: true,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: kPrimaryColor,
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: kPrimaryColor,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: InsertAutoVerbalMaxValueSqmFieldWidget(
+                              builder: (ref, maxValueSqm, changeMaxValueSqm,
+                                  showValidation) {
+                                return TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.015,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  onChanged: (value) {
+                                    changeMaxValueSqm(double.parse(value));
+                                  },
+                                  decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: 8),
+                                    prefixIcon: Icon(
+                                      Icons.feed_outlined,
+                                      color: kImageColor,
+                                    ),
+                                    hintText: 'Max Value/sqm',
+                                    fillColor: kwhite,
+                                    filled: true,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: kPrimaryColor,
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: kPrimaryColor,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: InsertAutoVerbalOwnerNameFieldWidget(
+                              builder: (ref, textController, ownerName,
+                                  changeOwnerName, showValidation) {
+                                return TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.015,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  onChanged: (value) {
+                                    changeOwnerName(value);
+                                  },
+                                  decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: 8),
+                                    prefixIcon: Icon(
+                                      Icons.bed_outlined,
+                                      color: kImageColor,
+                                    ),
+                                    hintText: 'Owner',
+                                    fillColor: kwhite,
+                                    filled: true,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: kPrimaryColor,
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: kPrimaryColor,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: InsertAutoVerbalOwnerPhoneFieldWidget(
+                              builder: (ref, textController, ownerPhone,
+                                  changeOwnerPhone, showValidation) {
+                                return TextFormField(
+                                  controller: textController,
+                                  keyboardType: TextInputType.number,
+                                  style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.015,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  onChanged: (value) {
+                                    //  changeOwnerPhone(value);
+                                  },
+                                  decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: 8),
+                                    prefixIcon: Icon(
+                                      Icons.feed_outlined,
+                                      color: kImageColor,
+                                    ),
+                                    hintText: 'Contact',
+                                    fillColor: kwhite,
+                                    filled: true,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: kPrimaryColor,
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: kPrimaryColor,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: InsertAutoVerbalBankOfficerNameFieldWidget(
+                              builder: (ref, textController, bankOfficerName,
+                                  changeBankOfficerName, showValidation) {
+                                return TextFormField(
+                                  controller: textController,
+                                  keyboardType: TextInputType.number,
+                                  style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.015,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  onChanged: (value) {
+                                    //  changeFloors(int.parse(value));
+                                  },
+                                  decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: 8),
+                                    prefixIcon: Icon(
+                                      Icons.bed_outlined,
+                                      color: kImageColor,
+                                    ),
+                                    hintText: 'Bank Officer',
+                                    fillColor: kwhite,
+                                    filled: true,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: kPrimaryColor,
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: kPrimaryColor,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: InsertAutoVerbalBankOfficerPhoneFieldWidget(
+                              builder: (ref, textController, bankOfficerPhone,
+                                  changeBankOfficerPhone, showValidation) {
+                                return TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.015,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  onChanged: (value) {
+                                    changeBankOfficerPhone(value);
+                                  },
+                                  decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: 8),
+                                    prefixIcon: Icon(
+                                      Icons.feed_outlined,
+                                      color: kImageColor,
+                                    ),
+                                    hintText: 'Bank Contact',
+                                    fillColor: kwhite,
+                                    filled: true,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: kPrimaryColor,
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: kPrimaryColor,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: InsertAutoVerbalHeadFieldWidget(
+                              builder: (ref, head, changeHead, showValidation) {
+                                return TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.015,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  onChanged: (value) {
+                                    changeHead(double.parse(value));
+                                  },
+                                  decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: 8),
+                                    prefixIcon: Icon(
+                                      Icons.bed_outlined,
+                                      color: kImageColor,
+                                    ),
+                                    hintText: 'Head',
+                                    fillColor: kwhite,
+                                    filled: true,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: kPrimaryColor,
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: kPrimaryColor,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: InsertAutoVerbalLengthFieldWidget(
+                              builder:
+                                  (ref, length, changeLength, showValidation) {
+                                return TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.015,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  onChanged: (value) {
+                                    changeLength(double.parse(value));
+                                  },
+                                  decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: 8),
+                                    prefixIcon: Icon(
+                                      Icons.feed_outlined,
+                                      color: kImageColor,
+                                    ),
+                                    hintText: 'Length',
+                                    fillColor: kwhite,
+                                    filled: true,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: kPrimaryColor,
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: kPrimaryColor,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 20, left: 20),
+                      child: InsertAutoVerbalAreaFieldWidget(
+                        builder: (ref, area, changeArea, showValidation) {
+                          return Container(
+                            height: 50,
+                            width: double.infinity,
+                            margin: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: Colors.grey,
+                                width: 1,
+                              ),
+                            ),
+                            child: TextFormField(
+                              onChanged: (value) {
+                                changeArea(double.parse(value));
+                              },
+                              maxLines: 3,
+                              decoration: InputDecoration.collapsed(
+                                hintText: 'Arrea',
                               ),
                             ),
                           );
                         },
-                      );
-                    },
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  InsertPropertyProvinceFieldWidget(
-                    builder: (ref, province, changeProvince, showValidation) {
-                      return Padding(
-                        padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                        child: Container(
-                          child: ProvinceDropDown(
-                            value: province,
-                            onChanged: (value) {
-                              changeProvince(value);
-                            },
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  InsertPropertyPropertyTypeFieldWidget(
-                    builder: (ref, propertyType, changePropertyType,
-                        showValidation) {
-                      return Padding(
-                        padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                        child: Container(
-                          child: PropertyTypeDropDown(
-                            value: propertyType,
-                            onChanged: (value) {
-                              changePropertyType(value);
-                            },
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                    child: Row(
-                      children: [
-                        InsertPropertyPriceFieldWidget(
-                          builder: (ref, price, changePrice, showValidation) {
-                            return Expanded(
-                              child: TextFormField(
-                                onChanged: (value) {
-                                  changePrice(double.parse(value));
-                                },
-                                keyboardType: TextInputType.number,
-                                style: TextStyle(
-                                  fontSize: MediaQuery.of(context).size.height *
-                                      0.015,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                decoration: InputDecoration(
-                                  contentPadding:
-                                      EdgeInsets.symmetric(vertical: 8),
-                                  prefixIcon: Icon(
-                                    Icons.feed_outlined,
-                                    color: kImageColor,
-                                  ),
-                                  hintText: 'Min Value',
-                                  fillColor: kwhite,
-                                  filled: true,
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: kPrimaryColor,
-                                      width: 2.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 1,
-                                      color: kPrimaryColor,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        InsertPropertySqmFieldWidget(
-                          builder: (ref, sqm, changeSqm, showValidation) {
-                            return Expanded(
-                              child: TextFormField(
-                                onChanged: (value) {
-                                  changeSqm(double.parse(value));
-                                },
-                                keyboardType: TextInputType.number,
-                                style: TextStyle(
-                                  fontSize: MediaQuery.of(context).size.height *
-                                      0.015,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                decoration: InputDecoration(
-                                  contentPadding:
-                                      EdgeInsets.symmetric(vertical: 8),
-                                  prefixIcon: Icon(
-                                    Icons.feed_outlined,
-                                    color: kImageColor,
-                                  ),
-                                  hintText: 'Max Value',
-                                  fillColor: kwhite,
-                                  filled: true,
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: kPrimaryColor,
-                                      width: 2.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 1,
-                                      color: kPrimaryColor,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                    child: Row(
-                      children: [
-                        InsertPropertyBedroomsFieldWidget(
-                          builder: (ref, bed, changeBed, showValidation) {
-                            return Expanded(
-                              child: TextFormField(
-                                keyboardType: TextInputType.number,
-                                style: TextStyle(
-                                  fontSize: MediaQuery.of(context).size.height *
-                                      0.015,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                onChanged: (value) {
-                                  changeBed(int.parse(value));
-                                },
-                                decoration: InputDecoration(
-                                  contentPadding:
-                                      EdgeInsets.symmetric(vertical: 8),
-                                  prefixIcon: Icon(
-                                    Icons.feed_outlined,
-                                    color: kImageColor,
-                                  ),
-                                  hintText: 'Min Value/sqm',
-                                  fillColor: kwhite,
-                                  filled: true,
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: kPrimaryColor,
-                                      width: 2.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 1,
-                                      color: kPrimaryColor,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        InsertPropertyBathroomsFieldWidget(
-                            builder: (ref, bath, changeBath, showValidation) {
-                          return Expanded(
-                            child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              style: TextStyle(
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.015,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              onChanged: (value) {
-                                changeBath(int.parse(value));
-                              },
-                              decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.symmetric(vertical: 8),
-                                prefixIcon: Icon(
-                                  Icons.feed_outlined,
-                                  color: kImageColor,
-                                ),
-                                hintText: 'Max Value/sqm',
-                                fillColor: kwhite,
-                                filled: true,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: kPrimaryColor,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    color: kPrimaryColor,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                              ),
-                            ),
-                          );
-                        })
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                    child: Row(
-                      children: [
-                        InsertPropertyFloorsFieldWidget(
-                          builder: (ref, floors, changeFloors, showValidation) {
-                            return Expanded(
-                              child: TextFormField(
-                                keyboardType: TextInputType.number,
-                                style: TextStyle(
-                                  fontSize: MediaQuery.of(context).size.height *
-                                      0.015,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                onChanged: (value) {
-                                  changeFloors(int.parse(value));
-                                },
-                                decoration: InputDecoration(
-                                  contentPadding:
-                                      EdgeInsets.symmetric(vertical: 8),
-                                  prefixIcon: Icon(
-                                    Icons.bed_outlined,
-                                    color: kImageColor,
-                                  ),
-                                  hintText: 'Owner',
-                                  fillColor: kwhite,
-                                  filled: true,
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: kPrimaryColor,
-                                      width: 2.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 1,
-                                      color: kPrimaryColor,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        InsertPropertyParkingFieldWidget(
-                          builder:
-                              (ref, parking, changeParking, showValidation) {
-                            return Expanded(
-                              child: TextFormField(
-                                keyboardType: TextInputType.number,
-                                style: TextStyle(
-                                  fontSize: MediaQuery.of(context).size.height *
-                                      0.015,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                onChanged: (value) {
-                                  changeParking(int.parse(value));
-                                },
-                                decoration: InputDecoration(
-                                  contentPadding:
-                                      EdgeInsets.symmetric(vertical: 8),
-                                  prefixIcon: Icon(
-                                    Icons.feed_outlined,
-                                    color: kImageColor,
-                                  ),
-                                  hintText: 'Contact',
-                                  fillColor: kwhite,
-                                  filled: true,
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: kPrimaryColor,
-                                      width: 2.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 1,
-                                      color: kPrimaryColor,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        )
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                    child: Row(
-                      children: [
-                        InsertPropertyFloorsFieldWidget(
-                          builder: (ref, floors, changeFloors, showValidation) {
-                            return Expanded(
-                              child: TextFormField(
-                                keyboardType: TextInputType.number,
-                                style: TextStyle(
-                                  fontSize: MediaQuery.of(context).size.height *
-                                      0.015,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                onChanged: (value) {
-                                  changeFloors(int.parse(value));
-                                },
-                                decoration: InputDecoration(
-                                  contentPadding:
-                                      EdgeInsets.symmetric(vertical: 8),
-                                  prefixIcon: Icon(
-                                    Icons.bed_outlined,
-                                    color: kImageColor,
-                                  ),
-                                  hintText: 'Bank Officer',
-                                  fillColor: kwhite,
-                                  filled: true,
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: kPrimaryColor,
-                                      width: 2.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 1,
-                                      color: kPrimaryColor,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        InsertPropertyParkingFieldWidget(
-                          builder:
-                              (ref, parking, changeParking, showValidation) {
-                            return Expanded(
-                              child: TextFormField(
-                                keyboardType: TextInputType.number,
-                                style: TextStyle(
-                                  fontSize: MediaQuery.of(context).size.height *
-                                      0.015,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                onChanged: (value) {
-                                  changeParking(int.parse(value));
-                                },
-                                decoration: InputDecoration(
-                                  contentPadding:
-                                      EdgeInsets.symmetric(vertical: 8),
-                                  prefixIcon: Icon(
-                                    Icons.feed_outlined,
-                                    color: kImageColor,
-                                  ),
-                                  hintText: 'Bank Contact',
-                                  fillColor: kwhite,
-                                  filled: true,
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: kPrimaryColor,
-                                      width: 2.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 1,
-                                      color: kPrimaryColor,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        )
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                    child: Row(
-                      children: [
-                        InsertPropertyFloorsFieldWidget(
-                          builder: (ref, floors, changeFloors, showValidation) {
-                            return Expanded(
-                              child: TextFormField(
-                                keyboardType: TextInputType.number,
-                                style: TextStyle(
-                                  fontSize: MediaQuery.of(context).size.height *
-                                      0.015,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                onChanged: (value) {
-                                  changeFloors(int.parse(value));
-                                },
-                                decoration: InputDecoration(
-                                  contentPadding:
-                                      EdgeInsets.symmetric(vertical: 8),
-                                  prefixIcon: Icon(
-                                    Icons.bed_outlined,
-                                    color: kImageColor,
-                                  ),
-                                  hintText: 'Head',
-                                  fillColor: kwhite,
-                                  filled: true,
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: kPrimaryColor,
-                                      width: 2.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 1,
-                                      color: kPrimaryColor,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        InsertPropertyParkingFieldWidget(
-                          builder:
-                              (ref, parking, changeParking, showValidation) {
-                            return Expanded(
-                              child: TextFormField(
-                                keyboardType: TextInputType.number,
-                                style: TextStyle(
-                                  fontSize: MediaQuery.of(context).size.height *
-                                      0.015,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                onChanged: (value) {
-                                  changeParking(int.parse(value));
-                                },
-                                decoration: InputDecoration(
-                                  contentPadding:
-                                      EdgeInsets.symmetric(vertical: 8),
-                                  prefixIcon: Icon(
-                                    Icons.feed_outlined,
-                                    color: kImageColor,
-                                  ),
-                                  hintText: 'Length',
-                                  fillColor: kwhite,
-                                  filled: true,
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: kPrimaryColor,
-                                      width: 2.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 1,
-                                      color: kPrimaryColor,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        )
-                      ],
-                    ),
-                  ),
-                  InsertPropertyTitleFieldWidget(
-                    builder: (
-                      ref,
-                      textController,
-                      title,
-                      changeTitle,
-                      showValidation,
-                    ) {
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 20, left: 20),
-                        child: Container(
-                          height: 50,
-                          width: double.infinity,
-                          margin: EdgeInsets.all(10),
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: Colors.grey,
-                              width: 1,
-                            ),
-                          ),
-                          child: TextFormField(
-                            controller: textController,
-                            maxLines: 3,
-                            decoration: InputDecoration.collapsed(
-                              hintText: 'Arrea',
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ],
+                    // Add Image Picker Section
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
+  }
+}
+
+class _LatLog extends StatelessWidget {
+  const _LatLog({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InsertAutoVerbalLatitudeFieldWidget(
+      builder: (ref, latitude, changeLatitude, showValidation) {
+        return InsertAutoVerbalLongitudeFieldWidget(
+          builder: (ref, longitude, changeLongitude, showValidation) {
+            final mapUrl =
+                "https://maps.googleapis.com/maps/api/staticmap?center=$latitude,$longitude&zoom=18&size=1080x920&maptype=hybrid&markers=color:red%7C%7C$latitude,$longitude&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI";
+            return InkWell(
+              onTap: () async {
+                final result = await MapPickerPage.show(
+                  context,
+                  initialLat: latitude,
+                  initialLng: longitude,
+                );
+                if (result != null) {
+                  changeLatitude(result.latitude);
+                  changeLongitude(result.longitude);
+                }
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(right: 30, left: 30),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  width: MediaQuery.of(context).size.width,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: FadeInImage.assetNetwork(
+                      fit: BoxFit.cover,
+                      placeholderFit: BoxFit.contain,
+                      placeholder: 'assets/earth.gif',
+                      image: mapUrl,
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 }
 
@@ -740,13 +769,13 @@ class _ImagePicker extends HookWidget {
     final pageController = usePageController();
     final currentImageIndex = useState(0);
 
-    return InsertPropertyImageFilesFieldWidget(
-      builder: (ref, imageFiles, changeImageFiles, showValidation) {
+    return InsertAutoVerbalImageFileFieldWidget(
+      builder: (ref, imageFile, changeImageFile, showValidation) {
         return Column(
           children: [
             Container(
               margin: EdgeInsets.all(30)
-                  .copyWith(bottom: imageFiles.isEmpty ? 20 : 0),
+                  .copyWith(bottom: imageFile == null ? 20 : 0),
               decoration: BoxDecoration(
                 color: kwhite,
                 borderRadius: BorderRadius.circular(10),
@@ -754,13 +783,13 @@ class _ImagePicker extends HookWidget {
               ),
               height: 200,
               width: double.infinity,
-              child: imageFiles.isEmpty
+              child: imageFile == null
                   ? InkWell(
                       onTap: () async {
-                        await _pickImages(
+                        await _pickImage(
                           pageController,
-                          imageFiles,
-                          changeImageFiles,
+                          imageFile,
+                          changeImageFile,
                         );
                       },
                       child: Container(
@@ -783,57 +812,18 @@ class _ImagePicker extends HookWidget {
                   : Stack(
                       fit: StackFit.expand,
                       children: [
-                        PageView.builder(
-                          controller: pageController,
-                          onPageChanged: (value) =>
-                              currentImageIndex.value = value,
-                          itemCount: imageFiles.length,
-                          itemBuilder: (context, index) {
-                            final xFile = imageFiles[index];
-
-                            return ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.file(
-                                File(xFile.path),
-                                fit: BoxFit.cover,
-                              ),
-                            );
-                          },
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Container(
-                            margin: EdgeInsets.all(4),
-                            padding: EdgeInsets.symmetric(
-                              vertical: 2,
-                              horizontal: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Text(
-                              '${currentImageIndex.value + 1}/${imageFiles.length}',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                              ),
-                            ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.file(
+                            File(imageFile.path),
+                            fit: BoxFit.cover,
                           ),
                         ),
                         Align(
                           alignment: Alignment.topRight,
                           child: IconButton(
                             onPressed: () {
-                              final index = currentImageIndex.value;
-                              changeImageFiles(imageFiles.removeAt(index));
-                              if (index > 0) {
-                                pageController.jumpToPage(index - 1);
-                              } else {
-                                if (imageFiles.length > 0) {
-                                  pageController.jumpToPage(index + 1);
-                                }
-                              }
+                              changeImageFile(null);
                             },
                             icon: Icon(
                               Icons.clear,
@@ -844,34 +834,19 @@ class _ImagePicker extends HookWidget {
                       ],
                     ),
             ),
-            if (imageFiles.isNotEmpty) ...[
-              TextButton.icon(
-                onPressed: () async {
-                  await _pickImages(
-                    pageController,
-                    imageFiles,
-                    changeImageFiles,
-                  );
-                },
-                icon: Icon(Icons.add),
-                label: Text('Add more image'),
-              )
-            ],
           ],
         );
       },
     );
   }
 
-  Future<void> _pickImages(PageController pageController, IList<XFile> images,
-      void changeImageFiles(IList<XFile> newImageFiles)) async {
+  Future<void> _pickImage(PageController pageController, XFile? image,
+      void changeImageFile(XFile? newImageFile)) async {
     try {
-      final results = await ImagePicker().pickMultiImage();
-      if (results == null || results.isEmpty) return;
+      final result = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (result == null) return;
 
-      final newList = images.addAll(results);
-      changeImageFiles(newList);
-      pageController.jumpToPage(newList.length);
+      changeImageFile(result);
     } catch (e) {
       debugPrint(e.toString());
     }

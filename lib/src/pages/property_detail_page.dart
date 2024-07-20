@@ -63,19 +63,21 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
 
     return AuthWrapperWidget(
       child: Scaffold(
-        // appBar: AppBar(
-        //   leading: InkWell(
-        //       onTap: () {
-        //         Navigator.pop(context);
-        //       },
-        //       child: Icon(Icons.backspace_outlined, color: Colors.black)),
-        //   backgroundColor: Colors.white,
-        //   centerTitle: true,
-        //   title: const Text(
-        //     "Properties",
-        //     style: TextStyle(color: Colors.black),
-        //   ),
-        // ),
+        appBar: AppBar(
+          leading: InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child:
+                  Icon(Icons.keyboard_backspace_rounded, color: Colors.white)),
+          backgroundColor: kwhite_new,
+          centerTitle: true,
+          title: const Text(
+            "Property Detail",
+            style: TextStyle(
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+        ),
         body: Stack(
           children: [
             SizedBox(
@@ -136,7 +138,7 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
                               children: [
                                 SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height * 0.07,
+                                      MediaQuery.of(context).size.height * 0.09,
                                   width:
                                       MediaQuery.of(context).size.width * 0.9,
                                   child: Column(
@@ -162,7 +164,8 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
                                             child: Text(
                                               widget.data.title,
                                               style: const TextStyle(
-                                                color: Colors.grey,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black,
                                                 fontSize: 16,
                                               ),
                                               overflow: TextOverflow.ellipsis,
@@ -183,7 +186,7 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
                                           BorderRadius.all(Radius.circular(10)),
                                     ),
                                     height: MediaQuery.of(context).size.height *
-                                        0.1,
+                                        0.12,
                                     child: ListView(
                                       scrollDirection: Axis.horizontal,
                                       children: [
@@ -361,7 +364,7 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
               ),
             ),
             Positioned(
-              top: 320,
+              top: 250,
               right: 5,
               child: Container(
                 height: 30,
@@ -382,28 +385,6 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
                 ),
               ),
             ),
-            Positioned(
-              top: 20,
-              left: 5,
-              child: InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 185, 43, 43),
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                  ),
-                  height: 30,
-                  width: 50,
-                  child: const Icon(
-                    weight: 100.0,
-                    Icons.arrow_back_ios_new_rounded,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
       ),
@@ -416,7 +397,7 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
     required String label,
   }) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.2,
+      width: MediaQuery.of(context).size.width * 0.22,
       child: Column(
         children: [
           Icon(icon, size: 45),

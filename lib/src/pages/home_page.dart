@@ -1,7 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:kfa_mobile_nu/src/pages/add_autoverbal_page.dart';
 import 'package:kfa_mobile_nu/src/pages/report_page_test.dart';
-
 import '../../exports.dart';
 import '../../gen/assets.gen.dart';
 import '../helpers/build_context_helper.dart';
@@ -93,7 +93,9 @@ class __UserHomeState extends ConsumerState<_UserHome> {
                 ListTile(
                   leading: const Icon(Icons.add_to_photos_sharp),
                   title: const Text('Add Auto Verbal'),
-                  onTap: () {},
+                  onTap: () {
+                    context.push((context) => AddAutoVerbalPage());
+                  },
                 ),
                 ListTile(
                   leading: const Icon(Icons.compare_sharp),

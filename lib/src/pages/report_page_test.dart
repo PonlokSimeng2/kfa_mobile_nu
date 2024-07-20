@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:kfa_mobile_nu/src/pages/add_autoverbal_page.dart';
 
 class BeautifulPieChartScreen extends StatelessWidget {
   const BeautifulPieChartScreen({super.key});
@@ -22,7 +23,7 @@ class BeautifulPieChartScreen extends StatelessWidget {
           ),
           Expanded(
             flex: 3,
-            child: _buildTotalSection(),
+            child: _buildTotalSection(context),
           ),
         ],
       ),
@@ -54,7 +55,7 @@ class BeautifulPieChartScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTotalSection() {
+  Widget _buildTotalSection(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       decoration: BoxDecoration(
@@ -67,14 +68,17 @@ class BeautifulPieChartScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildTotalItem('Total Rent', '567,890', Colors.yellow[400]!),
-          _buildTotalItem('Total Sale', '1,234,567', Colors.blue[400]!),
+          _buildTotalItem(
+              'Total Rent', '567,890', Colors.yellow[400]!, context),
+          _buildTotalItem(
+              'Total Sale', '1,234,567', Colors.blue[400]!, context),
         ],
       ),
     );
   }
 
-  Widget _buildTotalItem(String title, String amount, Color color) {
+  Widget _buildTotalItem(
+      String title, String amount, Color color, BuildContext context) {
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(
@@ -102,6 +106,17 @@ class BeautifulPieChartScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 color: color,
               ),
+            ),
+            IconButton(
+              icon: Icon(Icons.arrow_forward, color: Colors.white),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddAutoVerbalPage(),
+                  ),
+                );
+              },
             ),
           ],
         ),

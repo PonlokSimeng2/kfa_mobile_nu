@@ -20,7 +20,9 @@ BankModel _$BankModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$BankModel {
+  @JsonKey(name: BankTable.id)
   int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: BankTable.name)
   String get name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -34,7 +36,9 @@ abstract class $BankModelCopyWith<$Res> {
   factory $BankModelCopyWith(BankModel value, $Res Function(BankModel) then) =
       _$BankModelCopyWithImpl<$Res, BankModel>;
   @useResult
-  $Res call({int id, String name});
+  $Res call(
+      {@JsonKey(name: BankTable.id) int id,
+      @JsonKey(name: BankTable.name) String name});
 }
 
 /// @nodoc
@@ -74,7 +78,9 @@ abstract class _$$BankModelImplCopyWith<$Res>
       __$$BankModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name});
+  $Res call(
+      {@JsonKey(name: BankTable.id) int id,
+      @JsonKey(name: BankTable.name) String name});
 }
 
 /// @nodoc
@@ -106,15 +112,21 @@ class __$$BankModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$BankModelImpl implements _BankModel {
-  _$BankModelImpl({required this.id, required this.name});
+@TableModel(BankTable.table)
+class _$BankModelImpl extends _BankModel {
+  _$BankModelImpl(
+      {@JsonKey(name: BankTable.id) required this.id,
+      @JsonKey(name: BankTable.name) required this.name})
+      : super._();
 
   factory _$BankModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$BankModelImplFromJson(json);
 
   @override
+  @JsonKey(name: BankTable.id)
   final int id;
   @override
+  @JsonKey(name: BankTable.name)
   final String name;
 
   @override
@@ -149,16 +161,21 @@ class _$BankModelImpl implements _BankModel {
   }
 }
 
-abstract class _BankModel implements BankModel {
-  factory _BankModel({required final int id, required final String name}) =
+abstract class _BankModel extends BankModel {
+  factory _BankModel(
+          {@JsonKey(name: BankTable.id) required final int id,
+          @JsonKey(name: BankTable.name) required final String name}) =
       _$BankModelImpl;
+  _BankModel._() : super._();
 
   factory _BankModel.fromJson(Map<String, dynamic> json) =
       _$BankModelImpl.fromJson;
 
   @override
+  @JsonKey(name: BankTable.id)
   int get id;
   @override
+  @JsonKey(name: BankTable.name)
   String get name;
   @override
   @JsonKey(ignore: true)

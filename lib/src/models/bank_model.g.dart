@@ -17,3 +17,15 @@ Map<String, dynamic> _$$BankModelImplToJson(_$BankModelImpl instance) =>
       'id': instance.id,
       'name': instance.name,
     };
+
+// **************************************************************************
+// TableModelGenerator
+// **************************************************************************
+
+const _tableBankModel = TableBuilder(
+  tableName: "banks",
+  columns: [
+    ColumnBuilder('id'),
+    ColumnBuilder('name'),
+  ],
+);

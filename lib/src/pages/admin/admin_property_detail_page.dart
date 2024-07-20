@@ -1,6 +1,9 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:kfa_mobile_nu/exports.dart';
+import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
+import 'package:kfa_mobile_nu/src/pages/edit_property_page.dart';
 import 'package:kfa_mobile_nu/src/providers/admin_provider.dart';
+import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 
 import '../../models/property_model.dart';
 
@@ -18,19 +21,75 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
   Widget build(BuildContext context) {
     final status = useState(widget.property.status);
     final redColor = Theme.of(context).colorScheme.error.withOpacity(0.8);
+    final isAdmin = ref.watch(isAdminProvider);
+
+    Widget? bottomAppBar;
+    if (isAdmin) {
+      bottomAppBar = BottomAppBar(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: switch (status.value) {
+          PropertyStatus.pending ||
+          PropertyStatus.resubmit =>
+            _buildApproveRejectButton(context, status),
+          PropertyStatus.approved => _buildApproved(),
+          PropertyStatus.rejected => _buildRejected(redColor, context)
+        },
+      );
+    } else {
+      if (status.value == PropertyStatus.rejected) {
+        bottomAppBar = BottomAppBar(
+          child: ElevatedButton(
+            onPressed: () {
+              context.push((_) => EditPropertyPage(initial: widget.property));
+            },
+            child: const Text('Resubmit Property'),
+          ),
+        );
+      }
+
+      if (status.value == PropertyStatus.pending || status.value == PropertyStatus.resubmit) {
+        bottomAppBar = BottomAppBar(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.pending, color: Colors.orange),
+                  const SizedBox(width: 8),
+                  Text(
+                    status.value.name.capitalize(),
+                    style: const TextStyle(color: Colors.orange),
+                  ),
+                ],
+              ),
+              const SizedBox(width: 16),
+              InkWell(
+                onTap: () {
+                  context.push((_) => EditPropertyPage(initial: widget.property));
+                },
+                child: const Row(
+                  children: [
+                    Icon(Icons.edit, color: Colors.blue),
+                    SizedBox(width: 8),
+                    Text(
+                      'Edit',
+                      style: TextStyle(color: Colors.blue),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Property Details'),
       ),
-      bottomNavigationBar: BottomAppBar(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: switch (status.value) {
-          PropertyStatus.pending => _buildApproveRejectButton(context, status),
-          PropertyStatus.approved => _buildApproved(),
-          PropertyStatus.rejected => _buildRejected(redColor, context)
-        },
-      ),
+      bottomNavigationBar: bottomAppBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

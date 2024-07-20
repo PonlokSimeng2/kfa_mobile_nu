@@ -1,12 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_typing_uninitialized_variables, non_constant_identifier_names, camel_case_types, avoid_print, unused_field, prefer_final_fields, prefer_interpolation_to_compose_strings, unnecessary_brace_in_string_interps, equal_keys_in_map, unrelated_type_equality_checks, body_might_complete_normally_nullable, unused_element, await_only_futures, unnecessary_string_interpolations, unnecessary_cast, prefer_const_constructors_in_immutables, avoid_unnecessary_containers, sized_box_for_whitespace, prefer_is_empty, unnecessary_null_comparison, unused_local_variable, unused_catch_clause, depend_on_referenced_packages, use_build_context_synchronously, sort_child_properties_last, no_leading_underscores_for_local_identifiers
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:getwidget/components/button/gf_button.dart';
-import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/models/property_model.dart';
@@ -16,66 +14,20 @@ import 'package:kfa_mobile_nu/src/widgets/map_picker.dart';
 import 'package:kfa_mobile_nu/src/widgets/property_type_dropdown.dart';
 import 'package:kfa_mobile_nu/src/widgets/province_dropdown.dart';
 
-typedef OnChangeCallback = void Function(dynamic value);
+class EditPropertyPage extends HookConsumerWidget {
+  EditPropertyPage({super.key, required this.initial});
 
-// ignore: must_be_immutable
-class AddPropertyPage extends HookConsumerWidget {
-  AddPropertyPage({super.key});
-
-  int? index_Sale;
-  int? index_Rent;
-  late String branchvalue;
-  bool _isLoading = true;
-  var _items = [];
-  var last_verbal_id;
-
-  int? hometype_api_index;
-
-  bool? index12 = true;
-
-  var khan;
-  var songkat;
-  var provice_map;
-
-  String? commune;
-  String? district;
-  Future<void> _getCurrentPosition() async {
-    final response = await http.get(
-      Uri.parse(
-        'https://maps.googleapis.com/maps/api/geocode/json?latlng=11.544881, 104.937044&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',
-      ),
-    );
-
-    if (response.statusCode == 200) {
-      // Successful response
-      final jsonResponse = json.decode(response.body);
-
-      final List ls = jsonResponse['results'];
-      List ac;
-      bool check_sk = false, check_kn = false;
-    }
-  }
-
-  String? Name_cummune;
-  bool switchValue = false;
-  String _switchValue = 'Switch';
-  bool way = false;
-  TextEditingController address1 = TextEditingController();
-
-  var id_ptys;
-  String urgent = 'N/A';
-  String? get_re = '202301';
-  String? await_functino;
-  var _size_10 = SizedBox(height: 10);
+  final PropertyModel initial;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return InsertPropertyFormWidget(
+    return UpdatePropertyFormWidget(
+      initial: initial,
       builder: (ref, formKey, status, isProgressing, failure, submit) {
         return AuthWrapperWidget(
           child: Scaffold(
             appBar: AppBar(
-              title: Text('Add Property'),
+              title: Text('Edit Property'),
               centerTitle: true,
               actions: [
                 Padding(
@@ -115,7 +67,7 @@ class AddPropertyPage extends HookConsumerWidget {
                         }
                       }
                     },
-                    child: isProgressing ? Text('SAVING') : Text('SAVE'),
+                    child: isProgressing ? Text('SAVING') : Text('RESUMMIT'),
                   ),
                 ),
               ],
@@ -141,8 +93,7 @@ class AddPropertyPage extends HookConsumerWidget {
                     //         height: MediaQuery.of(context).size.width * 0.11,
                     //         width: MediaQuery.of(context).size.width * 0.35,
                     //         child: Text(
-                    //           'Code:',
-                    //           // 'Code : ${controller_verbal.id_last.toString()}',
+                    //           'Code: ${initial.propertyId}',
                     //           style: TextStyle(
                     //             color: Colors.white,
                     //             fontWeight: FontWeight.bold,
@@ -150,33 +101,7 @@ class AddPropertyPage extends HookConsumerWidget {
                     //           ),
                     //         ),
                     //       ),
-                    //       Container(
-                    //         height: MediaQuery.of(context).size.height * 0.06,
-                    //         width: MediaQuery.of(context).size.width * 0.37,
-                    //         decoration: BoxDecoration(
-                    //           color: Color.fromARGB(255, 6, 25, 121),
-                    //           borderRadius: BorderRadius.circular(10),
-                    //         ),
-                    //         child: Row(
-                    //           mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    //           children: [
-                    //             // Switch(
-                    //             //   autofocus: false,
-                    //             //   activeColor: Color.fromARGB(255, 253, 253, 253),
-                    //             //   value: switchValue,
-                    //             //   onChanged: (value) {},
-                    //             // ),
-                    //             Text(
-                    //               '$urgent',
-                    //               style: TextStyle(
-                    //                 color: Color.fromARGB(255, 255, 255, 255),
-                    //                 fontSize: 10,
-                    //                 fontWeight: FontWeight.bold,
-                    //               ),
-                    //             ),
-                    //           ],
-                    //         ),
-                    //       ),
+
                     //     ],
                     //   ),
                     // ),
@@ -184,9 +109,9 @@ class AddPropertyPage extends HookConsumerWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    InsertPropertyLatitudeFieldWidget(
+                    UpdatePropertyLatitudeFieldWidget(
                       builder: (ref, latitude, changeLatitude, showValidation) {
-                        return InsertPropertyLongitudeFieldWidget(
+                        return UpdatePropertyLongitudeFieldWidget(
                           builder: (ref, longitude, changeLongitude, showValidation) {
                             final mapUrl =
                                 "https://maps.googleapis.com/maps/api/staticmap?center=$latitude,$longitude&zoom=18&size=1080x920&maptype=hybrid&markers=color:red%7C%7C$latitude,$longitude&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI";
@@ -230,7 +155,7 @@ class AddPropertyPage extends HookConsumerWidget {
                     SizedBox(
                       height: 5,
                     ),
-                    InsertPropertyProvinceFieldWidget(
+                    UpdatePropertyProvinceFieldWidget(
                       builder: (ref, province, changeProvince, showValidation) {
                         return Padding(
                           padding: EdgeInsets.only(right: 30, left: 30, top: 10),
@@ -248,7 +173,7 @@ class AddPropertyPage extends HookConsumerWidget {
                     SizedBox(
                       height: 5,
                     ),
-                    InsertPropertyPropertyTypeFieldWidget(
+                    UpdatePropertyPropertyTypeFieldWidget(
                       builder: (
                         ref,
                         propertyType,
@@ -268,15 +193,15 @@ class AddPropertyPage extends HookConsumerWidget {
                         );
                       },
                     ),
-
                     Padding(
                       padding: EdgeInsets.only(right: 30, left: 30, top: 10),
                       child: Row(
                         children: [
-                          InsertPropertyPriceFieldWidget(
+                          UpdatePropertyPriceFieldWidget(
                             builder: (ref, price, changePrice, showValidation) {
                               return Expanded(
                                 child: TextFormField(
+                                  initialValue: price.toString(),
                                   onChanged: (value) {
                                     changePrice(double.parse(value));
                                   },
@@ -316,10 +241,11 @@ class AddPropertyPage extends HookConsumerWidget {
                           SizedBox(
                             width: 10,
                           ),
-                          InsertPropertySqmFieldWidget(
+                          UpdatePropertySqmFieldWidget(
                             builder: (ref, sqm, changeSqm, showValidation) {
                               return Expanded(
                                 child: TextFormField(
+                                  initialValue: sqm.toString(),
                                   onChanged: (value) {
                                     changeSqm(double.parse(value));
                                   },
@@ -363,10 +289,11 @@ class AddPropertyPage extends HookConsumerWidget {
                       padding: EdgeInsets.only(right: 30, left: 30, top: 10),
                       child: Row(
                         children: [
-                          InsertPropertyBedroomsFieldWidget(
+                          UpdatePropertyBedroomsFieldWidget(
                             builder: (ref, bed, changeBed, showValidation) {
                               return Expanded(
                                 child: TextFormField(
+                                  initialValue: bed.toString(),
                                   keyboardType: TextInputType.number,
                                   style: TextStyle(
                                     fontSize: MediaQuery.of(context).size.height * 0.015,
@@ -406,10 +333,11 @@ class AddPropertyPage extends HookConsumerWidget {
                           SizedBox(
                             width: 10,
                           ),
-                          InsertPropertyBathroomsFieldWidget(
+                          UpdatePropertyBathroomsFieldWidget(
                             builder: (ref, bath, changeBath, showValidation) {
                               return Expanded(
                                 child: TextFormField(
+                                  initialValue: bath.toString(),
                                   keyboardType: TextInputType.number,
                                   style: TextStyle(
                                     fontSize: MediaQuery.of(context).size.height * 0.015,
@@ -449,7 +377,7 @@ class AddPropertyPage extends HookConsumerWidget {
                         ],
                       ),
                     ),
-                    _size_10,
+                    SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.only(left: 27.0),
                       child: Text('Size Land*'),
@@ -459,7 +387,7 @@ class AddPropertyPage extends HookConsumerWidget {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(left: 27.0),
-                            child: InsertPropertyLandLengthFieldWidget(
+                            child: UpdatePropertyLandLengthFieldWidget(
                               builder: (
                                 ref,
                                 landLength,
@@ -469,6 +397,7 @@ class AddPropertyPage extends HookConsumerWidget {
                                 return Container(
                                   width: MediaQuery.of(context).size.width * 0.4,
                                   child: TextFormField(
+                                    initialValue: landLength.toString(),
                                     keyboardType: TextInputType.number,
                                     style: TextStyle(
                                       fontSize: MediaQuery.of(context).size.height * 0.015,
@@ -505,11 +434,12 @@ class AddPropertyPage extends HookConsumerWidget {
                           SizedBox(
                             width: 10,
                           ),
-                          InsertPropertyLandWidthFieldWidget(
+                          UpdatePropertyLandWidthFieldWidget(
                             builder: (ref, landWidth, changeLandWidth, showValidation) {
                               return Container(
                                 width: MediaQuery.of(context).size.width * 0.4,
                                 child: TextFormField(
+                                  initialValue: landWidth.toString(),
                                   keyboardType: TextInputType.number,
                                   style: TextStyle(
                                     fontSize: MediaQuery.of(context).size.height * 0.015,
@@ -545,24 +475,7 @@ class AddPropertyPage extends HookConsumerWidget {
                         ],
                       ),
                     ),
-                    // Building(
-                    //   l: (value) {
-                    //     // setState(() {
-                    //     //   land_l = int.parse(value);
-                    //     // });
-                    //   },
-                    //   w: (value) {
-                    //     // setState(() {
-                    //     //   land_w = int.parse(value);
-                    //     // });
-                    //   },
-                    //   total: (value) {
-                    //     // setState(() {
-                    //     //   land = double.parse(value.toString());
-                    //     // });
-                    //   },
-                    // ),
-                    _size_10,
+                    SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.only(left: 27.0),
                       child: Text('Size Building'),
@@ -572,7 +485,7 @@ class AddPropertyPage extends HookConsumerWidget {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(left: 27.0),
-                            child: InsertPropertyBuildingLengthFieldWidget(
+                            child: UpdatePropertyBuildingLengthFieldWidget(
                               builder: (
                                 ref,
                                 buildingLength,
@@ -582,6 +495,7 @@ class AddPropertyPage extends HookConsumerWidget {
                                 return Container(
                                   width: MediaQuery.of(context).size.width * 0.4,
                                   child: TextFormField(
+                                    initialValue: buildingLength.toString(),
                                     keyboardType: TextInputType.number,
                                     style: TextStyle(
                                       fontSize: MediaQuery.of(context).size.height * 0.015,
@@ -618,7 +532,7 @@ class AddPropertyPage extends HookConsumerWidget {
                           SizedBox(
                             width: 10,
                           ),
-                          InsertPropertyBuildingWidthFieldWidget(
+                          UpdatePropertyBuildingWidthFieldWidget(
                             builder: (
                               ref,
                               buildingWidth,
@@ -628,6 +542,7 @@ class AddPropertyPage extends HookConsumerWidget {
                               return Container(
                                 width: MediaQuery.of(context).size.width * 0.4,
                                 child: TextFormField(
+                                  initialValue: buildingWidth.toString(),
                                   keyboardType: TextInputType.number,
                                   style: TextStyle(
                                     fontSize: MediaQuery.of(context).size.height * 0.015,
@@ -663,33 +578,16 @@ class AddPropertyPage extends HookConsumerWidget {
                         ],
                       ),
                     ),
-
-                    // Building(
-                    //   l: (value) {
-                    //     // setState(() {
-                    //     //   size_l = int.parse(value);
-                    //     // });
-                    //   },
-                    //   w: (value) {
-                    //     // setState(() {
-                    //     //   size_w = int.parse(value);
-                    //     // });
-                    //   },
-                    //   total: (value) {
-                    //     // setState(() {
-                    //     //   size_house = double.parse(value.toString());
-                    //     // });
-                    //   },
-                    // ),
-                    _size_10,
+                    SizedBox(height: 10),
                     Padding(
                       padding: EdgeInsets.only(right: 30, left: 30, top: 10),
                       child: Row(
                         children: [
-                          InsertPropertyFloorsFieldWidget(
+                          UpdatePropertyFloorsFieldWidget(
                             builder: (ref, floors, changeFloors, showValidation) {
                               return Expanded(
                                 child: TextFormField(
+                                  initialValue: floors.toString(),
                                   keyboardType: TextInputType.number,
                                   style: TextStyle(
                                     fontSize: MediaQuery.of(context).size.height * 0.015,
@@ -729,10 +627,11 @@ class AddPropertyPage extends HookConsumerWidget {
                           SizedBox(
                             width: 10,
                           ),
-                          InsertPropertyParkingFieldWidget(
+                          UpdatePropertyParkingFieldWidget(
                             builder: (ref, parking, changeParking, showValidation) {
                               return Expanded(
                                 child: TextFormField(
+                                  initialValue: parking.toString(),
                                   keyboardType: TextInputType.number,
                                   style: TextStyle(
                                     fontSize: MediaQuery.of(context).size.height * 0.015,
@@ -772,7 +671,7 @@ class AddPropertyPage extends HookConsumerWidget {
                         ],
                       ),
                     ),
-                    InsertPropertyLivingRoomsFieldWidget(
+                    UpdatePropertyLivingRoomsFieldWidget(
                       builder: (ref, livingRooms, changeLivingRooms, showValidation) {
                         return Padding(
                           padding: EdgeInsets.only(right: 30, left: 30, top: 10),
@@ -780,6 +679,7 @@ class AddPropertyPage extends HookConsumerWidget {
                             children: [
                               Expanded(
                                 child: TextFormField(
+                                  initialValue: livingRooms.toString(),
                                   onChanged: (value) {
                                     changeLivingRooms(int.parse(value));
                                   },
@@ -824,7 +724,7 @@ class AddPropertyPage extends HookConsumerWidget {
                       child: Row(
                         children: [
                           Expanded(
-                            child: InsertPropertyPropertyListingTypeFieldWidget(
+                            child: UpdatePropertyPropertyListingTypeFieldWidget(
                               builder: (
                                 ref,
                                 propertyListingType,
@@ -886,7 +786,7 @@ class AddPropertyPage extends HookConsumerWidget {
                         ],
                       ),
                     ),
-                    InsertPropertyTitleFieldWidget(
+                    UpdatePropertyTitleFieldWidget(
                       builder: (
                         ref,
                         textController,
@@ -920,7 +820,7 @@ class AddPropertyPage extends HookConsumerWidget {
                         );
                       },
                     ),
-                    InsertPropertyDescriptionFieldWidget(
+                    UpdatePropertyDescriptionFieldWidget(
                       builder: (
                         ref,
                         textController,
@@ -975,122 +875,144 @@ class _ImagePicker extends HookWidget {
     final pageController = usePageController();
     final currentImageIndex = useState(0);
 
-    return InsertPropertyImageFilesFieldWidget(
-      builder: (ref, imageFiles, changeImageFiles, showValidation) {
-        return Column(
-          children: [
-            Container(
-              margin: EdgeInsets.all(30).copyWith(bottom: imageFiles.isEmpty ? 20 : 0),
-              decoration: BoxDecoration(
-                color: kwhite,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(width: 1),
-              ),
-              height: 200,
-              width: double.infinity,
-              child: imageFiles.isEmpty
-                  ? InkWell(
-                      onTap: () async {
-                        await _pickImages(
-                          pageController,
-                          imageFiles,
-                          changeImageFiles,
-                        );
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        height: double.infinity,
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.image_outlined,
-                                size: 78,
-                              ),
-                              Text('Add Image'),
-                            ],
-                          ),
-                        ),
-                      ),
-                    )
-                  : Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        PageView.builder(
-                          controller: pageController,
-                          onPageChanged: (value) => currentImageIndex.value = value,
-                          itemCount: imageFiles.length,
-                          itemBuilder: (context, index) {
-                            final xFile = imageFiles[index];
+    return UpdatePropertyExistingImageUrlsFieldWidget(
+      builder: (ref, existingImageUrls, changeExistingImageUrls, showValidation) {
+        return UpdatePropertyNewImageFilesFieldWidget(
+          builder: (ref, imageFiles, changeImageFiles, showValidation) {
+            final hasImage = imageFiles.isNotEmpty || existingImageUrls.isNotEmpty;
+            final imagePaths = existingImageUrls.addAll(imageFiles.map((e) => e.path).toList());
 
-                            return ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.file(
-                                File(xFile.path),
-                                fit: BoxFit.cover,
-                              ),
+            return Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.all(30).copyWith(bottom: imageFiles.isEmpty ? 20 : 0),
+                  decoration: BoxDecoration(
+                    color: kwhite,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(width: 1),
+                  ),
+                  height: 200,
+                  width: double.infinity,
+                  child: !hasImage
+                      ? InkWell(
+                          onTap: () async {
+                            await _pickImages(
+                              pageController,
+                              imageFiles,
+                              changeImageFiles,
                             );
                           },
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
                           child: Container(
-                            margin: EdgeInsets.all(4),
-                            padding: EdgeInsets.symmetric(
-                              vertical: 2,
-                              horizontal: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Text(
-                              '${currentImageIndex.value + 1}/${imageFiles.length}',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
+                            width: double.infinity,
+                            height: double.infinity,
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.image_outlined,
+                                    size: 78,
+                                  ),
+                                  Text('Add Image'),
+                                ],
                               ),
                             ),
                           ),
-                        ),
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: IconButton(
-                            onPressed: () {
-                              final index = currentImageIndex.value;
-                              changeImageFiles(imageFiles.removeAt(index));
-                              if (index > 0) {
-                                pageController.jumpToPage(index - 1);
-                              } else {
-                                if (imageFiles.length > 0) {
-                                  pageController.jumpToPage(index + 1);
-                                }
-                              }
-                            },
-                            icon: Icon(
-                              Icons.clear,
-                              color: Colors.red,
+                        )
+                      : Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            PageView.builder(
+                              controller: pageController,
+                              onPageChanged: (value) => currentImageIndex.value = value,
+                              itemCount: imagePaths.length,
+                              itemBuilder: (context, index) {
+                                final path = imagePaths[index];
+
+                                final isUrl = path.startsWith('http');
+
+                                return ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: isUrl
+                                      ? Image.network(
+                                          path,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Image.file(
+                                          File(path),
+                                          fit: BoxFit.cover,
+                                        ),
+                                );
+                              },
                             ),
-                          ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Container(
+                                margin: EdgeInsets.all(4),
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 2,
+                                  horizontal: 4,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.black,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Text(
+                                  '${currentImageIndex.value + 1}/${imageFiles.length}',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: IconButton(
+                                onPressed: () {
+                                  final index = currentImageIndex.value;
+                                  final path = imagePaths[index];
+                                  final isUrl = path.startsWith('http');
+
+                                  if (isUrl) {
+                                    changeExistingImageUrls(existingImageUrls.removeAt(index));
+                                  } else {
+                                    changeImageFiles(imageFiles.removeAt(index));
+                                  }
+
+                                  if (index > 0) {
+                                    pageController.jumpToPage(index - 1);
+                                  } else {
+                                    if (imageFiles.length > 0) {
+                                      pageController.jumpToPage(index + 1);
+                                    }
+                                  }
+                                },
+                                icon: Icon(
+                                  Icons.clear,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-            ),
-            if (imageFiles.isNotEmpty) ...[
-              TextButton.icon(
-                onPressed: () async {
-                  await _pickImages(
-                    pageController,
-                    imageFiles,
-                    changeImageFiles,
-                  );
-                },
-                icon: Icon(Icons.add),
-                label: Text('Add more image'),
-              ),
-            ],
-          ],
+                ),
+                if (hasImage) ...[
+                  TextButton.icon(
+                    onPressed: () async {
+                      await _pickImages(
+                        pageController,
+                        imageFiles,
+                        changeImageFiles,
+                      );
+                    },
+                    icon: Icon(Icons.add),
+                    label: Text('Add more image'),
+                  ),
+                ],
+              ],
+            );
+          },
         );
       },
     );

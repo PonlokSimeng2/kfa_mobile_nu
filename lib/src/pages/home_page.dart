@@ -1,13 +1,14 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:kfa_mobile_nu/src/pages/add_autoverbal_page.dart';
+import 'package:kfa_mobile_nu/src/pages/my_property_page.dart';
 import 'package:kfa_mobile_nu/src/pages/report_page_test.dart';
+
 import '../../exports.dart';
 import '../../gen/assets.gen.dart';
 import '../helpers/build_context_helper.dart';
 import '../providers/user_provider.dart';
 import 'account_page.dart';
-import 'add_property_page.dart';
 import 'admin/admin_home_page.dart';
 import 'contact_us_page.dart';
 import 'login_page.dart';
@@ -97,12 +98,17 @@ class __UserHomeState extends ConsumerState<_UserHome> {
                     context.push((context) => AddAutoVerbalPage());
                   },
                 ),
-                ListTile(
-                  leading: const Icon(Icons.compare_sharp),
-                  title: const Text('Sale & Rent Property'),
-                  onTap: () {
-                    context.push(
-                      (context) => AddPropertyPage(),
+                Builder(
+                  builder: (context) {
+                    return ListTile(
+                      leading: const Icon(Icons.compare_sharp),
+                      title: const Text('Sale & Rent Property'),
+                      onTap: () {
+                        context.push(
+                          (context) => const MyPropertyPage(),
+                        );
+                        Scaffold.of(context).closeDrawer();
+                      },
                     );
                   },
                 ),

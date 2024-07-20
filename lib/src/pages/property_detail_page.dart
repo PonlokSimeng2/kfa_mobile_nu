@@ -1,25 +1,27 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../exports.dart';
-import '../models/property_model.dart';
-import 'contact_us_page.dart';
-import '../providers/auth_provider.dart';
 import 'package:readmore/readmore.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../exports.dart';
+import '../models/property_model.dart';
+import '../providers/auth_provider.dart';
 import '../widgets/auth_wrapper_widget.dart';
+import 'contact_us_page.dart';
 
 // ignore: camel_case_types, must_be_immutable
 class PropertyDetailPage extends ConsumerStatefulWidget {
-  PropertyDetailPage({super.key, required this.data});
+  const PropertyDetailPage({super.key, required this.data});
   final PropertyModel data;
   @override
   HomeViewState createState() => HomeViewState();
 }
 
 var textstyleblackbold = const TextStyle(
-    color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold);
+  color: Colors.black,
+  fontSize: 20,
+  fontWeight: FontWeight.bold,
+);
 var textstyleblack = const TextStyle(
   color: Colors.black,
   fontSize: 18,
@@ -37,7 +39,7 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
     // Add a marker for the property location
     markers.add(
       Marker(
-        markerId: MarkerId('property'),
+        markerId: const MarkerId('property'),
         position: LatLng(widget.data.latitude, widget.data.longitude),
         infoWindow: InfoWindow(title: widget.data.title),
       ),
@@ -65,17 +67,20 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
       child: Scaffold(
         appBar: AppBar(
           leading: InkWell(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child:
-                  Icon(Icons.keyboard_backspace_rounded, color: Colors.white)),
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: const Icon(Icons.keyboard_backspace_rounded, color: Colors.white),
+          ),
           backgroundColor: kwhite_new,
           centerTitle: true,
           title: const Text(
             "Property Detail",
             style: TextStyle(
-                color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         body: Stack(
@@ -137,18 +142,15 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
                             Column(
                               children: [
                                 SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.09,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.9,
+                                  height: MediaQuery.of(context).size.height * 0.09,
+                                  width: MediaQuery.of(context).size.width * 0.9,
                                   child: Column(
                                     children: [
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            '${widget.data.listingType.name.capitalize()}',
+                                            widget.data.listingType.name.capitalize(),
                                             style: const TextStyle(
                                               color: Colors.black,
                                               fontSize: 20,
@@ -177,16 +179,13 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.only(right: 5, left: 5),
+                                  padding: const EdgeInsets.only(right: 5, left: 5),
                                   child: Container(
                                     decoration: const BoxDecoration(
                                       color: Color.fromARGB(255, 237, 232, 232),
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
+                                      borderRadius: BorderRadius.all(Radius.circular(10)),
                                     ),
-                                    height: MediaQuery.of(context).size.height *
-                                        0.12,
+                                    height: MediaQuery.of(context).size.height * 0.12,
                                     child: ListView(
                                       scrollDirection: Axis.horizontal,
                                       children: [
@@ -229,11 +228,9 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
                                   ),
                                   SizedBox(
                                     // height: MediaQuery.of(context).size.height * 0.09,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.9,
+                                    width: MediaQuery.of(context).size.width * 0.9,
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         Text(
                                           'Description',
@@ -251,9 +248,7 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
                                       left: 4.0,
                                     ),
                                     child: SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.13,
+                                      height: MediaQuery.of(context).size.height * 0.13,
                                       child: SingleChildScrollView(
                                         reverse: false,
                                         child: ReadMoreText(
@@ -267,7 +262,7 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
                                             fontSize: 15,
                                             fontWeight: FontWeight.bold,
                                           ),
-                                          style: TextStyle(fontSize: 17),
+                                          style: const TextStyle(fontSize: 17),
                                         ),
                                       ),
                                     ),
@@ -281,8 +276,10 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
                                 mapType: MapType.hybrid,
                                 onMapCreated: _onMapCreated,
                                 initialCameraPosition: CameraPosition(
-                                  target: LatLng(widget.data.latitude,
-                                      widget.data.longitude),
+                                  target: LatLng(
+                                    widget.data.latitude,
+                                    widget.data.longitude,
+                                  ),
                                   zoom: 15,
                                 ),
                                 markers: markers,
@@ -298,8 +295,7 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
                                   Column(
                                     children: [
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           Text(
                                             "Contact",
@@ -311,15 +307,10 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
                                         height: 10,
                                       ),
                                       SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.9,
+                                        width: MediaQuery.of(context).size.width * 0.9,
                                         child: Container(
                                           height: 110,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.9,
+                                          width: MediaQuery.of(context).size.width * 0.9,
                                           decoration: const BoxDecoration(
                                             //color: Colors.amber,
                                             borderRadius: BorderRadius.all(
@@ -331,11 +322,11 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
                                               Hotline(
                                                 onPress: () => setState(() {
                                                   _makePhoneCall(
-                                                      'tel:${widget.data.user.phone}');
+                                                    'tel:${widget.data.user.phone}',
+                                                  );
                                                 }),
                                                 icon: Icons.phone,
-                                                phone:
-                                                    '${widget.data.user.phone}',
+                                                phone: widget.data.user.phone,
                                               ),
                                               // Hotline(
                                               //   onPress: () => setState(() {
@@ -359,7 +350,7 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
                         ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -404,11 +395,11 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('$value', style: textstyleblackbold),
+              Text(value, style: textstyleblackbold),
               const SizedBox(width: 5),
               Text(label, style: textstyleblackbold),
             ],
-          )
+          ),
         ],
       ),
     );
@@ -419,7 +410,7 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Location Details'),
+          title: const Text('Location Details'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -430,7 +421,7 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
           ),
           actions: [
             TextButton(
-              child: Text('Close'),
+              child: const Text('Close'),
               onPressed: () {
                 Navigator.of(context).pop();
               },

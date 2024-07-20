@@ -12,7 +12,12 @@ part 'property_model.g.dart';
 
 enum PropertyListingType { sale, rent }
 
-enum PropertyStatus { pending, approved, rejected }
+enum PropertyStatus {
+  pending,
+  resubmit,
+  approved,
+  rejected,
+}
 
 @TableStructure(
   'properties',

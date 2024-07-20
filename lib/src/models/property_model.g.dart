@@ -84,6 +84,7 @@ Map<String, dynamic> _$$PropertyModelImplToJson(_$PropertyModelImpl instance) =>
 
 const _$PropertyStatusEnumMap = {
   PropertyStatus.pending: 'pending',
+  PropertyStatus.resubmit: 'resubmit',
   PropertyStatus.approved: 'approved',
   PropertyStatus.rejected: 'rejected',
 };

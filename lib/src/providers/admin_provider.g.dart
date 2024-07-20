@@ -6,6 +6,20 @@ part of 'admin_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$reportDataHash() => r'85a8c4583a7b7d844eb339f288180c185a989cc2';
+
+/// See also [reportData].
+@ProviderFor(reportData)
+final reportDataProvider = AutoDisposeFutureProvider<ReportData>.internal(
+  reportData,
+  name: r'reportDataProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$reportDataHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef ReportDataRef = AutoDisposeFutureProviderRef<ReportData>;
 String _$userListHash() => r'f92f108fbef6a34b97b46c4b147e3f00c5e197e9';
 
 /// Copied from Dart SDK

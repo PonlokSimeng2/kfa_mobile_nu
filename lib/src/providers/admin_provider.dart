@@ -1,3 +1,4 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kfa_mobile_nu/src/models/user_model.table.dart';
 import 'package:kfa_mobile_nu/src/providers/property_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
@@ -8,7 +9,29 @@ import '../models/property_model.dart';
 import '../models/property_model.table.dart';
 import '../models/user_model.dart';
 
+part 'admin_provider.freezed.dart';
 part 'admin_provider.g.dart';
+
+@freezed
+class ReportData with _$ReportData {
+  const ReportData._();
+
+  const factory ReportData({
+    required int totalSale,
+    required int totalRent,
+  }) = _ReportData;
+}
+
+@riverpod
+FutureOr<ReportData> reportData(ReportDataRef ref) async {
+  final sb = ref.watch(supabaseProvider).client;
+  final result = await sb.rpc('get_admin_report');
+  final json = result;
+  return ReportData(
+    totalSale: json['total_sale'],
+    totalRent: json['total_rent'],
+  );
+}
 
 @riverpod
 class RejectProperty extends _$RejectProperty {

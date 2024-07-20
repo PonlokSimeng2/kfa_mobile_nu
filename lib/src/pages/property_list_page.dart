@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:kfa_mobile_nu/src/models/property_model.dart';
-import '../helpers/build_context_helper.dart';
-import 'property_detail_page.dart';
-import '../providers/property_provider.dart';
+
 import '../../exports.dart';
+import '../helpers/build_context_helper.dart';
+import '../providers/property_provider.dart';
+import 'property_detail_page.dart';
 
 class PropertyListPage extends ConsumerStatefulWidget {
   const PropertyListPage({super.key});
@@ -18,7 +18,7 @@ class _PropertyListPageState extends ConsumerState<PropertyListPage> {
   @override
   Widget build(BuildContext context) {
     final firstPageCountAsync = ref.watch(
-      propertyListProvider(page: 0, type: _type)
+      propertyListProvider(page: 0, filter: PropertyListFilter(listingType: _type))
           .select((v) => v.whenData((v) => v.length)),
     );
 
@@ -68,17 +68,18 @@ class _PropertyListPageState extends ConsumerState<PropertyListPage> {
   }
 
   Widget _buildFilterButton(
-      String label, IconData icon, PropertyListingType? _valueType) {
-    final isSelected =
-        (_type == null && _valueType == null) || _type == _valueType;
+    String label,
+    IconData icon,
+    PropertyListingType? valueType,
+  ) {
+    final isSelected = (_type == null && valueType == null) || _type == valueType;
     return ElevatedButton.icon(
-      onPressed: () => setState(() => _type = _valueType),
+      onPressed: () => setState(() => _type = valueType),
       icon: Icon(icon, color: isSelected ? Colors.white : Colors.grey),
       label: Text(label),
       style: ElevatedButton.styleFrom(
         foregroundColor: isSelected ? Colors.white : Colors.black,
-        backgroundColor:
-            isSelected ? Theme.of(context).primaryColor : Colors.white,
+        backgroundColor: isSelected ? Theme.of(context).primaryColor : Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
     );
@@ -100,11 +101,11 @@ class _GridView extends ConsumerWidget {
         crossAxisSpacing: 10,
       ),
       itemBuilder: (context, index) {
-        final paginated =
-            ref.watch(propertyAtIndexProvider(index: index, type: type));
+        final paginated = ref.watch(
+            propertyAtIndexProvider(index: index, filter: PropertyListFilter(listingType: type)));
         return paginated?.whenOrNull(
           loading: (isFirstItem) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           },
@@ -127,14 +128,12 @@ class _GridView extends ConsumerWidget {
           children: [
             Expanded(
               child: ClipRRect(
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(10)),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
                 child: CachedNetworkImage(
                   imageUrl: item.images.first,
                   fit: BoxFit.cover,
                   width: double.infinity,
-                  placeholder: (context, url) =>
-                      const Center(child: CircularProgressIndicator()),
+                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
@@ -154,13 +153,13 @@ class _GridView extends ConsumerWidget {
                   Text(
                     '${item.price} \$',
                     style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.bold),
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
                       color: item.listingType.name.toLowerCase() == 'rent'
                           ? Colors.blue

@@ -43,8 +43,7 @@ mixin _$AutoVerbalModel {
   @JsonKey(name: AutoVerbalTable.bankOfficerName)
   String? get bankOfficerName => throw _privateConstructorUsedError;
   @JsonKey(name: AutoVerbalTable.bankOfficerPhone)
-  String? get bankOfficerPhone =>
-      throw _privateConstructorUsedError; // @JsonKey(name: AutoVerbalTable.address) required String address,
+  String? get bankOfficerPhone => throw _privateConstructorUsedError;
   @JsonKey(name: AutoVerbalTable.createdAt)
   DateTime get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: AutoVerbalTable.approvedAt)
@@ -606,7 +605,6 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
   @override
   @JsonKey(name: AutoVerbalTable.bankOfficerPhone)
   final String? bankOfficerPhone;
-// @JsonKey(name: AutoVerbalTable.address) required String address,
   @override
   @JsonKey(name: AutoVerbalTable.createdAt)
   final DateTime createdAt;
@@ -834,7 +832,7 @@ abstract class _AutoVerbalModel extends AutoVerbalModel {
   @override
   @JsonKey(name: AutoVerbalTable.bankOfficerPhone)
   String? get bankOfficerPhone;
-  @override // @JsonKey(name: AutoVerbalTable.address) required String address,
+  @override
   @JsonKey(name: AutoVerbalTable.createdAt)
   DateTime get createdAt;
   @override

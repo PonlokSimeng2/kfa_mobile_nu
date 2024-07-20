@@ -6,14 +6,14 @@ import '../../../../exports.dart';
 import '../../../providers/property_provider.dart';
 
 class AdminPropertyListWidget extends ConsumerWidget {
-  const AdminPropertyListWidget({super.key, required this.status});
+  const AdminPropertyListWidget({super.key, required this.filter});
 
-  final PropertyStatus? status;
+  final PropertyListFilter filter;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final firstPageCountAsync = ref.watch(
-      propertyListProvider(page: 0, status: status).select((v) => v.whenData((v) => v.length)),
+      propertyListProvider(page: 0, filter: filter).select((v) => v.whenData((v) => v.length)),
     );
 
     return firstPageCountAsync.when(
@@ -30,13 +30,13 @@ class AdminPropertyListWidget extends ConsumerWidget {
         }
         return RefreshIndicator(
           onRefresh: () async {
-            ref.invalidate(propertyListProvider(page: 0, status: status));
+            ref.invalidate(propertyListProvider(page: 0, filter: filter));
           },
           child: ListView.builder(
             itemCount: count,
             itemBuilder: (context, index) {
               final propertyAsync =
-                  ref.watch(propertyAtIndexProvider(index: index, status: status));
+                  ref.watch(propertyAtIndexProvider(index: index, filter: filter));
               return propertyAsync?.whenOrNull(
                     loading: (isFirstItem) => const Center(child: CircularProgressIndicator()),
                     data: (property) => _buildListItem(context, property),
@@ -143,6 +143,8 @@ class AdminPropertyListWidget extends ConsumerWidget {
         return Colors.green[100]!;
       case PropertyStatus.rejected:
         return Colors.red[100]!;
+      case PropertyStatus.resubmit:
+        return Colors.blue[100]!;
     }
   }
 
@@ -154,6 +156,8 @@ class AdminPropertyListWidget extends ConsumerWidget {
         return Colors.green[800]!;
       case PropertyStatus.rejected:
         return Colors.red[800]!;
+      case PropertyStatus.resubmit:
+        return Colors.blue[800]!;
     }
   }
 }

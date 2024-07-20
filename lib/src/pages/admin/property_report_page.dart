@@ -3,50 +3,25 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/gen/assets.gen.dart';
 import 'package:kfa_mobile_nu/src/models/property_model.dart';
+import 'package:kfa_mobile_nu/src/providers/admin_provider.dart';
+import 'package:kfa_mobile_nu/src/providers/property_provider.dart';
 
 import 'widgets/admin_property_list_widget.dart';
 
-class PropertyReportPage extends StatefulWidget {
+final _filterProvider = StateProvider.autoDispose<PropertyListFilter>((ref) {
+  return PropertyListFilter(
+    statuses: [PropertyStatus.pending, PropertyStatus.resubmit].lock,
+  );
+});
+
+class PropertyReportPage extends ConsumerStatefulWidget {
   const PropertyReportPage({super.key});
 
   @override
   _PropertyReportPageState createState() => _PropertyReportPageState();
 }
 
-class _PropertyReportPageState extends State<PropertyReportPage> {
-  PropertyStatus? _status = PropertyStatus.pending;
-
-  final List<Map<String, dynamic>> properties = [
-    {
-      "title": "Luxury Apartment",
-      "price": "\$500,000",
-      "status": "pending",
-      "address": "123 Main St, City",
-      "thumbnail": "https://via.placeholder.com/150",
-    },
-    {
-      "title": "Suburban House",
-      "price": "\$350,000",
-      "status": "approved",
-      "address": "456 Oak Ave, Suburb",
-      "thumbnail": "https://via.placeholder.com/150",
-    },
-    {
-      "title": "Downtown Condo",
-      "price": "\$425,000",
-      "status": "rejected",
-      "address": "789 Pine St, Downtown",
-      "thumbnail": "https://via.placeholder.com/150",
-    },
-    {
-      "title": "Beachfront Villa",
-      "price": "\$1,200,000",
-      "status": "pending",
-      "address": "101 Beach Rd, Coast",
-      "thumbnail": "https://via.placeholder.com/150",
-    },
-  ];
-
+class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
   AppBar _buildAppBar() {
     return AppBar(
       title: Row(
@@ -114,6 +89,9 @@ class _PropertyReportPageState extends State<PropertyReportPage> {
 
   @override
   Widget build(BuildContext context) {
+    final filter = ref.watch(_filterProvider);
+    final reportDataAsync = ref.watch(reportDataProvider);
+
     return Scaffold(
       appBar: _buildAppBar(),
       body: Container(
@@ -122,6 +100,7 @@ class _PropertyReportPageState extends State<PropertyReportPage> {
           child: Column(
             children: [
               Container(
+                width: double.infinity,
                 padding: const EdgeInsets.all(16).copyWith(top: 0),
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,
@@ -143,32 +122,54 @@ class _PropertyReportPageState extends State<PropertyReportPage> {
                     ),
                     const SizedBox(height: 8),
                     SizedBox(
-                      height: 200,
-                      child: PieChart(
-                        PieChartData(
-                          sections: [
-                            PieChartSectionData(
-                              color: const Color(0xFF0088FE),
-                              value: 1245,
-                              title: '58%',
-                              radius: 50,
-                            ),
-                            PieChartSectionData(
-                              color: const Color(0xFF00C49F),
-                              value: 498,
-                              title: '23%',
-                              radius: 50,
-                            ),
-                            PieChartSectionData(
-                              color: const Color(0xFFFFBB28),
-                              value: 412,
-                              title: '19%',
-                              radius: 50,
-                            ),
-                          ],
-                          centerSpaceRadius: 40,
-                          sectionsSpace: 0,
-                        ),
+                      height: 220,
+                      width: double.infinity,
+                      child: reportDataAsync.when(
+                        data: (data) {
+                          final totalProperties = data.totalSale + data.totalRent;
+                          final salePercentage =
+                              (data.totalSale / totalProperties * 100).toStringAsFixed(1);
+                          final rentPercentage =
+                              (data.totalRent / totalProperties * 100).toStringAsFixed(1);
+
+                          return Column(
+                            children: [
+                              Expanded(
+                                child: PieChart(
+                                  PieChartData(
+                                    sections: [
+                                      PieChartSectionData(
+                                        color: const Color(0xFF0088FE),
+                                        value: data.totalSale.toDouble(),
+                                        title: '$salePercentage%',
+                                        radius: 50,
+                                      ),
+                                      PieChartSectionData(
+                                        color: const Color(0xFF00C49F),
+                                        value: data.totalRent.toDouble(),
+                                        title: '$rentPercentage%',
+                                        radius: 50,
+                                      ),
+                                    ],
+                                    centerSpaceRadius: 40,
+                                    sectionsSpace: 0,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  _buildLegend('Sale', const Color(0xFF0088FE), data.totalSale),
+                                  const SizedBox(width: 20),
+                                  _buildLegend('Rent', const Color(0xFF00C49F), data.totalRent),
+                                ],
+                              ),
+                            ],
+                          );
+                        },
+                        loading: () => const CircularProgressIndicator(),
+                        error: (error, stack) => Text('Error: $error'),
                       ),
                     ),
                   ],
@@ -193,11 +194,17 @@ class _PropertyReportPageState extends State<PropertyReportPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             _buildTabButton(null),
-                            ...PropertyStatus.values.map((status) => _buildTabButton(status)),
+                            ...PropertyStatus.values
+                                .where((status) => status != PropertyStatus.resubmit)
+                                .map((status) => _buildTabButton(status)),
                           ],
                         ),
                       ),
-                      Expanded(child: AdminPropertyListWidget(status: _status)),
+                      Expanded(
+                        child: AdminPropertyListWidget(
+                          filter: filter,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -209,11 +216,45 @@ class _PropertyReportPageState extends State<PropertyReportPage> {
     );
   }
 
+  Widget _buildLegend(String label, Color color, int value) {
+    return Row(
+      children: [
+        Container(
+          width: 16,
+          height: 16,
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
+        ),
+        const SizedBox(width: 4),
+        Text(
+          '$label: $value',
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 12,
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildTabButton(PropertyStatus? status) {
+    final statuses = ref.read(_filterProvider).statuses;
+    final isSelected = statuses.contains(status) && statuses.length <= 2;
     return GestureDetector(
       onTap: () {
-        setState(() {
-          _status = status;
+        if (isSelected) return;
+        ref.read(_filterProvider.notifier).update((old) {
+          if (status == null) {
+            return old.copyWith(
+              statuses: PropertyStatus.values.lock,
+            );
+          } else if (status == PropertyStatus.resubmit) {
+            return old.copyWith(statuses: [PropertyStatus.pending, PropertyStatus.resubmit].lock);
+          } else {
+            return old.copyWith(statuses: [status].lock);
+          }
         });
       },
       child: Container(
@@ -221,7 +262,10 @@ class _PropertyReportPageState extends State<PropertyReportPage> {
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
-              color: _status == status ? Colors.blue : Colors.transparent,
+              color:
+                  isSelected || (status == null && statuses.length == PropertyStatus.values.length)
+                      ? Colors.blue
+                      : Colors.transparent,
               width: 2,
             ),
           ),
@@ -229,94 +273,12 @@ class _PropertyReportPageState extends State<PropertyReportPage> {
         child: Text(
           status?.name.capitalize() ?? 'All',
           style: TextStyle(
-            color: _status == status ? Colors.blue : Colors.grey,
+            color: isSelected || (status == null && statuses.length == PropertyStatus.values.length)
+                ? Colors.blue
+                : Colors.grey,
             fontWeight: FontWeight.bold,
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildListItem(Map<String, dynamic> property) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: Colors.grey[200]!),
-        ),
-      ),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Image.network(
-              property['thumbnail'],
-              width: 60,
-              height: 60,
-              fit: BoxFit.cover,
-            ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  property['title'],
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                Text(
-                  property['address'],
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 14,
-                  ),
-                ),
-                Text(
-                  property['price'],
-                  style: const TextStyle(
-                    color: Colors.blue,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: property['status'] == 'pending'
-                      ? Colors.yellow[100]
-                      : property['status'] == 'approved'
-                          ? Colors.green[100]
-                          : Colors.red[100],
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Text(
-                  property['status'].toUpperCase(),
-                  style: TextStyle(
-                    color: property['status'] == 'pending'
-                        ? Colors.yellow[800]
-                        : property['status'] == 'approved'
-                            ? Colors.green[800]
-                            : Colors.red[800],
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 4),
-              const Icon(Icons.chevron_right, color: Colors.grey),
-            ],
-          ),
-        ],
       ),
     );
   }

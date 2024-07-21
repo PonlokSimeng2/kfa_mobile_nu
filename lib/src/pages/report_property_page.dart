@@ -1,59 +1,67 @@
-import 'package:kfa_mobile_nu/src/models/property_model.dart';
-import 'package:kfa_mobile_nu/src/models/property_type_model.dart';
-import 'package:kfa_mobile_nu/src/widgets/property_type_dropdown.dart';
-
-import '../../exports.dart';
-import '../helpers/build_context_helper.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:kfa_mobile_nu/exports.dart';
+import 'package:kfa_mobile_nu/src/pages/property_detail_page.dart';
+import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
+import '../../constaints.dart';
+import '../widgets/auth_wrapper_widget.dart';
+import '../models/property_model.dart';
+import '../models/property_type_model.dart';
+import '../widgets/property_type_dropdown.dart';
 import '../providers/property_provider.dart';
-import 'property_detail_page.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class PropertyListPage extends ConsumerStatefulWidget {
-  const PropertyListPage({super.key});
+class ReportPropertyPage extends ConsumerStatefulWidget {
+  const ReportPropertyPage({super.key});
 
   @override
-  ConsumerState<PropertyListPage> createState() => _PropertyListPageState();
+  ConsumerState<ReportPropertyPage> createState() => _ReportVerbalPageState();
 }
 
-class _PropertyListPageState extends ConsumerState<PropertyListPage> {
+class _ReportVerbalPageState extends ConsumerState<ReportPropertyPage> {
   PropertyListingType? _type;
   PropertyTypeModel? _selectedPropertyType;
 
   @override
   Widget build(BuildContext context) {
+    final userAsync = ref.watch(currentUserProvider);
     final firstPageCountAsync = ref.watch(
       propertyListProvider(
         page: 0,
         filter: PropertyListFilter(
           listingType: _type,
           propertyType: _selectedPropertyType,
+          userId: userAsync.value?.id,
         ),
       ).select((v) => v.whenData((v) => v.length)),
     );
 
-    return Scaffold(
-      body: Column(
-        children: [
-          _buildFilterButtons(),
-          _buildPropertyTypeDropdown(),
-          Expanded(
-            child: firstPageCountAsync.when(
-              loading: () => const Center(child: CircularProgressIndicator()),
-              error: (error, stack) => Center(child: Text('Error: $error')),
-              data: (count) {
-                if (count == 0) {
-                  return const Center(
-                    child: Text(
-                      'No properties available',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  );
-                }
-                return _GridView(
-                    type: _type, propertyType: _selectedPropertyType);
-              },
+    return AuthWrapperWidget(
+      child: Scaffold(
+        body: Column(
+          children: [
+            _buildFilterButtons(),
+            _buildPropertyTypeDropdown(),
+            Expanded(
+              child: firstPageCountAsync.when(
+                loading: () => const Center(child: CircularProgressIndicator()),
+                error: (error, stack) => Center(child: Text('Error: $error')),
+                data: (count) {
+                  if (count == 0) {
+                    return const Center(
+                      child: Text(
+                        'No properties available',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    );
+                  }
+                  return _GridView(
+                      type: _type, propertyType: _selectedPropertyType);
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -82,7 +90,7 @@ class _PropertyListPageState extends ConsumerState<PropertyListPage> {
     return ElevatedButton.icon(
       onPressed: () => setState(() {
         _type = valueType;
-        // Do not reset _selectedPropertyType when filter changes
+        _selectedPropertyType = null; // Reset property type when filter changes
       }),
       icon: Icon(icon, color: isSelected ? Colors.white : Colors.grey),
       label: Text(label),
@@ -135,6 +143,7 @@ class _GridView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final userAsync = ref.watch(currentUserProvider);
     return GridView.builder(
       padding: const EdgeInsets.all(8),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -147,7 +156,9 @@ class _GridView extends ConsumerWidget {
         final paginated = ref.watch(propertyAtIndexProvider(
             index: index,
             filter: PropertyListFilter(
-                listingType: type, propertyType: propertyType)));
+                listingType: type,
+                propertyType: propertyType,
+                userId: userAsync.value?.id)));
         return paginated?.whenOrNull(
           loading: (isFirstItem) {
             return const Center(
@@ -167,7 +178,13 @@ class _GridView extends ConsumerWidget {
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: InkWell(
-        onTap: () => context.push((_) => PropertyDetailPage(data: item)),
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => PropertyDetailPage(
+              data: item,
+            ),
+          ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

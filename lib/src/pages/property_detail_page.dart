@@ -70,7 +70,8 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
             onTap: () {
               Navigator.pop(context);
             },
-            child: const Icon(Icons.keyboard_backspace_rounded, color: Colors.white),
+            child: const Icon(Icons.keyboard_backspace_rounded,
+                color: Colors.white),
           ),
           backgroundColor: kwhite_new,
           centerTitle: true,
@@ -142,15 +143,19 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
                             Column(
                               children: [
                                 SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.09,
-                                  width: MediaQuery.of(context).size.width * 0.9,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.09,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.9,
                                   child: Column(
                                     children: [
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            widget.data.listingType.name.capitalize(),
+                                            widget.data.listingType.name
+                                                .capitalize(),
                                             style: const TextStyle(
                                               color: Colors.black,
                                               fontSize: 20,
@@ -179,13 +184,16 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(right: 5, left: 5),
+                                  padding:
+                                      const EdgeInsets.only(right: 5, left: 5),
                                   child: Container(
                                     decoration: const BoxDecoration(
                                       color: Color.fromARGB(255, 237, 232, 232),
-                                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
                                     ),
-                                    height: MediaQuery.of(context).size.height * 0.12,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.12,
                                     child: ListView(
                                       scrollDirection: Axis.horizontal,
                                       children: [
@@ -228,9 +236,11 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
                                   ),
                                   SizedBox(
                                     // height: MediaQuery.of(context).size.height * 0.09,
-                                    width: MediaQuery.of(context).size.width * 0.9,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.9,
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: [
                                         Text(
                                           'Description',
@@ -248,7 +258,9 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
                                       left: 4.0,
                                     ),
                                     child: SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.13,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.13,
                                       child: SingleChildScrollView(
                                         reverse: false,
                                         child: ReadMoreText(
@@ -295,7 +307,8 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
                                   Column(
                                     children: [
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Text(
                                             "Contact",
@@ -307,10 +320,15 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
                                         height: 10,
                                       ),
                                       SizedBox(
-                                        width: MediaQuery.of(context).size.width * 0.9,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.9,
                                         child: Container(
                                           height: 110,
-                                          width: MediaQuery.of(context).size.width * 0.9,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.9,
                                           decoration: const BoxDecoration(
                                             //color: Colors.amber,
                                             borderRadius: BorderRadius.all(

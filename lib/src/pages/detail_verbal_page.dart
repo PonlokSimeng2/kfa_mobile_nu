@@ -14,6 +14,7 @@ final verbalDataProvider =
 });
 
 class VerbalData {
+  get properties => null;
   // Define your verbal data structure here
 }
 

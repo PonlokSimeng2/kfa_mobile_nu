@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kfa_mobile_nu/src/models/auto_verbal_model.dart';
+import 'package:kfa_mobile_nu/src/models/base.dart';
+import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/auto_verbal_provider.dart';
 import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
+
 import '../../exports.dart';
 import 'detail_auto_verbal_page.dart';
 
@@ -19,8 +20,12 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
   @override
   Widget build(BuildContext context) {
     final firstPageCountAsync = ref.watch(
-      autoVerbalListProvider(page: 0, status: _status)
-          .select((v) => v.whenData((v) => v.length)),
+      autoVerbalListProvider(
+        page: 0,
+        filter: AutoVerbalListFilter(
+          userId: ref.watch(authProvider),
+        ),
+      ).select((v) => v.whenData((v) => v.length)),
     );
 
     return AuthWrapperWidget(
@@ -77,13 +82,12 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
       onPressed: () => setState(() {
         _status = value;
       }),
-      child: Text(label),
       style: ElevatedButton.styleFrom(
         foregroundColor: isSelected ? Colors.white : Colors.black,
-        backgroundColor:
-            isSelected ? Theme.of(context).primaryColor : Colors.white,
+        backgroundColor: isSelected ? Theme.of(context).primaryColor : Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
+      child: Text(label),
     );
   }
 }
@@ -104,7 +108,12 @@ class _GridView extends ConsumerWidget {
       ),
       itemBuilder: (context, index) {
         final paginated = ref.watch(
-          autoVerbalAtIndexProvider(index: index, status: status),
+          autoVerbalAtIndexProvider(
+            index: index,
+            filter: AutoVerbalListFilter(
+              userId: ref.watch(authProvider),
+            ),
+          ),
         );
         return paginated?.whenOrNull(
           loading: (isFirstItem) {
@@ -138,14 +147,12 @@ class _GridView extends ConsumerWidget {
           children: [
             Expanded(
               child: ClipRRect(
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(10)),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
                 child: CachedNetworkImage(
                   imageUrl: item.image,
                   fit: BoxFit.cover,
                   width: double.infinity,
-                  placeholder: (context, url) =>
-                      const Center(child: CircularProgressIndicator()),
+                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
@@ -171,19 +178,14 @@ class _GridView extends ConsumerWidget {
                   ),
                   const SizedBox(height: 4),
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
-                      color: item.status == 'approved'
-                          ? Colors.green
-                          : item.status == 'rejected'
-                              ? Colors.red
-                              : Colors.orange,
+                      color: item.status.statusColor,
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
-                      item.status?.capitalize() ?? 'Pending',
-                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                      item.status.name.capitalize(),
+                      style: TextStyle(color: item.status.statusTextColor, fontSize: 12),
                     ),
                   ),
                 ],

@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:readmore/readmore.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../exports.dart';
 import '../models/property_model.dart';
 import '../providers/auth_provider.dart';
@@ -52,8 +51,6 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    final user = ref.watch(authProvider.select((value) => value));
-    // ignore: no_leading_underscores_for_local_identifiers
     Future<void> _makePhoneCall(String url) async {
       // ignore: deprecated_member_use
       await launch(

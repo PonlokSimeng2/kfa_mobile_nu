@@ -150,7 +150,7 @@ class InsertAutoVerbal extends _$InsertAutoVerbal with _$InsertAutoVerbalForm {
             {
               AutoVerbalTable.propertyTypeId: state.propertyType?.id,
               AutoVerbalTable.provinceId: state.province?.id,
-              AutoVerbalTable.image: [imageUrl],
+              AutoVerbalTable.image: imageUrl,
               AutoVerbalTable.latitude: state.latitude,
               AutoVerbalTable.longitude: state.longitude,
               AutoVerbalTable.ownerName: state.ownerName,

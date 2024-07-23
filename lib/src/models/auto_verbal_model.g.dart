@@ -11,7 +11,7 @@ _$AutoVerbalModelImpl _$$AutoVerbalModelImplFromJson(
     _$AutoVerbalModelImpl(
       id: (json['id'] as num).toInt(),
       autoVerbalId: json['auto_verbal_id'] as String,
-      image: (json['image'] as List<dynamic>).map((e) => e as String).toList(),
+      image: json['image'] as String,
       propertyType: PropertyTypeModel.fromJson(
           json['propertyType'] as Map<String, dynamic>),
       bank: json['bank'] == null
@@ -99,7 +99,9 @@ const _tableAutoVerbalModel = TableBuilder(
     ColumnBuilder('latitude'),
     ColumnBuilder('longitude'),
     ColumnBuilder.join(UserModel.table,
-        key: "user", candidateKey: null, foreignKey: 'user_id'),
+        key: "user",
+        candidateKey: 'auto_verbals_user_id_fkey',
+        foreignKey: null),
     ColumnBuilder('owner_name'),
     ColumnBuilder('owner_phone'),
     ColumnBuilder('bank_officer_name'),

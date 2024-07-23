@@ -144,10 +144,15 @@ class _GridView extends ConsumerWidget {
         crossAxisSpacing: 10,
       ),
       itemBuilder: (context, index) {
-        final paginated = ref.watch(propertyAtIndexProvider(
+        final paginated = ref.watch(
+          propertyAtIndexProvider(
             index: index,
             filter: PropertyListFilter(
-                listingType: type, propertyType: propertyType)));
+              listingType: type,
+              propertyType: propertyType,
+            ),
+          ),
+        );
         return paginated?.whenOrNull(
           loading: (isFirstItem) {
             return const Center(

@@ -25,7 +25,7 @@ mixin _$AutoVerbalModel {
   @JsonKey(name: AutoVerbalTable.autoVerbalId)
   String get autoVerbalId => throw _privateConstructorUsedError;
   @JsonKey(name: AutoVerbalTable.image)
-  List<String> get image => throw _privateConstructorUsedError;
+  String get image => throw _privateConstructorUsedError;
   @JoinedColumn(foreignKey: AutoVerbalTable.propertyTypeId)
   PropertyTypeModel get propertyType => throw _privateConstructorUsedError;
   @JoinedColumn(foreignKey: AutoVerbalTable.bankId)
@@ -34,7 +34,7 @@ mixin _$AutoVerbalModel {
   double get latitude => throw _privateConstructorUsedError;
   @JsonKey(name: AutoVerbalTable.longitude)
   double get longitude => throw _privateConstructorUsedError;
-  @JoinedColumn(foreignKey: AutoVerbalTable.userId)
+  @JoinedColumn(candidateKey: 'auto_verbals_user_id_fkey')
   UserModel? get user => throw _privateConstructorUsedError;
   @JsonKey(name: AutoVerbalTable.ownerName)
   String get ownerName => throw _privateConstructorUsedError;
@@ -88,13 +88,13 @@ abstract class $AutoVerbalModelCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: AutoVerbalTable.id) int id,
       @JsonKey(name: AutoVerbalTable.autoVerbalId) String autoVerbalId,
-      @JsonKey(name: AutoVerbalTable.image) List<String> image,
+      @JsonKey(name: AutoVerbalTable.image) String image,
       @JoinedColumn(foreignKey: AutoVerbalTable.propertyTypeId)
       PropertyTypeModel propertyType,
       @JoinedColumn(foreignKey: AutoVerbalTable.bankId) BankModel? bank,
       @JsonKey(name: AutoVerbalTable.latitude) double latitude,
       @JsonKey(name: AutoVerbalTable.longitude) double longitude,
-      @JoinedColumn(foreignKey: AutoVerbalTable.userId) UserModel? user,
+      @JoinedColumn(candidateKey: 'auto_verbals_user_id_fkey') UserModel? user,
       @JsonKey(name: AutoVerbalTable.ownerName) String ownerName,
       @JsonKey(name: AutoVerbalTable.ownerPhone) String ownerPhone,
       @JsonKey(name: AutoVerbalTable.bankOfficerName) String? bankOfficerName,
@@ -175,7 +175,7 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
       image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as String,
       propertyType: null == propertyType
           ? _value.propertyType
           : propertyType // ignore: cast_nullable_to_non_nullable
@@ -335,13 +335,13 @@ abstract class _$$AutoVerbalModelImplCopyWith<$Res>
   $Res call(
       {@JsonKey(name: AutoVerbalTable.id) int id,
       @JsonKey(name: AutoVerbalTable.autoVerbalId) String autoVerbalId,
-      @JsonKey(name: AutoVerbalTable.image) List<String> image,
+      @JsonKey(name: AutoVerbalTable.image) String image,
       @JoinedColumn(foreignKey: AutoVerbalTable.propertyTypeId)
       PropertyTypeModel propertyType,
       @JoinedColumn(foreignKey: AutoVerbalTable.bankId) BankModel? bank,
       @JsonKey(name: AutoVerbalTable.latitude) double latitude,
       @JsonKey(name: AutoVerbalTable.longitude) double longitude,
-      @JoinedColumn(foreignKey: AutoVerbalTable.userId) UserModel? user,
+      @JoinedColumn(candidateKey: 'auto_verbals_user_id_fkey') UserModel? user,
       @JsonKey(name: AutoVerbalTable.ownerName) String ownerName,
       @JsonKey(name: AutoVerbalTable.ownerPhone) String ownerPhone,
       @JsonKey(name: AutoVerbalTable.bankOfficerName) String? bankOfficerName,
@@ -423,9 +423,9 @@ class __$$AutoVerbalModelImplCopyWithImpl<$Res>
           : autoVerbalId // ignore: cast_nullable_to_non_nullable
               as String,
       image: null == image
-          ? _value._image
+          ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as String,
       propertyType: null == propertyType
           ? _value.propertyType
           : propertyType // ignore: cast_nullable_to_non_nullable
@@ -529,13 +529,14 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
   _$AutoVerbalModelImpl(
       {@JsonKey(name: AutoVerbalTable.id) required this.id,
       @JsonKey(name: AutoVerbalTable.autoVerbalId) required this.autoVerbalId,
-      @JsonKey(name: AutoVerbalTable.image) required final List<String> image,
+      @JsonKey(name: AutoVerbalTable.image) required this.image,
       @JoinedColumn(foreignKey: AutoVerbalTable.propertyTypeId)
       required this.propertyType,
       @JoinedColumn(foreignKey: AutoVerbalTable.bankId) this.bank,
       @JsonKey(name: AutoVerbalTable.latitude) required this.latitude,
       @JsonKey(name: AutoVerbalTable.longitude) required this.longitude,
-      @JoinedColumn(foreignKey: AutoVerbalTable.userId) required this.user,
+      @JoinedColumn(candidateKey: 'auto_verbals_user_id_fkey')
+      required this.user,
       @JsonKey(name: AutoVerbalTable.ownerName) required this.ownerName,
       @JsonKey(name: AutoVerbalTable.ownerPhone) required this.ownerPhone,
       @JsonKey(name: AutoVerbalTable.bankOfficerName)
@@ -557,8 +558,7 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
       @JsonKey(name: AutoVerbalTable.area) required this.area,
       @JsonKey(name: AutoVerbalTable.head) required this.head,
       @JsonKey(name: AutoVerbalTable.length) required this.length})
-      : _image = image,
-        super._();
+      : super._();
 
   factory _$AutoVerbalModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$AutoVerbalModelImplFromJson(json);
@@ -569,15 +569,9 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
   @override
   @JsonKey(name: AutoVerbalTable.autoVerbalId)
   final String autoVerbalId;
-  final List<String> _image;
   @override
   @JsonKey(name: AutoVerbalTable.image)
-  List<String> get image {
-    if (_image is EqualUnmodifiableListView) return _image;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_image);
-  }
-
+  final String image;
   @override
   @JoinedColumn(foreignKey: AutoVerbalTable.propertyTypeId)
   final PropertyTypeModel propertyType;
@@ -591,7 +585,7 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
   @JsonKey(name: AutoVerbalTable.longitude)
   final double longitude;
   @override
-  @JoinedColumn(foreignKey: AutoVerbalTable.userId)
+  @JoinedColumn(candidateKey: 'auto_verbals_user_id_fkey')
   final UserModel? user;
   @override
   @JsonKey(name: AutoVerbalTable.ownerName)
@@ -661,7 +655,7 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.autoVerbalId, autoVerbalId) ||
                 other.autoVerbalId == autoVerbalId) &&
-            const DeepCollectionEquality().equals(other._image, _image) &&
+            (identical(other.image, image) || other.image == image) &&
             (identical(other.propertyType, propertyType) ||
                 other.propertyType == propertyType) &&
             (identical(other.bank, bank) || other.bank == bank) &&
@@ -710,7 +704,7 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
         runtimeType,
         id,
         autoVerbalId,
-        const DeepCollectionEquality().hash(_image),
+        image,
         propertyType,
         bank,
         latitude,
@@ -756,13 +750,13 @@ abstract class _AutoVerbalModel extends AutoVerbalModel {
       {@JsonKey(name: AutoVerbalTable.id) required final int id,
       @JsonKey(name: AutoVerbalTable.autoVerbalId)
       required final String autoVerbalId,
-      @JsonKey(name: AutoVerbalTable.image) required final List<String> image,
+      @JsonKey(name: AutoVerbalTable.image) required final String image,
       @JoinedColumn(foreignKey: AutoVerbalTable.propertyTypeId)
       required final PropertyTypeModel propertyType,
       @JoinedColumn(foreignKey: AutoVerbalTable.bankId) final BankModel? bank,
       @JsonKey(name: AutoVerbalTable.latitude) required final double latitude,
       @JsonKey(name: AutoVerbalTable.longitude) required final double longitude,
-      @JoinedColumn(foreignKey: AutoVerbalTable.userId)
+      @JoinedColumn(candidateKey: 'auto_verbals_user_id_fkey')
       required final UserModel? user,
       @JsonKey(name: AutoVerbalTable.ownerName) required final String ownerName,
       @JsonKey(name: AutoVerbalTable.ownerPhone)
@@ -804,7 +798,7 @@ abstract class _AutoVerbalModel extends AutoVerbalModel {
   String get autoVerbalId;
   @override
   @JsonKey(name: AutoVerbalTable.image)
-  List<String> get image;
+  String get image;
   @override
   @JoinedColumn(foreignKey: AutoVerbalTable.propertyTypeId)
   PropertyTypeModel get propertyType;
@@ -818,7 +812,7 @@ abstract class _AutoVerbalModel extends AutoVerbalModel {
   @JsonKey(name: AutoVerbalTable.longitude)
   double get longitude;
   @override
-  @JoinedColumn(foreignKey: AutoVerbalTable.userId)
+  @JoinedColumn(candidateKey: 'auto_verbals_user_id_fkey')
   UserModel? get user;
   @override
   @JsonKey(name: AutoVerbalTable.ownerName)

@@ -3,12 +3,15 @@ import 'package:kfa_mobile_nu/src/models/base.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/auto_verbal_provider.dart';
 import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
+import 'package:kfa_mobile_nu/src/pages/admin/admin_auto_verbal_detail_page.dart';
 
 import '../../exports.dart';
 import 'detail_auto_verbal_page.dart';
 
 class AutoVerbalListPage extends ConsumerStatefulWidget {
-  const AutoVerbalListPage({super.key});
+  final bool openItemInAdminPage;
+
+  const AutoVerbalListPage({super.key, this.openItemInAdminPage = false});
 
   @override
   ConsumerState<AutoVerbalListPage> createState() => _AutoVerbalListPageState();
@@ -30,11 +33,13 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
 
     return AuthWrapperWidget(
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Auto Verbal List'),
-          backgroundColor: kwhite_new,
-          centerTitle: true,
-        ),
+        appBar: widget.openItemInAdminPage
+            ? null
+            : AppBar(
+                title: const Text('Auto Verbal List'),
+                backgroundColor: kwhite_new,
+                centerTitle: true,
+              ),
         body: Column(
           children: [
             _buildFilterButtons(),
@@ -51,7 +56,10 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
                       ),
                     );
                   }
-                  return _GridView(status: _status);
+                  return _GridView(
+                    status: _status,
+                    openItemInAdminPage: widget.openItemInAdminPage,
+                  );
                 },
               ),
             ),
@@ -84,7 +92,8 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
       }),
       style: ElevatedButton.styleFrom(
         foregroundColor: isSelected ? Colors.white : Colors.black,
-        backgroundColor: isSelected ? Theme.of(context).primaryColor : Colors.white,
+        backgroundColor:
+            isSelected ? Theme.of(context).primaryColor : Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
       child: Text(label),
@@ -94,7 +103,9 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
 
 class _GridView extends ConsumerWidget {
   final String? status;
-  const _GridView({this.status});
+  final bool openItemInAdminPage;
+
+  const _GridView({this.status, required this.openItemInAdminPage});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -134,25 +145,40 @@ class _GridView extends ConsumerWidget {
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: InkWell(
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DetailAutoVerbalPage(
-              data: item,
-            ),
-          ),
-        ),
+        onTap: () {
+          if (openItemInAdminPage) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AdminAutoVerbalDetailPage(
+                  autoVerbal: item,
+                ),
+              ),
+            );
+          } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailAutoVerbalPage(
+                  data: item,
+                ),
+              ),
+            );
+          }
+        },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(10)),
                 child: CachedNetworkImage(
                   imageUrl: item.image,
                   fit: BoxFit.cover,
                   width: double.infinity,
-                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                  placeholder: (context, url) =>
+                      const Center(child: CircularProgressIndicator()),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
@@ -178,14 +204,16 @@ class _GridView extends ConsumerWidget {
                   ),
                   const SizedBox(height: 4),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
                       color: item.status.statusColor,
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
                       item.status.name.capitalize(),
-                      style: TextStyle(color: item.status.statusTextColor, fontSize: 12),
+                      style: TextStyle(
+                          color: item.status.statusTextColor, fontSize: 12),
                     ),
                   ),
                 ],

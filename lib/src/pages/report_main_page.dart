@@ -1,5 +1,6 @@
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/models/base.dart';
+import 'package:kfa_mobile_nu/src/pages/auto_verbal_list_page.dart';
 import 'package:kfa_mobile_nu/src/pages/report_property_page.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/report_provider.dart';
@@ -62,8 +63,11 @@ class ReportMainPage extends HookConsumerWidget {
                               final count = ref.watch(
                                 countPropertyAndAutoVerbalProvider(
                                   userId: ref.watch(authProvider),
-                                  statuses: [PropertyAndAutoVerbalStatus.approved].lock,
-                                ).select((v) => v.whenOrNull(data: (data) => data.propertyCount)),
+                                  statuses: [
+                                    PropertyAndAutoVerbalStatus.approved
+                                  ].lock,
+                                ).select((v) => v.whenOrNull(
+                                    data: (data) => data.propertyCount)),
                               );
                               return GestureDetector(
                                 onTap: () {
@@ -83,8 +87,11 @@ class ReportMainPage extends HookConsumerWidget {
                               final count = ref.watch(
                                 countPropertyAndAutoVerbalProvider(
                                   userId: ref.watch(authProvider),
-                                  statuses: [PropertyAndAutoVerbalStatus.approved].lock,
-                                ).select((v) => v.whenOrNull(data: (data) => data.autoVerbalCount)),
+                                  statuses: [
+                                    PropertyAndAutoVerbalStatus.approved
+                                  ].lock,
+                                ).select((v) => v.whenOrNull(
+                                    data: (data) => data.autoVerbalCount)),
                               );
                               return GestureDetector(
                                 onTap: () {
@@ -114,7 +121,7 @@ class ReportMainPage extends HookConsumerWidget {
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 const ReportPropertyPage(openItemInAdminPage: true),
-                Container(),
+                const AutoVerbalListPage(openItemInAdminPage: true),
               ],
             ),
           ),

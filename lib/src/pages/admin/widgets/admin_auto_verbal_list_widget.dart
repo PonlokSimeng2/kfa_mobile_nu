@@ -14,7 +14,8 @@ class AdminAutoVerbalListWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final firstPageCountAsync = ref.watch(
-      autoVerbalListProvider(page: 0, filter: filter).select((v) => v.whenData((v) => v.length)),
+      autoVerbalListProvider(page: 0, filter: filter)
+          .select((v) => v.whenData((v) => v.length)),
     );
 
     return firstPageCountAsync.when(
@@ -36,10 +37,11 @@ class AdminAutoVerbalListWidget extends ConsumerWidget {
           child: ListView.builder(
             itemCount: count,
             itemBuilder: (context, index) {
-              final autoVerbalAsync =
-                  ref.watch(autoVerbalAtIndexProvider(index: index, filter: filter));
+              final autoVerbalAsync = ref.watch(
+                  autoVerbalAtIndexProvider(index: index, filter: filter));
               return autoVerbalAsync?.whenOrNull(
-                    loading: (isFirstItem) => const Center(child: CircularProgressIndicator()),
+                    loading: (isFirstItem) =>
+                        const Center(child: CircularProgressIndicator()),
                     data: (autoVerbal) => _buildListItem(context, autoVerbal),
                   ) ??
                   const SizedBox.shrink();
@@ -71,7 +73,8 @@ class AdminAutoVerbalListWidget extends ConsumerWidget {
                 width: 60,
                 height: 60,
                 fit: BoxFit.cover,
-                placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                placeholder: (context, url) =>
+                    const Center(child: CircularProgressIndicator()),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),
@@ -112,7 +115,8 @@ class AdminAutoVerbalListWidget extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: _getStatusColor(autoVerbal.status),
                     borderRadius: BorderRadius.circular(12),

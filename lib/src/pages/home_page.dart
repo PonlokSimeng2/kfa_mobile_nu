@@ -3,7 +3,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:kfa_mobile_nu/src/pages/add_autoverbal_page.dart';
 import 'package:kfa_mobile_nu/src/pages/my_property_page.dart';
 import 'package:kfa_mobile_nu/src/pages/report_main_page.dart';
-import 'package:kfa_mobile_nu/src/pages/report_property_page.dart';
 
 import '../../exports.dart';
 import '../../gen/assets.gen.dart';
@@ -80,28 +79,30 @@ class __UserHomeState extends ConsumerState<_UserHome> {
   Widget _buildDrawer(BuildContext context) {
     return Drawer(
       width: 270,
-      child: Column(
-        children: [
-          Expanded(
-            child: ListView(
-              children: [
-                ListTile(
-                  leading: const Icon(Icons.account_box),
-                  title: const Text('Account'),
-                  onTap: () {
-                    context.push((context) => const AccountPage());
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(Icons.add_to_photos_sharp),
-                  title: const Text('Add Auto Verbal'),
-                  onTap: () {
-                    context.push((context) => AddAutoVerbalPage());
-                  },
-                ),
-                Builder(
-                  builder: (context) {
-                    return ListTile(
+      child: Builder(
+        builder: (context) {
+          return Column(
+            children: [
+              Expanded(
+                child: ListView(
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.account_box),
+                      title: const Text('Account'),
+                      onTap: () {
+                        context.push((context) => const AccountPage());
+                        Scaffold.of(context).closeDrawer();
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.add_to_photos_sharp),
+                      title: const Text('Add Auto Verbal'),
+                      onTap: () {
+                        context.push((context) => AddAutoVerbalPage());
+                        Scaffold.of(context).closeDrawer();
+                      },
+                    ),
+                    ListTile(
                       leading: const Icon(Icons.compare_sharp),
                       title: const Text('Sale & Rent Property'),
                       onTap: () {
@@ -110,41 +111,43 @@ class __UserHomeState extends ConsumerState<_UserHome> {
                         );
                         Scaffold.of(context).closeDrawer();
                       },
-                    );
-                  },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.format_list_numbered_rtl_rounded),
+                      title: const Text('Report'),
+                      onTap: () {
+                        context.push((context) => const ReportMainPage());
+                        Scaffold.of(context).closeDrawer();
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.contact_phone),
+                      title: const Text('Contact Us'),
+                      onTap: () {
+                        context.push((context) => const ContactUsPage());
+                        Scaffold.of(context).closeDrawer();
+                      },
+                    ),
+                  ],
                 ),
-                ListTile(
-                  leading: const Icon(Icons.format_list_numbered_rtl_rounded),
-                  title: const Text('Report'),
-                  onTap: () {
-                    context.push((context) => const ReportMainPage());
-                  },
+              ),
+              TextButton.icon(
+                label: const Text('Sign in?'),
+                icon: const Icon(
+                  Icons.login,
+                  size: 18,
                 ),
-                ListTile(
-                  leading: const Icon(Icons.contact_phone),
-                  title: const Text('Contact Us'),
-                  onTap: () {
-                    context.push((context) => const ContactUsPage());
-                  },
-                ),
-              ],
-            ),
-          ),
-          TextButton.icon(
-            label: const Text('Sign in?'),
-            icon: const Icon(
-              Icons.login,
-              size: 18,
-            ),
-            onPressed: () {
-              context.push(
-                (context) => const LoginPage(
-                  openAsPage: true,
-                ),
-              );
-            },
-          ),
-        ],
+                onPressed: () {
+                  context.push(
+                    (context) => const LoginPage(
+                      openAsPage: true,
+                    ),
+                  );
+                },
+              ),
+            ],
+          );
+        },
       ),
     );
   }

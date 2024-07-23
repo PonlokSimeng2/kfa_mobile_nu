@@ -1,13 +1,14 @@
-import '../models/property_type_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../exports.dart';
+import '../models/property_type_model.dart';
 
 part 'property_type_provider.g.dart';
 
 @riverpod
 FutureOr<IList<PropertyTypeModel>> propertyTypeList(
-    PropertyTypeListRef ref) async {
+  PropertyTypeListRef ref,
+) async {
   final sb = ref.watch(supabaseProvider).client;
   final result = await sb
       .from(PropertyTypeModel.table.tableName)

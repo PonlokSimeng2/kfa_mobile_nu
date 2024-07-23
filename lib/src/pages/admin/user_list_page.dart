@@ -1,4 +1,6 @@
+import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
 import 'package:kfa_mobile_nu/src/models/user_model.dart';
+import 'package:kfa_mobile_nu/src/pages/admin/user_detail_page.dart';
 import 'package:kfa_mobile_nu/src/providers/admin_provider.dart';
 
 import '../../../exports.dart';
@@ -92,10 +94,7 @@ class UserListPage extends HookConsumerWidget {
         color: user.isAdmin ? Colors.red : Colors.grey,
       ),
       onTap: () {
-        // TODO: Implement user detail page navigation
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Tapped on ${user.fullName}')),
-        );
+        context.push((_) => UserDetailPage(user: user));
       },
     );
   }

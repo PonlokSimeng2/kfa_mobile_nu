@@ -2,6 +2,7 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kfa_mobile_nu/exports.dart';
+import 'package:kfa_mobile_nu/src/models/base.dart';
 import 'package:kfa_mobile_nu/src/models/property_model.table.dart';
 import 'package:kfa_mobile_nu/src/models/property_type_model.dart';
 import 'package:kfa_mobile_nu/src/models/province_model.dart';
@@ -11,13 +12,6 @@ part 'property_model.freezed.dart';
 part 'property_model.g.dart';
 
 enum PropertyListingType { sale, rent }
-
-enum PropertyStatus {
-  pending,
-  resubmit,
-  approved,
-  rejected,
-}
 
 @TableStructure(
   'properties',
@@ -61,7 +55,7 @@ class PropertyModel with _$PropertyModel {
   @TableModel(PropertyTable.table)
   factory PropertyModel({
     @JsonKey(name: PropertyTable.id) required int id,
-    @JsonKey(name: PropertyTable.status) required PropertyStatus status,
+    @JsonKey(name: PropertyTable.status) required PropertyAndAutoVerbalStatus status,
     @JsonKey(name: PropertyTable.propertyId) required String propertyId,
     @JsonKey(name: PropertyTable.listingType) required PropertyListingType listingType,
     @JsonKey(name: PropertyTable.images) required List<String> images,

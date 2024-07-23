@@ -9,7 +9,7 @@ part of 'property_model.dart';
 _$PropertyModelImpl _$$PropertyModelImplFromJson(Map<String, dynamic> json) =>
     _$PropertyModelImpl(
       id: (json['id'] as num).toInt(),
-      status: $enumDecode(_$PropertyStatusEnumMap, json['status']),
+      status: $enumDecode(_$PropertyAndAutoVerbalStatusEnumMap, json['status']),
       propertyId: json['property_id'] as String,
       listingType:
           $enumDecode(_$PropertyListingTypeEnumMap, json['listing_type']),
@@ -52,7 +52,7 @@ _$PropertyModelImpl _$$PropertyModelImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$PropertyModelImplToJson(_$PropertyModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'status': _$PropertyStatusEnumMap[instance.status]!,
+      'status': _$PropertyAndAutoVerbalStatusEnumMap[instance.status]!,
       'property_id': instance.propertyId,
       'listing_type': _$PropertyListingTypeEnumMap[instance.listingType]!,
       'images': instance.images,
@@ -82,11 +82,11 @@ Map<String, dynamic> _$$PropertyModelImplToJson(_$PropertyModelImpl instance) =>
       'reject_reason': instance.rejectReason,
     };
 
-const _$PropertyStatusEnumMap = {
-  PropertyStatus.pending: 'pending',
-  PropertyStatus.resubmit: 'resubmit',
-  PropertyStatus.approved: 'approved',
-  PropertyStatus.rejected: 'rejected',
+const _$PropertyAndAutoVerbalStatusEnumMap = {
+  PropertyAndAutoVerbalStatus.pending: 'pending',
+  PropertyAndAutoVerbalStatus.resubmit: 'resubmit',
+  PropertyAndAutoVerbalStatus.approved: 'approved',
+  PropertyAndAutoVerbalStatus.rejected: 'rejected',
 };
 
 const _$PropertyListingTypeEnumMap = {

@@ -22,6 +22,8 @@ AutoVerbalModel _$AutoVerbalModelFromJson(Map<String, dynamic> json) {
 mixin _$AutoVerbalModel {
   @JsonKey(name: AutoVerbalTable.id)
   int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.status)
+  PropertyAndAutoVerbalStatus get status => throw _privateConstructorUsedError;
   @JsonKey(name: AutoVerbalTable.autoVerbalId)
   String get autoVerbalId => throw _privateConstructorUsedError;
   @JsonKey(name: AutoVerbalTable.image)
@@ -52,8 +54,6 @@ mixin _$AutoVerbalModel {
   UserModel? get approvedBy => throw _privateConstructorUsedError;
   @JsonKey(name: AutoVerbalTable.rejectAt)
   DateTime? get rejectAt => throw _privateConstructorUsedError;
-  @JsonKey(name: AutoVerbalTable.status)
-  String? get status => throw _privateConstructorUsedError;
   @JsonKey(name: AutoVerbalTable.rejectReason)
   String? get rejectReason => throw _privateConstructorUsedError;
   @JoinedColumn(foreignKey: AutoVerbalTable.provinceId)
@@ -87,6 +87,7 @@ abstract class $AutoVerbalModelCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: AutoVerbalTable.id) int id,
+      @JsonKey(name: AutoVerbalTable.status) PropertyAndAutoVerbalStatus status,
       @JsonKey(name: AutoVerbalTable.autoVerbalId) String autoVerbalId,
       @JsonKey(name: AutoVerbalTable.image) String image,
       @JoinedColumn(foreignKey: AutoVerbalTable.propertyTypeId)
@@ -104,7 +105,6 @@ abstract class $AutoVerbalModelCopyWith<$Res> {
       @JoinedColumn(foreignKey: AutoVerbalTable.approvedBy)
       UserModel? approvedBy,
       @JsonKey(name: AutoVerbalTable.rejectAt) DateTime? rejectAt,
-      @JsonKey(name: AutoVerbalTable.status) String? status,
       @JsonKey(name: AutoVerbalTable.rejectReason) String? rejectReason,
       @JoinedColumn(foreignKey: AutoVerbalTable.provinceId)
       ProvinceModel province,
@@ -137,6 +137,7 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
   @override
   $Res call({
     Object? id = null,
+    Object? status = null,
     Object? autoVerbalId = null,
     Object? image = null,
     Object? propertyType = null,
@@ -152,7 +153,6 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
     Object? approvedAt = freezed,
     Object? approvedBy = freezed,
     Object? rejectAt = freezed,
-    Object? status = freezed,
     Object? rejectReason = freezed,
     Object? province = null,
     Object? minValue = null,
@@ -168,6 +168,10 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as PropertyAndAutoVerbalStatus,
       autoVerbalId: null == autoVerbalId
           ? _value.autoVerbalId
           : autoVerbalId // ignore: cast_nullable_to_non_nullable
@@ -228,10 +232,6 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
           ? _value.rejectAt
           : rejectAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String?,
       rejectReason: freezed == rejectReason
           ? _value.rejectReason
           : rejectReason // ignore: cast_nullable_to_non_nullable
@@ -334,6 +334,7 @@ abstract class _$$AutoVerbalModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: AutoVerbalTable.id) int id,
+      @JsonKey(name: AutoVerbalTable.status) PropertyAndAutoVerbalStatus status,
       @JsonKey(name: AutoVerbalTable.autoVerbalId) String autoVerbalId,
       @JsonKey(name: AutoVerbalTable.image) String image,
       @JoinedColumn(foreignKey: AutoVerbalTable.propertyTypeId)
@@ -351,7 +352,6 @@ abstract class _$$AutoVerbalModelImplCopyWith<$Res>
       @JoinedColumn(foreignKey: AutoVerbalTable.approvedBy)
       UserModel? approvedBy,
       @JsonKey(name: AutoVerbalTable.rejectAt) DateTime? rejectAt,
-      @JsonKey(name: AutoVerbalTable.status) String? status,
       @JsonKey(name: AutoVerbalTable.rejectReason) String? rejectReason,
       @JoinedColumn(foreignKey: AutoVerbalTable.provinceId)
       ProvinceModel province,
@@ -387,6 +387,7 @@ class __$$AutoVerbalModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? status = null,
     Object? autoVerbalId = null,
     Object? image = null,
     Object? propertyType = null,
@@ -402,7 +403,6 @@ class __$$AutoVerbalModelImplCopyWithImpl<$Res>
     Object? approvedAt = freezed,
     Object? approvedBy = freezed,
     Object? rejectAt = freezed,
-    Object? status = freezed,
     Object? rejectReason = freezed,
     Object? province = null,
     Object? minValue = null,
@@ -418,6 +418,10 @@ class __$$AutoVerbalModelImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as PropertyAndAutoVerbalStatus,
       autoVerbalId: null == autoVerbalId
           ? _value.autoVerbalId
           : autoVerbalId // ignore: cast_nullable_to_non_nullable
@@ -478,10 +482,6 @@ class __$$AutoVerbalModelImplCopyWithImpl<$Res>
           ? _value.rejectAt
           : rejectAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String?,
       rejectReason: freezed == rejectReason
           ? _value.rejectReason
           : rejectReason // ignore: cast_nullable_to_non_nullable
@@ -528,6 +528,7 @@ class __$$AutoVerbalModelImplCopyWithImpl<$Res>
 class _$AutoVerbalModelImpl extends _AutoVerbalModel {
   _$AutoVerbalModelImpl(
       {@JsonKey(name: AutoVerbalTable.id) required this.id,
+      @JsonKey(name: AutoVerbalTable.status) required this.status,
       @JsonKey(name: AutoVerbalTable.autoVerbalId) required this.autoVerbalId,
       @JsonKey(name: AutoVerbalTable.image) required this.image,
       @JoinedColumn(foreignKey: AutoVerbalTable.propertyTypeId)
@@ -547,7 +548,6 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
       @JsonKey(name: AutoVerbalTable.approvedAt) this.approvedAt,
       @JoinedColumn(foreignKey: AutoVerbalTable.approvedBy) this.approvedBy,
       @JsonKey(name: AutoVerbalTable.rejectAt) this.rejectAt,
-      @JsonKey(name: AutoVerbalTable.status) this.status,
       @JsonKey(name: AutoVerbalTable.rejectReason) this.rejectReason,
       @JoinedColumn(foreignKey: AutoVerbalTable.provinceId)
       required this.province,
@@ -566,6 +566,9 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
   @override
   @JsonKey(name: AutoVerbalTable.id)
   final int id;
+  @override
+  @JsonKey(name: AutoVerbalTable.status)
+  final PropertyAndAutoVerbalStatus status;
   @override
   @JsonKey(name: AutoVerbalTable.autoVerbalId)
   final String autoVerbalId;
@@ -612,9 +615,6 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
   @JsonKey(name: AutoVerbalTable.rejectAt)
   final DateTime? rejectAt;
   @override
-  @JsonKey(name: AutoVerbalTable.status)
-  final String? status;
-  @override
   @JsonKey(name: AutoVerbalTable.rejectReason)
   final String? rejectReason;
   @override
@@ -644,7 +644,7 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
 
   @override
   String toString() {
-    return 'AutoVerbalModel(id: $id, autoVerbalId: $autoVerbalId, image: $image, propertyType: $propertyType, bank: $bank, latitude: $latitude, longitude: $longitude, user: $user, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, createdAt: $createdAt, approvedAt: $approvedAt, approvedBy: $approvedBy, rejectAt: $rejectAt, status: $status, rejectReason: $rejectReason, province: $province, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, area: $area, head: $head, length: $length)';
+    return 'AutoVerbalModel(id: $id, status: $status, autoVerbalId: $autoVerbalId, image: $image, propertyType: $propertyType, bank: $bank, latitude: $latitude, longitude: $longitude, user: $user, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, createdAt: $createdAt, approvedAt: $approvedAt, approvedBy: $approvedBy, rejectAt: $rejectAt, rejectReason: $rejectReason, province: $province, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, area: $area, head: $head, length: $length)';
   }
 
   @override
@@ -653,6 +653,7 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
         (other.runtimeType == runtimeType &&
             other is _$AutoVerbalModelImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.autoVerbalId, autoVerbalId) ||
                 other.autoVerbalId == autoVerbalId) &&
             (identical(other.image, image) || other.image == image) &&
@@ -680,7 +681,6 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
                 other.approvedBy == approvedBy) &&
             (identical(other.rejectAt, rejectAt) ||
                 other.rejectAt == rejectAt) &&
-            (identical(other.status, status) || other.status == status) &&
             (identical(other.rejectReason, rejectReason) ||
                 other.rejectReason == rejectReason) &&
             (identical(other.province, province) ||
@@ -703,6 +703,7 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
   int get hashCode => Object.hashAll([
         runtimeType,
         id,
+        status,
         autoVerbalId,
         image,
         propertyType,
@@ -718,7 +719,6 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
         approvedAt,
         approvedBy,
         rejectAt,
-        status,
         rejectReason,
         province,
         minValue,
@@ -748,6 +748,8 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
 abstract class _AutoVerbalModel extends AutoVerbalModel {
   factory _AutoVerbalModel(
       {@JsonKey(name: AutoVerbalTable.id) required final int id,
+      @JsonKey(name: AutoVerbalTable.status)
+      required final PropertyAndAutoVerbalStatus status,
       @JsonKey(name: AutoVerbalTable.autoVerbalId)
       required final String autoVerbalId,
       @JsonKey(name: AutoVerbalTable.image) required final String image,
@@ -771,7 +773,6 @@ abstract class _AutoVerbalModel extends AutoVerbalModel {
       @JoinedColumn(foreignKey: AutoVerbalTable.approvedBy)
       final UserModel? approvedBy,
       @JsonKey(name: AutoVerbalTable.rejectAt) final DateTime? rejectAt,
-      @JsonKey(name: AutoVerbalTable.status) final String? status,
       @JsonKey(name: AutoVerbalTable.rejectReason) final String? rejectReason,
       @JoinedColumn(foreignKey: AutoVerbalTable.provinceId)
       required final ProvinceModel province,
@@ -793,6 +794,9 @@ abstract class _AutoVerbalModel extends AutoVerbalModel {
   @override
   @JsonKey(name: AutoVerbalTable.id)
   int get id;
+  @override
+  @JsonKey(name: AutoVerbalTable.status)
+  PropertyAndAutoVerbalStatus get status;
   @override
   @JsonKey(name: AutoVerbalTable.autoVerbalId)
   String get autoVerbalId;
@@ -838,9 +842,6 @@ abstract class _AutoVerbalModel extends AutoVerbalModel {
   @override
   @JsonKey(name: AutoVerbalTable.rejectAt)
   DateTime? get rejectAt;
-  @override
-  @JsonKey(name: AutoVerbalTable.status)
-  String? get status;
   @override
   @JsonKey(name: AutoVerbalTable.rejectReason)
   String? get rejectReason;

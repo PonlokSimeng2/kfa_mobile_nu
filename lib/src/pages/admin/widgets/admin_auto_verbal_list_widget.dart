@@ -1,20 +1,20 @@
 import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
+import 'package:kfa_mobile_nu/src/models/auto_verbal_model.dart';
 import 'package:kfa_mobile_nu/src/models/base.dart';
-import 'package:kfa_mobile_nu/src/models/property_model.dart';
-import 'package:kfa_mobile_nu/src/pages/admin/admin_property_detail_page.dart';
+import 'package:kfa_mobile_nu/src/pages/admin/admin_auto_verbal_detail_page.dart';
 
 import '../../../../exports.dart';
-import '../../../providers/property_provider.dart';
+import '../../../providers/auto_verbal_provider.dart';
 
-class AdminPropertyListWidget extends ConsumerWidget {
-  const AdminPropertyListWidget({super.key, required this.filter});
+class AdminAutoVerbalListWidget extends ConsumerWidget {
+  const AdminAutoVerbalListWidget({super.key, required this.filter});
 
-  final PropertyListFilter filter;
+  final AutoVerbalListFilter filter;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final firstPageCountAsync = ref.watch(
-      propertyListProvider(page: 0, filter: filter).select((v) => v.whenData((v) => v.length)),
+      autoVerbalListProvider(page: 0, filter: filter).select((v) => v.whenData((v) => v.length)),
     );
 
     return firstPageCountAsync.when(
@@ -24,23 +24,23 @@ class AdminPropertyListWidget extends ConsumerWidget {
         if (count == 0) {
           return const Center(
             child: Text(
-              'No properties available',
+              'No auto verbals available',
               style: TextStyle(fontSize: 18),
             ),
           );
         }
         return RefreshIndicator(
           onRefresh: () async {
-            ref.invalidate(propertyListProvider(page: 0, filter: filter));
+            ref.invalidate(autoVerbalListProvider(page: 0, filter: filter));
           },
           child: ListView.builder(
             itemCount: count,
             itemBuilder: (context, index) {
-              final propertyAsync =
-                  ref.watch(propertyAtIndexProvider(index: index, filter: filter));
-              return propertyAsync?.whenOrNull(
+              final autoVerbalAsync =
+                  ref.watch(autoVerbalAtIndexProvider(index: index, filter: filter));
+              return autoVerbalAsync?.whenOrNull(
                     loading: (isFirstItem) => const Center(child: CircularProgressIndicator()),
-                    data: (property) => _buildListItem(context, property),
+                    data: (autoVerbal) => _buildListItem(context, autoVerbal),
                   ) ??
                   const SizedBox.shrink();
             },
@@ -50,10 +50,10 @@ class AdminPropertyListWidget extends ConsumerWidget {
     );
   }
 
-  Widget _buildListItem(BuildContext context, PropertyModel property) {
+  Widget _buildListItem(BuildContext context, AutoVerbalModel autoVerbal) {
     return InkWell(
       onTap: () {
-        context.push((_) => AdminPropertyDetailPage(property: property));
+        context.push((_) => AdminAutoVerbalDetailPage(autoVerbal: autoVerbal));
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
@@ -67,7 +67,7 @@ class AdminPropertyListWidget extends ConsumerWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: CachedNetworkImage(
-                imageUrl: property.images.first,
+                imageUrl: autoVerbal.image.first,
                 width: 60,
                 height: 60,
                 fit: BoxFit.cover,
@@ -81,7 +81,7 @@ class AdminPropertyListWidget extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    property.title,
+                    autoVerbal.ownerName,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -90,14 +90,14 @@ class AdminPropertyListWidget extends ConsumerWidget {
                     ),
                   ),
                   Text(
-                    property.propertyType.name,
+                    autoVerbal.propertyType.name ?? 'N/A',
                     style: TextStyle(
                       color: Colors.grey[600],
                       fontSize: 14,
                     ),
                   ),
                   Text(
-                    '\$${property.price}',
+                    '\$${autoVerbal.minValue} - \$${autoVerbal.maxValue}',
                     style: const TextStyle(
                       color: Colors.blue,
                       fontWeight: FontWeight.bold,
@@ -114,13 +114,13 @@ class AdminPropertyListWidget extends ConsumerWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
-                    color: _getStatusColor(property.status),
+                    color: _getStatusColor(autoVerbal.status),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
-                    property.status.name.toUpperCase(),
+                    autoVerbal.status.name.toUpperCase(),
                     style: TextStyle(
-                      color: _getStatusTextColor(property.status),
+                      color: _getStatusTextColor(autoVerbal.status),
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
                     ),

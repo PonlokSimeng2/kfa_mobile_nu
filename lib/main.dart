@@ -2,12 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:kfa_mobile_nu/src/pages/auto_verbal_list_page.dart';
-import 'package:kfa_mobile_nu/src/pages/detail_auto_verbal_page.dart';
 import 'package:kfa_mobile_nu/src/pages/home_page.dart';
-import 'package:kfa_mobile_nu/src/pages/property_list_page.dart';
-import 'package:kfa_mobile_nu/src/pages/report_main_page.dart';
-import 'package:kfa_mobile_nu/src/pages/report_property_page.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -61,6 +56,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: kwhite_new),
         primaryColor: kwhite_new,
         appBarTheme: const AppBarTheme(
           backgroundColor: kwhite_new,

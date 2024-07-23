@@ -2149,7 +2149,7 @@ final insertPropertyProvider =
 );
 
 typedef _$InsertProperty = AutoDisposeNotifier<InsertPropertyState>;
-String _$updatePropertyHash() => r'6b78b66ab49f16d311ab5d8700813e6dc9a4ec5a';
+String _$updatePropertyHash() => r'47251d809d075f20c4dffedab0a4d4e738e03788';
 
 abstract class _$UpdateProperty
     extends BuildlessAutoDisposeNotifier<UpdatePropertyState> {
@@ -2290,6 +2290,150 @@ class _UpdatePropertyProviderElement extends AutoDisposeNotifierProviderElement<
 
   @override
   PropertyModel get initial => (origin as UpdatePropertyProvider).initial;
+}
+
+String _$deletePropertyHash() => r'f961ace1eed48a2d5e491492ca594bc2f02c36da';
+
+abstract class _$DeleteProperty
+    extends BuildlessAutoDisposeNotifier<ProviderStatus<void>> {
+  late final int propertyId;
+
+  ProviderStatus<void> build(
+    int propertyId,
+  );
+}
+
+/// See also [DeleteProperty].
+@ProviderFor(DeleteProperty)
+const deletePropertyProvider = DeletePropertyFamily();
+
+/// See also [DeleteProperty].
+class DeletePropertyFamily extends Family<ProviderStatus<void>> {
+  /// See also [DeleteProperty].
+  const DeletePropertyFamily();
+
+  /// See also [DeleteProperty].
+  DeletePropertyProvider call(
+    int propertyId,
+  ) {
+    return DeletePropertyProvider(
+      propertyId,
+    );
+  }
+
+  @override
+  DeletePropertyProvider getProviderOverride(
+    covariant DeletePropertyProvider provider,
+  ) {
+    return call(
+      provider.propertyId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'deletePropertyProvider';
+}
+
+/// See also [DeleteProperty].
+class DeletePropertyProvider extends AutoDisposeNotifierProviderImpl<
+    DeleteProperty, ProviderStatus<void>> {
+  /// See also [DeleteProperty].
+  DeletePropertyProvider(
+    int propertyId,
+  ) : this._internal(
+          () => DeleteProperty()..propertyId = propertyId,
+          from: deletePropertyProvider,
+          name: r'deletePropertyProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$deletePropertyHash,
+          dependencies: DeletePropertyFamily._dependencies,
+          allTransitiveDependencies:
+              DeletePropertyFamily._allTransitiveDependencies,
+          propertyId: propertyId,
+        );
+
+  DeletePropertyProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.propertyId,
+  }) : super.internal();
+
+  final int propertyId;
+
+  @override
+  ProviderStatus<void> runNotifierBuild(
+    covariant DeleteProperty notifier,
+  ) {
+    return notifier.build(
+      propertyId,
+    );
+  }
+
+  @override
+  Override overrideWith(DeleteProperty Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: DeletePropertyProvider._internal(
+        () => create()..propertyId = propertyId,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        propertyId: propertyId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeNotifierProviderElement<DeleteProperty, ProviderStatus<void>>
+      createElement() {
+    return _DeletePropertyProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is DeletePropertyProvider && other.propertyId == propertyId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, propertyId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin DeletePropertyRef
+    on AutoDisposeNotifierProviderRef<ProviderStatus<void>> {
+  /// The parameter `propertyId` of this provider.
+  int get propertyId;
+}
+
+class _DeletePropertyProviderElement extends AutoDisposeNotifierProviderElement<
+    DeleteProperty, ProviderStatus<void>> with DeletePropertyRef {
+  _DeletePropertyProviderElement(super.provider);
+
+  @override
+  int get propertyId => (origin as DeletePropertyProvider).propertyId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

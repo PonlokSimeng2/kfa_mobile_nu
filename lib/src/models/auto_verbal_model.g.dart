@@ -10,6 +10,7 @@ _$AutoVerbalModelImpl _$$AutoVerbalModelImplFromJson(
         Map<String, dynamic> json) =>
     _$AutoVerbalModelImpl(
       id: (json['id'] as num).toInt(),
+      status: $enumDecode(_$PropertyAndAutoVerbalStatusEnumMap, json['status']),
       autoVerbalId: json['auto_verbal_id'] as String,
       image: json['image'] as String,
       propertyType: PropertyTypeModel.fromJson(
@@ -36,7 +37,6 @@ _$AutoVerbalModelImpl _$$AutoVerbalModelImplFromJson(
       rejectAt: json['reject_at'] == null
           ? null
           : DateTime.parse(json['reject_at'] as String),
-      status: json['status'] as String?,
       rejectReason: json['reject_reason'] as String?,
       province:
           ProvinceModel.fromJson(json['province'] as Map<String, dynamic>),
@@ -53,6 +53,7 @@ Map<String, dynamic> _$$AutoVerbalModelImplToJson(
         _$AutoVerbalModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'status': _$PropertyAndAutoVerbalStatusEnumMap[instance.status]!,
       'auto_verbal_id': instance.autoVerbalId,
       'image': instance.image,
       'propertyType': instance.propertyType.toJson(),
@@ -68,7 +69,6 @@ Map<String, dynamic> _$$AutoVerbalModelImplToJson(
       'approved_at': instance.approvedAt?.toIso8601String(),
       'approvedBy': instance.approvedBy?.toJson(),
       'reject_at': instance.rejectAt?.toIso8601String(),
-      'status': instance.status,
       'reject_reason': instance.rejectReason,
       'province': instance.province.toJson(),
       'min_value': instance.minValue,
@@ -80,6 +80,13 @@ Map<String, dynamic> _$$AutoVerbalModelImplToJson(
       'length': instance.length,
     };
 
+const _$PropertyAndAutoVerbalStatusEnumMap = {
+  PropertyAndAutoVerbalStatus.pending: 'pending',
+  PropertyAndAutoVerbalStatus.resubmit: 'resubmit',
+  PropertyAndAutoVerbalStatus.approved: 'approved',
+  PropertyAndAutoVerbalStatus.rejected: 'rejected',
+};
+
 // **************************************************************************
 // TableModelGenerator
 // **************************************************************************
@@ -88,6 +95,7 @@ const _tableAutoVerbalModel = TableBuilder(
   tableName: "auto_verbals",
   columns: [
     ColumnBuilder('id'),
+    ColumnBuilder('status'),
     ColumnBuilder('auto_verbal_id'),
     ColumnBuilder('image'),
     ColumnBuilder.join(PropertyTypeModel.table,
@@ -111,7 +119,6 @@ const _tableAutoVerbalModel = TableBuilder(
     ColumnBuilder.join(UserModel.table,
         key: "approvedBy", candidateKey: null, foreignKey: 'approved_by'),
     ColumnBuilder('reject_at'),
-    ColumnBuilder('status'),
     ColumnBuilder('reject_reason'),
     ColumnBuilder.join(ProvinceModel.table,
         key: "province", candidateKey: null, foreignKey: 'province_id'),

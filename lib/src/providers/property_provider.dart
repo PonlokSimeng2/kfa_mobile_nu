@@ -3,10 +3,12 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kfa_mobile_nu/src/providers/report_provider.dart';
 import 'package:path/path.dart' as p;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../exports.dart';
+import '../models/base.dart';
 import '../models/property_model.dart';
 import '../models/property_model.table.dart';
 import '../models/property_type_model.dart';
@@ -23,7 +25,8 @@ class PropertyListFilter with _$PropertyListFilter {
   const PropertyListFilter._();
 
   const factory PropertyListFilter({
-    @Default(IListConst([PropertyStatus.approved])) IList<PropertyStatus> statuses,
+    @Default(IListConst([PropertyAndAutoVerbalStatus.approved]))
+    IList<PropertyAndAutoVerbalStatus> statuses,
     String? titleOrDescription,
     ProvinceModel? province,
     PropertyTypeModel? propertyType,
@@ -350,13 +353,32 @@ class UpdateProperty extends _$UpdateProperty with _$UpdatePropertyForm {
             PropertyTable.userId: userId,
             PropertyTable.provinceId: state.province!.id,
             PropertyTable.propertyTypeId: state.propertyType!.id,
-            PropertyTable.status: PropertyStatus.resubmit.name,
+            PropertyTable.status: PropertyAndAutoVerbalStatus.resubmit.name,
             PropertyTable.createdAt: DateTime.now().toIso8601String(),
           },
         ).eq('id', initial.id);
       },
       onSuccess: (success) {
         ref.invalidate(propertyListProvider);
+      },
+    );
+  }
+}
+
+@riverpod
+class DeleteProperty extends _$DeleteProperty {
+  @override
+  ProviderStatus<void> build(int propertyId) => const ProviderStatus.initial();
+
+  Future<ProviderStatus<void>> call() async {
+    return await perform(
+      (state) async {
+        final sb = ref.watch(supabaseProvider).client;
+        await sb.from(PropertyModel.table.tableName).delete().eq('id', propertyId);
+      },
+      onSuccess: (success) {
+        ref.invalidate(propertyListProvider);
+        ref.invalidate(countPropertyAndAutoVerbalProvider);
       },
     );
   }

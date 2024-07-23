@@ -6,6 +6,8 @@ import 'package:kfa_mobile_nu/src/models/property_type_model.dart';
 import 'package:kfa_mobile_nu/src/models/province_model.dart';
 import 'package:kfa_mobile_nu/src/models/user_model.dart';
 
+import 'base.dart';
+
 part 'auto_verbal_model.freezed.dart';
 part 'auto_verbal_model.g.dart';
 
@@ -48,6 +50,7 @@ class AutoVerbalModel with _$AutoVerbalModel {
   @TableModel(AutoVerbalTable.table)
   factory AutoVerbalModel({
     @JsonKey(name: AutoVerbalTable.id) required int id,
+    @JsonKey(name: AutoVerbalTable.status) required PropertyAndAutoVerbalStatus status,
     @JsonKey(name: AutoVerbalTable.autoVerbalId) required String autoVerbalId,
     @JsonKey(name: AutoVerbalTable.image) required String image,
     @JoinedColumn(foreignKey: AutoVerbalTable.propertyTypeId)
@@ -55,22 +58,17 @@ class AutoVerbalModel with _$AutoVerbalModel {
     @JoinedColumn(foreignKey: AutoVerbalTable.bankId) BankModel? bank,
     @JsonKey(name: AutoVerbalTable.latitude) required double latitude,
     @JsonKey(name: AutoVerbalTable.longitude) required double longitude,
-    @JoinedColumn(candidateKey: 'auto_verbals_user_id_fkey')
-    required UserModel? user,
+    @JoinedColumn(candidateKey: 'auto_verbals_user_id_fkey') required UserModel? user,
     @JsonKey(name: AutoVerbalTable.ownerName) required String ownerName,
     @JsonKey(name: AutoVerbalTable.ownerPhone) required String ownerPhone,
-    @JsonKey(name: AutoVerbalTable.bankOfficerName)
-    required String? bankOfficerName,
-    @JsonKey(name: AutoVerbalTable.bankOfficerPhone)
-    required String? bankOfficerPhone,
+    @JsonKey(name: AutoVerbalTable.bankOfficerName) required String? bankOfficerName,
+    @JsonKey(name: AutoVerbalTable.bankOfficerPhone) required String? bankOfficerPhone,
     @JsonKey(name: AutoVerbalTable.createdAt) required DateTime createdAt,
     @JsonKey(name: AutoVerbalTable.approvedAt) DateTime? approvedAt,
     @JoinedColumn(foreignKey: AutoVerbalTable.approvedBy) UserModel? approvedBy,
     @JsonKey(name: AutoVerbalTable.rejectAt) DateTime? rejectAt,
-    @JsonKey(name: AutoVerbalTable.status) String? status,
     @JsonKey(name: AutoVerbalTable.rejectReason) String? rejectReason,
-    @JoinedColumn(foreignKey: AutoVerbalTable.provinceId)
-    required ProvinceModel province,
+    @JoinedColumn(foreignKey: AutoVerbalTable.provinceId) required ProvinceModel province,
     @JsonKey(name: AutoVerbalTable.minValue) required double minValue,
     @JsonKey(name: AutoVerbalTable.maxValue) required double maxValue,
     @JsonKey(name: AutoVerbalTable.minValueSqm) required double minValueSqm,
@@ -80,8 +78,7 @@ class AutoVerbalModel with _$AutoVerbalModel {
     @JsonKey(name: AutoVerbalTable.length) required double length,
   }) = _AutoVerbalModel;
 
-  factory AutoVerbalModel.fromJson(Map<String, dynamic> json) =>
-      _$AutoVerbalModelFromJson(json);
+  factory AutoVerbalModel.fromJson(Map<String, dynamic> json) => _$AutoVerbalModelFromJson(json);
 
   static const TableBuilder table = _tableAutoVerbalModel;
 }

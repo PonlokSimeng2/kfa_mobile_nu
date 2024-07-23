@@ -2,41 +2,28 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:readmore/readmore.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../../exports.dart';
 import '../models/property_model.dart';
-import '../providers/auth_provider.dart';
 import '../widgets/auth_wrapper_widget.dart';
-import 'contact_us_page.dart';
 
-// ignore: camel_case_types, must_be_immutable
 class PropertyDetailPage extends ConsumerStatefulWidget {
   const PropertyDetailPage({super.key, required this.data});
   final PropertyModel data;
+
   @override
-  HomeViewState createState() => HomeViewState();
+  PropertyDetailPageState createState() => PropertyDetailPageState();
 }
 
-var textstyleblackbold = const TextStyle(
-  color: Colors.black,
-  fontSize: 20,
-  fontWeight: FontWeight.bold,
-);
-var textstyleblack = const TextStyle(
-  color: Colors.black,
-  fontSize: 18,
-);
-
-class HomeViewState extends ConsumerState<PropertyDetailPage> {
-  Set<Marker> markers = {};
-  GoogleMapController? mapController;
-  final CarouselController _controller = CarouselController();
-  int _current = 0;
+class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
+  final Set<Marker> _markers = {};
+  final CarouselController _carouselController = CarouselController();
+  int _currentImageIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    // Add a marker for the property location
-    markers.add(
+    _markers.add(
       Marker(
         markerId: const MarkerId('property'),
         position: LatLng(widget.data.latitude, widget.data.longitude),
@@ -45,13 +32,9 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
     );
   }
 
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-  }
-
   @override
   Widget build(BuildContext context) {
-    Future<void> _makePhoneCall(String url) async {
+    Future<void> makePhoneCall(String url) async {
       // ignore: deprecated_member_use
       await launch(
         url,
@@ -62,334 +45,52 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
 
     return AuthWrapperWidget(
       child: Scaffold(
-        appBar: AppBar(
-          leading: InkWell(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: const Icon(Icons.keyboard_backspace_rounded,
-                color: Colors.white),
-          ),
-          backgroundColor: kwhite_new,
-          centerTitle: true,
-          title: const Text(
-            "Property Detail",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        body: Stack(
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: const Color.fromARGB(54, 15, 179, 204),
-                        border: Border.all(),
-                      ),
-                      child: CarouselSlider(
-                        items: widget.data.images.map((image) {
-                          return Container(
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage(image),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        carouselController: _controller,
-                        options: CarouselOptions(
-                          height: MediaQuery.of(context).size.height * 0.4,
-                          viewportFraction: 1.0,
-                          enlargeCenterPage: false,
-                          autoPlay: true,
-                          onPageChanged: (index, reason) {
-                            setState(() {
-                              _current = index;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: SingleChildScrollView(
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(30.0),
-                            topLeft: Radius.circular(30.0),
-                          ),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Column(
-                              children: [
-                                SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.09,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.9,
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            widget.data.listingType.name
-                                                .capitalize(),
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 5),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              widget.data.title,
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black,
-                                                fontSize: 16,
-                                              ),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(right: 5, left: 5),
-                                  child: Container(
-                                    decoration: const BoxDecoration(
-                                      color: Color.fromARGB(255, 237, 232, 232),
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
-                                    ),
-                                    height: MediaQuery.of(context).size.height *
-                                        0.12,
-                                    child: ListView(
-                                      scrollDirection: Axis.horizontal,
-                                      children: [
-                                        _buildFeatureItem(
-                                          icon: Icons.layers,
-                                          value: '${widget.data.floors}',
-                                          label: 'Floor',
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        _buildFeatureItem(
-                                          icon: Icons.bed,
-                                          value: '${widget.data.floors}',
-                                          label: 'Bed',
-                                        ),
-                                        const SizedBox(width: 10),
-                                        _buildFeatureItem(
-                                          icon: Icons.bathtub,
-                                          value: '${widget.data.floors}',
-                                          label: 'Bath',
-                                        ),
-                                        const SizedBox(width: 10),
-                                        _buildFeatureItem(
-                                          icon: Icons.weekend,
-                                          value: '${widget.data.floors}',
-                                          label: 'Living',
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  SizedBox(
-                                    // height: MediaQuery.of(context).size.height * 0.09,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.9,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Description',
-                                          style: textstyleblackbold,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                      right: 4.0,
-                                      left: 4.0,
-                                    ),
-                                    child: SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.13,
-                                      child: SingleChildScrollView(
-                                        reverse: false,
-                                        child: ReadMoreText(
-                                          widget.data.description,
-                                          trimMode: TrimMode.Line,
-                                          trimLines: 3,
-                                          colorClickableText: Colors.pink,
-                                          trimCollapsedText: 'Show more',
-                                          trimExpandedText: 'Show less',
-                                          moreStyle: const TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          style: const TextStyle(fontSize: 17),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 200,
-                              child: GoogleMap(
-                                mapType: MapType.hybrid,
-                                onMapCreated: _onMapCreated,
-                                initialCameraPosition: CameraPosition(
-                                  target: LatLng(
-                                    widget.data.latitude,
-                                    widget.data.longitude,
-                                  ),
-                                  zoom: 15,
-                                ),
-                                markers: markers,
-                                onTap: (LatLng latLng) {
-                                  _showLocationDetails(latLng);
-                                },
-                              ),
-                            ),
-                            Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            "Contact",
-                                            style: textstyleblackbold,
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.9,
-                                        child: Container(
-                                          height: 110,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.9,
-                                          decoration: const BoxDecoration(
-                                            //color: Colors.amber,
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(10),
-                                            ),
-                                          ),
-                                          child: Column(
-                                            children: [
-                                              Hotline(
-                                                onPress: () => setState(() {
-                                                  _makePhoneCall(
-                                                    'tel:${widget.data.user.phone}',
-                                                  );
-                                                }),
-                                                icon: Icons.phone,
-                                                phone: widget.data.user.phone,
-                                              ),
-                                              // Hotline(
-                                              //   onPress: () => setState(() {
-                                              //     _makePhoneCall(
-                                              //       'tel:077 216 168',
-                                              //     );
-                                              //   }),
-                                              //   icon: Icons.phone,
-                                              //   phone: '(855) 77 216 168',
-                                              // ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              expandedHeight: 250,
+              flexibleSpace: FlexibleSpaceBar(
+                background: _buildImageCarousel(),
               ),
-            ),
-            Positioned(
-              top: 250,
-              right: 5,
-              child: Container(
-                height: 30,
-                width: 100,
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 159, 111, 69),
-                  borderRadius: BorderRadius.all(Radius.elliptical(10, 10)),
+              pinned: true,
+              floating: false,
+              title: const Text(
+                'Property Detail',
+                style: TextStyle(color: Colors.white),
+              ),
+              backgroundColor: Theme.of(context).primaryColor,
+              leading: Container(
+                margin: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                child: Center(
-                  child: Text(
-                    "${widget.data.price} \$",
-                    style: const TextStyle(
-                      color: Color.fromARGB(255, 17, 19, 20),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.pop(context),
                 ),
               ),
+            ),
+            SliverToBoxAdapter(
+              child: _buildPropertyInfo(),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: _buildFeatures(),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: _buildDescription(),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                child: _buildMap(),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: _buildContactInfo(),
             ),
           ],
         ),
@@ -397,23 +98,150 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
     );
   }
 
-  Widget _buildFeatureItem({
-    required IconData icon,
-    required String value,
-    required String label,
-  }) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.22,
+  Widget _buildImageCarousel() {
+    return Stack(
+      children: [
+        CarouselSlider(
+          items: widget.data.images.map((image) {
+            return CachedNetworkImage(
+              width: double.infinity,
+              imageUrl: image,
+              fit: BoxFit.cover,
+            );
+          }).toList(),
+          carouselController: _carouselController,
+          options: CarouselOptions(
+            height: MediaQuery.sizeOf(context).width,
+            viewportFraction: 1,
+            enlargeCenterPage: false,
+            autoPlay: true,
+            onPageChanged: (index, _) => setState(() => _currentImageIndex = index),
+          ),
+        ),
+        Positioned(
+          bottom: 10,
+          right: 10,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            decoration: BoxDecoration(
+              color: Colors.black54,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Text(
+              '${_currentImageIndex + 1}/${widget.data.images.length}',
+              style: const TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPropertyInfo() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, size: 45),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(value, style: textstyleblackbold),
-              const SizedBox(width: 5),
-              Text(label, style: textstyleblackbold),
-            ],
+          Text(
+            widget.data.listingType.name.capitalize(),
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            widget.data.title,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            '\$${widget.data.price}',
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.green),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFeatures() {
+    return Card.outlined(
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildFeatureItem(Icons.layers, '${widget.data.floors}', 'Floor'),
+            _buildFeatureItem(Icons.bed, '${widget.data.bedrooms}', 'Bed'),
+            _buildFeatureItem(Icons.bathtub, '${widget.data.bathrooms}', 'Bath'),
+            _buildFeatureItem(Icons.weekend, '${widget.data.livingRooms}', 'Living'),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFeatureItem(IconData icon, String value, String label) {
+    return Column(
+      children: [
+        Icon(icon, size: 30),
+        const SizedBox(height: 4),
+        Text('$value $label', style: Theme.of(context).textTheme.bodySmall),
+      ],
+    );
+  }
+
+  Widget _buildDescription() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Description',
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          const SizedBox(height: 8),
+          ReadMoreText(
+            widget.data.description,
+            trimLines: 3,
+            colorClickableText: Theme.of(context).primaryColor,
+            trimMode: TrimMode.Line,
+            trimCollapsedText: 'Show more',
+            trimExpandedText: 'Show less',
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMap() {
+    return SizedBox(
+      height: 200,
+      child: GoogleMap(
+        initialCameraPosition: CameraPosition(
+          target: LatLng(widget.data.latitude, widget.data.longitude),
+          zoom: 15,
+        ),
+        markers: _markers,
+        onTap: _showLocationDetails,
+      ),
+    );
+  }
+
+  Widget _buildContactInfo() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Contact', style: Theme.of(context).textTheme.titleLarge),
+          const SizedBox(height: 8),
+          ListTile(
+            leading: const Icon(Icons.phone),
+            title: Text(widget.data.user.phone),
+            // onTap: () => _makePhoneCall('tel:${widget.data.user.phone}'),
           ),
         ],
       ),
@@ -437,13 +265,19 @@ class HomeViewState extends ConsumerState<PropertyDetailPage> {
           actions: [
             TextButton(
               child: const Text('Close'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+              onPressed: () => Navigator.of(context).pop(),
             ),
           ],
         );
       },
     );
   }
+
+  // Future<void> _makePhoneCall(String url) async {
+  //   if (await canLaunch(url)) {
+  //     await launch(url);
+  //   } else {
+  //     throw 'Could not launch $url';
+  //   }
+  // }
 }

@@ -5,7 +5,7 @@ import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../exports.dart';
-import '../models/property_model.dart';
+import '../models/base.dart';
 import '../models/property_model.table.dart';
 import '../models/user_model.dart';
 
@@ -50,7 +50,7 @@ class RejectProperty extends _$RejectProperty {
 
         final sb = ref.watch(supabaseProvider).client;
         await sb.from(PropertyTable.table).update({
-          PropertyTable.status: PropertyStatus.rejected.name,
+          PropertyTable.status: PropertyAndAutoVerbalStatus.rejected.name,
           PropertyTable.rejectReason: reason,
           PropertyTable.rejectedAt: DateTime.now().toIso8601String(),
         }).eq(PropertyTable.id, propertyId);
@@ -79,7 +79,7 @@ class ApproveProperty extends _$ApproveProperty {
         final currentUser = await ref.watch(currentUserProvider.future);
 
         await sb.from(PropertyTable.table).update({
-          PropertyTable.status: PropertyStatus.approved.name,
+          PropertyTable.status: PropertyAndAutoVerbalStatus.approved.name,
           PropertyTable.approvedAt: DateTime.now().toIso8601String(),
           PropertyTable.approvedBy: currentUser?.id,
         }).eq(PropertyTable.id, propertyId);

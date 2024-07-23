@@ -1,11 +1,14 @@
+import '../../exports.dart';
 import '../models/property_type_model.dart';
 import '../providers/property_type_provider.dart';
 
-import '../../exports.dart';
-
 class PropertyTypeDropDown extends ConsumerWidget {
-  const PropertyTypeDropDown(
-      {super.key, this.value, required this.onChanged, this.prefixicon});
+  const PropertyTypeDropDown({
+    super.key,
+    this.value,
+    required this.onChanged,
+    this.prefixicon,
+  });
 
   final PropertyTypeModel? value;
   final void Function(PropertyTypeModel value) onChanged;
@@ -29,14 +32,14 @@ class PropertyTypeDropDown extends ConsumerWidget {
                 child: Text(e.name),
               );
             }).toList(),
-      icon: Icon(
+      icon: const Icon(
         Icons.arrow_drop_down,
         color: kImageColor,
       ),
       decoration: InputDecoration(
         fillColor: kwhite,
         filled: true,
-        contentPadding: EdgeInsets.symmetric(vertical: 8),
+        contentPadding: const EdgeInsets.symmetric(vertical: 8).copyWith(left: 16, right: 8),
         labelText: 'Property Type*',
         hintText: 'Select',
         prefixIcon: prefixicon,
@@ -52,7 +55,7 @@ class PropertyTypeDropDown extends ConsumerWidget {
           borderRadius: BorderRadius.circular(10.0),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             width: 1,
             color: kPrimaryColor,
           ),

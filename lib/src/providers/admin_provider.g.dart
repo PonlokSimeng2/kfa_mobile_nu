@@ -333,7 +333,7 @@ class _UserAtIndexProviderElement
   String? get searchString => (origin as UserAtIndexProvider).searchString;
 }
 
-String _$rejectPropertyHash() => r'5ee899c566a710b30a5d22cd6177a0fecbb4418f';
+String _$rejectPropertyHash() => r'462b128ecc854cbdd8fdb46c47976a0d3865bc64';
 
 abstract class _$RejectProperty
     extends BuildlessAutoDisposeNotifier<ProviderStatus<void>> {
@@ -477,7 +477,7 @@ class _RejectPropertyProviderElement extends AutoDisposeNotifierProviderElement<
   int get propertyId => (origin as RejectPropertyProvider).propertyId;
 }
 
-String _$approvePropertyHash() => r'2d2a23f621cc316dfe48637d528046f410db45ab';
+String _$approvePropertyHash() => r'754cf0653eb7ca6beab83a9b62147e98786dab11';
 
 abstract class _$ApproveProperty
     extends BuildlessAutoDisposeNotifier<ProviderStatus<void>> {

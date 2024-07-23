@@ -23,7 +23,7 @@ mixin _$PropertyModel {
   @JsonKey(name: PropertyTable.id)
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: PropertyTable.status)
-  PropertyStatus get status => throw _privateConstructorUsedError;
+  PropertyAndAutoVerbalStatus get status => throw _privateConstructorUsedError;
   @JsonKey(name: PropertyTable.propertyId)
   String get propertyId => throw _privateConstructorUsedError;
   @JsonKey(name: PropertyTable.listingType)
@@ -93,7 +93,7 @@ abstract class $PropertyModelCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: PropertyTable.id) int id,
-      @JsonKey(name: PropertyTable.status) PropertyStatus status,
+      @JsonKey(name: PropertyTable.status) PropertyAndAutoVerbalStatus status,
       @JsonKey(name: PropertyTable.propertyId) String propertyId,
       @JsonKey(name: PropertyTable.listingType) PropertyListingType listingType,
       @JsonKey(name: PropertyTable.images) List<String> images,
@@ -181,7 +181,7 @@ class _$PropertyModelCopyWithImpl<$Res, $Val extends PropertyModel>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as PropertyStatus,
+              as PropertyAndAutoVerbalStatus,
       propertyId: null == propertyId
           ? _value.propertyId
           : propertyId // ignore: cast_nullable_to_non_nullable
@@ -340,7 +340,7 @@ abstract class _$$PropertyModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: PropertyTable.id) int id,
-      @JsonKey(name: PropertyTable.status) PropertyStatus status,
+      @JsonKey(name: PropertyTable.status) PropertyAndAutoVerbalStatus status,
       @JsonKey(name: PropertyTable.propertyId) String propertyId,
       @JsonKey(name: PropertyTable.listingType) PropertyListingType listingType,
       @JsonKey(name: PropertyTable.images) List<String> images,
@@ -430,7 +430,7 @@ class __$$PropertyModelImplCopyWithImpl<$Res>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as PropertyStatus,
+              as PropertyAndAutoVerbalStatus,
       propertyId: null == propertyId
           ? _value.propertyId
           : propertyId // ignore: cast_nullable_to_non_nullable
@@ -590,7 +590,7 @@ class _$PropertyModelImpl extends _PropertyModel {
   final int id;
   @override
   @JsonKey(name: PropertyTable.status)
-  final PropertyStatus status;
+  final PropertyAndAutoVerbalStatus status;
   @override
   @JsonKey(name: PropertyTable.propertyId)
   final String propertyId;
@@ -792,7 +792,8 @@ class _$PropertyModelImpl extends _PropertyModel {
 abstract class _PropertyModel extends PropertyModel {
   factory _PropertyModel(
       {@JsonKey(name: PropertyTable.id) required final int id,
-      @JsonKey(name: PropertyTable.status) required final PropertyStatus status,
+      @JsonKey(name: PropertyTable.status)
+      required final PropertyAndAutoVerbalStatus status,
       @JsonKey(name: PropertyTable.propertyId) required final String propertyId,
       @JsonKey(name: PropertyTable.listingType)
       required final PropertyListingType listingType,
@@ -840,7 +841,7 @@ abstract class _PropertyModel extends PropertyModel {
   int get id;
   @override
   @JsonKey(name: PropertyTable.status)
-  PropertyStatus get status;
+  PropertyAndAutoVerbalStatus get status;
   @override
   @JsonKey(name: PropertyTable.propertyId)
   String get propertyId;

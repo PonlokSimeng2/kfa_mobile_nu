@@ -810,11 +810,928 @@ class InsertAutoVerbalLengthFieldWidget extends HookConsumerWidget {
   }
 }
 
+/// Mixin use for update properties. You will need to add this mixin to provider in order to make it work
+mixin _$UpdateAutoVerbalForm on _$UpdateAutoVerbal {
+  void onNewImageFileChanged(XFile? newNewImageFile) =>
+      state = state.copyWith(newImageFile: newNewImageFile);
+  void onExistingImageUrlChanged(String? newExistingImageUrl) =>
+      state = state.copyWith(existingImageUrl: newExistingImageUrl);
+  void onPropertyTypeChanged(PropertyTypeModel? newPropertyType) =>
+      state = state.copyWith(propertyType: newPropertyType);
+  void onProvinceChanged(ProvinceModel? newProvince) =>
+      state = state.copyWith(province: newProvince);
+  void onBankChanged(BankModel? newBank) =>
+      state = state.copyWith(bank: newBank);
+  void onOwnerNameChanged(String newOwnerName) =>
+      state = state.copyWith(ownerName: newOwnerName);
+  void onOwnerPhoneChanged(String newOwnerPhone) =>
+      state = state.copyWith(ownerPhone: newOwnerPhone);
+  void onBankOfficerNameChanged(String newBankOfficerName) =>
+      state = state.copyWith(bankOfficerName: newBankOfficerName);
+  void onBankOfficerPhoneChanged(String newBankOfficerPhone) =>
+      state = state.copyWith(bankOfficerPhone: newBankOfficerPhone);
+  void onMinValueChanged(double newMinValue) =>
+      state = state.copyWith(minValue: newMinValue);
+  void onMaxValueChanged(double newMaxValue) =>
+      state = state.copyWith(maxValue: newMaxValue);
+  void onMinValueSqmChanged(double newMinValueSqm) =>
+      state = state.copyWith(minValueSqm: newMinValueSqm);
+  void onMaxValueSqmChanged(double newMaxValueSqm) =>
+      state = state.copyWith(maxValueSqm: newMaxValueSqm);
+  void onLatitudeChanged(double newLatitude) =>
+      state = state.copyWith(latitude: newLatitude);
+  void onLongitudeChanged(double newLongitude) =>
+      state = state.copyWith(longitude: newLongitude);
+  void onAreaChanged(double newArea) => state = state.copyWith(area: newArea);
+  void onHeadChanged(double newHead) => state = state.copyWith(head: newHead);
+  void onLengthChanged(double newLength) =>
+      state = state.copyWith(length: newLength);
+}
+
+class _UpdateAutoVerbalFamilyParam {
+  final AutoVerbalModel initial;
+
+  const _UpdateAutoVerbalFamilyParam({required this.initial});
+
+  @override
+  bool operator ==(covariant _UpdateAutoVerbalFamilyParam other) {
+    if (identical(this, other)) return true;
+
+    return other.initial == initial;
+  }
+
+  @override
+  int get hashCode => initial.hashCode;
+}
+
+bool _debugCheckHasUpdateAutoVerbalFormWidget(BuildContext context) {
+  assert(() {
+    if (context.widget is! UpdateAutoVerbalFormWidget &&
+        context.findAncestorWidgetOfExactType<UpdateAutoVerbalFormWidget>() ==
+            null) {
+      throw FlutterError.fromParts(<DiagnosticsNode>[
+        ErrorSummary('No UpdateAutoVerbalFormWidget found'),
+        ErrorDescription(
+            '${context.widget.runtimeType} widgets require a UpdateAutoVerbalFormWidget widget ancestor.'),
+      ]);
+    }
+    return true;
+  }());
+  return true;
+}
+
+typedef UpdateAutoVerbalFormChildBuilder = Widget Function(
+  WidgetRef ref,
+  GlobalKey<FormState> formKey,
+  ProviderStatus<void> status,
+  bool isProgressing,
+  Failure? failure,
+  Future<ProviderStatus<void>> Function() submit,
+);
+
+/// Base form widget for [UpdateAutoVerbal] provider
+///
+/// It required to add this as parent widget of fields widget if [UpdateAutoVerbal] is a family provider
+/// , otherwise it's optional
+class UpdateAutoVerbalFormWidget extends HookConsumerWidget {
+  const UpdateAutoVerbalFormWidget({
+    super.key,
+    this.formKey,
+    required this.initial,
+    required this.builder,
+  });
+
+  /// Form key. If null it will be created by widget
+  final GlobalKey<FormState>? formKey;
+
+  final AutoVerbalModel initial;
+
+  /// Child widget builder
+  ///
+  /// * Don't forget to do form validation before execute this. If it is a form widget type
+  /// This callback will also save form state and check validation of form if it a form type
+  /// ```
+  /// {
+  ///   // Do form validation
+  ///   formKey.currentState!.save();
+  ///   if (!formKey.currentState!.validate()) return;
+  ///
+  ///   // call submit here
+  ///   ... submit(...);
+  /// }
+  /// ```
+  final UpdateAutoVerbalFormChildBuilder builder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final cachedFormKey = useMemoized(() => formKey ?? GlobalKey<FormState>());
+    final family = _UpdateAutoVerbalFamilyParam(initial: initial);
+
+    final status = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.status));
+    final isProgressing = status.isInProgress;
+    final failure = status.failure;
+    final controller =
+        ref.watch(updateAutoVerbalProvider(family.initial).notifier);
+
+    return ProviderScope(
+      overrides: [
+        _updateAutoVerbalFamilyParamProvider.overrideWithValue(family)
+      ],
+      child: Form(
+        key: cachedFormKey,
+        child: builder(
+          ref,
+          cachedFormKey,
+          status,
+          isProgressing,
+          failure,
+          controller.call,
+        ),
+      ),
+    );
+  }
+}
+
+// Family provider override --------------------------------------------------
+final _updateAutoVerbalFamilyParamProvider =
+    Provider<_UpdateAutoVerbalFamilyParam>((ref) {
+  throw 'You need to add [UpdateAutoVerbalFormWidget] as your parent. This allow to internal override family provider param';
+});
+
+typedef UpdateAutoVerbalNewImageFileChildBuilder = Widget Function(
+  WidgetRef ref,
+  XFile? newImageFile,
+  void Function(XFile? newNewImageFile) changeNewImageFile,
+  bool showValidation,
+);
+
+/// Widget form field for property [newImageFile]. To use this widget. You will need to add [UpdateAutoVerbalFormWidget] widget as ancestor
+/// otherwise assert error will be thrown
+class UpdateAutoVerbalNewImageFileFieldWidget extends HookConsumerWidget {
+  const UpdateAutoVerbalNewImageFileFieldWidget({
+    super.key,
+    required this.builder,
+  });
+  final UpdateAutoVerbalNewImageFileChildBuilder builder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdateAutoVerbalFormWidget(context));
+    final family = ref.watch(_updateAutoVerbalFamilyParamProvider);
+    final notifier =
+        ref.watch(updateAutoVerbalProvider(family.initial).notifier);
+    final state = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.newImageFile));
+
+    final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.status.isFailure));
+    return builder(
+      ref,
+      state,
+      notifier.onNewImageFileChanged,
+      showValidation,
+    );
+  }
+}
+
+typedef UpdateAutoVerbalExistingImageUrlChildBuilder = Widget Function(
+  WidgetRef ref,
+  TextEditingController textController,
+  String? existingImageUrl,
+  void Function(String? newExistingImageUrl) changeExistingImageUrl,
+  bool showValidation,
+);
+
+/// Widget form field for property [existingImageUrl]. To use this widget. You will need to add [UpdateAutoVerbalFormWidget] widget as ancestor
+/// otherwise assert error will be thrown
+class UpdateAutoVerbalExistingImageUrlFieldWidget extends HookConsumerWidget {
+  const UpdateAutoVerbalExistingImageUrlFieldWidget({
+    super.key,
+    this.controller,
+    required this.builder,
+  });
+  final UpdateAutoVerbalExistingImageUrlChildBuilder builder;
+
+  /// TextEditingController of text field widget. If null it will create by widget
+  final TextEditingController? controller;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdateAutoVerbalFormWidget(context));
+    final family = ref.watch(_updateAutoVerbalFamilyParamProvider);
+    final notifier =
+        ref.watch(updateAutoVerbalProvider(family.initial).notifier);
+    final state = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.existingImageUrl));
+    final textController = controller ?? useTextEditingController(text: state);
+    useMemoized(() {
+      textController.addListener(() {
+        Future.microtask(() => notifier.onExistingImageUrlChanged(
+            textController.text.isEmpty ? null : textController.text));
+      });
+      return null;
+    });
+
+    ref.listen(
+        updateAutoVerbalProvider(family.initial)
+            .select((value) => value.existingImageUrl), (previous, current) {
+      if (previous != current) {
+        if (current != textController.text) {
+          Future.microtask(() => textController.text = current ?? '');
+        }
+      }
+    });
+
+    final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.status.isFailure));
+    return builder(
+      ref,
+      textController,
+      state,
+      notifier.onExistingImageUrlChanged,
+      showValidation,
+    );
+  }
+}
+
+typedef UpdateAutoVerbalPropertyTypeChildBuilder = Widget Function(
+  WidgetRef ref,
+  PropertyTypeModel? propertyType,
+  void Function(PropertyTypeModel? newPropertyType) changePropertyType,
+  bool showValidation,
+);
+
+/// Widget form field for property [propertyType]. To use this widget. You will need to add [UpdateAutoVerbalFormWidget] widget as ancestor
+/// otherwise assert error will be thrown
+class UpdateAutoVerbalPropertyTypeFieldWidget extends HookConsumerWidget {
+  const UpdateAutoVerbalPropertyTypeFieldWidget({
+    super.key,
+    required this.builder,
+  });
+  final UpdateAutoVerbalPropertyTypeChildBuilder builder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdateAutoVerbalFormWidget(context));
+    final family = ref.watch(_updateAutoVerbalFamilyParamProvider);
+    final notifier =
+        ref.watch(updateAutoVerbalProvider(family.initial).notifier);
+    final state = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.propertyType));
+
+    final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.status.isFailure));
+    return builder(
+      ref,
+      state,
+      notifier.onPropertyTypeChanged,
+      showValidation,
+    );
+  }
+}
+
+typedef UpdateAutoVerbalProvinceChildBuilder = Widget Function(
+  WidgetRef ref,
+  ProvinceModel? province,
+  void Function(ProvinceModel? newProvince) changeProvince,
+  bool showValidation,
+);
+
+/// Widget form field for property [province]. To use this widget. You will need to add [UpdateAutoVerbalFormWidget] widget as ancestor
+/// otherwise assert error will be thrown
+class UpdateAutoVerbalProvinceFieldWidget extends HookConsumerWidget {
+  const UpdateAutoVerbalProvinceFieldWidget({
+    super.key,
+    required this.builder,
+  });
+  final UpdateAutoVerbalProvinceChildBuilder builder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdateAutoVerbalFormWidget(context));
+    final family = ref.watch(_updateAutoVerbalFamilyParamProvider);
+    final notifier =
+        ref.watch(updateAutoVerbalProvider(family.initial).notifier);
+    final state = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.province));
+
+    final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.status.isFailure));
+    return builder(
+      ref,
+      state,
+      notifier.onProvinceChanged,
+      showValidation,
+    );
+  }
+}
+
+typedef UpdateAutoVerbalBankChildBuilder = Widget Function(
+  WidgetRef ref,
+  BankModel? bank,
+  void Function(BankModel? newBank) changeBank,
+  bool showValidation,
+);
+
+/// Widget form field for property [bank]. To use this widget. You will need to add [UpdateAutoVerbalFormWidget] widget as ancestor
+/// otherwise assert error will be thrown
+class UpdateAutoVerbalBankFieldWidget extends HookConsumerWidget {
+  const UpdateAutoVerbalBankFieldWidget({
+    super.key,
+    required this.builder,
+  });
+  final UpdateAutoVerbalBankChildBuilder builder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdateAutoVerbalFormWidget(context));
+    final family = ref.watch(_updateAutoVerbalFamilyParamProvider);
+    final notifier =
+        ref.watch(updateAutoVerbalProvider(family.initial).notifier);
+    final state = ref.watch(
+        updateAutoVerbalProvider(family.initial).select((value) => value.bank));
+
+    final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.status.isFailure));
+    return builder(
+      ref,
+      state,
+      notifier.onBankChanged,
+      showValidation,
+    );
+  }
+}
+
+typedef UpdateAutoVerbalOwnerNameChildBuilder = Widget Function(
+  WidgetRef ref,
+  TextEditingController textController,
+  String ownerName,
+  void Function(String newOwnerName) changeOwnerName,
+  bool showValidation,
+);
+
+/// Widget form field for property [ownerName]. To use this widget. You will need to add [UpdateAutoVerbalFormWidget] widget as ancestor
+/// otherwise assert error will be thrown
+class UpdateAutoVerbalOwnerNameFieldWidget extends HookConsumerWidget {
+  const UpdateAutoVerbalOwnerNameFieldWidget({
+    super.key,
+    this.controller,
+    required this.builder,
+  });
+  final UpdateAutoVerbalOwnerNameChildBuilder builder;
+
+  /// TextEditingController of text field widget. If null it will create by widget
+  final TextEditingController? controller;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdateAutoVerbalFormWidget(context));
+    final family = ref.watch(_updateAutoVerbalFamilyParamProvider);
+    final notifier =
+        ref.watch(updateAutoVerbalProvider(family.initial).notifier);
+    final state = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.ownerName));
+    final textController = controller ?? useTextEditingController(text: state);
+    useMemoized(() {
+      textController.addListener(() {
+        Future.microtask(
+            () => notifier.onOwnerNameChanged(textController.text));
+      });
+      return null;
+    });
+
+    ref.listen(
+        updateAutoVerbalProvider(family.initial)
+            .select((value) => value.ownerName), (previous, current) {
+      if (previous != current) {
+        if (current != textController.text) {
+          Future.microtask(() => textController.text = current);
+        }
+      }
+    });
+
+    final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.status.isFailure));
+    return builder(
+      ref,
+      textController,
+      state,
+      notifier.onOwnerNameChanged,
+      showValidation,
+    );
+  }
+}
+
+typedef UpdateAutoVerbalOwnerPhoneChildBuilder = Widget Function(
+  WidgetRef ref,
+  TextEditingController textController,
+  String ownerPhone,
+  void Function(String newOwnerPhone) changeOwnerPhone,
+  bool showValidation,
+);
+
+/// Widget form field for property [ownerPhone]. To use this widget. You will need to add [UpdateAutoVerbalFormWidget] widget as ancestor
+/// otherwise assert error will be thrown
+class UpdateAutoVerbalOwnerPhoneFieldWidget extends HookConsumerWidget {
+  const UpdateAutoVerbalOwnerPhoneFieldWidget({
+    super.key,
+    this.controller,
+    required this.builder,
+  });
+  final UpdateAutoVerbalOwnerPhoneChildBuilder builder;
+
+  /// TextEditingController of text field widget. If null it will create by widget
+  final TextEditingController? controller;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdateAutoVerbalFormWidget(context));
+    final family = ref.watch(_updateAutoVerbalFamilyParamProvider);
+    final notifier =
+        ref.watch(updateAutoVerbalProvider(family.initial).notifier);
+    final state = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.ownerPhone));
+    final textController = controller ?? useTextEditingController(text: state);
+    useMemoized(() {
+      textController.addListener(() {
+        Future.microtask(
+            () => notifier.onOwnerPhoneChanged(textController.text));
+      });
+      return null;
+    });
+
+    ref.listen(
+        updateAutoVerbalProvider(family.initial)
+            .select((value) => value.ownerPhone), (previous, current) {
+      if (previous != current) {
+        if (current != textController.text) {
+          Future.microtask(() => textController.text = current);
+        }
+      }
+    });
+
+    final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.status.isFailure));
+    return builder(
+      ref,
+      textController,
+      state,
+      notifier.onOwnerPhoneChanged,
+      showValidation,
+    );
+  }
+}
+
+typedef UpdateAutoVerbalBankOfficerNameChildBuilder = Widget Function(
+  WidgetRef ref,
+  TextEditingController textController,
+  String bankOfficerName,
+  void Function(String newBankOfficerName) changeBankOfficerName,
+  bool showValidation,
+);
+
+/// Widget form field for property [bankOfficerName]. To use this widget. You will need to add [UpdateAutoVerbalFormWidget] widget as ancestor
+/// otherwise assert error will be thrown
+class UpdateAutoVerbalBankOfficerNameFieldWidget extends HookConsumerWidget {
+  const UpdateAutoVerbalBankOfficerNameFieldWidget({
+    super.key,
+    this.controller,
+    required this.builder,
+  });
+  final UpdateAutoVerbalBankOfficerNameChildBuilder builder;
+
+  /// TextEditingController of text field widget. If null it will create by widget
+  final TextEditingController? controller;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdateAutoVerbalFormWidget(context));
+    final family = ref.watch(_updateAutoVerbalFamilyParamProvider);
+    final notifier =
+        ref.watch(updateAutoVerbalProvider(family.initial).notifier);
+    final state = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.bankOfficerName));
+    final textController = controller ?? useTextEditingController(text: state);
+    useMemoized(() {
+      textController.addListener(() {
+        Future.microtask(
+            () => notifier.onBankOfficerNameChanged(textController.text));
+      });
+      return null;
+    });
+
+    ref.listen(
+        updateAutoVerbalProvider(family.initial)
+            .select((value) => value.bankOfficerName), (previous, current) {
+      if (previous != current) {
+        if (current != textController.text) {
+          Future.microtask(() => textController.text = current);
+        }
+      }
+    });
+
+    final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.status.isFailure));
+    return builder(
+      ref,
+      textController,
+      state,
+      notifier.onBankOfficerNameChanged,
+      showValidation,
+    );
+  }
+}
+
+typedef UpdateAutoVerbalBankOfficerPhoneChildBuilder = Widget Function(
+  WidgetRef ref,
+  TextEditingController textController,
+  String bankOfficerPhone,
+  void Function(String newBankOfficerPhone) changeBankOfficerPhone,
+  bool showValidation,
+);
+
+/// Widget form field for property [bankOfficerPhone]. To use this widget. You will need to add [UpdateAutoVerbalFormWidget] widget as ancestor
+/// otherwise assert error will be thrown
+class UpdateAutoVerbalBankOfficerPhoneFieldWidget extends HookConsumerWidget {
+  const UpdateAutoVerbalBankOfficerPhoneFieldWidget({
+    super.key,
+    this.controller,
+    required this.builder,
+  });
+  final UpdateAutoVerbalBankOfficerPhoneChildBuilder builder;
+
+  /// TextEditingController of text field widget. If null it will create by widget
+  final TextEditingController? controller;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdateAutoVerbalFormWidget(context));
+    final family = ref.watch(_updateAutoVerbalFamilyParamProvider);
+    final notifier =
+        ref.watch(updateAutoVerbalProvider(family.initial).notifier);
+    final state = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.bankOfficerPhone));
+    final textController = controller ?? useTextEditingController(text: state);
+    useMemoized(() {
+      textController.addListener(() {
+        Future.microtask(
+            () => notifier.onBankOfficerPhoneChanged(textController.text));
+      });
+      return null;
+    });
+
+    ref.listen(
+        updateAutoVerbalProvider(family.initial)
+            .select((value) => value.bankOfficerPhone), (previous, current) {
+      if (previous != current) {
+        if (current != textController.text) {
+          Future.microtask(() => textController.text = current);
+        }
+      }
+    });
+
+    final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.status.isFailure));
+    return builder(
+      ref,
+      textController,
+      state,
+      notifier.onBankOfficerPhoneChanged,
+      showValidation,
+    );
+  }
+}
+
+typedef UpdateAutoVerbalMinValueChildBuilder = Widget Function(
+  WidgetRef ref,
+  double minValue,
+  void Function(double newMinValue) changeMinValue,
+  bool showValidation,
+);
+
+/// Widget form field for property [minValue]. To use this widget. You will need to add [UpdateAutoVerbalFormWidget] widget as ancestor
+/// otherwise assert error will be thrown
+class UpdateAutoVerbalMinValueFieldWidget extends HookConsumerWidget {
+  const UpdateAutoVerbalMinValueFieldWidget({
+    super.key,
+    required this.builder,
+  });
+  final UpdateAutoVerbalMinValueChildBuilder builder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdateAutoVerbalFormWidget(context));
+    final family = ref.watch(_updateAutoVerbalFamilyParamProvider);
+    final notifier =
+        ref.watch(updateAutoVerbalProvider(family.initial).notifier);
+    final state = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.minValue));
+
+    final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.status.isFailure));
+    return builder(
+      ref,
+      state,
+      notifier.onMinValueChanged,
+      showValidation,
+    );
+  }
+}
+
+typedef UpdateAutoVerbalMaxValueChildBuilder = Widget Function(
+  WidgetRef ref,
+  double maxValue,
+  void Function(double newMaxValue) changeMaxValue,
+  bool showValidation,
+);
+
+/// Widget form field for property [maxValue]. To use this widget. You will need to add [UpdateAutoVerbalFormWidget] widget as ancestor
+/// otherwise assert error will be thrown
+class UpdateAutoVerbalMaxValueFieldWidget extends HookConsumerWidget {
+  const UpdateAutoVerbalMaxValueFieldWidget({
+    super.key,
+    required this.builder,
+  });
+  final UpdateAutoVerbalMaxValueChildBuilder builder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdateAutoVerbalFormWidget(context));
+    final family = ref.watch(_updateAutoVerbalFamilyParamProvider);
+    final notifier =
+        ref.watch(updateAutoVerbalProvider(family.initial).notifier);
+    final state = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.maxValue));
+
+    final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.status.isFailure));
+    return builder(
+      ref,
+      state,
+      notifier.onMaxValueChanged,
+      showValidation,
+    );
+  }
+}
+
+typedef UpdateAutoVerbalMinValueSqmChildBuilder = Widget Function(
+  WidgetRef ref,
+  double minValueSqm,
+  void Function(double newMinValueSqm) changeMinValueSqm,
+  bool showValidation,
+);
+
+/// Widget form field for property [minValueSqm]. To use this widget. You will need to add [UpdateAutoVerbalFormWidget] widget as ancestor
+/// otherwise assert error will be thrown
+class UpdateAutoVerbalMinValueSqmFieldWidget extends HookConsumerWidget {
+  const UpdateAutoVerbalMinValueSqmFieldWidget({
+    super.key,
+    required this.builder,
+  });
+  final UpdateAutoVerbalMinValueSqmChildBuilder builder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdateAutoVerbalFormWidget(context));
+    final family = ref.watch(_updateAutoVerbalFamilyParamProvider);
+    final notifier =
+        ref.watch(updateAutoVerbalProvider(family.initial).notifier);
+    final state = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.minValueSqm));
+
+    final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.status.isFailure));
+    return builder(
+      ref,
+      state,
+      notifier.onMinValueSqmChanged,
+      showValidation,
+    );
+  }
+}
+
+typedef UpdateAutoVerbalMaxValueSqmChildBuilder = Widget Function(
+  WidgetRef ref,
+  double maxValueSqm,
+  void Function(double newMaxValueSqm) changeMaxValueSqm,
+  bool showValidation,
+);
+
+/// Widget form field for property [maxValueSqm]. To use this widget. You will need to add [UpdateAutoVerbalFormWidget] widget as ancestor
+/// otherwise assert error will be thrown
+class UpdateAutoVerbalMaxValueSqmFieldWidget extends HookConsumerWidget {
+  const UpdateAutoVerbalMaxValueSqmFieldWidget({
+    super.key,
+    required this.builder,
+  });
+  final UpdateAutoVerbalMaxValueSqmChildBuilder builder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdateAutoVerbalFormWidget(context));
+    final family = ref.watch(_updateAutoVerbalFamilyParamProvider);
+    final notifier =
+        ref.watch(updateAutoVerbalProvider(family.initial).notifier);
+    final state = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.maxValueSqm));
+
+    final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.status.isFailure));
+    return builder(
+      ref,
+      state,
+      notifier.onMaxValueSqmChanged,
+      showValidation,
+    );
+  }
+}
+
+typedef UpdateAutoVerbalLatitudeChildBuilder = Widget Function(
+  WidgetRef ref,
+  double latitude,
+  void Function(double newLatitude) changeLatitude,
+  bool showValidation,
+);
+
+/// Widget form field for property [latitude]. To use this widget. You will need to add [UpdateAutoVerbalFormWidget] widget as ancestor
+/// otherwise assert error will be thrown
+class UpdateAutoVerbalLatitudeFieldWidget extends HookConsumerWidget {
+  const UpdateAutoVerbalLatitudeFieldWidget({
+    super.key,
+    required this.builder,
+  });
+  final UpdateAutoVerbalLatitudeChildBuilder builder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdateAutoVerbalFormWidget(context));
+    final family = ref.watch(_updateAutoVerbalFamilyParamProvider);
+    final notifier =
+        ref.watch(updateAutoVerbalProvider(family.initial).notifier);
+    final state = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.latitude));
+
+    final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.status.isFailure));
+    return builder(
+      ref,
+      state,
+      notifier.onLatitudeChanged,
+      showValidation,
+    );
+  }
+}
+
+typedef UpdateAutoVerbalLongitudeChildBuilder = Widget Function(
+  WidgetRef ref,
+  double longitude,
+  void Function(double newLongitude) changeLongitude,
+  bool showValidation,
+);
+
+/// Widget form field for property [longitude]. To use this widget. You will need to add [UpdateAutoVerbalFormWidget] widget as ancestor
+/// otherwise assert error will be thrown
+class UpdateAutoVerbalLongitudeFieldWidget extends HookConsumerWidget {
+  const UpdateAutoVerbalLongitudeFieldWidget({
+    super.key,
+    required this.builder,
+  });
+  final UpdateAutoVerbalLongitudeChildBuilder builder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdateAutoVerbalFormWidget(context));
+    final family = ref.watch(_updateAutoVerbalFamilyParamProvider);
+    final notifier =
+        ref.watch(updateAutoVerbalProvider(family.initial).notifier);
+    final state = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.longitude));
+
+    final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.status.isFailure));
+    return builder(
+      ref,
+      state,
+      notifier.onLongitudeChanged,
+      showValidation,
+    );
+  }
+}
+
+typedef UpdateAutoVerbalAreaChildBuilder = Widget Function(
+  WidgetRef ref,
+  double area,
+  void Function(double newArea) changeArea,
+  bool showValidation,
+);
+
+/// Widget form field for property [area]. To use this widget. You will need to add [UpdateAutoVerbalFormWidget] widget as ancestor
+/// otherwise assert error will be thrown
+class UpdateAutoVerbalAreaFieldWidget extends HookConsumerWidget {
+  const UpdateAutoVerbalAreaFieldWidget({
+    super.key,
+    required this.builder,
+  });
+  final UpdateAutoVerbalAreaChildBuilder builder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdateAutoVerbalFormWidget(context));
+    final family = ref.watch(_updateAutoVerbalFamilyParamProvider);
+    final notifier =
+        ref.watch(updateAutoVerbalProvider(family.initial).notifier);
+    final state = ref.watch(
+        updateAutoVerbalProvider(family.initial).select((value) => value.area));
+
+    final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.status.isFailure));
+    return builder(
+      ref,
+      state,
+      notifier.onAreaChanged,
+      showValidation,
+    );
+  }
+}
+
+typedef UpdateAutoVerbalHeadChildBuilder = Widget Function(
+  WidgetRef ref,
+  double head,
+  void Function(double newHead) changeHead,
+  bool showValidation,
+);
+
+/// Widget form field for property [head]. To use this widget. You will need to add [UpdateAutoVerbalFormWidget] widget as ancestor
+/// otherwise assert error will be thrown
+class UpdateAutoVerbalHeadFieldWidget extends HookConsumerWidget {
+  const UpdateAutoVerbalHeadFieldWidget({
+    super.key,
+    required this.builder,
+  });
+  final UpdateAutoVerbalHeadChildBuilder builder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdateAutoVerbalFormWidget(context));
+    final family = ref.watch(_updateAutoVerbalFamilyParamProvider);
+    final notifier =
+        ref.watch(updateAutoVerbalProvider(family.initial).notifier);
+    final state = ref.watch(
+        updateAutoVerbalProvider(family.initial).select((value) => value.head));
+
+    final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.status.isFailure));
+    return builder(
+      ref,
+      state,
+      notifier.onHeadChanged,
+      showValidation,
+    );
+  }
+}
+
+typedef UpdateAutoVerbalLengthChildBuilder = Widget Function(
+  WidgetRef ref,
+  double length,
+  void Function(double newLength) changeLength,
+  bool showValidation,
+);
+
+/// Widget form field for property [length]. To use this widget. You will need to add [UpdateAutoVerbalFormWidget] widget as ancestor
+/// otherwise assert error will be thrown
+class UpdateAutoVerbalLengthFieldWidget extends HookConsumerWidget {
+  const UpdateAutoVerbalLengthFieldWidget({
+    super.key,
+    required this.builder,
+  });
+  final UpdateAutoVerbalLengthChildBuilder builder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdateAutoVerbalFormWidget(context));
+    final family = ref.watch(_updateAutoVerbalFamilyParamProvider);
+    final notifier =
+        ref.watch(updateAutoVerbalProvider(family.initial).notifier);
+    final state = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.length));
+
+    final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.status.isFailure));
+    return builder(
+      ref,
+      state,
+      notifier.onLengthChanged,
+      showValidation,
+    );
+  }
+}
+
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$autoVerbalListHash() => r'2688e9e701da7d57cfc479c437dabfd3b2c2f291';
+String _$autoVerbalListHash() => r'f2887c1858bbb00a549900d8bf60ba0cbfc3721f';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -849,11 +1766,11 @@ class AutoVerbalListFamily extends Family<AsyncValue<IList<AutoVerbalModel>>> {
   /// See also [autoVerbalList].
   AutoVerbalListProvider call({
     required int page,
-    String? status,
+    AutoVerbalListFilter? filter,
   }) {
     return AutoVerbalListProvider(
       page: page,
-      status: status,
+      filter: filter,
     );
   }
 
@@ -863,7 +1780,7 @@ class AutoVerbalListFamily extends Family<AsyncValue<IList<AutoVerbalModel>>> {
   ) {
     return call(
       page: provider.page,
-      status: provider.status,
+      filter: provider.filter,
     );
   }
 
@@ -888,12 +1805,12 @@ class AutoVerbalListProvider
   /// See also [autoVerbalList].
   AutoVerbalListProvider({
     required int page,
-    String? status,
+    AutoVerbalListFilter? filter,
   }) : this._internal(
           (ref) => autoVerbalList(
             ref as AutoVerbalListRef,
             page: page,
-            status: status,
+            filter: filter,
           ),
           from: autoVerbalListProvider,
           name: r'autoVerbalListProvider',
@@ -905,7 +1822,7 @@ class AutoVerbalListProvider
           allTransitiveDependencies:
               AutoVerbalListFamily._allTransitiveDependencies,
           page: page,
-          status: status,
+          filter: filter,
         );
 
   AutoVerbalListProvider._internal(
@@ -916,11 +1833,11 @@ class AutoVerbalListProvider
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.page,
-    required this.status,
+    required this.filter,
   }) : super.internal();
 
   final int page;
-  final String? status;
+  final AutoVerbalListFilter? filter;
 
   @override
   Override overrideWith(
@@ -937,7 +1854,7 @@ class AutoVerbalListProvider
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         page: page,
-        status: status,
+        filter: filter,
       ),
     );
   }
@@ -951,14 +1868,14 @@ class AutoVerbalListProvider
   bool operator ==(Object other) {
     return other is AutoVerbalListProvider &&
         other.page == page &&
-        other.status == status;
+        other.filter == filter;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, page.hashCode);
-    hash = _SystemHash.combine(hash, status.hashCode);
+    hash = _SystemHash.combine(hash, filter.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -969,8 +1886,8 @@ mixin AutoVerbalListRef
   /// The parameter `page` of this provider.
   int get page;
 
-  /// The parameter `status` of this provider.
-  String? get status;
+  /// The parameter `filter` of this provider.
+  AutoVerbalListFilter? get filter;
 }
 
 class _AutoVerbalListProviderElement
@@ -981,10 +1898,10 @@ class _AutoVerbalListProviderElement
   @override
   int get page => (origin as AutoVerbalListProvider).page;
   @override
-  String? get status => (origin as AutoVerbalListProvider).status;
+  AutoVerbalListFilter? get filter => (origin as AutoVerbalListProvider).filter;
 }
 
-String _$autoVerbalAtIndexHash() => r'4282a3949ee9cda11716b1556d71db9562bc8420';
+String _$autoVerbalAtIndexHash() => r'ec10eead2dc67c133e2860d7a5c5ef422bafcfaf';
 
 /// See also [autoVerbalAtIndex].
 @ProviderFor(autoVerbalAtIndex)
@@ -998,11 +1915,11 @@ class AutoVerbalAtIndexFamily extends Family<PaginatedItem<AutoVerbalModel>?> {
   /// See also [autoVerbalAtIndex].
   AutoVerbalAtIndexProvider call({
     required int index,
-    String? status,
+    AutoVerbalListFilter? filter,
   }) {
     return AutoVerbalAtIndexProvider(
       index: index,
-      status: status,
+      filter: filter,
     );
   }
 
@@ -1012,7 +1929,7 @@ class AutoVerbalAtIndexFamily extends Family<PaginatedItem<AutoVerbalModel>?> {
   ) {
     return call(
       index: provider.index,
-      status: provider.status,
+      filter: provider.filter,
     );
   }
 
@@ -1037,12 +1954,12 @@ class AutoVerbalAtIndexProvider
   /// See also [autoVerbalAtIndex].
   AutoVerbalAtIndexProvider({
     required int index,
-    String? status,
+    AutoVerbalListFilter? filter,
   }) : this._internal(
           (ref) => autoVerbalAtIndex(
             ref as AutoVerbalAtIndexRef,
             index: index,
-            status: status,
+            filter: filter,
           ),
           from: autoVerbalAtIndexProvider,
           name: r'autoVerbalAtIndexProvider',
@@ -1054,7 +1971,7 @@ class AutoVerbalAtIndexProvider
           allTransitiveDependencies:
               AutoVerbalAtIndexFamily._allTransitiveDependencies,
           index: index,
-          status: status,
+          filter: filter,
         );
 
   AutoVerbalAtIndexProvider._internal(
@@ -1065,11 +1982,11 @@ class AutoVerbalAtIndexProvider
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.index,
-    required this.status,
+    required this.filter,
   }) : super.internal();
 
   final int index;
-  final String? status;
+  final AutoVerbalListFilter? filter;
 
   @override
   Override overrideWith(
@@ -1086,7 +2003,7 @@ class AutoVerbalAtIndexProvider
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         index: index,
-        status: status,
+        filter: filter,
       ),
     );
   }
@@ -1100,14 +2017,14 @@ class AutoVerbalAtIndexProvider
   bool operator ==(Object other) {
     return other is AutoVerbalAtIndexProvider &&
         other.index == index &&
-        other.status == status;
+        other.filter == filter;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, index.hashCode);
-    hash = _SystemHash.combine(hash, status.hashCode);
+    hash = _SystemHash.combine(hash, filter.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -1118,8 +2035,8 @@ mixin AutoVerbalAtIndexRef
   /// The parameter `index` of this provider.
   int get index;
 
-  /// The parameter `status` of this provider.
-  String? get status;
+  /// The parameter `filter` of this provider.
+  AutoVerbalListFilter? get filter;
 }
 
 class _AutoVerbalAtIndexProviderElement
@@ -1130,10 +2047,11 @@ class _AutoVerbalAtIndexProviderElement
   @override
   int get index => (origin as AutoVerbalAtIndexProvider).index;
   @override
-  String? get status => (origin as AutoVerbalAtIndexProvider).status;
+  AutoVerbalListFilter? get filter =>
+      (origin as AutoVerbalAtIndexProvider).filter;
 }
 
-String _$insertAutoVerbalHash() => r'7233e18c700af7351867e6d621877ce2ce8bdace';
+String _$insertAutoVerbalHash() => r'ee1250b837cc269963eab1f09033f851b1a16ded';
 
 /// See also [InsertAutoVerbal].
 @ProviderFor(InsertAutoVerbal)
@@ -1149,5 +2067,295 @@ final insertAutoVerbalProvider = AutoDisposeNotifierProvider<InsertAutoVerbal,
 );
 
 typedef _$InsertAutoVerbal = AutoDisposeNotifier<InsertAutoVerbalState>;
+String _$updateAutoVerbalHash() => r'3fa52648ccda18f7719da396d5e1387ea5baea1b';
+
+abstract class _$UpdateAutoVerbal
+    extends BuildlessAutoDisposeNotifier<UpdateAutoVerbalState> {
+  late final AutoVerbalModel initial;
+
+  UpdateAutoVerbalState build(
+    AutoVerbalModel initial,
+  );
+}
+
+/// See also [UpdateAutoVerbal].
+@ProviderFor(UpdateAutoVerbal)
+const updateAutoVerbalProvider = UpdateAutoVerbalFamily();
+
+/// See also [UpdateAutoVerbal].
+class UpdateAutoVerbalFamily extends Family<UpdateAutoVerbalState> {
+  /// See also [UpdateAutoVerbal].
+  const UpdateAutoVerbalFamily();
+
+  /// See also [UpdateAutoVerbal].
+  UpdateAutoVerbalProvider call(
+    AutoVerbalModel initial,
+  ) {
+    return UpdateAutoVerbalProvider(
+      initial,
+    );
+  }
+
+  @override
+  UpdateAutoVerbalProvider getProviderOverride(
+    covariant UpdateAutoVerbalProvider provider,
+  ) {
+    return call(
+      provider.initial,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'updateAutoVerbalProvider';
+}
+
+/// See also [UpdateAutoVerbal].
+class UpdateAutoVerbalProvider extends AutoDisposeNotifierProviderImpl<
+    UpdateAutoVerbal, UpdateAutoVerbalState> {
+  /// See also [UpdateAutoVerbal].
+  UpdateAutoVerbalProvider(
+    AutoVerbalModel initial,
+  ) : this._internal(
+          () => UpdateAutoVerbal()..initial = initial,
+          from: updateAutoVerbalProvider,
+          name: r'updateAutoVerbalProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$updateAutoVerbalHash,
+          dependencies: UpdateAutoVerbalFamily._dependencies,
+          allTransitiveDependencies:
+              UpdateAutoVerbalFamily._allTransitiveDependencies,
+          initial: initial,
+        );
+
+  UpdateAutoVerbalProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.initial,
+  }) : super.internal();
+
+  final AutoVerbalModel initial;
+
+  @override
+  UpdateAutoVerbalState runNotifierBuild(
+    covariant UpdateAutoVerbal notifier,
+  ) {
+    return notifier.build(
+      initial,
+    );
+  }
+
+  @override
+  Override overrideWith(UpdateAutoVerbal Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: UpdateAutoVerbalProvider._internal(
+        () => create()..initial = initial,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        initial: initial,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeNotifierProviderElement<UpdateAutoVerbal, UpdateAutoVerbalState>
+      createElement() {
+    return _UpdateAutoVerbalProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is UpdateAutoVerbalProvider && other.initial == initial;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, initial.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin UpdateAutoVerbalRef
+    on AutoDisposeNotifierProviderRef<UpdateAutoVerbalState> {
+  /// The parameter `initial` of this provider.
+  AutoVerbalModel get initial;
+}
+
+class _UpdateAutoVerbalProviderElement
+    extends AutoDisposeNotifierProviderElement<UpdateAutoVerbal,
+        UpdateAutoVerbalState> with UpdateAutoVerbalRef {
+  _UpdateAutoVerbalProviderElement(super.provider);
+
+  @override
+  AutoVerbalModel get initial => (origin as UpdateAutoVerbalProvider).initial;
+}
+
+String _$deleteAutoVerbalHash() => r'88fe31ed70a68ce2905ffc5dacd912d50ef1b8da';
+
+abstract class _$DeleteAutoVerbal
+    extends BuildlessAutoDisposeNotifier<ProviderStatus<void>> {
+  late final int autoVerbalId;
+
+  ProviderStatus<void> build(
+    int autoVerbalId,
+  );
+}
+
+/// See also [DeleteAutoVerbal].
+@ProviderFor(DeleteAutoVerbal)
+const deleteAutoVerbalProvider = DeleteAutoVerbalFamily();
+
+/// See also [DeleteAutoVerbal].
+class DeleteAutoVerbalFamily extends Family<ProviderStatus<void>> {
+  /// See also [DeleteAutoVerbal].
+  const DeleteAutoVerbalFamily();
+
+  /// See also [DeleteAutoVerbal].
+  DeleteAutoVerbalProvider call(
+    int autoVerbalId,
+  ) {
+    return DeleteAutoVerbalProvider(
+      autoVerbalId,
+    );
+  }
+
+  @override
+  DeleteAutoVerbalProvider getProviderOverride(
+    covariant DeleteAutoVerbalProvider provider,
+  ) {
+    return call(
+      provider.autoVerbalId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'deleteAutoVerbalProvider';
+}
+
+/// See also [DeleteAutoVerbal].
+class DeleteAutoVerbalProvider extends AutoDisposeNotifierProviderImpl<
+    DeleteAutoVerbal, ProviderStatus<void>> {
+  /// See also [DeleteAutoVerbal].
+  DeleteAutoVerbalProvider(
+    int autoVerbalId,
+  ) : this._internal(
+          () => DeleteAutoVerbal()..autoVerbalId = autoVerbalId,
+          from: deleteAutoVerbalProvider,
+          name: r'deleteAutoVerbalProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$deleteAutoVerbalHash,
+          dependencies: DeleteAutoVerbalFamily._dependencies,
+          allTransitiveDependencies:
+              DeleteAutoVerbalFamily._allTransitiveDependencies,
+          autoVerbalId: autoVerbalId,
+        );
+
+  DeleteAutoVerbalProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.autoVerbalId,
+  }) : super.internal();
+
+  final int autoVerbalId;
+
+  @override
+  ProviderStatus<void> runNotifierBuild(
+    covariant DeleteAutoVerbal notifier,
+  ) {
+    return notifier.build(
+      autoVerbalId,
+    );
+  }
+
+  @override
+  Override overrideWith(DeleteAutoVerbal Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: DeleteAutoVerbalProvider._internal(
+        () => create()..autoVerbalId = autoVerbalId,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        autoVerbalId: autoVerbalId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeNotifierProviderElement<DeleteAutoVerbal, ProviderStatus<void>>
+      createElement() {
+    return _DeleteAutoVerbalProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is DeleteAutoVerbalProvider &&
+        other.autoVerbalId == autoVerbalId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, autoVerbalId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin DeleteAutoVerbalRef
+    on AutoDisposeNotifierProviderRef<ProviderStatus<void>> {
+  /// The parameter `autoVerbalId` of this provider.
+  int get autoVerbalId;
+}
+
+class _DeleteAutoVerbalProviderElement
+    extends AutoDisposeNotifierProviderElement<DeleteAutoVerbal,
+        ProviderStatus<void>> with DeleteAutoVerbalRef {
+  _DeleteAutoVerbalProviderElement(super.provider);
+
+  @override
+  int get autoVerbalId => (origin as DeleteAutoVerbalProvider).autoVerbalId;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

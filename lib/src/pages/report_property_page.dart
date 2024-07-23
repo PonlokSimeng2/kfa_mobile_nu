@@ -1,21 +1,41 @@
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:kfa_mobile_nu/exports.dart';
+import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
+import 'package:kfa_mobile_nu/src/pages/admin/admin_property_detail_page.dart';
 import 'package:kfa_mobile_nu/src/pages/property_detail_page.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
-import '../../constaints.dart';
-import '../widgets/auth_wrapper_widget.dart';
+
 import '../models/property_model.dart';
 import '../models/property_type_model.dart';
-import '../widgets/property_type_dropdown.dart';
 import '../providers/property_provider.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../widgets/auth_wrapper_widget.dart';
+import '../widgets/property_type_dropdown.dart';
 
 class ReportPropertyPage extends ConsumerStatefulWidget {
-  const ReportPropertyPage({super.key});
+  const ReportPropertyPage({super.key, this.openItemInAdminPage = false});
+
+  final bool openItemInAdminPage;
 
   @override
   ConsumerState<ReportPropertyPage> createState() => _ReportVerbalPageState();
+}
+
+class _ReportPropInherited extends InheritedWidget {
+  final bool openItemInAdminPage;
+
+  const _ReportPropInherited({
+    super.key,
+    required this.openItemInAdminPage,
+    required super.child,
+  });
+
+  static _ReportPropInherited? of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<_ReportPropInherited>();
+  }
+
+  @override
+  bool updateShouldNotify(_ReportPropInherited oldWidget) {
+    return openItemInAdminPage != oldWidget.openItemInAdminPage;
+  }
 }
 
 class _ReportVerbalPageState extends ConsumerState<ReportPropertyPage> {
@@ -37,30 +57,35 @@ class _ReportVerbalPageState extends ConsumerState<ReportPropertyPage> {
     );
 
     return AuthWrapperWidget(
-      child: Scaffold(
-        body: Column(
-          children: [
-            _buildFilterButtons(),
-            _buildPropertyTypeDropdown(),
-            Expanded(
-              child: firstPageCountAsync.when(
-                loading: () => const Center(child: CircularProgressIndicator()),
-                error: (error, stack) => Center(child: Text('Error: $error')),
-                data: (count) {
-                  if (count == 0) {
-                    return const Center(
-                      child: Text(
-                        'No properties available',
-                        style: TextStyle(fontSize: 18),
-                      ),
+      child: _ReportPropInherited(
+        openItemInAdminPage: widget.openItemInAdminPage,
+        child: Scaffold(
+          body: Column(
+            children: [
+              _buildFilterButtons(),
+              _buildPropertyTypeDropdown(),
+              Expanded(
+                child: firstPageCountAsync.when(
+                  loading: () => const Center(child: CircularProgressIndicator()),
+                  error: (error, stack) => Center(child: Text('Error: $error')),
+                  data: (count) {
+                    if (count == 0) {
+                      return const Center(
+                        child: Text(
+                          'No properties available',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      );
+                    }
+                    return _GridView(
+                      type: _type,
+                      propertyType: _selectedPropertyType,
                     );
-                  }
-                  return _GridView(
-                      type: _type, propertyType: _selectedPropertyType);
-                },
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -85,8 +110,7 @@ class _ReportVerbalPageState extends ConsumerState<ReportPropertyPage> {
     IconData icon,
     PropertyListingType? valueType,
   ) {
-    final isSelected =
-        (_type == null && valueType == null) || _type == valueType;
+    final isSelected = (_type == null && valueType == null) || _type == valueType;
     return ElevatedButton.icon(
       onPressed: () => setState(() {
         _type = valueType;
@@ -96,8 +120,7 @@ class _ReportVerbalPageState extends ConsumerState<ReportPropertyPage> {
       label: Text(label),
       style: ElevatedButton.styleFrom(
         foregroundColor: isSelected ? Colors.white : Colors.black,
-        backgroundColor:
-            isSelected ? Theme.of(context).primaryColor : Colors.white,
+        backgroundColor: isSelected ? Theme.of(context).primaryColor : Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
     );
@@ -111,11 +134,10 @@ class _ReportVerbalPageState extends ConsumerState<ReportPropertyPage> {
         _type = null; // Reset listing type when filter changes
       }),
       icon: Icon(Icons.list, color: isSelected ? Colors.white : Colors.grey),
-      label: Text('All'),
+      label: const Text('All'),
       style: ElevatedButton.styleFrom(
         foregroundColor: isSelected ? Colors.white : Colors.black,
-        backgroundColor:
-            isSelected ? Theme.of(context).primaryColor : Colors.white,
+        backgroundColor: isSelected ? Theme.of(context).primaryColor : Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
     );
@@ -153,12 +175,16 @@ class _GridView extends ConsumerWidget {
         crossAxisSpacing: 10,
       ),
       itemBuilder: (context, index) {
-        final paginated = ref.watch(propertyAtIndexProvider(
+        final paginated = ref.watch(
+          propertyAtIndexProvider(
             index: index,
             filter: PropertyListFilter(
-                listingType: type,
-                propertyType: propertyType,
-                userId: userAsync.value?.id)));
+              listingType: type,
+              propertyType: propertyType,
+              userId: userAsync.value?.id,
+            ),
+          ),
+        );
         return paginated?.whenOrNull(
           loading: (isFirstItem) {
             return const Center(
@@ -178,26 +204,25 @@ class _GridView extends ConsumerWidget {
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: InkWell(
-        onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => PropertyDetailPage(
-              data: item,
-            ),
-          ),
-        ),
+        onTap: () {
+          final reportPropInherited = _ReportPropInherited.of(context);
+          if (reportPropInherited!.openItemInAdminPage) {
+            context.push((_) => AdminPropertyDetailPage(property: item));
+          } else {
+            context.push((_) => PropertyDetailPage(data: item));
+          }
+        },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: ClipRRect(
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(10)),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
                 child: CachedNetworkImage(
                   imageUrl: item.images.first,
                   fit: BoxFit.cover,
                   width: double.infinity,
-                  placeholder: (context, url) =>
-                      const Center(child: CircularProgressIndicator()),
+                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
@@ -223,8 +248,7 @@ class _GridView extends ConsumerWidget {
                   ),
                   const SizedBox(height: 4),
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
                       color: item.listingType.name.toLowerCase() == 'rent'
                           ? Colors.blue

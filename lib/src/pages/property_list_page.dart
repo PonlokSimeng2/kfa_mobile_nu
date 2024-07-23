@@ -49,7 +49,9 @@ class _PropertyListPageState extends ConsumerState<PropertyListPage> {
                   );
                 }
                 return _GridView(
-                    type: _type, propertyType: _selectedPropertyType);
+                  type: _type,
+                  propertyType: _selectedPropertyType,
+                );
               },
             ),
           ),
@@ -77,8 +79,7 @@ class _PropertyListPageState extends ConsumerState<PropertyListPage> {
     IconData icon,
     PropertyListingType? valueType,
   ) {
-    final isSelected =
-        (_type == null && valueType == null) || _type == valueType;
+    final isSelected = (_type == null && valueType == null) || _type == valueType;
     return ElevatedButton.icon(
       onPressed: () => setState(() {
         _type = valueType;
@@ -88,8 +89,7 @@ class _PropertyListPageState extends ConsumerState<PropertyListPage> {
       label: Text(label),
       style: ElevatedButton.styleFrom(
         foregroundColor: isSelected ? Colors.white : Colors.black,
-        backgroundColor:
-            isSelected ? Theme.of(context).primaryColor : Colors.white,
+        backgroundColor: isSelected ? Theme.of(context).primaryColor : Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
     );
@@ -103,11 +103,10 @@ class _PropertyListPageState extends ConsumerState<PropertyListPage> {
         _type = null; // Reset listing type when filter changes
       }),
       icon: Icon(Icons.list, color: isSelected ? Colors.white : Colors.grey),
-      label: Text('All'),
+      label: const Text('All'),
       style: ElevatedButton.styleFrom(
         foregroundColor: isSelected ? Colors.white : Colors.black,
-        backgroundColor:
-            isSelected ? Theme.of(context).primaryColor : Colors.white,
+        backgroundColor: isSelected ? Theme.of(context).primaryColor : Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
     );
@@ -178,14 +177,12 @@ class _GridView extends ConsumerWidget {
           children: [
             Expanded(
               child: ClipRRect(
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(10)),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
                 child: CachedNetworkImage(
                   imageUrl: item.images.first,
                   fit: BoxFit.cover,
                   width: double.infinity,
-                  placeholder: (context, url) =>
-                      const Center(child: CircularProgressIndicator()),
+                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
@@ -211,8 +208,7 @@ class _GridView extends ConsumerWidget {
                   ),
                   const SizedBox(height: 4),
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
                       color: item.listingType.name.toLowerCase() == 'rent'
                           ? Colors.blue

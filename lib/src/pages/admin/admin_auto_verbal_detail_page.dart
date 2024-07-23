@@ -1,28 +1,25 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:kfa_mobile_nu/exports.dart';
-import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
-import 'package:kfa_mobile_nu/src/providers/admin_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 
+import '../../models/auto_verbal_model.dart';
 import '../../models/base.dart';
-import '../../models/property_model.dart';
-import '../../providers/property_provider.dart';
-import '../edit_property_page.dart';
+import '../../providers/auto_verbal_provider.dart';
 
-class AdminPropertyDetailPage extends StatefulHookConsumerWidget {
-  final PropertyModel property;
+class AdminAutoVerbalDetailPage extends StatefulHookConsumerWidget {
+  final AutoVerbalModel autoVerbal;
 
-  const AdminPropertyDetailPage({super.key, required this.property});
+  const AdminAutoVerbalDetailPage({super.key, required this.autoVerbal});
 
   @override
-  ConsumerState<AdminPropertyDetailPage> createState() => _AdminPropertyDetailPageState();
+  ConsumerState<AdminAutoVerbalDetailPage> createState() => _AdminAutoVerbalDetailPageState();
 }
 
-class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPage> {
+class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetailPage> {
   @override
   Widget build(BuildContext context) {
-    final status = useState(widget.property.status);
+    final status = useState(widget.autoVerbal.status);
     final redColor = Theme.of(context).colorScheme.error.withOpacity(0.8);
     final isAdmin = ref.watch(isAdminProvider);
 
@@ -41,11 +38,11 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
     }
 
     final currentUserId = ref.watch(authProvider);
-    final isCurrentUserOwner = widget.property.user.id == currentUserId;
+    final isCurrentUserOwner = widget.autoVerbal.user?.id == currentUserId;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Property Details'),
+        title: const Text('Auto Verbal Details'),
       ),
       bottomNavigationBar: bottomAppBar,
       body: SingleChildScrollView(
@@ -56,10 +53,10 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
             SizedBox(
               height: 200,
               child: PageView.builder(
-                itemCount: widget.property.images.length,
+                itemCount: widget.autoVerbal.image.length,
                 itemBuilder: (context, index) {
                   return CachedNetworkImage(
-                    imageUrl: widget.property.images[index],
+                    imageUrl: widget.autoVerbal.image[index],
                     fit: BoxFit.cover,
                     placeholder: (context, url) => const Center(
                       child: CircularProgressIndicator(),
@@ -78,7 +75,7 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                     children: [
                       Expanded(
                         child: Text(
-                          widget.property.title,
+                          'Auto Verbal ID: ${widget.autoVerbal.id}',
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                       ),
@@ -86,13 +83,13 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
-                          color: widget.property.status.statusColor,
+                          color: widget.autoVerbal.status.statusColor,
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
-                          widget.property.status.name.toUpperCase(),
+                          widget.autoVerbal.status.name.toUpperCase(),
                           style: TextStyle(
-                            color: widget.property.status.statusTextColor,
+                            color: widget.autoVerbal.status.statusTextColor,
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
@@ -102,22 +99,16 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    '${widget.property.propertyType.name} for ${widget.property.listingType.name}',
+                    widget.autoVerbal.propertyType.name ?? "N/A",
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Price: \$${widget.property.price.toStringAsFixed(2)}',
+                    'Value Range: \$${widget.autoVerbal.minValue.toStringAsFixed(2)} - \$${widget.autoVerbal.maxValue.toStringAsFixed(2)}',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Description:',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  Text(widget.property.description),
                   const SizedBox(height: 16),
                   Card.outlined(
                     margin: EdgeInsets.zero,
@@ -126,41 +117,40 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _buildDetailRow('Area', '${widget.property.sqm} sqm'),
-                          _buildDetailRow('Bedrooms', '${widget.property.bedrooms ?? "N/A"}'),
-                          _buildDetailRow('Bathrooms', '${widget.property.bathrooms ?? "N/A"}'),
-                          _buildDetailRow('Floors', '${widget.property.floors ?? "N/A"}'),
-                          _buildDetailRow('Parking', '${widget.property.parking ?? "N/A"}'),
+                          _buildDetailRow('Area', '${widget.autoVerbal.area} sqm'),
+                          _buildDetailRow('Head', '${widget.autoVerbal.head} m'),
+                          _buildDetailRow('Length', '${widget.autoVerbal.length} m'),
                           _buildDetailRow(
-                            'Living Rooms',
-                            '${widget.property.livingRooms ?? "N/A"}',
+                            'Min Value/sqm',
+                            '\$${widget.autoVerbal.minValueSqm.toStringAsFixed(2)}',
                           ),
                           _buildDetailRow(
-                            'Land Size',
-                            '${widget.property.landLength} x ${widget.property.landWidth} m',
+                            'Max Value/sqm',
+                            '\$${widget.autoVerbal.maxValueSqm.toStringAsFixed(2)}',
                           ),
-                          if (widget.property.houseLength != null &&
-                              widget.property.houseWidth != null)
-                            _buildDetailRow(
-                              'House Size',
-                              '${widget.property.houseLength} x ${widget.property.houseWidth} m',
-                            ),
+                          _buildDetailRow('Location', widget.autoVerbal.province.name ?? 'N/A'),
+                          _buildDetailRow('Bank', widget.autoVerbal.bank?.name ?? 'N/A'),
+                          _buildDetailRow('Owner Name', widget.autoVerbal.ownerName),
+                          _buildDetailRow('Owner Phone', widget.autoVerbal.ownerPhone),
                           _buildDetailRow(
-                            'Price per sqm',
-                            '\$${widget.property.pricePerSqm.toStringAsFixed(2)}',
+                            'Bank Officer Name',
+                            widget.autoVerbal.bankOfficerName ?? 'N/A',
                           ),
-                          _buildDetailRow('Location', widget.property.province.name),
+                          _buildDetailRow(
+                            'Bank Officer Phone',
+                            widget.autoVerbal.bankOfficerPhone ?? 'N/A',
+                          ),
                         ],
                       ),
                     ),
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    'Submitted by: ${widget.property.user.fullName}',
+                    'Submitted by: ${widget.autoVerbal.user?.fullName ?? "N/A"}',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   Text(
-                    'Submission Date: ${widget.property.createdAt.toLocal().toString().split(' ')[0]}',
+                    'Submission Date: ${widget.autoVerbal.createdAt.toLocal().toString().split(' ')[0]}',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: 24),
@@ -170,9 +160,9 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                       children: [
                         FilledButton(
                           onPressed: () {
-                            context.push((_) => EditPropertyPage(initial: widget.property));
+                            // TODO: Implement edit functionality
                           },
-                          child: const Text('Edit Property'),
+                          child: const Text('Edit Auto Verbal'),
                         ),
                         const SizedBox(width: 16),
                         FilledButton(
@@ -181,9 +171,10 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  title: const Text('Delete Property'),
-                                  content:
-                                      const Text('Are you sure you want to delete this property?'),
+                                  title: const Text('Delete Auto Verbal'),
+                                  content: const Text(
+                                    'Are you sure you want to delete this auto verbal?',
+                                  ),
                                   actions: <Widget>[
                                     TextButton(
                                       child: const Text('Cancel'),
@@ -199,7 +190,7 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                                       onPressed: () async {
                                         final close = BotToast.showLoading();
                                         final delete = ref.read(
-                                          deletePropertyProvider(widget.property.id).notifier,
+                                          deleteAutoVerbalProvider(widget.autoVerbal.id).notifier,
                                         );
                                         await delete();
                                         close();
@@ -216,7 +207,7 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                           style: FilledButton.styleFrom(
                             backgroundColor: Theme.of(context).colorScheme.error,
                           ),
-                          child: const Text('Delete Property'),
+                          child: const Text('Delete Auto Verbal'),
                         ),
                       ],
                     ),
@@ -304,7 +295,7 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                       ),
                     ),
                     content: const Text(
-                      'Are you sure you want to approve this property?',
+                      'Are you sure you want to approve this auto verbal?',
                       style: TextStyle(fontSize: 16),
                     ),
                     actions: <Widget>[
@@ -337,19 +328,12 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
               );
 
               if (confirmed == true && context.mounted) {
-                final approve = ref.read(approvePropertyProvider(widget.property.id).notifier);
-                final closeLoading = BotToast.showLoading();
-                final result = await approve();
-                closeLoading();
-                if (result.isSuccess) {
-                  status.value = PropertyAndAutoVerbalStatus.approved;
-                  if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Property approved')),
-                    );
-                  }
-                } else {
-                  BotToast.showText(text: result.failure!.message());
+                // TODO: Implement approve functionality
+                status.value = PropertyAndAutoVerbalStatus.approved;
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Auto Verbal approved')),
+                  );
                 }
               }
             },
@@ -381,11 +365,11 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                   String? rejectReason;
 
                   return AlertDialog(
-                    title: const Text('Reject Property'),
+                    title: const Text('Reject Auto Verbal'),
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Text('Are you sure you want to reject this property?'),
+                        const Text('Are you sure you want to reject this auto verbal?'),
                         const SizedBox(height: 16),
                         TextField(
                           autofocus: true,
@@ -426,19 +410,12 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
               );
 
               if (rejectReason.isNotNullOrBlank && context.mounted) {
-                final reject = ref.read(rejectPropertyProvider(widget.property.id).notifier);
-                final closeLoading = BotToast.showLoading();
-                final result = await reject(reason: rejectReason);
-                closeLoading();
-                if (result.isSuccess) {
-                  status.value = PropertyAndAutoVerbalStatus.rejected;
-                  if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Property rejected')),
-                    );
-                  }
-                } else {
-                  BotToast.showText(text: result.failure!.message());
+                // TODO: Implement reject functionality
+                status.value = PropertyAndAutoVerbalStatus.rejected;
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Auto Verbal rejected')),
+                  );
                 }
               }
             },

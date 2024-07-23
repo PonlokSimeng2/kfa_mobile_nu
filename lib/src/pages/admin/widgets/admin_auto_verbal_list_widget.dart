@@ -67,7 +67,7 @@ class AdminAutoVerbalListWidget extends ConsumerWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: CachedNetworkImage(
-                imageUrl: autoVerbal.image.first,
+                imageUrl: autoVerbal.image,
                 width: 60,
                 height: 60,
                 fit: BoxFit.cover,

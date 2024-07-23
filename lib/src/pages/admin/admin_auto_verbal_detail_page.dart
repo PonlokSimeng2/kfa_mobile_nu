@@ -56,7 +56,7 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
                 itemCount: widget.autoVerbal.image.length,
                 itemBuilder: (context, index) {
                   return CachedNetworkImage(
-                    imageUrl: widget.autoVerbal.image[index],
+                    imageUrl: widget.autoVerbal.image,
                     fit: BoxFit.cover,
                     placeholder: (context, url) => const Center(
                       child: CircularProgressIndicator(),
@@ -99,7 +99,7 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    widget.autoVerbal.propertyType.name ?? "N/A",
+                    widget.autoVerbal.propertyType.name,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: 16),
@@ -160,9 +160,9 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
                       children: [
                         FilledButton(
                           onPressed: () {
-                            // TODO: Implement edit functionality
+                            // context.push((_) => EditAut)
                           },
-                          child: const Text('Edit Auto Verbal'),
+                          child: const Text('Edit'),
                         ),
                         const SizedBox(width: 16),
                         FilledButton(
@@ -171,7 +171,7 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  title: const Text('Delete Auto Verbal'),
+                                  title: const Text('Delete'),
                                   content: const Text(
                                     'Are you sure you want to delete this auto verbal?',
                                   ),

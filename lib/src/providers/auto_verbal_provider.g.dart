@@ -1731,7 +1731,7 @@ class UpdateAutoVerbalLengthFieldWidget extends HookConsumerWidget {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$autoVerbalListHash() => r'f2887c1858bbb00a549900d8bf60ba0cbfc3721f';
+String _$autoVerbalListHash() => r'72a91baffe8bcca5345d854faffb352cd29823b9';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -2067,7 +2067,7 @@ final insertAutoVerbalProvider = AutoDisposeNotifierProvider<InsertAutoVerbal,
 );
 
 typedef _$InsertAutoVerbal = AutoDisposeNotifier<InsertAutoVerbalState>;
-String _$updateAutoVerbalHash() => r'3fa52648ccda18f7719da396d5e1387ea5baea1b';
+String _$updateAutoVerbalHash() => r'a81d0b36b67c764097f4a14b8a791bb967371754';
 
 abstract class _$UpdateAutoVerbal
     extends BuildlessAutoDisposeNotifier<UpdateAutoVerbalState> {

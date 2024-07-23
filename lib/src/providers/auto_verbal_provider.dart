@@ -66,7 +66,7 @@ FutureOr<IList<AutoVerbalModel>> autoVerbalList(
     query = query.eq(AutoVerbalTable.bankId, filter!.bank!.id);
   }
 
-  if (filter?.ownerNameOrPhone != null) {
+  if (filter?.ownerNameOrPhone.isNotNullOrBlank == true) {
     final nameLike = "${AutoVerbalTable.ownerName}.ilike.%${filter!.ownerNameOrPhone}%";
     final phoneLike = "${AutoVerbalTable.ownerPhone}.ilike.%${filter.ownerNameOrPhone}%";
     query = query.or("$nameLike,$phoneLike");
@@ -264,7 +264,7 @@ class UpdateAutoVerbal extends _$UpdateAutoVerbal with _$UpdateAutoVerbalForm {
   UpdateAutoVerbalState build(AutoVerbalModel initial) {
     return UpdateAutoVerbalState(
       newImageFile: null,
-      existingImageUrl: initial.image.isNotEmpty ? initial.image.first : null,
+      existingImageUrl: initial.image.isNotEmpty ? initial.image : null,
       propertyType: initial.propertyType,
       province: initial.province,
       bank: initial.bank,

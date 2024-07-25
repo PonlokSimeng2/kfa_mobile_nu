@@ -3,6 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:kfa_mobile_nu/src/pages/home_page.dart';
+// import 'package:kfa_mobile_nu/src/pages/auto_verbal_list_page.dart';
+// import 'package:kfa_mobile_nu/src/pages/home_page.dart';
+import 'package:kfa_mobile_nu/src/pages/report_main_page.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -69,9 +72,11 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       themeMode: ThemeMode.light,
+      //home: const AutoVerbalListPage(),
       home: const HomePage(),
       //home: const AutoVerbalListPage(),
       // home: PropertyListPage(),
+      //home: const ReportMainPage(),
       builder: BotToastInit(),
     );
   }

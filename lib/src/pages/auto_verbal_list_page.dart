@@ -6,7 +6,14 @@ import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
 import 'package:kfa_mobile_nu/src/pages/admin/admin_auto_verbal_detail_page.dart';
 
 import '../../exports.dart';
-import 'detail_auto_verbal_page.dart';
+import 'client_auto_verbal_detail_page.dart';
+
+final _filterProvider = StateProvider.autoDispose<AutoVerbalListFilter>((ref) {
+  return AutoVerbalListFilter(
+    statuses: PropertyAndAutoVerbalStatus.values.toIList(),
+    userId: ref.watch(authProvider),
+  );
+});
 
 class AutoVerbalListPage extends ConsumerStatefulWidget {
   final bool openItemInAdminPage;
@@ -25,21 +32,12 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
     final firstPageCountAsync = ref.watch(
       autoVerbalListProvider(
         page: 0,
-        filter: AutoVerbalListFilter(
-          userId: ref.watch(authProvider),
-        ),
+        filter: ref.watch(_filterProvider),
       ).select((v) => v.whenData((v) => v.length)),
     );
 
     return AuthWrapperWidget(
       child: Scaffold(
-        appBar: widget.openItemInAdminPage
-            ? null
-            : AppBar(
-                title: const Text('Auto Verbal List'),
-                backgroundColor: kwhite_new,
-                centerTitle: true,
-              ),
         body: Column(
           children: [
             _buildFilterButtons(),
@@ -71,32 +69,54 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
 
   Widget _buildFilterButtons() {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _buildFilterButton('All', null),
-          _buildFilterButton('Pending', 'pending'),
-          _buildFilterButton('Approved', 'approved'),
-          _buildFilterButton('Rejected', 'rejected'),
-        ],
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+      ),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            _buildFilterButton(null),
+            _buildFilterButton(PropertyAndAutoVerbalStatus.pending),
+            _buildFilterButton(PropertyAndAutoVerbalStatus.approved),
+            _buildFilterButton(PropertyAndAutoVerbalStatus.rejected),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildFilterButton(String label, String? value) {
-    final isSelected = _status == value;
+  Widget _buildFilterButton(PropertyAndAutoVerbalStatus? status) {
+    final statuses = ref.watch(_filterProvider).statuses;
+    final isSelected = statuses.contains(status) && statuses.length <= 2;
+    final isAllSelected = status == null &&
+        statuses.length == PropertyAndAutoVerbalStatus.values.length;
+
     return ElevatedButton(
-      onPressed: () => setState(() {
-        _status = value;
-      }),
+      onPressed: () {
+        if (isSelected) return;
+        ref.read(_filterProvider.notifier).update((old) {
+          if (status == null) {
+            return old.copyWith(
+              statuses: PropertyAndAutoVerbalStatus.values.toIList(),
+            );
+          } else {
+            return old.copyWith(statuses: [status].lock);
+          }
+        });
+      },
       style: ElevatedButton.styleFrom(
-        foregroundColor: isSelected ? Colors.white : Colors.black,
         backgroundColor:
-            isSelected ? Theme.of(context).primaryColor : Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            isSelected || isAllSelected ? kwhite_new : Colors.white,
       ),
-      child: Text(label),
+      child: Text(
+        status?.name.capitalize() ?? 'All',
+        style: TextStyle(
+          color: isSelected || isAllSelected ? Colors.white : Colors.grey[600],
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
   }
 }
@@ -121,9 +141,7 @@ class _GridView extends ConsumerWidget {
         final paginated = ref.watch(
           autoVerbalAtIndexProvider(
             index: index,
-            filter: AutoVerbalListFilter(
-              userId: ref.watch(authProvider),
-            ),
+            filter: ref.watch(_filterProvider),
           ),
         );
         return paginated?.whenOrNull(
@@ -159,7 +177,7 @@ class _GridView extends ConsumerWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => DetailAutoVerbalPage(
+                builder: (context) => ClientDetailAutoVerbalPage(
                   data: item,
                 ),
               ),

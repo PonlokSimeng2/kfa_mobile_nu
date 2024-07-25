@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:getwidget/components/button/gf_button.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
@@ -96,7 +97,6 @@ class AddAutoVerbalPage extends HookConsumerWidget {
                             btnOkColor: Colors.green,
                             onDismissCallback: (type) {
                               if (context.mounted) {
-                                Navigator.pop(context);
                                 Navigator.pop(context);
                               }
                             },
@@ -272,113 +272,32 @@ class AddAutoVerbalPage extends HookConsumerWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: InsertAutoVerbalMinValueSqmFieldWidget(
-                              builder: (ref, minValueSqm, changeMinValueSqm,
-                                  showValidation) {
-                                return TextFormField(
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  onChanged: (value) {
-                                    changeMinValueSqm(double.parse(value));
-                                  },
-                                  decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: Icon(
-                                      Icons.feed_outlined,
-                                      color: kImageColor,
-                                    ),
-                                    hintText: 'Min Value/sqm',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: InsertAutoVerbalMaxValueSqmFieldWidget(
-                              builder: (ref, maxValueSqm, changeMaxValueSqm,
-                                  showValidation) {
-                                return TextFormField(
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  onChanged: (value) {
-                                    changeMaxValueSqm(double.parse(value));
-                                  },
-                                  decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: Icon(
-                                      Icons.feed_outlined,
-                                      color: kImageColor,
-                                    ),
-                                    hintText: 'Max Value/sqm',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          )
-                        ],
+                      padding: EdgeInsets.only(
+                        right: 30,
+                        left: 30,
+                        top: 10,
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 30, left: 30, top: 10),
                       child: Row(
                         children: [
                           Expanded(
                             child: InsertAutoVerbalOwnerNameFieldWidget(
-                              builder: (ref, textController, ownerName,
-                                  changeOwnerName, showValidation) {
+                              builder: (
+                                ref,
+                                textController,
+                                ownerName,
+                                changeOwnerName,
+                                showValidation,
+                              ) {
                                 return TextFormField(
-                                  keyboardType: TextInputType.number,
+                                  validator: (value) {
+                                    if (textController == null ||
+                                        textController.text.isEmpty) {
+                                      return 'Owner name is required';
+                                    }
+                                    return null;
+                                  },
+                                  controller: textController,
+                                  keyboardType: TextInputType.text,
                                   style: TextStyle(
                                     fontSize:
                                         MediaQuery.of(context).size.height *
@@ -412,6 +331,13 @@ class AddAutoVerbalPage extends HookConsumerWidget {
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: Colors.red,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
                                   ),
                                 );
                               },
@@ -425,7 +351,12 @@ class AddAutoVerbalPage extends HookConsumerWidget {
                               builder: (ref, textController, ownerPhone,
                                   changeOwnerPhone, showValidation) {
                                 return TextFormField(
-                                  controller: textController,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Owner phone is required';
+                                    }
+                                    return null;
+                                  },
                                   keyboardType: TextInputType.number,
                                   style: TextStyle(
                                     fontSize:
@@ -434,7 +365,7 @@ class AddAutoVerbalPage extends HookConsumerWidget {
                                     fontWeight: FontWeight.bold,
                                   ),
                                   onChanged: (value) {
-                                    //  changeOwnerPhone(value);
+                                    // changeOwnerPhone(value);
                                   },
                                   decoration: InputDecoration(
                                     contentPadding:
@@ -457,6 +388,13 @@ class AddAutoVerbalPage extends HookConsumerWidget {
                                       borderSide: BorderSide(
                                         width: 1,
                                         color: kPrimaryColor,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: Colors.red,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -779,7 +717,12 @@ class _ImagePicker extends HookWidget {
               decoration: BoxDecoration(
                 color: kwhite,
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(width: 1),
+                border: Border.all(
+                  width: 1,
+                  color: showValidation && imageFile == null
+                      ? Colors.red
+                      : Colors.grey,
+                ),
               ),
               height: 200,
               width: double.infinity,
@@ -802,8 +745,14 @@ class _ImagePicker extends HookWidget {
                               Icon(
                                 Icons.image_outlined,
                                 size: 78,
+                                color: showValidation ? Colors.red : null,
                               ),
-                              Text('Add Image')
+                              Text(
+                                'Add Image',
+                                style: TextStyle(
+                                  color: showValidation ? Colors.red : null,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -834,6 +783,14 @@ class _ImagePicker extends HookWidget {
                       ],
                     ),
             ),
+            if (showValidation && imageFile == null)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: Text(
+                  'Please select an image',
+                  style: TextStyle(color: Colors.red, fontSize: 12),
+                ),
+              ),
           ],
         );
       },

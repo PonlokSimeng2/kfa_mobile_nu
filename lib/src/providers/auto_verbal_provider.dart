@@ -47,11 +47,13 @@ FutureOr<IList<AutoVerbalModel>> autoVerbalList(
 
   final offset = page * _limit;
 
-  var query =
-      sb.from(AutoVerbalModel.table.tableName).select(AutoVerbalModel.table.selectStatement);
+  var query = sb
+      .from(AutoVerbalModel.table.tableName)
+      .select(AutoVerbalModel.table.selectStatement);
 
   if (filter?.statuses != null && filter!.statuses.isNotEmpty) {
-    query = query.inFilter(AutoVerbalTable.status, filter.statuses.map((e) => e.name).toList());
+    query = query.inFilter(
+        AutoVerbalTable.status, filter.statuses.map((e) => e.name).toList());
   }
 
   if (filter?.province != null) {
@@ -67,8 +69,10 @@ FutureOr<IList<AutoVerbalModel>> autoVerbalList(
   }
 
   if (filter?.ownerNameOrPhone.isNotNullOrBlank == true) {
-    final nameLike = "${AutoVerbalTable.ownerName}.ilike.%${filter!.ownerNameOrPhone}%";
-    final phoneLike = "${AutoVerbalTable.ownerPhone}.ilike.%${filter.ownerNameOrPhone}%";
+    final nameLike =
+        "${AutoVerbalTable.ownerName}.ilike.%${filter!.ownerNameOrPhone}%";
+    final phoneLike =
+        "${AutoVerbalTable.ownerPhone}.ilike.%${filter.ownerNameOrPhone}%";
     query = query.or("$nameLike,$phoneLike");
   }
 
@@ -101,8 +105,10 @@ PaginatedItem<AutoVerbalModel>? autoVerbalAtIndex(
 }) {
   final page = index ~/ _limit;
 
-  final pageItems = ref.watch(autoVerbalListProvider(page: page, filter: filter));
-  final hasNextPage = ref.exists(autoVerbalListProvider(page: page + 1, filter: filter));
+  final pageItems =
+      ref.watch(autoVerbalListProvider(page: page, filter: filter));
+  final hasNextPage =
+      ref.exists(autoVerbalListProvider(page: page + 1, filter: filter));
 
   return PaginatedItem.build(
     pageItems: pageItems,
@@ -114,7 +120,9 @@ PaginatedItem<AutoVerbalModel>? autoVerbalAtIndex(
 
 @freezed
 class InsertAutoVerbalState
-    with _$InsertAutoVerbalState, ProviderStatusClassMixin<InsertAutoVerbalState, void> {
+    with
+        _$InsertAutoVerbalState,
+        ProviderStatusClassMixin<InsertAutoVerbalState, void> {
   const InsertAutoVerbalState._();
 
   const factory InsertAutoVerbalState({
@@ -182,7 +190,8 @@ class InsertAutoVerbal extends _$InsertAutoVerbal with _$InsertAutoVerbalForm {
 
         final path = state.imageFile!.path;
         final file = File(path);
-        final newPath = '${DateTime.now().microsecondsSinceEpoch}${p.extension(path)}';
+        final newPath =
+            '${DateTime.now().microsecondsSinceEpoch}${p.extension(path)}';
 
         await sb.storage.from('files').upload(newPath, file);
         final imageUrl = sb.storage.from('files').getPublicUrl(newPath);
@@ -227,7 +236,9 @@ class InsertAutoVerbal extends _$InsertAutoVerbal with _$InsertAutoVerbalForm {
 
 @freezed
 class UpdateAutoVerbalState
-    with _$UpdateAutoVerbalState, ProviderStatusClassMixin<UpdateAutoVerbalState, void> {
+    with
+        _$UpdateAutoVerbalState,
+        ProviderStatusClassMixin<UpdateAutoVerbalState, void> {
   const UpdateAutoVerbalState._();
 
   const factory UpdateAutoVerbalState({
@@ -287,7 +298,8 @@ class UpdateAutoVerbal extends _$UpdateAutoVerbal with _$UpdateAutoVerbalForm {
   Future<ProviderStatus<void>> call() async {
     return await perform<void>(
       (state) async {
-        if (state.newImageFile == null && state.existingImageUrl == null) throw 'Image is required';
+        if (state.newImageFile == null && state.existingImageUrl == null)
+          throw 'Image is required';
         final userId = ref.watch(authProvider);
         if (userId == null) throw 'User must be login';
         if (state.province == null) throw 'Province is required';
@@ -301,7 +313,8 @@ class UpdateAutoVerbal extends _$UpdateAutoVerbal with _$UpdateAutoVerbalForm {
         if (state.newImageFile != null) {
           final path = state.newImageFile!.path;
           final file = File(path);
-          final newPath = '${DateTime.now().microsecondsSinceEpoch}${p.extension(path)}';
+          final newPath =
+              '${DateTime.now().microsecondsSinceEpoch}${p.extension(path)}';
 
           await sb.storage.from('files').upload(newPath, file);
           imageUrl = sb.storage.from('files').getPublicUrl(newPath);
@@ -343,13 +356,17 @@ class UpdateAutoVerbal extends _$UpdateAutoVerbal with _$UpdateAutoVerbalForm {
 @riverpod
 class DeleteAutoVerbal extends _$DeleteAutoVerbal {
   @override
-  ProviderStatus<void> build(int autoVerbalId) => const ProviderStatus.initial();
+  ProviderStatus<void> build(int autoVerbalId) =>
+      const ProviderStatus.initial();
 
   Future<ProviderStatus<void>> call() async {
     return await perform(
       (state) async {
         final sb = ref.watch(supabaseProvider).client;
-        await sb.from(AutoVerbalModel.table.tableName).delete().eq('id', autoVerbalId);
+        await sb
+            .from(AutoVerbalModel.table.tableName)
+            .delete()
+            .eq('id', autoVerbalId);
       },
       onSuccess: (success) {
         ref.invalidate(autoVerbalListProvider);

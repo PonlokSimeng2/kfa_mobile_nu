@@ -88,10 +88,13 @@ class ReportMainPage extends HookConsumerWidget {
                                 countPropertyAndAutoVerbalProvider(
                                   userId: ref.watch(authProvider),
                                   statuses: [
-                                    PropertyAndAutoVerbalStatus.approved
+                                    PropertyAndAutoVerbalStatus.approved,
                                   ].lock,
-                                ).select((v) => v.whenOrNull(
-                                    data: (data) => data.autoVerbalCount)),
+                                ).select(
+                                  (v) => v.whenOrNull(
+                                    data: (data) => data.autoVerbalCount,
+                                  ),
+                                ),
                               );
                               return GestureDetector(
                                 onTap: () {
@@ -119,9 +122,9 @@ class ReportMainPage extends HookConsumerWidget {
             child: PageView(
               controller: pageCtr,
               physics: const NeverScrollableScrollPhysics(),
-              children: [
-                const ReportPropertyPage(openItemInAdminPage: true),
-                const AutoVerbalListPage(openItemInAdminPage: true),
+              children: const [
+                ReportPropertyPage(openItemInAdminPage: true),
+                AutoVerbalListPage(openItemInAdminPage: false),
               ],
             ),
           ),

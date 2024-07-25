@@ -76,7 +76,8 @@ dependencies:
   onesignal_flutter: ^5.2.2
   fl_chart: ^0.68.0
   intl: ^0.19.0
-
+  permission_handler: ^11.3.1
+  open_file: ^3.3.2
 dev_dependencies:
   build_runner: null
   custom_lint: null

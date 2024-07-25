@@ -85,7 +85,8 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 child: _buildMap(),
               ),
             ),
@@ -115,7 +116,8 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
             viewportFraction: 1,
             enlargeCenterPage: false,
             autoPlay: true,
-            onPageChanged: (index, _) => setState(() => _currentImageIndex = index),
+            onPageChanged: (index, _) =>
+                setState(() => _currentImageIndex = index),
           ),
         ),
         Positioned(
@@ -145,17 +147,26 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
         children: [
           Text(
             widget.data.listingType.name.capitalize(),
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall
+                ?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           Text(
             widget.data.title,
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           Text(
             '\$${widget.data.price}',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.green),
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge
+                ?.copyWith(color: Colors.green),
           ),
         ],
       ),
@@ -171,8 +182,10 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
           children: [
             _buildFeatureItem(Icons.layers, '${widget.data.floors}', 'Floor'),
             _buildFeatureItem(Icons.bed, '${widget.data.bedrooms}', 'Bed'),
-            _buildFeatureItem(Icons.bathtub, '${widget.data.bathrooms}', 'Bath'),
-            _buildFeatureItem(Icons.weekend, '${widget.data.livingRooms}', 'Living'),
+            _buildFeatureItem(
+                Icons.bathtub, '${widget.data.bathrooms}', 'Bath'),
+            _buildFeatureItem(
+                Icons.weekend, '${widget.data.livingRooms}', 'Living'),
           ],
         ),
       ),
@@ -220,6 +233,7 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
     return SizedBox(
       height: 200,
       child: GoogleMap(
+        mapType: MapType.hybrid,
         initialCameraPosition: CameraPosition(
           target: LatLng(widget.data.latitude, widget.data.longitude),
           zoom: 15,

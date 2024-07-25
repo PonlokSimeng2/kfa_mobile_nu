@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names, prefer_const_constructors, prefer_interpolation_to_compose_strings
 
-import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -63,7 +62,6 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
 
   @override
   Widget build(BuildContext context) {
-    var wth = MediaQuery.of(context).size.width * 9;
     return AuthWrapperWidget(
       child: Scaffold(
         appBar: AppBar(
@@ -168,17 +166,7 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                                   pw.Container(
                                     height: 50,
                                     width: 79,
-                                    // child: pw.BarcodeWidget(
-                                    //   barcode: pw.Barcode.qrCode(),
-                                    //   data:
-                                    //       "https://www.oneclickonedollar.com/#/${data.autoVerbalId}",
-                                    // ),
                                   ),
-                                  // pw.Text(
-                                  //   'verifications PDF',
-                                  //   style:
-                                  //       pw.TextStyle(fontSize: 7, font: font1),
-                                  // )
                                 ],
                               ),
                               pw.Column(
@@ -187,9 +175,10 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                                     height: 50,
                                     width: 79,
                                     child: pw.BarcodeWidget(
-                                        barcode: pw.Barcode.qrCode(),
-                                        data:
-                                            'https://maps.googleapis.com/maps/api/staticmap?center=${data.latitude},${data.longitude}&zoom=16&size=1080x920&maptype=hybrid&markers=color:red%7C%7C${data.latitude},${data.longitude}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI'),
+                                      barcode: pw.Barcode.qrCode(),
+                                      data:
+                                          'https://www.google.com/maps/search/?api=1&query=${data.latitude},${data.longitude}&t=k&z=18&polygon=${data.latitude},${data.longitude}|${data.latitude + 0.001},${data.longitude}|${data.latitude + 0.001},${data.longitude + 0.001}|${data.latitude},${data.longitude + 0.001}',
+                                    ),
                                   ),
                                   pw.Text(
                                     'location map',

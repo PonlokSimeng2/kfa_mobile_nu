@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'dart:math';
-import 'dart:typed_data';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/gestures.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,7 +7,6 @@ import '../helpers/build_context_helper.dart';
 import 'home_page.dart';
 import 'login_page.dart';
 import '../providers/auth_provider.dart';
-import '../providers/property_provider.dart';
 import 'package:path/path.dart' as p;
 
 class RegisterPage extends ConsumerStatefulWidget {

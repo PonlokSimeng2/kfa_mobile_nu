@@ -44,7 +44,8 @@ class _AccountPageState extends ConsumerState<AccountPage> {
 
   Future<void> _openImage() async {
     try {
-      final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+      final XFile? pickedFile =
+          await _picker.pickImage(source: ImageSource.gallery);
       if (pickedFile != null) {
         final CroppedFile? croppedFile = await _cropper.cropImage(
           sourcePath: pickedFile.path,
@@ -181,7 +182,8 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                         color: Colors.black54,
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      child: const Icon(Icons.edit, color: Colors.white, size: 16),
+                      child:
+                          const Icon(Icons.edit, color: Colors.white, size: 16),
                     ),
                   ],
                 ),
@@ -328,7 +330,8 @@ class _AccountPageState extends ConsumerState<AccountPage> {
           ),
           filled: true,
           fillColor: Colors.transparent,
-          contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
         ),
       ),
     );
@@ -355,7 +358,8 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             obscureText: _isObscure,
             style: const TextStyle(fontSize: 16, color: Colors.black87),
             decoration: InputDecoration(
-              prefixIcon: Icon(Icons.lock_outline, color: Colors.blue[600], size: 22),
+              prefixIcon:
+                  Icon(Icons.lock_outline, color: Colors.blue[600], size: 22),
               labelText: 'Password',
               labelStyle: TextStyle(color: Colors.grey[600], fontSize: 14),
               border: OutlineInputBorder(
@@ -364,10 +368,13 @@ class _AccountPageState extends ConsumerState<AccountPage> {
               ),
               filled: true,
               fillColor: Colors.transparent,
-              contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
               suffixIcon: IconButton(
                 icon: Icon(
-                  _isObscure ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                  _isObscure
+                      ? Icons.visibility_outlined
+                      : Icons.visibility_off_outlined,
                   color: Colors.blue[600],
                   size: 22,
                 ),

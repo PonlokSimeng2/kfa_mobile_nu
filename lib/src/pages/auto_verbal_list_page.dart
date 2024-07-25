@@ -1,12 +1,12 @@
 import 'package:kfa_mobile_nu/src/models/auto_verbal_model.dart';
 import 'package:kfa_mobile_nu/src/models/base.dart';
+import 'package:kfa_mobile_nu/src/pages/client_auto_verbal_detail_page.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/auto_verbal_provider.dart';
 import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
 import 'package:kfa_mobile_nu/src/pages/admin/admin_auto_verbal_detail_page.dart';
 
 import '../../exports.dart';
-import 'client_auto_verbal_detail_page.dart';
 
 final _filterProvider = StateProvider.autoDispose<AutoVerbalListFilter>((ref) {
   return AutoVerbalListFilter(
@@ -72,17 +72,13 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
       padding: const EdgeInsets.symmetric(
         vertical: 10,
       ),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            _buildFilterButton(null),
-            _buildFilterButton(PropertyAndAutoVerbalStatus.pending),
-            _buildFilterButton(PropertyAndAutoVerbalStatus.approved),
-            _buildFilterButton(PropertyAndAutoVerbalStatus.rejected),
-          ],
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _buildFilterButton(null),
+          _buildFilterButton(PropertyAndAutoVerbalStatus.pending),
+          _buildFilterButton(PropertyAndAutoVerbalStatus.approved),
+        ],
       ),
     );
   }

@@ -42,7 +42,6 @@ class _ReportPropInherited extends InheritedWidget {
 class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
   PropertyListingType? _type;
   PropertyTypeModel? _selectedPropertyType;
-  PropertyAndAutoVerbalStatus? _selectedStatus;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +53,7 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
           listingType: _type,
           propertyType: _selectedPropertyType,
           userId: userAsync.value?.id,
-          // status: _selectedStatus,
+          statuses: PropertyAndAutoVerbalStatus.values.lock,
         ),
       ).select((v) => v.whenData((v) => v.length)),
     );
@@ -69,8 +68,7 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
               _buildPropertyTypeDropdown(),
               Expanded(
                 child: firstPageCountAsync.when(
-                  loading: () =>
-                      const Center(child: CircularProgressIndicator()),
+                  loading: () => const Center(child: CircularProgressIndicator()),
                   error: (error, stack) => Center(child: Text('Error: $error')),
                   data: (count) {
                     if (count == 0) {
@@ -115,8 +113,7 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
     IconData icon,
     PropertyListingType? valueType,
   ) {
-    final isSelected =
-        (_type == null && valueType == null) || _type == valueType;
+    final isSelected = (_type == null && valueType == null) || _type == valueType;
     return ElevatedButton.icon(
       onPressed: () => setState(() {
         _type = valueType;
@@ -126,8 +123,7 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
       label: Text(label),
       style: ElevatedButton.styleFrom(
         foregroundColor: isSelected ? Colors.white : Colors.black,
-        backgroundColor:
-            isSelected ? Theme.of(context).primaryColor : Colors.white,
+        backgroundColor: isSelected ? Theme.of(context).primaryColor : Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
     );
@@ -169,12 +165,11 @@ class _GridView extends ConsumerWidget {
         final paginated = ref.watch(
           propertyAtIndexProvider(
             index: index,
-            // ignore: provider_parameters
             filter: PropertyListFilter(
               listingType: type,
               propertyType: propertyType,
               userId: userAsync.value?.id,
-              // status: status,
+              statuses: PropertyAndAutoVerbalStatus.values.lock,
             ),
           ),
         );
@@ -210,14 +205,12 @@ class _GridView extends ConsumerWidget {
           children: [
             Expanded(
               child: ClipRRect(
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(10)),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
                 child: CachedNetworkImage(
                   imageUrl: item.images.first,
                   fit: BoxFit.cover,
                   width: double.infinity,
-                  placeholder: (context, url) =>
-                      const Center(child: CircularProgressIndicator()),
+                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
@@ -246,7 +239,9 @@ class _GridView extends ConsumerWidget {
                     children: [
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: item.listingType.name.toLowerCase() == 'rent'
                               ? Colors.blue
@@ -256,13 +251,17 @@ class _GridView extends ConsumerWidget {
                         child: Text(
                           item.listingType.name.capitalize(),
                           style: const TextStyle(
-                              color: Colors.white, fontSize: 12),
+                            color: Colors.white,
+                            fontSize: 12,
+                          ),
                         ),
                       ),
                       const SizedBox(width: 4),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: _getStatusColor(item.status),
                           borderRadius: BorderRadius.circular(4),
@@ -270,7 +269,9 @@ class _GridView extends ConsumerWidget {
                         child: Text(
                           item.status.name.capitalize(),
                           style: const TextStyle(
-                              color: Colors.white, fontSize: 12),
+                            color: Colors.white,
+                            fontSize: 12,
+                          ),
                         ),
                       ),
                     ],

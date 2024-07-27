@@ -1,7 +1,6 @@
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/models/base.dart';
 import 'package:kfa_mobile_nu/src/pages/auto_verbal_list_page.dart';
-import 'package:kfa_mobile_nu/src/pages/property_and_autoverbal_report_page.dart';
 import 'package:kfa_mobile_nu/src/pages/report_property_page.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/report_provider.dart';
@@ -65,15 +64,10 @@ class ReportMainPage extends HookConsumerWidget {
                                 final count = ref.watch(
                                   countPropertyAndAutoVerbalProvider(
                                     userId: ref.watch(authProvider),
-                                    statuses: [
-                                      PropertyAndAutoVerbalStatus.approved,
-                                      // PropertyAndAutoVerbalStatus.pending,
-                                    ].lock,
+                                    statuses: PropertyAndAutoVerbalStatus.values.lock,
                                   ).select(
                                     (v) => v.whenOrNull(
-                                      data: (data) =>
-                                          data.propertyCount +
-                                          data.autoVerbalCount,
+                                      data: (data) => data.propertyCount + data.autoVerbalCount,
                                     ),
                                   ),
                                 );
@@ -97,13 +91,11 @@ class ReportMainPage extends HookConsumerWidget {
                                 final count = ref.watch(
                                   countPropertyAndAutoVerbalProvider(
                                     userId: ref.watch(authProvider),
-                                    statuses: [
-                                      PropertyAndAutoVerbalStatus.approved,
-                                      PropertyAndAutoVerbalStatus.pending,
-                                    ].lock,
+                                    statuses: PropertyAndAutoVerbalStatus.values.lock,
                                   ).select(
                                     (v) => v.whenOrNull(
-                                        data: (data) => data.propertyCount),
+                                      data: (data) => data.propertyCount,
+                                    ),
                                   ),
                                 );
                                 return GestureDetector(
@@ -126,10 +118,7 @@ class ReportMainPage extends HookConsumerWidget {
                                 final count = ref.watch(
                                   countPropertyAndAutoVerbalProvider(
                                     userId: ref.watch(authProvider),
-                                    statuses: [
-                                      PropertyAndAutoVerbalStatus.approved,
-                                      PropertyAndAutoVerbalStatus.pending,
-                                    ].lock,
+                                    statuses: PropertyAndAutoVerbalStatus.values.lock,
                                   ).select(
                                     (v) => v.whenOrNull(
                                       data: (data) => data.autoVerbalCount,
@@ -211,6 +200,7 @@ class ReportMainPage extends HookConsumerWidget {
             const SizedBox(height: 5),
             Text(
               title,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
                 color: color,

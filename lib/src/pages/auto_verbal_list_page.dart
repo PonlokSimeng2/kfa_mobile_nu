@@ -38,6 +38,11 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
 
     return AuthWrapperWidget(
       child: Scaffold(
+        appBar: widget.openItemInAdminPage
+            ? null
+            : AppBar(
+                title: const Text('Auto Verbal List'),
+              ),
         body: Column(
           children: [
             _buildFilterButtons(),
@@ -227,7 +232,9 @@ class _GridView extends ConsumerWidget {
                     child: Text(
                       item.status.name.capitalize(),
                       style: TextStyle(
-                          color: item.status.statusTextColor, fontSize: 12),
+                        color: item.status.statusTextColor,
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                 ],

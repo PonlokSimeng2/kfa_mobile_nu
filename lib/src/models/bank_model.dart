@@ -12,6 +12,7 @@ part 'bank_model.g.dart';
   columns: [
     'id',
     'name',
+    'bank_branch',
   ],
 )
 @freezed

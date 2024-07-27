@@ -1036,10 +1036,10 @@ class _AdminAutoVerbalDetailPageState
                         children: [
                           _buildDetailRow(
                               'Area', '${widget.autoVerbal.area} sqm'),
-                          _buildDetailRow(
-                              'Head', '${widget.autoVerbal.head} m'),
-                          _buildDetailRow(
-                              'Length', '${widget.autoVerbal.length} m'),
+                          _buildDetailRow('Building Length',
+                              '${widget.autoVerbal.buildinglength} m'),
+                          _buildDetailRow('Building Width',
+                              '${widget.autoVerbal.buildingwidth} m'),
                           _buildDetailRow(
                             'Min Value/sqm',
                             '\$${widget.autoVerbal.minValueSqm.toStringAsFixed(2)}',

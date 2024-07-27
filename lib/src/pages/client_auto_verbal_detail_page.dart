@@ -807,64 +807,6 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                           ],
                         ),
                       ),
-                      // pw.Container(
-                      //   child: pw.Row(
-                      //     children: [
-                      //       pw.Expanded(
-                      //         flex: 9,
-                      //         child: pw.Container(
-                      //           padding: pw.EdgeInsets.all(2),
-                      //           alignment: pw.Alignment.centerLeft,
-                      //           decoration:
-                      //               pw.BoxDecoration(border: pw.Border.all()),
-                      //           // ទាយយក forceSale from  ForceSaleAndValuation
-                      //           child: pw.Text(
-                      //             "Force Sale Value 30% ",
-                      //             style: pw.TextStyle(
-                      //               fontSize: 10,
-                      //               font: font1,
-                      //               fontWeight: pw.FontWeight.bold,
-                      //             ),
-                      //           ),
-                      //           height: 20,
-                      //           //color: Colors.blue,
-                      //         ),
-                      //       ),
-                      //       pw.Expanded(
-                      //         flex: 2,
-                      //         child: pw.Container(
-                      //           padding: pw.EdgeInsets.all(2),
-                      //           alignment: pw.Alignment.centerLeft,
-                      //           decoration:
-                      //               pw.BoxDecoration(border: pw.Border.all()),
-                      //           child: pw.Text(
-                      //             "USD ${data.maxValue * data.area * 0.3}",
-                      //             style:
-                      //                 pw.TextStyle(fontSize: 10, font: font1),
-                      //           ),
-                      //           height: 20,
-                      //           //color: Colors.blue,
-                      //         ),
-                      //       ),
-                      //       pw.Expanded(
-                      //         flex: 2,
-                      //         child: pw.Container(
-                      //           padding: pw.EdgeInsets.all(2),
-                      //           alignment: pw.Alignment.centerLeft,
-                      //           decoration:
-                      //               pw.BoxDecoration(border: pw.Border.all()),
-                      //           child: pw.Text(
-                      //             'USD ${data.maxValue * data.area * 0.3}',
-                      //             style:
-                      //                 pw.TextStyle(fontSize: 10, font: font1),
-                      //           ),
-                      //           height: 20,
-                      //           //color: Colors.blue,
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
                       pw.SizedBox(height: 5),
                       pw.Text(
                         '*Note: It is only first price which you took from this verbal check data. The accurate value of property when we have the actual site property inspection.We are not responsible for this case when you provided the wrong land and building size or any fraud.',
@@ -1042,8 +984,15 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
             _buildDetailRow('Min Value', data.minValue.toString()),
             _buildDetailRow('Max Value', data.maxValue.toString()),
             _buildDetailRow('Area', data.area.toString()),
-            _buildDetailRow('Head', data.head.toString()),
-            _buildDetailRow('Length', data.length.toString()),
+            _buildDetailRow('Road', data.road?.name ?? 'N/A'),
+            _buildDetailRow('Land Length', data.landlength.toString()),
+            _buildDetailRow('Land Width', data.landwidth.toString()),
+            _buildDetailRow('Building Length', data.buildinglength.toString()),
+            _buildDetailRow('Building Width', data.buildingwidth.toString()),
+            _buildDetailRow('Bed', data.bed.toString()),
+            _buildDetailRow('Bath', data.bath.toString()),
+            _buildDetailRow('Living Room', data.livingroom.toString()),
+            _buildDetailRow('Floor', data.floor.toString()),
           ],
         ),
       ),

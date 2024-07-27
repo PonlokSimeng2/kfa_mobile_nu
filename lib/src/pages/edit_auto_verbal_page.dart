@@ -493,11 +493,11 @@ class EditAutoVerbalPage extends HookConsumerWidget {
                                   SizedBox(
                                     width: 10,
                                   ),
-                                  UpdateAutoVerbalHeadFieldWidget(
+                                  UpdateAutoVerbalBuildinglengthFieldWidget(
                                     builder: (
                                       ref,
-                                      head,
-                                      changeHead,
+                                      buildinglength,
+                                      changeBuildinglength,
                                       showValidation,
                                     ) {
                                       return Container(
@@ -505,7 +505,8 @@ class EditAutoVerbalPage extends HookConsumerWidget {
                                             MediaQuery.of(context).size.width *
                                                 0.4,
                                         child: TextFormField(
-                                          initialValue: head.toString(),
+                                          initialValue:
+                                              buildinglength.toString(),
                                           keyboardType: TextInputType.number,
                                           style: TextStyle(
                                             fontSize: MediaQuery.of(context)
@@ -539,7 +540,8 @@ class EditAutoVerbalPage extends HookConsumerWidget {
                                             ),
                                           ),
                                           onChanged: (value) {
-                                            changeHead(double.parse(value));
+                                            changeBuildinglength(
+                                                double.parse(value));
                                           },
                                         ),
                                       );

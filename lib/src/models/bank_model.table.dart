@@ -11,4 +11,5 @@ class BankTable {
 
   static const String id = "id";
   static const String name = "name";
+  static const String bankBranch = "bank_branch";
 }

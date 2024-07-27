@@ -14,6 +14,7 @@ class AutoVerbalTable {
   static const String image = "image";
   static const String propertyTypeId = "property_type_id";
   static const String bankId = "bank_id";
+  static const String bankbranch = "bankbranch";
   static const String latitude = "latitude";
   static const String longitude = "longitude";
   static const String userId = "user_id";
@@ -33,6 +34,13 @@ class AutoVerbalTable {
   static const String minValueSqm = "min_value_sqm";
   static const String maxValueSqm = "max_value_sqm";
   static const String area = "area";
-  static const String head = "head";
-  static const String length = "length";
+  static const String buildinglength = "buildinglength";
+  static const String buildingwidth = "buildingwidth";
+  static const String landlength = "landlength";
+  static const String landwidth = "landwidth";
+  static const String roadId = "road_id";
+  static const String bed = "bed";
+  static const String bath = "bath";
+  static const String livingroom = "livingroom";
+  static const String floor = "floor";
 }

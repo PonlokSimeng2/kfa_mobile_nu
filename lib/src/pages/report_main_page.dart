@@ -1,6 +1,7 @@
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/models/base.dart';
 import 'package:kfa_mobile_nu/src/pages/auto_verbal_list_page.dart';
+import 'package:kfa_mobile_nu/src/pages/property_and_autoverbal_report_page.dart';
 import 'package:kfa_mobile_nu/src/pages/report_property_page.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/report_provider.dart';
@@ -58,63 +59,96 @@ class ReportMainPage extends HookConsumerWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Consumer(
-                            builder: (context, ref, child) {
-                              final count = ref.watch(
-                                countPropertyAndAutoVerbalProvider(
-                                  userId: ref.watch(authProvider),
-                                  statuses: [
-                                    PropertyAndAutoVerbalStatus.approved,
-                                    // PropertyAndAutoVerbalStatus.pending,
-                                  ].lock,
-                                ).select(
-                                  (v) => v.whenOrNull(
-                                    data: (data) =>
-                                        data.propertyCount +
-                                        data.autoVerbalCount,
+                          Expanded(
+                            child: Consumer(
+                              builder: (context, ref, child) {
+                                final count = ref.watch(
+                                  countPropertyAndAutoVerbalProvider(
+                                    userId: ref.watch(authProvider),
+                                    statuses: [
+                                      PropertyAndAutoVerbalStatus.approved,
+                                      // PropertyAndAutoVerbalStatus.pending,
+                                    ].lock,
+                                  ).select(
+                                    (v) => v.whenOrNull(
+                                      data: (data) =>
+                                          data.propertyCount +
+                                          data.autoVerbalCount,
+                                    ),
                                   ),
-                                ),
-                              );
-                              return GestureDetector(
-                                onTap: () {
-                                  pageCtr.jumpToPage(0);
-                                },
-                                child: _buildInfoCard(
-                                  title: 'Total Property',
-                                  value: count?.toString() ?? "...",
-                                  icon: Icons.pending,
-                                  color: Colors.orange,
-                                ),
-                              );
-                            },
+                                );
+                                return GestureDetector(
+                                  onTap: () {
+                                    //  pageCtr.jumpToPage(0);
+                                  },
+                                  child: _buildInfoCard(
+                                    title: 'Property & Autoverbal',
+                                    value: count?.toString() ?? "...",
+                                    icon: Icons.pending,
+                                    color: Colors.green,
+                                  ),
+                                );
+                              },
+                            ),
                           ),
-                          Consumer(
-                            builder: (context, ref, child) {
-                              final count = ref.watch(
-                                countPropertyAndAutoVerbalProvider(
-                                  userId: ref.watch(authProvider),
-                                  statuses: [
-                                    PropertyAndAutoVerbalStatus.approved,
-                                    PropertyAndAutoVerbalStatus.pending,
-                                  ].lock,
-                                ).select(
-                                  (v) => v.whenOrNull(
-                                    data: (data) => data.autoVerbalCount,
+                          Expanded(
+                            child: Consumer(
+                              builder: (context, ref, child) {
+                                final count = ref.watch(
+                                  countPropertyAndAutoVerbalProvider(
+                                    userId: ref.watch(authProvider),
+                                    statuses: [
+                                      PropertyAndAutoVerbalStatus.approved,
+                                      PropertyAndAutoVerbalStatus.pending,
+                                    ].lock,
+                                  ).select(
+                                    (v) => v.whenOrNull(
+                                        data: (data) => data.propertyCount),
                                   ),
-                                ),
-                              );
-                              return GestureDetector(
-                                onTap: () {
-                                  pageCtr.jumpToPage(1);
-                                },
-                                child: _buildInfoCard(
-                                  title: 'Total Autoverbal',
-                                  value: count?.toString() ?? "...",
-                                  icon: Icons.insert_chart,
-                                  color: Colors.blue,
-                                ),
-                              );
-                            },
+                                );
+                                return GestureDetector(
+                                  onTap: () {
+                                    pageCtr.jumpToPage(0);
+                                  },
+                                  child: _buildInfoCard(
+                                    title: 'Total Property',
+                                    value: count?.toString() ?? "...",
+                                    icon: Icons.pending,
+                                    color: Colors.orange,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          Expanded(
+                            child: Consumer(
+                              builder: (context, ref, child) {
+                                final count = ref.watch(
+                                  countPropertyAndAutoVerbalProvider(
+                                    userId: ref.watch(authProvider),
+                                    statuses: [
+                                      PropertyAndAutoVerbalStatus.approved,
+                                      PropertyAndAutoVerbalStatus.pending,
+                                    ].lock,
+                                  ).select(
+                                    (v) => v.whenOrNull(
+                                      data: (data) => data.autoVerbalCount,
+                                    ),
+                                  ),
+                                );
+                                return GestureDetector(
+                                  onTap: () {
+                                    pageCtr.jumpToPage(1);
+                                  },
+                                  child: _buildInfoCard(
+                                    title: 'Total Autoverbal',
+                                    value: count?.toString() ?? "...",
+                                    icon: Icons.insert_chart,
+                                    color: Colors.blue,
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                         ],
                       ),

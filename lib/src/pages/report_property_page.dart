@@ -1,5 +1,6 @@
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
+import 'package:kfa_mobile_nu/src/models/base.dart';
 import 'package:kfa_mobile_nu/src/models/property_type_model.schema.dart';
 import 'package:kfa_mobile_nu/src/pages/admin/admin_property_detail_page.dart';
 import 'package:kfa_mobile_nu/src/pages/property_detail_page.dart';
@@ -16,7 +17,7 @@ class ReportPropertyPage extends ConsumerStatefulWidget {
   final bool openItemInAdminPage;
 
   @override
-  ConsumerState<ReportPropertyPage> createState() => _ReportVerbalPageState();
+  ConsumerState<ReportPropertyPage> createState() => _ReportPropertyPageState();
 }
 
 class _ReportPropInherited extends InheritedWidget {
@@ -38,9 +39,10 @@ class _ReportPropInherited extends InheritedWidget {
   }
 }
 
-class _ReportVerbalPageState extends ConsumerState<ReportPropertyPage> {
+class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
   PropertyListingType? _type;
   PropertyTypeModel? _selectedPropertyType;
+  PropertyAndAutoVerbalStatus? _selectedStatus;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +54,7 @@ class _ReportVerbalPageState extends ConsumerState<ReportPropertyPage> {
           listingType: _type,
           propertyType: _selectedPropertyType,
           userId: userAsync.value?.id,
+          // status: _selectedStatus,
         ),
       ).select((v) => v.whenData((v) => v.length)),
     );
@@ -66,7 +69,8 @@ class _ReportVerbalPageState extends ConsumerState<ReportPropertyPage> {
               _buildPropertyTypeDropdown(),
               Expanded(
                 child: firstPageCountAsync.when(
-                  loading: () => const Center(child: CircularProgressIndicator()),
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
                   error: (error, stack) => Center(child: Text('Error: $error')),
                   data: (count) {
                     if (count == 0) {
@@ -80,6 +84,7 @@ class _ReportVerbalPageState extends ConsumerState<ReportPropertyPage> {
                     return _GridView(
                       type: _type,
                       propertyType: _selectedPropertyType,
+                      //status: _selectedStatus,
                     );
                   },
                 ),
@@ -97,9 +102,9 @@ class _ReportVerbalPageState extends ConsumerState<ReportPropertyPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
+          _buildFilterButton('All', Icons.list, null),
           _buildFilterButton('Rent', Icons.home, PropertyListingType.rent),
           _buildFilterButton('Sale', Icons.sell, PropertyListingType.sale),
-          _buildPropertyTypeDropdownButton(),
         ],
       ),
     );
@@ -110,34 +115,19 @@ class _ReportVerbalPageState extends ConsumerState<ReportPropertyPage> {
     IconData icon,
     PropertyListingType? valueType,
   ) {
-    final isSelected = (_type == null && valueType == null) || _type == valueType;
+    final isSelected =
+        (_type == null && valueType == null) || _type == valueType;
     return ElevatedButton.icon(
       onPressed: () => setState(() {
         _type = valueType;
-        _selectedPropertyType = null; // Reset property type when filter changes
+        _selectedPropertyType = null;
       }),
       icon: Icon(icon, color: isSelected ? Colors.white : Colors.grey),
       label: Text(label),
       style: ElevatedButton.styleFrom(
         foregroundColor: isSelected ? Colors.white : Colors.black,
-        backgroundColor: isSelected ? Theme.of(context).primaryColor : Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      ),
-    );
-  }
-
-  Widget _buildPropertyTypeDropdownButton() {
-    final isSelected = _selectedPropertyType == null && _type == null;
-    return ElevatedButton.icon(
-      onPressed: () => setState(() {
-        _selectedPropertyType = null;
-        _type = null; // Reset listing type when filter changes
-      }),
-      icon: Icon(Icons.list, color: isSelected ? Colors.white : Colors.grey),
-      label: const Text('All'),
-      style: ElevatedButton.styleFrom(
-        foregroundColor: isSelected ? Colors.white : Colors.black,
-        backgroundColor: isSelected ? Theme.of(context).primaryColor : Colors.white,
+        backgroundColor:
+            isSelected ? Theme.of(context).primaryColor : Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
     );
@@ -161,7 +151,8 @@ class _ReportVerbalPageState extends ConsumerState<ReportPropertyPage> {
 class _GridView extends ConsumerWidget {
   final PropertyListingType? type;
   final PropertyTypeModel? propertyType;
-  const _GridView({this.type, this.propertyType});
+  final PropertyAndAutoVerbalStatus? status;
+  const _GridView({this.type, this.propertyType, this.status});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -178,10 +169,12 @@ class _GridView extends ConsumerWidget {
         final paginated = ref.watch(
           propertyAtIndexProvider(
             index: index,
+            // ignore: provider_parameters
             filter: PropertyListFilter(
               listingType: type,
               propertyType: propertyType,
               userId: userAsync.value?.id,
+              // status: status,
             ),
           ),
         );
@@ -217,12 +210,14 @@ class _GridView extends ConsumerWidget {
           children: [
             Expanded(
               child: ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(10)),
                 child: CachedNetworkImage(
                   imageUrl: item.images.first,
                   fit: BoxFit.cover,
                   width: double.infinity,
-                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                  placeholder: (context, url) =>
+                      const Center(child: CircularProgressIndicator()),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
@@ -247,18 +242,38 @@ class _GridView extends ConsumerWidget {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: item.listingType.name.toLowerCase() == 'rent'
-                          ? Colors.blue
-                          : Colors.green,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Text(
-                      item.listingType.name.capitalize(),
-                      style: const TextStyle(color: Colors.white, fontSize: 12),
-                    ),
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: item.listingType.name.toLowerCase() == 'rent'
+                              ? Colors.blue
+                              : Colors.green,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          item.listingType.name.capitalize(),
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 12),
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: _getStatusColor(item.status),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          item.status.name.capitalize(),
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 12),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -267,5 +282,20 @@ class _GridView extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  Color _getStatusColor(PropertyAndAutoVerbalStatus status) {
+    switch (status) {
+      case PropertyAndAutoVerbalStatus.pending:
+        return Colors.orange;
+      case PropertyAndAutoVerbalStatus.approved:
+        return Colors.green;
+      case PropertyAndAutoVerbalStatus.rejected:
+        return Colors.red;
+      case PropertyAndAutoVerbalStatus.resubmit:
+        return Colors.yellow;
+      default:
+        return Colors.grey;
+    }
   }
 }

@@ -26,7 +26,8 @@ class BankModel with _$BankModel {
     @JsonKey(name: BankTable.bankBranch) required String? bankBranch,
   }) = _BankModel;
 
-  factory BankModel.fromJson(Map<String, dynamic> json) => _$BankModelFromJson(json);
+  factory BankModel.fromJson(Map<String, dynamic> json) =>
+      _$BankModelFromJson(json);
 
   static const TableBuilder table = _tableBankModel;
 }

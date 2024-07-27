@@ -83,6 +83,7 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
           _buildFilterButton(null),
           _buildFilterButton(PropertyAndAutoVerbalStatus.pending),
           _buildFilterButton(PropertyAndAutoVerbalStatus.approved),
+          _buildFilterButton(PropertyAndAutoVerbalStatus.rejected),
         ],
       ),
     );

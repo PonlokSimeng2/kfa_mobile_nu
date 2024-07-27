@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'property_category_model.dart';
+part of 'property_category_model.schema.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -21,13 +21,13 @@ PropertyCategoryModel _$PropertyCategoryModelFromJson(
 
 /// @nodoc
 mixin _$PropertyCategoryModel {
-  @JsonKey(name: 'property_type_category_id')
+  @JsonKey(name: PropertyCategoryModel.idKey)
   int get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'category_name')
+  @JsonKey(name: PropertyCategoryModel.nameKey)
   String get name => throw _privateConstructorUsedError;
-  @JsonKey(name: 'sale_count')
+  @JsonKey(name: PropertyCategoryModel.totalSaleKey)
   int? get totalSale => throw _privateConstructorUsedError;
-  @JsonKey(name: 'rent_count')
+  @JsonKey(name: PropertyCategoryModel.totalRentKey)
   int? get totalRent => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,10 +43,10 @@ abstract class $PropertyCategoryModelCopyWith<$Res> {
       _$PropertyCategoryModelCopyWithImpl<$Res, PropertyCategoryModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'property_type_category_id') int id,
-      @JsonKey(name: 'category_name') String name,
-      @JsonKey(name: 'sale_count') int? totalSale,
-      @JsonKey(name: 'rent_count') int? totalRent});
+      {@JsonKey(name: PropertyCategoryModel.idKey) int id,
+      @JsonKey(name: PropertyCategoryModel.nameKey) String name,
+      @JsonKey(name: PropertyCategoryModel.totalSaleKey) int? totalSale,
+      @JsonKey(name: PropertyCategoryModel.totalRentKey) int? totalRent});
 }
 
 /// @nodoc
@@ -99,10 +99,10 @@ abstract class _$$PropertyCategoryModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'property_type_category_id') int id,
-      @JsonKey(name: 'category_name') String name,
-      @JsonKey(name: 'sale_count') int? totalSale,
-      @JsonKey(name: 'rent_count') int? totalRent});
+      {@JsonKey(name: PropertyCategoryModel.idKey) int id,
+      @JsonKey(name: PropertyCategoryModel.nameKey) String name,
+      @JsonKey(name: PropertyCategoryModel.totalSaleKey) int? totalSale,
+      @JsonKey(name: PropertyCategoryModel.totalRentKey) int? totalRent});
 }
 
 /// @nodoc
@@ -145,29 +145,29 @@ class __$$PropertyCategoryModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-@TableModel('property_type_categories')
+@TableModel(PropertyCategoryModel.tableName)
 class _$PropertyCategoryModelImpl extends _PropertyCategoryModel {
   const _$PropertyCategoryModelImpl(
-      {@JsonKey(name: 'property_type_category_id') required this.id,
-      @JsonKey(name: 'category_name') required this.name,
-      @JsonKey(name: 'sale_count') required this.totalSale,
-      @JsonKey(name: 'rent_count') required this.totalRent})
+      {@JsonKey(name: PropertyCategoryModel.idKey) required this.id,
+      @JsonKey(name: PropertyCategoryModel.nameKey) required this.name,
+      @JsonKey(name: PropertyCategoryModel.totalSaleKey) this.totalSale,
+      @JsonKey(name: PropertyCategoryModel.totalRentKey) this.totalRent})
       : super._();
 
   factory _$PropertyCategoryModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$PropertyCategoryModelImplFromJson(json);
 
   @override
-  @JsonKey(name: 'property_type_category_id')
+  @JsonKey(name: PropertyCategoryModel.idKey)
   final int id;
   @override
-  @JsonKey(name: 'category_name')
+  @JsonKey(name: PropertyCategoryModel.nameKey)
   final String name;
   @override
-  @JsonKey(name: 'sale_count')
+  @JsonKey(name: PropertyCategoryModel.totalSaleKey)
   final int? totalSale;
   @override
-  @JsonKey(name: 'rent_count')
+  @JsonKey(name: PropertyCategoryModel.totalRentKey)
   final int? totalRent;
 
   @override
@@ -209,27 +209,27 @@ class _$PropertyCategoryModelImpl extends _PropertyCategoryModel {
 
 abstract class _PropertyCategoryModel extends PropertyCategoryModel {
   const factory _PropertyCategoryModel(
-          {@JsonKey(name: 'property_type_category_id') required final int id,
-          @JsonKey(name: 'category_name') required final String name,
-          @JsonKey(name: 'sale_count') required final int? totalSale,
-          @JsonKey(name: 'rent_count') required final int? totalRent}) =
-      _$PropertyCategoryModelImpl;
+      {@JsonKey(name: PropertyCategoryModel.idKey) required final int id,
+      @JsonKey(name: PropertyCategoryModel.nameKey) required final String name,
+      @JsonKey(name: PropertyCategoryModel.totalSaleKey) final int? totalSale,
+      @JsonKey(name: PropertyCategoryModel.totalRentKey)
+      final int? totalRent}) = _$PropertyCategoryModelImpl;
   const _PropertyCategoryModel._() : super._();
 
   factory _PropertyCategoryModel.fromJson(Map<String, dynamic> json) =
       _$PropertyCategoryModelImpl.fromJson;
 
   @override
-  @JsonKey(name: 'property_type_category_id')
+  @JsonKey(name: PropertyCategoryModel.idKey)
   int get id;
   @override
-  @JsonKey(name: 'category_name')
+  @JsonKey(name: PropertyCategoryModel.nameKey)
   String get name;
   @override
-  @JsonKey(name: 'sale_count')
+  @JsonKey(name: PropertyCategoryModel.totalSaleKey)
   int? get totalSale;
   @override
-  @JsonKey(name: 'rent_count')
+  @JsonKey(name: PropertyCategoryModel.totalRentKey)
   int? get totalRent;
   @override
   @JsonKey(ignore: true)

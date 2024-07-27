@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: non_constant_identifier_names, require_trailing_commas, type=lint
+
 part of 'auto_verbal_model.dart';
 
 // **************************************************************************
@@ -46,17 +48,8 @@ _$AutoVerbalModelImpl _$$AutoVerbalModelImplFromJson(
       minValueSqm: (json['min_value_sqm'] as num).toDouble(),
       maxValueSqm: (json['max_value_sqm'] as num).toDouble(),
       area: (json['area'] as num).toDouble(),
-      buildinglength: (json['buildinglength'] as num?)?.toDouble(),
-      buildingwidth: (json['buildingwidth'] as num?)?.toDouble(),
-      landlength: (json['landlength'] as num).toDouble(),
-      landwidth: (json['landwidth'] as num).toDouble(),
-      road: json['road'] == null
-          ? null
-          : RoadModel.fromJson(json['road'] as Map<String, dynamic>),
-      bed: (json['bed'] as num?)?.toInt(),
-      bath: (json['bath'] as num?)?.toInt(),
-      livingroom: (json['livingroom'] as num?)?.toInt(),
-      floor: (json['floor'] as num?)?.toInt(),
+      head: (json['head'] as num).toDouble(),
+      length: (json['length'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$$AutoVerbalModelImplToJson(
@@ -87,15 +80,8 @@ Map<String, dynamic> _$$AutoVerbalModelImplToJson(
       'min_value_sqm': instance.minValueSqm,
       'max_value_sqm': instance.maxValueSqm,
       'area': instance.area,
-      'buildinglength': instance.buildinglength,
-      'buildingwidth': instance.buildingwidth,
-      'landlength': instance.landlength,
-      'landwidth': instance.landwidth,
-      'road': instance.road?.toJson(),
-      'bed': instance.bed,
-      'bath': instance.bath,
-      'livingroom': instance.livingroom,
-      'floor': instance.floor,
+      'head': instance.head,
+      'length': instance.length,
     };
 
 const _$PropertyAndAutoVerbalStatusEnumMap = {
@@ -146,15 +132,7 @@ const _tableAutoVerbalModel = TableBuilder(
     ColumnBuilder('min_value_sqm'),
     ColumnBuilder('max_value_sqm'),
     ColumnBuilder('area'),
-    ColumnBuilder('buildinglength'),
-    ColumnBuilder('buildingwidth'),
-    ColumnBuilder('landlength'),
-    ColumnBuilder('landwidth'),
-    ColumnBuilder.join(RoadModel.table,
-        key: "road", candidateKey: null, foreignKey: 'road_id'),
-    ColumnBuilder('bed'),
-    ColumnBuilder('bath'),
-    ColumnBuilder('livingroom'),
-    ColumnBuilder('floor'),
+    ColumnBuilder('head'),
+    ColumnBuilder('length'),
   ],
 );

@@ -1,18 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'province_model.dart';
+// ignore_for_file: non_constant_identifier_names, require_trailing_commas, type=lint
+
+part of 'property_type_model.schema.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ProvinceModelImpl _$$ProvinceModelImplFromJson(Map<String, dynamic> json) =>
-    _$ProvinceModelImpl(
+_$PropertyTypeModelImpl _$$PropertyTypeModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$PropertyTypeModelImpl(
       id: (json['id'] as num).toInt(),
       name: json['name'] as String,
     );
 
-Map<String, dynamic> _$$ProvinceModelImplToJson(_$ProvinceModelImpl instance) =>
+Map<String, dynamic> _$$PropertyTypeModelImplToJson(
+        _$PropertyTypeModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
@@ -22,8 +26,8 @@ Map<String, dynamic> _$$ProvinceModelImplToJson(_$ProvinceModelImpl instance) =>
 // TableModelGenerator
 // **************************************************************************
 
-const _tableProvinceModel = TableBuilder(
-  tableName: "provinces",
+const _tablePropertyTypeModel = TableBuilder(
+  tableName: "properties_types",
   columns: [
     ColumnBuilder('id'),
     ColumnBuilder('name'),

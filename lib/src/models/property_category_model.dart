@@ -1,23 +1,20 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kimapp/kimapp.dart';
 
-part 'property_category_model.freezed.dart';
-part 'property_category_model.g.dart';
+export 'property_category_model.schema.dart';
 
-@freezed
-class PropertyCategoryModel with _$PropertyCategoryModel {
-  const PropertyCategoryModel._();
+@Schema(
+  tableName: 'property_type_categories',
+  className: 'PropertyCategory',
+  baseModelName: 'PropertyCategoryModel',
+)
+class PropertyCategorySchema extends KimappSchema {
+  PropertyCategorySchema._();
 
-  @TableModel('property_type_categories')
-  const factory PropertyCategoryModel({
-    @JsonKey(name: 'property_type_category_id') required int id,
-    @JsonKey(name: 'category_name') required String name,
-    @JsonKey(name: 'sale_count') required int? totalSale,
-    @JsonKey(name: 'rent_count') required int? totalRent,
-  }) = _PropertyCategoryModel;
+  final id = Field<int>('property_type_category_id');
 
-  factory PropertyCategoryModel.fromJson(Map<String, dynamic> json) =>
-      _$PropertyCategoryModelFromJson(json);
+  final name = Field<String>('category_name');
 
-  static const TableBuilder table = _tablePropertyCategoryModel;
+  final totalSale = Field<int?>('sale_count');
+
+  final totalRent = Field<int?>('rent_count');
 }

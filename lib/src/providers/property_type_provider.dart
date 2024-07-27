@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../exports.dart';
-import '../models/property_type_model.dart';
+import '../models/property_type_model.schema.dart';
 
 part 'property_type_provider.g.dart';
 

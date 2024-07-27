@@ -1,10 +1,51 @@
 targets:
   $default:
     builders:
+      kimapp_generator|kimapp_model_generator:
+        enabled: true
+        generate_for:
+          include:
+            - lib/**.dart
+      kimapp_generator|kimapp_form_generator:
+        enabled: true
+        generate_for:
+          include:
+            - lib/**.dart
+      kimapp_generator|kimapp_table_generator:
+        enabled: true
+        generate_for:
+          include:
+            - lib/**.dart
+      kimapp_generator|kimapp_state_widget_generator:
+        enabled: true
+        generate_for:
+          include:
+            - lib/**.dart
+      kimapp_generator|kimapp_schema_builder_generator:
+        enabled: true
+        generate_for:
+          include:
+            - lib/**.dart
       json_serializable:
         enabled: true
         options:
           explicit_to_json: true
         generate_for:
           include:
-            - lib/**_model.dart
+            - lib/**.dart
+      freezed|freezed:
+        enabled: true
+        generate_for:
+          include:
+            - lib/**.dart
+      riverpod_generator:
+        enabled: true
+        generate_for:
+          include:
+            - lib/**.dart
+      source_gen|combining_builder:
+        options:
+          ignore_for_file:
+            - non_constant_identifier_names
+            - require_trailing_commas
+            - type=lint

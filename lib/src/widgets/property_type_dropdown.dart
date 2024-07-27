@@ -1,5 +1,6 @@
+import 'package:kfa_mobile_nu/src/models/property_type_model.schema.dart';
+
 import '../../exports.dart';
-import '../models/property_type_model.dart';
 import '../providers/property_type_provider.dart';
 
 class PropertyTypeDropDown extends ConsumerWidget {

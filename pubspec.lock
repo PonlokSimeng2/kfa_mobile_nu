@@ -970,7 +970,7 @@ packages:
     description:
       path: "packages/kimapp"
       ref: master
-      resolved-ref: "5c8bb1de84c33185a2f517fbf6194c3236fb5243"
+      resolved-ref: "66c7ba55a1d4d969a7eb731063a688f19268845f"
       url: "https://github.com/pckimlong/kimapp.git"
     source: git
     version: "0.0.1"
@@ -979,7 +979,7 @@ packages:
     description:
       path: "packages/kimapp_generator"
       ref: master
-      resolved-ref: "5c8bb1de84c33185a2f517fbf6194c3236fb5243"
+      resolved-ref: "66c7ba55a1d4d969a7eb731063a688f19268845f"
       url: "https://github.com/pckimlong/kimapp.git"
     source: git
     version: "0.0.1"

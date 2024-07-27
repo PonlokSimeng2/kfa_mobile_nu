@@ -1,18 +1,22 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:kimapp/kimapp.dart';
 
-part 'v_point_transaction_model.freezed.dart';
-part 'v_point_transaction_model.g.dart';
+export 'v_point_transaction_model.schema.dart';
 
-@freezed
-class VPointTransactionModel with _$VPointTransactionModel {
-  factory VPointTransactionModel(
-      {required int id,
-      required String transactionId,
-      required String type,
-      required String userId,
-      required int vpoints,
-      required DateTime createdAt}) = _VPointTransactionModel;
+@Schema(
+  tableName: 'v_point_transactions',
+  className: 'VPointTransaction',
+  baseModelName: 'VPointTransactionModel',
+)
+class VPointTransactionSchema extends KimappSchema {
+  VPointTransactionSchema._();
 
-  factory VPointTransactionModel.fromJson(Map<String, dynamic> json) =>
-      _$VPointTransactionModelFromJson(json);
+  final id = Field<int>('id');
+  final transactionId = Field<String>('transaction_id');
+  final type = Field<String>('type');
+  final userId = Field<String>('user_id');
+  final vpoints = Field<int>('vpoints');
+  final createdAt = Field<DateTime>('created_at');
+
+  @override
+  List<Model> get models => [];
 }

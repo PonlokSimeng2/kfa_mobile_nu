@@ -1,4 +1,4 @@
-import '../models/province_model.dart';
+import 'package:kfa_mobile_nu/src/models/province_model.schema.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../exports.dart';

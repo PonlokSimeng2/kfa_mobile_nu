@@ -1,9 +1,9 @@
 import 'package:kfa_mobile_nu/src/models/property_model.dart';
-import 'package:kfa_mobile_nu/src/models/property_type_model.dart';
 import 'package:kfa_mobile_nu/src/widgets/property_type_dropdown.dart';
 
 import '../../exports.dart';
 import '../helpers/build_context_helper.dart';
+import '../models/property_type_model.schema.dart';
 import '../providers/property_provider.dart';
 import 'property_detail_page.dart';
 

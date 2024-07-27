@@ -4,6 +4,13 @@
 // TableStructureGenerator
 // **************************************************************************
 
+// ignore_for_file: invalid_annotation_target, unused_import
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:kimapp/kimapp.dart';
+
+import 'package:kfa_mobile_nu/src/models/bank_model.table.dart';
+import 'bank_model.dart';
+
 class BankTable {
   const BankTable._();
 

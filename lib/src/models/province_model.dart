@@ -1,21 +1,12 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../exports.dart';
 
-part 'province_model.freezed.dart';
-part 'province_model.g.dart';
+@Schema(tableName: 'provinces', className: 'Province', baseModelName: 'ProvinceModel')
+class ProvinceSchema extends KimappSchema {
+  ProvinceSchema._();
 
-@freezed
-class ProvinceModel with _$ProvinceModel {
-  const ProvinceModel._();
+  final id = Field<int>('id');
+  final name = Field<String>('name');
 
-  @TableModel('provinces')
-  factory ProvinceModel({
-    required int id,
-    required String name,
-  }) = _ProvinceModel;
-
-  factory ProvinceModel.fromJson(Map<String, dynamic> json) =>
-      _$ProvinceModelFromJson(json);
-
-  static const TableBuilder table = _tableProvinceModel;
+  @override
+  List<Model> get models => [];
 }

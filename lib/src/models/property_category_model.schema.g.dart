@@ -1,6 +1,8 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'property_category_model.dart';
+// ignore_for_file: non_constant_identifier_names, require_trailing_commas, type=lint
+
+part of 'property_category_model.schema.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

@@ -1,11 +1,11 @@
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
+import 'package:kfa_mobile_nu/src/models/property_type_model.schema.dart';
 import 'package:kfa_mobile_nu/src/pages/admin/admin_property_detail_page.dart';
 import 'package:kfa_mobile_nu/src/pages/property_detail_page.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 
 import '../models/property_model.dart';
-import '../models/property_type_model.dart';
 import '../providers/property_provider.dart';
 import '../widgets/auth_wrapper_widget.dart';
 import '../widgets/property_type_dropdown.dart';

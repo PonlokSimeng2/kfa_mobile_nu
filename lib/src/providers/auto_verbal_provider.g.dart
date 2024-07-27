@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: non_constant_identifier_names, require_trailing_commas, type=lint
+
 part of 'auto_verbal_provider.dart';
 
 // **************************************************************************
@@ -47,7 +49,7 @@ mixin _$InsertAutoVerbalForm on _$InsertAutoVerbal {
       state = state.copyWith(landlength: newLandlength);
   void onLandwidthChanged(double newLandwidth) =>
       state = state.copyWith(landwidth: newLandwidth);
-  void onRoadChanged(RoadModel? newRoad) =>
+  void onRoadChanged(InvalidType newRoad) =>
       state = state.copyWith(road: newRoad);
   void onBedChanged(double newBed) => state = state.copyWith(bed: newBed);
   void onBathChanged(double newBath) => state = state.copyWith(bath: newBath);
@@ -955,8 +957,8 @@ class InsertAutoVerbalLandwidthFieldWidget extends HookConsumerWidget {
 
 typedef InsertAutoVerbalRoadChildBuilder = Widget Function(
   WidgetRef ref,
-  RoadModel? road,
-  void Function(RoadModel? newRoad) changeRoad,
+  InvalidType road,
+  void Function(InvalidType newRoad) changeRoad,
   bool showValidation,
 );
 
@@ -1171,7 +1173,7 @@ mixin _$UpdateAutoVerbalForm on _$UpdateAutoVerbal {
       state = state.copyWith(landlength: newLandlength);
   void onLandwidthChanged(double newLandwidth) =>
       state = state.copyWith(landwidth: newLandwidth);
-  void onRoadChanged(RoadModel? newRoad) =>
+  void onRoadChanged(InvalidType newRoad) =>
       state = state.copyWith(road: newRoad);
   void onBedChanged(double newBed) => state = state.copyWith(bed: newBed);
   void onBathChanged(double newBath) => state = state.copyWith(bath: newBath);
@@ -2194,8 +2196,8 @@ class UpdateAutoVerbalLandwidthFieldWidget extends HookConsumerWidget {
 
 typedef UpdateAutoVerbalRoadChildBuilder = Widget Function(
   WidgetRef ref,
-  RoadModel? road,
-  void Function(RoadModel? newRoad) changeRoad,
+  InvalidType road,
+  void Function(InvalidType newRoad) changeRoad,
   bool showValidation,
 );
 
@@ -2712,7 +2714,7 @@ final insertAutoVerbalProvider = AutoDisposeNotifierProvider<InsertAutoVerbal,
 );
 
 typedef _$InsertAutoVerbal = AutoDisposeNotifier<InsertAutoVerbalState>;
-String _$updateAutoVerbalHash() => r'8aa7ae72cc381b934f61bbcc7f5ab5c7992bf47a';
+String _$updateAutoVerbalHash() => r'da6511aac0965187b4580d6b76c2ea265ff8c67e';
 
 abstract class _$UpdateAutoVerbal
     extends BuildlessAutoDisposeNotifier<UpdateAutoVerbalState> {

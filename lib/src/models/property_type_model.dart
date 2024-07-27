@@ -1,21 +1,16 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../exports.dart';
 
-part 'property_type_model.freezed.dart';
-part 'property_type_model.g.dart';
+@Schema(
+  tableName: 'properties_types',
+  className: 'PropertyType',
+  baseModelName: 'PropertyTypeModel',
+)
+class PropertyTypeSchema extends KimappSchema {
+  PropertyTypeSchema._();
 
-@freezed
-class PropertyTypeModel with _$PropertyTypeModel {
-  const PropertyTypeModel._();
+  final id = Field<int>('id');
+  final name = Field<String>('name');
 
-  @TableModel('properties_types')
-  factory PropertyTypeModel({
-    required int id,
-    required String name,
-  }) = _PropertyTypeModel;
-
-  factory PropertyTypeModel.fromJson(Map<String, dynamic> json) =>
-      _$PropertyTypeModelFromJson(json);
-
-  static const TableBuilder table = _tablePropertyTypeModel;
+  @override
+  List<Model> get models => [];
 }

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'property_type_model.dart';
+part of 'property_type_model.schema.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -20,7 +20,9 @@ PropertyTypeModel _$PropertyTypeModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$PropertyTypeModel {
+  @JsonKey(name: PropertyTypeModel.idKey)
   int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: PropertyTypeModel.nameKey)
   String get name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +37,9 @@ abstract class $PropertyTypeModelCopyWith<$Res> {
           PropertyTypeModel value, $Res Function(PropertyTypeModel) then) =
       _$PropertyTypeModelCopyWithImpl<$Res, PropertyTypeModel>;
   @useResult
-  $Res call({int id, String name});
+  $Res call(
+      {@JsonKey(name: PropertyTypeModel.idKey) int id,
+      @JsonKey(name: PropertyTypeModel.nameKey) String name});
 }
 
 /// @nodoc
@@ -75,7 +79,9 @@ abstract class _$$PropertyTypeModelImplCopyWith<$Res>
       __$$PropertyTypeModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name});
+  $Res call(
+      {@JsonKey(name: PropertyTypeModel.idKey) int id,
+      @JsonKey(name: PropertyTypeModel.nameKey) String name});
 }
 
 /// @nodoc
@@ -107,16 +113,21 @@ class __$$PropertyTypeModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-@TableModel('properties_types')
+@TableModel(PropertyTypeModel.tableName)
 class _$PropertyTypeModelImpl extends _PropertyTypeModel {
-  _$PropertyTypeModelImpl({required this.id, required this.name}) : super._();
+  const _$PropertyTypeModelImpl(
+      {@JsonKey(name: PropertyTypeModel.idKey) required this.id,
+      @JsonKey(name: PropertyTypeModel.nameKey) required this.name})
+      : super._();
 
   factory _$PropertyTypeModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$PropertyTypeModelImplFromJson(json);
 
   @override
+  @JsonKey(name: PropertyTypeModel.idKey)
   final int id;
   @override
+  @JsonKey(name: PropertyTypeModel.nameKey)
   final String name;
 
   @override
@@ -153,17 +164,20 @@ class _$PropertyTypeModelImpl extends _PropertyTypeModel {
 }
 
 abstract class _PropertyTypeModel extends PropertyTypeModel {
-  factory _PropertyTypeModel(
-      {required final int id,
+  const factory _PropertyTypeModel(
+      {@JsonKey(name: PropertyTypeModel.idKey) required final int id,
+      @JsonKey(name: PropertyTypeModel.nameKey)
       required final String name}) = _$PropertyTypeModelImpl;
-  _PropertyTypeModel._() : super._();
+  const _PropertyTypeModel._() : super._();
 
   factory _PropertyTypeModel.fromJson(Map<String, dynamic> json) =
       _$PropertyTypeModelImpl.fromJson;
 
   @override
+  @JsonKey(name: PropertyTypeModel.idKey)
   int get id;
   @override
+  @JsonKey(name: PropertyTypeModel.nameKey)
   String get name;
   @override
   @JsonKey(ignore: true)

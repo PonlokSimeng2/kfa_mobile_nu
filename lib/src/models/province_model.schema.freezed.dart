@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'province_model.dart';
+part of 'province_model.schema.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -20,7 +20,9 @@ ProvinceModel _$ProvinceModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ProvinceModel {
+  @JsonKey(name: ProvinceModel.idKey)
   int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: ProvinceModel.nameKey)
   String get name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +37,9 @@ abstract class $ProvinceModelCopyWith<$Res> {
           ProvinceModel value, $Res Function(ProvinceModel) then) =
       _$ProvinceModelCopyWithImpl<$Res, ProvinceModel>;
   @useResult
-  $Res call({int id, String name});
+  $Res call(
+      {@JsonKey(name: ProvinceModel.idKey) int id,
+      @JsonKey(name: ProvinceModel.nameKey) String name});
 }
 
 /// @nodoc
@@ -75,7 +79,9 @@ abstract class _$$ProvinceModelImplCopyWith<$Res>
       __$$ProvinceModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name});
+  $Res call(
+      {@JsonKey(name: ProvinceModel.idKey) int id,
+      @JsonKey(name: ProvinceModel.nameKey) String name});
 }
 
 /// @nodoc
@@ -107,16 +113,21 @@ class __$$ProvinceModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-@TableModel('provinces')
+@TableModel(ProvinceModel.tableName)
 class _$ProvinceModelImpl extends _ProvinceModel {
-  _$ProvinceModelImpl({required this.id, required this.name}) : super._();
+  const _$ProvinceModelImpl(
+      {@JsonKey(name: ProvinceModel.idKey) required this.id,
+      @JsonKey(name: ProvinceModel.nameKey) required this.name})
+      : super._();
 
   factory _$ProvinceModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProvinceModelImplFromJson(json);
 
   @override
+  @JsonKey(name: ProvinceModel.idKey)
   final int id;
   @override
+  @JsonKey(name: ProvinceModel.nameKey)
   final String name;
 
   @override
@@ -152,16 +163,20 @@ class _$ProvinceModelImpl extends _ProvinceModel {
 }
 
 abstract class _ProvinceModel extends ProvinceModel {
-  factory _ProvinceModel({required final int id, required final String name}) =
+  const factory _ProvinceModel(
+          {@JsonKey(name: ProvinceModel.idKey) required final int id,
+          @JsonKey(name: ProvinceModel.nameKey) required final String name}) =
       _$ProvinceModelImpl;
-  _ProvinceModel._() : super._();
+  const _ProvinceModel._() : super._();
 
   factory _ProvinceModel.fromJson(Map<String, dynamic> json) =
       _$ProvinceModelImpl.fromJson;
 
   @override
+  @JsonKey(name: ProvinceModel.idKey)
   int get id;
   @override
+  @JsonKey(name: ProvinceModel.nameKey)
   String get name;
   @override
   @JsonKey(ignore: true)

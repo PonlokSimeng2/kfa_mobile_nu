@@ -1,7 +1,7 @@
-import '../models/province_model.dart';
-import '../providers/province_provider.dart';
+import 'package:kfa_mobile_nu/src/models/province_model.schema.dart';
 
 import '../../exports.dart';
+import '../providers/province_provider.dart';
 
 class ProvinceDropDown extends ConsumerWidget {
   const ProvinceDropDown({super.key, this.value, required this.onChanged});
@@ -27,17 +27,17 @@ class ProvinceDropDown extends ConsumerWidget {
                 child: Text(e.name),
               );
             }).toList(),
-      icon: Icon(
+      icon: const Icon(
         Icons.arrow_drop_down,
         color: kImageColor,
       ),
       decoration: InputDecoration(
         fillColor: kwhite,
         filled: true,
-        contentPadding: EdgeInsets.symmetric(vertical: 8),
+        contentPadding: const EdgeInsets.symmetric(vertical: 8),
         labelText: 'Province*',
         hintText: 'Select',
-        prefixIcon: Icon(
+        prefixIcon: const Icon(
           Icons.app_registration_sharp,
           color: kImageColor,
         ),
@@ -49,7 +49,7 @@ class ProvinceDropDown extends ConsumerWidget {
           borderRadius: BorderRadius.circular(10.0),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             width: 1,
             color: kPrimaryColor,
           ),

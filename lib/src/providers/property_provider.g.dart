@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: non_constant_identifier_names, require_trailing_commas, type=lint
+
 part of 'property_provider.dart';
 
 // **************************************************************************
@@ -2133,7 +2135,7 @@ class _PropertyAtIndexProviderElement
   PropertyListFilter? get filter => (origin as PropertyAtIndexProvider).filter;
 }
 
-String _$insertPropertyHash() => r'9063ebc5ccde9b895fc6d75059eaad103e57c067';
+String _$insertPropertyHash() => r'70d3cb32d8d2b40cd82f768e0ecf2afa7278d09c';
 
 /// See also [InsertProperty].
 @ProviderFor(InsertProperty)
@@ -2149,7 +2151,7 @@ final insertPropertyProvider =
 );
 
 typedef _$InsertProperty = AutoDisposeNotifier<InsertPropertyState>;
-String _$updatePropertyHash() => r'47251d809d075f20c4dffedab0a4d4e738e03788';
+String _$updatePropertyHash() => r'4341ea8645d917538fbcc63f62425602f481bfed';
 
 abstract class _$UpdateProperty
     extends BuildlessAutoDisposeNotifier<UpdatePropertyState> {

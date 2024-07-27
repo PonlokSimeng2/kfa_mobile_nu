@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kfa_mobile_nu/src/models/property_type_model.schema.dart';
+import 'package:kfa_mobile_nu/src/models/province_model.schema.dart';
 import 'package:kfa_mobile_nu/src/providers/report_provider.dart';
 import 'package:path/path.dart' as p;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -10,9 +12,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../exports.dart';
 import '../models/base.dart';
 import '../models/property_model.dart';
-import '../models/property_model.table.dart';
-import '../models/property_type_model.dart';
-import '../models/province_model.dart';
 import 'auth_provider.dart';
 
 part 'property_provider.freezed.dart';
@@ -199,32 +198,32 @@ class InsertProperty extends _$InsertProperty with _$InsertPropertyForm {
           imageUrls.add(imageUrl);
         }
 
+        final jsonData = CreatePropertyParam(
+          listingType: state.propertyListingType,
+          images: imageUrls,
+          title: state.title,
+          description: state.description,
+          longitude: state.longitude,
+          latitude: state.latitude,
+          price: state.price,
+          sqm: state.sqm,
+          bedrooms: state.bedrooms,
+          bathrooms: state.bathrooms,
+          floors: state.floors,
+          parking: state.parking,
+          pricePerSqm: state.pricePerSqm,
+          livingRooms: state.livingRooms,
+          landLength: state.landLength,
+          landWidth: state.landWidth,
+          houseLength: state.buildingLength,
+          houseWidth: state.buildingWidth,
+          userId: userId,
+          provinceId: state.province!.id,
+          propertyTypeId: state.propertyType!.id,
+        ).toJson();
+
         try {
-          await sb.from(PropertyModel.table.tableName).insert(
-            {
-              PropertyTable.listingType: state.propertyListingType.name,
-              PropertyTable.images: imageUrls,
-              PropertyTable.title: state.title,
-              PropertyTable.description: state.description,
-              PropertyTable.longitude: state.longitude,
-              PropertyTable.latitude: state.latitude,
-              PropertyTable.price: state.price,
-              PropertyTable.sqm: state.sqm,
-              PropertyTable.bedrooms: state.bedrooms,
-              PropertyTable.bathrooms: state.bathrooms,
-              PropertyTable.floors: state.floors,
-              PropertyTable.parking: state.parking,
-              PropertyTable.pricePerSqm: state.pricePerSqm,
-              PropertyTable.livingRooms: state.livingRooms,
-              PropertyTable.landLength: state.landLength,
-              PropertyTable.landWidth: state.landWidth,
-              PropertyTable.houseLength: state.buildingLength,
-              PropertyTable.houseWidth: state.buildingWidth,
-              PropertyTable.userId: userId,
-              PropertyTable.provinceId: state.province!.id,
-              PropertyTable.propertyTypeId: state.propertyType!.id,
-            },
-          );
+          await sb.from(PropertyModel.table.tableName).insert(jsonData);
         } catch (e) {
           // delete uploaded images
           await sb.storage.from('files').remove(paths);
@@ -267,6 +266,34 @@ class UpdatePropertyState
     required double buildingWidth,
     @Default(ProviderStatus.initial()) ProviderStatus<void> status,
   }) = _UpdatePropertyState;
+
+  UpdatePropertyParam toParam({required List<String> imageUrls, required String userId}) {
+    return UpdatePropertyParam(
+      listingType: propertyListingType,
+      images: imageUrls,
+      title: title,
+      description: description,
+      longitude: longitude,
+      latitude: latitude,
+      price: price,
+      sqm: sqm,
+      bedrooms: bedrooms,
+      bathrooms: bathrooms,
+      floors: floors,
+      parking: parking,
+      pricePerSqm: pricePerSqm,
+      livingRooms: livingRooms,
+      landLength: landLength,
+      landWidth: landWidth,
+      houseLength: buildingLength,
+      houseWidth: buildingWidth,
+      userId: userId,
+      provinceId: province!.id,
+      propertyTypeId: propertyType!.id,
+      createdAt: DateTime.now(),
+    );
+  }
+
   @override
   UpdatePropertyState updateStatus(ProviderStatus<void> newStatus) {
     return copyWith(status: newStatus);
@@ -330,33 +357,10 @@ class UpdateProperty extends _$UpdateProperty with _$UpdatePropertyForm {
           imageUrls.add(imageUrl);
         }
 
-        await sb.from(PropertyModel.table.tableName).update(
-          {
-            PropertyTable.listingType: state.propertyListingType.name,
-            PropertyTable.images: imageUrls,
-            PropertyTable.title: state.title,
-            PropertyTable.description: state.description,
-            PropertyTable.longitude: state.longitude,
-            PropertyTable.latitude: state.latitude,
-            PropertyTable.price: state.price,
-            PropertyTable.sqm: state.sqm,
-            PropertyTable.bedrooms: state.bedrooms,
-            PropertyTable.bathrooms: state.bathrooms,
-            PropertyTable.floors: state.floors,
-            PropertyTable.parking: state.parking,
-            PropertyTable.pricePerSqm: state.pricePerSqm,
-            PropertyTable.livingRooms: state.livingRooms,
-            PropertyTable.landLength: state.landLength,
-            PropertyTable.landWidth: state.landWidth,
-            PropertyTable.houseLength: state.buildingLength,
-            PropertyTable.houseWidth: state.buildingWidth,
-            PropertyTable.userId: userId,
-            PropertyTable.provinceId: state.province!.id,
-            PropertyTable.propertyTypeId: state.propertyType!.id,
-            PropertyTable.status: PropertyAndAutoVerbalStatus.resubmit.name,
-            PropertyTable.createdAt: DateTime.now().toIso8601String(),
-          },
-        ).eq('id', initial.id);
+        await sb
+            .from(PropertyModel.table.tableName)
+            .update(state.toParam(imageUrls: imageUrls, userId: userId).toJson())
+            .eq(PropertyTable.id, initial.id);
       },
       onSuccess: (success) {
         ref.invalidate(propertyListProvider);

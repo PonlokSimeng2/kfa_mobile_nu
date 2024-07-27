@@ -1,91 +1,89 @@
-// ignore_for_file: invalid_annotation_target
-
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/models/base.dart';
-import 'package:kfa_mobile_nu/src/models/property_model.table.dart';
-import 'package:kfa_mobile_nu/src/models/property_type_model.dart';
-import 'package:kfa_mobile_nu/src/models/province_model.dart';
 import 'package:kfa_mobile_nu/src/models/user_model.dart';
+import 'package:kimapp/kimapp.dart';
 
-part 'property_model.freezed.dart';
-part 'property_model.g.dart';
+import 'property_type_model.schema.dart';
+import 'province_model.schema.dart';
+
+export 'property_model.schema.dart';
 
 enum PropertyListingType { sale, rent }
 
-@TableStructure(
-  'properties',
-  classPrefixName: 'Property',
-  columns: [
-    'id',
-    'property_id',
-    'listing_type',
-    'images',
-    'title',
-    'description',
-    'latitude',
-    'longitude',
-    'price',
-    'sqm',
-    'bedrooms',
-    'bathrooms',
-    'floors',
-    'parking',
-    'living_rooms',
-    'land_length',
-    'land_width',
-    'house_length',
-    'house_width',
-    'price_per_sqm',
-    'created_at',
-    'user_id',
-    'property_type_id',
-    'province_id',
-    'approved_at',
-    'approved_by',
-    'rejected_at',
-    'reject_reason',
-    'status',
-  ],
+@Schema(
+  tableName: 'properties',
+  className: 'Property',
+  baseModelName: 'PropertyModel',
 )
-@freezed
-class PropertyModel with _$PropertyModel {
-  const PropertyModel._();
+class PropertySchema extends KimappSchema {
+  final id = Field<int>('id');
+  final status = Field<PropertyAndAutoVerbalStatus>('status');
+  final propertyId = Field<String>('property_id');
+  final listingType = Field<PropertyListingType>('listing_type');
+  final images = Field<List<String>>('images');
+  final title = Field<String>('title');
+  final description = Field<String>('description');
+  final latitude = Field<double>('latitude');
+  final longitude = Field<double>('longitude');
+  final price = Field<double>('price');
+  final sqm = Field<double>('sqm');
+  final bedrooms = Field<int?>('bedrooms');
+  final bathrooms = Field<int?>('bathrooms');
+  final floors = Field<int?>('floors');
+  final parking = Field<int?>('parking');
+  final livingRooms = Field<int?>('living_rooms');
+  final landLength = Field<double>('land_length');
+  final landWidth = Field<double>('land_width');
+  final houseLength = Field<double?>('house_length');
+  final houseWidth = Field<double?>('house_width');
+  final pricePerSqm = Field<double>('price_per_sqm');
+  final createdAt = Field<DateTime>('created_at');
+  final userId = Field<String>('user_id');
+  final propertyTypeId = Field<int>('property_type_id');
+  final provinceId = Field<int>('province_id');
+  final approvedAt = Field<DateTime?>('approved_at');
+  final rejectedAt = Field<DateTime?>('rejected_at');
+  final rejectReason = Field<String?>('reject_reason');
 
-  @TableModel(PropertyTable.table)
-  factory PropertyModel({
-    @JsonKey(name: PropertyTable.id) required int id,
-    @JsonKey(name: PropertyTable.status) required PropertyAndAutoVerbalStatus status,
-    @JsonKey(name: PropertyTable.propertyId) required String propertyId,
-    @JsonKey(name: PropertyTable.listingType) required PropertyListingType listingType,
-    @JsonKey(name: PropertyTable.images) required List<String> images,
-    @JsonKey(name: PropertyTable.title) required String title,
-    @JsonKey(name: PropertyTable.description) required String description,
-    @JsonKey(name: PropertyTable.latitude) required double latitude,
-    @JsonKey(name: PropertyTable.longitude) required double longitude,
-    @JsonKey(name: PropertyTable.price) required double price,
-    @JsonKey(name: PropertyTable.sqm) required double sqm,
-    @JsonKey(name: PropertyTable.bedrooms) required int? bedrooms,
-    @JsonKey(name: PropertyTable.bathrooms) required int? bathrooms,
-    @JsonKey(name: PropertyTable.floors) required int? floors,
-    @JsonKey(name: PropertyTable.parking) required int? parking,
-    @JsonKey(name: PropertyTable.livingRooms) required int? livingRooms,
-    @JsonKey(name: PropertyTable.landLength) required double landLength,
-    @JsonKey(name: PropertyTable.landWidth) required double landWidth,
-    @JsonKey(name: PropertyTable.houseLength) required double? houseLength,
-    @JsonKey(name: PropertyTable.pricePerSqm) required double pricePerSqm,
-    @JsonKey(name: PropertyTable.houseWidth) required double? houseWidth,
-    @JsonKey(name: PropertyTable.createdAt) required DateTime createdAt,
-    @JoinedColumn(foreignKey: PropertyTable.userId) required UserModel user,
-    @JoinedColumn(foreignKey: PropertyTable.propertyTypeId) required PropertyTypeModel propertyType,
-    @JoinedColumn(foreignKey: PropertyTable.provinceId) required ProvinceModel province,
-    @JsonKey(name: PropertyTable.approvedAt) DateTime? approvedAt,
-    @JoinedColumn(foreignKey: PropertyTable.approvedBy) UserModel? approvedBy,
-    @JsonKey(name: PropertyTable.rejectedAt) DateTime? rejectedAt,
-    @JsonKey(name: PropertyTable.rejectReason) String? rejectReason,
-  }) = _PropertyModel;
+  // Joins
+  final propertyType = Field.join<PropertyTypeModel>().withForeignKey('property_type_id');
+  final province = Field.join<ProvinceModel>().withForeignKey('province_id');
+  final approvedBy = Field.join<UserModel?>().withCandidateKey('properties_approved_by_fkey');
+  final user = Field.join<UserModel>().withForeignKey('user_id');
 
-  factory PropertyModel.fromJson(Map<String, dynamic> json) => _$PropertyModelFromJson(json);
-
-  static const TableBuilder table = _tablePropertyModel;
+  @override
+  List<Model> get models {
+    return [
+      Model('CreatePropertyParam')
+        ..inheritAllFromBase(
+          excepts: [
+            id,
+            propertyId,
+            propertyType,
+            user,
+            province,
+            approvedAt,
+            approvedBy,
+            rejectedAt,
+            rejectReason,
+            createdAt,
+            status,
+          ],
+        ),
+      Model('UpdatePropertyParam')
+        ..inheritAllFromBase(
+          excepts: [
+            id,
+            propertyId,
+            propertyType,
+            user,
+            province,
+            approvedAt,
+            approvedBy,
+            rejectedAt,
+            rejectReason,
+            status,
+          ],
+        ),
+    ];
+  }
 }

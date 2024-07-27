@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'user_model.dart';
+part of 'user_model.schema.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -20,25 +20,25 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserModel {
-  @JsonKey(name: UserTable.id)
+  @JsonKey(name: UserModel.idKey)
   String get id => throw _privateConstructorUsedError;
-  @JsonKey(name: UserTable.userId)
+  @JsonKey(name: UserModel.userIdKey)
   String get userId => throw _privateConstructorUsedError;
-  @JsonKey(name: UserTable.photo)
+  @JsonKey(name: UserModel.photoKey)
   String? get photo => throw _privateConstructorUsedError;
-  @JsonKey(name: UserTable.firstName)
+  @JsonKey(name: UserModel.firstNameKey)
   String get firstName => throw _privateConstructorUsedError;
-  @JsonKey(name: UserTable.lastName)
+  @JsonKey(name: UserModel.lastNameKey)
   String get lastName => throw _privateConstructorUsedError;
-  @JsonKey(name: UserTable.email)
+  @JsonKey(name: UserModel.emailKey)
   String get email => throw _privateConstructorUsedError;
-  @JsonKey(name: UserTable.phone)
+  @JsonKey(name: UserModel.phoneKey)
   String get phone => throw _privateConstructorUsedError;
-  @JsonKey(name: UserTable.vpoints)
+  @JsonKey(name: UserModel.vpointsKey)
   int get vpoints => throw _privateConstructorUsedError;
-  @JsonKey(name: UserTable.isAdmin)
+  @JsonKey(name: UserModel.isAdminKey)
   bool get isAdmin => throw _privateConstructorUsedError;
-  @JsonKey(name: UserTable.joinedAt)
+  @JsonKey(name: UserModel.joinedAtKey)
   DateTime get joinedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -53,16 +53,16 @@ abstract class $UserModelCopyWith<$Res> {
       _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: UserTable.id) String id,
-      @JsonKey(name: UserTable.userId) String userId,
-      @JsonKey(name: UserTable.photo) String? photo,
-      @JsonKey(name: UserTable.firstName) String firstName,
-      @JsonKey(name: UserTable.lastName) String lastName,
-      @JsonKey(name: UserTable.email) String email,
-      @JsonKey(name: UserTable.phone) String phone,
-      @JsonKey(name: UserTable.vpoints) int vpoints,
-      @JsonKey(name: UserTable.isAdmin) bool isAdmin,
-      @JsonKey(name: UserTable.joinedAt) DateTime joinedAt});
+      {@JsonKey(name: UserModel.idKey) String id,
+      @JsonKey(name: UserModel.userIdKey) String userId,
+      @JsonKey(name: UserModel.photoKey) String? photo,
+      @JsonKey(name: UserModel.firstNameKey) String firstName,
+      @JsonKey(name: UserModel.lastNameKey) String lastName,
+      @JsonKey(name: UserModel.emailKey) String email,
+      @JsonKey(name: UserModel.phoneKey) String phone,
+      @JsonKey(name: UserModel.vpointsKey) int vpoints,
+      @JsonKey(name: UserModel.isAdminKey) bool isAdmin,
+      @JsonKey(name: UserModel.joinedAtKey) DateTime joinedAt});
 }
 
 /// @nodoc
@@ -143,16 +143,16 @@ abstract class _$$UserModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: UserTable.id) String id,
-      @JsonKey(name: UserTable.userId) String userId,
-      @JsonKey(name: UserTable.photo) String? photo,
-      @JsonKey(name: UserTable.firstName) String firstName,
-      @JsonKey(name: UserTable.lastName) String lastName,
-      @JsonKey(name: UserTable.email) String email,
-      @JsonKey(name: UserTable.phone) String phone,
-      @JsonKey(name: UserTable.vpoints) int vpoints,
-      @JsonKey(name: UserTable.isAdmin) bool isAdmin,
-      @JsonKey(name: UserTable.joinedAt) DateTime joinedAt});
+      {@JsonKey(name: UserModel.idKey) String id,
+      @JsonKey(name: UserModel.userIdKey) String userId,
+      @JsonKey(name: UserModel.photoKey) String? photo,
+      @JsonKey(name: UserModel.firstNameKey) String firstName,
+      @JsonKey(name: UserModel.lastNameKey) String lastName,
+      @JsonKey(name: UserModel.emailKey) String email,
+      @JsonKey(name: UserModel.phoneKey) String phone,
+      @JsonKey(name: UserModel.vpointsKey) int vpoints,
+      @JsonKey(name: UserModel.isAdminKey) bool isAdmin,
+      @JsonKey(name: UserModel.joinedAtKey) DateTime joinedAt});
 }
 
 /// @nodoc
@@ -224,53 +224,53 @@ class __$$UserModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-@TableModel(UserTable.table)
+@TableModel(UserModel.tableName)
 class _$UserModelImpl extends _UserModel {
-  _$UserModelImpl(
-      {@JsonKey(name: UserTable.id) required this.id,
-      @JsonKey(name: UserTable.userId) required this.userId,
-      @JsonKey(name: UserTable.photo) required this.photo,
-      @JsonKey(name: UserTable.firstName) required this.firstName,
-      @JsonKey(name: UserTable.lastName) required this.lastName,
-      @JsonKey(name: UserTable.email) required this.email,
-      @JsonKey(name: UserTable.phone) required this.phone,
-      @JsonKey(name: UserTable.vpoints) required this.vpoints,
-      @JsonKey(name: UserTable.isAdmin) required this.isAdmin,
-      @JsonKey(name: UserTable.joinedAt) required this.joinedAt})
+  const _$UserModelImpl(
+      {@JsonKey(name: UserModel.idKey) required this.id,
+      @JsonKey(name: UserModel.userIdKey) required this.userId,
+      @JsonKey(name: UserModel.photoKey) this.photo,
+      @JsonKey(name: UserModel.firstNameKey) required this.firstName,
+      @JsonKey(name: UserModel.lastNameKey) required this.lastName,
+      @JsonKey(name: UserModel.emailKey) required this.email,
+      @JsonKey(name: UserModel.phoneKey) required this.phone,
+      @JsonKey(name: UserModel.vpointsKey) required this.vpoints,
+      @JsonKey(name: UserModel.isAdminKey) required this.isAdmin,
+      @JsonKey(name: UserModel.joinedAtKey) required this.joinedAt})
       : super._();
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserModelImplFromJson(json);
 
   @override
-  @JsonKey(name: UserTable.id)
+  @JsonKey(name: UserModel.idKey)
   final String id;
   @override
-  @JsonKey(name: UserTable.userId)
+  @JsonKey(name: UserModel.userIdKey)
   final String userId;
   @override
-  @JsonKey(name: UserTable.photo)
+  @JsonKey(name: UserModel.photoKey)
   final String? photo;
   @override
-  @JsonKey(name: UserTable.firstName)
+  @JsonKey(name: UserModel.firstNameKey)
   final String firstName;
   @override
-  @JsonKey(name: UserTable.lastName)
+  @JsonKey(name: UserModel.lastNameKey)
   final String lastName;
   @override
-  @JsonKey(name: UserTable.email)
+  @JsonKey(name: UserModel.emailKey)
   final String email;
   @override
-  @JsonKey(name: UserTable.phone)
+  @JsonKey(name: UserModel.phoneKey)
   final String phone;
   @override
-  @JsonKey(name: UserTable.vpoints)
+  @JsonKey(name: UserModel.vpointsKey)
   final int vpoints;
   @override
-  @JsonKey(name: UserTable.isAdmin)
+  @JsonKey(name: UserModel.isAdminKey)
   final bool isAdmin;
   @override
-  @JsonKey(name: UserTable.joinedAt)
+  @JsonKey(name: UserModel.joinedAtKey)
   final DateTime joinedAt;
 
   @override
@@ -318,52 +318,52 @@ class _$UserModelImpl extends _UserModel {
 }
 
 abstract class _UserModel extends UserModel {
-  factory _UserModel(
-      {@JsonKey(name: UserTable.id) required final String id,
-      @JsonKey(name: UserTable.userId) required final String userId,
-      @JsonKey(name: UserTable.photo) required final String? photo,
-      @JsonKey(name: UserTable.firstName) required final String firstName,
-      @JsonKey(name: UserTable.lastName) required final String lastName,
-      @JsonKey(name: UserTable.email) required final String email,
-      @JsonKey(name: UserTable.phone) required final String phone,
-      @JsonKey(name: UserTable.vpoints) required final int vpoints,
-      @JsonKey(name: UserTable.isAdmin) required final bool isAdmin,
-      @JsonKey(name: UserTable.joinedAt)
+  const factory _UserModel(
+      {@JsonKey(name: UserModel.idKey) required final String id,
+      @JsonKey(name: UserModel.userIdKey) required final String userId,
+      @JsonKey(name: UserModel.photoKey) final String? photo,
+      @JsonKey(name: UserModel.firstNameKey) required final String firstName,
+      @JsonKey(name: UserModel.lastNameKey) required final String lastName,
+      @JsonKey(name: UserModel.emailKey) required final String email,
+      @JsonKey(name: UserModel.phoneKey) required final String phone,
+      @JsonKey(name: UserModel.vpointsKey) required final int vpoints,
+      @JsonKey(name: UserModel.isAdminKey) required final bool isAdmin,
+      @JsonKey(name: UserModel.joinedAtKey)
       required final DateTime joinedAt}) = _$UserModelImpl;
-  _UserModel._() : super._();
+  const _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$UserModelImpl.fromJson;
 
   @override
-  @JsonKey(name: UserTable.id)
+  @JsonKey(name: UserModel.idKey)
   String get id;
   @override
-  @JsonKey(name: UserTable.userId)
+  @JsonKey(name: UserModel.userIdKey)
   String get userId;
   @override
-  @JsonKey(name: UserTable.photo)
+  @JsonKey(name: UserModel.photoKey)
   String? get photo;
   @override
-  @JsonKey(name: UserTable.firstName)
+  @JsonKey(name: UserModel.firstNameKey)
   String get firstName;
   @override
-  @JsonKey(name: UserTable.lastName)
+  @JsonKey(name: UserModel.lastNameKey)
   String get lastName;
   @override
-  @JsonKey(name: UserTable.email)
+  @JsonKey(name: UserModel.emailKey)
   String get email;
   @override
-  @JsonKey(name: UserTable.phone)
+  @JsonKey(name: UserModel.phoneKey)
   String get phone;
   @override
-  @JsonKey(name: UserTable.vpoints)
+  @JsonKey(name: UserModel.vpointsKey)
   int get vpoints;
   @override
-  @JsonKey(name: UserTable.isAdmin)
+  @JsonKey(name: UserModel.isAdminKey)
   bool get isAdmin;
   @override
-  @JsonKey(name: UserTable.joinedAt)
+  @JsonKey(name: UserModel.joinedAtKey)
   DateTime get joinedAt;
   @override
   @JsonKey(ignore: true)

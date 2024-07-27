@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'v_point_transaction_model.dart';
+part of 'v_point_transaction_model.schema.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -21,11 +21,17 @@ VPointTransactionModel _$VPointTransactionModelFromJson(
 
 /// @nodoc
 mixin _$VPointTransactionModel {
+  @JsonKey(name: VPointTransactionModel.idKey)
   int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: VPointTransactionModel.transactionIdKey)
   String get transactionId => throw _privateConstructorUsedError;
+  @JsonKey(name: VPointTransactionModel.typeKey)
   String get type => throw _privateConstructorUsedError;
+  @JsonKey(name: VPointTransactionModel.userIdKey)
   String get userId => throw _privateConstructorUsedError;
+  @JsonKey(name: VPointTransactionModel.vpointsKey)
   int get vpoints => throw _privateConstructorUsedError;
+  @JsonKey(name: VPointTransactionModel.createdAtKey)
   DateTime get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,12 +47,13 @@ abstract class $VPointTransactionModelCopyWith<$Res> {
       _$VPointTransactionModelCopyWithImpl<$Res, VPointTransactionModel>;
   @useResult
   $Res call(
-      {int id,
+      {@JsonKey(name: VPointTransactionModel.idKey) int id,
+      @JsonKey(name: VPointTransactionModel.transactionIdKey)
       String transactionId,
-      String type,
-      String userId,
-      int vpoints,
-      DateTime createdAt});
+      @JsonKey(name: VPointTransactionModel.typeKey) String type,
+      @JsonKey(name: VPointTransactionModel.userIdKey) String userId,
+      @JsonKey(name: VPointTransactionModel.vpointsKey) int vpoints,
+      @JsonKey(name: VPointTransactionModel.createdAtKey) DateTime createdAt});
 }
 
 /// @nodoc
@@ -109,12 +116,13 @@ abstract class _$$VPointTransactionModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {@JsonKey(name: VPointTransactionModel.idKey) int id,
+      @JsonKey(name: VPointTransactionModel.transactionIdKey)
       String transactionId,
-      String type,
-      String userId,
-      int vpoints,
-      DateTime createdAt});
+      @JsonKey(name: VPointTransactionModel.typeKey) String type,
+      @JsonKey(name: VPointTransactionModel.userIdKey) String userId,
+      @JsonKey(name: VPointTransactionModel.vpointsKey) int vpoints,
+      @JsonKey(name: VPointTransactionModel.createdAtKey) DateTime createdAt});
 }
 
 /// @nodoc
@@ -168,29 +176,39 @@ class __$$VPointTransactionModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$VPointTransactionModelImpl implements _VPointTransactionModel {
-  _$VPointTransactionModelImpl(
-      {required this.id,
+@TableModel(VPointTransactionModel.tableName)
+class _$VPointTransactionModelImpl extends _VPointTransactionModel {
+  const _$VPointTransactionModelImpl(
+      {@JsonKey(name: VPointTransactionModel.idKey) required this.id,
+      @JsonKey(name: VPointTransactionModel.transactionIdKey)
       required this.transactionId,
-      required this.type,
-      required this.userId,
-      required this.vpoints,
-      required this.createdAt});
+      @JsonKey(name: VPointTransactionModel.typeKey) required this.type,
+      @JsonKey(name: VPointTransactionModel.userIdKey) required this.userId,
+      @JsonKey(name: VPointTransactionModel.vpointsKey) required this.vpoints,
+      @JsonKey(name: VPointTransactionModel.createdAtKey)
+      required this.createdAt})
+      : super._();
 
   factory _$VPointTransactionModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$VPointTransactionModelImplFromJson(json);
 
   @override
+  @JsonKey(name: VPointTransactionModel.idKey)
   final int id;
   @override
+  @JsonKey(name: VPointTransactionModel.transactionIdKey)
   final String transactionId;
   @override
+  @JsonKey(name: VPointTransactionModel.typeKey)
   final String type;
   @override
+  @JsonKey(name: VPointTransactionModel.userIdKey)
   final String userId;
   @override
+  @JsonKey(name: VPointTransactionModel.vpointsKey)
   final int vpoints;
   @override
+  @JsonKey(name: VPointTransactionModel.createdAtKey)
   final DateTime createdAt;
 
   @override
@@ -233,29 +251,40 @@ class _$VPointTransactionModelImpl implements _VPointTransactionModel {
   }
 }
 
-abstract class _VPointTransactionModel implements VPointTransactionModel {
-  factory _VPointTransactionModel(
-      {required final int id,
+abstract class _VPointTransactionModel extends VPointTransactionModel {
+  const factory _VPointTransactionModel(
+      {@JsonKey(name: VPointTransactionModel.idKey) required final int id,
+      @JsonKey(name: VPointTransactionModel.transactionIdKey)
       required final String transactionId,
-      required final String type,
+      @JsonKey(name: VPointTransactionModel.typeKey) required final String type,
+      @JsonKey(name: VPointTransactionModel.userIdKey)
       required final String userId,
+      @JsonKey(name: VPointTransactionModel.vpointsKey)
       required final int vpoints,
+      @JsonKey(name: VPointTransactionModel.createdAtKey)
       required final DateTime createdAt}) = _$VPointTransactionModelImpl;
+  const _VPointTransactionModel._() : super._();
 
   factory _VPointTransactionModel.fromJson(Map<String, dynamic> json) =
       _$VPointTransactionModelImpl.fromJson;
 
   @override
+  @JsonKey(name: VPointTransactionModel.idKey)
   int get id;
   @override
+  @JsonKey(name: VPointTransactionModel.transactionIdKey)
   String get transactionId;
   @override
+  @JsonKey(name: VPointTransactionModel.typeKey)
   String get type;
   @override
+  @JsonKey(name: VPointTransactionModel.userIdKey)
   String get userId;
   @override
+  @JsonKey(name: VPointTransactionModel.vpointsKey)
   int get vpoints;
   @override
+  @JsonKey(name: VPointTransactionModel.createdAtKey)
   DateTime get createdAt;
   @override
   @JsonKey(ignore: true)

@@ -12,12 +12,14 @@ _$BankModelImpl _$$BankModelImplFromJson(Map<String, dynamic> json) =>
     _$BankModelImpl(
       id: (json['id'] as num).toInt(),
       name: json['name'] as String,
+      bankBranch: json['bank_branch'] as String?,
     );
 
 Map<String, dynamic> _$$BankModelImplToJson(_$BankModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
+      'bank_branch': instance.bankBranch,
     };
 
 // **************************************************************************
@@ -29,5 +31,6 @@ const _tableBankModel = TableBuilder(
   columns: [
     ColumnBuilder('id'),
     ColumnBuilder('name'),
+    ColumnBuilder('bank_branch'),
   ],
 );

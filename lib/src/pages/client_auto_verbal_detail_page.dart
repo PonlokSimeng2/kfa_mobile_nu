@@ -984,7 +984,7 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
             _buildDetailRow('Min Value', data.minValue.toString()),
             _buildDetailRow('Max Value', data.maxValue.toString()),
             _buildDetailRow('Area', data.area.toString()),
-            _buildDetailRow('Road', data.road?.name ?? 'N/A'),
+            _buildDetailRow('Road', data?.road?.name ?? 'N/A'),
             _buildDetailRow('Land Length', data.landlength.toString()),
             _buildDetailRow('Land Width', data.landwidth.toString()),
             _buildDetailRow('Building Length', data.buildinglength.toString()),

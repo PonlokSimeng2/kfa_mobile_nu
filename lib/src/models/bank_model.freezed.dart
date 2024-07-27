@@ -24,6 +24,8 @@ mixin _$BankModel {
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: BankTable.name)
   String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: BankTable.bankBranch)
+  String? get bankBranch => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -38,7 +40,8 @@ abstract class $BankModelCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: BankTable.id) int id,
-      @JsonKey(name: BankTable.name) String name});
+      @JsonKey(name: BankTable.name) String name,
+      @JsonKey(name: BankTable.bankBranch) String? bankBranch});
 }
 
 /// @nodoc
@@ -56,6 +59,7 @@ class _$BankModelCopyWithImpl<$Res, $Val extends BankModel>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? bankBranch = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -66,6 +70,10 @@ class _$BankModelCopyWithImpl<$Res, $Val extends BankModel>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      bankBranch: freezed == bankBranch
+          ? _value.bankBranch
+          : bankBranch // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -80,7 +88,8 @@ abstract class _$$BankModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: BankTable.id) int id,
-      @JsonKey(name: BankTable.name) String name});
+      @JsonKey(name: BankTable.name) String name,
+      @JsonKey(name: BankTable.bankBranch) String? bankBranch});
 }
 
 /// @nodoc
@@ -96,6 +105,7 @@ class __$$BankModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? bankBranch = freezed,
   }) {
     return _then(_$BankModelImpl(
       id: null == id
@@ -106,6 +116,10 @@ class __$$BankModelImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      bankBranch: freezed == bankBranch
+          ? _value.bankBranch
+          : bankBranch // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -116,7 +130,8 @@ class __$$BankModelImplCopyWithImpl<$Res>
 class _$BankModelImpl extends _BankModel {
   _$BankModelImpl(
       {@JsonKey(name: BankTable.id) required this.id,
-      @JsonKey(name: BankTable.name) required this.name})
+      @JsonKey(name: BankTable.name) required this.name,
+      @JsonKey(name: BankTable.bankBranch) required this.bankBranch})
       : super._();
 
   factory _$BankModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -128,10 +143,13 @@ class _$BankModelImpl extends _BankModel {
   @override
   @JsonKey(name: BankTable.name)
   final String name;
+  @override
+  @JsonKey(name: BankTable.bankBranch)
+  final String? bankBranch;
 
   @override
   String toString() {
-    return 'BankModel(id: $id, name: $name)';
+    return 'BankModel(id: $id, name: $name, bankBranch: $bankBranch)';
   }
 
   @override
@@ -140,12 +158,14 @@ class _$BankModelImpl extends _BankModel {
         (other.runtimeType == runtimeType &&
             other is _$BankModelImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.bankBranch, bankBranch) ||
+                other.bankBranch == bankBranch));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name);
+  int get hashCode => Object.hash(runtimeType, id, name, bankBranch);
 
   @JsonKey(ignore: true)
   @override
@@ -163,9 +183,10 @@ class _$BankModelImpl extends _BankModel {
 
 abstract class _BankModel extends BankModel {
   factory _BankModel(
-          {@JsonKey(name: BankTable.id) required final int id,
-          @JsonKey(name: BankTable.name) required final String name}) =
-      _$BankModelImpl;
+      {@JsonKey(name: BankTable.id) required final int id,
+      @JsonKey(name: BankTable.name) required final String name,
+      @JsonKey(name: BankTable.bankBranch)
+      required final String? bankBranch}) = _$BankModelImpl;
   _BankModel._() : super._();
 
   factory _BankModel.fromJson(Map<String, dynamic> json) =
@@ -177,6 +198,9 @@ abstract class _BankModel extends BankModel {
   @override
   @JsonKey(name: BankTable.name)
   String get name;
+  @override
+  @JsonKey(name: BankTable.bankBranch)
+  String? get bankBranch;
   @override
   @JsonKey(ignore: true)
   _$$BankModelImplCopyWith<_$BankModelImpl> get copyWith =>

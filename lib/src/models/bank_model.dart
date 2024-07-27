@@ -23,6 +23,7 @@ class BankModel with _$BankModel {
   factory BankModel({
     @JsonKey(name: BankTable.id) required int id,
     @JsonKey(name: BankTable.name) required String name,
+    @JsonKey(name: BankTable.bankBranch) required String? bankBranch,
   }) = _BankModel;
 
   factory BankModel.fromJson(Map<String, dynamic> json) => _$BankModelFromJson(json);

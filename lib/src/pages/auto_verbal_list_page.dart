@@ -130,32 +130,37 @@ class _GridView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return GridView.builder(
-      padding: const EdgeInsets.all(8),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 0.75,
-        mainAxisSpacing: 10,
-        crossAxisSpacing: 10,
-      ),
-      itemBuilder: (context, index) {
-        final paginated = ref.watch(
-          autoVerbalAtIndexProvider(
-            index: index,
-            filter: ref.watch(_filterProvider),
-          ),
-        );
-        return paginated?.whenOrNull(
-          loading: (isFirstItem) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          },
-          data: (item) {
-            return _buildAutoVerbalCard(context, item);
-          },
-        );
+    return RefreshIndicator(
+      onRefresh: () async {
+        ref.invalidate(autoVerbalListProvider);
       },
+      child: GridView.builder(
+        padding: const EdgeInsets.all(8),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 0.75,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
+        ),
+        itemBuilder: (context, index) {
+          final paginated = ref.watch(
+            autoVerbalAtIndexProvider(
+              index: index,
+              filter: ref.watch(_filterProvider),
+            ),
+          );
+          return paginated?.whenOrNull(
+            loading: (isFirstItem) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+            data: (item) {
+              return _buildAutoVerbalCard(context, item);
+            },
+          );
+        },
+      ),
     );
   }
 

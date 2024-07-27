@@ -69,7 +69,7 @@ class EditAutoVerbalPage extends HookConsumerWidget {
                         }
                       }
                     },
-                    child: isProgressing ? Text('SAVING') : Text('SAVE'),
+                    child: isProgressing ? Text('SAVING') : Text('RESUMIT'),
                   ),
                 ),
               ],

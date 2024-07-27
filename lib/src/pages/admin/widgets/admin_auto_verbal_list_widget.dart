@@ -91,7 +91,7 @@ class AdminAutoVerbalListWidget extends ConsumerWidget {
                     ),
                   ),
                   Text(
-                    autoVerbal.propertyType.name ?? 'N/A',
+                    autoVerbal.propertyType.name,
                     style: TextStyle(
                       color: Colors.grey[600],
                       fontSize: 14,

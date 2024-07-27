@@ -129,3 +129,43 @@ CREATE TRIGGER new_auto_verbal_notification
 AFTER INSERT ON public.auto_verbals
 FOR EACH ROW
 EXECUTE FUNCTION notify_admin_new_auto_verbal();
+
+
+-- Function to send notification to admin when an auto verbal is resubmitted
+CREATE OR REPLACE FUNCTION notify_admin_auto_verbal_resubmitted()
+RETURNS TRIGGER AS $$
+DECLARE
+  admin_user_ids UUID[];
+  notification_message TEXT;
+  notification_title TEXT;
+BEGIN
+  -- Only proceed if the new status is 'resubmit'
+  IF NEW.status = 'resubmit' THEN
+    -- Get all admin user IDs
+    SELECT ARRAY_AGG(id) INTO admin_user_ids
+    FROM public.users
+    WHERE is_admin = true;
+
+    -- Prepare notification message and title
+    notification_title := 'Auto Verbal Resubmitted';
+    notification_message := format('Auto verbal (ID: %s) has been resubmitted and requires review.', NEW.auto_verbal_id);
+
+    -- Send notification to all admins
+    PERFORM send_onesignal_notification(
+      notification_message,
+      notification_title,
+      admin_user_ids
+    );
+  END IF;
+
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create trigger for auto verbal resubmission notifications
+DROP TRIGGER IF EXISTS auto_verbal_resubmission_notification ON public.auto_verbals;
+CREATE TRIGGER auto_verbal_resubmission_notification
+AFTER UPDATE ON public.auto_verbals
+FOR EACH ROW
+WHEN (NEW.status = 'resubmit')
+EXECUTE FUNCTION notify_admin_auto_verbal_resubmitted();

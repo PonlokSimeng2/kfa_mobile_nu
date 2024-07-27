@@ -67,7 +67,7 @@ class EditPropertyPage extends HookConsumerWidget {
                         }
                       }
                     },
-                    child: isProgressing ? Text('SAVING') : Text('RESUMMIT'),
+                    child: isProgressing ? Text('SAVING') : Text('RESUMIT'),
                   ),
                 ),
               ],
@@ -75,8 +75,7 @@ class EditPropertyPage extends HookConsumerWidget {
             body: Padding(
               padding: const EdgeInsets.all(8.0),
               child: SingleChildScrollView(
-                keyboardDismissBehavior:
-                    ScrollViewKeyboardDismissBehavior.onDrag,
+                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -87,8 +86,12 @@ class EditPropertyPage extends HookConsumerWidget {
                     UpdatePropertyLatitudeFieldWidget(
                       builder: (ref, latitude, changeLatitude, showValidation) {
                         return UpdatePropertyLongitudeFieldWidget(
-                          builder: (ref, longitude, changeLongitude,
-                              showValidation) {
+                          builder: (
+                            ref,
+                            longitude,
+                            changeLongitude,
+                            showValidation,
+                          ) {
                             final mapUrl =
                                 "https://maps.googleapis.com/maps/api/staticmap?center=$latitude,$longitude&zoom=18&size=1080x920&maptype=hybrid&markers=color:red%7C%7C$latitude,$longitude&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI";
                             return InkWell(
@@ -104,15 +107,13 @@ class EditPropertyPage extends HookConsumerWidget {
                                 }
                               },
                               child: Padding(
-                                padding:
-                                    const EdgeInsets.only(right: 30, left: 30),
+                                padding: const EdgeInsets.only(right: 30, left: 30),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     border: Border.all(width: 1),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.3,
+                                  height: MediaQuery.of(context).size.height * 0.3,
                                   width: MediaQuery.of(context).size.width,
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10),
@@ -136,8 +137,7 @@ class EditPropertyPage extends HookConsumerWidget {
                     UpdatePropertyProvinceFieldWidget(
                       builder: (ref, province, changeProvince, showValidation) {
                         return Padding(
-                          padding:
-                              EdgeInsets.only(right: 30, left: 30, top: 10),
+                          padding: EdgeInsets.only(right: 30, left: 30, top: 10),
                           child: Container(
                             child: ProvinceDropDown(
                               value: province,
@@ -160,8 +160,7 @@ class EditPropertyPage extends HookConsumerWidget {
                         showValidation,
                       ) {
                         return Padding(
-                          padding:
-                              EdgeInsets.only(right: 30, left: 30, top: 10),
+                          padding: EdgeInsets.only(right: 30, left: 30, top: 10),
                           child: Container(
                             child: PropertyTypeDropDown(
                               value: propertyType,
@@ -187,14 +186,11 @@ class EditPropertyPage extends HookConsumerWidget {
                                   },
                                   keyboardType: TextInputType.number,
                                   style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.015,
+                                    fontSize: MediaQuery.of(context).size.height * 0.015,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 8),
+                                    contentPadding: EdgeInsets.symmetric(vertical: 8),
                                     prefixIcon: Icon(
                                       Icons.feed_outlined,
                                       color: kImageColor,
@@ -235,14 +231,11 @@ class EditPropertyPage extends HookConsumerWidget {
                                   },
                                   keyboardType: TextInputType.number,
                                   style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.015,
+                                    fontSize: MediaQuery.of(context).size.height * 0.015,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 8),
+                                    contentPadding: EdgeInsets.symmetric(vertical: 8),
                                     prefixIcon: Icon(
                                       Icons.feed_outlined,
                                       color: kImageColor,
@@ -284,17 +277,14 @@ class EditPropertyPage extends HookConsumerWidget {
                                   initialValue: bed.toString(),
                                   keyboardType: TextInputType.number,
                                   style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.015,
+                                    fontSize: MediaQuery.of(context).size.height * 0.015,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   onChanged: (value) {
                                     changeBed(int.parse(value));
                                   },
                                   decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 8),
+                                    contentPadding: EdgeInsets.symmetric(vertical: 8),
                                     prefixIcon: Icon(
                                       Icons.bed_outlined,
                                       color: kImageColor,
@@ -332,17 +322,14 @@ class EditPropertyPage extends HookConsumerWidget {
                                   initialValue: bath.toString(),
                                   keyboardType: TextInputType.number,
                                   style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.015,
+                                    fontSize: MediaQuery.of(context).size.height * 0.015,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   onChanged: (value) {
                                     changeBath(int.parse(value));
                                   },
                                   decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 8),
+                                    contentPadding: EdgeInsets.symmetric(vertical: 8),
                                     prefixIcon: Icon(
                                       Icons.feed_outlined,
                                       color: kImageColor,
@@ -391,20 +378,16 @@ class EditPropertyPage extends HookConsumerWidget {
                                 showValidation,
                               ) {
                                 return Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.4,
+                                  width: MediaQuery.of(context).size.width * 0.4,
                                   child: TextFormField(
                                     initialValue: landLength.toString(),
                                     keyboardType: TextInputType.number,
                                     style: TextStyle(
-                                      fontSize:
-                                          MediaQuery.of(context).size.height *
-                                              0.015,
+                                      fontSize: MediaQuery.of(context).size.height * 0.015,
                                       fontWeight: FontWeight.bold,
                                     ),
                                     decoration: InputDecoration(
-                                      contentPadding:
-                                          EdgeInsets.symmetric(vertical: 8),
+                                      contentPadding: EdgeInsets.symmetric(vertical: 8),
                                       hintText: 'L',
                                       labelText: 'L',
                                       fillColor: kwhite,
@@ -414,16 +397,14 @@ class EditPropertyPage extends HookConsumerWidget {
                                           color: kPrimaryColor,
                                           width: 2.0,
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
+                                        borderRadius: BorderRadius.circular(10.0),
                                       ),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           width: 1,
                                           color: kPrimaryColor,
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
+                                        borderRadius: BorderRadius.circular(10.0),
                                       ),
                                     ),
                                     onChanged: (value) {
@@ -438,22 +419,23 @@ class EditPropertyPage extends HookConsumerWidget {
                             width: 10,
                           ),
                           UpdatePropertyLandWidthFieldWidget(
-                            builder: (ref, landWidth, changeLandWidth,
-                                showValidation) {
+                            builder: (
+                              ref,
+                              landWidth,
+                              changeLandWidth,
+                              showValidation,
+                            ) {
                               return Container(
                                 width: MediaQuery.of(context).size.width * 0.4,
                                 child: TextFormField(
                                   initialValue: landWidth.toString(),
                                   keyboardType: TextInputType.number,
                                   style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.015,
+                                    fontSize: MediaQuery.of(context).size.height * 0.015,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 8),
+                                    contentPadding: EdgeInsets.symmetric(vertical: 8),
                                     hintText: 'W',
                                     labelText: 'W',
                                     fillColor: kwhite,
@@ -501,20 +483,16 @@ class EditPropertyPage extends HookConsumerWidget {
                                 showValidation,
                               ) {
                                 return Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.4,
+                                  width: MediaQuery.of(context).size.width * 0.4,
                                   child: TextFormField(
                                     initialValue: buildingLength.toString(),
                                     keyboardType: TextInputType.number,
                                     style: TextStyle(
-                                      fontSize:
-                                          MediaQuery.of(context).size.height *
-                                              0.015,
+                                      fontSize: MediaQuery.of(context).size.height * 0.015,
                                       fontWeight: FontWeight.bold,
                                     ),
                                     decoration: InputDecoration(
-                                      contentPadding:
-                                          EdgeInsets.symmetric(vertical: 8),
+                                      contentPadding: EdgeInsets.symmetric(vertical: 8),
                                       hintText: 'L',
                                       labelText: 'L',
                                       fillColor: kwhite,
@@ -524,16 +502,14 @@ class EditPropertyPage extends HookConsumerWidget {
                                           color: kPrimaryColor,
                                           width: 2.0,
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
+                                        borderRadius: BorderRadius.circular(10.0),
                                       ),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           width: 1,
                                           color: kPrimaryColor,
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
+                                        borderRadius: BorderRadius.circular(10.0),
                                       ),
                                     ),
                                     onChanged: (value) {
@@ -560,14 +536,11 @@ class EditPropertyPage extends HookConsumerWidget {
                                   initialValue: buildingWidth.toString(),
                                   keyboardType: TextInputType.number,
                                   style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.015,
+                                    fontSize: MediaQuery.of(context).size.height * 0.015,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 8),
+                                    contentPadding: EdgeInsets.symmetric(vertical: 8),
                                     hintText: 'W',
                                     labelText: 'W',
                                     fillColor: kwhite,
@@ -603,24 +576,20 @@ class EditPropertyPage extends HookConsumerWidget {
                       child: Row(
                         children: [
                           UpdatePropertyFloorsFieldWidget(
-                            builder:
-                                (ref, floors, changeFloors, showValidation) {
+                            builder: (ref, floors, changeFloors, showValidation) {
                               return Expanded(
                                 child: TextFormField(
                                   initialValue: floors.toString(),
                                   keyboardType: TextInputType.number,
                                   style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.015,
+                                    fontSize: MediaQuery.of(context).size.height * 0.015,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   onChanged: (value) {
                                     changeFloors(int.parse(value));
                                   },
                                   decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 8),
+                                    contentPadding: EdgeInsets.symmetric(vertical: 8),
                                     labelText: 'Floor',
                                     prefixIcon: Icon(
                                       Icons.bed_outlined,
@@ -652,24 +621,20 @@ class EditPropertyPage extends HookConsumerWidget {
                             width: 10,
                           ),
                           UpdatePropertyParkingFieldWidget(
-                            builder:
-                                (ref, parking, changeParking, showValidation) {
+                            builder: (ref, parking, changeParking, showValidation) {
                               return Expanded(
                                 child: TextFormField(
                                   initialValue: parking.toString(),
                                   keyboardType: TextInputType.number,
                                   style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.015,
+                                    fontSize: MediaQuery.of(context).size.height * 0.015,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   onChanged: (value) {
                                     changeParking(int.parse(value));
                                   },
                                   decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 8),
+                                    contentPadding: EdgeInsets.symmetric(vertical: 8),
                                     labelText: 'Parking',
                                     prefixIcon: Icon(
                                       Icons.feed_outlined,
@@ -701,11 +666,14 @@ class EditPropertyPage extends HookConsumerWidget {
                       ),
                     ),
                     UpdatePropertyLivingRoomsFieldWidget(
-                      builder: (ref, livingRooms, changeLivingRooms,
-                          showValidation) {
+                      builder: (
+                        ref,
+                        livingRooms,
+                        changeLivingRooms,
+                        showValidation,
+                      ) {
                         return Padding(
-                          padding:
-                              EdgeInsets.only(right: 30, left: 30, top: 10),
+                          padding: EdgeInsets.only(right: 30, left: 30, top: 10),
                           child: Row(
                             children: [
                               Expanded(
@@ -716,14 +684,11 @@ class EditPropertyPage extends HookConsumerWidget {
                                   },
                                   keyboardType: TextInputType.number,
                                   style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.015,
+                                    fontSize: MediaQuery.of(context).size.height * 0.015,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 8),
+                                    contentPadding: EdgeInsets.symmetric(vertical: 8),
                                     prefixIcon: Icon(
                                       Icons.bed_outlined,
                                       color: kImageColor,
@@ -766,16 +731,12 @@ class EditPropertyPage extends HookConsumerWidget {
                                 changePropertyListingType,
                                 showValidation,
                               ) {
-                                return DropdownButtonFormField<
-                                    PropertyListingType>(
+                                return DropdownButtonFormField<PropertyListingType>(
                                   isExpanded: true,
                                   value: propertyListingType,
                                   items: PropertyListingType.values
-                                      .map<
-                                          DropdownMenuItem<
-                                              PropertyListingType>>(
-                                        (value) => DropdownMenuItem<
-                                            PropertyListingType>(
+                                      .map<DropdownMenuItem<PropertyListingType>>(
+                                        (value) => DropdownMenuItem<PropertyListingType>(
                                           value: value,
                                           child: Text(
                                             "For " + value.name.capitalize(),
@@ -792,8 +753,7 @@ class EditPropertyPage extends HookConsumerWidget {
                                     color: kImageColor,
                                   ),
                                   decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 8),
+                                    contentPadding: EdgeInsets.symmetric(vertical: 8),
                                     prefixIcon: Icon(
                                       Icons.bed_outlined,
                                       color: kImageColor,
@@ -916,20 +876,16 @@ class _ImagePicker extends HookWidget {
     final currentImageIndex = useState(0);
 
     return UpdatePropertyExistingImageUrlsFieldWidget(
-      builder:
-          (ref, existingImageUrls, changeExistingImageUrls, showValidation) {
+      builder: (ref, existingImageUrls, changeExistingImageUrls, showValidation) {
         return UpdatePropertyNewImageFilesFieldWidget(
           builder: (ref, imageFiles, changeImageFiles, showValidation) {
-            final hasImage =
-                imageFiles.isNotEmpty || existingImageUrls.isNotEmpty;
-            final imagePaths = existingImageUrls
-                .addAll(imageFiles.map((e) => e.path).toList());
+            final hasImage = imageFiles.isNotEmpty || existingImageUrls.isNotEmpty;
+            final imagePaths = existingImageUrls.addAll(imageFiles.map((e) => e.path).toList());
 
             return Column(
               children: [
                 Container(
-                  margin: EdgeInsets.all(30)
-                      .copyWith(bottom: imageFiles.isEmpty ? 20 : 0),
+                  margin: EdgeInsets.all(30).copyWith(bottom: imageFiles.isEmpty ? 20 : 0),
                   decoration: BoxDecoration(
                     color: kwhite,
                     borderRadius: BorderRadius.circular(10),
@@ -968,8 +924,7 @@ class _ImagePicker extends HookWidget {
                           children: [
                             PageView.builder(
                               controller: pageController,
-                              onPageChanged: (value) =>
-                                  currentImageIndex.value = value,
+                              onPageChanged: (value) => currentImageIndex.value = value,
                               itemCount: imagePaths.length,
                               itemBuilder: (context, index) {
                                 final path = imagePaths[index];
@@ -1021,10 +976,12 @@ class _ImagePicker extends HookWidget {
 
                                   if (isUrl) {
                                     changeExistingImageUrls(
-                                        existingImageUrls.removeAt(index));
+                                      existingImageUrls.removeAt(index),
+                                    );
                                   } else {
                                     changeImageFiles(
-                                        imageFiles.removeAt(index));
+                                      imageFiles.removeAt(index),
+                                    );
                                   }
 
                                   if (index > 0) {

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kfa_mobile_nu/src/models/auto_verbal_model.dart';
-import 'package:kfa_mobile_nu/src/models/auto_verbal_model.table.dart';
 import 'package:kfa_mobile_nu/src/models/bank_model.dart';
 import 'package:kfa_mobile_nu/src/models/base.dart';
 import 'package:kfa_mobile_nu/src/models/property_type_model.schema.dart';
@@ -69,15 +68,15 @@ FutureOr<IList<AutoVerbalModel>> autoVerbalList(
   }
 
   if (filter?.province != null) {
-    query = query.eq(AutoVerbalTable.provinceId, filter!.province!.id);
+    query = query.eq('province_id', filter!.province!.id);
   }
 
   if (filter?.propertyType != null) {
-    query = query.eq(AutoVerbalTable.propertyTypeId, filter!.propertyType!.id);
+    query = query.eq('property_type_id', filter!.propertyType!.id);
   }
 
   if (filter?.bank != null) {
-    query = query.eq(AutoVerbalTable.bankId, filter!.bank!.id);
+    query = query.eq('bank_id', filter!.bank!.id);
   }
 
   if (filter?.ownerNameOrPhone.isNotNullOrBlank == true) {
@@ -95,11 +94,11 @@ FutureOr<IList<AutoVerbalModel>> autoVerbalList(
   }
 
   if (filter?.userId != null) {
-    query = query.eq(AutoVerbalTable.userId, filter!.userId!);
+    query = query.eq('user_id', filter!.userId!);
   }
 
   return await query
-      .order(AutoVerbalTable.createdAt, ascending: false)
+      .order(AutoVerbalTable.id, ascending: false)
       .limit(_limit)
       .range(offset, offset + _limit)
       .withConverter((jsons) {
@@ -132,7 +131,7 @@ class InsertAutoVerbalState
   const InsertAutoVerbalState._();
 
   const factory InsertAutoVerbalState({
-    required XFile? imageFile,
+    required IList<XFile> imageFiles,
     required PropertyTypeModel? propertyType,
     required ProvinceModel? province,
     required BankModel? bank,
@@ -153,10 +152,10 @@ class InsertAutoVerbalState
     required double landlength,
     required double landwidth,
     required RoadModel? road,
-    required double bed,
-    required double bath,
-    required double livingroom,
-    required double floor,
+    required int bed,
+    required int bath,
+    required int livingroom,
+    required int floor,
     @Default(ProviderStatus.initial()) ProviderStatus<void> status,
   }) = _InsertAutoVerbalState;
   @override
@@ -169,8 +168,8 @@ class InsertAutoVerbalState
 @riverpod
 class InsertAutoVerbal extends _$InsertAutoVerbal with _$InsertAutoVerbalForm {
   @override
-  InsertAutoVerbalState build() => const InsertAutoVerbalState(
-        imageFile: null,
+  InsertAutoVerbalState build() => InsertAutoVerbalState(
+        imageFiles: IList(),
         propertyType: null,
         province: null,
         bank: null,
@@ -200,7 +199,7 @@ class InsertAutoVerbal extends _$InsertAutoVerbal with _$InsertAutoVerbalForm {
   Future<ProviderStatus<void>> call() async {
     return await perform<void>(
       (state) async {
-        if (state.imageFile == null) throw 'Image is empty';
+        if (state.imageFiles.isEmpty) throw 'At least one image is required';
         final userId = ref.watch(authProvider);
         if (userId == null) throw 'User must be login';
         if (state.province == null) throw 'Province is required';
@@ -210,48 +209,55 @@ class InsertAutoVerbal extends _$InsertAutoVerbal with _$InsertAutoVerbalForm {
 
         final sb = ref.watch(supabaseProvider).client;
 
-        final path = state.imageFile!.path;
-        final file = File(path);
-        final newPath = '${DateTime.now().microsecondsSinceEpoch}${p.extension(path)}';
+        final imageUrls = await Future.wait(
+          state.imageFiles.map((imageFile) async {
+            final path = imageFile.path;
+            final file = File(path);
+            final newPath = '${DateTime.now().microsecondsSinceEpoch}${p.extension(path)}';
 
-        await sb.storage.from('files').upload(newPath, file);
-        final imageUrl = sb.storage.from('files').getPublicUrl(newPath);
+            await sb.storage.from('files').upload(newPath, file);
+            return sb.storage.from('files').getPublicUrl(newPath);
+          }),
+        );
+
+        final jsonData = CreateAutoVerbalParam(
+          image: imageUrls,
+          bankBranch: state.bankBranch,
+          latitude: state.latitude,
+          longitude: state.longitude,
+          ownerName: state.ownerName,
+          ownerPhone: state.ownerPhone,
+          bankOfficerName: state.bankOfficerName,
+          bankOfficerPhone: state.bankOfficerPhone,
+          minValue: state.minValue,
+          maxValue: state.maxValue,
+          minValueSqm: state.minValueSqm,
+          maxValueSqm: state.maxValueSqm,
+          area: state.area,
+          buildinglength: state.buildinglength,
+          buildingwidth: state.buildingwidth,
+          landlength: state.landlength,
+          landwidth: state.landwidth,
+          bed: state.bed,
+          bath: state.bath,
+          livingroom: state.livingroom,
+          floor: state.floor,
+          propertyTypeId: state.propertyType!.id,
+          provinceId: state.province!.id,
+          bankId: state.bank?.id,
+          roadId: state.road?.id,
+          userId: userId,
+        ).toJson();
 
         try {
-          await sb.from(AutoVerbalModel.table.tableName).insert(
-            {
-              AutoVerbalTable.propertyTypeId: state.propertyType?.id,
-              AutoVerbalTable.provinceId: state.province?.id,
-              AutoVerbalTable.image: imageUrl,
-              AutoVerbalTable.latitude: state.latitude,
-              AutoVerbalTable.longitude: state.longitude,
-              AutoVerbalTable.ownerName: state.ownerName,
-              AutoVerbalTable.ownerPhone: state.ownerPhone,
-              AutoVerbalTable.minValue: state.minValue,
-              AutoVerbalTable.maxValue: state.maxValue,
-              AutoVerbalTable.minValueSqm: state.minValueSqm,
-              AutoVerbalTable.maxValueSqm: state.maxValueSqm,
-              AutoVerbalTable.area: state.area,
-              AutoVerbalTable.buildinglength: state.buildinglength,
-              AutoVerbalTable.buildingwidth: state.buildingwidth,
-              AutoVerbalTable.landlength: state.landlength,
-              AutoVerbalTable.landwidth: state.landwidth,
-              AutoVerbalTable.roadId: state.road?.id,
-              AutoVerbalTable.bed: state.bed,
-              AutoVerbalTable.bath: state.bath,
-              AutoVerbalTable.livingroom: state.livingroom,
-              AutoVerbalTable.floor: state.floor,
-              AutoVerbalTable.bankOfficerName: state.bankOfficerName,
-              AutoVerbalTable.bankOfficerPhone: state.bankOfficerPhone,
-              AutoVerbalTable.userId: userId,
-              AutoVerbalTable.bankId: state.bank?.id,
-              AutoVerbalTable.bankbranch: state.bankBranch,
-              AutoVerbalTable.status: PropertyAndAutoVerbalStatus.pending.name,
-              AutoVerbalTable.createdAt: DateTime.now().toIso8601String(),
-            },
-          );
+          await sb.from(AutoVerbalModel.table.tableName).insert(jsonData);
         } catch (e) {
-          await sb.storage.from('files').remove([newPath]);
+          await Future.wait(
+            imageUrls.map((url) {
+              final path = url.split('/').last;
+              return sb.storage.from('files').remove([path]);
+            }),
+          );
           rethrow;
         }
       },
@@ -269,8 +275,8 @@ class UpdateAutoVerbalState
   const UpdateAutoVerbalState._();
 
   const factory UpdateAutoVerbalState({
-    required XFile? newImageFile,
-    required String? existingImageUrl,
+    required IList<XFile> newImageFiles,
+    required IList<String> existingImageUrls,
     required PropertyTypeModel? propertyType,
     required ProvinceModel? province,
     required BankModel? bank,
@@ -291,10 +297,10 @@ class UpdateAutoVerbalState
     required double landlength,
     required double landwidth,
     required RoadModel? road,
-    required double bed,
-    required double bath,
-    required double livingroom,
-    required double floor,
+    required int? bed,
+    required int? bath,
+    required int? livingroom,
+    required int? floor,
     @Default(ProviderStatus.initial()) ProviderStatus<void> status,
   }) = _UpdateAutoVerbalState;
   @override
@@ -309,8 +315,8 @@ class UpdateAutoVerbal extends _$UpdateAutoVerbal with _$UpdateAutoVerbalForm {
   @override
   UpdateAutoVerbalState build(AutoVerbalModel initial) {
     return UpdateAutoVerbalState(
-      newImageFile: null,
-      existingImageUrl: initial.image.isNotEmpty ? initial.image : null,
+      newImageFiles: IList(),
+      existingImageUrls: initial.image.isNotEmpty ? IList(initial.image) : IList(),
       propertyType: initial.propertyType,
       province: initial.province,
       bank: initial.bank,
@@ -331,18 +337,18 @@ class UpdateAutoVerbal extends _$UpdateAutoVerbal with _$UpdateAutoVerbalForm {
       landlength: initial.landlength,
       landwidth: initial.landwidth,
       road: initial.road,
-      bed: initial.bed?.toDouble() ?? 0,
-      bath: initial.bath?.toDouble() ?? 0,
-      livingroom: initial.livingroom?.toDouble() ?? 0,
-      floor: initial.floor?.toDouble() ?? 0,
+      bed: initial.bed,
+      bath: initial.bath,
+      livingroom: initial.livingroom,
+      floor: initial.floor,
     );
   }
 
   Future<ProviderStatus<void>> call() async {
     return await perform<void>(
       (state) async {
-        if (state.newImageFile == null && state.existingImageUrl == null) {
-          throw 'Image is required';
+        if (state.newImageFiles.isEmpty && state.existingImageUrls.isEmpty) {
+          throw 'At least one image is required';
         }
         final userId = ref.watch(authProvider);
         if (userId == null) throw 'User must be login';
@@ -353,48 +359,53 @@ class UpdateAutoVerbal extends _$UpdateAutoVerbal with _$UpdateAutoVerbalForm {
 
         final sb = ref.watch(supabaseProvider).client;
 
-        String imageUrl = state.existingImageUrl ?? '';
-        if (state.newImageFile != null) {
-          final path = state.newImageFile!.path;
-          final file = File(path);
-          final newPath = '${DateTime.now().microsecondsSinceEpoch}${p.extension(path)}';
+        final newImageUrls = await Future.wait(
+          state.newImageFiles.map((imageFile) async {
+            final path = imageFile.path;
+            final file = File(path);
+            final newPath = '${DateTime.now().microsecondsSinceEpoch}${p.extension(path)}';
 
-          await sb.storage.from('files').upload(newPath, file);
-          imageUrl = sb.storage.from('files').getPublicUrl(newPath);
-        }
+            await sb.storage.from('files').upload(newPath, file);
+            return sb.storage.from('files').getPublicUrl(newPath);
+          }),
+        );
 
-        await sb.from(AutoVerbalModel.table.tableName).update(
-          {
-            AutoVerbalTable.propertyTypeId: state.propertyType?.id,
-            AutoVerbalTable.provinceId: state.province?.id,
-            AutoVerbalTable.image: [imageUrl],
-            AutoVerbalTable.latitude: state.latitude,
-            AutoVerbalTable.longitude: state.longitude,
-            AutoVerbalTable.ownerName: state.ownerName,
-            AutoVerbalTable.ownerPhone: state.ownerPhone,
-            AutoVerbalTable.minValue: state.minValue,
-            AutoVerbalTable.maxValue: state.maxValue,
-            AutoVerbalTable.minValueSqm: state.minValueSqm,
-            AutoVerbalTable.maxValueSqm: state.maxValueSqm,
-            AutoVerbalTable.area: state.area,
-            AutoVerbalTable.buildinglength: state.buildinglength,
-            AutoVerbalTable.buildingwidth: state.buildingwidth,
-            AutoVerbalTable.landlength: state.landlength,
-            AutoVerbalTable.landwidth: state.landwidth,
-            AutoVerbalTable.roadId: state.road?.id,
-            AutoVerbalTable.bed: state.bed,
-            AutoVerbalTable.bath: state.bath,
-            AutoVerbalTable.livingroom: state.livingroom,
-            AutoVerbalTable.floor: state.floor,
-            AutoVerbalTable.bankOfficerName: state.bankOfficerName,
-            AutoVerbalTable.bankOfficerPhone: state.bankOfficerPhone,
-            AutoVerbalTable.userId: userId,
-            AutoVerbalTable.bankId: state.bank?.id,
-            AutoVerbalTable.bankbranch: state.bankBranch,
-            AutoVerbalTable.status: PropertyAndAutoVerbalStatus.resubmit.name,
-            AutoVerbalTable.createdAt: DateTime.now().toIso8601String(),
-          },
-        ).eq('id', initial.id);
+        final allImageUrls = [...state.existingImageUrls, ...newImageUrls];
+
+        final jsonData = UpdateAutoVerbalParam(
+          propertyTypeId: state.propertyType!.id,
+          provinceId: state.province!.id,
+          image: allImageUrls,
+          latitude: state.latitude,
+          longitude: state.longitude,
+          ownerName: state.ownerName,
+          ownerPhone: state.ownerPhone,
+          minValue: state.minValue,
+          maxValue: state.maxValue,
+          minValueSqm: state.minValueSqm,
+          maxValueSqm: state.maxValueSqm,
+          area: state.area,
+          buildinglength: state.buildinglength,
+          buildingwidth: state.buildingwidth,
+          landlength: state.landlength,
+          landwidth: state.landwidth,
+          roadId: state.road?.id,
+          bed: state.bed,
+          bath: state.bath,
+          livingroom: state.livingroom,
+          floor: state.floor,
+          bankOfficerName: state.bankOfficerName,
+          bankOfficerPhone: state.bankOfficerPhone,
+          bankId: state.bank?.id,
+          bankBranch: state.bankBranch,
+          status: PropertyAndAutoVerbalStatus.resubmit,
+          createdAt: DateTime.now(),
+        ).toJson();
+
+        jsonData['status'] = PropertyAndAutoVerbalStatus.resubmit.name;
+        jsonData['created_at'] = DateTime.now().toIso8601String();
+
+        await sb.from(AutoVerbalModel.table.tableName).update(jsonData).eq('id', initial.id);
       },
       onSuccess: (success) {
         ref.invalidate(autoVerbalListProvider);
@@ -417,6 +428,76 @@ class DeleteAutoVerbal extends _$DeleteAutoVerbal {
       },
       onSuccess: (success) {
         ref.invalidate(autoVerbalListProvider);
+        ref.invalidate(countPropertyAndAutoVerbalProvider);
+      },
+    );
+  }
+}
+
+@riverpod
+class ApproveAutoVerbal extends _$ApproveAutoVerbal {
+  @override
+  ProviderStatus<void> build(int autoVerbalId) => const ProviderStatus.initial();
+
+  Future<ProviderStatus<void>> call({
+    required double minValue,
+    required double maxValue,
+  }) async {
+    return await perform(
+      (state) async {
+        final adminId = ref.watch(authProvider);
+        if (adminId == null) throw 'Admin must be login';
+
+        final sb = ref.read(supabaseProvider).client;
+        await sb.from(AutoVerbalModel.table.tableName).update({
+          AutoVerbalTable.status: PropertyAndAutoVerbalStatus.approved.name,
+          AutoVerbalTable.approvedAt: DateTime.now().toIso8601String(),
+          AutoVerbalTable.approvedBy: adminId,
+          AutoVerbalTable.minValue: minValue,
+          AutoVerbalTable.maxValue: maxValue,
+        }).eq('id', autoVerbalId);
+      },
+      onSuccess: (success) {
+        ref.invalidate(autoVerbalListProvider);
+        ref.invalidate(autoVerbalDetailProvider(autoVerbalId));
+        ref.invalidate(countPropertyAndAutoVerbalProvider);
+      },
+    );
+  }
+}
+
+@riverpod
+FutureOr<AutoVerbalModel> autoVerbalDetail(AutoVerbalDetailRef ref, int id) async {
+  final sb = ref.watch(supabaseProvider).client;
+  final autoVerbal = await sb
+      .from(AutoVerbalModel.table.tableName)
+      .select(AutoVerbalModel.table.selectStatement)
+      .eq('id', id)
+      .maybeSingle();
+  return AutoVerbalModel.fromJson(autoVerbal!);
+}
+
+@riverpod
+class RejectAutoVerbal extends _$RejectAutoVerbal {
+  @override
+  ProviderStatus<void> build(int autoVerbalId) => const ProviderStatus.initial();
+
+  Future<ProviderStatus<void>> call({
+    required String reason,
+  }) async {
+    return await perform(
+      (state) async {
+        final sb = ref.read(supabaseProvider).client;
+
+        await sb.from(AutoVerbalModel.table.tableName).update({
+          AutoVerbalTable.status: PropertyAndAutoVerbalStatus.rejected.name,
+          AutoVerbalTable.rejectAt: DateTime.now().toIso8601String(),
+          AutoVerbalTable.rejectReason: reason,
+        }).eq('id', autoVerbalId);
+      },
+      onSuccess: (success) {
+        ref.invalidate(autoVerbalListProvider);
+        ref.invalidate(autoVerbalDetailProvider(autoVerbalId));
         ref.invalidate(countPropertyAndAutoVerbalProvider);
       },
     );

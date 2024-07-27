@@ -2,20 +2,21 @@ import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kfa_mobile_nu/exports.dart';
+import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
 import 'package:kfa_mobile_nu/src/models/user_model.dart';
+import 'package:kfa_mobile_nu/src/pages/admin/auto_verbal_pdf_report.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
-import 'package:printing/printing.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../models/auto_verbal_model.dart';
 import '../../models/base.dart';
 import '../../providers/auto_verbal_provider.dart';
+import '../edit_auto_verbal_page.dart';
 
 class AdminAutoVerbalDetailPage extends StatefulHookConsumerWidget {
   final AutoVerbalModel autoVerbal;
@@ -29,6 +30,8 @@ class AdminAutoVerbalDetailPage extends StatefulHookConsumerWidget {
 class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetailPage> {
   @override
   Widget build(BuildContext context) {
+    final state =
+        ref.watch(autoVerbalDetailProvider(widget.autoVerbal.id)).valueOrNull ?? widget.autoVerbal;
     final status = useState(widget.autoVerbal.status);
     final redColor = Theme.of(context).colorScheme.error.withOpacity(0.8);
     final isAdmin = ref.watch(isAdminProvider);
@@ -40,858 +43,16 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
         child: switch (status.value) {
           PropertyAndAutoVerbalStatus.pending ||
           PropertyAndAutoVerbalStatus.resubmit =>
-            _buildApproveRejectButton(context, status),
+            _buildApproveRejectButton(context, state, status),
           PropertyAndAutoVerbalStatus.approved => _buildApproved(),
           PropertyAndAutoVerbalStatus.rejected => _buildRejected(redColor, context)
         },
       );
     }
 
-    Future<Uint8List> generatePdf(
-      PdfPageFormat format,
-      AutoVerbalModel data,
-    ) async {
-      final pdf = pw.Document(version: PdfVersion.pdf_1_4, compress: true);
-      final font = await PdfGoogleFonts.robotoSlabBlack();
-      final font1 = await PdfGoogleFonts.tinosRegular();
-      final ByteData bytes = await rootBundle.load('assets/images/New_KFA_Logo_pdf.png');
-      final Uint8List byteList = bytes.buffer.asUint8List();
-      final Uint8List bytes1 =
-          (await NetworkAssetBundle(Uri.parse(data.image)).load(data.image)).buffer.asUint8List();
-      final imageUrl =
-          'https://maps.googleapis.com/maps/api/staticmap?center=${data.latitude},${data.longitude}&zoom=16&size=1080x920&maptype=hybrid&markers=color:red%7C%7C${data.latitude},${data.longitude}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI';
-
-      final response = await http.get(Uri.parse(imageUrl));
-      final Uint8List imageData = response.bodyBytes;
-
-      Future<pw.PageTheme> myPageTheme(PdfPageFormat format) async {
-        final bgShape = await rootBundle.loadString('assets/images/Letter En-Kh.svg');
-
-        format = format.applyMargin(
-          left: 2.0 * PdfPageFormat.cm,
-          top: 1.0 * PdfPageFormat.cm,
-          right: 2.0 * PdfPageFormat.cm,
-          bottom: 1.0 * PdfPageFormat.cm,
-        );
-        return pw.PageTheme(
-          pageFormat: format,
-          buildBackground: (pw.Context context) {
-            return pw.FullPage(
-              ignoreMargins: true,
-              child: pw.SvgImage(svg: bgShape),
-            );
-          },
-        );
-      }
-
-      final pageTheme = await myPageTheme(format);
-      pdf.addPage(
-        pw.MultiPage(
-          pageTheme: pageTheme,
-          build: (context) {
-            return [
-              pw.Column(
-                children: [
-                  pw.Column(
-                    children: [
-                      pw.Container(
-                        height: 70,
-                        margin: const pw.EdgeInsets.only(bottom: 5),
-                        child: pw.Row(
-                          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                          children: [
-                            pw.Container(
-                              width: 75,
-                              height: 50,
-                              child: pw.Image(
-                                pw.MemoryImage(byteList),
-                                fit: pw.BoxFit.fill,
-                              ),
-                            ),
-                            pw.Text(
-                              "VERBAL CHECK",
-                              style: pw.TextStyle(
-                                fontWeight: pw.FontWeight.bold,
-                                fontSize: 12,
-                                font: font,
-                              ),
-                            ),
-                            pw.Row(
-                              mainAxisAlignment: pw.MainAxisAlignment.center,
-                              children: [
-                                pw.Column(
-                                  children: [
-                                    pw.Container(
-                                      height: 50,
-                                      width: 79,
-                                    ),
-                                  ],
-                                ),
-                                pw.Column(
-                                  children: [
-                                    pw.Container(
-                                      height: 50,
-                                      width: 79,
-                                      child: pw.BarcodeWidget(
-                                        barcode: pw.Barcode.qrCode(),
-                                        data:
-                                            'https://maps.googleapis.com/maps/api/staticmap?center=${data.latitude},${data.longitude}&zoom=16&size=1080x920&maptype=hybrid&markers=color:red%7C%7C${data.latitude},${data.longitude}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',
-                                      ),
-                                    ),
-                                    pw.Text(
-                                      'location map',
-                                      style: pw.TextStyle(
-                                        fontSize: 7,
-                                        font: font1,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      // ... (rest of the PDF generation code remains unchanged)
-                    ],
-                  ),
-                  pw.Container(
-                    child: pw.Column(
-                      children: [
-                        pw.Column(
-                          children: [
-                            pw.Container(
-                              child: pw.Row(
-                                children: [
-                                  pw.Expanded(
-                                    flex: 4,
-                                    child: pw.Container(
-                                      padding: const pw.EdgeInsets.all(2),
-                                      alignment: pw.Alignment.centerLeft,
-                                      decoration: pw.BoxDecoration(
-                                        border: pw.Border.all(),
-                                        color: PdfColors.blue,
-                                      ),
-                                      child: pw.Text(
-                                        "DATE: ${data.createdAt.toString()}",
-                                        style: pw.TextStyle(
-                                          fontSize: 11,
-                                          font: font1,
-                                          fontWeight: pw.FontWeight.bold,
-                                        ),
-                                      ),
-                                      height: 20,
-                                    ),
-                                  ),
-                                  pw.Expanded(
-                                    flex: 4,
-                                    child: pw.Container(
-                                      padding: const pw.EdgeInsets.all(2),
-                                      alignment: pw.Alignment.centerLeft,
-                                      decoration: pw.BoxDecoration(
-                                        color: PdfColors.blue,
-                                        border: pw.Border.all(),
-                                      ),
-                                      child: pw.Text(
-                                        "CODE: ${data.autoVerbalId}",
-                                        style: pw.TextStyle(
-                                          fontSize: 11,
-                                          fontWeight: pw.FontWeight.bold,
-                                          font: font1,
-                                        ),
-                                      ),
-                                      height: 20,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  pw.SizedBox(
-                    child: pw.Row(
-                      children: [
-                        pw.Expanded(
-                          flex: 11,
-                          child: pw.Container(
-                            padding: const pw.EdgeInsets.all(2),
-                            alignment: pw.Alignment.centerLeft,
-                            decoration: pw.BoxDecoration(border: pw.Border.all()),
-                            child: pw.Text(
-                              "Requested Date :${data.createdAt.toString()} ",
-                              style: pw.TextStyle(fontSize: 11, font: font1),
-                            ),
-                            height: 20,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  pw.Container(
-                    padding: const pw.EdgeInsets.all(2),
-                    alignment: pw.Alignment.centerLeft,
-                    decoration: pw.BoxDecoration(border: pw.Border.all()),
-                    child: pw.Text(
-                      "Referring to your request letter for verbal check by ${data.bank?.name ?? ""}, we estimated the value of property as below.",
-                      overflow: pw.TextOverflow.clip,
-                      style: pw.TextStyle(font: font1, fontSize: 11),
-                    ),
-                    height: 34,
-                  ),
-                  pw.SizedBox(
-                    child: pw.Row(
-                      children: [
-                        pw.Expanded(
-                          flex: 2,
-                          child: pw.Container(
-                            padding: const pw.EdgeInsets.all(2),
-                            alignment: pw.Alignment.centerLeft,
-                            decoration: pw.BoxDecoration(border: pw.Border.all()),
-                            child: pw.Text(
-                              "Property Information: ",
-                              style: pw.TextStyle(
-                                fontSize: 11,
-                                font: font1,
-                              ),
-                            ),
-                            height: 20,
-                          ),
-                        ),
-                        pw.Expanded(
-                          flex: 6,
-                          child: pw.Container(
-                            padding: const pw.EdgeInsets.all(2),
-                            alignment: pw.Alignment.centerLeft,
-                            decoration: pw.BoxDecoration(border: pw.Border.all()),
-                            child: pw.Text(
-                              " ${data.propertyType.name}",
-                              style: pw.TextStyle(fontSize: 11, font: font1),
-                            ),
-                            height: 20,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  pw.SizedBox(
-                    child: pw.Row(
-                      children: [
-                        pw.Expanded(
-                          flex: 2,
-                          child: pw.Container(
-                            padding: const pw.EdgeInsets.all(2),
-                            alignment: pw.Alignment.centerLeft,
-                            decoration: pw.BoxDecoration(border: pw.Border.all()),
-                            child: pw.Text(
-                              "Owner Name ",
-                              style: pw.TextStyle(fontSize: 11, font: font1),
-                            ),
-                            height: 20,
-                          ),
-                        ),
-                        pw.Expanded(
-                          flex: 3,
-                          child: pw.Container(
-                            padding: const pw.EdgeInsets.all(2),
-                            alignment: pw.Alignment.centerLeft,
-                            decoration: pw.BoxDecoration(border: pw.Border.all()),
-                            child:
-                                // name rest with api
-                                pw.Text(
-                              data.ownerName,
-                              style: pw.TextStyle(
-                                fontSize: 11,
-                                font: font1,
-                              ),
-                            ),
-                            height: 20,
-                          ),
-                        ),
-                        pw.Expanded(
-                          flex: 3,
-                          child: pw.Container(
-                            padding: const pw.EdgeInsets.all(2),
-                            alignment: pw.Alignment.centerLeft,
-                            decoration: pw.BoxDecoration(border: pw.Border.all()),
-                            // name rest with api
-                            child: pw.Text(
-                              "Contact No : ${data.ownerPhone}",
-                              style: pw.TextStyle(fontSize: 11, font: font1),
-                            ),
-                            height: 20,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  pw.SizedBox(
-                    child: pw.Row(
-                      children: [
-                        pw.Expanded(
-                          flex: 2,
-                          child: pw.Container(
-                            padding: const pw.EdgeInsets.all(2),
-                            alignment: pw.Alignment.centerLeft,
-                            decoration: pw.BoxDecoration(border: pw.Border.all()),
-                            child: pw.Text(
-                              "Bank Officer ",
-                              style: pw.TextStyle(fontSize: 11, font: font1),
-                            ),
-                            height: 30,
-                          ),
-                        ),
-                        pw.Expanded(
-                          flex: 3,
-                          child: pw.Container(
-                            padding: const pw.EdgeInsets.all(2),
-                            alignment: pw.Alignment.centerLeft,
-                            decoration: pw.BoxDecoration(border: pw.Border.all()),
-                            child: pw.Text(
-                              " ${data.bankOfficerName}",
-                              style: pw.TextStyle(fontSize: 11, font: font1),
-                            ),
-                            height: 30,
-                          ),
-                        ),
-                        pw.Expanded(
-                          flex: 3,
-                          child: pw.Container(
-                            padding: const pw.EdgeInsets.all(2),
-                            alignment: pw.Alignment.centerLeft,
-                            decoration: pw.BoxDecoration(border: pw.Border.all()),
-                            child: pw.Text(
-                              "Contact No : ${data.bankOfficerPhone}",
-                              style: pw.TextStyle(fontSize: 11, font: font1),
-                            ),
-                            height: 30,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  pw.SizedBox(
-                    child: pw.Row(
-                      children: [
-                        pw.Expanded(
-                          flex: 2,
-                          child: pw.Container(
-                            padding: const pw.EdgeInsets.all(2),
-                            alignment: pw.Alignment.center,
-                            decoration: pw.BoxDecoration(border: pw.Border.all()),
-                            child: pw.Text(
-                              "Latitude: ${data.latitude}",
-                              style: pw.TextStyle(fontSize: 11, font: font1),
-                            ),
-                            height: 20,
-                          ),
-                        ),
-                        pw.Expanded(
-                          flex: 2,
-                          child: pw.Container(
-                            padding: const pw.EdgeInsets.all(2),
-                            alignment: pw.Alignment.center,
-                            decoration: pw.BoxDecoration(border: pw.Border.all()),
-                            child: pw.Text(
-                              "Longtitude: ${data.longitude}",
-                              style: pw.TextStyle(fontSize: 11, font: font1),
-                            ),
-                            height: 20,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  pw.SizedBox(height: 5),
-                  pw.Text(
-                    "ESTIMATED VALUE OF THE VERBAL CHECK PROPERTY",
-                    textAlign: pw.TextAlign.center,
-                    style: pw.TextStyle(fontSize: 11, font: font1),
-                  ),
-                  pw.SizedBox(height: 5),
-                  pw.Container(
-                    height: 110,
-                    child: pw.Row(
-                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                      children: [
-                        pw.Container(
-                          width: 240,
-                          height: 110,
-                          alignment: pw.Alignment.center,
-                          child: pw.Image(
-                            pw.MemoryImage(
-                              bytes1,
-                            ),
-                            fit: pw.BoxFit.fitWidth,
-                          ),
-                        ),
-                        pw.SizedBox(width: 0.1),
-                        pw.Container(
-                          height: 233,
-                          width: 233,
-                          decoration: pw.BoxDecoration(
-                            borderRadius: pw.BorderRadius.circular(2),
-                            image: pw.DecorationImage(
-                              image: pw.MemoryImage(imageData),
-                              fit: pw.BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  pw.SizedBox(height: 5),
-                  pw.Column(
-                    children: [
-                      pw.Container(
-                        child: pw.Row(
-                          children: [
-                            pw.Expanded(
-                              flex: 3,
-                              child: pw.Container(
-                                padding: const pw.EdgeInsets.all(2),
-                                alignment: pw.Alignment.center,
-                                decoration: pw.BoxDecoration(
-                                  border: pw.Border.all(),
-                                  color: PdfColors.blue,
-                                ),
-                                child: pw.Text(
-                                  "DESCRIPTION ",
-                                  style: pw.TextStyle(
-                                    fontSize: 11,
-                                    fontWeight: pw.FontWeight.bold,
-                                    font: font1,
-                                  ),
-                                ),
-                                height: 20,
-                              ),
-                            ),
-                            pw.Expanded(
-                              flex: 2,
-                              child: pw.Container(
-                                padding: const pw.EdgeInsets.all(2),
-                                alignment: pw.Alignment.center,
-                                decoration: pw.BoxDecoration(
-                                  border: pw.Border.all(),
-                                  color: PdfColors.blue,
-                                ),
-                                child: pw.Text(
-                                  "AREA/sqm ",
-                                  style: pw.TextStyle(
-                                    fontSize: 11,
-                                    fontWeight: pw.FontWeight.bold,
-                                    font: font1,
-                                  ),
-                                ),
-                                height: 20,
-                                //color: Colors.blue,
-                              ),
-                            ),
-                            pw.Expanded(
-                              flex: 2,
-                              child: pw.Container(
-                                padding: const pw.EdgeInsets.all(2),
-                                alignment: pw.Alignment.center,
-                                decoration: pw.BoxDecoration(
-                                  border: pw.Border.all(),
-                                  color: PdfColors.blue,
-                                ),
-                                child: pw.Text(
-                                  "MIN/sqm ",
-                                  style: pw.TextStyle(
-                                    fontSize: 11,
-                                    fontWeight: pw.FontWeight.bold,
-                                    font: font1,
-                                  ),
-                                ),
-                                height: 20,
-                                //color: Colors.blue,
-                              ),
-                            ),
-                            pw.Expanded(
-                              flex: 2,
-                              child: pw.Container(
-                                padding: const pw.EdgeInsets.all(2),
-                                alignment: pw.Alignment.center,
-                                decoration: pw.BoxDecoration(
-                                  border: pw.Border.all(),
-                                  color: PdfColors.blue,
-                                ),
-                                child: pw.Text(
-                                  "MAX/sqm ",
-                                  style: pw.TextStyle(
-                                    fontSize: 11,
-                                    fontWeight: pw.FontWeight.bold,
-                                    font: font1,
-                                  ),
-                                ),
-                                height: 20,
-                              ),
-                            ),
-                            pw.Expanded(
-                              flex: 2,
-                              child: pw.Container(
-                                padding: const pw.EdgeInsets.all(2),
-                                alignment: pw.Alignment.center,
-                                decoration: pw.BoxDecoration(
-                                  border: pw.Border.all(),
-                                  color: PdfColors.blue,
-                                ),
-                                child: pw.Text(
-                                  "MIN-VALUE ",
-                                  style: pw.TextStyle(
-                                    fontSize: 11,
-                                    fontWeight: pw.FontWeight.bold,
-                                    font: font1,
-                                  ),
-                                ),
-                                height: 20,
-                              ),
-                            ),
-                            pw.Expanded(
-                              flex: 2,
-                              child: pw.Container(
-                                padding: const pw.EdgeInsets.all(2),
-                                alignment: pw.Alignment.center,
-                                decoration: pw.BoxDecoration(
-                                  border: pw.Border.all(),
-                                  color: PdfColors.blue,
-                                ),
-                                child: pw.Text(
-                                  "MAX-VALUE ",
-                                  style: pw.TextStyle(
-                                    fontSize: 11,
-                                    fontWeight: pw.FontWeight.bold,
-                                    font: font1,
-                                  ),
-                                ),
-                                height: 20,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      pw.Row(
-                        children: [
-                          pw.Expanded(
-                            flex: 3,
-                            child: pw.Container(
-                              padding: const pw.EdgeInsets.all(2),
-                              alignment: pw.Alignment.centerLeft,
-                              decoration: pw.BoxDecoration(
-                                border: pw.Border.all(),
-                              ),
-                              child: pw.Text(
-                                " ${data.propertyType.name}",
-                                style: pw.TextStyle(
-                                  fontSize: 10,
-                                  fontWeight: pw.FontWeight.bold,
-                                  font: font1,
-                                ),
-                              ),
-                              height: 20,
-                            ),
-                          ),
-                          pw.Expanded(
-                            flex: 2,
-                            child: pw.Container(
-                              padding: const pw.EdgeInsets.all(2),
-                              alignment: pw.Alignment.centerLeft,
-                              decoration: pw.BoxDecoration(border: pw.Border.all()),
-                              child: pw.Text(
-                                '${data.area}/sqm',
-                                style: pw.TextStyle(
-                                  fontSize: 10,
-                                  fontWeight: pw.FontWeight.bold,
-                                  font: font1,
-                                ),
-                              ),
-                              height: 20,
-                            ),
-                          ),
-                          pw.Expanded(
-                            flex: 2,
-                            child: pw.Container(
-                              padding: const pw.EdgeInsets.all(2),
-                              alignment: pw.Alignment.centerLeft,
-                              decoration: pw.BoxDecoration(border: pw.Border.all()),
-                              child: pw.Text(
-                                'USD ${data.minValue}',
-                                style: pw.TextStyle(
-                                  fontSize: 10,
-                                  fontWeight: pw.FontWeight.bold,
-                                  font: font1,
-                                ),
-                              ),
-                              height: 20,
-                              //color: Colors.blue,
-                            ),
-                          ),
-                          pw.Expanded(
-                            flex: 2,
-                            child: pw.Container(
-                              padding: const pw.EdgeInsets.all(2),
-                              alignment: pw.Alignment.centerLeft,
-                              decoration: pw.BoxDecoration(border: pw.Border.all()),
-                              child: pw.Text(
-                                'USD ${data.maxValue}',
-                                style: pw.TextStyle(
-                                  fontSize: 10,
-                                  font: font1,
-                                  fontWeight: pw.FontWeight.bold,
-                                ),
-                              ),
-                              height: 20,
-                              //color: Colors.blue,
-                            ),
-                          ),
-                          pw.Expanded(
-                            flex: 2,
-                            child: pw.Container(
-                              padding: const pw.EdgeInsets.all(2),
-                              alignment: pw.Alignment.centerLeft,
-                              decoration: pw.BoxDecoration(border: pw.Border.all()),
-                              child: pw.Text(
-                                'USD ${data.minValue * data.area}',
-                                style: pw.TextStyle(
-                                  fontSize: 10,
-                                  fontWeight: pw.FontWeight.bold,
-                                  font: font1,
-                                ),
-                              ),
-                              height: 20,
-                              //color: Colors.blue,
-                            ),
-                          ),
-                          pw.Expanded(
-                            flex: 2,
-                            child: pw.Container(
-                              padding: const pw.EdgeInsets.all(2),
-                              alignment: pw.Alignment.centerLeft,
-                              decoration: pw.BoxDecoration(border: pw.Border.all()),
-                              child: pw.Text(
-                                'USD ${data.maxValue * data.area}',
-                                style: pw.TextStyle(
-                                  fontSize: 10,
-                                  fontWeight: pw.FontWeight.bold,
-                                  font: font1,
-                                ),
-                              ),
-                              height: 20,
-                            ),
-                          ),
-                        ],
-                      ),
-                      pw.Container(
-                        child: pw.Row(
-                          children: [
-                            pw.Expanded(
-                              flex: 9,
-                              child: pw.Container(
-                                padding: const pw.EdgeInsets.all(2),
-                                alignment: pw.Alignment.centerRight,
-                                decoration: pw.BoxDecoration(border: pw.Border.all()),
-                                child: pw.Text(
-                                  "Property Value(Estimate) ",
-                                  style: pw.TextStyle(
-                                    fontSize: 10,
-                                    font: font1,
-                                    fontWeight: pw.FontWeight.bold,
-                                  ),
-                                ),
-                                height: 20,
-                              ),
-                            ),
-                            pw.Expanded(
-                              flex: 2,
-                              child: pw.Container(
-                                padding: const pw.EdgeInsets.all(2),
-                                alignment: pw.Alignment.centerLeft,
-                                decoration: pw.BoxDecoration(border: pw.Border.all()),
-                                child: pw.Text(
-                                  'USD ${data.minValue * data.area}',
-                                  style: pw.TextStyle(fontSize: 10, font: font1),
-                                ),
-                                height: 20,
-                              ),
-                            ),
-                            pw.Expanded(
-                              flex: 2,
-                              child: pw.Container(
-                                padding: const pw.EdgeInsets.all(2),
-                                alignment: pw.Alignment.centerLeft,
-                                decoration: pw.BoxDecoration(border: pw.Border.all()),
-                                child: pw.Text(
-                                  'USD ${data.maxValue * data.area}',
-                                  style: pw.TextStyle(fontSize: 10, font: font1),
-                                ),
-                                height: 20,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      pw.SizedBox(height: 5),
-                      pw.Text(
-                        '*Note: It is only first price which you took from this verbal check data. The accurate value of property when we have the actual site property inspection.We are not responsible for this case when you provided the wrong land and building size or any fraud.',
-                        style: pw.TextStyle(fontSize: 6, font: font1),
-                      ),
-                    ],
-                  ),
-                  pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.end,
-                    children: [
-                      pw.Row(
-                        mainAxisAlignment: pw.MainAxisAlignment.end,
-                        children: [
-                          pw.Column(
-                            mainAxisAlignment: pw.MainAxisAlignment.end,
-                            crossAxisAlignment: pw.CrossAxisAlignment.center,
-                            children: [
-                              pw.Text(
-                                'Verbal Check Replied By:${data.ownerName} ',
-                                style: pw.TextStyle(
-                                  fontWeight: pw.FontWeight.bold,
-                                  fontSize: 7,
-                                  font: font1,
-                                ),
-                                textAlign: pw.TextAlign.right,
-                              ),
-                              pw.SizedBox(height: 4),
-                              pw.Text(
-                                ' ${data.bankOfficerName}',
-                                style: pw.TextStyle(
-                                  fontWeight: pw.FontWeight.bold,
-                                  font: font1,
-                                  fontSize: 11,
-                                ),
-                                textAlign: pw.TextAlign.center,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      pw.Row(
-                        mainAxisAlignment: pw.MainAxisAlignment.start,
-                        children: [
-                          pw.Text(
-                            'KHMER FOUNDATION APPRAISALS Co.,Ltd',
-                            style: pw.TextStyle(
-                              color: PdfColors.blue,
-                              fontWeight: pw.FontWeight.bold,
-                              fontSize: 11,
-                              font: font1,
-                            ),
-                          ),
-                        ],
-                      ),
-                      pw.SizedBox(height: 5),
-                      pw.Row(
-                        crossAxisAlignment: pw.CrossAxisAlignment.start,
-                        children: [
-                          pw.Expanded(
-                            flex: 1,
-                            child: pw.Column(
-                              crossAxisAlignment: pw.CrossAxisAlignment.start,
-                              children: [
-                                pw.Text(
-                                  'Hotline: 099 283 388',
-                                  style: pw.TextStyle(
-                                    fontWeight: pw.FontWeight.bold,
-                                    fontSize: 7,
-                                    font: font1,
-                                  ),
-                                ),
-                                pw.Row(
-                                  children: [
-                                    pw.Text(
-                                      'H/P : (+855)23 988 855/(+855)23 999 761',
-                                      style: pw.TextStyle(
-                                        fontWeight: pw.FontWeight.bold,
-                                        fontSize: 7,
-                                        font: font1,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                pw.Row(
-                                  children: [
-                                    pw.Text(
-                                      'Email : info@kfa.com.kh',
-                                      style: pw.TextStyle(
-                                        fontWeight: pw.FontWeight.bold,
-                                        fontSize: 7,
-                                        font: font1,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                pw.Row(
-                                  children: [
-                                    pw.Text(
-                                      'Website: www.kfa.com.kh',
-                                      style: pw.TextStyle(
-                                        fontWeight: pw.FontWeight.bold,
-                                        fontSize: 7,
-                                        font: font1,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          pw.SizedBox(width: 10),
-                          pw.Expanded(
-                            flex: 2,
-                            child: pw.Column(
-                              crossAxisAlignment: pw.CrossAxisAlignment.start,
-                              children: [
-                                pw.Text(
-                                  'Villa #36A, Street No4, (Borey Peng Hout The Star',
-                                  style: pw.TextStyle(
-                                    fontWeight: pw.FontWeight.bold,
-                                    fontSize: 7,
-                                    font: font1,
-                                  ),
-                                ),
-                                pw.Text(
-                                  'Natural 371) Sangkat Chak Angrae Leu,',
-                                  style: pw.TextStyle(
-                                    fontWeight: pw.FontWeight.bold,
-                                    fontSize: 7,
-                                    font: font1,
-                                  ),
-                                ),
-                                pw.Text(
-                                  'Khan Mean Chey, Phnom Penh City, Cambodia,',
-                                  style: pw.TextStyle(
-                                    fontWeight: pw.FontWeight.bold,
-                                    fontSize: 7,
-                                    font: font1,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ];
-          },
-        ),
-      );
-      return pdf.save();
-    }
-
     Future<void> savePdf() async {
       try {
-        final pdfBytes = await generatePdf(PdfPageFormat.a4, widget.autoVerbal);
+        final pdfBytes = await generateAutoVerbalPdf(PdfPageFormat.a4, state);
         final appDocDir = await getApplicationDocumentsDirectory();
         final appDocPath = appDocDir.path;
         final file = File('$appDocPath/document.pdf');
@@ -908,25 +69,26 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
     }
 
     final currentUserId = ref.watch(authProvider);
-    final isCurrentUserOwner = widget.autoVerbal.user?.id == currentUserId;
+    final isCurrentUserOwner = state.user?.id == currentUserId;
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
         title: const Text('Auto Verbal Details'),
         actions: [
-          Row(
-            children: [
-              IconButton(
-                icon: const Icon(Icons.share),
-                onPressed: () async {
-                  BotToast.showLoading();
-                  await savePdf();
-                  BotToast.closeAllLoading();
-                },
-              ),
-            ],
-          ),
+          if (state.status == PropertyAndAutoVerbalStatus.approved)
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.share),
+                  onPressed: () async {
+                    BotToast.showLoading();
+                    await savePdf();
+                    BotToast.closeAllLoading();
+                  },
+                ),
+              ],
+            ),
         ],
       ),
       bottomNavigationBar: bottomAppBar,
@@ -938,10 +100,10 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
             SizedBox(
               height: 200,
               child: PageView.builder(
-                itemCount: widget.autoVerbal.image.length,
+                itemCount: state.image.length,
                 itemBuilder: (context, index) {
                   return CachedNetworkImage(
-                    imageUrl: widget.autoVerbal.image,
+                    imageUrl: state.image[index],
                     fit: BoxFit.cover,
                     placeholder: (context, url) => const Center(
                       child: CircularProgressIndicator(),
@@ -960,7 +122,7 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
                     children: [
                       Expanded(
                         child: Text(
-                          'Auto Verbal ID: ${widget.autoVerbal.id}',
+                          state.autoVerbalId,
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                       ),
@@ -971,13 +133,13 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
                           vertical: 4,
                         ),
                         decoration: BoxDecoration(
-                          color: widget.autoVerbal.status.statusColor,
+                          color: state.status.statusColor,
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
-                          widget.autoVerbal.status.name.toUpperCase(),
+                          state.status.name.toUpperCase(),
                           style: TextStyle(
-                            color: widget.autoVerbal.status.statusTextColor,
+                            color: state.status.statusTextColor,
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
@@ -987,12 +149,12 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    widget.autoVerbal.propertyType.name,
+                    state.propertyType.name,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Value Range: \$${widget.autoVerbal.minValue.toStringAsFixed(2)} - \$${widget.autoVerbal.maxValue.toStringAsFixed(2)}',
+                    'Value Range: \$${state.minValue.toStringAsFixed(2)} - \$${state.maxValue.toStringAsFixed(2)}',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -1007,69 +169,133 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
                         children: [
                           _buildDetailRow(
                             'Area',
-                            '${widget.autoVerbal.area} sqm',
+                            '${state.area} sqm',
                           ),
                           _buildDetailRow(
                             'Land Width',
-                            '${widget.autoVerbal.landwidth} m',
+                            '${state.landwidth} m',
                           ),
                           _buildDetailRow(
                             'Land Length',
-                            '${widget.autoVerbal.landlength} m',
+                            '${state.landlength} m',
                           ),
+                          if (state.buildinglength != null)
+                            _buildDetailRow(
+                              'Building Length',
+                              '${state.buildinglength} m',
+                            ),
+                          if (state.buildingwidth != null)
+                            _buildDetailRow(
+                              'Building Width',
+                              '${state.buildingwidth} m',
+                            ),
                           _buildDetailRow(
                             'Min Value/sqm',
-                            '\$${widget.autoVerbal.minValueSqm.toStringAsFixed(2)}',
+                            '\$${state.minValueSqm.toStringAsFixed(2)}',
                           ),
                           _buildDetailRow(
                             'Max Value/sqm',
-                            '\$${widget.autoVerbal.maxValueSqm.toStringAsFixed(2)}',
+                            '\$${state.maxValueSqm.toStringAsFixed(2)}',
                           ),
                           _buildDetailRow(
                             'Location',
-                            widget.autoVerbal.province.name,
+                            state.province.name,
                           ),
                           _buildDetailRow(
                             'Bank',
-                            widget.autoVerbal.bank?.name ?? 'N/A',
+                            state.bank?.name ?? 'N/A',
                           ),
+                          if (state.bankBranch != null)
+                            _buildDetailRow(
+                              'Bank Branch',
+                              state.bankBranch!,
+                            ),
                           _buildDetailRow(
                             'Owner Name',
-                            widget.autoVerbal.ownerName,
+                            state.ownerName,
                           ),
                           _buildDetailRow(
                             'Owner Phone',
-                            widget.autoVerbal.ownerPhone,
+                            state.ownerPhone,
                           ),
                           _buildDetailRow(
                             'Bank Officer Name',
-                            widget.autoVerbal.bankOfficerName ?? 'N/A',
+                            state.bankOfficerName ?? 'N/A',
                           ),
                           _buildDetailRow(
                             'Bank Officer Phone',
-                            widget.autoVerbal.bankOfficerPhone ?? 'N/A',
+                            state.bankOfficerPhone ?? 'N/A',
                           ),
+                          if (state.road != null)
+                            _buildDetailRow(
+                              'Road',
+                              state.road!.name,
+                            ),
+                          if (state.bed != null)
+                            _buildDetailRow(
+                              'Bedrooms',
+                              state.bed.toString(),
+                            ),
+                          if (state.bath != null)
+                            _buildDetailRow(
+                              'Bathrooms',
+                              state.bath.toString(),
+                            ),
+                          if (state.livingroom != null)
+                            _buildDetailRow(
+                              'Living Rooms',
+                              state.livingroom.toString(),
+                            ),
+                          if (state.floor != null)
+                            _buildDetailRow(
+                              'Floors',
+                              state.floor.toString(),
+                            ),
                         ],
                       ),
                     ),
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    'Submitted by: ${widget.autoVerbal.user?.fullName ?? "N/A"}',
+                    'Location',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 8),
+                  SizedBox(
+                    height: 200,
+                    child: GoogleMap(
+                      mapType: MapType.hybrid,
+                      initialCameraPosition: CameraPosition(
+                        target: LatLng(state.latitude, state.longitude),
+                        zoom: 15,
+                      ),
+                      markers: {
+                        Marker(
+                          markerId: const MarkerId('property'),
+                          position: LatLng(state.latitude, state.longitude),
+                          infoWindow: InfoWindow(title: state.propertyType.name),
+                        ),
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    'Submitted by: ${state.user?.fullName ?? "N/A"}',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   Text(
-                    'Submission Date: ${widget.autoVerbal.createdAt.toLocal().toString().split(' ')[0]}',
+                    'Submission Date: ${state.createdAt.toLocal().toString().split(' ')[0]}',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: 24),
-                  if (isCurrentUserOwner) ...[
+                  if (isCurrentUserOwner &&
+                      state.status != PropertyAndAutoVerbalStatus.approved) ...[
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         FilledButton(
                           onPressed: () {
-                            // context.push((_) => EditAut)
+                            context.push((_) => EditAutoVerbalPage(autoVerbal: state));
                           },
                           child: const Text('Edit'),
                         ),
@@ -1100,7 +326,7 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
                                         final close = BotToast.showLoading();
                                         final delete = ref.read(
                                           deleteAutoVerbalProvider(
-                                            widget.autoVerbal.id,
+                                            state.id,
                                           ).notifier,
                                         );
                                         await delete();
@@ -1184,6 +410,7 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
 
   Row _buildApproveRejectButton(
     BuildContext context,
+    AutoVerbalModel state,
     ValueNotifier<PropertyAndAutoVerbalStatus> status,
   ) {
     return Row(
@@ -1194,52 +421,11 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
               final confirmed = await showDialog<bool>(
                 context: context,
                 builder: (BuildContext context) {
-                  return AlertDialog(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    title: const Text(
-                      'Confirm Approval',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green,
-                      ),
-                    ),
-                    content: const Text(
-                      'Are you sure you want to approve this auto verbal?',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () => Navigator.of(context).pop(false),
-                        child: const Text(
-                          'Cancel',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () => Navigator.of(context).pop(true),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        child: const Text(
-                          'Approve',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
+                  return _ApproveDialog(autoVerbal: state);
                 },
               );
 
               if (confirmed == true && context.mounted) {
-                // TODO: Implement approve functionality
                 status.value = PropertyAndAutoVerbalStatus.approved;
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -1323,12 +509,19 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
               );
 
               if (rejectReason.isNotNullOrBlank && context.mounted) {
-                // TODO: Implement reject functionality
-                status.value = PropertyAndAutoVerbalStatus.rejected;
-                if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Auto Verbal rejected')),
-                  );
+                final reject = ref.read(rejectAutoVerbalProvider(state.id).notifier);
+                final closeLoading = BotToast.showLoading();
+                final result = await reject(reason: rejectReason!);
+                closeLoading();
+                if (result.isSuccess) {
+                  status.value = PropertyAndAutoVerbalStatus.rejected;
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Auto Verbal rejected')),
+                    );
+                  }
+                } else {
+                  BotToast.showText(text: result.failure!.message());
                 }
               }
             },
@@ -1366,5 +559,152 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
         ],
       ),
     );
+  }
+}
+
+class _ApproveDialog extends HookConsumerWidget {
+  const _ApproveDialog({super.key, required this.autoVerbal});
+
+  final AutoVerbalModel autoVerbal;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final formKey = useMemoized(() => GlobalKey<FormState>());
+    final minValueController = useTextEditingController();
+    final maxValueController = useTextEditingController();
+
+    return AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+      title: const Text(
+        'Confirm Approval',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.green,
+        ),
+      ),
+      content: Form(
+        key: formKey,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              'Are you sure you want to approve this auto verbal?',
+              style: TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildValueField(
+                    controller: minValueController,
+                    labelText: 'Min Value (\$)',
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _buildValueField(
+                    controller: maxValueController,
+                    labelText: 'Max Value (\$)',
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(false),
+          child: const Text(
+            'Cancel',
+            style: TextStyle(color: Colors.grey),
+          ),
+        ),
+        ElevatedButton(
+          onPressed: () =>
+              _handleApprove(context, ref, formKey, minValueController, maxValueController),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.green,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+          child: const Text(
+            'Approve',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildValueField({
+    required TextEditingController controller,
+    required String labelText,
+  }) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: labelText,
+        border: const OutlineInputBorder(),
+      ),
+      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
+      ],
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter a value';
+        }
+        final number = double.tryParse(value);
+        if (number == null) {
+          return 'Please enter a valid number';
+        }
+        if (number <= 0) {
+          return 'Value must be greater than zero';
+        }
+        return null;
+      },
+    );
+  }
+
+  Future<void> _handleApprove(
+    BuildContext context,
+    WidgetRef ref,
+    GlobalKey<FormState> formKey,
+    TextEditingController minValueController,
+    TextEditingController maxValueController,
+  ) async {
+    FocusManager.instance.primaryFocus!.unfocus();
+
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
+      final minValue = double.parse(minValueController.text);
+      final maxValue = double.parse(maxValueController.text);
+
+      if (minValue >= maxValue) {
+        BotToast.showText(text: 'Min value must be less than max value');
+
+        return;
+      }
+
+      final close = BotToast.showLoading();
+      final approve = ref.read(approveAutoVerbalProvider(autoVerbal.id).notifier);
+      final result = await approve(minValue: minValue, maxValue: maxValue);
+      close();
+
+      if (result.isSuccess && context.mounted) {
+        Navigator.of(context).pop(true);
+      }
+
+      if (result.isFailure && context.mounted) {
+        BotToast.showText(text: result.failure!.message());
+      }
+    }
   }
 }

@@ -141,3 +141,8 @@ AFTER UPDATE OF status ON public.properties
 FOR EACH ROW
 WHEN (OLD.status IS DISTINCT FROM NEW.status)
 EXECUTE FUNCTION notify_user_property_status_change();
+
+
+
+
+

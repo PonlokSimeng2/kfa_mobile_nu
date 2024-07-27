@@ -10,8 +10,8 @@ part of 'auto_verbal_provider.dart';
 
 /// Mixin use for update properties. You will need to add this mixin to provider in order to make it work
 mixin _$InsertAutoVerbalForm on _$InsertAutoVerbal {
-  void onImageFileChanged(XFile? newImageFile) =>
-      state = state.copyWith(imageFile: newImageFile);
+  void onImageFilesChanged(IList<XFile> newImageFiles) =>
+      state = state.copyWith(imageFiles: newImageFiles);
   void onPropertyTypeChanged(PropertyTypeModel? newPropertyType) =>
       state = state.copyWith(propertyType: newPropertyType);
   void onProvinceChanged(ProvinceModel? newProvince) =>
@@ -51,12 +51,11 @@ mixin _$InsertAutoVerbalForm on _$InsertAutoVerbal {
       state = state.copyWith(landwidth: newLandwidth);
   void onRoadChanged(RoadModel? newRoad) =>
       state = state.copyWith(road: newRoad);
-  void onBedChanged(double newBed) => state = state.copyWith(bed: newBed);
-  void onBathChanged(double newBath) => state = state.copyWith(bath: newBath);
-  void onLivingroomChanged(double newLivingroom) =>
+  void onBedChanged(int newBed) => state = state.copyWith(bed: newBed);
+  void onBathChanged(int newBath) => state = state.copyWith(bath: newBath);
+  void onLivingroomChanged(int newLivingroom) =>
       state = state.copyWith(livingroom: newLivingroom);
-  void onFloorChanged(double newFloor) =>
-      state = state.copyWith(floor: newFloor);
+  void onFloorChanged(int newFloor) => state = state.copyWith(floor: newFloor);
 }
 
 bool _debugCheckHasInsertAutoVerbalFormWidget(BuildContext context) {
@@ -138,21 +137,21 @@ class InsertAutoVerbalFormWidget extends HookConsumerWidget {
   }
 }
 
-typedef InsertAutoVerbalImageFileChildBuilder = Widget Function(
+typedef InsertAutoVerbalImageFilesChildBuilder = Widget Function(
   WidgetRef ref,
-  XFile? imageFile,
-  void Function(XFile? newImageFile) changeImageFile,
+  IList<XFile> imageFiles,
+  void Function(IList<XFile> newImageFiles) changeImageFiles,
   bool showValidation,
 );
 
-/// Widget form field for property [imageFile]. To use this widget. You will need to add [InsertAutoVerbalFormWidget] widget as ancestor
+/// Widget form field for property [imageFiles]. To use this widget. You will need to add [InsertAutoVerbalFormWidget] widget as ancestor
 /// otherwise assert error will be thrown
-class InsertAutoVerbalImageFileFieldWidget extends HookConsumerWidget {
-  const InsertAutoVerbalImageFileFieldWidget({
+class InsertAutoVerbalImageFilesFieldWidget extends HookConsumerWidget {
+  const InsertAutoVerbalImageFilesFieldWidget({
     super.key,
     required this.builder,
   });
-  final InsertAutoVerbalImageFileChildBuilder builder;
+  final InsertAutoVerbalImageFilesChildBuilder builder;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -160,14 +159,14 @@ class InsertAutoVerbalImageFileFieldWidget extends HookConsumerWidget {
 
     final notifier = ref.watch(insertAutoVerbalProvider.notifier);
     final state =
-        ref.watch(insertAutoVerbalProvider.select((value) => value.imageFile));
+        ref.watch(insertAutoVerbalProvider.select((value) => value.imageFiles));
 
     final showValidation = ref.watch(
         insertAutoVerbalProvider.select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
-      notifier.onImageFileChanged,
+      notifier.onImageFilesChanged,
       showValidation,
     );
   }
@@ -992,8 +991,8 @@ class InsertAutoVerbalRoadFieldWidget extends HookConsumerWidget {
 
 typedef InsertAutoVerbalBedChildBuilder = Widget Function(
   WidgetRef ref,
-  double bed,
-  void Function(double newBed) changeBed,
+  int bed,
+  void Function(int newBed) changeBed,
   bool showValidation,
 );
 
@@ -1027,8 +1026,8 @@ class InsertAutoVerbalBedFieldWidget extends HookConsumerWidget {
 
 typedef InsertAutoVerbalBathChildBuilder = Widget Function(
   WidgetRef ref,
-  double bath,
-  void Function(double newBath) changeBath,
+  int bath,
+  void Function(int newBath) changeBath,
   bool showValidation,
 );
 
@@ -1062,8 +1061,8 @@ class InsertAutoVerbalBathFieldWidget extends HookConsumerWidget {
 
 typedef InsertAutoVerbalLivingroomChildBuilder = Widget Function(
   WidgetRef ref,
-  double livingroom,
-  void Function(double newLivingroom) changeLivingroom,
+  int livingroom,
+  void Function(int newLivingroom) changeLivingroom,
   bool showValidation,
 );
 
@@ -1097,8 +1096,8 @@ class InsertAutoVerbalLivingroomFieldWidget extends HookConsumerWidget {
 
 typedef InsertAutoVerbalFloorChildBuilder = Widget Function(
   WidgetRef ref,
-  double floor,
-  void Function(double newFloor) changeFloor,
+  int floor,
+  void Function(int newFloor) changeFloor,
   bool showValidation,
 );
 
@@ -1132,10 +1131,10 @@ class InsertAutoVerbalFloorFieldWidget extends HookConsumerWidget {
 
 /// Mixin use for update properties. You will need to add this mixin to provider in order to make it work
 mixin _$UpdateAutoVerbalForm on _$UpdateAutoVerbal {
-  void onNewImageFileChanged(XFile? newNewImageFile) =>
-      state = state.copyWith(newImageFile: newNewImageFile);
-  void onExistingImageUrlChanged(String? newExistingImageUrl) =>
-      state = state.copyWith(existingImageUrl: newExistingImageUrl);
+  void onNewImageFilesChanged(IList<XFile> newNewImageFiles) =>
+      state = state.copyWith(newImageFiles: newNewImageFiles);
+  void onExistingImageUrlsChanged(IList<String> newExistingImageUrls) =>
+      state = state.copyWith(existingImageUrls: newExistingImageUrls);
   void onPropertyTypeChanged(PropertyTypeModel? newPropertyType) =>
       state = state.copyWith(propertyType: newPropertyType);
   void onProvinceChanged(ProvinceModel? newProvince) =>
@@ -1175,12 +1174,11 @@ mixin _$UpdateAutoVerbalForm on _$UpdateAutoVerbal {
       state = state.copyWith(landwidth: newLandwidth);
   void onRoadChanged(RoadModel? newRoad) =>
       state = state.copyWith(road: newRoad);
-  void onBedChanged(double newBed) => state = state.copyWith(bed: newBed);
-  void onBathChanged(double newBath) => state = state.copyWith(bath: newBath);
-  void onLivingroomChanged(double newLivingroom) =>
+  void onBedChanged(int? newBed) => state = state.copyWith(bed: newBed);
+  void onBathChanged(int? newBath) => state = state.copyWith(bath: newBath);
+  void onLivingroomChanged(int? newLivingroom) =>
       state = state.copyWith(livingroom: newLivingroom);
-  void onFloorChanged(double newFloor) =>
-      state = state.copyWith(floor: newFloor);
+  void onFloorChanged(int? newFloor) => state = state.copyWith(floor: newFloor);
 }
 
 class _UpdateAutoVerbalFamilyParam {
@@ -1294,21 +1292,21 @@ final _updateAutoVerbalFamilyParamProvider =
   throw 'You need to add [UpdateAutoVerbalFormWidget] as your parent. This allow to internal override family provider param';
 });
 
-typedef UpdateAutoVerbalNewImageFileChildBuilder = Widget Function(
+typedef UpdateAutoVerbalNewImageFilesChildBuilder = Widget Function(
   WidgetRef ref,
-  XFile? newImageFile,
-  void Function(XFile? newNewImageFile) changeNewImageFile,
+  IList<XFile> newImageFiles,
+  void Function(IList<XFile> newNewImageFiles) changeNewImageFiles,
   bool showValidation,
 );
 
-/// Widget form field for property [newImageFile]. To use this widget. You will need to add [UpdateAutoVerbalFormWidget] widget as ancestor
+/// Widget form field for property [newImageFiles]. To use this widget. You will need to add [UpdateAutoVerbalFormWidget] widget as ancestor
 /// otherwise assert error will be thrown
-class UpdateAutoVerbalNewImageFileFieldWidget extends HookConsumerWidget {
-  const UpdateAutoVerbalNewImageFileFieldWidget({
+class UpdateAutoVerbalNewImageFilesFieldWidget extends HookConsumerWidget {
+  const UpdateAutoVerbalNewImageFilesFieldWidget({
     super.key,
     required this.builder,
   });
-  final UpdateAutoVerbalNewImageFileChildBuilder builder;
+  final UpdateAutoVerbalNewImageFilesChildBuilder builder;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -1317,39 +1315,34 @@ class UpdateAutoVerbalNewImageFileFieldWidget extends HookConsumerWidget {
     final notifier =
         ref.watch(updateAutoVerbalProvider(family.initial).notifier);
     final state = ref.watch(updateAutoVerbalProvider(family.initial)
-        .select((value) => value.newImageFile));
+        .select((value) => value.newImageFiles));
 
     final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
         .select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
-      notifier.onNewImageFileChanged,
+      notifier.onNewImageFilesChanged,
       showValidation,
     );
   }
 }
 
-typedef UpdateAutoVerbalExistingImageUrlChildBuilder = Widget Function(
+typedef UpdateAutoVerbalExistingImageUrlsChildBuilder = Widget Function(
   WidgetRef ref,
-  TextEditingController textController,
-  String? existingImageUrl,
-  void Function(String? newExistingImageUrl) changeExistingImageUrl,
+  IList<String> existingImageUrls,
+  void Function(IList<String> newExistingImageUrls) changeExistingImageUrls,
   bool showValidation,
 );
 
-/// Widget form field for property [existingImageUrl]. To use this widget. You will need to add [UpdateAutoVerbalFormWidget] widget as ancestor
+/// Widget form field for property [existingImageUrls]. To use this widget. You will need to add [UpdateAutoVerbalFormWidget] widget as ancestor
 /// otherwise assert error will be thrown
-class UpdateAutoVerbalExistingImageUrlFieldWidget extends HookConsumerWidget {
-  const UpdateAutoVerbalExistingImageUrlFieldWidget({
+class UpdateAutoVerbalExistingImageUrlsFieldWidget extends HookConsumerWidget {
+  const UpdateAutoVerbalExistingImageUrlsFieldWidget({
     super.key,
-    this.controller,
     required this.builder,
   });
-  final UpdateAutoVerbalExistingImageUrlChildBuilder builder;
-
-  /// TextEditingController of text field widget. If null it will create by widget
-  final TextEditingController? controller;
+  final UpdateAutoVerbalExistingImageUrlsChildBuilder builder;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -1358,33 +1351,14 @@ class UpdateAutoVerbalExistingImageUrlFieldWidget extends HookConsumerWidget {
     final notifier =
         ref.watch(updateAutoVerbalProvider(family.initial).notifier);
     final state = ref.watch(updateAutoVerbalProvider(family.initial)
-        .select((value) => value.existingImageUrl));
-    final textController = controller ?? useTextEditingController(text: state);
-    useMemoized(() {
-      textController.addListener(() {
-        Future.microtask(() => notifier.onExistingImageUrlChanged(
-            textController.text.isEmpty ? null : textController.text));
-      });
-      return null;
-    });
-
-    ref.listen(
-        updateAutoVerbalProvider(family.initial)
-            .select((value) => value.existingImageUrl), (previous, current) {
-      if (previous != current) {
-        if (current != textController.text) {
-          Future.microtask(() => textController.text = current ?? '');
-        }
-      }
-    });
+        .select((value) => value.existingImageUrls));
 
     final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
         .select((value) => value.status.isFailure));
     return builder(
       ref,
-      textController,
       state,
-      notifier.onExistingImageUrlChanged,
+      notifier.onExistingImageUrlsChanged,
       showValidation,
     );
   }
@@ -2232,8 +2206,8 @@ class UpdateAutoVerbalRoadFieldWidget extends HookConsumerWidget {
 
 typedef UpdateAutoVerbalBedChildBuilder = Widget Function(
   WidgetRef ref,
-  double bed,
-  void Function(double newBed) changeBed,
+  int? bed,
+  void Function(int? newBed) changeBed,
   bool showValidation,
 );
 
@@ -2268,8 +2242,8 @@ class UpdateAutoVerbalBedFieldWidget extends HookConsumerWidget {
 
 typedef UpdateAutoVerbalBathChildBuilder = Widget Function(
   WidgetRef ref,
-  double bath,
-  void Function(double newBath) changeBath,
+  int? bath,
+  void Function(int? newBath) changeBath,
   bool showValidation,
 );
 
@@ -2304,8 +2278,8 @@ class UpdateAutoVerbalBathFieldWidget extends HookConsumerWidget {
 
 typedef UpdateAutoVerbalLivingroomChildBuilder = Widget Function(
   WidgetRef ref,
-  double livingroom,
-  void Function(double newLivingroom) changeLivingroom,
+  int? livingroom,
+  void Function(int? newLivingroom) changeLivingroom,
   bool showValidation,
 );
 
@@ -2340,8 +2314,8 @@ class UpdateAutoVerbalLivingroomFieldWidget extends HookConsumerWidget {
 
 typedef UpdateAutoVerbalFloorChildBuilder = Widget Function(
   WidgetRef ref,
-  double floor,
-  void Function(double newFloor) changeFloor,
+  int? floor,
+  void Function(int? newFloor) changeFloor,
   bool showValidation,
 );
 
@@ -2378,7 +2352,7 @@ class UpdateAutoVerbalFloorFieldWidget extends HookConsumerWidget {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$autoVerbalListHash() => r'72a91baffe8bcca5345d854faffb352cd29823b9';
+String _$autoVerbalListHash() => r'96876bd5894b45347ca954c4ca87eacfd5a03b2e';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -2698,7 +2672,137 @@ class _AutoVerbalAtIndexProviderElement
       (origin as AutoVerbalAtIndexProvider).filter;
 }
 
-String _$insertAutoVerbalHash() => r'f2532a042c85b8b1b8dc6639b2e4de2fb0ada65b';
+String _$autoVerbalDetailHash() => r'52e0d33913de8b6d8183ecc3bc639f10b96f7429';
+
+/// See also [autoVerbalDetail].
+@ProviderFor(autoVerbalDetail)
+const autoVerbalDetailProvider = AutoVerbalDetailFamily();
+
+/// See also [autoVerbalDetail].
+class AutoVerbalDetailFamily extends Family<AsyncValue<AutoVerbalModel>> {
+  /// See also [autoVerbalDetail].
+  const AutoVerbalDetailFamily();
+
+  /// See also [autoVerbalDetail].
+  AutoVerbalDetailProvider call(
+    int id,
+  ) {
+    return AutoVerbalDetailProvider(
+      id,
+    );
+  }
+
+  @override
+  AutoVerbalDetailProvider getProviderOverride(
+    covariant AutoVerbalDetailProvider provider,
+  ) {
+    return call(
+      provider.id,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'autoVerbalDetailProvider';
+}
+
+/// See also [autoVerbalDetail].
+class AutoVerbalDetailProvider
+    extends AutoDisposeFutureProvider<AutoVerbalModel> {
+  /// See also [autoVerbalDetail].
+  AutoVerbalDetailProvider(
+    int id,
+  ) : this._internal(
+          (ref) => autoVerbalDetail(
+            ref as AutoVerbalDetailRef,
+            id,
+          ),
+          from: autoVerbalDetailProvider,
+          name: r'autoVerbalDetailProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$autoVerbalDetailHash,
+          dependencies: AutoVerbalDetailFamily._dependencies,
+          allTransitiveDependencies:
+              AutoVerbalDetailFamily._allTransitiveDependencies,
+          id: id,
+        );
+
+  AutoVerbalDetailProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.id,
+  }) : super.internal();
+
+  final int id;
+
+  @override
+  Override overrideWith(
+    FutureOr<AutoVerbalModel> Function(AutoVerbalDetailRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: AutoVerbalDetailProvider._internal(
+        (ref) => create(ref as AutoVerbalDetailRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        id: id,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<AutoVerbalModel> createElement() {
+    return _AutoVerbalDetailProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is AutoVerbalDetailProvider && other.id == id;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, id.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin AutoVerbalDetailRef on AutoDisposeFutureProviderRef<AutoVerbalModel> {
+  /// The parameter `id` of this provider.
+  int get id;
+}
+
+class _AutoVerbalDetailProviderElement
+    extends AutoDisposeFutureProviderElement<AutoVerbalModel>
+    with AutoVerbalDetailRef {
+  _AutoVerbalDetailProviderElement(super.provider);
+
+  @override
+  int get id => (origin as AutoVerbalDetailProvider).id;
+}
+
+String _$insertAutoVerbalHash() => r'ed2dbc473f5ad2f1ed1f47089bd825edc40ef6b8';
 
 /// See also [InsertAutoVerbal].
 @ProviderFor(InsertAutoVerbal)
@@ -2714,7 +2818,7 @@ final insertAutoVerbalProvider = AutoDisposeNotifierProvider<InsertAutoVerbal,
 );
 
 typedef _$InsertAutoVerbal = AutoDisposeNotifier<InsertAutoVerbalState>;
-String _$updateAutoVerbalHash() => r'da6511aac0965187b4580d6b76c2ea265ff8c67e';
+String _$updateAutoVerbalHash() => r'7f55f7e6e29ad72e2f215c97cbd7e2c5c3748b00';
 
 abstract class _$UpdateAutoVerbal
     extends BuildlessAutoDisposeNotifier<UpdateAutoVerbalState> {
@@ -3003,6 +3107,298 @@ class _DeleteAutoVerbalProviderElement
 
   @override
   int get autoVerbalId => (origin as DeleteAutoVerbalProvider).autoVerbalId;
+}
+
+String _$approveAutoVerbalHash() => r'018b6d11104bbcbf4503c585061f9077d5e5e4ae';
+
+abstract class _$ApproveAutoVerbal
+    extends BuildlessAutoDisposeNotifier<ProviderStatus<void>> {
+  late final int autoVerbalId;
+
+  ProviderStatus<void> build(
+    int autoVerbalId,
+  );
+}
+
+/// See also [ApproveAutoVerbal].
+@ProviderFor(ApproveAutoVerbal)
+const approveAutoVerbalProvider = ApproveAutoVerbalFamily();
+
+/// See also [ApproveAutoVerbal].
+class ApproveAutoVerbalFamily extends Family<ProviderStatus<void>> {
+  /// See also [ApproveAutoVerbal].
+  const ApproveAutoVerbalFamily();
+
+  /// See also [ApproveAutoVerbal].
+  ApproveAutoVerbalProvider call(
+    int autoVerbalId,
+  ) {
+    return ApproveAutoVerbalProvider(
+      autoVerbalId,
+    );
+  }
+
+  @override
+  ApproveAutoVerbalProvider getProviderOverride(
+    covariant ApproveAutoVerbalProvider provider,
+  ) {
+    return call(
+      provider.autoVerbalId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'approveAutoVerbalProvider';
+}
+
+/// See also [ApproveAutoVerbal].
+class ApproveAutoVerbalProvider extends AutoDisposeNotifierProviderImpl<
+    ApproveAutoVerbal, ProviderStatus<void>> {
+  /// See also [ApproveAutoVerbal].
+  ApproveAutoVerbalProvider(
+    int autoVerbalId,
+  ) : this._internal(
+          () => ApproveAutoVerbal()..autoVerbalId = autoVerbalId,
+          from: approveAutoVerbalProvider,
+          name: r'approveAutoVerbalProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$approveAutoVerbalHash,
+          dependencies: ApproveAutoVerbalFamily._dependencies,
+          allTransitiveDependencies:
+              ApproveAutoVerbalFamily._allTransitiveDependencies,
+          autoVerbalId: autoVerbalId,
+        );
+
+  ApproveAutoVerbalProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.autoVerbalId,
+  }) : super.internal();
+
+  final int autoVerbalId;
+
+  @override
+  ProviderStatus<void> runNotifierBuild(
+    covariant ApproveAutoVerbal notifier,
+  ) {
+    return notifier.build(
+      autoVerbalId,
+    );
+  }
+
+  @override
+  Override overrideWith(ApproveAutoVerbal Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: ApproveAutoVerbalProvider._internal(
+        () => create()..autoVerbalId = autoVerbalId,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        autoVerbalId: autoVerbalId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeNotifierProviderElement<ApproveAutoVerbal, ProviderStatus<void>>
+      createElement() {
+    return _ApproveAutoVerbalProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ApproveAutoVerbalProvider &&
+        other.autoVerbalId == autoVerbalId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, autoVerbalId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin ApproveAutoVerbalRef
+    on AutoDisposeNotifierProviderRef<ProviderStatus<void>> {
+  /// The parameter `autoVerbalId` of this provider.
+  int get autoVerbalId;
+}
+
+class _ApproveAutoVerbalProviderElement
+    extends AutoDisposeNotifierProviderElement<ApproveAutoVerbal,
+        ProviderStatus<void>> with ApproveAutoVerbalRef {
+  _ApproveAutoVerbalProviderElement(super.provider);
+
+  @override
+  int get autoVerbalId => (origin as ApproveAutoVerbalProvider).autoVerbalId;
+}
+
+String _$rejectAutoVerbalHash() => r'cb97b68061f4ce2c3dda6c5928569e867ef82f0b';
+
+abstract class _$RejectAutoVerbal
+    extends BuildlessAutoDisposeNotifier<ProviderStatus<void>> {
+  late final int autoVerbalId;
+
+  ProviderStatus<void> build(
+    int autoVerbalId,
+  );
+}
+
+/// See also [RejectAutoVerbal].
+@ProviderFor(RejectAutoVerbal)
+const rejectAutoVerbalProvider = RejectAutoVerbalFamily();
+
+/// See also [RejectAutoVerbal].
+class RejectAutoVerbalFamily extends Family<ProviderStatus<void>> {
+  /// See also [RejectAutoVerbal].
+  const RejectAutoVerbalFamily();
+
+  /// See also [RejectAutoVerbal].
+  RejectAutoVerbalProvider call(
+    int autoVerbalId,
+  ) {
+    return RejectAutoVerbalProvider(
+      autoVerbalId,
+    );
+  }
+
+  @override
+  RejectAutoVerbalProvider getProviderOverride(
+    covariant RejectAutoVerbalProvider provider,
+  ) {
+    return call(
+      provider.autoVerbalId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'rejectAutoVerbalProvider';
+}
+
+/// See also [RejectAutoVerbal].
+class RejectAutoVerbalProvider extends AutoDisposeNotifierProviderImpl<
+    RejectAutoVerbal, ProviderStatus<void>> {
+  /// See also [RejectAutoVerbal].
+  RejectAutoVerbalProvider(
+    int autoVerbalId,
+  ) : this._internal(
+          () => RejectAutoVerbal()..autoVerbalId = autoVerbalId,
+          from: rejectAutoVerbalProvider,
+          name: r'rejectAutoVerbalProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$rejectAutoVerbalHash,
+          dependencies: RejectAutoVerbalFamily._dependencies,
+          allTransitiveDependencies:
+              RejectAutoVerbalFamily._allTransitiveDependencies,
+          autoVerbalId: autoVerbalId,
+        );
+
+  RejectAutoVerbalProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.autoVerbalId,
+  }) : super.internal();
+
+  final int autoVerbalId;
+
+  @override
+  ProviderStatus<void> runNotifierBuild(
+    covariant RejectAutoVerbal notifier,
+  ) {
+    return notifier.build(
+      autoVerbalId,
+    );
+  }
+
+  @override
+  Override overrideWith(RejectAutoVerbal Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: RejectAutoVerbalProvider._internal(
+        () => create()..autoVerbalId = autoVerbalId,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        autoVerbalId: autoVerbalId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeNotifierProviderElement<RejectAutoVerbal, ProviderStatus<void>>
+      createElement() {
+    return _RejectAutoVerbalProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is RejectAutoVerbalProvider &&
+        other.autoVerbalId == autoVerbalId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, autoVerbalId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin RejectAutoVerbalRef
+    on AutoDisposeNotifierProviderRef<ProviderStatus<void>> {
+  /// The parameter `autoVerbalId` of this provider.
+  int get autoVerbalId;
+}
+
+class _RejectAutoVerbalProviderElement
+    extends AutoDisposeNotifierProviderElement<RejectAutoVerbal,
+        ProviderStatus<void>> with RejectAutoVerbalRef {
+  _RejectAutoVerbalProviderElement(super.provider);
+
+  @override
+  int get autoVerbalId => (origin as RejectAutoVerbalProvider).autoVerbalId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

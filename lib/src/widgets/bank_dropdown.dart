@@ -1,7 +1,6 @@
+import '../../exports.dart';
 import '../models/bank_model.dart';
 import '../providers/bank_provider.dart';
-
-import '../../exports.dart';
 
 class BankDropDown extends ConsumerWidget {
   const BankDropDown({super.key, this.value, required this.onChanged});
@@ -27,17 +26,17 @@ class BankDropDown extends ConsumerWidget {
                 child: Text(e.name),
               );
             }).toList(),
-      icon: Icon(
+      icon: const Icon(
         Icons.arrow_drop_down,
         color: kImageColor,
       ),
       decoration: InputDecoration(
         fillColor: kwhite,
         filled: true,
-        contentPadding: EdgeInsets.symmetric(vertical: 8),
+        contentPadding: const EdgeInsets.symmetric(vertical: 8),
         labelText: 'Bank*',
         hintText: 'Select',
-        prefixIcon: Icon(
+        prefixIcon: const Icon(
           Icons.account_balance,
           color: kImageColor,
         ),
@@ -49,7 +48,7 @@ class BankDropDown extends ConsumerWidget {
           borderRadius: BorderRadius.circular(10.0),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             width: 1,
             color: kPrimaryColor,
           ),

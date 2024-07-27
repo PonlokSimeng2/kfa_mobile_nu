@@ -576,7 +576,7 @@ abstract class _AutoVerbalListFilter extends AutoVerbalListFilter {
 
 /// @nodoc
 mixin _$InsertAutoVerbalState {
-  XFile? get imageFile => throw _privateConstructorUsedError;
+  IList<XFile> get imageFiles => throw _privateConstructorUsedError;
   PropertyTypeModel? get propertyType => throw _privateConstructorUsedError;
   ProvinceModel? get province => throw _privateConstructorUsedError;
   BankModel? get bank => throw _privateConstructorUsedError;
@@ -597,10 +597,10 @@ mixin _$InsertAutoVerbalState {
   double get landlength => throw _privateConstructorUsedError;
   double get landwidth => throw _privateConstructorUsedError;
   RoadModel? get road => throw _privateConstructorUsedError;
-  double get bed => throw _privateConstructorUsedError;
-  double get bath => throw _privateConstructorUsedError;
-  double get livingroom => throw _privateConstructorUsedError;
-  double get floor => throw _privateConstructorUsedError;
+  int get bed => throw _privateConstructorUsedError;
+  int get bath => throw _privateConstructorUsedError;
+  int get livingroom => throw _privateConstructorUsedError;
+  int get floor => throw _privateConstructorUsedError;
   ProviderStatus<void> get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -615,7 +615,7 @@ abstract class $InsertAutoVerbalStateCopyWith<$Res> {
       _$InsertAutoVerbalStateCopyWithImpl<$Res, InsertAutoVerbalState>;
   @useResult
   $Res call(
-      {XFile? imageFile,
+      {IList<XFile> imageFiles,
       PropertyTypeModel? propertyType,
       ProvinceModel? province,
       BankModel? bank,
@@ -636,10 +636,10 @@ abstract class $InsertAutoVerbalStateCopyWith<$Res> {
       double landlength,
       double landwidth,
       RoadModel? road,
-      double bed,
-      double bath,
-      double livingroom,
-      double floor,
+      int bed,
+      int bath,
+      int livingroom,
+      int floor,
       ProviderStatus<void> status});
 
   $PropertyTypeModelCopyWith<$Res>? get propertyType;
@@ -663,7 +663,7 @@ class _$InsertAutoVerbalStateCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? imageFile = freezed,
+    Object? imageFiles = null,
     Object? propertyType = freezed,
     Object? province = freezed,
     Object? bank = freezed,
@@ -691,10 +691,10 @@ class _$InsertAutoVerbalStateCopyWithImpl<$Res,
     Object? status = null,
   }) {
     return _then(_value.copyWith(
-      imageFile: freezed == imageFile
-          ? _value.imageFile
-          : imageFile // ignore: cast_nullable_to_non_nullable
-              as XFile?,
+      imageFiles: null == imageFiles
+          ? _value.imageFiles
+          : imageFiles // ignore: cast_nullable_to_non_nullable
+              as IList<XFile>,
       propertyType: freezed == propertyType
           ? _value.propertyType
           : propertyType // ignore: cast_nullable_to_non_nullable
@@ -778,19 +778,19 @@ class _$InsertAutoVerbalStateCopyWithImpl<$Res,
       bed: null == bed
           ? _value.bed
           : bed // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int,
       bath: null == bath
           ? _value.bath
           : bath // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int,
       livingroom: null == livingroom
           ? _value.livingroom
           : livingroom // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int,
       floor: null == floor
           ? _value.floor
           : floor // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -865,7 +865,7 @@ abstract class _$$InsertAutoVerbalStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {XFile? imageFile,
+      {IList<XFile> imageFiles,
       PropertyTypeModel? propertyType,
       ProvinceModel? province,
       BankModel? bank,
@@ -886,10 +886,10 @@ abstract class _$$InsertAutoVerbalStateImplCopyWith<$Res>
       double landlength,
       double landwidth,
       RoadModel? road,
-      double bed,
-      double bath,
-      double livingroom,
-      double floor,
+      int bed,
+      int bath,
+      int livingroom,
+      int floor,
       ProviderStatus<void> status});
 
   @override
@@ -916,7 +916,7 @@ class __$$InsertAutoVerbalStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? imageFile = freezed,
+    Object? imageFiles = null,
     Object? propertyType = freezed,
     Object? province = freezed,
     Object? bank = freezed,
@@ -944,10 +944,10 @@ class __$$InsertAutoVerbalStateImplCopyWithImpl<$Res>
     Object? status = null,
   }) {
     return _then(_$InsertAutoVerbalStateImpl(
-      imageFile: freezed == imageFile
-          ? _value.imageFile
-          : imageFile // ignore: cast_nullable_to_non_nullable
-              as XFile?,
+      imageFiles: null == imageFiles
+          ? _value.imageFiles
+          : imageFiles // ignore: cast_nullable_to_non_nullable
+              as IList<XFile>,
       propertyType: freezed == propertyType
           ? _value.propertyType
           : propertyType // ignore: cast_nullable_to_non_nullable
@@ -1031,19 +1031,19 @@ class __$$InsertAutoVerbalStateImplCopyWithImpl<$Res>
       bed: null == bed
           ? _value.bed
           : bed // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int,
       bath: null == bath
           ? _value.bath
           : bath // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int,
       livingroom: null == livingroom
           ? _value.livingroom
           : livingroom // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int,
       floor: null == floor
           ? _value.floor
           : floor // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -1056,7 +1056,7 @@ class __$$InsertAutoVerbalStateImplCopyWithImpl<$Res>
 
 class _$InsertAutoVerbalStateImpl extends _InsertAutoVerbalState {
   const _$InsertAutoVerbalStateImpl(
-      {required this.imageFile,
+      {required this.imageFiles,
       required this.propertyType,
       required this.province,
       required this.bank,
@@ -1085,7 +1085,7 @@ class _$InsertAutoVerbalStateImpl extends _InsertAutoVerbalState {
       : super._();
 
   @override
-  final XFile? imageFile;
+  final IList<XFile> imageFiles;
   @override
   final PropertyTypeModel? propertyType;
   @override
@@ -1127,20 +1127,20 @@ class _$InsertAutoVerbalStateImpl extends _InsertAutoVerbalState {
   @override
   final RoadModel? road;
   @override
-  final double bed;
+  final int bed;
   @override
-  final double bath;
+  final int bath;
   @override
-  final double livingroom;
+  final int livingroom;
   @override
-  final double floor;
+  final int floor;
   @override
   @JsonKey()
   final ProviderStatus<void> status;
 
   @override
   String toString() {
-    return 'InsertAutoVerbalState(imageFile: $imageFile, propertyType: $propertyType, province: $province, bank: $bank, bankBranch: $bankBranch, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, latitude: $latitude, longitude: $longitude, area: $area, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, road: $road, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, status: $status)';
+    return 'InsertAutoVerbalState(imageFiles: $imageFiles, propertyType: $propertyType, province: $province, bank: $bank, bankBranch: $bankBranch, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, latitude: $latitude, longitude: $longitude, area: $area, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, road: $road, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, status: $status)';
   }
 
   @override
@@ -1148,8 +1148,8 @@ class _$InsertAutoVerbalStateImpl extends _InsertAutoVerbalState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InsertAutoVerbalStateImpl &&
-            (identical(other.imageFile, imageFile) ||
-                other.imageFile == imageFile) &&
+            const DeepCollectionEquality()
+                .equals(other.imageFiles, imageFiles) &&
             (identical(other.propertyType, propertyType) ||
                 other.propertyType == propertyType) &&
             (identical(other.province, province) ||
@@ -1198,7 +1198,7 @@ class _$InsertAutoVerbalStateImpl extends _InsertAutoVerbalState {
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
-        imageFile,
+        const DeepCollectionEquality().hash(imageFiles),
         propertyType,
         province,
         bank,
@@ -1236,7 +1236,7 @@ class _$InsertAutoVerbalStateImpl extends _InsertAutoVerbalState {
 
 abstract class _InsertAutoVerbalState extends InsertAutoVerbalState {
   const factory _InsertAutoVerbalState(
-      {required final XFile? imageFile,
+      {required final IList<XFile> imageFiles,
       required final PropertyTypeModel? propertyType,
       required final ProvinceModel? province,
       required final BankModel? bank,
@@ -1257,15 +1257,15 @@ abstract class _InsertAutoVerbalState extends InsertAutoVerbalState {
       required final double landlength,
       required final double landwidth,
       required final RoadModel? road,
-      required final double bed,
-      required final double bath,
-      required final double livingroom,
-      required final double floor,
+      required final int bed,
+      required final int bath,
+      required final int livingroom,
+      required final int floor,
       final ProviderStatus<void> status}) = _$InsertAutoVerbalStateImpl;
   const _InsertAutoVerbalState._() : super._();
 
   @override
-  XFile? get imageFile;
+  IList<XFile> get imageFiles;
   @override
   PropertyTypeModel? get propertyType;
   @override
@@ -1307,13 +1307,13 @@ abstract class _InsertAutoVerbalState extends InsertAutoVerbalState {
   @override
   RoadModel? get road;
   @override
-  double get bed;
+  int get bed;
   @override
-  double get bath;
+  int get bath;
   @override
-  double get livingroom;
+  int get livingroom;
   @override
-  double get floor;
+  int get floor;
   @override
   ProviderStatus<void> get status;
   @override
@@ -1324,8 +1324,8 @@ abstract class _InsertAutoVerbalState extends InsertAutoVerbalState {
 
 /// @nodoc
 mixin _$UpdateAutoVerbalState {
-  XFile? get newImageFile => throw _privateConstructorUsedError;
-  String? get existingImageUrl => throw _privateConstructorUsedError;
+  IList<XFile> get newImageFiles => throw _privateConstructorUsedError;
+  IList<String> get existingImageUrls => throw _privateConstructorUsedError;
   PropertyTypeModel? get propertyType => throw _privateConstructorUsedError;
   ProvinceModel? get province => throw _privateConstructorUsedError;
   BankModel? get bank => throw _privateConstructorUsedError;
@@ -1346,10 +1346,10 @@ mixin _$UpdateAutoVerbalState {
   double get landlength => throw _privateConstructorUsedError;
   double get landwidth => throw _privateConstructorUsedError;
   RoadModel? get road => throw _privateConstructorUsedError;
-  double get bed => throw _privateConstructorUsedError;
-  double get bath => throw _privateConstructorUsedError;
-  double get livingroom => throw _privateConstructorUsedError;
-  double get floor => throw _privateConstructorUsedError;
+  int? get bed => throw _privateConstructorUsedError;
+  int? get bath => throw _privateConstructorUsedError;
+  int? get livingroom => throw _privateConstructorUsedError;
+  int? get floor => throw _privateConstructorUsedError;
   ProviderStatus<void> get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -1364,8 +1364,8 @@ abstract class $UpdateAutoVerbalStateCopyWith<$Res> {
       _$UpdateAutoVerbalStateCopyWithImpl<$Res, UpdateAutoVerbalState>;
   @useResult
   $Res call(
-      {XFile? newImageFile,
-      String? existingImageUrl,
+      {IList<XFile> newImageFiles,
+      IList<String> existingImageUrls,
       PropertyTypeModel? propertyType,
       ProvinceModel? province,
       BankModel? bank,
@@ -1386,10 +1386,10 @@ abstract class $UpdateAutoVerbalStateCopyWith<$Res> {
       double landlength,
       double landwidth,
       RoadModel? road,
-      double bed,
-      double bath,
-      double livingroom,
-      double floor,
+      int? bed,
+      int? bath,
+      int? livingroom,
+      int? floor,
       ProviderStatus<void> status});
 
   $PropertyTypeModelCopyWith<$Res>? get propertyType;
@@ -1413,8 +1413,8 @@ class _$UpdateAutoVerbalStateCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? newImageFile = freezed,
-    Object? existingImageUrl = freezed,
+    Object? newImageFiles = null,
+    Object? existingImageUrls = null,
     Object? propertyType = freezed,
     Object? province = freezed,
     Object? bank = freezed,
@@ -1435,21 +1435,21 @@ class _$UpdateAutoVerbalStateCopyWithImpl<$Res,
     Object? landlength = null,
     Object? landwidth = null,
     Object? road = freezed,
-    Object? bed = null,
-    Object? bath = null,
-    Object? livingroom = null,
-    Object? floor = null,
+    Object? bed = freezed,
+    Object? bath = freezed,
+    Object? livingroom = freezed,
+    Object? floor = freezed,
     Object? status = null,
   }) {
     return _then(_value.copyWith(
-      newImageFile: freezed == newImageFile
-          ? _value.newImageFile
-          : newImageFile // ignore: cast_nullable_to_non_nullable
-              as XFile?,
-      existingImageUrl: freezed == existingImageUrl
-          ? _value.existingImageUrl
-          : existingImageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+      newImageFiles: null == newImageFiles
+          ? _value.newImageFiles
+          : newImageFiles // ignore: cast_nullable_to_non_nullable
+              as IList<XFile>,
+      existingImageUrls: null == existingImageUrls
+          ? _value.existingImageUrls
+          : existingImageUrls // ignore: cast_nullable_to_non_nullable
+              as IList<String>,
       propertyType: freezed == propertyType
           ? _value.propertyType
           : propertyType // ignore: cast_nullable_to_non_nullable
@@ -1530,22 +1530,22 @@ class _$UpdateAutoVerbalStateCopyWithImpl<$Res,
           ? _value.road
           : road // ignore: cast_nullable_to_non_nullable
               as RoadModel?,
-      bed: null == bed
+      bed: freezed == bed
           ? _value.bed
           : bed // ignore: cast_nullable_to_non_nullable
-              as double,
-      bath: null == bath
+              as int?,
+      bath: freezed == bath
           ? _value.bath
           : bath // ignore: cast_nullable_to_non_nullable
-              as double,
-      livingroom: null == livingroom
+              as int?,
+      livingroom: freezed == livingroom
           ? _value.livingroom
           : livingroom // ignore: cast_nullable_to_non_nullable
-              as double,
-      floor: null == floor
+              as int?,
+      floor: freezed == floor
           ? _value.floor
           : floor // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -1620,8 +1620,8 @@ abstract class _$$UpdateAutoVerbalStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {XFile? newImageFile,
-      String? existingImageUrl,
+      {IList<XFile> newImageFiles,
+      IList<String> existingImageUrls,
       PropertyTypeModel? propertyType,
       ProvinceModel? province,
       BankModel? bank,
@@ -1642,10 +1642,10 @@ abstract class _$$UpdateAutoVerbalStateImplCopyWith<$Res>
       double landlength,
       double landwidth,
       RoadModel? road,
-      double bed,
-      double bath,
-      double livingroom,
-      double floor,
+      int? bed,
+      int? bath,
+      int? livingroom,
+      int? floor,
       ProviderStatus<void> status});
 
   @override
@@ -1672,8 +1672,8 @@ class __$$UpdateAutoVerbalStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? newImageFile = freezed,
-    Object? existingImageUrl = freezed,
+    Object? newImageFiles = null,
+    Object? existingImageUrls = null,
     Object? propertyType = freezed,
     Object? province = freezed,
     Object? bank = freezed,
@@ -1694,21 +1694,21 @@ class __$$UpdateAutoVerbalStateImplCopyWithImpl<$Res>
     Object? landlength = null,
     Object? landwidth = null,
     Object? road = freezed,
-    Object? bed = null,
-    Object? bath = null,
-    Object? livingroom = null,
-    Object? floor = null,
+    Object? bed = freezed,
+    Object? bath = freezed,
+    Object? livingroom = freezed,
+    Object? floor = freezed,
     Object? status = null,
   }) {
     return _then(_$UpdateAutoVerbalStateImpl(
-      newImageFile: freezed == newImageFile
-          ? _value.newImageFile
-          : newImageFile // ignore: cast_nullable_to_non_nullable
-              as XFile?,
-      existingImageUrl: freezed == existingImageUrl
-          ? _value.existingImageUrl
-          : existingImageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+      newImageFiles: null == newImageFiles
+          ? _value.newImageFiles
+          : newImageFiles // ignore: cast_nullable_to_non_nullable
+              as IList<XFile>,
+      existingImageUrls: null == existingImageUrls
+          ? _value.existingImageUrls
+          : existingImageUrls // ignore: cast_nullable_to_non_nullable
+              as IList<String>,
       propertyType: freezed == propertyType
           ? _value.propertyType
           : propertyType // ignore: cast_nullable_to_non_nullable
@@ -1789,22 +1789,22 @@ class __$$UpdateAutoVerbalStateImplCopyWithImpl<$Res>
           ? _value.road
           : road // ignore: cast_nullable_to_non_nullable
               as RoadModel?,
-      bed: null == bed
+      bed: freezed == bed
           ? _value.bed
           : bed // ignore: cast_nullable_to_non_nullable
-              as double,
-      bath: null == bath
+              as int?,
+      bath: freezed == bath
           ? _value.bath
           : bath // ignore: cast_nullable_to_non_nullable
-              as double,
-      livingroom: null == livingroom
+              as int?,
+      livingroom: freezed == livingroom
           ? _value.livingroom
           : livingroom // ignore: cast_nullable_to_non_nullable
-              as double,
-      floor: null == floor
+              as int?,
+      floor: freezed == floor
           ? _value.floor
           : floor // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -1817,8 +1817,8 @@ class __$$UpdateAutoVerbalStateImplCopyWithImpl<$Res>
 
 class _$UpdateAutoVerbalStateImpl extends _UpdateAutoVerbalState {
   const _$UpdateAutoVerbalStateImpl(
-      {required this.newImageFile,
-      required this.existingImageUrl,
+      {required this.newImageFiles,
+      required this.existingImageUrls,
       required this.propertyType,
       required this.province,
       required this.bank,
@@ -1847,9 +1847,9 @@ class _$UpdateAutoVerbalStateImpl extends _UpdateAutoVerbalState {
       : super._();
 
   @override
-  final XFile? newImageFile;
+  final IList<XFile> newImageFiles;
   @override
-  final String? existingImageUrl;
+  final IList<String> existingImageUrls;
   @override
   final PropertyTypeModel? propertyType;
   @override
@@ -1891,20 +1891,20 @@ class _$UpdateAutoVerbalStateImpl extends _UpdateAutoVerbalState {
   @override
   final RoadModel? road;
   @override
-  final double bed;
+  final int? bed;
   @override
-  final double bath;
+  final int? bath;
   @override
-  final double livingroom;
+  final int? livingroom;
   @override
-  final double floor;
+  final int? floor;
   @override
   @JsonKey()
   final ProviderStatus<void> status;
 
   @override
   String toString() {
-    return 'UpdateAutoVerbalState(newImageFile: $newImageFile, existingImageUrl: $existingImageUrl, propertyType: $propertyType, province: $province, bank: $bank, bankBranch: $bankBranch, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, latitude: $latitude, longitude: $longitude, area: $area, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, road: $road, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, status: $status)';
+    return 'UpdateAutoVerbalState(newImageFiles: $newImageFiles, existingImageUrls: $existingImageUrls, propertyType: $propertyType, province: $province, bank: $bank, bankBranch: $bankBranch, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, latitude: $latitude, longitude: $longitude, area: $area, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, road: $road, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, status: $status)';
   }
 
   @override
@@ -1912,10 +1912,10 @@ class _$UpdateAutoVerbalStateImpl extends _UpdateAutoVerbalState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UpdateAutoVerbalStateImpl &&
-            (identical(other.newImageFile, newImageFile) ||
-                other.newImageFile == newImageFile) &&
-            (identical(other.existingImageUrl, existingImageUrl) ||
-                other.existingImageUrl == existingImageUrl) &&
+            const DeepCollectionEquality()
+                .equals(other.newImageFiles, newImageFiles) &&
+            const DeepCollectionEquality()
+                .equals(other.existingImageUrls, existingImageUrls) &&
             (identical(other.propertyType, propertyType) ||
                 other.propertyType == propertyType) &&
             (identical(other.province, province) ||
@@ -1964,8 +1964,8 @@ class _$UpdateAutoVerbalStateImpl extends _UpdateAutoVerbalState {
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
-        newImageFile,
-        existingImageUrl,
+        const DeepCollectionEquality().hash(newImageFiles),
+        const DeepCollectionEquality().hash(existingImageUrls),
         propertyType,
         province,
         bank,
@@ -2003,8 +2003,8 @@ class _$UpdateAutoVerbalStateImpl extends _UpdateAutoVerbalState {
 
 abstract class _UpdateAutoVerbalState extends UpdateAutoVerbalState {
   const factory _UpdateAutoVerbalState(
-      {required final XFile? newImageFile,
-      required final String? existingImageUrl,
+      {required final IList<XFile> newImageFiles,
+      required final IList<String> existingImageUrls,
       required final PropertyTypeModel? propertyType,
       required final ProvinceModel? province,
       required final BankModel? bank,
@@ -2025,17 +2025,17 @@ abstract class _UpdateAutoVerbalState extends UpdateAutoVerbalState {
       required final double landlength,
       required final double landwidth,
       required final RoadModel? road,
-      required final double bed,
-      required final double bath,
-      required final double livingroom,
-      required final double floor,
+      required final int? bed,
+      required final int? bath,
+      required final int? livingroom,
+      required final int? floor,
       final ProviderStatus<void> status}) = _$UpdateAutoVerbalStateImpl;
   const _UpdateAutoVerbalState._() : super._();
 
   @override
-  XFile? get newImageFile;
+  IList<XFile> get newImageFiles;
   @override
-  String? get existingImageUrl;
+  IList<String> get existingImageUrls;
   @override
   PropertyTypeModel? get propertyType;
   @override
@@ -2077,13 +2077,13 @@ abstract class _UpdateAutoVerbalState extends UpdateAutoVerbalState {
   @override
   RoadModel? get road;
   @override
-  double get bed;
+  int? get bed;
   @override
-  double get bath;
+  int? get bath;
   @override
-  double get livingroom;
+  int? get livingroom;
   @override
-  double get floor;
+  int? get floor;
   @override
   ProviderStatus<void> get status;
   @override

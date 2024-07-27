@@ -1,27 +1,24 @@
 // ignore_for_file: non_constant_identifier_names, prefer_const_constructors, prefer_interpolation_to_compose_strings
 
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:bot_toast/bot_toast.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/models/auto_verbal_model.dart';
 import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ClientDetailAutoVerbalPage extends StatefulHookConsumerWidget {
   const ClientDetailAutoVerbalPage({super.key, required this.data});
   final AutoVerbalModel data;
   @override
-  ConsumerState<ClientDetailAutoVerbalPage> createState() =>
-      _detail_searchingState();
+  ConsumerState<ClientDetailAutoVerbalPage> createState() => _detail_searchingState();
 }
 
 // ignore: camel_case_types
@@ -37,7 +34,8 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
     setState(() {
       Future.delayed(const Duration(seconds: 2), () {
         Printing.layoutPdf(
-            onLayout: (format) => _generatePdf(format, widget.data));
+          onLayout: (format) => _generatePdf(format, widget.data),
+        );
       });
     });
   }
@@ -88,15 +86,16 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
   }
 
   Future<Uint8List> _generatePdf(
-      PdfPageFormat format, AutoVerbalModel data) async {
+    PdfPageFormat format,
+    AutoVerbalModel data,
+  ) async {
     final pdf = pw.Document(version: PdfVersion.pdf_1_4, compress: true);
     final font = await PdfGoogleFonts.robotoSlabBlack();
     final font1 = await PdfGoogleFonts.tinosRegular();
-    final ByteData bytes =
-        await rootBundle.load('assets/images/New_KFA_Logo_pdf.png');
+    final ByteData bytes = await rootBundle.load('assets/images/New_KFA_Logo_pdf.png');
     final Uint8List byteList = bytes.buffer.asUint8List();
-    Uint8List bytes1 =
-        (await NetworkAssetBundle(Uri.parse(data.image)).load(data.image))
+    final Uint8List bytes1 =
+        (await NetworkAssetBundle(Uri.parse(data.image.first)).load(data.image.first))
             .buffer
             .asUint8List();
     final imageUrl =
@@ -105,9 +104,8 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
     final response = await http.get(Uri.parse(imageUrl));
     final Uint8List imageData = response.bodyBytes;
 
-    Future<pw.PageTheme> _myPageTheme(PdfPageFormat format) async {
-      final bgShape =
-          await rootBundle.loadString('assets/images/Letter En-Kh.svg');
+    Future<pw.PageTheme> myPageTheme(PdfPageFormat format) async {
+      final bgShape = await rootBundle.loadString('assets/images/Letter En-Kh.svg');
 
       format = format.applyMargin(
         left: 2.0 * PdfPageFormat.cm,
@@ -126,7 +124,7 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
       );
     }
 
-    final pageTheme = await _myPageTheme(format);
+    final pageTheme = await myPageTheme(format);
     pdf.addPage(
       pw.MultiPage(
         pageTheme: pageTheme,
@@ -182,9 +180,8 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                                   ),
                                   pw.Text(
                                     'location map',
-                                    style:
-                                        pw.TextStyle(fontSize: 7, font: font1),
-                                  )
+                                    style: pw.TextStyle(fontSize: 7, font: font1),
+                                  ),
                                 ],
                               ),
                             ],
@@ -231,8 +228,9 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                                     padding: pw.EdgeInsets.all(2),
                                     alignment: pw.Alignment.centerLeft,
                                     decoration: pw.BoxDecoration(
-                                        color: PdfColors.blue,
-                                        border: pw.Border.all()),
+                                      color: PdfColors.blue,
+                                      border: pw.Border.all(),
+                                    ),
                                     child: pw.Text(
                                       "CODE: ${data.autoVerbalId}",
                                       style: pw.TextStyle(
@@ -247,9 +245,9 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                                 ),
                               ],
                             ),
-                          )
+                          ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -348,7 +346,7 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                           child:
                               // name rest with api
                               pw.Text(
-                            "${data.ownerName}",
+                            data.ownerName,
                             style: pw.TextStyle(
                               fontSize: 11,
                               font: font1,
@@ -492,7 +490,7 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                             fit: pw.BoxFit.cover,
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -658,8 +656,7 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                             child: pw.Container(
                               padding: pw.EdgeInsets.all(2),
                               alignment: pw.Alignment.centerLeft,
-                              decoration:
-                                  pw.BoxDecoration(border: pw.Border.all()),
+                              decoration: pw.BoxDecoration(border: pw.Border.all()),
                               child: pw.Text(
                                 '${data.area}/sqm',
                                 style: pw.TextStyle(
@@ -677,8 +674,7 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                             child: pw.Container(
                               padding: pw.EdgeInsets.all(2),
                               alignment: pw.Alignment.centerLeft,
-                              decoration:
-                                  pw.BoxDecoration(border: pw.Border.all()),
+                              decoration: pw.BoxDecoration(border: pw.Border.all()),
                               child: pw.Text(
                                 'USD ${data.minValue}',
                                 style: pw.TextStyle(
@@ -696,8 +692,7 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                             child: pw.Container(
                               padding: pw.EdgeInsets.all(2),
                               alignment: pw.Alignment.centerLeft,
-                              decoration:
-                                  pw.BoxDecoration(border: pw.Border.all()),
+                              decoration: pw.BoxDecoration(border: pw.Border.all()),
                               child: pw.Text(
                                 'USD ${data.maxValue}',
                                 style: pw.TextStyle(
@@ -715,8 +710,7 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                             child: pw.Container(
                               padding: pw.EdgeInsets.all(2),
                               alignment: pw.Alignment.centerLeft,
-                              decoration:
-                                  pw.BoxDecoration(border: pw.Border.all()),
+                              decoration: pw.BoxDecoration(border: pw.Border.all()),
                               child: pw.Text(
                                 'USD ${data.minValue * data.area}',
                                 style: pw.TextStyle(
@@ -734,8 +728,7 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                             child: pw.Container(
                               padding: pw.EdgeInsets.all(2),
                               alignment: pw.Alignment.centerLeft,
-                              decoration:
-                                  pw.BoxDecoration(border: pw.Border.all()),
+                              decoration: pw.BoxDecoration(border: pw.Border.all()),
                               child: pw.Text(
                                 'USD ${data.maxValue * data.area}',
                                 style: pw.TextStyle(
@@ -758,8 +751,7 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                               child: pw.Container(
                                 padding: pw.EdgeInsets.all(2),
                                 alignment: pw.Alignment.centerRight,
-                                decoration:
-                                    pw.BoxDecoration(border: pw.Border.all()),
+                                decoration: pw.BoxDecoration(border: pw.Border.all()),
                                 child: pw.Text(
                                   "Property Value(Estimate) ",
                                   style: pw.TextStyle(
@@ -777,12 +769,10 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                               child: pw.Container(
                                 padding: pw.EdgeInsets.all(2),
                                 alignment: pw.Alignment.centerLeft,
-                                decoration:
-                                    pw.BoxDecoration(border: pw.Border.all()),
+                                decoration: pw.BoxDecoration(border: pw.Border.all()),
                                 child: pw.Text(
                                   'USD ${data.minValue * data.area}',
-                                  style:
-                                      pw.TextStyle(fontSize: 10, font: font1),
+                                  style: pw.TextStyle(fontSize: 10, font: font1),
                                 ),
                                 height: 20,
                                 //color: Colors.blue,
@@ -793,12 +783,10 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                               child: pw.Container(
                                 padding: pw.EdgeInsets.all(2),
                                 alignment: pw.Alignment.centerLeft,
-                                decoration:
-                                    pw.BoxDecoration(border: pw.Border.all()),
+                                decoration: pw.BoxDecoration(border: pw.Border.all()),
                                 child: pw.Text(
                                   'USD ${data.maxValue * data.area}',
-                                  style:
-                                      pw.TextStyle(fontSize: 10, font: font1),
+                                  style: pw.TextStyle(fontSize: 10, font: font1),
                                 ),
                                 height: 20,
                                 //color: Colors.blue,
@@ -973,7 +961,11 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
           children: [
             _buildDetailRow('Auto Verbal ID', data.autoVerbalId.toString()),
             _buildDetailRowWithImage(
-                '', data.image, data.latitude, data.longitude),
+              '',
+              data.image.first,
+              data.latitude,
+              data.longitude,
+            ),
             _buildDetailRow('Province', data.province.name),
             _buildDetailRow('Owner Name', data.ownerName),
             _buildDetailRow('Property Type', data.propertyType.name),
@@ -984,7 +976,7 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
             _buildDetailRow('Min Value', data.minValue.toString()),
             _buildDetailRow('Max Value', data.maxValue.toString()),
             _buildDetailRow('Area', data.area.toString()),
-            _buildDetailRow('Road', data?.road?.name ?? 'N/A'),
+            _buildDetailRow('Road', data.road?.name ?? 'N/A'),
             _buildDetailRow('Land Length', data.landlength.toString()),
             _buildDetailRow('Land Width', data.landwidth.toString()),
             _buildDetailRow('Building Length', data.buildinglength.toString()),
@@ -1041,7 +1033,11 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
   }
 
   Widget _buildDetailRowWithImage(
-      String label, String imageUrl, double latitude, double longitude) {
+    String label,
+    String imageUrl,
+    double latitude,
+    double longitude,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(

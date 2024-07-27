@@ -83,7 +83,7 @@ FutureOr<IList<PropertyModel>> propertyList(
   }
 
   return await query
-      .order(PropertyTable.createdAt, ascending: false)
+      .order(PropertyTable.id, ascending: false)
       .limit(_limit)
       .range(offset, offset + _limit)
       .withConverter((jsons) {

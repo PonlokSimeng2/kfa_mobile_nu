@@ -1,10 +1,10 @@
 import 'package:kfa_mobile_nu/src/models/auto_verbal_model.dart';
 import 'package:kfa_mobile_nu/src/models/base.dart';
+import 'package:kfa_mobile_nu/src/pages/admin/admin_auto_verbal_detail_page.dart';
 import 'package:kfa_mobile_nu/src/pages/client_auto_verbal_detail_page.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/auto_verbal_provider.dart';
 import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
-import 'package:kfa_mobile_nu/src/pages/admin/admin_auto_verbal_detail_page.dart';
 
 import '../../exports.dart';
 
@@ -91,8 +91,8 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
   Widget _buildFilterButton(PropertyAndAutoVerbalStatus? status) {
     final statuses = ref.watch(_filterProvider).statuses;
     final isSelected = statuses.contains(status) && statuses.length <= 2;
-    final isAllSelected = status == null &&
-        statuses.length == PropertyAndAutoVerbalStatus.values.length;
+    final isAllSelected =
+        status == null && statuses.length == PropertyAndAutoVerbalStatus.values.length;
 
     return ElevatedButton(
       onPressed: () {
@@ -108,8 +108,7 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
         });
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor:
-            isSelected || isAllSelected ? kwhite_new : Colors.white,
+        backgroundColor: isSelected || isAllSelected ? kwhite_new : Colors.white,
       ),
       child: Text(
         status?.name.capitalize() ?? 'All',
@@ -190,14 +189,12 @@ class _GridView extends ConsumerWidget {
           children: [
             Expanded(
               child: ClipRRect(
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(10)),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
                 child: CachedNetworkImage(
-                  imageUrl: item.image,
+                  imageUrl: item.image.first,
                   fit: BoxFit.cover,
                   width: double.infinity,
-                  placeholder: (context, url) =>
-                      const Center(child: CircularProgressIndicator()),
+                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
@@ -223,8 +220,7 @@ class _GridView extends ConsumerWidget {
                   ),
                   const SizedBox(height: 4),
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
                       color: item.status.statusColor,
                       borderRadius: BorderRadius.circular(4),

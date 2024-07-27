@@ -1,101 +1,107 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:kfa_mobile_nu/exports.dart';
-import 'package:kfa_mobile_nu/src/models/auto_verbal_model.table.dart';
-import 'package:kfa_mobile_nu/src/models/bank_model.dart';
-import 'package:kfa_mobile_nu/src/models/road_model.dart';
+import 'package:kfa_mobile_nu/src/models/base.dart';
 import 'package:kfa_mobile_nu/src/models/user_model.dart';
+import 'package:kimapp/kimapp.dart';
 
-import 'base.dart';
+import 'bank_model.dart';
 import 'property_type_model.schema.dart';
 import 'province_model.schema.dart';
+import 'road_model.dart';
 
-part 'auto_verbal_model.freezed.dart';
-part 'auto_verbal_model.g.dart';
+export 'auto_verbal_model.schema.dart';
 
-@TableStructure(
-  'auto_verbals',
-  classPrefixName: 'AutoVerbal',
-  columns: [
-    'id',
-    'auto_verbal_id',
-    'image',
-    'property_type_id',
-    'bank_id',
-    'bankbranch',
-    'latitude',
-    'longitude',
-    'user_id',
-    'owner_name',
-    'owner_phone',
-    'bank_officer_name',
-    'bank_officer_phone',
-    'created_at',
-    'approved_at',
-    'approved_by',
-    'reject_at',
-    'status',
-    'reject_reason',
-    'province_id',
-    'min_value',
-    'max_value',
-    'min_value_sqm',
-    'max_value_sqm',
-    'area',
-    'buildinglength',
-    'buildingwidth',
-    'landlength',
-    'landwidth',
-    'road_id',
-    'bed',
-    'bath',
-    'livingroom',
-    'floor',
-  ],
+@Schema(
+  tableName: 'auto_verbals',
+  className: 'AutoVerbal',
+  baseModelName: 'AutoVerbalModel',
 )
-@freezed
-class AutoVerbalModel with _$AutoVerbalModel {
-  const AutoVerbalModel._();
+class AutoVerbalSchema extends KimappSchema {
+  final id = Field<int>('id');
+  final status = Field<PropertyAndAutoVerbalStatus>('status');
+  final autoVerbalId = Field<String>('auto_verbal_id');
+  final image = Field<List<String>>('images');
+  final bankBranch = Field<String?>('bankbranch');
+  final latitude = Field<double>('latitude');
+  final longitude = Field<double>('longitude');
+  final ownerName = Field<String>('owner_name');
+  final ownerPhone = Field<String>('owner_phone');
+  final bankOfficerName = Field<String?>('bank_officer_name');
+  final bankOfficerPhone = Field<String?>('bank_officer_phone');
+  final createdAt = Field<DateTime>('created_at');
+  final approvedAt = Field<DateTime?>('approved_at');
+  final rejectAt = Field<DateTime?>('reject_at');
+  final rejectReason = Field<String?>('reject_reason');
+  final minValue = Field<double>('min_value');
+  final maxValue = Field<double>('max_value');
+  final minValueSqm = Field<double>('min_value_sqm');
+  final maxValueSqm = Field<double>('max_value_sqm');
+  final area = Field<double>('area');
+  final buildinglength = Field<double?>('buildinglength');
+  final buildingwidth = Field<double?>('buildingwidth');
+  final landlength = Field<double>('landlength');
+  final landwidth = Field<double>('landwidth');
+  final bed = Field<int?>('bed');
+  final bath = Field<int?>('bath');
+  final livingroom = Field<int?>('livingroom');
+  final floor = Field<int?>('floor');
 
-  @TableModel(AutoVerbalTable.table)
-  factory AutoVerbalModel({
-    @JsonKey(name: AutoVerbalTable.id) required int id,
-    @JsonKey(name: AutoVerbalTable.status) required PropertyAndAutoVerbalStatus status,
-    @JsonKey(name: AutoVerbalTable.autoVerbalId) required String autoVerbalId,
-    @JsonKey(name: AutoVerbalTable.image) required String image,
-    @JoinedColumn(foreignKey: AutoVerbalTable.propertyTypeId)
-    required PropertyTypeModel propertyType,
-    @JoinedColumn(foreignKey: AutoVerbalTable.bankId) BankModel? bank,
-    @JsonKey(name: AutoVerbalTable.bankbranch) required String? bankBranch,
-    @JsonKey(name: AutoVerbalTable.latitude) required double latitude,
-    @JsonKey(name: AutoVerbalTable.longitude) required double longitude,
-    @JoinedColumn(candidateKey: 'auto_verbals_user_id_fkey') required UserModel? user,
-    @JsonKey(name: AutoVerbalTable.ownerName) required String ownerName,
-    @JsonKey(name: AutoVerbalTable.ownerPhone) required String ownerPhone,
-    @JsonKey(name: AutoVerbalTable.bankOfficerName) required String? bankOfficerName,
-    @JsonKey(name: AutoVerbalTable.bankOfficerPhone) required String? bankOfficerPhone,
-    @JsonKey(name: AutoVerbalTable.createdAt) required DateTime createdAt,
-    @JsonKey(name: AutoVerbalTable.approvedAt) DateTime? approvedAt,
-    @JoinedColumn(foreignKey: AutoVerbalTable.approvedBy) UserModel? approvedBy,
-    @JsonKey(name: AutoVerbalTable.rejectAt) DateTime? rejectAt,
-    @JsonKey(name: AutoVerbalTable.rejectReason) String? rejectReason,
-    @JoinedColumn(foreignKey: AutoVerbalTable.provinceId) required ProvinceModel province,
-    @JsonKey(name: AutoVerbalTable.minValue) required double minValue,
-    @JsonKey(name: AutoVerbalTable.maxValue) required double maxValue,
-    @JsonKey(name: AutoVerbalTable.minValueSqm) required double minValueSqm,
-    @JsonKey(name: AutoVerbalTable.maxValueSqm) required double maxValueSqm,
-    @JsonKey(name: AutoVerbalTable.area) required double area,
-    @JsonKey(name: AutoVerbalTable.buildinglength) required double? buildinglength,
-    @JsonKey(name: AutoVerbalTable.buildingwidth) required double? buildingwidth,
-    @JsonKey(name: AutoVerbalTable.landlength) required double landlength,
-    @JsonKey(name: AutoVerbalTable.landwidth) required double landwidth,
-    @JoinedColumn(foreignKey: AutoVerbalTable.roadId) required RoadModel? road,
-    @JsonKey(name: AutoVerbalTable.bed) required int? bed,
-    @JsonKey(name: AutoVerbalTable.bath) required int? bath,
-    @JsonKey(name: AutoVerbalTable.livingroom) required int? livingroom,
-    @JsonKey(name: AutoVerbalTable.floor) required int? floor,
-  }) = _AutoVerbalModel;
+  // Joins
+  final propertyType = Field.join<PropertyTypeModel>().withForeignKey('property_type_id');
+  final bank = Field.join<BankModel?>().withForeignKey('bank_id');
+  final user = Field.join<UserModel?>().withCandidateKey('auto_verbals_user_id_fkey');
+  final approvedBy = Field.join<UserModel?>().withForeignKey('approved_by');
+  final province = Field.join<ProvinceModel>().withForeignKey('province_id');
+  final road = Field.join<RoadModel?>().withForeignKey('road_id');
 
-  factory AutoVerbalModel.fromJson(Map<String, dynamic> json) => _$AutoVerbalModelFromJson(json);
-
-  static const TableBuilder table = _tableAutoVerbalModel;
+  @override
+  List<Model> get models {
+    return [
+      Model('CreateAutoVerbalParam')
+        ..inheritAllFromBase(
+          excepts: [
+            id,
+            autoVerbalId,
+            propertyType,
+            bank,
+            user,
+            approvedBy,
+            province,
+            road,
+            approvedAt,
+            rejectAt,
+            rejectReason,
+            createdAt,
+            status,
+          ],
+        )
+        ..addFields({
+          'propertyTypeId': Field<int>('property_type_id'),
+          'provinceId': Field<int>('province_id'),
+          'roadId': Field<int?>('road_id'),
+          'bankId': Field<int?>('bank_id'),
+          'userId': Field<String>('user_id'),
+        }),
+      Model('UpdateAutoVerbalParam')
+        ..inheritAllFromBase(
+          excepts: [
+            id,
+            autoVerbalId,
+            propertyType,
+            bank,
+            user,
+            approvedBy,
+            province,
+            road,
+            approvedAt,
+            rejectAt,
+            rejectReason,
+          ],
+        )
+        ..addFields({
+          'propertyTypeId': Field<int>('property_type_id'),
+          'provinceId': Field<int>('province_id'),
+          'roadId': Field<int?>('road_id'),
+          'bankId': Field<int?>('bank_id'),
+        }),
+    ];
+  }
 }

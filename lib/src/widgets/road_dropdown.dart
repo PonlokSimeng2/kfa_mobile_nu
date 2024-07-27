@@ -1,7 +1,6 @@
+import '../../exports.dart';
 import '../models/road_model.dart';
 import '../providers/road_provider.dart';
-
-import '../../exports.dart';
 
 class RoadDropDown extends ConsumerWidget {
   const RoadDropDown({super.key, this.value, required this.onChanged});
@@ -27,17 +26,17 @@ class RoadDropDown extends ConsumerWidget {
                 child: Text(e.name),
               );
             }).toList(),
-      icon: Icon(
+      icon: const Icon(
         Icons.arrow_drop_down,
         color: kImageColor,
       ),
       decoration: InputDecoration(
         fillColor: kwhite,
         filled: true,
-        contentPadding: EdgeInsets.symmetric(vertical: 8),
+        contentPadding: const EdgeInsets.symmetric(vertical: 8),
         labelText: 'Road*',
         hintText: 'Select',
-        prefixIcon: Icon(
+        prefixIcon: const Icon(
           Icons.location_on,
           color: kImageColor,
         ),
@@ -49,7 +48,7 @@ class RoadDropDown extends ConsumerWidget {
           borderRadius: BorderRadius.circular(10.0),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             width: 1,
             color: kPrimaryColor,
           ),

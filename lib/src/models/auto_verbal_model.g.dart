@@ -56,7 +56,7 @@ _$AutoVerbalModelImpl _$$AutoVerbalModelImplFromJson(
       bed: (json['bed'] as num?)?.toInt(),
       bath: (json['bath'] as num?)?.toInt(),
       livingroom: (json['livingroom'] as num?)?.toInt(),
-      floor: (json['floor'] as num?)?.toInt(),
+      floork: (json['floor'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$AutoVerbalModelImplToJson(
@@ -95,7 +95,7 @@ Map<String, dynamic> _$$AutoVerbalModelImplToJson(
       'bed': instance.bed,
       'bath': instance.bath,
       'livingroom': instance.livingroom,
-      'floor': instance.floor,
+      'floor': instance.floork,
     };
 
 const _$PropertyAndAutoVerbalStatusEnumMap = {

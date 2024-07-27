@@ -99,7 +99,7 @@ class AutoVerbalModel with _$AutoVerbalModel {
     @JsonKey(name: AutoVerbalTable.bed) required int? bed,
     @JsonKey(name: AutoVerbalTable.bath) required int? bath,
     @JsonKey(name: AutoVerbalTable.livingroom) required int? livingroom,
-    @JsonKey(name: AutoVerbalTable.floor) required int? floor,
+    @JsonKey(name: AutoVerbalTable.floor) required int? floork,
   }) = _AutoVerbalModel;
 
   factory AutoVerbalModel.fromJson(Map<String, dynamic> json) =>

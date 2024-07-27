@@ -2,14 +2,18 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:kfa_mobile_nu/src/pages/auto_verbal_list_page.dart';
 import 'package:kfa_mobile_nu/src/pages/home_page.dart';
+import 'package:kfa_mobile_nu/src/providers/auto_verbal_provider.dart';
+import 'package:kfa_mobile_nu/src/providers/property_provider.dart';
+import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'exports.dart';
 import 'firebase_options.dart';
 import 'provider_observers.dart';
+import 'src/providers/auth_provider.dart';
 import 'src/providers/cache_provider.dart';
 
 void main() async {
@@ -35,14 +39,14 @@ void main() async {
   );
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  ConsumerState<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends ConsumerState<MyApp> {
   @override
   void initState() {
     super.initState();
@@ -50,6 +54,54 @@ class _MyAppState extends State<MyApp> {
     SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
     );
+
+    _initializeSupabaseRealtime();
+  }
+
+  void _initializeSupabaseRealtime() {
+    final sb = ref.read(supabaseProvider);
+    sb.client
+        .channel('public:auto_verbals')
+        .onPostgresChanges(
+          event: PostgresChangeEvent.all,
+          schema: 'public',
+          table: 'auto_verbals',
+          callback: (payload) {
+            final isAdmin = ref.read(isAdminProvider);
+            if (isAdmin) {
+              ref.invalidate(autoVerbalListProvider);
+            } else {
+              final newUserId = payload.newRecord['user_id'];
+              final userId = ref.read(authProvider);
+              if (newUserId == userId) {
+                ref.invalidate(autoVerbalListProvider);
+                ref.invalidate(autoVerbalDetailProvider);
+              }
+            }
+          },
+        )
+        .subscribe();
+
+    sb.client
+        .channel('public:properties')
+        .onPostgresChanges(
+          event: PostgresChangeEvent.all,
+          schema: 'public',
+          table: 'properties',
+          callback: (payload) {
+            final isAdmin = ref.read(isAdminProvider);
+            if (isAdmin) {
+              ref.invalidate(propertyListProvider);
+            } else {
+              final newUserId = payload.newRecord['user_id'];
+              final userId = ref.read(authProvider);
+              if (newUserId == userId) {
+                ref.invalidate(propertyListProvider);
+              }
+            }
+          },
+        )
+        .subscribe();
   }
 
   @override

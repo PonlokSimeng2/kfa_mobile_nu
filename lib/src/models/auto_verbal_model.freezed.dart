@@ -87,7 +87,7 @@ mixin _$AutoVerbalModel {
   @JsonKey(name: AutoVerbalTable.livingroom)
   int? get livingroom => throw _privateConstructorUsedError;
   @JsonKey(name: AutoVerbalTable.floor)
-  int? get floork => throw _privateConstructorUsedError;
+  int? get floor => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -138,7 +138,7 @@ abstract class $AutoVerbalModelCopyWith<$Res> {
       @JsonKey(name: AutoVerbalTable.bed) int? bed,
       @JsonKey(name: AutoVerbalTable.bath) int? bath,
       @JsonKey(name: AutoVerbalTable.livingroom) int? livingroom,
-      @JsonKey(name: AutoVerbalTable.floor) int? floork});
+      @JsonKey(name: AutoVerbalTable.floor) int? floor});
 
   $PropertyTypeModelCopyWith<$Res> get propertyType;
   $BankModelCopyWith<$Res>? get bank;
@@ -194,7 +194,7 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
     Object? bed = freezed,
     Object? bath = freezed,
     Object? livingroom = freezed,
-    Object? floork = freezed,
+    Object? floor = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -329,9 +329,9 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
           ? _value.livingroom
           : livingroom // ignore: cast_nullable_to_non_nullable
               as int?,
-      floork: freezed == floork
-          ? _value.floork
-          : floork // ignore: cast_nullable_to_non_nullable
+      floor: freezed == floor
+          ? _value.floor
+          : floor // ignore: cast_nullable_to_non_nullable
               as int?,
     ) as $Val);
   }
@@ -446,7 +446,7 @@ abstract class _$$AutoVerbalModelImplCopyWith<$Res>
       @JsonKey(name: AutoVerbalTable.bed) int? bed,
       @JsonKey(name: AutoVerbalTable.bath) int? bath,
       @JsonKey(name: AutoVerbalTable.livingroom) int? livingroom,
-      @JsonKey(name: AutoVerbalTable.floor) int? floork});
+      @JsonKey(name: AutoVerbalTable.floor) int? floor});
 
   @override
   $PropertyTypeModelCopyWith<$Res> get propertyType;
@@ -506,7 +506,7 @@ class __$$AutoVerbalModelImplCopyWithImpl<$Res>
     Object? bed = freezed,
     Object? bath = freezed,
     Object? livingroom = freezed,
-    Object? floork = freezed,
+    Object? floor = freezed,
   }) {
     return _then(_$AutoVerbalModelImpl(
       id: null == id
@@ -641,9 +641,9 @@ class __$$AutoVerbalModelImplCopyWithImpl<$Res>
           ? _value.livingroom
           : livingroom // ignore: cast_nullable_to_non_nullable
               as int?,
-      floork: freezed == floork
-          ? _value.floork
-          : floork // ignore: cast_nullable_to_non_nullable
+      floor: freezed == floor
+          ? _value.floor
+          : floor // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
   }
@@ -693,7 +693,7 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
       @JsonKey(name: AutoVerbalTable.bed) required this.bed,
       @JsonKey(name: AutoVerbalTable.bath) required this.bath,
       @JsonKey(name: AutoVerbalTable.livingroom) required this.livingroom,
-      @JsonKey(name: AutoVerbalTable.floor) required this.floork})
+      @JsonKey(name: AutoVerbalTable.floor) required this.floor})
       : super._();
 
   factory _$AutoVerbalModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -800,11 +800,11 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
   final int? livingroom;
   @override
   @JsonKey(name: AutoVerbalTable.floor)
-  final int? floork;
+  final int? floor;
 
   @override
   String toString() {
-    return 'AutoVerbalModel(id: $id, status: $status, autoVerbalId: $autoVerbalId, image: $image, propertyType: $propertyType, bank: $bank, bankBranch: $bankBranch, latitude: $latitude, longitude: $longitude, user: $user, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, createdAt: $createdAt, approvedAt: $approvedAt, approvedBy: $approvedBy, rejectAt: $rejectAt, rejectReason: $rejectReason, province: $province, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, area: $area, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, road: $road, bed: $bed, bath: $bath, livingroom: $livingroom, floork: $floork)';
+    return 'AutoVerbalModel(id: $id, status: $status, autoVerbalId: $autoVerbalId, image: $image, propertyType: $propertyType, bank: $bank, bankBranch: $bankBranch, latitude: $latitude, longitude: $longitude, user: $user, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, createdAt: $createdAt, approvedAt: $approvedAt, approvedBy: $approvedBy, rejectAt: $rejectAt, rejectReason: $rejectReason, province: $province, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, area: $area, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, road: $road, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor)';
   }
 
   @override
@@ -869,7 +869,7 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
             (identical(other.bath, bath) || other.bath == bath) &&
             (identical(other.livingroom, livingroom) ||
                 other.livingroom == livingroom) &&
-            (identical(other.floork, floork) || other.floork == floork));
+            (identical(other.floor, floor) || other.floor == floor));
   }
 
   @JsonKey(ignore: true)
@@ -909,7 +909,7 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
         bed,
         bath,
         livingroom,
-        floork
+        floor
       ]);
 
   @JsonKey(ignore: true)
@@ -980,7 +980,7 @@ abstract class _AutoVerbalModel extends AutoVerbalModel {
       @JsonKey(name: AutoVerbalTable.bath) required final int? bath,
       @JsonKey(name: AutoVerbalTable.livingroom) required final int? livingroom,
       @JsonKey(name: AutoVerbalTable.floor)
-      required final int? floork}) = _$AutoVerbalModelImpl;
+      required final int? floor}) = _$AutoVerbalModelImpl;
   _AutoVerbalModel._() : super._();
 
   factory _AutoVerbalModel.fromJson(Map<String, dynamic> json) =
@@ -1087,7 +1087,7 @@ abstract class _AutoVerbalModel extends AutoVerbalModel {
   int? get livingroom;
   @override
   @JsonKey(name: AutoVerbalTable.floor)
-  int? get floork;
+  int? get floor;
   @override
   @JsonKey(ignore: true)
   _$$AutoVerbalModelImplCopyWith<_$AutoVerbalModelImpl> get copyWith =>

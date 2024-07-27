@@ -70,6 +70,7 @@ abstract class $AutoVerbalListFilterCopyWith<$Res> {
   $ProvinceModelCopyWith<$Res>? get province;
   $PropertyTypeModelCopyWith<$Res>? get propertyType;
   $BankModelCopyWith<$Res>? get bank;
+  $RoadModelCopyWith<$Res>? get road;
 }
 
 /// @nodoc
@@ -216,6 +217,18 @@ class _$AutoVerbalListFilterCopyWithImpl<$Res,
       return _then(_value.copyWith(bank: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $RoadModelCopyWith<$Res>? get road {
+    if (_value.road == null) {
+      return null;
+    }
+
+    return $RoadModelCopyWith<$Res>(_value.road!, (value) {
+      return _then(_value.copyWith(road: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -252,6 +265,8 @@ abstract class _$$AutoVerbalListFilterImplCopyWith<$Res>
   $PropertyTypeModelCopyWith<$Res>? get propertyType;
   @override
   $BankModelCopyWith<$Res>? get bank;
+  @override
+  $RoadModelCopyWith<$Res>? get road;
 }
 
 /// @nodoc
@@ -456,7 +471,7 @@ class _$AutoVerbalListFilterImpl extends _AutoVerbalListFilter {
                 other.landlength == landlength) &&
             (identical(other.landwidth, landwidth) ||
                 other.landwidth == landwidth) &&
-            const DeepCollectionEquality().equals(other.road, road) &&
+            (identical(other.road, road) || other.road == road) &&
             (identical(other.bed, bed) || other.bed == bed) &&
             (identical(other.bath, bath) || other.bath == bath) &&
             (identical(other.livingroom, livingroom) ||
@@ -480,7 +495,7 @@ class _$AutoVerbalListFilterImpl extends _AutoVerbalListFilter {
       buildingwidth,
       landlength,
       landwidth,
-      const DeepCollectionEquality().hash(road),
+      road,
       bed,
       bath,
       livingroom,
@@ -630,6 +645,7 @@ abstract class $InsertAutoVerbalStateCopyWith<$Res> {
   $PropertyTypeModelCopyWith<$Res>? get propertyType;
   $ProvinceModelCopyWith<$Res>? get province;
   $BankModelCopyWith<$Res>? get bank;
+  $RoadModelCopyWith<$Res>? get road;
   $ProviderStatusCopyWith<void, $Res> get status;
 }
 
@@ -820,6 +836,18 @@ class _$InsertAutoVerbalStateCopyWithImpl<$Res,
 
   @override
   @pragma('vm:prefer-inline')
+  $RoadModelCopyWith<$Res>? get road {
+    if (_value.road == null) {
+      return null;
+    }
+
+    return $RoadModelCopyWith<$Res>(_value.road!, (value) {
+      return _then(_value.copyWith(road: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
   $ProviderStatusCopyWith<void, $Res> get status {
     return $ProviderStatusCopyWith<void, $Res>(_value.status, (value) {
       return _then(_value.copyWith(status: value) as $Val);
@@ -870,6 +898,8 @@ abstract class _$$InsertAutoVerbalStateImplCopyWith<$Res>
   $ProvinceModelCopyWith<$Res>? get province;
   @override
   $BankModelCopyWith<$Res>? get bank;
+  @override
+  $RoadModelCopyWith<$Res>? get road;
   @override
   $ProviderStatusCopyWith<void, $Res> get status;
 }
@@ -1156,7 +1186,7 @@ class _$InsertAutoVerbalStateImpl extends _InsertAutoVerbalState {
                 other.landlength == landlength) &&
             (identical(other.landwidth, landwidth) ||
                 other.landwidth == landwidth) &&
-            const DeepCollectionEquality().equals(other.road, road) &&
+            (identical(other.road, road) || other.road == road) &&
             (identical(other.bed, bed) || other.bed == bed) &&
             (identical(other.bath, bath) || other.bath == bath) &&
             (identical(other.livingroom, livingroom) ||
@@ -1188,7 +1218,7 @@ class _$InsertAutoVerbalStateImpl extends _InsertAutoVerbalState {
         buildingwidth,
         landlength,
         landwidth,
-        const DeepCollectionEquality().hash(road),
+        road,
         bed,
         bath,
         livingroom,
@@ -1365,6 +1395,7 @@ abstract class $UpdateAutoVerbalStateCopyWith<$Res> {
   $PropertyTypeModelCopyWith<$Res>? get propertyType;
   $ProvinceModelCopyWith<$Res>? get province;
   $BankModelCopyWith<$Res>? get bank;
+  $RoadModelCopyWith<$Res>? get road;
   $ProviderStatusCopyWith<void, $Res> get status;
 }
 
@@ -1560,6 +1591,18 @@ class _$UpdateAutoVerbalStateCopyWithImpl<$Res,
 
   @override
   @pragma('vm:prefer-inline')
+  $RoadModelCopyWith<$Res>? get road {
+    if (_value.road == null) {
+      return null;
+    }
+
+    return $RoadModelCopyWith<$Res>(_value.road!, (value) {
+      return _then(_value.copyWith(road: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
   $ProviderStatusCopyWith<void, $Res> get status {
     return $ProviderStatusCopyWith<void, $Res>(_value.status, (value) {
       return _then(_value.copyWith(status: value) as $Val);
@@ -1611,6 +1654,8 @@ abstract class _$$UpdateAutoVerbalStateImplCopyWith<$Res>
   $ProvinceModelCopyWith<$Res>? get province;
   @override
   $BankModelCopyWith<$Res>? get bank;
+  @override
+  $RoadModelCopyWith<$Res>? get road;
   @override
   $ProviderStatusCopyWith<void, $Res> get status;
 }
@@ -1907,7 +1952,7 @@ class _$UpdateAutoVerbalStateImpl extends _UpdateAutoVerbalState {
                 other.landlength == landlength) &&
             (identical(other.landwidth, landwidth) ||
                 other.landwidth == landwidth) &&
-            const DeepCollectionEquality().equals(other.road, road) &&
+            (identical(other.road, road) || other.road == road) &&
             (identical(other.bed, bed) || other.bed == bed) &&
             (identical(other.bath, bath) || other.bath == bath) &&
             (identical(other.livingroom, livingroom) ||
@@ -1940,7 +1985,7 @@ class _$UpdateAutoVerbalStateImpl extends _UpdateAutoVerbalState {
         buildingwidth,
         landlength,
         landwidth,
-        const DeepCollectionEquality().hash(road),
+        road,
         bed,
         bath,
         livingroom,

@@ -49,7 +49,7 @@ mixin _$InsertAutoVerbalForm on _$InsertAutoVerbal {
       state = state.copyWith(landlength: newLandlength);
   void onLandwidthChanged(double newLandwidth) =>
       state = state.copyWith(landwidth: newLandwidth);
-  void onRoadChanged(InvalidType newRoad) =>
+  void onRoadChanged(RoadModel? newRoad) =>
       state = state.copyWith(road: newRoad);
   void onBedChanged(double newBed) => state = state.copyWith(bed: newBed);
   void onBathChanged(double newBath) => state = state.copyWith(bath: newBath);
@@ -957,8 +957,8 @@ class InsertAutoVerbalLandwidthFieldWidget extends HookConsumerWidget {
 
 typedef InsertAutoVerbalRoadChildBuilder = Widget Function(
   WidgetRef ref,
-  InvalidType road,
-  void Function(InvalidType newRoad) changeRoad,
+  RoadModel? road,
+  void Function(RoadModel? newRoad) changeRoad,
   bool showValidation,
 );
 
@@ -1173,7 +1173,7 @@ mixin _$UpdateAutoVerbalForm on _$UpdateAutoVerbal {
       state = state.copyWith(landlength: newLandlength);
   void onLandwidthChanged(double newLandwidth) =>
       state = state.copyWith(landwidth: newLandwidth);
-  void onRoadChanged(InvalidType newRoad) =>
+  void onRoadChanged(RoadModel? newRoad) =>
       state = state.copyWith(road: newRoad);
   void onBedChanged(double newBed) => state = state.copyWith(bed: newBed);
   void onBathChanged(double newBath) => state = state.copyWith(bath: newBath);
@@ -2196,8 +2196,8 @@ class UpdateAutoVerbalLandwidthFieldWidget extends HookConsumerWidget {
 
 typedef UpdateAutoVerbalRoadChildBuilder = Widget Function(
   WidgetRef ref,
-  InvalidType road,
-  void Function(InvalidType newRoad) changeRoad,
+  RoadModel? road,
+  void Function(RoadModel? newRoad) changeRoad,
   bool showValidation,
 );
 

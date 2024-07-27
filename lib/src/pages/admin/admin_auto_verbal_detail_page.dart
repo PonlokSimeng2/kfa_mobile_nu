@@ -1010,12 +1010,12 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
                             '${widget.autoVerbal.area} sqm',
                           ),
                           _buildDetailRow(
-                            'Head',
-                            '${widget.autoVerbal.head} m',
+                            'Land Width',
+                            '${widget.autoVerbal.landwidth} m',
                           ),
                           _buildDetailRow(
-                            'Length',
-                            '${widget.autoVerbal.length} m',
+                            'Land Length',
+                            '${widget.autoVerbal.landlength} m',
                           ),
                           _buildDetailRow(
                             'Min Value/sqm',
@@ -1027,7 +1027,7 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
                           ),
                           _buildDetailRow(
                             'Location',
-                            widget.autoVerbal.province.name ?? 'N/A',
+                            widget.autoVerbal.province.name,
                           ),
                           _buildDetailRow(
                             'Bank',

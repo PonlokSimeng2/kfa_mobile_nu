@@ -2,12 +2,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/models/auto_verbal_model.table.dart';
 import 'package:kfa_mobile_nu/src/models/bank_model.dart';
-import 'package:kfa_mobile_nu/src/models/property_type_model.schema.dart';
-import 'package:kfa_mobile_nu/src/models/province_model.schema.dart';
 import 'package:kfa_mobile_nu/src/models/road_model.dart';
 import 'package:kfa_mobile_nu/src/models/user_model.dart';
 
 import 'base.dart';
+import 'property_type_model.schema.dart';
+import 'province_model.schema.dart';
 
 part 'auto_verbal_model.freezed.dart';
 part 'auto_verbal_model.g.dart';
@@ -84,8 +84,15 @@ class AutoVerbalModel with _$AutoVerbalModel {
     @JsonKey(name: AutoVerbalTable.minValueSqm) required double minValueSqm,
     @JsonKey(name: AutoVerbalTable.maxValueSqm) required double maxValueSqm,
     @JsonKey(name: AutoVerbalTable.area) required double area,
-    @JsonKey(name: AutoVerbalTable.head) required double head,
-    @JsonKey(name: AutoVerbalTable.length) required double length,
+    @JsonKey(name: AutoVerbalTable.buildinglength) required double? buildinglength,
+    @JsonKey(name: AutoVerbalTable.buildingwidth) required double? buildingwidth,
+    @JsonKey(name: AutoVerbalTable.landlength) required double landlength,
+    @JsonKey(name: AutoVerbalTable.landwidth) required double landwidth,
+    @JoinedColumn(foreignKey: AutoVerbalTable.roadId) required RoadModel? road,
+    @JsonKey(name: AutoVerbalTable.bed) required int? bed,
+    @JsonKey(name: AutoVerbalTable.bath) required int? bath,
+    @JsonKey(name: AutoVerbalTable.livingroom) required int? livingroom,
+    @JsonKey(name: AutoVerbalTable.floor) required int? floor,
   }) = _AutoVerbalModel;
 
   factory AutoVerbalModel.fromJson(Map<String, dynamic> json) => _$AutoVerbalModelFromJson(json);

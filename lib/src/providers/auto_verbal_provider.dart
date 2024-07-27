@@ -8,6 +8,7 @@ import 'package:kfa_mobile_nu/src/models/bank_model.dart';
 import 'package:kfa_mobile_nu/src/models/base.dart';
 import 'package:kfa_mobile_nu/src/models/property_type_model.schema.dart';
 import 'package:kfa_mobile_nu/src/models/province_model.schema.dart';
+import 'package:kfa_mobile_nu/src/models/road_model.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/report_provider.dart';
 import 'package:path/path.dart' as p;

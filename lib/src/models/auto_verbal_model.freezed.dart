@@ -70,10 +70,24 @@ mixin _$AutoVerbalModel {
   double get maxValueSqm => throw _privateConstructorUsedError;
   @JsonKey(name: AutoVerbalTable.area)
   double get area => throw _privateConstructorUsedError;
-  @JsonKey(name: AutoVerbalTable.head)
-  double get head => throw _privateConstructorUsedError;
-  @JsonKey(name: AutoVerbalTable.length)
-  double get length => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.buildinglength)
+  double? get buildinglength => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.buildingwidth)
+  double? get buildingwidth => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.landlength)
+  double get landlength => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.landwidth)
+  double get landwidth => throw _privateConstructorUsedError;
+  @JoinedColumn(foreignKey: AutoVerbalTable.roadId)
+  RoadModel? get road => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.bed)
+  int? get bed => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.bath)
+  int? get bath => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.livingroom)
+  int? get livingroom => throw _privateConstructorUsedError;
+  @JsonKey(name: AutoVerbalTable.floor)
+  int? get floor => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -116,14 +130,22 @@ abstract class $AutoVerbalModelCopyWith<$Res> {
       @JsonKey(name: AutoVerbalTable.minValueSqm) double minValueSqm,
       @JsonKey(name: AutoVerbalTable.maxValueSqm) double maxValueSqm,
       @JsonKey(name: AutoVerbalTable.area) double area,
-      @JsonKey(name: AutoVerbalTable.head) double head,
-      @JsonKey(name: AutoVerbalTable.length) double length});
+      @JsonKey(name: AutoVerbalTable.buildinglength) double? buildinglength,
+      @JsonKey(name: AutoVerbalTable.buildingwidth) double? buildingwidth,
+      @JsonKey(name: AutoVerbalTable.landlength) double landlength,
+      @JsonKey(name: AutoVerbalTable.landwidth) double landwidth,
+      @JoinedColumn(foreignKey: AutoVerbalTable.roadId) RoadModel? road,
+      @JsonKey(name: AutoVerbalTable.bed) int? bed,
+      @JsonKey(name: AutoVerbalTable.bath) int? bath,
+      @JsonKey(name: AutoVerbalTable.livingroom) int? livingroom,
+      @JsonKey(name: AutoVerbalTable.floor) int? floor});
 
   $PropertyTypeModelCopyWith<$Res> get propertyType;
   $BankModelCopyWith<$Res>? get bank;
   $UserModelCopyWith<$Res>? get user;
   $UserModelCopyWith<$Res>? get approvedBy;
   $ProvinceModelCopyWith<$Res> get province;
+  $RoadModelCopyWith<$Res>? get road;
 }
 
 /// @nodoc
@@ -164,8 +186,15 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
     Object? minValueSqm = null,
     Object? maxValueSqm = null,
     Object? area = null,
-    Object? head = null,
-    Object? length = null,
+    Object? buildinglength = freezed,
+    Object? buildingwidth = freezed,
+    Object? landlength = null,
+    Object? landwidth = null,
+    Object? road = freezed,
+    Object? bed = freezed,
+    Object? bath = freezed,
+    Object? livingroom = freezed,
+    Object? floor = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -268,14 +297,42 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
           ? _value.area
           : area // ignore: cast_nullable_to_non_nullable
               as double,
-      head: null == head
-          ? _value.head
-          : head // ignore: cast_nullable_to_non_nullable
+      buildinglength: freezed == buildinglength
+          ? _value.buildinglength
+          : buildinglength // ignore: cast_nullable_to_non_nullable
+              as double?,
+      buildingwidth: freezed == buildingwidth
+          ? _value.buildingwidth
+          : buildingwidth // ignore: cast_nullable_to_non_nullable
+              as double?,
+      landlength: null == landlength
+          ? _value.landlength
+          : landlength // ignore: cast_nullable_to_non_nullable
               as double,
-      length: null == length
-          ? _value.length
-          : length // ignore: cast_nullable_to_non_nullable
+      landwidth: null == landwidth
+          ? _value.landwidth
+          : landwidth // ignore: cast_nullable_to_non_nullable
               as double,
+      road: freezed == road
+          ? _value.road
+          : road // ignore: cast_nullable_to_non_nullable
+              as RoadModel?,
+      bed: freezed == bed
+          ? _value.bed
+          : bed // ignore: cast_nullable_to_non_nullable
+              as int?,
+      bath: freezed == bath
+          ? _value.bath
+          : bath // ignore: cast_nullable_to_non_nullable
+              as int?,
+      livingroom: freezed == livingroom
+          ? _value.livingroom
+          : livingroom // ignore: cast_nullable_to_non_nullable
+              as int?,
+      floor: freezed == floor
+          ? _value.floor
+          : floor // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 
@@ -330,6 +387,18 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
       return _then(_value.copyWith(province: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $RoadModelCopyWith<$Res>? get road {
+    if (_value.road == null) {
+      return null;
+    }
+
+    return $RoadModelCopyWith<$Res>(_value.road!, (value) {
+      return _then(_value.copyWith(road: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -369,8 +438,15 @@ abstract class _$$AutoVerbalModelImplCopyWith<$Res>
       @JsonKey(name: AutoVerbalTable.minValueSqm) double minValueSqm,
       @JsonKey(name: AutoVerbalTable.maxValueSqm) double maxValueSqm,
       @JsonKey(name: AutoVerbalTable.area) double area,
-      @JsonKey(name: AutoVerbalTable.head) double head,
-      @JsonKey(name: AutoVerbalTable.length) double length});
+      @JsonKey(name: AutoVerbalTable.buildinglength) double? buildinglength,
+      @JsonKey(name: AutoVerbalTable.buildingwidth) double? buildingwidth,
+      @JsonKey(name: AutoVerbalTable.landlength) double landlength,
+      @JsonKey(name: AutoVerbalTable.landwidth) double landwidth,
+      @JoinedColumn(foreignKey: AutoVerbalTable.roadId) RoadModel? road,
+      @JsonKey(name: AutoVerbalTable.bed) int? bed,
+      @JsonKey(name: AutoVerbalTable.bath) int? bath,
+      @JsonKey(name: AutoVerbalTable.livingroom) int? livingroom,
+      @JsonKey(name: AutoVerbalTable.floor) int? floor});
 
   @override
   $PropertyTypeModelCopyWith<$Res> get propertyType;
@@ -382,6 +458,8 @@ abstract class _$$AutoVerbalModelImplCopyWith<$Res>
   $UserModelCopyWith<$Res>? get approvedBy;
   @override
   $ProvinceModelCopyWith<$Res> get province;
+  @override
+  $RoadModelCopyWith<$Res>? get road;
 }
 
 /// @nodoc
@@ -420,8 +498,15 @@ class __$$AutoVerbalModelImplCopyWithImpl<$Res>
     Object? minValueSqm = null,
     Object? maxValueSqm = null,
     Object? area = null,
-    Object? head = null,
-    Object? length = null,
+    Object? buildinglength = freezed,
+    Object? buildingwidth = freezed,
+    Object? landlength = null,
+    Object? landwidth = null,
+    Object? road = freezed,
+    Object? bed = freezed,
+    Object? bath = freezed,
+    Object? livingroom = freezed,
+    Object? floor = freezed,
   }) {
     return _then(_$AutoVerbalModelImpl(
       id: null == id
@@ -524,14 +609,42 @@ class __$$AutoVerbalModelImplCopyWithImpl<$Res>
           ? _value.area
           : area // ignore: cast_nullable_to_non_nullable
               as double,
-      head: null == head
-          ? _value.head
-          : head // ignore: cast_nullable_to_non_nullable
+      buildinglength: freezed == buildinglength
+          ? _value.buildinglength
+          : buildinglength // ignore: cast_nullable_to_non_nullable
+              as double?,
+      buildingwidth: freezed == buildingwidth
+          ? _value.buildingwidth
+          : buildingwidth // ignore: cast_nullable_to_non_nullable
+              as double?,
+      landlength: null == landlength
+          ? _value.landlength
+          : landlength // ignore: cast_nullable_to_non_nullable
               as double,
-      length: null == length
-          ? _value.length
-          : length // ignore: cast_nullable_to_non_nullable
+      landwidth: null == landwidth
+          ? _value.landwidth
+          : landwidth // ignore: cast_nullable_to_non_nullable
               as double,
+      road: freezed == road
+          ? _value.road
+          : road // ignore: cast_nullable_to_non_nullable
+              as RoadModel?,
+      bed: freezed == bed
+          ? _value.bed
+          : bed // ignore: cast_nullable_to_non_nullable
+              as int?,
+      bath: freezed == bath
+          ? _value.bath
+          : bath // ignore: cast_nullable_to_non_nullable
+              as int?,
+      livingroom: freezed == livingroom
+          ? _value.livingroom
+          : livingroom // ignore: cast_nullable_to_non_nullable
+              as int?,
+      floor: freezed == floor
+          ? _value.floor
+          : floor // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -571,8 +684,16 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
       @JsonKey(name: AutoVerbalTable.minValueSqm) required this.minValueSqm,
       @JsonKey(name: AutoVerbalTable.maxValueSqm) required this.maxValueSqm,
       @JsonKey(name: AutoVerbalTable.area) required this.area,
-      @JsonKey(name: AutoVerbalTable.head) required this.head,
-      @JsonKey(name: AutoVerbalTable.length) required this.length})
+      @JsonKey(name: AutoVerbalTable.buildinglength)
+      required this.buildinglength,
+      @JsonKey(name: AutoVerbalTable.buildingwidth) required this.buildingwidth,
+      @JsonKey(name: AutoVerbalTable.landlength) required this.landlength,
+      @JsonKey(name: AutoVerbalTable.landwidth) required this.landwidth,
+      @JoinedColumn(foreignKey: AutoVerbalTable.roadId) required this.road,
+      @JsonKey(name: AutoVerbalTable.bed) required this.bed,
+      @JsonKey(name: AutoVerbalTable.bath) required this.bath,
+      @JsonKey(name: AutoVerbalTable.livingroom) required this.livingroom,
+      @JsonKey(name: AutoVerbalTable.floor) required this.floor})
       : super._();
 
   factory _$AutoVerbalModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -654,15 +775,36 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
   @JsonKey(name: AutoVerbalTable.area)
   final double area;
   @override
-  @JsonKey(name: AutoVerbalTable.head)
-  final double head;
+  @JsonKey(name: AutoVerbalTable.buildinglength)
+  final double? buildinglength;
   @override
-  @JsonKey(name: AutoVerbalTable.length)
-  final double length;
+  @JsonKey(name: AutoVerbalTable.buildingwidth)
+  final double? buildingwidth;
+  @override
+  @JsonKey(name: AutoVerbalTable.landlength)
+  final double landlength;
+  @override
+  @JsonKey(name: AutoVerbalTable.landwidth)
+  final double landwidth;
+  @override
+  @JoinedColumn(foreignKey: AutoVerbalTable.roadId)
+  final RoadModel? road;
+  @override
+  @JsonKey(name: AutoVerbalTable.bed)
+  final int? bed;
+  @override
+  @JsonKey(name: AutoVerbalTable.bath)
+  final int? bath;
+  @override
+  @JsonKey(name: AutoVerbalTable.livingroom)
+  final int? livingroom;
+  @override
+  @JsonKey(name: AutoVerbalTable.floor)
+  final int? floor;
 
   @override
   String toString() {
-    return 'AutoVerbalModel(id: $id, status: $status, autoVerbalId: $autoVerbalId, image: $image, propertyType: $propertyType, bank: $bank, bankBranch: $bankBranch, latitude: $latitude, longitude: $longitude, user: $user, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, createdAt: $createdAt, approvedAt: $approvedAt, approvedBy: $approvedBy, rejectAt: $rejectAt, rejectReason: $rejectReason, province: $province, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, area: $area, head: $head, length: $length)';
+    return 'AutoVerbalModel(id: $id, status: $status, autoVerbalId: $autoVerbalId, image: $image, propertyType: $propertyType, bank: $bank, bankBranch: $bankBranch, latitude: $latitude, longitude: $longitude, user: $user, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, createdAt: $createdAt, approvedAt: $approvedAt, approvedBy: $approvedBy, rejectAt: $rejectAt, rejectReason: $rejectReason, province: $province, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, area: $area, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, road: $road, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor)';
   }
 
   @override
@@ -714,8 +856,20 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
             (identical(other.maxValueSqm, maxValueSqm) ||
                 other.maxValueSqm == maxValueSqm) &&
             (identical(other.area, area) || other.area == area) &&
-            (identical(other.head, head) || other.head == head) &&
-            (identical(other.length, length) || other.length == length));
+            (identical(other.buildinglength, buildinglength) ||
+                other.buildinglength == buildinglength) &&
+            (identical(other.buildingwidth, buildingwidth) ||
+                other.buildingwidth == buildingwidth) &&
+            (identical(other.landlength, landlength) ||
+                other.landlength == landlength) &&
+            (identical(other.landwidth, landwidth) ||
+                other.landwidth == landwidth) &&
+            (identical(other.road, road) || other.road == road) &&
+            (identical(other.bed, bed) || other.bed == bed) &&
+            (identical(other.bath, bath) || other.bath == bath) &&
+            (identical(other.livingroom, livingroom) ||
+                other.livingroom == livingroom) &&
+            (identical(other.floor, floor) || other.floor == floor));
   }
 
   @JsonKey(ignore: true)
@@ -747,8 +901,15 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
         minValueSqm,
         maxValueSqm,
         area,
-        head,
-        length
+        buildinglength,
+        buildingwidth,
+        landlength,
+        landwidth,
+        road,
+        bed,
+        bath,
+        livingroom,
+        floor
       ]);
 
   @JsonKey(ignore: true)
@@ -806,9 +967,20 @@ abstract class _AutoVerbalModel extends AutoVerbalModel {
       @JsonKey(name: AutoVerbalTable.maxValueSqm)
       required final double maxValueSqm,
       @JsonKey(name: AutoVerbalTable.area) required final double area,
-      @JsonKey(name: AutoVerbalTable.head) required final double head,
-      @JsonKey(name: AutoVerbalTable.length)
-      required final double length}) = _$AutoVerbalModelImpl;
+      @JsonKey(name: AutoVerbalTable.buildinglength)
+      required final double? buildinglength,
+      @JsonKey(name: AutoVerbalTable.buildingwidth)
+      required final double? buildingwidth,
+      @JsonKey(name: AutoVerbalTable.landlength)
+      required final double landlength,
+      @JsonKey(name: AutoVerbalTable.landwidth) required final double landwidth,
+      @JoinedColumn(foreignKey: AutoVerbalTable.roadId)
+      required final RoadModel? road,
+      @JsonKey(name: AutoVerbalTable.bed) required final int? bed,
+      @JsonKey(name: AutoVerbalTable.bath) required final int? bath,
+      @JsonKey(name: AutoVerbalTable.livingroom) required final int? livingroom,
+      @JsonKey(name: AutoVerbalTable.floor)
+      required final int? floor}) = _$AutoVerbalModelImpl;
   _AutoVerbalModel._() : super._();
 
   factory _AutoVerbalModel.fromJson(Map<String, dynamic> json) =
@@ -890,11 +1062,32 @@ abstract class _AutoVerbalModel extends AutoVerbalModel {
   @JsonKey(name: AutoVerbalTable.area)
   double get area;
   @override
-  @JsonKey(name: AutoVerbalTable.head)
-  double get head;
+  @JsonKey(name: AutoVerbalTable.buildinglength)
+  double? get buildinglength;
   @override
-  @JsonKey(name: AutoVerbalTable.length)
-  double get length;
+  @JsonKey(name: AutoVerbalTable.buildingwidth)
+  double? get buildingwidth;
+  @override
+  @JsonKey(name: AutoVerbalTable.landlength)
+  double get landlength;
+  @override
+  @JsonKey(name: AutoVerbalTable.landwidth)
+  double get landwidth;
+  @override
+  @JoinedColumn(foreignKey: AutoVerbalTable.roadId)
+  RoadModel? get road;
+  @override
+  @JsonKey(name: AutoVerbalTable.bed)
+  int? get bed;
+  @override
+  @JsonKey(name: AutoVerbalTable.bath)
+  int? get bath;
+  @override
+  @JsonKey(name: AutoVerbalTable.livingroom)
+  int? get livingroom;
+  @override
+  @JsonKey(name: AutoVerbalTable.floor)
+  int? get floor;
   @override
   @JsonKey(ignore: true)
   _$$AutoVerbalModelImplCopyWith<_$AutoVerbalModelImpl> get copyWith =>

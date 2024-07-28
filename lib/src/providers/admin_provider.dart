@@ -80,7 +80,7 @@ class ApproveProperty extends _$ApproveProperty {
         await sb.from(PropertyTable.table).update({
           PropertyTable.status: PropertyAndAutoVerbalStatus.approved.name,
           PropertyTable.approvedAt: DateTime.now().toIso8601String(),
-          PropertyTable.approvedBy: currentUser?.id,
+          'approved_by': currentUser?.id,
         }).eq(PropertyTable.id, propertyId);
       },
       onSuccess: (_) {
@@ -100,7 +100,9 @@ FutureOr<IList<UserModel>> userList(
   const limit = 20;
   final offset = page * limit;
 
-  var query = sb.from(UserModel.table.tableName).select(UserModel.table.selectStatement);
+  var query = sb
+      .from(UserModel.table.tableName)
+      .select(UserModel.table.selectStatement);
 
   if (searchString != null && searchString.isNotEmpty) {
     query = query.or(
@@ -126,8 +128,10 @@ PaginatedItem<UserModel>? userAtIndex(
   const limit = 20;
   final page = index ~/ limit;
 
-  final pageItems = ref.watch(userListProvider(page: page, searchString: searchString));
-  final hasNextPage = ref.exists(userListProvider(page: page + 1, searchString: searchString));
+  final pageItems =
+      ref.watch(userListProvider(page: page, searchString: searchString));
+  final hasNextPage =
+      ref.exists(userListProvider(page: page + 1, searchString: searchString));
 
   return PaginatedItem.build(
     pageItems: pageItems,

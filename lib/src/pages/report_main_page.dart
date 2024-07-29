@@ -68,36 +68,6 @@ class ReportMainPage extends HookConsumerWidget {
                                         PropertyAndAutoVerbalStatus.values.lock,
                                   ).select(
                                     (v) => v.whenOrNull(
-                                      data: (data) =>
-                                          data.propertyCount +
-                                          data.autoVerbalCount,
-                                    ),
-                                  ),
-                                );
-                                return GestureDetector(
-                                  onTap: () {
-                                    //  pageCtr.jumpToPage(0);
-                                  },
-                                  child: _buildInfoCard(
-                                    title: 'All Property',
-                                    value: count?.toString() ?? "...",
-                                    icon: Icons.pending,
-                                    color: Colors.green,
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          Expanded(
-                            child: Consumer(
-                              builder: (context, ref, child) {
-                                final count = ref.watch(
-                                  countPropertyAndAutoVerbalProvider(
-                                    userId: ref.watch(authProvider),
-                                    statuses:
-                                        PropertyAndAutoVerbalStatus.values.lock,
-                                  ).select(
-                                    (v) => v.whenOrNull(
                                       data: (data) => data.propertyCount,
                                     ),
                                   ),

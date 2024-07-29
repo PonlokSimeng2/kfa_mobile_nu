@@ -93,8 +93,8 @@ Map<String, dynamic> _$$PropertyModelImplToJson(_$PropertyModelImpl instance) =>
 const _$PropertyAndAutoVerbalStatusEnumMap = {
   PropertyAndAutoVerbalStatus.pending: 'pending',
   PropertyAndAutoVerbalStatus.resubmit: 'resubmit',
-  PropertyAndAutoVerbalStatus.approved: 'approved',
   PropertyAndAutoVerbalStatus.rejected: 'rejected',
+  PropertyAndAutoVerbalStatus.approved: 'approved',
 };
 
 const _$PropertyListingTypeEnumMap = {

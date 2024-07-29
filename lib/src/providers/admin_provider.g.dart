@@ -479,7 +479,7 @@ class _RejectPropertyProviderElement extends AutoDisposeNotifierProviderElement<
   int get propertyId => (origin as RejectPropertyProvider).propertyId;
 }
 
-String _$approvePropertyHash() => r'754cf0653eb7ca6beab83a9b62147e98786dab11';
+String _$approvePropertyHash() => r'dc0c20bc202a735f2082e2cc6a6cc71b20635012';
 
 abstract class _$ApproveProperty
     extends BuildlessAutoDisposeNotifier<ProviderStatus<void>> {

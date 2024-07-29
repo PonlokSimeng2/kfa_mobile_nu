@@ -1,23 +1,23 @@
 import 'package:getwidget/getwidget.dart';
 import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
+import 'package:kfa_mobile_nu/src/pages/add_property_page.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/property_provider.dart';
 import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
 
 import '../../exports.dart';
 import '../models/base.dart';
-import 'add_property_page.dart';
 import 'admin/widgets/admin_property_list_widget.dart';
 
-final _propertyStatus =
-    PropertyAndAutoVerbalStatus.values.where((e) => e != PropertyAndAutoVerbalStatus.resubmit);
+final _propertyStatus = PropertyAndAutoVerbalStatus.values
+    .where((e) => e != PropertyAndAutoVerbalStatus.resubmit);
 
 class MyPropertyPage extends HookConsumerWidget {
   const MyPropertyPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tabCtr = useTabController(initialLength: _propertyStatus.length + 1);
+    final tabCtr = useTabController(initialLength: _propertyStatus.length);
 
     return AuthWrapperWidget(
       child: Scaffold(
@@ -26,11 +26,11 @@ class MyPropertyPage extends HookConsumerWidget {
           actions: [
             GFButton(
               onPressed: () {
-                context.push((_) => AddPropertyPage());
+                //context.push((_) => const AddPropertyPage(isSale: true));
               },
               icon: const Icon(Icons.add),
               child: const Text(
-                'Add',
+                'Add Sale',
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -44,7 +44,9 @@ class MyPropertyPage extends HookConsumerWidget {
             indicatorSize: TabBarIndicatorSize.tab,
             tabs: [
               const Tab(text: 'All'),
-              ..._propertyStatus.map((e) => Tab(text: e.name.capitalize())),
+              ..._propertyStatus
+                  .where((e) => e != PropertyAndAutoVerbalStatus.approved)
+                  .map((e) => Tab(text: e.name.capitalize())),
             ],
           ),
         ),

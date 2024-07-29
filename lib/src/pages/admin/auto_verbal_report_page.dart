@@ -8,7 +8,10 @@ import 'widgets/admin_auto_verbal_list_widget.dart';
 
 final _filterProvider = StateProvider.autoDispose<AutoVerbalListFilter>((ref) {
   return AutoVerbalListFilter(
-    statuses: [PropertyAndAutoVerbalStatus.pending, PropertyAndAutoVerbalStatus.resubmit].lock,
+    statuses: [
+      PropertyAndAutoVerbalStatus.pending,
+      PropertyAndAutoVerbalStatus.resubmit
+    ].lock,
   );
 });
 
@@ -75,9 +78,10 @@ class _AutoVerbalReportPageState extends ConsumerState<AutoVerbalReportPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    _buildTabButton(null),
+                    // _buildTabButton(null),
                     ...PropertyAndAutoVerbalStatus.values
-                        .where((status) => status != PropertyAndAutoVerbalStatus.resubmit)
+                        .where((status) =>
+                            status != PropertyAndAutoVerbalStatus.resubmit)
                         .map((status) => _buildTabButton(status)),
                   ],
                 ),
@@ -124,7 +128,8 @@ class _AutoVerbalReportPageState extends ConsumerState<AutoVerbalReportPage> {
             bottom: BorderSide(
               color: isSelected ||
                       (status == null &&
-                          statuses.length == PropertyAndAutoVerbalStatus.values.length)
+                          statuses.length ==
+                              PropertyAndAutoVerbalStatus.values.length)
                   ? Colors.blue
                   : Colors.transparent,
               width: 2,
@@ -135,7 +140,9 @@ class _AutoVerbalReportPageState extends ConsumerState<AutoVerbalReportPage> {
           status?.name.capitalize() ?? 'All',
           style: TextStyle(
             color: isSelected ||
-                    (status == null && statuses.length == PropertyAndAutoVerbalStatus.values.length)
+                    (status == null &&
+                        statuses.length ==
+                            PropertyAndAutoVerbalStatus.values.length)
                 ? Colors.blue
                 : Colors.grey,
             fontWeight: FontWeight.bold,

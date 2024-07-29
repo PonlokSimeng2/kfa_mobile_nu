@@ -24,14 +24,17 @@ class AdminAutoVerbalDetailPage extends StatefulHookConsumerWidget {
   const AdminAutoVerbalDetailPage({super.key, required this.autoVerbal});
 
   @override
-  ConsumerState<AdminAutoVerbalDetailPage> createState() => _AdminAutoVerbalDetailPageState();
+  ConsumerState<AdminAutoVerbalDetailPage> createState() =>
+      _AdminAutoVerbalDetailPageState();
 }
 
-class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetailPage> {
+class _AdminAutoVerbalDetailPageState
+    extends ConsumerState<AdminAutoVerbalDetailPage> {
   @override
   Widget build(BuildContext context) {
     final state =
-        ref.watch(autoVerbalDetailProvider(widget.autoVerbal.id)).valueOrNull ?? widget.autoVerbal;
+        ref.watch(autoVerbalDetailProvider(widget.autoVerbal.id)).valueOrNull ??
+            widget.autoVerbal;
     final status = useState(widget.autoVerbal.status);
     final redColor = Theme.of(context).colorScheme.error.withOpacity(0.8);
     final isAdmin = ref.watch(isAdminProvider);
@@ -45,7 +48,8 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
           PropertyAndAutoVerbalStatus.resubmit =>
             _buildApproveRejectButton(context, state, status),
           PropertyAndAutoVerbalStatus.approved => _buildApproved(),
-          PropertyAndAutoVerbalStatus.rejected => _buildRejected(redColor, context)
+          PropertyAndAutoVerbalStatus.rejected =>
+            _buildRejected(redColor, context)
         },
       );
     }
@@ -108,7 +112,8 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
                     placeholder: (context, url) => const Center(
                       child: CircularProgressIndicator(),
                     ),
-                    errorWidget: (context, url, error) => const Icon(Icons.error),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   );
                 },
               ),
@@ -191,11 +196,11 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
                             ),
                           _buildDetailRow(
                             'Min Value/sqm',
-                            '\$${state.minValueSqm.toStringAsFixed(2)}',
+                            '\$${state.minValue.toStringAsFixed(2)}',
                           ),
                           _buildDetailRow(
                             'Max Value/sqm',
-                            '\$${state.maxValueSqm.toStringAsFixed(2)}',
+                            '\$${state.maxValue.toStringAsFixed(2)}',
                           ),
                           _buildDetailRow(
                             'Location',
@@ -273,7 +278,8 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
                         Marker(
                           markerId: const MarkerId('property'),
                           position: LatLng(state.latitude, state.longitude),
-                          infoWindow: InfoWindow(title: state.propertyType.name),
+                          infoWindow:
+                              InfoWindow(title: state.propertyType.name),
                         ),
                       },
                     ),
@@ -295,7 +301,8 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
                       children: [
                         FilledButton(
                           onPressed: () {
-                            context.push((_) => EditAutoVerbalPage(autoVerbal: state));
+                            context.push(
+                                (_) => EditAutoVerbalPage(autoVerbal: state));
                           },
                           child: const Text('Edit'),
                         ),
@@ -319,7 +326,8 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
                                     ),
                                     FilledButton(
                                       style: FilledButton.styleFrom(
-                                        backgroundColor: Theme.of(context).colorScheme.error,
+                                        backgroundColor:
+                                            Theme.of(context).colorScheme.error,
                                       ),
                                       child: const Text('Delete'),
                                       onPressed: () async {
@@ -342,7 +350,8 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
                             );
                           },
                           style: FilledButton.styleFrom(
-                            backgroundColor: Theme.of(context).colorScheme.error,
+                            backgroundColor:
+                                Theme.of(context).colorScheme.error,
                           ),
                           child: const Text('Delete Auto Verbal'),
                         ),
@@ -438,7 +447,8 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
               padding: const EdgeInsets.symmetric(vertical: 12),
               decoration: BoxDecoration(
                 color: Colors.green,
-                borderRadius: const BorderRadius.horizontal(left: Radius.circular(12)),
+                borderRadius:
+                    const BorderRadius.horizontal(left: Radius.circular(12)),
                 border: Border.all(color: Colors.grey),
               ),
               child: const Text(
@@ -509,7 +519,8 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
               );
 
               if (rejectReason.isNotNullOrBlank && context.mounted) {
-                final reject = ref.read(rejectAutoVerbalProvider(state.id).notifier);
+                final reject =
+                    ref.read(rejectAutoVerbalProvider(state.id).notifier);
                 final closeLoading = BotToast.showLoading();
                 final result = await reject(reason: rejectReason!);
                 closeLoading();
@@ -529,7 +540,8 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
               padding: const EdgeInsets.symmetric(vertical: 12),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.error.withOpacity(0.8),
-                borderRadius: const BorderRadius.horizontal(right: Radius.circular(12)),
+                borderRadius:
+                    const BorderRadius.horizontal(right: Radius.circular(12)),
                 border: Border.all(color: Colors.grey),
               ),
               child: const Text(
@@ -623,8 +635,8 @@ class _ApproveDialog extends HookConsumerWidget {
           ),
         ),
         ElevatedButton(
-          onPressed: () =>
-              _handleApprove(context, ref, formKey, minValueController, maxValueController),
+          onPressed: () => _handleApprove(
+              context, ref, formKey, minValueController, maxValueController),
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.green,
             shape: RoundedRectangleBorder(
@@ -694,7 +706,8 @@ class _ApproveDialog extends HookConsumerWidget {
       }
 
       final close = BotToast.showLoading();
-      final approve = ref.read(approveAutoVerbalProvider(autoVerbal.id).notifier);
+      final approve =
+          ref.read(approveAutoVerbalProvider(autoVerbal.id).notifier);
       final result = await approve(minValue: minValue, maxValue: maxValue);
       close();
 

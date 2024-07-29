@@ -3109,7 +3109,7 @@ class _DeleteAutoVerbalProviderElement
   int get autoVerbalId => (origin as DeleteAutoVerbalProvider).autoVerbalId;
 }
 
-String _$approveAutoVerbalHash() => r'018b6d11104bbcbf4503c585061f9077d5e5e4ae';
+String _$approveAutoVerbalHash() => r'bffdcdd5e7c44ca967376e290729b7d229971f5a';
 
 abstract class _$ApproveAutoVerbal
     extends BuildlessAutoDisposeNotifier<ProviderStatus<void>> {

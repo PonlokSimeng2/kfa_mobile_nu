@@ -64,10 +64,13 @@ class ReportMainPage extends HookConsumerWidget {
                                 final count = ref.watch(
                                   countPropertyAndAutoVerbalProvider(
                                     userId: ref.watch(authProvider),
-                                    statuses: PropertyAndAutoVerbalStatus.values.lock,
+                                    statuses:
+                                        PropertyAndAutoVerbalStatus.values.lock,
                                   ).select(
                                     (v) => v.whenOrNull(
-                                      data: (data) => data.propertyCount + data.autoVerbalCount,
+                                      data: (data) =>
+                                          data.propertyCount +
+                                          data.autoVerbalCount,
                                     ),
                                   ),
                                 );
@@ -76,7 +79,7 @@ class ReportMainPage extends HookConsumerWidget {
                                     //  pageCtr.jumpToPage(0);
                                   },
                                   child: _buildInfoCard(
-                                    title: 'Property & Autoverbal',
+                                    title: 'All Property',
                                     value: count?.toString() ?? "...",
                                     icon: Icons.pending,
                                     color: Colors.green,
@@ -91,7 +94,8 @@ class ReportMainPage extends HookConsumerWidget {
                                 final count = ref.watch(
                                   countPropertyAndAutoVerbalProvider(
                                     userId: ref.watch(authProvider),
-                                    statuses: PropertyAndAutoVerbalStatus.values.lock,
+                                    statuses:
+                                        PropertyAndAutoVerbalStatus.values.lock,
                                   ).select(
                                     (v) => v.whenOrNull(
                                       data: (data) => data.propertyCount,
@@ -118,7 +122,8 @@ class ReportMainPage extends HookConsumerWidget {
                                 final count = ref.watch(
                                   countPropertyAndAutoVerbalProvider(
                                     userId: ref.watch(authProvider),
-                                    statuses: PropertyAndAutoVerbalStatus.values.lock,
+                                    statuses:
+                                        PropertyAndAutoVerbalStatus.values.lock,
                                   ).select(
                                     (v) => v.whenOrNull(
                                       data: (data) => data.autoVerbalCount,

@@ -3,8 +3,8 @@ import '../../exports.dart';
 enum PropertyAndAutoVerbalStatus {
   pending,
   resubmit,
-  approved,
   rejected,
+  approved,
 }
 
 extension PropertyAndAutoVerbalStatusExtensions on PropertyAndAutoVerbalStatus {

@@ -103,8 +103,8 @@ Map<String, dynamic> _$$AutoVerbalModelImplToJson(
 const _$PropertyAndAutoVerbalStatusEnumMap = {
   PropertyAndAutoVerbalStatus.pending: 'pending',
   PropertyAndAutoVerbalStatus.resubmit: 'resubmit',
-  PropertyAndAutoVerbalStatus.approved: 'approved',
   PropertyAndAutoVerbalStatus.rejected: 'rejected',
+  PropertyAndAutoVerbalStatus.approved: 'approved',
 };
 
 _$CreateAutoVerbalParamImpl _$$CreateAutoVerbalParamImplFromJson(

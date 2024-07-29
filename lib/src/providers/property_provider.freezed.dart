@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PropertyListFilter {
   IList<PropertyAndAutoVerbalStatus> get statuses =>
       throw _privateConstructorUsedError;
+  IList<int> get propertyIds => throw _privateConstructorUsedError;
   String? get titleOrDescription => throw _privateConstructorUsedError;
   ProvinceModel? get province => throw _privateConstructorUsedError;
   PropertyTypeModel? get propertyType => throw _privateConstructorUsedError;
@@ -39,6 +40,7 @@ abstract class $PropertyListFilterCopyWith<$Res> {
   @useResult
   $Res call(
       {IList<PropertyAndAutoVerbalStatus> statuses,
+      IList<int> propertyIds,
       String? titleOrDescription,
       ProvinceModel? province,
       PropertyTypeModel? propertyType,
@@ -65,6 +67,7 @@ class _$PropertyListFilterCopyWithImpl<$Res, $Val extends PropertyListFilter>
   @override
   $Res call({
     Object? statuses = null,
+    Object? propertyIds = null,
     Object? titleOrDescription = freezed,
     Object? province = freezed,
     Object? propertyType = freezed,
@@ -78,6 +81,10 @@ class _$PropertyListFilterCopyWithImpl<$Res, $Val extends PropertyListFilter>
           ? _value.statuses
           : statuses // ignore: cast_nullable_to_non_nullable
               as IList<PropertyAndAutoVerbalStatus>,
+      propertyIds: null == propertyIds
+          ? _value.propertyIds
+          : propertyIds // ignore: cast_nullable_to_non_nullable
+              as IList<int>,
       titleOrDescription: freezed == titleOrDescription
           ? _value.titleOrDescription
           : titleOrDescription // ignore: cast_nullable_to_non_nullable
@@ -144,6 +151,7 @@ abstract class _$$PropertyListFilterImplCopyWith<$Res>
   @useResult
   $Res call(
       {IList<PropertyAndAutoVerbalStatus> statuses,
+      IList<int> propertyIds,
       String? titleOrDescription,
       ProvinceModel? province,
       PropertyTypeModel? propertyType,
@@ -170,6 +178,7 @@ class __$$PropertyListFilterImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? statuses = null,
+    Object? propertyIds = null,
     Object? titleOrDescription = freezed,
     Object? province = freezed,
     Object? propertyType = freezed,
@@ -183,6 +192,10 @@ class __$$PropertyListFilterImplCopyWithImpl<$Res>
           ? _value.statuses
           : statuses // ignore: cast_nullable_to_non_nullable
               as IList<PropertyAndAutoVerbalStatus>,
+      propertyIds: null == propertyIds
+          ? _value.propertyIds
+          : propertyIds // ignore: cast_nullable_to_non_nullable
+              as IList<int>,
       titleOrDescription: freezed == titleOrDescription
           ? _value.titleOrDescription
           : titleOrDescription // ignore: cast_nullable_to_non_nullable
@@ -221,6 +234,7 @@ class _$PropertyListFilterImpl extends _PropertyListFilter
     with DiagnosticableTreeMixin {
   const _$PropertyListFilterImpl(
       {this.statuses = const IListConst([PropertyAndAutoVerbalStatus.approved]),
+      this.propertyIds = const IList.empty(),
       this.titleOrDescription,
       this.province,
       this.propertyType,
@@ -233,6 +247,9 @@ class _$PropertyListFilterImpl extends _PropertyListFilter
   @override
   @JsonKey()
   final IList<PropertyAndAutoVerbalStatus> statuses;
+  @override
+  @JsonKey()
+  final IList<int> propertyIds;
   @override
   final String? titleOrDescription;
   @override
@@ -250,7 +267,7 @@ class _$PropertyListFilterImpl extends _PropertyListFilter
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PropertyListFilter(statuses: $statuses, titleOrDescription: $titleOrDescription, province: $province, propertyType: $propertyType, listingType: $listingType, minPrice: $minPrice, maxPrice: $maxPrice, userId: $userId)';
+    return 'PropertyListFilter(statuses: $statuses, propertyIds: $propertyIds, titleOrDescription: $titleOrDescription, province: $province, propertyType: $propertyType, listingType: $listingType, minPrice: $minPrice, maxPrice: $maxPrice, userId: $userId)';
   }
 
   @override
@@ -259,6 +276,7 @@ class _$PropertyListFilterImpl extends _PropertyListFilter
     properties
       ..add(DiagnosticsProperty('type', 'PropertyListFilter'))
       ..add(DiagnosticsProperty('statuses', statuses))
+      ..add(DiagnosticsProperty('propertyIds', propertyIds))
       ..add(DiagnosticsProperty('titleOrDescription', titleOrDescription))
       ..add(DiagnosticsProperty('province', province))
       ..add(DiagnosticsProperty('propertyType', propertyType))
@@ -274,6 +292,8 @@ class _$PropertyListFilterImpl extends _PropertyListFilter
         (other.runtimeType == runtimeType &&
             other is _$PropertyListFilterImpl &&
             const DeepCollectionEquality().equals(other.statuses, statuses) &&
+            const DeepCollectionEquality()
+                .equals(other.propertyIds, propertyIds) &&
             (identical(other.titleOrDescription, titleOrDescription) ||
                 other.titleOrDescription == titleOrDescription) &&
             (identical(other.province, province) ||
@@ -293,6 +313,7 @@ class _$PropertyListFilterImpl extends _PropertyListFilter
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(statuses),
+      const DeepCollectionEquality().hash(propertyIds),
       titleOrDescription,
       province,
       propertyType,
@@ -312,6 +333,7 @@ class _$PropertyListFilterImpl extends _PropertyListFilter
 abstract class _PropertyListFilter extends PropertyListFilter {
   const factory _PropertyListFilter(
       {final IList<PropertyAndAutoVerbalStatus> statuses,
+      final IList<int> propertyIds,
       final String? titleOrDescription,
       final ProvinceModel? province,
       final PropertyTypeModel? propertyType,
@@ -323,6 +345,8 @@ abstract class _PropertyListFilter extends PropertyListFilter {
 
   @override
   IList<PropertyAndAutoVerbalStatus> get statuses;
+  @override
+  IList<int> get propertyIds;
   @override
   String? get titleOrDescription;
   @override

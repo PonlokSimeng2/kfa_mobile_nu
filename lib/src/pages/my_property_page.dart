@@ -1,16 +1,19 @@
 import 'package:getwidget/getwidget.dart';
-import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
-import 'package:kfa_mobile_nu/src/pages/add_property_page.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/property_provider.dart';
 import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
 
 import '../../exports.dart';
 import '../models/base.dart';
+import '../models/property_model.dart';
 import 'admin/widgets/admin_property_list_widget.dart';
 
-final _propertyStatus = PropertyAndAutoVerbalStatus.values
-    .where((e) => e != PropertyAndAutoVerbalStatus.resubmit);
+final _propertyStatus =
+    PropertyAndAutoVerbalStatus.values.where((e) => e != PropertyAndAutoVerbalStatus.resubmit);
+
+final _listingTypeProvider = StateProvider.autoDispose<PropertyListingType>((ref) {
+  return PropertyListingType.sale;
+});
 
 class MyPropertyPage extends HookConsumerWidget {
   const MyPropertyPage({super.key});
@@ -24,15 +27,22 @@ class MyPropertyPage extends HookConsumerWidget {
         appBar: AppBar(
           title: const Text('My Property'),
           actions: [
-            GFButton(
-              onPressed: () {
-                //context.push((_) => const AddPropertyPage(isSale: true));
+            Consumer(
+              builder: (context, ref, child) {
+                final isSale = ref.watch(_listingTypeProvider);
+                return GFButton(
+                  onPressed: () {
+                    ref.read(_listingTypeProvider.notifier).state =
+                        isSale == PropertyListingType.sale
+                            ? PropertyListingType.rent
+                            : PropertyListingType.sale;
+                  },
+                  child: Text(
+                    isSale == PropertyListingType.sale ? 'Sale' : 'Rent',
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                );
               },
-              icon: const Icon(Icons.add),
-              child: const Text(
-                'Add Sale',
-                style: TextStyle(color: Colors.white),
-              ),
             ),
             const SizedBox(width: 10),
           ],
@@ -69,8 +79,10 @@ class _Content extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final listingType = ref.watch(_listingTypeProvider);
     return AdminPropertyListWidget(
       filter: PropertyListFilter(
+        listingType: listingType,
         statuses: [
           ...statuses,
           if (statuses.contains(PropertyAndAutoVerbalStatus.pending))

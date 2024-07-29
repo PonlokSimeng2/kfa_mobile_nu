@@ -26,6 +26,7 @@ class PropertyListFilter with _$PropertyListFilter {
   const factory PropertyListFilter({
     @Default(IListConst([PropertyAndAutoVerbalStatus.approved]))
     IList<PropertyAndAutoVerbalStatus> statuses,
+    @Default(IList.empty()) IList<int> propertyIds,
     String? titleOrDescription,
     ProvinceModel? province,
     PropertyTypeModel? propertyType,
@@ -80,6 +81,10 @@ FutureOr<IList<PropertyModel>> propertyList(
 
   if (filter?.userId != null) {
     query = query.eq(PropertyTable.userId, filter!.userId!);
+  }
+
+  if (filter?.propertyIds != null && filter!.propertyIds.isNotEmpty) {
+    query = query.inFilter(PropertyTable.id, filter.propertyIds.toList());
   }
 
   return await query

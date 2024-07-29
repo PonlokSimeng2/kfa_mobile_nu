@@ -1,10 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:readmore/readmore.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../exports.dart';
 import '../models/property_model.dart';
+import '../providers/favortie_provider.dart';
 import '../widgets/auth_wrapper_widget.dart';
 
 class PropertyDetailPage extends ConsumerStatefulWidget {
@@ -19,7 +19,6 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
   final Set<Marker> _markers = {};
   final CarouselController _carouselController = CarouselController();
   int _currentImageIndex = 0;
-  bool _isFavorite = false;
 
   @override
   void initState() {
@@ -31,48 +30,10 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
         infoWindow: InfoWindow(title: widget.data.title),
       ),
     );
-    _checkFavoriteStatus();
-  }
-
-  void _checkFavoriteStatus() {
-    // TODO: Implement logic to check if this property is in user's favorites
-    // This might involve checking a local database or a remote API
-    // For now, we'll just set it to false
-    setState(() {
-      _isFavorite = false;
-    });
-  }
-
-  void _toggleFavorite() {
-    setState(() {
-      _isFavorite = !_isFavorite;
-    });
-    // TODO: Implement logic to add/remove from favorites
-    // This might involve updating a local database or a remote API
-    if (_isFavorite) {
-      // Add to favorites
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Added to favorites')),
-      );
-    } else {
-      // Remove from favorites
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Removed from favorites')),
-      );
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    Future<void> makePhoneCall(String url) async {
-      // ignore: deprecated_member_use
-      await launch(
-        url,
-        forceSafariVC: false,
-        forceWebView: false,
-      );
-    }
-
     return AuthWrapperWidget(
       child: Scaffold(
         body: CustomScrollView(
@@ -107,12 +68,38 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
                     color: Colors.black.withOpacity(0.3),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: IconButton(
-                    icon: Icon(
-                      _isFavorite ? Icons.favorite : Icons.favorite_border,
-                      color: _isFavorite ? Colors.red : Colors.white,
-                    ),
-                    onPressed: _toggleFavorite,
+                  child: Consumer(
+                    builder: (context, ref, child) {
+                      final isFavorite = ref.watch(isFavoriteProvider(widget.data.id));
+                      return IconButton(
+                        icon: Icon(
+                          isFavorite ? Icons.favorite : Icons.favorite_border,
+                          color: isFavorite ? Colors.red : Colors.white,
+                        ),
+                        onPressed: () {
+                          final notifier = ref.read(favoritePropertyProvider.notifier);
+                          if (isFavorite) {
+                            notifier.removeFromFavorite(widget.data.id);
+                            ScaffoldMessenger.of(context).clearSnackBars();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Removed from favorites'),
+                              ),
+                            );
+                          } else {
+                            notifier.markAsFavorite(widget.data.id);
+                            ScaffoldMessenger.of(context).clearSnackBars();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  'Added to favorites',
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                      );
+                    },
                   ),
                 ),
               ],
@@ -131,8 +118,7 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 child: _buildMap(),
               ),
             ),
@@ -162,8 +148,7 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
             viewportFraction: 1,
             enlargeCenterPage: false,
             autoPlay: true,
-            onPageChanged: (index, _) =>
-                setState(() => _currentImageIndex = index),
+            onPageChanged: (index, _) => setState(() => _currentImageIndex = index),
           ),
         ),
         Positioned(
@@ -193,26 +178,17 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
         children: [
           Text(
             widget.data.listingType.name.capitalize(),
-            style: Theme.of(context)
-                .textTheme
-                .headlineSmall
-                ?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           Text(
             widget.data.title,
-            style: Theme.of(context)
-                .textTheme
-                .bodyLarge
-                ?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           Text(
             '\$${widget.data.price}',
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge
-                ?.copyWith(color: Colors.green),
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.green),
           ),
         ],
       ),

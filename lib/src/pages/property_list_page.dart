@@ -1,35 +1,54 @@
 import 'package:kfa_mobile_nu/src/models/property_model.dart';
+import 'package:kfa_mobile_nu/src/providers/favortie_provider.dart';
 import 'package:kfa_mobile_nu/src/widgets/property_type_dropdown.dart';
 
 import '../../exports.dart';
 import '../helpers/build_context_helper.dart';
-import '../models/property_type_model.schema.dart';
 import '../providers/property_provider.dart';
 import 'property_detail_page.dart';
 
-class PropertyListPage extends ConsumerStatefulWidget {
-  const PropertyListPage({super.key});
+final _initialFilterProvider = Provider.autoDispose<PropertyListFilter>((ref) {
+  throw UnimplementedError();
+});
+
+final _filterProvider = StateProvider<PropertyListFilter>(
+  (ref) {
+    return ref.read(_initialFilterProvider);
+  },
+  dependencies: [_initialFilterProvider],
+);
+
+class PropertyListPage extends ConsumerWidget {
+  const PropertyListPage({super.key, this.initialFilter = const PropertyListFilter()});
+
+  final PropertyListFilter initialFilter;
 
   @override
-  ConsumerState<PropertyListPage> createState() => _PropertyListPageState();
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ProviderScope(
+      overrides: [
+        _initialFilterProvider.overrideWithValue(initialFilter),
+      ],
+      child: const _PropertyListPage(),
+    );
+  }
 }
 
-class _PropertyListPageState extends ConsumerState<PropertyListPage> {
-  PropertyListingType? _type;
-  PropertyTypeModel? _selectedPropertyType;
+class _PropertyListPage extends ConsumerStatefulWidget {
+  const _PropertyListPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final firstPageCountAsync = ref.watch(
-      propertyListProvider(
-        page: 0,
-        filter: PropertyListFilter(
-          listingType: _type,
-          propertyType: _selectedPropertyType,
-        ),
-      ).select((v) => v.whenData((v) => v.length)),
-    );
+  ConsumerState<_PropertyListPage> createState() => __PropertyListPageState();
+}
 
+class __PropertyListPageState extends ConsumerState<_PropertyListPage> {
+  @override
+  Widget build(BuildContext context) {
+    final filter = ref.watch(_filterProvider);
+
+    final firstPageCountAsync = ref.watch(
+      propertyListProvider(page: 0, filter: filter).select((v) => v.whenData((v) => v.length)),
+    );
     return Scaffold(
       body: Column(
         children: [
@@ -48,10 +67,7 @@ class _PropertyListPageState extends ConsumerState<PropertyListPage> {
                     ),
                   );
                 }
-                return _GridView(
-                  type: _type,
-                  propertyType: _selectedPropertyType,
-                );
+                return const _GridView();
               },
             ),
           ),
@@ -79,50 +95,55 @@ class _PropertyListPageState extends ConsumerState<PropertyListPage> {
     IconData icon,
     PropertyListingType? valueType,
   ) {
+    final filter = ref.watch(_filterProvider);
     final isSelected =
-        (_type == null && valueType == null) || _type == valueType;
+        (filter.listingType == null && valueType == null) || filter.listingType == valueType;
     return ElevatedButton.icon(
-      onPressed: () => setState(() {
-        _type = valueType;
-        // Do not reset _selectedPropertyType when filter changes
-      }),
+      onPressed: () {
+        ref.read(_filterProvider.notifier).update((old) {
+          return old.copyWith(listingType: valueType);
+        });
+      },
       icon: Icon(icon, color: isSelected ? Colors.white : Colors.grey),
       label: Text(label),
       style: ElevatedButton.styleFrom(
         foregroundColor: isSelected ? Colors.white : Colors.black,
-        backgroundColor:
-            isSelected ? Theme.of(context).primaryColor : Colors.white,
+        backgroundColor: isSelected ? Theme.of(context).primaryColor : Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
     );
   }
 
   Widget _buildPropertyTypeDropdownButton() {
-    final isSelected = _selectedPropertyType == null && _type == null;
+    final filter = ref.watch(_filterProvider);
+    final isSelected = filter.listingType == null;
     return ElevatedButton.icon(
-      onPressed: () => setState(() {
-        _selectedPropertyType = null;
-        _type = null; // Reset listing type when filter changes
-      }),
+      onPressed: () {
+        ref.read(_filterProvider.notifier).update((old) {
+          return old.copyWith(listingType: null);
+        });
+      },
       icon: Icon(Icons.list, color: isSelected ? Colors.white : Colors.grey),
       label: const Text('All'),
       style: ElevatedButton.styleFrom(
         foregroundColor: isSelected ? Colors.white : Colors.black,
-        backgroundColor:
-            isSelected ? Theme.of(context).primaryColor : Colors.white,
+        backgroundColor: isSelected ? Theme.of(context).primaryColor : Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
     );
   }
 
   Widget _buildPropertyTypeDropdown() {
+    final filter = ref.watch(_filterProvider);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 2),
       child: PropertyTypeDropDown(
-        value: _selectedPropertyType,
+        value: filter.propertyType,
         onChanged: (newValue) {
           setState(() {
-            _selectedPropertyType = newValue;
+            ref.read(_filterProvider.notifier).update((old) {
+              return old.copyWith(propertyType: newValue);
+            });
           });
         },
       ),
@@ -131,9 +152,7 @@ class _PropertyListPageState extends ConsumerState<PropertyListPage> {
 }
 
 class _GridView extends ConsumerWidget {
-  final PropertyListingType? type;
-  final PropertyTypeModel? propertyType;
-  const _GridView({this.type, this.propertyType});
+  const _GridView();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -149,10 +168,7 @@ class _GridView extends ConsumerWidget {
         final paginated = ref.watch(
           propertyAtIndexProvider(
             index: index,
-            filter: PropertyListFilter(
-              listingType: type,
-              propertyType: propertyType,
-            ),
+            filter: ref.watch(_filterProvider),
           ),
         );
         return paginated?.whenOrNull(
@@ -182,16 +198,14 @@ class _GridView extends ConsumerWidget {
               children: [
                 Expanded(
                   child: ClipRRect(
-                    borderRadius:
-                        const BorderRadius.vertical(top: Radius.circular(10)),
+                    borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
                     child: CachedNetworkImage(
                       imageUrl: item.images.first,
                       fit: BoxFit.cover,
                       width: double.infinity,
                       placeholder: (context, url) =>
                           const Center(child: CircularProgressIndicator()),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
+                      errorWidget: (context, url, error) => const Icon(Icons.error),
                     ),
                   ),
                 ),
@@ -217,7 +231,9 @@ class _GridView extends ConsumerWidget {
                       const SizedBox(height: 4),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: item.listingType.name.toLowerCase() == 'rent'
                               ? Colors.blue
@@ -227,7 +243,9 @@ class _GridView extends ConsumerWidget {
                         child: Text(
                           item.listingType.name.capitalize(),
                           style: const TextStyle(
-                              color: Colors.white, fontSize: 12),
+                            color: Colors.white,
+                            fontSize: 12,
+                          ),
                         ),
                       ),
                     ],
@@ -241,19 +259,25 @@ class _GridView extends ConsumerWidget {
             right: 8,
             child: Consumer(
               builder: (context, ref, child) {
-                final isFavorite = ref.watch(favoriteProvider(item.id));
+                final isFavorite = ref.watch(isFavoriteProvider(item.id));
                 return IconButton(
                   icon: Icon(
                     isFavorite ? Icons.favorite : Icons.favorite_border,
                     color: isFavorite ? Colors.red : Colors.white,
                   ),
                   onPressed: () {
-                    ref.read(favoriteProvider(item.id).notifier).toggle();
+                    final notifier = ref.read(favoritePropertyProvider.notifier);
+                    if (isFavorite) {
+                      notifier.removeFromFavorite(item.id);
+                    } else {
+                      notifier.markAsFavorite(item.id);
+                    }
+
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(isFavorite
-                            ? 'Removed from favorites'
-                            : 'Added to favorites'),
+                        content: Text(
+                          isFavorite ? 'Removed from favorites' : 'Added to favorites',
+                        ),
                       ),
                     );
                   },

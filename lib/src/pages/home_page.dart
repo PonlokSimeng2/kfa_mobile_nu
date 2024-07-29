@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:kfa_mobile_nu/src/pages/add_autoverbal_page.dart';
 import 'package:kfa_mobile_nu/src/pages/add_property_page.dart';
+import 'package:kfa_mobile_nu/src/pages/favorite_list_page.dart';
 import 'package:kfa_mobile_nu/src/pages/my_property_page.dart';
 import 'package:kfa_mobile_nu/src/pages/report_main_page.dart';
 
@@ -125,13 +126,12 @@ class __UserHomeState extends ConsumerState<_UserHome> {
                       leading: const Icon(Icons.favorite),
                       title: const Text('Favorite'),
                       onTap: () {
-                        // context.push((context) => const FavouritePage());
+                        context.push((context) => const FavoriteListPage());
                         Scaffold.of(context).closeDrawer();
                       },
                     ),
                     ListTile(
-                      leading:
-                          const Icon(Icons.format_list_numbered_rtl_rounded),
+                      leading: const Icon(Icons.format_list_numbered_rtl_rounded),
                       title: const Text('Report'),
                       onTap: () {
                         context.push((context) => const ReportMainPage());

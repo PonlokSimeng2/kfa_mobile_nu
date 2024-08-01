@@ -392,3 +392,18 @@ class DeleteProperty extends _$DeleteProperty {
     );
   }
 }
+
+@riverpod
+class IncrementPropertyView extends _$IncrementPropertyView {
+  @override
+  ProviderStatus<void> build(int propertyId) => const ProviderStatus.initial();
+
+  Future<ProviderStatus<void>> call() async {
+    return await perform(
+      (state) async {
+        final sb = ref.watch(supabaseProvider).client;
+        await sb.rpc('increment_property_view_count', params: {'property_id': propertyId});
+      },
+    );
+  }
+}

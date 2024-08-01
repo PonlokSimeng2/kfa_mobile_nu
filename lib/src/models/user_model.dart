@@ -20,7 +20,14 @@ class UserSchema extends KimappSchema {
   final joinedAt = Field<DateTime>('joined_at');
 
   @override
-  List<Model> get models => [];
+  List<Model> get models => [
+        Model('UserLiteModel').addFields({
+          'id': id,
+          'photo': photo,
+          'firstName': firstName,
+          'lastName': lastName,
+        }),
+      ];
 }
 
 extension UserModelX on UserModel {

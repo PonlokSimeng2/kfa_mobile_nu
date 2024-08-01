@@ -8,11 +8,10 @@ import '../models/base.dart';
 import '../models/property_model.dart';
 import 'admin/widgets/admin_property_list_widget.dart';
 
-final _propertyStatus = PropertyAndAutoVerbalStatus.values
-    .where((e) => e != PropertyAndAutoVerbalStatus.resubmit);
+final _propertyStatus =
+    PropertyAndAutoVerbalStatus.values.where((e) => e != PropertyAndAutoVerbalStatus.resubmit);
 
-final _listingTypeProvider =
-    StateProvider.autoDispose<PropertyListingType?>((ref) {
+final _listingTypeProvider = StateProvider.autoDispose<PropertyListingType?>((ref) {
   return null;
 });
 
@@ -33,19 +32,16 @@ class MyPropertyPage extends HookConsumerWidget {
                 final listingType = ref.watch(_listingTypeProvider);
                 return GFButton(
                   onPressed: () {
-                    ref.read(_listingTypeProvider.notifier).state =
-                        listingType == null
-                            ? PropertyListingType.sale
-                            : (listingType == PropertyListingType.sale
-                                ? PropertyListingType.rent
-                                : PropertyListingType.sale);
+                    ref.read(_listingTypeProvider.notifier).state = listingType == null
+                        ? PropertyListingType.sale
+                        : (listingType == PropertyListingType.sale
+                            ? PropertyListingType.rent
+                            : null);
                   },
                   child: Text(
                     listingType == null
-                        ? 'Sale'
-                        : (listingType == PropertyListingType.sale
-                            ? 'Sale'
-                            : 'Rent'),
+                        ? 'All'
+                        : (listingType == PropertyListingType.sale ? 'Sale' : 'Rent'),
                     style: const TextStyle(color: Colors.white),
                   ),
                 );

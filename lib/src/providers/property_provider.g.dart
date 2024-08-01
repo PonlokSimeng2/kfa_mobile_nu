@@ -2437,5 +2437,152 @@ class _DeletePropertyProviderElement extends AutoDisposeNotifierProviderElement<
   @override
   int get propertyId => (origin as DeletePropertyProvider).propertyId;
 }
+
+String _$incrementPropertyViewHash() =>
+    r'b5eb46c82c7e27294363ea9c7a559ef0631136ca';
+
+abstract class _$IncrementPropertyView
+    extends BuildlessAutoDisposeNotifier<ProviderStatus<void>> {
+  late final int propertyId;
+
+  ProviderStatus<void> build(
+    int propertyId,
+  );
+}
+
+/// See also [IncrementPropertyView].
+@ProviderFor(IncrementPropertyView)
+const incrementPropertyViewProvider = IncrementPropertyViewFamily();
+
+/// See also [IncrementPropertyView].
+class IncrementPropertyViewFamily extends Family<ProviderStatus<void>> {
+  /// See also [IncrementPropertyView].
+  const IncrementPropertyViewFamily();
+
+  /// See also [IncrementPropertyView].
+  IncrementPropertyViewProvider call(
+    int propertyId,
+  ) {
+    return IncrementPropertyViewProvider(
+      propertyId,
+    );
+  }
+
+  @override
+  IncrementPropertyViewProvider getProviderOverride(
+    covariant IncrementPropertyViewProvider provider,
+  ) {
+    return call(
+      provider.propertyId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'incrementPropertyViewProvider';
+}
+
+/// See also [IncrementPropertyView].
+class IncrementPropertyViewProvider extends AutoDisposeNotifierProviderImpl<
+    IncrementPropertyView, ProviderStatus<void>> {
+  /// See also [IncrementPropertyView].
+  IncrementPropertyViewProvider(
+    int propertyId,
+  ) : this._internal(
+          () => IncrementPropertyView()..propertyId = propertyId,
+          from: incrementPropertyViewProvider,
+          name: r'incrementPropertyViewProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$incrementPropertyViewHash,
+          dependencies: IncrementPropertyViewFamily._dependencies,
+          allTransitiveDependencies:
+              IncrementPropertyViewFamily._allTransitiveDependencies,
+          propertyId: propertyId,
+        );
+
+  IncrementPropertyViewProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.propertyId,
+  }) : super.internal();
+
+  final int propertyId;
+
+  @override
+  ProviderStatus<void> runNotifierBuild(
+    covariant IncrementPropertyView notifier,
+  ) {
+    return notifier.build(
+      propertyId,
+    );
+  }
+
+  @override
+  Override overrideWith(IncrementPropertyView Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: IncrementPropertyViewProvider._internal(
+        () => create()..propertyId = propertyId,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        propertyId: propertyId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeNotifierProviderElement<IncrementPropertyView,
+      ProviderStatus<void>> createElement() {
+    return _IncrementPropertyViewProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is IncrementPropertyViewProvider &&
+        other.propertyId == propertyId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, propertyId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin IncrementPropertyViewRef
+    on AutoDisposeNotifierProviderRef<ProviderStatus<void>> {
+  /// The parameter `propertyId` of this provider.
+  int get propertyId;
+}
+
+class _IncrementPropertyViewProviderElement
+    extends AutoDisposeNotifierProviderElement<IncrementPropertyView,
+        ProviderStatus<void>> with IncrementPropertyViewRef {
+  _IncrementPropertyViewProviderElement(super.provider);
+
+  @override
+  int get propertyId => (origin as IncrementPropertyViewProvider).propertyId;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -36,6 +36,22 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'joined_at': instance.joinedAt.toIso8601String(),
     };
 
+_$UserLiteModelImpl _$$UserLiteModelImplFromJson(Map<String, dynamic> json) =>
+    _$UserLiteModelImpl(
+      id: json['id'] as String,
+      photo: json['photo'] as String?,
+      firstName: json['first_name'] as String,
+      lastName: json['last_name'] as String,
+    );
+
+Map<String, dynamic> _$$UserLiteModelImplToJson(_$UserLiteModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'photo': instance.photo,
+      'first_name': instance.firstName,
+      'last_name': instance.lastName,
+    };
+
 // **************************************************************************
 // TableModelGenerator
 // **************************************************************************

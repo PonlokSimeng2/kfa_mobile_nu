@@ -76,6 +76,8 @@ mixin _$PropertyModel {
   DateTime? get rejectedAt => throw _privateConstructorUsedError;
   @JsonKey(name: PropertyModel.rejectReasonKey)
   String? get rejectReason => throw _privateConstructorUsedError;
+  @JsonKey(name: PropertyModel.viewCountKey)
+  int get viewCount => throw _privateConstructorUsedError;
   @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
   @JsonKey(name: PropertyModel.propertyTypeKey)
   PropertyTypeModel get propertyType => throw _privateConstructorUsedError;
@@ -132,6 +134,7 @@ abstract class $PropertyModelCopyWith<$Res> {
       @JsonKey(name: PropertyModel.approvedAtKey) DateTime? approvedAt,
       @JsonKey(name: PropertyModel.rejectedAtKey) DateTime? rejectedAt,
       @JsonKey(name: PropertyModel.rejectReasonKey) String? rejectReason,
+      @JsonKey(name: PropertyModel.viewCountKey) int viewCount,
       @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
       @JsonKey(name: PropertyModel.propertyTypeKey)
       PropertyTypeModel propertyType,
@@ -193,6 +196,7 @@ class _$PropertyModelCopyWithImpl<$Res, $Val extends PropertyModel>
     Object? approvedAt = freezed,
     Object? rejectedAt = freezed,
     Object? rejectReason = freezed,
+    Object? viewCount = null,
     Object? propertyType = null,
     Object? province = null,
     Object? approvedBy = freezed,
@@ -311,6 +315,10 @@ class _$PropertyModelCopyWithImpl<$Res, $Val extends PropertyModel>
           ? _value.rejectReason
           : rejectReason // ignore: cast_nullable_to_non_nullable
               as String?,
+      viewCount: null == viewCount
+          ? _value.viewCount
+          : viewCount // ignore: cast_nullable_to_non_nullable
+              as int,
       propertyType: null == propertyType
           ? _value.propertyType
           : propertyType // ignore: cast_nullable_to_non_nullable
@@ -406,6 +414,7 @@ abstract class _$$PropertyModelImplCopyWith<$Res>
       @JsonKey(name: PropertyModel.approvedAtKey) DateTime? approvedAt,
       @JsonKey(name: PropertyModel.rejectedAtKey) DateTime? rejectedAt,
       @JsonKey(name: PropertyModel.rejectReasonKey) String? rejectReason,
+      @JsonKey(name: PropertyModel.viewCountKey) int viewCount,
       @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
       @JsonKey(name: PropertyModel.propertyTypeKey)
       PropertyTypeModel propertyType,
@@ -469,6 +478,7 @@ class __$$PropertyModelImplCopyWithImpl<$Res>
     Object? approvedAt = freezed,
     Object? rejectedAt = freezed,
     Object? rejectReason = freezed,
+    Object? viewCount = null,
     Object? propertyType = null,
     Object? province = null,
     Object? approvedBy = freezed,
@@ -587,6 +597,10 @@ class __$$PropertyModelImplCopyWithImpl<$Res>
           ? _value.rejectReason
           : rejectReason // ignore: cast_nullable_to_non_nullable
               as String?,
+      viewCount: null == viewCount
+          ? _value.viewCount
+          : viewCount // ignore: cast_nullable_to_non_nullable
+              as int,
       propertyType: null == propertyType
           ? _value.propertyType
           : propertyType // ignore: cast_nullable_to_non_nullable
@@ -642,6 +656,7 @@ class _$PropertyModelImpl extends _PropertyModel {
       @JsonKey(name: PropertyModel.approvedAtKey) this.approvedAt,
       @JsonKey(name: PropertyModel.rejectedAtKey) this.rejectedAt,
       @JsonKey(name: PropertyModel.rejectReasonKey) this.rejectReason,
+      @JsonKey(name: PropertyModel.viewCountKey) required this.viewCount,
       @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
       @JsonKey(name: PropertyModel.propertyTypeKey)
       required this.propertyType,
@@ -752,6 +767,9 @@ class _$PropertyModelImpl extends _PropertyModel {
   @JsonKey(name: PropertyModel.rejectReasonKey)
   final String? rejectReason;
   @override
+  @JsonKey(name: PropertyModel.viewCountKey)
+  final int viewCount;
+  @override
   @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
   @JsonKey(name: PropertyModel.propertyTypeKey)
   final PropertyTypeModel propertyType;
@@ -770,7 +788,7 @@ class _$PropertyModelImpl extends _PropertyModel {
 
   @override
   String toString() {
-    return 'PropertyModel(id: $id, status: $status, propertyId: $propertyId, listingType: $listingType, images: $images, title: $title, description: $description, latitude: $latitude, longitude: $longitude, price: $price, sqm: $sqm, bedrooms: $bedrooms, bathrooms: $bathrooms, floors: $floors, parking: $parking, livingRooms: $livingRooms, landLength: $landLength, landWidth: $landWidth, houseLength: $houseLength, houseWidth: $houseWidth, pricePerSqm: $pricePerSqm, createdAt: $createdAt, userId: $userId, propertyTypeId: $propertyTypeId, provinceId: $provinceId, approvedAt: $approvedAt, rejectedAt: $rejectedAt, rejectReason: $rejectReason, propertyType: $propertyType, province: $province, approvedBy: $approvedBy, user: $user)';
+    return 'PropertyModel(id: $id, status: $status, propertyId: $propertyId, listingType: $listingType, images: $images, title: $title, description: $description, latitude: $latitude, longitude: $longitude, price: $price, sqm: $sqm, bedrooms: $bedrooms, bathrooms: $bathrooms, floors: $floors, parking: $parking, livingRooms: $livingRooms, landLength: $landLength, landWidth: $landWidth, houseLength: $houseLength, houseWidth: $houseWidth, pricePerSqm: $pricePerSqm, createdAt: $createdAt, userId: $userId, propertyTypeId: $propertyTypeId, provinceId: $provinceId, approvedAt: $approvedAt, rejectedAt: $rejectedAt, rejectReason: $rejectReason, viewCount: $viewCount, propertyType: $propertyType, province: $province, approvedBy: $approvedBy, user: $user)';
   }
 
   @override
@@ -825,6 +843,8 @@ class _$PropertyModelImpl extends _PropertyModel {
                 other.rejectedAt == rejectedAt) &&
             (identical(other.rejectReason, rejectReason) ||
                 other.rejectReason == rejectReason) &&
+            (identical(other.viewCount, viewCount) ||
+                other.viewCount == viewCount) &&
             (identical(other.propertyType, propertyType) ||
                 other.propertyType == propertyType) &&
             (identical(other.province, province) ||
@@ -866,6 +886,7 @@ class _$PropertyModelImpl extends _PropertyModel {
         approvedAt,
         rejectedAt,
         rejectReason,
+        viewCount,
         propertyType,
         province,
         approvedBy,
@@ -927,6 +948,7 @@ abstract class _PropertyModel extends PropertyModel {
       @JsonKey(name: PropertyModel.approvedAtKey) final DateTime? approvedAt,
       @JsonKey(name: PropertyModel.rejectedAtKey) final DateTime? rejectedAt,
       @JsonKey(name: PropertyModel.rejectReasonKey) final String? rejectReason,
+      @JsonKey(name: PropertyModel.viewCountKey) required final int viewCount,
       @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
       @JsonKey(name: PropertyModel.propertyTypeKey)
       required final PropertyTypeModel propertyType,
@@ -1029,6 +1051,9 @@ abstract class _PropertyModel extends PropertyModel {
   @override
   @JsonKey(name: PropertyModel.rejectReasonKey)
   String? get rejectReason;
+  @override
+  @JsonKey(name: PropertyModel.viewCountKey)
+  int get viewCount;
   @override
   @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
   @JsonKey(name: PropertyModel.propertyTypeKey)

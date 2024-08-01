@@ -43,6 +43,7 @@ class PropertySchema extends KimappSchema {
   final approvedAt = Field<DateTime?>('approved_at');
   final rejectedAt = Field<DateTime?>('rejected_at');
   final rejectReason = Field<String?>('reject_reason');
+  final viewCount = Field<int>('view_count');
 
   // Joins
   final propertyType = Field.join<PropertyTypeModel>().withForeignKey('property_type_id');
@@ -67,6 +68,7 @@ class PropertySchema extends KimappSchema {
             rejectReason,
             createdAt,
             status,
+            viewCount,
           ],
         ),
       Model('UpdatePropertyParam')
@@ -82,6 +84,7 @@ class PropertySchema extends KimappSchema {
             rejectedAt,
             rejectReason,
             status,
+            viewCount,
           ],
         ),
     ];

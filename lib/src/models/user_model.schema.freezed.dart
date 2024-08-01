@@ -370,3 +370,221 @@ abstract class _UserModel extends UserModel {
   _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+UserLiteModel _$UserLiteModelFromJson(Map<String, dynamic> json) {
+  return _UserLiteModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$UserLiteModel {
+  @JsonKey(name: UserLiteModel.idKey)
+  String get id => throw _privateConstructorUsedError;
+  @JsonKey(name: UserLiteModel.photoKey)
+  String? get photo => throw _privateConstructorUsedError;
+  @JsonKey(name: UserLiteModel.firstNameKey)
+  String get firstName => throw _privateConstructorUsedError;
+  @JsonKey(name: UserLiteModel.lastNameKey)
+  String get lastName => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $UserLiteModelCopyWith<UserLiteModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UserLiteModelCopyWith<$Res> {
+  factory $UserLiteModelCopyWith(
+          UserLiteModel value, $Res Function(UserLiteModel) then) =
+      _$UserLiteModelCopyWithImpl<$Res, UserLiteModel>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: UserLiteModel.idKey) String id,
+      @JsonKey(name: UserLiteModel.photoKey) String? photo,
+      @JsonKey(name: UserLiteModel.firstNameKey) String firstName,
+      @JsonKey(name: UserLiteModel.lastNameKey) String lastName});
+}
+
+/// @nodoc
+class _$UserLiteModelCopyWithImpl<$Res, $Val extends UserLiteModel>
+    implements $UserLiteModelCopyWith<$Res> {
+  _$UserLiteModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? photo = freezed,
+    Object? firstName = null,
+    Object? lastName = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      photo: freezed == photo
+          ? _value.photo
+          : photo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      firstName: null == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastName: null == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$UserLiteModelImplCopyWith<$Res>
+    implements $UserLiteModelCopyWith<$Res> {
+  factory _$$UserLiteModelImplCopyWith(
+          _$UserLiteModelImpl value, $Res Function(_$UserLiteModelImpl) then) =
+      __$$UserLiteModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: UserLiteModel.idKey) String id,
+      @JsonKey(name: UserLiteModel.photoKey) String? photo,
+      @JsonKey(name: UserLiteModel.firstNameKey) String firstName,
+      @JsonKey(name: UserLiteModel.lastNameKey) String lastName});
+}
+
+/// @nodoc
+class __$$UserLiteModelImplCopyWithImpl<$Res>
+    extends _$UserLiteModelCopyWithImpl<$Res, _$UserLiteModelImpl>
+    implements _$$UserLiteModelImplCopyWith<$Res> {
+  __$$UserLiteModelImplCopyWithImpl(
+      _$UserLiteModelImpl _value, $Res Function(_$UserLiteModelImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? photo = freezed,
+    Object? firstName = null,
+    Object? lastName = null,
+  }) {
+    return _then(_$UserLiteModelImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      photo: freezed == photo
+          ? _value.photo
+          : photo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      firstName: null == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastName: null == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$UserLiteModelImpl extends _UserLiteModel {
+  const _$UserLiteModelImpl(
+      {@JsonKey(name: UserLiteModel.idKey) required this.id,
+      @JsonKey(name: UserLiteModel.photoKey) required this.photo,
+      @JsonKey(name: UserLiteModel.firstNameKey) required this.firstName,
+      @JsonKey(name: UserLiteModel.lastNameKey) required this.lastName})
+      : super._();
+
+  factory _$UserLiteModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserLiteModelImplFromJson(json);
+
+  @override
+  @JsonKey(name: UserLiteModel.idKey)
+  final String id;
+  @override
+  @JsonKey(name: UserLiteModel.photoKey)
+  final String? photo;
+  @override
+  @JsonKey(name: UserLiteModel.firstNameKey)
+  final String firstName;
+  @override
+  @JsonKey(name: UserLiteModel.lastNameKey)
+  final String lastName;
+
+  @override
+  String toString() {
+    return 'UserLiteModel(id: $id, photo: $photo, firstName: $firstName, lastName: $lastName)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UserLiteModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.photo, photo) || other.photo == photo) &&
+            (identical(other.firstName, firstName) ||
+                other.firstName == firstName) &&
+            (identical(other.lastName, lastName) ||
+                other.lastName == lastName));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, photo, firstName, lastName);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UserLiteModelImplCopyWith<_$UserLiteModelImpl> get copyWith =>
+      __$$UserLiteModelImplCopyWithImpl<_$UserLiteModelImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$UserLiteModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _UserLiteModel extends UserLiteModel {
+  const factory _UserLiteModel(
+      {@JsonKey(name: UserLiteModel.idKey) required final String id,
+      @JsonKey(name: UserLiteModel.photoKey) required final String? photo,
+      @JsonKey(name: UserLiteModel.firstNameKey)
+      required final String firstName,
+      @JsonKey(name: UserLiteModel.lastNameKey)
+      required final String lastName}) = _$UserLiteModelImpl;
+  const _UserLiteModel._() : super._();
+
+  factory _UserLiteModel.fromJson(Map<String, dynamic> json) =
+      _$UserLiteModelImpl.fromJson;
+
+  @override
+  @JsonKey(name: UserLiteModel.idKey)
+  String get id;
+  @override
+  @JsonKey(name: UserLiteModel.photoKey)
+  String? get photo;
+  @override
+  @JsonKey(name: UserLiteModel.firstNameKey)
+  String get firstName;
+  @override
+  @JsonKey(name: UserLiteModel.lastNameKey)
+  String get lastName;
+  @override
+  @JsonKey(ignore: true)
+  _$$UserLiteModelImplCopyWith<_$UserLiteModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

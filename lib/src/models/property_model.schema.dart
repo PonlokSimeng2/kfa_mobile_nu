@@ -172,6 +172,11 @@ class PropertyTable {
   /// Key: `view_count`
   static const String viewCount = "view_count";
 
+  /// Column: auto_verbal_added
+  /// Data type: `bool`
+  /// Key: `auto_verbal_added`
+  static const String autoVerbalAdded = "auto_verbal_added";
+
   /// Column: property_type_id
   /// This is a join key for field propertyType.
   /// Data type: `PropertyTypeModel`
@@ -292,6 +297,9 @@ class PropertyModel with _$PropertyModel {
   /// Field name for viewCount field with JsonKey('view_count')
   static const String viewCountKey = "view_count";
 
+  /// Field name for autoVerbalAdded field with JsonKey('auto_verbal_added')
+  static const String autoVerbalAddedKey = "auto_verbal_added";
+
   /// Field name for propertyType field with JsonKey('propertyType')
   /// This is json key for joined field. with foreign key: property_type_id and candidate key: null
   static const String propertyTypeKey = "propertyType";
@@ -344,6 +352,7 @@ class PropertyModel with _$PropertyModel {
   /// - DateTime? rejectedAt : JsonKey('rejected_at')
   /// - String? rejectReason : JsonKey('reject_reason')
   /// - int viewCount : JsonKey('view_count')
+  /// - bool autoVerbalAdded : JsonKey('auto_verbal_added')
   /// - PropertyTypeModel propertyType : JsonKey('propertyType')
   /// - ProvinceModel province : JsonKey('province')
   /// - UserModel? approvedBy : JsonKey('approvedBy')
@@ -381,6 +390,8 @@ class PropertyModel with _$PropertyModel {
     @JsonKey(name: PropertyModel.rejectedAtKey) DateTime? rejectedAt,
     @JsonKey(name: PropertyModel.rejectReasonKey) String? rejectReason,
     @JsonKey(name: PropertyModel.viewCountKey) required int viewCount,
+    @JsonKey(name: PropertyModel.autoVerbalAddedKey)
+    required bool autoVerbalAdded,
     @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
     @JsonKey(name: PropertyModel.propertyTypeKey)
     required PropertyTypeModel propertyType,

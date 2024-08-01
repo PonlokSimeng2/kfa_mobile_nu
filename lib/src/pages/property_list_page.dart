@@ -55,20 +55,25 @@ class __PropertyListPageState extends ConsumerState<_PropertyListPage> {
           _buildFilterButtons(),
           _buildPropertyTypeDropdown(),
           Expanded(
-            child: firstPageCountAsync.when(
-              loading: () => const Center(child: CircularProgressIndicator()),
-              error: (error, stack) => Center(child: Text('Error: $error')),
-              data: (count) {
-                if (count == 0) {
-                  return const Center(
-                    child: Text(
-                      'No properties available',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  );
-                }
-                return const _GridView();
+            child: RefreshIndicator(
+              onRefresh: () async {
+                ref.invalidate(propertyListProvider);
               },
+              child: firstPageCountAsync.when(
+                loading: () => const Center(child: CircularProgressIndicator()),
+                error: (error, stack) => Center(child: Text('Error: $error')),
+                data: (count) {
+                  if (count == 0) {
+                    return const Center(
+                      child: Text(
+                        'No properties available',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    );
+                  }
+                  return const _GridView();
+                },
+              ),
             ),
           ),
         ],

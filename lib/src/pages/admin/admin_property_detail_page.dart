@@ -9,6 +9,7 @@ import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 import '../../models/base.dart';
 import '../../models/property_model.dart';
 import '../../providers/property_provider.dart';
+import '../add_autoverbal_page.dart';
 import '../edit_property_page.dart';
 
 class AdminPropertyDetailPage extends StatefulHookConsumerWidget {
@@ -26,6 +27,8 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
     final status = useState(widget.property.status);
     final redColor = Theme.of(context).colorScheme.error.withOpacity(0.8);
     final isAdmin = ref.watch(isAdminProvider);
+    final autoVerbalAdded = useState(widget.property.autoVerbalAdded);
+    final scrollCtr = useScrollController();
 
     Widget? bottomAppBar;
     if (isAdmin) {
@@ -50,6 +53,7 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
       ),
       bottomNavigationBar: bottomAppBar,
       body: SingleChildScrollView(
+        controller: scrollCtr,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -164,6 +168,24 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                     'Submission Date: ${widget.property.createdAt.toLocal().toString().split(' ')[0]}',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
+                  if (isCurrentUserOwner &&
+                      status.value == PropertyAndAutoVerbalStatus.approved) ...[
+                    if (!autoVerbalAdded.value)
+                      TextButton.icon(
+                        icon: const Icon(Icons.add),
+                        label: const Text('Add to AutoVerbal'),
+                        onPressed: () async {
+                          final result = await context
+                              .push((_) => AddAutoVerbalPage(propertyModel: widget.property));
+                          if (result == true) {
+                            autoVerbalAdded.value = true;
+                            scrollCtr.jumpTo(0);
+                          }
+                        },
+                      )
+                    else
+                      Text('(Added to AutoVerbal)', style: Theme.of(context).textTheme.labelSmall),
+                  ],
                   const SizedBox(height: 24),
                   if (isCurrentUserOwner) ...[
                     Row(

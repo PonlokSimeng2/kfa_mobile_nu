@@ -8,12 +8,14 @@ import 'package:kfa_mobile_nu/src/models/base.dart';
 import 'package:kfa_mobile_nu/src/models/property_type_model.schema.dart';
 import 'package:kfa_mobile_nu/src/models/province_model.schema.dart';
 import 'package:kfa_mobile_nu/src/models/road_model.dart';
+import 'package:kfa_mobile_nu/src/models/user_model.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/report_provider.dart';
 import 'package:path/path.dart' as p;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../exports.dart';
+import '../models/property_model.dart';
 
 part 'auto_verbal_provider.freezed.dart';
 part 'auto_verbal_provider.g.dart';
@@ -131,31 +133,34 @@ class InsertAutoVerbalState
   const InsertAutoVerbalState._();
 
   const factory InsertAutoVerbalState({
+    // only useful when copy from property
+    @Default(IList.empty()) IList<String> existingImageUrls,
+    int? propertyId,
     required IList<XFile> imageFiles,
     required PropertyTypeModel? propertyType,
     required ProvinceModel? province,
     required BankModel? bank,
-    required String bankBranch,
-    required String ownerName,
-    required String ownerPhone,
-    required String bankOfficerName,
-    required String bankOfficerPhone,
-    required double minValue,
-    required double maxValue,
-    required double minValueSqm,
-    required double maxValueSqm,
-    required double latitude,
-    required double longitude,
-    required double area,
-    required double buildinglength,
-    required double buildingwidth,
-    required double landlength,
-    required double landwidth,
+    required String? bankBranch,
+    required String? ownerName,
+    required String? ownerPhone,
+    required String? bankOfficerName,
+    required String? bankOfficerPhone,
+    required double? minValue,
+    required double? maxValue,
+    required double? minValueSqm,
+    required double? maxValueSqm,
+    required double? latitude,
+    required double? longitude,
+    required double? area,
+    required double? buildinglength,
+    required double? buildingwidth,
+    required double? landlength,
+    required double? landwidth,
     required RoadModel? road,
-    required int bed,
-    required int bath,
-    required int livingroom,
-    required int floor,
+    required int? bed,
+    required int? bath,
+    required int? livingroom,
+    required int? floor,
     @Default(ProviderStatus.initial()) ProviderStatus<void> status,
   }) = _InsertAutoVerbalState;
   @override
@@ -168,48 +173,88 @@ class InsertAutoVerbalState
 @riverpod
 class InsertAutoVerbal extends _$InsertAutoVerbal with _$InsertAutoVerbalForm {
   @override
-  InsertAutoVerbalState build() => InsertAutoVerbalState(
-        imageFiles: IList(),
-        propertyType: null,
-        province: null,
-        bank: null,
-        bankBranch: '',
-        latitude: 11.5564,
-        longitude: 104.9282,
-        ownerName: '',
-        ownerPhone: '',
-        minValue: 0,
-        maxValue: 0,
-        minValueSqm: 0,
-        maxValueSqm: 0,
-        bankOfficerName: '',
-        bankOfficerPhone: '',
-        area: 0,
-        buildinglength: 0,
-        buildingwidth: 0,
-        landlength: 0,
-        landwidth: 0,
-        road: null,
-        bed: 0,
-        bath: 0,
-        livingroom: 0,
-        floor: 0,
-      );
+  InsertAutoVerbalState build({PropertyModel? fromProperty}) {
+    if (fromProperty != null) {
+      return bindFromProperty(fromProperty);
+    }
+
+    return InsertAutoVerbalState(
+      imageFiles: IList(),
+      propertyType: null,
+      province: null,
+      bank: null,
+      bankBranch: null,
+      latitude: null,
+      longitude: null,
+      ownerName: null,
+      ownerPhone: null,
+      minValue: null,
+      maxValue: null,
+      minValueSqm: null,
+      maxValueSqm: null,
+      bankOfficerName: null,
+      bankOfficerPhone: null,
+      area: null,
+      buildinglength: null,
+      buildingwidth: null,
+      landlength: null,
+      landwidth: null,
+      road: null,
+      bed: null,
+      bath: null,
+      livingroom: null,
+      floor: null,
+    );
+  }
+
+  InsertAutoVerbalState bindFromProperty(PropertyModel property) {
+    return InsertAutoVerbalState(
+      propertyId: property.id,
+      imageFiles: const IList.empty(),
+      existingImageUrls: property.images.toIList(),
+      propertyType: property.propertyType,
+      province: property.province,
+      ownerName: property.user.fullName,
+      ownerPhone: property.user.phone,
+      bankOfficerName: null,
+      bankOfficerPhone: null,
+      minValue: property.price,
+      maxValue: property.price,
+      minValueSqm: property.pricePerSqm,
+      maxValueSqm: property.pricePerSqm,
+      latitude: property.latitude,
+      longitude: property.longitude,
+      area: property.sqm,
+      buildinglength: property.houseLength,
+      buildingwidth: property.houseWidth,
+      landlength: property.landLength,
+      landwidth: property.landWidth,
+      bed: property.bedrooms,
+      bath: property.bathrooms,
+      livingroom: property.livingRooms,
+      floor: property.floors,
+      bank: null,
+      bankBranch: null,
+      road: null,
+    );
+  }
 
   Future<ProviderStatus<void>> call() async {
     return await perform<void>(
       (state) async {
-        if (state.imageFiles.isEmpty) throw 'At least one image is required';
+        if (state.imageFiles.isEmpty && state.existingImageUrls.isEmpty) {
+          throw 'At least one image is required';
+        }
         final userId = ref.watch(authProvider);
         if (userId == null) throw 'User must be login';
         if (state.province == null) throw 'Province is required';
         if (state.propertyType == null) throw 'Property type is required';
-        if (state.ownerName.isEmpty) throw 'Owner name is required';
-        if (state.ownerPhone.isEmpty) throw 'Owner phone is required';
+        if (state.ownerName.isNullOrBlank == true) throw 'Owner name is required';
+        if (state.ownerPhone.isNullOrBlank == true) throw 'Owner phone is required';
 
         final sb = ref.watch(supabaseProvider).client;
 
-        final imageUrls = await Future.wait(
+        final newImageUrls = await Future.wait(
           state.imageFiles.map((imageFile) async {
             final path = imageFile.path;
             final file = File(path);
@@ -220,24 +265,26 @@ class InsertAutoVerbal extends _$InsertAutoVerbal with _$InsertAutoVerbalForm {
           }),
         );
 
+        final imageUrls = [...state.existingImageUrls, ...newImageUrls];
+
         final jsonData = CreateAutoVerbalParam(
           image: imageUrls,
           bankBranch: state.bankBranch,
-          latitude: state.latitude,
-          longitude: state.longitude,
-          ownerName: state.ownerName,
-          ownerPhone: state.ownerPhone,
+          latitude: state.latitude!,
+          longitude: state.longitude!,
+          ownerName: state.ownerName!,
+          ownerPhone: state.ownerPhone!,
           bankOfficerName: state.bankOfficerName,
           bankOfficerPhone: state.bankOfficerPhone,
-          minValue: state.minValue,
-          maxValue: state.maxValue,
-          minValueSqm: state.minValueSqm,
-          maxValueSqm: state.maxValueSqm,
-          area: state.area,
+          minValue: state.minValue!,
+          maxValue: state.maxValue!,
+          minValueSqm: state.minValueSqm!,
+          maxValueSqm: state.maxValueSqm!,
+          area: state.area!,
           buildinglength: state.buildinglength,
           buildingwidth: state.buildingwidth,
-          landlength: state.landlength,
-          landwidth: state.landwidth,
+          landlength: state.landlength!,
+          landwidth: state.landwidth!,
           bed: state.bed,
           bath: state.bath,
           livingroom: state.livingroom,
@@ -251,6 +298,13 @@ class InsertAutoVerbal extends _$InsertAutoVerbal with _$InsertAutoVerbalForm {
 
         try {
           await sb.from(AutoVerbalModel.table.tableName).insert(jsonData);
+
+          // mark property as auto verbal added
+          if (state.propertyId != null) {
+            await sb.from(PropertyModel.table.tableName).update({
+              PropertyTable.autoVerbalAdded: true,
+            }).eq('id', state.propertyId!);
+          }
         } catch (e) {
           await Future.wait(
             imageUrls.map((url) {

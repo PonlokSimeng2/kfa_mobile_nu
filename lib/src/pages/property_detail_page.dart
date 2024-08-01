@@ -8,6 +8,7 @@ import 'package:readmore/readmore.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../exports.dart';
 import '../models/property_comment_model.dart';
@@ -358,7 +359,9 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
           ListTile(
             leading: const Icon(Icons.phone),
             title: Text(widget.data.user.phone),
-            // onTap: () => _makePhoneCall('tel:${widget.data.user.phone}'),
+            onTap: () async {
+              launchUrl(Uri.parse('tel:${widget.data.user.phone}'));
+            },
           ),
         ],
       ),

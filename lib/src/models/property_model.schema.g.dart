@@ -45,6 +45,7 @@ _$PropertyModelImpl _$$PropertyModelImplFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['rejected_at'] as String),
       rejectReason: json['reject_reason'] as String?,
       viewCount: (json['view_count'] as num).toInt(),
+      autoVerbalAdded: json['auto_verbal_added'] as bool,
       propertyType: PropertyTypeModel.fromJson(
           json['propertyType'] as Map<String, dynamic>),
       province:
@@ -86,6 +87,7 @@ Map<String, dynamic> _$$PropertyModelImplToJson(_$PropertyModelImpl instance) =>
       'rejected_at': instance.rejectedAt?.toIso8601String(),
       'reject_reason': instance.rejectReason,
       'view_count': instance.viewCount,
+      'auto_verbal_added': instance.autoVerbalAdded,
       'propertyType': instance.propertyType.toJson(),
       'province': instance.province.toJson(),
       'approvedBy': instance.approvedBy?.toJson(),
@@ -250,6 +252,7 @@ const _tablePropertyModel = TableBuilder(
     ColumnBuilder('rejected_at'),
     ColumnBuilder('reject_reason'),
     ColumnBuilder('view_count'),
+    ColumnBuilder('auto_verbal_added'),
     ColumnBuilder.join(PropertyTypeModel.table,
         key: "propertyType",
         candidateKey: null,

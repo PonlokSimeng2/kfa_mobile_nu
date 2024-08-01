@@ -576,31 +576,34 @@ abstract class _AutoVerbalListFilter extends AutoVerbalListFilter {
 
 /// @nodoc
 mixin _$InsertAutoVerbalState {
+// only useful when copy from property
+  IList<String> get existingImageUrls => throw _privateConstructorUsedError;
+  int? get propertyId => throw _privateConstructorUsedError;
   IList<XFile> get imageFiles => throw _privateConstructorUsedError;
   PropertyTypeModel? get propertyType => throw _privateConstructorUsedError;
   ProvinceModel? get province => throw _privateConstructorUsedError;
   BankModel? get bank => throw _privateConstructorUsedError;
-  String get bankBranch => throw _privateConstructorUsedError;
-  String get ownerName => throw _privateConstructorUsedError;
-  String get ownerPhone => throw _privateConstructorUsedError;
-  String get bankOfficerName => throw _privateConstructorUsedError;
-  String get bankOfficerPhone => throw _privateConstructorUsedError;
-  double get minValue => throw _privateConstructorUsedError;
-  double get maxValue => throw _privateConstructorUsedError;
-  double get minValueSqm => throw _privateConstructorUsedError;
-  double get maxValueSqm => throw _privateConstructorUsedError;
-  double get latitude => throw _privateConstructorUsedError;
-  double get longitude => throw _privateConstructorUsedError;
-  double get area => throw _privateConstructorUsedError;
-  double get buildinglength => throw _privateConstructorUsedError;
-  double get buildingwidth => throw _privateConstructorUsedError;
-  double get landlength => throw _privateConstructorUsedError;
-  double get landwidth => throw _privateConstructorUsedError;
+  String? get bankBranch => throw _privateConstructorUsedError;
+  String? get ownerName => throw _privateConstructorUsedError;
+  String? get ownerPhone => throw _privateConstructorUsedError;
+  String? get bankOfficerName => throw _privateConstructorUsedError;
+  String? get bankOfficerPhone => throw _privateConstructorUsedError;
+  double? get minValue => throw _privateConstructorUsedError;
+  double? get maxValue => throw _privateConstructorUsedError;
+  double? get minValueSqm => throw _privateConstructorUsedError;
+  double? get maxValueSqm => throw _privateConstructorUsedError;
+  double? get latitude => throw _privateConstructorUsedError;
+  double? get longitude => throw _privateConstructorUsedError;
+  double? get area => throw _privateConstructorUsedError;
+  double? get buildinglength => throw _privateConstructorUsedError;
+  double? get buildingwidth => throw _privateConstructorUsedError;
+  double? get landlength => throw _privateConstructorUsedError;
+  double? get landwidth => throw _privateConstructorUsedError;
   RoadModel? get road => throw _privateConstructorUsedError;
-  int get bed => throw _privateConstructorUsedError;
-  int get bath => throw _privateConstructorUsedError;
-  int get livingroom => throw _privateConstructorUsedError;
-  int get floor => throw _privateConstructorUsedError;
+  int? get bed => throw _privateConstructorUsedError;
+  int? get bath => throw _privateConstructorUsedError;
+  int? get livingroom => throw _privateConstructorUsedError;
+  int? get floor => throw _privateConstructorUsedError;
   ProviderStatus<void> get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -615,31 +618,33 @@ abstract class $InsertAutoVerbalStateCopyWith<$Res> {
       _$InsertAutoVerbalStateCopyWithImpl<$Res, InsertAutoVerbalState>;
   @useResult
   $Res call(
-      {IList<XFile> imageFiles,
+      {IList<String> existingImageUrls,
+      int? propertyId,
+      IList<XFile> imageFiles,
       PropertyTypeModel? propertyType,
       ProvinceModel? province,
       BankModel? bank,
-      String bankBranch,
-      String ownerName,
-      String ownerPhone,
-      String bankOfficerName,
-      String bankOfficerPhone,
-      double minValue,
-      double maxValue,
-      double minValueSqm,
-      double maxValueSqm,
-      double latitude,
-      double longitude,
-      double area,
-      double buildinglength,
-      double buildingwidth,
-      double landlength,
-      double landwidth,
+      String? bankBranch,
+      String? ownerName,
+      String? ownerPhone,
+      String? bankOfficerName,
+      String? bankOfficerPhone,
+      double? minValue,
+      double? maxValue,
+      double? minValueSqm,
+      double? maxValueSqm,
+      double? latitude,
+      double? longitude,
+      double? area,
+      double? buildinglength,
+      double? buildingwidth,
+      double? landlength,
+      double? landwidth,
       RoadModel? road,
-      int bed,
-      int bath,
-      int livingroom,
-      int floor,
+      int? bed,
+      int? bath,
+      int? livingroom,
+      int? floor,
       ProviderStatus<void> status});
 
   $PropertyTypeModelCopyWith<$Res>? get propertyType;
@@ -663,34 +668,44 @@ class _$InsertAutoVerbalStateCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? existingImageUrls = null,
+    Object? propertyId = freezed,
     Object? imageFiles = null,
     Object? propertyType = freezed,
     Object? province = freezed,
     Object? bank = freezed,
-    Object? bankBranch = null,
-    Object? ownerName = null,
-    Object? ownerPhone = null,
-    Object? bankOfficerName = null,
-    Object? bankOfficerPhone = null,
-    Object? minValue = null,
-    Object? maxValue = null,
-    Object? minValueSqm = null,
-    Object? maxValueSqm = null,
-    Object? latitude = null,
-    Object? longitude = null,
-    Object? area = null,
-    Object? buildinglength = null,
-    Object? buildingwidth = null,
-    Object? landlength = null,
-    Object? landwidth = null,
+    Object? bankBranch = freezed,
+    Object? ownerName = freezed,
+    Object? ownerPhone = freezed,
+    Object? bankOfficerName = freezed,
+    Object? bankOfficerPhone = freezed,
+    Object? minValue = freezed,
+    Object? maxValue = freezed,
+    Object? minValueSqm = freezed,
+    Object? maxValueSqm = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
+    Object? area = freezed,
+    Object? buildinglength = freezed,
+    Object? buildingwidth = freezed,
+    Object? landlength = freezed,
+    Object? landwidth = freezed,
     Object? road = freezed,
-    Object? bed = null,
-    Object? bath = null,
-    Object? livingroom = null,
-    Object? floor = null,
+    Object? bed = freezed,
+    Object? bath = freezed,
+    Object? livingroom = freezed,
+    Object? floor = freezed,
     Object? status = null,
   }) {
     return _then(_value.copyWith(
+      existingImageUrls: null == existingImageUrls
+          ? _value.existingImageUrls
+          : existingImageUrls // ignore: cast_nullable_to_non_nullable
+              as IList<String>,
+      propertyId: freezed == propertyId
+          ? _value.propertyId
+          : propertyId // ignore: cast_nullable_to_non_nullable
+              as int?,
       imageFiles: null == imageFiles
           ? _value.imageFiles
           : imageFiles // ignore: cast_nullable_to_non_nullable
@@ -707,90 +722,90 @@ class _$InsertAutoVerbalStateCopyWithImpl<$Res,
           ? _value.bank
           : bank // ignore: cast_nullable_to_non_nullable
               as BankModel?,
-      bankBranch: null == bankBranch
+      bankBranch: freezed == bankBranch
           ? _value.bankBranch
           : bankBranch // ignore: cast_nullable_to_non_nullable
-              as String,
-      ownerName: null == ownerName
+              as String?,
+      ownerName: freezed == ownerName
           ? _value.ownerName
           : ownerName // ignore: cast_nullable_to_non_nullable
-              as String,
-      ownerPhone: null == ownerPhone
+              as String?,
+      ownerPhone: freezed == ownerPhone
           ? _value.ownerPhone
           : ownerPhone // ignore: cast_nullable_to_non_nullable
-              as String,
-      bankOfficerName: null == bankOfficerName
+              as String?,
+      bankOfficerName: freezed == bankOfficerName
           ? _value.bankOfficerName
           : bankOfficerName // ignore: cast_nullable_to_non_nullable
-              as String,
-      bankOfficerPhone: null == bankOfficerPhone
+              as String?,
+      bankOfficerPhone: freezed == bankOfficerPhone
           ? _value.bankOfficerPhone
           : bankOfficerPhone // ignore: cast_nullable_to_non_nullable
-              as String,
-      minValue: null == minValue
+              as String?,
+      minValue: freezed == minValue
           ? _value.minValue
           : minValue // ignore: cast_nullable_to_non_nullable
-              as double,
-      maxValue: null == maxValue
+              as double?,
+      maxValue: freezed == maxValue
           ? _value.maxValue
           : maxValue // ignore: cast_nullable_to_non_nullable
-              as double,
-      minValueSqm: null == minValueSqm
+              as double?,
+      minValueSqm: freezed == minValueSqm
           ? _value.minValueSqm
           : minValueSqm // ignore: cast_nullable_to_non_nullable
-              as double,
-      maxValueSqm: null == maxValueSqm
+              as double?,
+      maxValueSqm: freezed == maxValueSqm
           ? _value.maxValueSqm
           : maxValueSqm // ignore: cast_nullable_to_non_nullable
-              as double,
-      latitude: null == latitude
+              as double?,
+      latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      longitude: null == longitude
+              as double?,
+      longitude: freezed == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      area: null == area
+              as double?,
+      area: freezed == area
           ? _value.area
           : area // ignore: cast_nullable_to_non_nullable
-              as double,
-      buildinglength: null == buildinglength
+              as double?,
+      buildinglength: freezed == buildinglength
           ? _value.buildinglength
           : buildinglength // ignore: cast_nullable_to_non_nullable
-              as double,
-      buildingwidth: null == buildingwidth
+              as double?,
+      buildingwidth: freezed == buildingwidth
           ? _value.buildingwidth
           : buildingwidth // ignore: cast_nullable_to_non_nullable
-              as double,
-      landlength: null == landlength
+              as double?,
+      landlength: freezed == landlength
           ? _value.landlength
           : landlength // ignore: cast_nullable_to_non_nullable
-              as double,
-      landwidth: null == landwidth
+              as double?,
+      landwidth: freezed == landwidth
           ? _value.landwidth
           : landwidth // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       road: freezed == road
           ? _value.road
           : road // ignore: cast_nullable_to_non_nullable
               as RoadModel?,
-      bed: null == bed
+      bed: freezed == bed
           ? _value.bed
           : bed // ignore: cast_nullable_to_non_nullable
-              as int,
-      bath: null == bath
+              as int?,
+      bath: freezed == bath
           ? _value.bath
           : bath // ignore: cast_nullable_to_non_nullable
-              as int,
-      livingroom: null == livingroom
+              as int?,
+      livingroom: freezed == livingroom
           ? _value.livingroom
           : livingroom // ignore: cast_nullable_to_non_nullable
-              as int,
-      floor: null == floor
+              as int?,
+      floor: freezed == floor
           ? _value.floor
           : floor // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -865,31 +880,33 @@ abstract class _$$InsertAutoVerbalStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {IList<XFile> imageFiles,
+      {IList<String> existingImageUrls,
+      int? propertyId,
+      IList<XFile> imageFiles,
       PropertyTypeModel? propertyType,
       ProvinceModel? province,
       BankModel? bank,
-      String bankBranch,
-      String ownerName,
-      String ownerPhone,
-      String bankOfficerName,
-      String bankOfficerPhone,
-      double minValue,
-      double maxValue,
-      double minValueSqm,
-      double maxValueSqm,
-      double latitude,
-      double longitude,
-      double area,
-      double buildinglength,
-      double buildingwidth,
-      double landlength,
-      double landwidth,
+      String? bankBranch,
+      String? ownerName,
+      String? ownerPhone,
+      String? bankOfficerName,
+      String? bankOfficerPhone,
+      double? minValue,
+      double? maxValue,
+      double? minValueSqm,
+      double? maxValueSqm,
+      double? latitude,
+      double? longitude,
+      double? area,
+      double? buildinglength,
+      double? buildingwidth,
+      double? landlength,
+      double? landwidth,
       RoadModel? road,
-      int bed,
-      int bath,
-      int livingroom,
-      int floor,
+      int? bed,
+      int? bath,
+      int? livingroom,
+      int? floor,
       ProviderStatus<void> status});
 
   @override
@@ -916,34 +933,44 @@ class __$$InsertAutoVerbalStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? existingImageUrls = null,
+    Object? propertyId = freezed,
     Object? imageFiles = null,
     Object? propertyType = freezed,
     Object? province = freezed,
     Object? bank = freezed,
-    Object? bankBranch = null,
-    Object? ownerName = null,
-    Object? ownerPhone = null,
-    Object? bankOfficerName = null,
-    Object? bankOfficerPhone = null,
-    Object? minValue = null,
-    Object? maxValue = null,
-    Object? minValueSqm = null,
-    Object? maxValueSqm = null,
-    Object? latitude = null,
-    Object? longitude = null,
-    Object? area = null,
-    Object? buildinglength = null,
-    Object? buildingwidth = null,
-    Object? landlength = null,
-    Object? landwidth = null,
+    Object? bankBranch = freezed,
+    Object? ownerName = freezed,
+    Object? ownerPhone = freezed,
+    Object? bankOfficerName = freezed,
+    Object? bankOfficerPhone = freezed,
+    Object? minValue = freezed,
+    Object? maxValue = freezed,
+    Object? minValueSqm = freezed,
+    Object? maxValueSqm = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
+    Object? area = freezed,
+    Object? buildinglength = freezed,
+    Object? buildingwidth = freezed,
+    Object? landlength = freezed,
+    Object? landwidth = freezed,
     Object? road = freezed,
-    Object? bed = null,
-    Object? bath = null,
-    Object? livingroom = null,
-    Object? floor = null,
+    Object? bed = freezed,
+    Object? bath = freezed,
+    Object? livingroom = freezed,
+    Object? floor = freezed,
     Object? status = null,
   }) {
     return _then(_$InsertAutoVerbalStateImpl(
+      existingImageUrls: null == existingImageUrls
+          ? _value.existingImageUrls
+          : existingImageUrls // ignore: cast_nullable_to_non_nullable
+              as IList<String>,
+      propertyId: freezed == propertyId
+          ? _value.propertyId
+          : propertyId // ignore: cast_nullable_to_non_nullable
+              as int?,
       imageFiles: null == imageFiles
           ? _value.imageFiles
           : imageFiles // ignore: cast_nullable_to_non_nullable
@@ -960,90 +987,90 @@ class __$$InsertAutoVerbalStateImplCopyWithImpl<$Res>
           ? _value.bank
           : bank // ignore: cast_nullable_to_non_nullable
               as BankModel?,
-      bankBranch: null == bankBranch
+      bankBranch: freezed == bankBranch
           ? _value.bankBranch
           : bankBranch // ignore: cast_nullable_to_non_nullable
-              as String,
-      ownerName: null == ownerName
+              as String?,
+      ownerName: freezed == ownerName
           ? _value.ownerName
           : ownerName // ignore: cast_nullable_to_non_nullable
-              as String,
-      ownerPhone: null == ownerPhone
+              as String?,
+      ownerPhone: freezed == ownerPhone
           ? _value.ownerPhone
           : ownerPhone // ignore: cast_nullable_to_non_nullable
-              as String,
-      bankOfficerName: null == bankOfficerName
+              as String?,
+      bankOfficerName: freezed == bankOfficerName
           ? _value.bankOfficerName
           : bankOfficerName // ignore: cast_nullable_to_non_nullable
-              as String,
-      bankOfficerPhone: null == bankOfficerPhone
+              as String?,
+      bankOfficerPhone: freezed == bankOfficerPhone
           ? _value.bankOfficerPhone
           : bankOfficerPhone // ignore: cast_nullable_to_non_nullable
-              as String,
-      minValue: null == minValue
+              as String?,
+      minValue: freezed == minValue
           ? _value.minValue
           : minValue // ignore: cast_nullable_to_non_nullable
-              as double,
-      maxValue: null == maxValue
+              as double?,
+      maxValue: freezed == maxValue
           ? _value.maxValue
           : maxValue // ignore: cast_nullable_to_non_nullable
-              as double,
-      minValueSqm: null == minValueSqm
+              as double?,
+      minValueSqm: freezed == minValueSqm
           ? _value.minValueSqm
           : minValueSqm // ignore: cast_nullable_to_non_nullable
-              as double,
-      maxValueSqm: null == maxValueSqm
+              as double?,
+      maxValueSqm: freezed == maxValueSqm
           ? _value.maxValueSqm
           : maxValueSqm // ignore: cast_nullable_to_non_nullable
-              as double,
-      latitude: null == latitude
+              as double?,
+      latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      longitude: null == longitude
+              as double?,
+      longitude: freezed == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      area: null == area
+              as double?,
+      area: freezed == area
           ? _value.area
           : area // ignore: cast_nullable_to_non_nullable
-              as double,
-      buildinglength: null == buildinglength
+              as double?,
+      buildinglength: freezed == buildinglength
           ? _value.buildinglength
           : buildinglength // ignore: cast_nullable_to_non_nullable
-              as double,
-      buildingwidth: null == buildingwidth
+              as double?,
+      buildingwidth: freezed == buildingwidth
           ? _value.buildingwidth
           : buildingwidth // ignore: cast_nullable_to_non_nullable
-              as double,
-      landlength: null == landlength
+              as double?,
+      landlength: freezed == landlength
           ? _value.landlength
           : landlength // ignore: cast_nullable_to_non_nullable
-              as double,
-      landwidth: null == landwidth
+              as double?,
+      landwidth: freezed == landwidth
           ? _value.landwidth
           : landwidth // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       road: freezed == road
           ? _value.road
           : road // ignore: cast_nullable_to_non_nullable
               as RoadModel?,
-      bed: null == bed
+      bed: freezed == bed
           ? _value.bed
           : bed // ignore: cast_nullable_to_non_nullable
-              as int,
-      bath: null == bath
+              as int?,
+      bath: freezed == bath
           ? _value.bath
           : bath // ignore: cast_nullable_to_non_nullable
-              as int,
-      livingroom: null == livingroom
+              as int?,
+      livingroom: freezed == livingroom
           ? _value.livingroom
           : livingroom // ignore: cast_nullable_to_non_nullable
-              as int,
-      floor: null == floor
+              as int?,
+      floor: freezed == floor
           ? _value.floor
           : floor // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -1056,7 +1083,9 @@ class __$$InsertAutoVerbalStateImplCopyWithImpl<$Res>
 
 class _$InsertAutoVerbalStateImpl extends _InsertAutoVerbalState {
   const _$InsertAutoVerbalStateImpl(
-      {required this.imageFiles,
+      {this.existingImageUrls = const IList.empty(),
+      this.propertyId,
+      required this.imageFiles,
       required this.propertyType,
       required this.province,
       required this.bank,
@@ -1084,6 +1113,12 @@ class _$InsertAutoVerbalStateImpl extends _InsertAutoVerbalState {
       this.status = const ProviderStatus.initial()})
       : super._();
 
+// only useful when copy from property
+  @override
+  @JsonKey()
+  final IList<String> existingImageUrls;
+  @override
+  final int? propertyId;
   @override
   final IList<XFile> imageFiles;
   @override
@@ -1093,54 +1128,54 @@ class _$InsertAutoVerbalStateImpl extends _InsertAutoVerbalState {
   @override
   final BankModel? bank;
   @override
-  final String bankBranch;
+  final String? bankBranch;
   @override
-  final String ownerName;
+  final String? ownerName;
   @override
-  final String ownerPhone;
+  final String? ownerPhone;
   @override
-  final String bankOfficerName;
+  final String? bankOfficerName;
   @override
-  final String bankOfficerPhone;
+  final String? bankOfficerPhone;
   @override
-  final double minValue;
+  final double? minValue;
   @override
-  final double maxValue;
+  final double? maxValue;
   @override
-  final double minValueSqm;
+  final double? minValueSqm;
   @override
-  final double maxValueSqm;
+  final double? maxValueSqm;
   @override
-  final double latitude;
+  final double? latitude;
   @override
-  final double longitude;
+  final double? longitude;
   @override
-  final double area;
+  final double? area;
   @override
-  final double buildinglength;
+  final double? buildinglength;
   @override
-  final double buildingwidth;
+  final double? buildingwidth;
   @override
-  final double landlength;
+  final double? landlength;
   @override
-  final double landwidth;
+  final double? landwidth;
   @override
   final RoadModel? road;
   @override
-  final int bed;
+  final int? bed;
   @override
-  final int bath;
+  final int? bath;
   @override
-  final int livingroom;
+  final int? livingroom;
   @override
-  final int floor;
+  final int? floor;
   @override
   @JsonKey()
   final ProviderStatus<void> status;
 
   @override
   String toString() {
-    return 'InsertAutoVerbalState(imageFiles: $imageFiles, propertyType: $propertyType, province: $province, bank: $bank, bankBranch: $bankBranch, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, latitude: $latitude, longitude: $longitude, area: $area, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, road: $road, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, status: $status)';
+    return 'InsertAutoVerbalState(existingImageUrls: $existingImageUrls, propertyId: $propertyId, imageFiles: $imageFiles, propertyType: $propertyType, province: $province, bank: $bank, bankBranch: $bankBranch, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, latitude: $latitude, longitude: $longitude, area: $area, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, road: $road, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, status: $status)';
   }
 
   @override
@@ -1148,6 +1183,10 @@ class _$InsertAutoVerbalStateImpl extends _InsertAutoVerbalState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InsertAutoVerbalStateImpl &&
+            const DeepCollectionEquality()
+                .equals(other.existingImageUrls, existingImageUrls) &&
+            (identical(other.propertyId, propertyId) ||
+                other.propertyId == propertyId) &&
             const DeepCollectionEquality()
                 .equals(other.imageFiles, imageFiles) &&
             (identical(other.propertyType, propertyType) ||
@@ -1198,6 +1237,8 @@ class _$InsertAutoVerbalStateImpl extends _InsertAutoVerbalState {
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
+        const DeepCollectionEquality().hash(existingImageUrls),
+        propertyId,
         const DeepCollectionEquality().hash(imageFiles),
         propertyType,
         province,
@@ -1236,34 +1277,40 @@ class _$InsertAutoVerbalStateImpl extends _InsertAutoVerbalState {
 
 abstract class _InsertAutoVerbalState extends InsertAutoVerbalState {
   const factory _InsertAutoVerbalState(
-      {required final IList<XFile> imageFiles,
+      {final IList<String> existingImageUrls,
+      final int? propertyId,
+      required final IList<XFile> imageFiles,
       required final PropertyTypeModel? propertyType,
       required final ProvinceModel? province,
       required final BankModel? bank,
-      required final String bankBranch,
-      required final String ownerName,
-      required final String ownerPhone,
-      required final String bankOfficerName,
-      required final String bankOfficerPhone,
-      required final double minValue,
-      required final double maxValue,
-      required final double minValueSqm,
-      required final double maxValueSqm,
-      required final double latitude,
-      required final double longitude,
-      required final double area,
-      required final double buildinglength,
-      required final double buildingwidth,
-      required final double landlength,
-      required final double landwidth,
+      required final String? bankBranch,
+      required final String? ownerName,
+      required final String? ownerPhone,
+      required final String? bankOfficerName,
+      required final String? bankOfficerPhone,
+      required final double? minValue,
+      required final double? maxValue,
+      required final double? minValueSqm,
+      required final double? maxValueSqm,
+      required final double? latitude,
+      required final double? longitude,
+      required final double? area,
+      required final double? buildinglength,
+      required final double? buildingwidth,
+      required final double? landlength,
+      required final double? landwidth,
       required final RoadModel? road,
-      required final int bed,
-      required final int bath,
-      required final int livingroom,
-      required final int floor,
+      required final int? bed,
+      required final int? bath,
+      required final int? livingroom,
+      required final int? floor,
       final ProviderStatus<void> status}) = _$InsertAutoVerbalStateImpl;
   const _InsertAutoVerbalState._() : super._();
 
+  @override // only useful when copy from property
+  IList<String> get existingImageUrls;
+  @override
+  int? get propertyId;
   @override
   IList<XFile> get imageFiles;
   @override
@@ -1273,47 +1320,47 @@ abstract class _InsertAutoVerbalState extends InsertAutoVerbalState {
   @override
   BankModel? get bank;
   @override
-  String get bankBranch;
+  String? get bankBranch;
   @override
-  String get ownerName;
+  String? get ownerName;
   @override
-  String get ownerPhone;
+  String? get ownerPhone;
   @override
-  String get bankOfficerName;
+  String? get bankOfficerName;
   @override
-  String get bankOfficerPhone;
+  String? get bankOfficerPhone;
   @override
-  double get minValue;
+  double? get minValue;
   @override
-  double get maxValue;
+  double? get maxValue;
   @override
-  double get minValueSqm;
+  double? get minValueSqm;
   @override
-  double get maxValueSqm;
+  double? get maxValueSqm;
   @override
-  double get latitude;
+  double? get latitude;
   @override
-  double get longitude;
+  double? get longitude;
   @override
-  double get area;
+  double? get area;
   @override
-  double get buildinglength;
+  double? get buildinglength;
   @override
-  double get buildingwidth;
+  double? get buildingwidth;
   @override
-  double get landlength;
+  double? get landlength;
   @override
-  double get landwidth;
+  double? get landwidth;
   @override
   RoadModel? get road;
   @override
-  int get bed;
+  int? get bed;
   @override
-  int get bath;
+  int? get bath;
   @override
-  int get livingroom;
+  int? get livingroom;
   @override
-  int get floor;
+  int? get floor;
   @override
   ProviderStatus<void> get status;
   @override

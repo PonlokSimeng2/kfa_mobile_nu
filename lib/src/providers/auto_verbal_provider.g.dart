@@ -10,6 +10,10 @@ part of 'auto_verbal_provider.dart';
 
 /// Mixin use for update properties. You will need to add this mixin to provider in order to make it work
 mixin _$InsertAutoVerbalForm on _$InsertAutoVerbal {
+  void onExistingImageUrlsChanged(IList<String> newExistingImageUrls) =>
+      state = state.copyWith(existingImageUrls: newExistingImageUrls);
+  void onPropertyIdChanged(int? newPropertyId) =>
+      state = state.copyWith(propertyId: newPropertyId);
   void onImageFilesChanged(IList<XFile> newImageFiles) =>
       state = state.copyWith(imageFiles: newImageFiles);
   void onPropertyTypeChanged(PropertyTypeModel? newPropertyType) =>
@@ -18,44 +22,60 @@ mixin _$InsertAutoVerbalForm on _$InsertAutoVerbal {
       state = state.copyWith(province: newProvince);
   void onBankChanged(BankModel? newBank) =>
       state = state.copyWith(bank: newBank);
-  void onBankBranchChanged(String newBankBranch) =>
+  void onBankBranchChanged(String? newBankBranch) =>
       state = state.copyWith(bankBranch: newBankBranch);
-  void onOwnerNameChanged(String newOwnerName) =>
+  void onOwnerNameChanged(String? newOwnerName) =>
       state = state.copyWith(ownerName: newOwnerName);
-  void onOwnerPhoneChanged(String newOwnerPhone) =>
+  void onOwnerPhoneChanged(String? newOwnerPhone) =>
       state = state.copyWith(ownerPhone: newOwnerPhone);
-  void onBankOfficerNameChanged(String newBankOfficerName) =>
+  void onBankOfficerNameChanged(String? newBankOfficerName) =>
       state = state.copyWith(bankOfficerName: newBankOfficerName);
-  void onBankOfficerPhoneChanged(String newBankOfficerPhone) =>
+  void onBankOfficerPhoneChanged(String? newBankOfficerPhone) =>
       state = state.copyWith(bankOfficerPhone: newBankOfficerPhone);
-  void onMinValueChanged(double newMinValue) =>
+  void onMinValueChanged(double? newMinValue) =>
       state = state.copyWith(minValue: newMinValue);
-  void onMaxValueChanged(double newMaxValue) =>
+  void onMaxValueChanged(double? newMaxValue) =>
       state = state.copyWith(maxValue: newMaxValue);
-  void onMinValueSqmChanged(double newMinValueSqm) =>
+  void onMinValueSqmChanged(double? newMinValueSqm) =>
       state = state.copyWith(minValueSqm: newMinValueSqm);
-  void onMaxValueSqmChanged(double newMaxValueSqm) =>
+  void onMaxValueSqmChanged(double? newMaxValueSqm) =>
       state = state.copyWith(maxValueSqm: newMaxValueSqm);
-  void onLatitudeChanged(double newLatitude) =>
+  void onLatitudeChanged(double? newLatitude) =>
       state = state.copyWith(latitude: newLatitude);
-  void onLongitudeChanged(double newLongitude) =>
+  void onLongitudeChanged(double? newLongitude) =>
       state = state.copyWith(longitude: newLongitude);
-  void onAreaChanged(double newArea) => state = state.copyWith(area: newArea);
-  void onBuildinglengthChanged(double newBuildinglength) =>
+  void onAreaChanged(double? newArea) => state = state.copyWith(area: newArea);
+  void onBuildinglengthChanged(double? newBuildinglength) =>
       state = state.copyWith(buildinglength: newBuildinglength);
-  void onBuildingwidthChanged(double newBuildingwidth) =>
+  void onBuildingwidthChanged(double? newBuildingwidth) =>
       state = state.copyWith(buildingwidth: newBuildingwidth);
-  void onLandlengthChanged(double newLandlength) =>
+  void onLandlengthChanged(double? newLandlength) =>
       state = state.copyWith(landlength: newLandlength);
-  void onLandwidthChanged(double newLandwidth) =>
+  void onLandwidthChanged(double? newLandwidth) =>
       state = state.copyWith(landwidth: newLandwidth);
   void onRoadChanged(RoadModel? newRoad) =>
       state = state.copyWith(road: newRoad);
-  void onBedChanged(int newBed) => state = state.copyWith(bed: newBed);
-  void onBathChanged(int newBath) => state = state.copyWith(bath: newBath);
-  void onLivingroomChanged(int newLivingroom) =>
+  void onBedChanged(int? newBed) => state = state.copyWith(bed: newBed);
+  void onBathChanged(int? newBath) => state = state.copyWith(bath: newBath);
+  void onLivingroomChanged(int? newLivingroom) =>
       state = state.copyWith(livingroom: newLivingroom);
-  void onFloorChanged(int newFloor) => state = state.copyWith(floor: newFloor);
+  void onFloorChanged(int? newFloor) => state = state.copyWith(floor: newFloor);
+}
+
+class _InsertAutoVerbalFamilyParam {
+  final PropertyModel? fromProperty;
+
+  const _InsertAutoVerbalFamilyParam({required this.fromProperty});
+
+  @override
+  bool operator ==(covariant _InsertAutoVerbalFamilyParam other) {
+    if (identical(this, other)) return true;
+
+    return other.fromProperty == fromProperty;
+  }
+
+  @override
+  int get hashCode => fromProperty.hashCode;
 }
 
 bool _debugCheckHasInsertAutoVerbalFormWidget(BuildContext context) {
@@ -91,11 +111,14 @@ class InsertAutoVerbalFormWidget extends HookConsumerWidget {
   const InsertAutoVerbalFormWidget({
     super.key,
     this.formKey,
+    required this.fromProperty,
     required this.builder,
   });
 
   /// Form key. If null it will be created by widget
   final GlobalKey<FormState>? formKey;
+
+  final PropertyModel? fromProperty;
 
   /// Child widget builder
   ///
@@ -116,23 +139,113 @@ class InsertAutoVerbalFormWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final cachedFormKey = useMemoized(() => formKey ?? GlobalKey<FormState>());
+    final family = _InsertAutoVerbalFamilyParam(fromProperty: fromProperty);
 
-    final status =
-        ref.watch(insertAutoVerbalProvider.select((value) => value.status));
+    final status = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status));
     final isProgressing = status.isInProgress;
     final failure = status.failure;
-    final controller = ref.watch(insertAutoVerbalProvider.notifier);
+    final controller = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
 
-    return Form(
-      key: cachedFormKey,
-      child: builder(
-        ref,
-        cachedFormKey,
-        status,
-        isProgressing,
-        failure,
-        controller.call,
+    return ProviderScope(
+      overrides: [
+        _insertAutoVerbalFamilyParamProvider.overrideWithValue(family)
+      ],
+      child: Form(
+        key: cachedFormKey,
+        child: builder(
+          ref,
+          cachedFormKey,
+          status,
+          isProgressing,
+          failure,
+          controller.call,
+        ),
       ),
+    );
+  }
+}
+
+// Family provider override --------------------------------------------------
+final _insertAutoVerbalFamilyParamProvider =
+    Provider<_InsertAutoVerbalFamilyParam>((ref) {
+  throw 'You need to add [InsertAutoVerbalFormWidget] as your parent. This allow to internal override family provider param';
+});
+
+typedef InsertAutoVerbalExistingImageUrlsChildBuilder = Widget Function(
+  WidgetRef ref,
+  IList<String> existingImageUrls,
+  void Function(IList<String> newExistingImageUrls) changeExistingImageUrls,
+  bool showValidation,
+);
+
+/// Widget form field for property [existingImageUrls]. To use this widget. You will need to add [InsertAutoVerbalFormWidget] widget as ancestor
+/// otherwise assert error will be thrown
+class InsertAutoVerbalExistingImageUrlsFieldWidget extends HookConsumerWidget {
+  const InsertAutoVerbalExistingImageUrlsFieldWidget({
+    super.key,
+    required this.builder,
+  });
+  final InsertAutoVerbalExistingImageUrlsChildBuilder builder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.existingImageUrls));
+
+    final showValidation = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
+    return builder(
+      ref,
+      state,
+      notifier.onExistingImageUrlsChanged,
+      showValidation,
+    );
+  }
+}
+
+typedef InsertAutoVerbalPropertyIdChildBuilder = Widget Function(
+  WidgetRef ref,
+  int? propertyId,
+  void Function(int? newPropertyId) changePropertyId,
+  bool showValidation,
+);
+
+/// Widget form field for property [propertyId]. To use this widget. You will need to add [InsertAutoVerbalFormWidget] widget as ancestor
+/// otherwise assert error will be thrown
+class InsertAutoVerbalPropertyIdFieldWidget extends HookConsumerWidget {
+  const InsertAutoVerbalPropertyIdFieldWidget({
+    super.key,
+    required this.builder,
+  });
+  final InsertAutoVerbalPropertyIdChildBuilder builder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.propertyId));
+
+    final showValidation = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
+    return builder(
+      ref,
+      state,
+      notifier.onPropertyIdChanged,
+      showValidation,
     );
   }
 }
@@ -156,13 +269,16 @@ class InsertAutoVerbalImageFilesFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
-    final state =
-        ref.watch(insertAutoVerbalProvider.select((value) => value.imageFiles));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.imageFiles));
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -191,13 +307,16 @@ class InsertAutoVerbalPropertyTypeFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
-    final state = ref
-        .watch(insertAutoVerbalProvider.select((value) => value.propertyType));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.propertyType));
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -226,13 +345,16 @@ class InsertAutoVerbalProvinceFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
-    final state =
-        ref.watch(insertAutoVerbalProvider.select((value) => value.province));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.province));
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -261,13 +383,16 @@ class InsertAutoVerbalBankFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
-    final state =
-        ref.watch(insertAutoVerbalProvider.select((value) => value.bank));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.bank));
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -280,8 +405,8 @@ class InsertAutoVerbalBankFieldWidget extends HookConsumerWidget {
 typedef InsertAutoVerbalBankBranchChildBuilder = Widget Function(
   WidgetRef ref,
   TextEditingController textController,
-  String bankBranch,
-  void Function(String newBankBranch) changeBankBranch,
+  String? bankBranch,
+  void Function(String? newBankBranch) changeBankBranch,
   bool showValidation,
 );
 
@@ -301,30 +426,34 @@ class InsertAutoVerbalBankBranchFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
-    final state =
-        ref.watch(insertAutoVerbalProvider.select((value) => value.bankBranch));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.bankBranch));
     final textController = controller ?? useTextEditingController(text: state);
     useMemoized(() {
       textController.addListener(() {
-        Future.microtask(
-            () => notifier.onBankBranchChanged(textController.text));
+        Future.microtask(() => notifier.onBankBranchChanged(
+            textController.text.isEmpty ? null : textController.text));
       });
       return null;
     });
 
-    ref.listen(insertAutoVerbalProvider.select((value) => value.bankBranch),
-        (previous, current) {
+    ref.listen(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.bankBranch), (previous, current) {
       if (previous != current) {
         if (current != textController.text) {
-          Future.microtask(() => textController.text = current);
+          Future.microtask(() => textController.text = current ?? '');
         }
       }
     });
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       textController,
@@ -338,8 +467,8 @@ class InsertAutoVerbalBankBranchFieldWidget extends HookConsumerWidget {
 typedef InsertAutoVerbalOwnerNameChildBuilder = Widget Function(
   WidgetRef ref,
   TextEditingController textController,
-  String ownerName,
-  void Function(String newOwnerName) changeOwnerName,
+  String? ownerName,
+  void Function(String? newOwnerName) changeOwnerName,
   bool showValidation,
 );
 
@@ -359,30 +488,34 @@ class InsertAutoVerbalOwnerNameFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
-    final state =
-        ref.watch(insertAutoVerbalProvider.select((value) => value.ownerName));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.ownerName));
     final textController = controller ?? useTextEditingController(text: state);
     useMemoized(() {
       textController.addListener(() {
-        Future.microtask(
-            () => notifier.onOwnerNameChanged(textController.text));
+        Future.microtask(() => notifier.onOwnerNameChanged(
+            textController.text.isEmpty ? null : textController.text));
       });
       return null;
     });
 
-    ref.listen(insertAutoVerbalProvider.select((value) => value.ownerName),
-        (previous, current) {
+    ref.listen(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.ownerName), (previous, current) {
       if (previous != current) {
         if (current != textController.text) {
-          Future.microtask(() => textController.text = current);
+          Future.microtask(() => textController.text = current ?? '');
         }
       }
     });
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       textController,
@@ -396,8 +529,8 @@ class InsertAutoVerbalOwnerNameFieldWidget extends HookConsumerWidget {
 typedef InsertAutoVerbalOwnerPhoneChildBuilder = Widget Function(
   WidgetRef ref,
   TextEditingController textController,
-  String ownerPhone,
-  void Function(String newOwnerPhone) changeOwnerPhone,
+  String? ownerPhone,
+  void Function(String? newOwnerPhone) changeOwnerPhone,
   bool showValidation,
 );
 
@@ -417,30 +550,34 @@ class InsertAutoVerbalOwnerPhoneFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
-    final state =
-        ref.watch(insertAutoVerbalProvider.select((value) => value.ownerPhone));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.ownerPhone));
     final textController = controller ?? useTextEditingController(text: state);
     useMemoized(() {
       textController.addListener(() {
-        Future.microtask(
-            () => notifier.onOwnerPhoneChanged(textController.text));
+        Future.microtask(() => notifier.onOwnerPhoneChanged(
+            textController.text.isEmpty ? null : textController.text));
       });
       return null;
     });
 
-    ref.listen(insertAutoVerbalProvider.select((value) => value.ownerPhone),
-        (previous, current) {
+    ref.listen(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.ownerPhone), (previous, current) {
       if (previous != current) {
         if (current != textController.text) {
-          Future.microtask(() => textController.text = current);
+          Future.microtask(() => textController.text = current ?? '');
         }
       }
     });
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       textController,
@@ -454,8 +591,8 @@ class InsertAutoVerbalOwnerPhoneFieldWidget extends HookConsumerWidget {
 typedef InsertAutoVerbalBankOfficerNameChildBuilder = Widget Function(
   WidgetRef ref,
   TextEditingController textController,
-  String bankOfficerName,
-  void Function(String newBankOfficerName) changeBankOfficerName,
+  String? bankOfficerName,
+  void Function(String? newBankOfficerName) changeBankOfficerName,
   bool showValidation,
 );
 
@@ -475,31 +612,34 @@ class InsertAutoVerbalBankOfficerNameFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
     final state = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.bankOfficerName));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.bankOfficerName));
     final textController = controller ?? useTextEditingController(text: state);
     useMemoized(() {
       textController.addListener(() {
-        Future.microtask(
-            () => notifier.onBankOfficerNameChanged(textController.text));
+        Future.microtask(() => notifier.onBankOfficerNameChanged(
+            textController.text.isEmpty ? null : textController.text));
       });
       return null;
     });
 
     ref.listen(
-        insertAutoVerbalProvider.select((value) => value.bankOfficerName),
-        (previous, current) {
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.bankOfficerName), (previous, current) {
       if (previous != current) {
         if (current != textController.text) {
-          Future.microtask(() => textController.text = current);
+          Future.microtask(() => textController.text = current ?? '');
         }
       }
     });
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       textController,
@@ -513,8 +653,8 @@ class InsertAutoVerbalBankOfficerNameFieldWidget extends HookConsumerWidget {
 typedef InsertAutoVerbalBankOfficerPhoneChildBuilder = Widget Function(
   WidgetRef ref,
   TextEditingController textController,
-  String bankOfficerPhone,
-  void Function(String newBankOfficerPhone) changeBankOfficerPhone,
+  String? bankOfficerPhone,
+  void Function(String? newBankOfficerPhone) changeBankOfficerPhone,
   bool showValidation,
 );
 
@@ -534,31 +674,34 @@ class InsertAutoVerbalBankOfficerPhoneFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
     final state = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.bankOfficerPhone));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.bankOfficerPhone));
     final textController = controller ?? useTextEditingController(text: state);
     useMemoized(() {
       textController.addListener(() {
-        Future.microtask(
-            () => notifier.onBankOfficerPhoneChanged(textController.text));
+        Future.microtask(() => notifier.onBankOfficerPhoneChanged(
+            textController.text.isEmpty ? null : textController.text));
       });
       return null;
     });
 
     ref.listen(
-        insertAutoVerbalProvider.select((value) => value.bankOfficerPhone),
-        (previous, current) {
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.bankOfficerPhone), (previous, current) {
       if (previous != current) {
         if (current != textController.text) {
-          Future.microtask(() => textController.text = current);
+          Future.microtask(() => textController.text = current ?? '');
         }
       }
     });
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       textController,
@@ -571,8 +714,8 @@ class InsertAutoVerbalBankOfficerPhoneFieldWidget extends HookConsumerWidget {
 
 typedef InsertAutoVerbalMinValueChildBuilder = Widget Function(
   WidgetRef ref,
-  double minValue,
-  void Function(double newMinValue) changeMinValue,
+  double? minValue,
+  void Function(double? newMinValue) changeMinValue,
   bool showValidation,
 );
 
@@ -588,13 +731,16 @@ class InsertAutoVerbalMinValueFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
-    final state =
-        ref.watch(insertAutoVerbalProvider.select((value) => value.minValue));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.minValue));
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -606,8 +752,8 @@ class InsertAutoVerbalMinValueFieldWidget extends HookConsumerWidget {
 
 typedef InsertAutoVerbalMaxValueChildBuilder = Widget Function(
   WidgetRef ref,
-  double maxValue,
-  void Function(double newMaxValue) changeMaxValue,
+  double? maxValue,
+  void Function(double? newMaxValue) changeMaxValue,
   bool showValidation,
 );
 
@@ -623,13 +769,16 @@ class InsertAutoVerbalMaxValueFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
-    final state =
-        ref.watch(insertAutoVerbalProvider.select((value) => value.maxValue));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.maxValue));
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -641,8 +790,8 @@ class InsertAutoVerbalMaxValueFieldWidget extends HookConsumerWidget {
 
 typedef InsertAutoVerbalMinValueSqmChildBuilder = Widget Function(
   WidgetRef ref,
-  double minValueSqm,
-  void Function(double newMinValueSqm) changeMinValueSqm,
+  double? minValueSqm,
+  void Function(double? newMinValueSqm) changeMinValueSqm,
   bool showValidation,
 );
 
@@ -658,13 +807,16 @@ class InsertAutoVerbalMinValueSqmFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
-    final state = ref
-        .watch(insertAutoVerbalProvider.select((value) => value.minValueSqm));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.minValueSqm));
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -676,8 +828,8 @@ class InsertAutoVerbalMinValueSqmFieldWidget extends HookConsumerWidget {
 
 typedef InsertAutoVerbalMaxValueSqmChildBuilder = Widget Function(
   WidgetRef ref,
-  double maxValueSqm,
-  void Function(double newMaxValueSqm) changeMaxValueSqm,
+  double? maxValueSqm,
+  void Function(double? newMaxValueSqm) changeMaxValueSqm,
   bool showValidation,
 );
 
@@ -693,13 +845,16 @@ class InsertAutoVerbalMaxValueSqmFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
-    final state = ref
-        .watch(insertAutoVerbalProvider.select((value) => value.maxValueSqm));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.maxValueSqm));
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -711,8 +866,8 @@ class InsertAutoVerbalMaxValueSqmFieldWidget extends HookConsumerWidget {
 
 typedef InsertAutoVerbalLatitudeChildBuilder = Widget Function(
   WidgetRef ref,
-  double latitude,
-  void Function(double newLatitude) changeLatitude,
+  double? latitude,
+  void Function(double? newLatitude) changeLatitude,
   bool showValidation,
 );
 
@@ -728,13 +883,16 @@ class InsertAutoVerbalLatitudeFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
-    final state =
-        ref.watch(insertAutoVerbalProvider.select((value) => value.latitude));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.latitude));
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -746,8 +904,8 @@ class InsertAutoVerbalLatitudeFieldWidget extends HookConsumerWidget {
 
 typedef InsertAutoVerbalLongitudeChildBuilder = Widget Function(
   WidgetRef ref,
-  double longitude,
-  void Function(double newLongitude) changeLongitude,
+  double? longitude,
+  void Function(double? newLongitude) changeLongitude,
   bool showValidation,
 );
 
@@ -763,13 +921,16 @@ class InsertAutoVerbalLongitudeFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
-    final state =
-        ref.watch(insertAutoVerbalProvider.select((value) => value.longitude));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.longitude));
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -781,8 +942,8 @@ class InsertAutoVerbalLongitudeFieldWidget extends HookConsumerWidget {
 
 typedef InsertAutoVerbalAreaChildBuilder = Widget Function(
   WidgetRef ref,
-  double area,
-  void Function(double newArea) changeArea,
+  double? area,
+  void Function(double? newArea) changeArea,
   bool showValidation,
 );
 
@@ -798,13 +959,16 @@ class InsertAutoVerbalAreaFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
-    final state =
-        ref.watch(insertAutoVerbalProvider.select((value) => value.area));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.area));
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -816,8 +980,8 @@ class InsertAutoVerbalAreaFieldWidget extends HookConsumerWidget {
 
 typedef InsertAutoVerbalBuildinglengthChildBuilder = Widget Function(
   WidgetRef ref,
-  double buildinglength,
-  void Function(double newBuildinglength) changeBuildinglength,
+  double? buildinglength,
+  void Function(double? newBuildinglength) changeBuildinglength,
   bool showValidation,
 );
 
@@ -833,13 +997,16 @@ class InsertAutoVerbalBuildinglengthFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
     final state = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.buildinglength));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.buildinglength));
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -851,8 +1018,8 @@ class InsertAutoVerbalBuildinglengthFieldWidget extends HookConsumerWidget {
 
 typedef InsertAutoVerbalBuildingwidthChildBuilder = Widget Function(
   WidgetRef ref,
-  double buildingwidth,
-  void Function(double newBuildingwidth) changeBuildingwidth,
+  double? buildingwidth,
+  void Function(double? newBuildingwidth) changeBuildingwidth,
   bool showValidation,
 );
 
@@ -868,13 +1035,16 @@ class InsertAutoVerbalBuildingwidthFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
-    final state = ref
-        .watch(insertAutoVerbalProvider.select((value) => value.buildingwidth));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.buildingwidth));
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -886,8 +1056,8 @@ class InsertAutoVerbalBuildingwidthFieldWidget extends HookConsumerWidget {
 
 typedef InsertAutoVerbalLandlengthChildBuilder = Widget Function(
   WidgetRef ref,
-  double landlength,
-  void Function(double newLandlength) changeLandlength,
+  double? landlength,
+  void Function(double? newLandlength) changeLandlength,
   bool showValidation,
 );
 
@@ -903,13 +1073,16 @@ class InsertAutoVerbalLandlengthFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
-    final state =
-        ref.watch(insertAutoVerbalProvider.select((value) => value.landlength));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.landlength));
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -921,8 +1094,8 @@ class InsertAutoVerbalLandlengthFieldWidget extends HookConsumerWidget {
 
 typedef InsertAutoVerbalLandwidthChildBuilder = Widget Function(
   WidgetRef ref,
-  double landwidth,
-  void Function(double newLandwidth) changeLandwidth,
+  double? landwidth,
+  void Function(double? newLandwidth) changeLandwidth,
   bool showValidation,
 );
 
@@ -938,13 +1111,16 @@ class InsertAutoVerbalLandwidthFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
-    final state =
-        ref.watch(insertAutoVerbalProvider.select((value) => value.landwidth));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.landwidth));
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -973,13 +1149,16 @@ class InsertAutoVerbalRoadFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
-    final state =
-        ref.watch(insertAutoVerbalProvider.select((value) => value.road));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.road));
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -991,8 +1170,8 @@ class InsertAutoVerbalRoadFieldWidget extends HookConsumerWidget {
 
 typedef InsertAutoVerbalBedChildBuilder = Widget Function(
   WidgetRef ref,
-  int bed,
-  void Function(int newBed) changeBed,
+  int? bed,
+  void Function(int? newBed) changeBed,
   bool showValidation,
 );
 
@@ -1008,13 +1187,16 @@ class InsertAutoVerbalBedFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
-    final state =
-        ref.watch(insertAutoVerbalProvider.select((value) => value.bed));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.bed));
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -1026,8 +1208,8 @@ class InsertAutoVerbalBedFieldWidget extends HookConsumerWidget {
 
 typedef InsertAutoVerbalBathChildBuilder = Widget Function(
   WidgetRef ref,
-  int bath,
-  void Function(int newBath) changeBath,
+  int? bath,
+  void Function(int? newBath) changeBath,
   bool showValidation,
 );
 
@@ -1043,13 +1225,16 @@ class InsertAutoVerbalBathFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
-    final state =
-        ref.watch(insertAutoVerbalProvider.select((value) => value.bath));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.bath));
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -1061,8 +1246,8 @@ class InsertAutoVerbalBathFieldWidget extends HookConsumerWidget {
 
 typedef InsertAutoVerbalLivingroomChildBuilder = Widget Function(
   WidgetRef ref,
-  int livingroom,
-  void Function(int newLivingroom) changeLivingroom,
+  int? livingroom,
+  void Function(int? newLivingroom) changeLivingroom,
   bool showValidation,
 );
 
@@ -1078,13 +1263,16 @@ class InsertAutoVerbalLivingroomFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
-    final state =
-        ref.watch(insertAutoVerbalProvider.select((value) => value.livingroom));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.livingroom));
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -1096,8 +1284,8 @@ class InsertAutoVerbalLivingroomFieldWidget extends HookConsumerWidget {
 
 typedef InsertAutoVerbalFloorChildBuilder = Widget Function(
   WidgetRef ref,
-  int floor,
-  void Function(int newFloor) changeFloor,
+  int? floor,
+  void Function(int? newFloor) changeFloor,
   bool showValidation,
 );
 
@@ -1113,13 +1301,16 @@ class InsertAutoVerbalFloorFieldWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
-
-    final notifier = ref.watch(insertAutoVerbalProvider.notifier);
-    final state =
-        ref.watch(insertAutoVerbalProvider.select((value) => value.floor));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.floor));
 
     final showValidation = ref.watch(
-        insertAutoVerbalProvider.select((value) => value.status.isFailure));
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status.isFailure));
     return builder(
       ref,
       state,
@@ -2802,22 +2993,153 @@ class _AutoVerbalDetailProviderElement
   int get id => (origin as AutoVerbalDetailProvider).id;
 }
 
-String _$insertAutoVerbalHash() => r'ed2dbc473f5ad2f1ed1f47089bd825edc40ef6b8';
+String _$insertAutoVerbalHash() => r'17c619e2026b504e97ad09ed18a76e6374e1ef01';
+
+abstract class _$InsertAutoVerbal
+    extends BuildlessAutoDisposeNotifier<InsertAutoVerbalState> {
+  late final PropertyModel? fromProperty;
+
+  InsertAutoVerbalState build({
+    PropertyModel? fromProperty,
+  });
+}
 
 /// See also [InsertAutoVerbal].
 @ProviderFor(InsertAutoVerbal)
-final insertAutoVerbalProvider = AutoDisposeNotifierProvider<InsertAutoVerbal,
-    InsertAutoVerbalState>.internal(
-  InsertAutoVerbal.new,
-  name: r'insertAutoVerbalProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$insertAutoVerbalHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const insertAutoVerbalProvider = InsertAutoVerbalFamily();
 
-typedef _$InsertAutoVerbal = AutoDisposeNotifier<InsertAutoVerbalState>;
+/// See also [InsertAutoVerbal].
+class InsertAutoVerbalFamily extends Family<InsertAutoVerbalState> {
+  /// See also [InsertAutoVerbal].
+  const InsertAutoVerbalFamily();
+
+  /// See also [InsertAutoVerbal].
+  InsertAutoVerbalProvider call({
+    PropertyModel? fromProperty,
+  }) {
+    return InsertAutoVerbalProvider(
+      fromProperty: fromProperty,
+    );
+  }
+
+  @override
+  InsertAutoVerbalProvider getProviderOverride(
+    covariant InsertAutoVerbalProvider provider,
+  ) {
+    return call(
+      fromProperty: provider.fromProperty,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'insertAutoVerbalProvider';
+}
+
+/// See also [InsertAutoVerbal].
+class InsertAutoVerbalProvider extends AutoDisposeNotifierProviderImpl<
+    InsertAutoVerbal, InsertAutoVerbalState> {
+  /// See also [InsertAutoVerbal].
+  InsertAutoVerbalProvider({
+    PropertyModel? fromProperty,
+  }) : this._internal(
+          () => InsertAutoVerbal()..fromProperty = fromProperty,
+          from: insertAutoVerbalProvider,
+          name: r'insertAutoVerbalProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$insertAutoVerbalHash,
+          dependencies: InsertAutoVerbalFamily._dependencies,
+          allTransitiveDependencies:
+              InsertAutoVerbalFamily._allTransitiveDependencies,
+          fromProperty: fromProperty,
+        );
+
+  InsertAutoVerbalProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.fromProperty,
+  }) : super.internal();
+
+  final PropertyModel? fromProperty;
+
+  @override
+  InsertAutoVerbalState runNotifierBuild(
+    covariant InsertAutoVerbal notifier,
+  ) {
+    return notifier.build(
+      fromProperty: fromProperty,
+    );
+  }
+
+  @override
+  Override overrideWith(InsertAutoVerbal Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: InsertAutoVerbalProvider._internal(
+        () => create()..fromProperty = fromProperty,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        fromProperty: fromProperty,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeNotifierProviderElement<InsertAutoVerbal, InsertAutoVerbalState>
+      createElement() {
+    return _InsertAutoVerbalProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is InsertAutoVerbalProvider &&
+        other.fromProperty == fromProperty;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, fromProperty.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin InsertAutoVerbalRef
+    on AutoDisposeNotifierProviderRef<InsertAutoVerbalState> {
+  /// The parameter `fromProperty` of this provider.
+  PropertyModel? get fromProperty;
+}
+
+class _InsertAutoVerbalProviderElement
+    extends AutoDisposeNotifierProviderElement<InsertAutoVerbal,
+        InsertAutoVerbalState> with InsertAutoVerbalRef {
+  _InsertAutoVerbalProviderElement(super.provider);
+
+  @override
+  PropertyModel? get fromProperty =>
+      (origin as InsertAutoVerbalProvider).fromProperty;
+}
+
 String _$updateAutoVerbalHash() => r'7f55f7e6e29ad72e2f215c97cbd7e2c5c3748b00';
 
 abstract class _$UpdateAutoVerbal

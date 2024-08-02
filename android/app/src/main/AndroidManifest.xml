@@ -6,8 +6,8 @@
     <uses-permission android:name="android.permission.INTERNET" /> 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
-        android:label="kfa_mobile_nu"
-        android:icon="@mipmap/ic_launcher">
+        android:label="KFA Mobile"
+        android:icon="@mipmap/launcher_icon">
     <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI"/>

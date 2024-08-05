@@ -44,6 +44,7 @@ class PropertySchema extends KimappSchema {
   final viewCount = Field<int>('view_count');
   final likeCount = Field<int>('like_count');
   final autoVerbalAdded = Field<bool>('auto_verbal_added');
+  final hiddenFromHomePage = Field<bool>('hidden_from_home_page');
 
   // Joins
   final propertyType = Field.join<PropertyTypeModel>().withForeignKey('property_type_id');
@@ -71,6 +72,7 @@ class PropertySchema extends KimappSchema {
             viewCount,
             likeCount,
             autoVerbalAdded,
+            hiddenFromHomePage,
           ],
         ),
       Model('UpdatePropertyParam')
@@ -89,6 +91,7 @@ class PropertySchema extends KimappSchema {
             viewCount,
             likeCount,
             autoVerbalAdded,
+            hiddenFromHomePage,
           ],
         ),
     ];

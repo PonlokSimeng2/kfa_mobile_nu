@@ -47,6 +47,7 @@ _$PropertyModelImpl _$$PropertyModelImplFromJson(Map<String, dynamic> json) =>
       viewCount: (json['view_count'] as num).toInt(),
       likeCount: (json['like_count'] as num).toInt(),
       autoVerbalAdded: json['auto_verbal_added'] as bool,
+      hiddenFromHomePage: json['hidden_from_home_page'] as bool,
       propertyType: PropertyTypeModel.fromJson(
           json['propertyType'] as Map<String, dynamic>),
       province:
@@ -90,6 +91,7 @@ Map<String, dynamic> _$$PropertyModelImplToJson(_$PropertyModelImpl instance) =>
       'view_count': instance.viewCount,
       'like_count': instance.likeCount,
       'auto_verbal_added': instance.autoVerbalAdded,
+      'hidden_from_home_page': instance.hiddenFromHomePage,
       'propertyType': instance.propertyType.toJson(),
       'province': instance.province.toJson(),
       'approvedBy': instance.approvedBy?.toJson(),
@@ -256,6 +258,7 @@ const _tablePropertyModel = TableBuilder(
     ColumnBuilder('view_count'),
     ColumnBuilder('like_count'),
     ColumnBuilder('auto_verbal_added'),
+    ColumnBuilder('hidden_from_home_page'),
     ColumnBuilder.join(PropertyTypeModel.table,
         key: "propertyType",
         candidateKey: null,

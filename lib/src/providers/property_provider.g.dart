@@ -1819,7 +1819,7 @@ class UpdatePropertyBuildingWidthFieldWidget extends HookConsumerWidget {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$propertyListHash() => r'25b1f89604666fa19cfc4c232f9cb58b8b22ce5d';
+String _$propertyListHash() => r'0c20d454bd90f414a1f1ca21702c1ca3b1b555b8';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -2583,6 +2583,153 @@ class _IncrementPropertyViewProviderElement
 
   @override
   int get propertyId => (origin as IncrementPropertyViewProvider).propertyId;
+}
+
+String _$togglePropertyHiddenHash() =>
+    r'ec30ca05952579db4f923aa3e0c084617c99bd72';
+
+abstract class _$TogglePropertyHidden
+    extends BuildlessAutoDisposeNotifier<ProviderStatus<void>> {
+  late final int propertyId;
+
+  ProviderStatus<void> build(
+    int propertyId,
+  );
+}
+
+/// See also [TogglePropertyHidden].
+@ProviderFor(TogglePropertyHidden)
+const togglePropertyHiddenProvider = TogglePropertyHiddenFamily();
+
+/// See also [TogglePropertyHidden].
+class TogglePropertyHiddenFamily extends Family<ProviderStatus<void>> {
+  /// See also [TogglePropertyHidden].
+  const TogglePropertyHiddenFamily();
+
+  /// See also [TogglePropertyHidden].
+  TogglePropertyHiddenProvider call(
+    int propertyId,
+  ) {
+    return TogglePropertyHiddenProvider(
+      propertyId,
+    );
+  }
+
+  @override
+  TogglePropertyHiddenProvider getProviderOverride(
+    covariant TogglePropertyHiddenProvider provider,
+  ) {
+    return call(
+      provider.propertyId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'togglePropertyHiddenProvider';
+}
+
+/// See also [TogglePropertyHidden].
+class TogglePropertyHiddenProvider extends AutoDisposeNotifierProviderImpl<
+    TogglePropertyHidden, ProviderStatus<void>> {
+  /// See also [TogglePropertyHidden].
+  TogglePropertyHiddenProvider(
+    int propertyId,
+  ) : this._internal(
+          () => TogglePropertyHidden()..propertyId = propertyId,
+          from: togglePropertyHiddenProvider,
+          name: r'togglePropertyHiddenProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$togglePropertyHiddenHash,
+          dependencies: TogglePropertyHiddenFamily._dependencies,
+          allTransitiveDependencies:
+              TogglePropertyHiddenFamily._allTransitiveDependencies,
+          propertyId: propertyId,
+        );
+
+  TogglePropertyHiddenProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.propertyId,
+  }) : super.internal();
+
+  final int propertyId;
+
+  @override
+  ProviderStatus<void> runNotifierBuild(
+    covariant TogglePropertyHidden notifier,
+  ) {
+    return notifier.build(
+      propertyId,
+    );
+  }
+
+  @override
+  Override overrideWith(TogglePropertyHidden Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: TogglePropertyHiddenProvider._internal(
+        () => create()..propertyId = propertyId,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        propertyId: propertyId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeNotifierProviderElement<TogglePropertyHidden, ProviderStatus<void>>
+      createElement() {
+    return _TogglePropertyHiddenProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is TogglePropertyHiddenProvider &&
+        other.propertyId == propertyId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, propertyId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin TogglePropertyHiddenRef
+    on AutoDisposeNotifierProviderRef<ProviderStatus<void>> {
+  /// The parameter `propertyId` of this provider.
+  int get propertyId;
+}
+
+class _TogglePropertyHiddenProviderElement
+    extends AutoDisposeNotifierProviderElement<TogglePropertyHidden,
+        ProviderStatus<void>> with TogglePropertyHiddenRef {
+  _TogglePropertyHiddenProviderElement(super.provider);
+
+  @override
+  int get propertyId => (origin as TogglePropertyHiddenProvider).propertyId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

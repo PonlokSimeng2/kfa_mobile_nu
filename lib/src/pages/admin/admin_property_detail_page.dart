@@ -31,6 +31,7 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
     final isAdmin = ref.watch(isAdminProvider);
     final autoVerbalAdded = useState(widget.property.autoVerbalAdded);
     final scrollCtr = useScrollController();
+    final isHidden = useState(widget.property.hiddenFromHomePage);
 
     Widget? bottomAppBar;
     if (isAdmin) {
@@ -52,6 +53,30 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
     return Scaffold(
       appBar: AppBar(
         title: const Text('Property Detail'),
+        actions: [
+          IconButton(
+            icon: Icon(isHidden.value ? Icons.visibility_off : Icons.visibility),
+            onPressed: () async {
+              final toggleHidden =
+                  ref.read(togglePropertyHiddenProvider(widget.property.id).notifier);
+              final closeLoading = BotToast.showLoading();
+              final result = await toggleHidden(hiddenFromHomePage: !isHidden.value);
+              closeLoading();
+              if (result.isSuccess) {
+                isHidden.value = !isHidden.value;
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(isHidden.value ? 'Property hidden' : 'Property visible'),
+                    ),
+                  );
+                }
+              } else {
+                BotToast.showText(text: result.failure!.message());
+              }
+            },
+          ),
+        ],
       ),
       bottomNavigationBar: bottomAppBar,
       body: CustomScrollView(

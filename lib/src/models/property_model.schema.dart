@@ -182,6 +182,11 @@ class PropertyTable {
   /// Key: `auto_verbal_added`
   static const String autoVerbalAdded = "auto_verbal_added";
 
+  /// Column: hidden_from_home_page
+  /// Data type: `bool`
+  /// Key: `hidden_from_home_page`
+  static const String hiddenFromHomePage = "hidden_from_home_page";
+
   /// Column: property_type_id
   /// This is a join key for field propertyType.
   /// Data type: `PropertyTypeModel`
@@ -250,6 +255,7 @@ class PropertyModel with _$PropertyModel {
   /// - int viewCount : JsonKey('view_count')
   /// - int likeCount : JsonKey('like_count')
   /// - bool autoVerbalAdded : JsonKey('auto_verbal_added')
+  /// - bool hiddenFromHomePage : JsonKey('hidden_from_home_page')
   /// - PropertyTypeModel propertyType : JsonKey('propertyType')
   /// - ProvinceModel province : JsonKey('province')
   /// - UserModel? approvedBy : JsonKey('approvedBy')
@@ -291,6 +297,8 @@ class PropertyModel with _$PropertyModel {
     @JsonKey(name: PropertyModel.likeCountKey) required int likeCount,
     @JsonKey(name: PropertyModel.autoVerbalAddedKey)
     required bool autoVerbalAdded,
+    @JsonKey(name: PropertyModel.hiddenFromHomePageKey)
+    required bool hiddenFromHomePage,
     @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
     @JsonKey(name: PropertyModel.propertyTypeKey)
     required PropertyTypeModel propertyType,
@@ -407,6 +415,9 @@ class PropertyModel with _$PropertyModel {
 
   /// Field name for autoVerbalAdded field with JsonKey('auto_verbal_added')
   static const String autoVerbalAddedKey = "auto_verbal_added";
+
+  /// Field name for hiddenFromHomePage field with JsonKey('hidden_from_home_page')
+  static const String hiddenFromHomePageKey = "hidden_from_home_page";
 
   /// Field name for propertyType field with JsonKey('propertyType')
   /// This is json key for joined field. with foreign key: property_type_id and candidate key: null

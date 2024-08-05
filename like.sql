@@ -35,3 +35,6 @@ $$ language plpgsql;
 
 CREATE INDEX IF NOT EXISTS idx_property_likes_property_id_user_id
 ON public.property_likes (property_id, user_id);
+
+
+alter table public.properties add column if not exists hidden_from_home_page boolean not null default false;

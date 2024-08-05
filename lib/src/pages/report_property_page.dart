@@ -1,13 +1,10 @@
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
-import 'package:kfa_mobile_nu/src/models/base.dart';
 import 'package:kfa_mobile_nu/src/models/models.dart';
-import 'package:kfa_mobile_nu/src/models/property_type_model.schema.dart';
 import 'package:kfa_mobile_nu/src/pages/admin/admin_property_detail_page.dart';
 import 'package:kfa_mobile_nu/src/pages/property_detail_page.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 
-import '../models/property_model.dart';
 import '../providers/property_provider.dart';
 import '../widgets/auth_wrapper_widget.dart';
 import '../widgets/property_type_dropdown.dart';
@@ -54,6 +51,7 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
           listingType: _type,
           propertyType: _selectedPropertyType,
           userId: userAsync.value?.id,
+          showHiddenFromHomePageItem: true,
           statuses: PropertyAndAutoVerbalStatus.values.lock,
         ),
       ).select((v) => v.whenData((v) => v.length)),
@@ -170,6 +168,7 @@ class _GridView extends ConsumerWidget {
               listingType: type,
               propertyType: propertyType,
               userId: userAsync.value?.id,
+              showHiddenFromHomePageItem: true,
               statuses: PropertyAndAutoVerbalStatus.values.lock,
             ),
           ),
@@ -240,6 +239,22 @@ class _GridView extends ConsumerWidget {
                         ),
                       ),
                     ),
+                    if (item.hiddenFromHomePage)
+                      Positioned(
+                        top: 8,
+                        left: 8,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: Colors.red.withOpacity(0.7),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: const Text(
+                            'Hidden',
+                            style: TextStyle(color: Colors.white, fontSize: 12),
+                          ),
+                        ),
+                      ),
                   ],
                 ),
               ),

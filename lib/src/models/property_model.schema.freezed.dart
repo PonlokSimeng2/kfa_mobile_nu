@@ -82,6 +82,8 @@ mixin _$PropertyModel {
   int get likeCount => throw _privateConstructorUsedError;
   @JsonKey(name: PropertyModel.autoVerbalAddedKey)
   bool get autoVerbalAdded => throw _privateConstructorUsedError;
+  @JsonKey(name: PropertyModel.hiddenFromHomePageKey)
+  bool get hiddenFromHomePage => throw _privateConstructorUsedError;
   @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
   @JsonKey(name: PropertyModel.propertyTypeKey)
   PropertyTypeModel get propertyType => throw _privateConstructorUsedError;
@@ -141,6 +143,8 @@ abstract class $PropertyModelCopyWith<$Res> {
       @JsonKey(name: PropertyModel.viewCountKey) int viewCount,
       @JsonKey(name: PropertyModel.likeCountKey) int likeCount,
       @JsonKey(name: PropertyModel.autoVerbalAddedKey) bool autoVerbalAdded,
+      @JsonKey(name: PropertyModel.hiddenFromHomePageKey)
+      bool hiddenFromHomePage,
       @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
       @JsonKey(name: PropertyModel.propertyTypeKey)
       PropertyTypeModel propertyType,
@@ -205,6 +209,7 @@ class _$PropertyModelCopyWithImpl<$Res, $Val extends PropertyModel>
     Object? viewCount = null,
     Object? likeCount = null,
     Object? autoVerbalAdded = null,
+    Object? hiddenFromHomePage = null,
     Object? propertyType = null,
     Object? province = null,
     Object? approvedBy = freezed,
@@ -335,6 +340,10 @@ class _$PropertyModelCopyWithImpl<$Res, $Val extends PropertyModel>
           ? _value.autoVerbalAdded
           : autoVerbalAdded // ignore: cast_nullable_to_non_nullable
               as bool,
+      hiddenFromHomePage: null == hiddenFromHomePage
+          ? _value.hiddenFromHomePage
+          : hiddenFromHomePage // ignore: cast_nullable_to_non_nullable
+              as bool,
       propertyType: null == propertyType
           ? _value.propertyType
           : propertyType // ignore: cast_nullable_to_non_nullable
@@ -433,6 +442,8 @@ abstract class _$$PropertyModelImplCopyWith<$Res>
       @JsonKey(name: PropertyModel.viewCountKey) int viewCount,
       @JsonKey(name: PropertyModel.likeCountKey) int likeCount,
       @JsonKey(name: PropertyModel.autoVerbalAddedKey) bool autoVerbalAdded,
+      @JsonKey(name: PropertyModel.hiddenFromHomePageKey)
+      bool hiddenFromHomePage,
       @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
       @JsonKey(name: PropertyModel.propertyTypeKey)
       PropertyTypeModel propertyType,
@@ -499,6 +510,7 @@ class __$$PropertyModelImplCopyWithImpl<$Res>
     Object? viewCount = null,
     Object? likeCount = null,
     Object? autoVerbalAdded = null,
+    Object? hiddenFromHomePage = null,
     Object? propertyType = null,
     Object? province = null,
     Object? approvedBy = freezed,
@@ -629,6 +641,10 @@ class __$$PropertyModelImplCopyWithImpl<$Res>
           ? _value.autoVerbalAdded
           : autoVerbalAdded // ignore: cast_nullable_to_non_nullable
               as bool,
+      hiddenFromHomePage: null == hiddenFromHomePage
+          ? _value.hiddenFromHomePage
+          : hiddenFromHomePage // ignore: cast_nullable_to_non_nullable
+              as bool,
       propertyType: null == propertyType
           ? _value.propertyType
           : propertyType // ignore: cast_nullable_to_non_nullable
@@ -689,6 +705,8 @@ class _$PropertyModelImpl extends _PropertyModel {
       @JsonKey(name: PropertyModel.likeCountKey) required this.likeCount,
       @JsonKey(name: PropertyModel.autoVerbalAddedKey)
       required this.autoVerbalAdded,
+      @JsonKey(name: PropertyModel.hiddenFromHomePageKey)
+      required this.hiddenFromHomePage,
       @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
       @JsonKey(name: PropertyModel.propertyTypeKey)
       required this.propertyType,
@@ -808,6 +826,9 @@ class _$PropertyModelImpl extends _PropertyModel {
   @JsonKey(name: PropertyModel.autoVerbalAddedKey)
   final bool autoVerbalAdded;
   @override
+  @JsonKey(name: PropertyModel.hiddenFromHomePageKey)
+  final bool hiddenFromHomePage;
+  @override
   @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
   @JsonKey(name: PropertyModel.propertyTypeKey)
   final PropertyTypeModel propertyType;
@@ -826,7 +847,7 @@ class _$PropertyModelImpl extends _PropertyModel {
 
   @override
   String toString() {
-    return 'PropertyModel(id: $id, status: $status, propertyId: $propertyId, listingType: $listingType, images: $images, title: $title, description: $description, latitude: $latitude, longitude: $longitude, price: $price, sqm: $sqm, bedrooms: $bedrooms, bathrooms: $bathrooms, floors: $floors, parking: $parking, livingRooms: $livingRooms, landLength: $landLength, landWidth: $landWidth, houseLength: $houseLength, houseWidth: $houseWidth, pricePerSqm: $pricePerSqm, createdAt: $createdAt, userId: $userId, propertyTypeId: $propertyTypeId, provinceId: $provinceId, approvedAt: $approvedAt, rejectedAt: $rejectedAt, rejectReason: $rejectReason, viewCount: $viewCount, likeCount: $likeCount, autoVerbalAdded: $autoVerbalAdded, propertyType: $propertyType, province: $province, approvedBy: $approvedBy, user: $user)';
+    return 'PropertyModel(id: $id, status: $status, propertyId: $propertyId, listingType: $listingType, images: $images, title: $title, description: $description, latitude: $latitude, longitude: $longitude, price: $price, sqm: $sqm, bedrooms: $bedrooms, bathrooms: $bathrooms, floors: $floors, parking: $parking, livingRooms: $livingRooms, landLength: $landLength, landWidth: $landWidth, houseLength: $houseLength, houseWidth: $houseWidth, pricePerSqm: $pricePerSqm, createdAt: $createdAt, userId: $userId, propertyTypeId: $propertyTypeId, provinceId: $provinceId, approvedAt: $approvedAt, rejectedAt: $rejectedAt, rejectReason: $rejectReason, viewCount: $viewCount, likeCount: $likeCount, autoVerbalAdded: $autoVerbalAdded, hiddenFromHomePage: $hiddenFromHomePage, propertyType: $propertyType, province: $province, approvedBy: $approvedBy, user: $user)';
   }
 
   @override
@@ -887,6 +908,8 @@ class _$PropertyModelImpl extends _PropertyModel {
                 other.likeCount == likeCount) &&
             (identical(other.autoVerbalAdded, autoVerbalAdded) ||
                 other.autoVerbalAdded == autoVerbalAdded) &&
+            (identical(other.hiddenFromHomePage, hiddenFromHomePage) ||
+                other.hiddenFromHomePage == hiddenFromHomePage) &&
             (identical(other.propertyType, propertyType) ||
                 other.propertyType == propertyType) &&
             (identical(other.province, province) ||
@@ -931,6 +954,7 @@ class _$PropertyModelImpl extends _PropertyModel {
         viewCount,
         likeCount,
         autoVerbalAdded,
+        hiddenFromHomePage,
         propertyType,
         province,
         approvedBy,
@@ -1002,6 +1026,8 @@ abstract class _PropertyModel extends PropertyModel {
       @JsonKey(name: PropertyModel.likeCountKey) required final int likeCount,
       @JsonKey(name: PropertyModel.autoVerbalAddedKey)
       required final bool autoVerbalAdded,
+      @JsonKey(name: PropertyModel.hiddenFromHomePageKey)
+      required final bool hiddenFromHomePage,
       @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
       @JsonKey(name: PropertyModel.propertyTypeKey)
       required final PropertyTypeModel propertyType,
@@ -1113,6 +1139,9 @@ abstract class _PropertyModel extends PropertyModel {
   @override
   @JsonKey(name: PropertyModel.autoVerbalAddedKey)
   bool get autoVerbalAdded;
+  @override
+  @JsonKey(name: PropertyModel.hiddenFromHomePageKey)
+  bool get hiddenFromHomePage;
   @override
   @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
   @JsonKey(name: PropertyModel.propertyTypeKey)

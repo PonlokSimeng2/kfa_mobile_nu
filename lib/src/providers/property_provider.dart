@@ -35,7 +35,7 @@ class PropertyListFilter with _$PropertyListFilter {
     double? minPrice,
     double? maxPrice,
     String? userId,
-    @Default(true) bool showAutoVerbalAddedItem,
+    @Default(false) bool showHiddenFromHomePageItem,
   }) = _PropertyListFilter;
 }
 
@@ -58,8 +58,8 @@ FutureOr<IList<PropertyModel>> propertyList(
     );
   }
 
-  if (filter?.showAutoVerbalAddedItem == false) {
-    query = query.eq(PropertyTable.autoVerbalAdded, false);
+  if (filter?.showHiddenFromHomePageItem == false) {
+    query = query.eq(PropertyTable.hiddenFromHomePage, false);
   }
 
   if (filter?.listingType != null) {
@@ -422,6 +422,25 @@ class IncrementPropertyView extends _$IncrementPropertyView {
           'increment_property_view_count',
           params: {'property_id': propertyId},
         );
+      },
+    );
+  }
+}
+
+@riverpod
+class TogglePropertyHidden extends _$TogglePropertyHidden {
+  @override
+  ProviderStatus<void> build(int propertyId) => const ProviderStatus.initial();
+
+  Future<ProviderStatus<void>> call({
+    required bool hiddenFromHomePage,
+  }) async {
+    return await perform(
+      (state) async {
+        final sb = ref.watch(supabaseProvider).client;
+        await sb.from(PropertyModel.table.tableName).update({
+          PropertyTable.hiddenFromHomePage: hiddenFromHomePage,
+        }).eq(PropertyTable.id, propertyId);
       },
     );
   }

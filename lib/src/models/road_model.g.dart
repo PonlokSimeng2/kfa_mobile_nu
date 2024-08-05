@@ -19,15 +19,3 @@ Map<String, dynamic> _$$RoadModelImplToJson(_$RoadModelImpl instance) =>
       'id': instance.id,
       'name': instance.name,
     };
-
-// **************************************************************************
-// TableModelGenerator
-// **************************************************************************
-
-const _tableRoadModel = TableBuilder(
-  tableName: "roads",
-  columns: [
-    ColumnBuilder('id'),
-    ColumnBuilder('name'),
-  ],
-);

@@ -29,20 +29,3 @@ Map<String, dynamic> _$$PropertyCommentModelImplToJson(
       'content': instance.content,
       'user': instance.user.toJson(),
     };
-
-// **************************************************************************
-// TableModelGenerator
-// **************************************************************************
-
-const _tablePropertyCommentModel = TableBuilder(
-  tableName: "property_comments",
-  columns: [
-    ColumnBuilder('id'),
-    ColumnBuilder('property_id'),
-    ColumnBuilder('user_id'),
-    ColumnBuilder('created_at'),
-    ColumnBuilder('content'),
-    ColumnBuilder.join(UserModel.table,
-        key: "user", candidateKey: null, foreignKey: 'user_id'),
-  ],
-);

@@ -51,23 +51,3 @@ Map<String, dynamic> _$$UserLiteModelImplToJson(_$UserLiteModelImpl instance) =>
       'first_name': instance.firstName,
       'last_name': instance.lastName,
     };
-
-// **************************************************************************
-// TableModelGenerator
-// **************************************************************************
-
-const _tableUserModel = TableBuilder(
-  tableName: "users",
-  columns: [
-    ColumnBuilder('id'),
-    ColumnBuilder('user_id'),
-    ColumnBuilder('photo'),
-    ColumnBuilder('first_name'),
-    ColumnBuilder('last_name'),
-    ColumnBuilder('email'),
-    ColumnBuilder('phone'),
-    ColumnBuilder('vpoints'),
-    ColumnBuilder('is_admin'),
-    ColumnBuilder('joined_at'),
-  ],
-);

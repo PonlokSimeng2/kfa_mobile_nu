@@ -81,7 +81,8 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
       return;
     }
 
-    final increment = ref.read(incrementPropertyViewProvider(widget.data.id).notifier);
+    final increment =
+        ref.read(incrementPropertyViewProvider(widget.data.id).notifier);
     await increment();
   }
 
@@ -123,14 +124,16 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
                   ),
                   child: Consumer(
                     builder: (context, ref, child) {
-                      final isFavorite = ref.watch(isFavoriteProvider(widget.data.id));
+                      final isFavorite =
+                          ref.watch(isFavoriteProvider(widget.data.id));
                       return IconButton(
                         icon: Icon(
                           isFavorite ? Icons.favorite : Icons.favorite_border,
                           color: isFavorite ? Colors.red : Colors.white,
                         ),
                         onPressed: () {
-                          final notifier = ref.read(favoritePropertyProvider.notifier);
+                          final notifier =
+                              ref.read(favoritePropertyProvider.notifier);
                           if (isFavorite) {
                             notifier.removeFromFavorite(widget.data.id);
                             ScaffoldMessenger.of(context).clearSnackBars();
@@ -171,7 +174,8 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 child: _buildMap(),
               ),
             ),
@@ -202,7 +206,8 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
             viewportFraction: 1,
             enlargeCenterPage: false,
             autoPlay: true,
-            onPageChanged: (index, _) => setState(() => _currentImageIndex = index),
+            onPageChanged: (index, _) =>
+                setState(() => _currentImageIndex = index),
           ),
         ),
         Positioned(
@@ -242,6 +247,28 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
             ),
           ),
         ),
+        Positioned(
+          bottom: 10,
+          left: 10,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.7),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.thumb_up, color: Colors.white, size: 16),
+                const SizedBox(width: 4),
+                Text(
+                  '${widget.data.likeCount}',
+                  style: const TextStyle(color: Colors.white, fontSize: 12),
+                ),
+              ],
+            ),
+          ),
+        )
       ],
     );
   }
@@ -254,17 +281,26 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
         children: [
           Text(
             widget.data.listingType.name.capitalize(),
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall
+                ?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           Text(
             widget.data.title,
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           Text(
             '\$${widget.data.price}',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.green),
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge
+                ?.copyWith(color: Colors.green),
           ),
         ],
       ),
@@ -417,8 +453,8 @@ class _Comments extends ConsumerWidget {
               (context, index) {
                 final paginated = ref.watch(
                   propertyCommentAtIndexProvider(
-                    propertyId: (context.findAncestorWidgetOfExactType<PropertyDetailPage>()
-                            as PropertyDetailPage)
+                    propertyId: (context.findAncestorWidgetOfExactType<
+                            PropertyDetailPage>() as PropertyDetailPage)
                         .data
                         .id,
                     index: index,
@@ -450,7 +486,8 @@ class _Comments extends ConsumerWidget {
                                         showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
-                                            return _EditCommentDialog(comment: comment);
+                                            return _EditCommentDialog(
+                                                comment: comment);
                                           },
                                         );
                                       },
@@ -460,13 +497,16 @@ class _Comments extends ConsumerWidget {
                                       title: const Text('Delete Comment'),
                                       onTap: () async {
                                         final notifier = ref.read(
-                                          deletePropertyCommentProvider(comment.id).notifier,
+                                          deletePropertyCommentProvider(
+                                                  comment.id)
+                                              .notifier,
                                         );
                                         final close = BotToast.showLoading();
                                         final result = await notifier.call();
                                         close();
                                         if (result.isFailure) {
-                                          BotToast.showText(text: result.failure!.message());
+                                          BotToast.showText(
+                                              text: result.failure!.message());
                                         } else {
                                           if (!context.mounted) return;
                                           Navigator.pop(context);
@@ -481,8 +521,9 @@ class _Comments extends ConsumerWidget {
                         }
                       },
                       leading: CircleAvatar(
-                        backgroundImage:
-                            comment.user.photo != null ? NetworkImage(comment.user.photo!) : null,
+                        backgroundImage: comment.user.photo != null
+                            ? NetworkImage(comment.user.photo!)
+                            : null,
                         child: comment.user.photo == null
                             ? Text(comment.user.firstName[0].toUpperCase())
                             : null,
@@ -493,11 +534,13 @@ class _Comments extends ConsumerWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 4),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("${comment.user.firstName} ${comment.user.lastName}"),
+                              Text(
+                                  "${comment.user.firstName} ${comment.user.lastName}"),
                               Text(comment.content),
                             ],
                           ),
@@ -567,7 +610,8 @@ class _EditCommentDialog extends HookConsumerWidget {
             }
 
             final close = BotToast.showLoading();
-            final notifier = ref.read(editPropertyCommentProvider(comment.id).notifier);
+            final notifier =
+                ref.read(editPropertyCommentProvider(comment.id).notifier);
             final result = await notifier.call(newContent: contentCtr.text);
             close();
 
@@ -594,7 +638,10 @@ class _CreateCommentBox extends HookConsumerWidget {
     final formKey = useMemoized(() => GlobalKey<FormState>());
     final contentCtr = useTextEditingController();
     final propertyId =
-        (context.findAncestorWidgetOfExactType<PropertyDetailPage>() as PropertyDetailPage).data.id;
+        (context.findAncestorWidgetOfExactType<PropertyDetailPage>()
+                as PropertyDetailPage)
+            .data
+            .id;
 
     return Form(
       key: formKey,
@@ -624,7 +671,8 @@ class _CreateCommentBox extends HookConsumerWidget {
               }
 
               final close = BotToast.showLoading();
-              final notifier = ref.read(addPropertyCommentProvider(propertyId).notifier);
+              final notifier =
+                  ref.read(addPropertyCommentProvider(propertyId).notifier);
               final result = await notifier.call(contentCtr.text);
               close();
 

@@ -29,19 +29,3 @@ Map<String, dynamic> _$$VPointTransactionModelImplToJson(
       'vpoints': instance.vpoints,
       'created_at': instance.createdAt.toIso8601String(),
     };
-
-// **************************************************************************
-// TableModelGenerator
-// **************************************************************************
-
-const _tableVPointTransactionModel = TableBuilder(
-  tableName: "v_point_transactions",
-  columns: [
-    ColumnBuilder('id'),
-    ColumnBuilder('transaction_id'),
-    ColumnBuilder('type'),
-    ColumnBuilder('user_id'),
-    ColumnBuilder('vpoints'),
-    ColumnBuilder('created_at'),
-  ],
-);

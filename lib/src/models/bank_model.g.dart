@@ -21,16 +21,3 @@ Map<String, dynamic> _$$BankModelImplToJson(_$BankModelImpl instance) =>
       'name': instance.name,
       'bank_branch': instance.bankBranch,
     };
-
-// **************************************************************************
-// TableModelGenerator
-// **************************************************************************
-
-const _tableBankModel = TableBuilder(
-  tableName: "banks",
-  columns: [
-    ColumnBuilder('id'),
-    ColumnBuilder('name'),
-    ColumnBuilder('bank_branch'),
-  ],
-);

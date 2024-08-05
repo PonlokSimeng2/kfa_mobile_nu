@@ -42,7 +42,6 @@ class PropertySchema extends KimappSchema {
   final rejectedAt = Field<DateTime?>('rejected_at');
   final rejectReason = Field<String?>('reject_reason');
   final viewCount = Field<int>('view_count');
-  final likeCount = Field<int>('like_count');
   final autoVerbalAdded = Field<bool>('auto_verbal_added');
 
   // Joins
@@ -71,7 +70,6 @@ class PropertySchema extends KimappSchema {
             createdAt,
             status,
             viewCount,
-            likeCount,
             autoVerbalAdded,
           ],
         ),
@@ -89,7 +87,6 @@ class PropertySchema extends KimappSchema {
             rejectReason,
             status,
             viewCount,
-            likeCount,
             autoVerbalAdded,
           ],
         ),

@@ -78,8 +78,6 @@ mixin _$PropertyModel {
   String? get rejectReason => throw _privateConstructorUsedError;
   @JsonKey(name: PropertyModel.viewCountKey)
   int get viewCount => throw _privateConstructorUsedError;
-  @JsonKey(name: PropertyModel.likeCountKey)
-  int get likeCount => throw _privateConstructorUsedError;
   @JsonKey(name: PropertyModel.autoVerbalAddedKey)
   bool get autoVerbalAdded => throw _privateConstructorUsedError;
   @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
@@ -139,7 +137,6 @@ abstract class $PropertyModelCopyWith<$Res> {
       @JsonKey(name: PropertyModel.rejectedAtKey) DateTime? rejectedAt,
       @JsonKey(name: PropertyModel.rejectReasonKey) String? rejectReason,
       @JsonKey(name: PropertyModel.viewCountKey) int viewCount,
-      @JsonKey(name: PropertyModel.likeCountKey) int likeCount,
       @JsonKey(name: PropertyModel.autoVerbalAddedKey) bool autoVerbalAdded,
       @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
       @JsonKey(name: PropertyModel.propertyTypeKey)
@@ -203,7 +200,6 @@ class _$PropertyModelCopyWithImpl<$Res, $Val extends PropertyModel>
     Object? rejectedAt = freezed,
     Object? rejectReason = freezed,
     Object? viewCount = null,
-    Object? likeCount = null,
     Object? autoVerbalAdded = null,
     Object? propertyType = null,
     Object? province = null,
@@ -327,10 +323,6 @@ class _$PropertyModelCopyWithImpl<$Res, $Val extends PropertyModel>
           ? _value.viewCount
           : viewCount // ignore: cast_nullable_to_non_nullable
               as int,
-      likeCount: null == likeCount
-          ? _value.likeCount
-          : likeCount // ignore: cast_nullable_to_non_nullable
-              as int,
       autoVerbalAdded: null == autoVerbalAdded
           ? _value.autoVerbalAdded
           : autoVerbalAdded // ignore: cast_nullable_to_non_nullable
@@ -431,7 +423,6 @@ abstract class _$$PropertyModelImplCopyWith<$Res>
       @JsonKey(name: PropertyModel.rejectedAtKey) DateTime? rejectedAt,
       @JsonKey(name: PropertyModel.rejectReasonKey) String? rejectReason,
       @JsonKey(name: PropertyModel.viewCountKey) int viewCount,
-      @JsonKey(name: PropertyModel.likeCountKey) int likeCount,
       @JsonKey(name: PropertyModel.autoVerbalAddedKey) bool autoVerbalAdded,
       @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
       @JsonKey(name: PropertyModel.propertyTypeKey)
@@ -497,7 +488,6 @@ class __$$PropertyModelImplCopyWithImpl<$Res>
     Object? rejectedAt = freezed,
     Object? rejectReason = freezed,
     Object? viewCount = null,
-    Object? likeCount = null,
     Object? autoVerbalAdded = null,
     Object? propertyType = null,
     Object? province = null,
@@ -621,10 +611,6 @@ class __$$PropertyModelImplCopyWithImpl<$Res>
           ? _value.viewCount
           : viewCount // ignore: cast_nullable_to_non_nullable
               as int,
-      likeCount: null == likeCount
-          ? _value.likeCount
-          : likeCount // ignore: cast_nullable_to_non_nullable
-              as int,
       autoVerbalAdded: null == autoVerbalAdded
           ? _value.autoVerbalAdded
           : autoVerbalAdded // ignore: cast_nullable_to_non_nullable
@@ -686,7 +672,6 @@ class _$PropertyModelImpl extends _PropertyModel {
       @JsonKey(name: PropertyModel.rejectedAtKey) required this.rejectedAt,
       @JsonKey(name: PropertyModel.rejectReasonKey) required this.rejectReason,
       @JsonKey(name: PropertyModel.viewCountKey) required this.viewCount,
-      @JsonKey(name: PropertyModel.likeCountKey) required this.likeCount,
       @JsonKey(name: PropertyModel.autoVerbalAddedKey)
       required this.autoVerbalAdded,
       @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
@@ -802,9 +787,6 @@ class _$PropertyModelImpl extends _PropertyModel {
   @JsonKey(name: PropertyModel.viewCountKey)
   final int viewCount;
   @override
-  @JsonKey(name: PropertyModel.likeCountKey)
-  final int likeCount;
-  @override
   @JsonKey(name: PropertyModel.autoVerbalAddedKey)
   final bool autoVerbalAdded;
   @override
@@ -826,7 +808,7 @@ class _$PropertyModelImpl extends _PropertyModel {
 
   @override
   String toString() {
-    return 'PropertyModel(id: $id, status: $status, propertyId: $propertyId, listingType: $listingType, images: $images, title: $title, description: $description, latitude: $latitude, longitude: $longitude, price: $price, sqm: $sqm, bedrooms: $bedrooms, bathrooms: $bathrooms, floors: $floors, parking: $parking, livingRooms: $livingRooms, landLength: $landLength, landWidth: $landWidth, houseLength: $houseLength, houseWidth: $houseWidth, pricePerSqm: $pricePerSqm, createdAt: $createdAt, userId: $userId, propertyTypeId: $propertyTypeId, provinceId: $provinceId, approvedAt: $approvedAt, rejectedAt: $rejectedAt, rejectReason: $rejectReason, viewCount: $viewCount, likeCount: $likeCount, autoVerbalAdded: $autoVerbalAdded, propertyType: $propertyType, province: $province, approvedBy: $approvedBy, user: $user)';
+    return 'PropertyModel(id: $id, status: $status, propertyId: $propertyId, listingType: $listingType, images: $images, title: $title, description: $description, latitude: $latitude, longitude: $longitude, price: $price, sqm: $sqm, bedrooms: $bedrooms, bathrooms: $bathrooms, floors: $floors, parking: $parking, livingRooms: $livingRooms, landLength: $landLength, landWidth: $landWidth, houseLength: $houseLength, houseWidth: $houseWidth, pricePerSqm: $pricePerSqm, createdAt: $createdAt, userId: $userId, propertyTypeId: $propertyTypeId, provinceId: $provinceId, approvedAt: $approvedAt, rejectedAt: $rejectedAt, rejectReason: $rejectReason, viewCount: $viewCount, autoVerbalAdded: $autoVerbalAdded, propertyType: $propertyType, province: $province, approvedBy: $approvedBy, user: $user)';
   }
 
   @override
@@ -883,8 +865,6 @@ class _$PropertyModelImpl extends _PropertyModel {
                 other.rejectReason == rejectReason) &&
             (identical(other.viewCount, viewCount) ||
                 other.viewCount == viewCount) &&
-            (identical(other.likeCount, likeCount) ||
-                other.likeCount == likeCount) &&
             (identical(other.autoVerbalAdded, autoVerbalAdded) ||
                 other.autoVerbalAdded == autoVerbalAdded) &&
             (identical(other.propertyType, propertyType) ||
@@ -929,7 +909,6 @@ class _$PropertyModelImpl extends _PropertyModel {
         rejectedAt,
         rejectReason,
         viewCount,
-        likeCount,
         autoVerbalAdded,
         propertyType,
         province,
@@ -999,7 +978,6 @@ abstract class _PropertyModel extends PropertyModel {
       @JsonKey(name: PropertyModel.rejectReasonKey)
       required final String? rejectReason,
       @JsonKey(name: PropertyModel.viewCountKey) required final int viewCount,
-      @JsonKey(name: PropertyModel.likeCountKey) required final int likeCount,
       @JsonKey(name: PropertyModel.autoVerbalAddedKey)
       required final bool autoVerbalAdded,
       @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
@@ -1107,9 +1085,6 @@ abstract class _PropertyModel extends PropertyModel {
   @override
   @JsonKey(name: PropertyModel.viewCountKey)
   int get viewCount;
-  @override
-  @JsonKey(name: PropertyModel.likeCountKey)
-  int get likeCount;
   @override
   @JsonKey(name: PropertyModel.autoVerbalAddedKey)
   bool get autoVerbalAdded;

@@ -1,16 +1,24 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/rendering.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kfa_mobile_nu/src/models/property_model.schema.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/property_comment_provider.dart';
+import 'package:kfa_mobile_nu/src/providers/property_like_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/property_provider.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:readmore/readmore.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:url_launcher/url_launcher.dart';
-
+import 'dart:ui' as ui;
 import '../../exports.dart';
 import '../models/property_comment_model.dart';
 import '../models/property_model.dart';
@@ -87,107 +95,137 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
     await increment();
   }
 
+  ScreenshotController screenshotController = ScreenshotController();
+  final GlobalKey _globalKeyScreenShot = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return AuthWrapperWidget(
       child: Scaffold(
-        body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              expandedHeight: 250,
-              flexibleSpace: FlexibleSpaceBar(
-                background: _buildImageCarousel(),
-              ),
-              pinned: true,
-              floating: false,
-              title: const Text(
-                'Property Detail',
-                style: TextStyle(color: Colors.white),
-              ),
-              backgroundColor: Theme.of(context).primaryColor,
-              leading: Container(
-                margin: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: IconButton(
-                  icon: const Icon(Icons.arrow_back),
-                  onPressed: () => Navigator.pop(context),
-                ),
-              ),
-              actions: [
-                Container(
-                  margin: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.3),
-                    borderRadius: BorderRadius.circular(20),
+        body: Screenshot(
+          controller: screenshotController,
+          child: RepaintBoundary(
+            key: _globalKeyScreenShot,
+            child: CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  expandedHeight: 250,
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: _buildImageCarousel(),
                   ),
-                  child: Consumer(
-                    builder: (context, ref, child) {
-                      final isFavorite =
-                          ref.watch(isFavoriteProvider(widget.data.id));
-                      return IconButton(
-                        icon: Icon(
-                          isFavorite ? Icons.favorite : Icons.favorite_border,
-                          color: isFavorite ? Colors.red : Colors.white,
-                        ),
-                        onPressed: () {
-                          final notifier =
-                              ref.read(favoritePropertyProvider.notifier);
-                          if (isFavorite) {
-                            notifier.removeFromFavorite(widget.data.id);
-                            ScaffoldMessenger.of(context).clearSnackBars();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Removed from favorites'),
-                              ),
-                            );
-                          } else {
-                            notifier.markAsFavorite(widget.data.id);
-                            ScaffoldMessenger.of(context).clearSnackBars();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                  'Added to favorites',
-                                ),
-                              ),
-                            );
-                          }
+                  pinned: true,
+                  floating: false,
+                  title: const Text(
+                    'Property Detail',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  backgroundColor: Theme.of(context).primaryColor,
+                  leading: Container(
+                    margin: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ),
+                  actions: [
+                    Container(
+                      margin: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Consumer(
+                        builder: (context, ref, child) {
+                          final isFavorite =
+                              ref.watch(isFavoriteProvider(widget.data.id));
+                          return IconButton(
+                            icon: Icon(
+                              isFavorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: isFavorite ? Colors.red : Colors.white,
+                            ),
+                            onPressed: () {
+                              final notifier =
+                                  ref.read(favoritePropertyProvider.notifier);
+                              if (isFavorite) {
+                                notifier.removeFromFavorite(widget.data.id);
+                                ScaffoldMessenger.of(context).clearSnackBars();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Removed from favorites'),
+                                  ),
+                                );
+                              } else {
+                                notifier.markAsFavorite(widget.data.id);
+                                ScaffoldMessenger.of(context).clearSnackBars();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      'Added to favorites',
+                                    ),
+                                  ),
+                                );
+                              }
+                            },
+                          );
                         },
-                      );
-                    },
+                      ),
+                    ),
+                  ],
+                ),
+                SliverToBoxAdapter(
+                  child: _buildPropertyInfo(),
+                ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: _buildFeatures(),
                   ),
                 ),
+                SliverToBoxAdapter(
+                  child: _buildDescription(),
+                ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    child: _buildMap(),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: _buildContactInfo(),
+                ),
+                const _Comments(),
               ],
             ),
-            SliverToBoxAdapter(
-              child: _buildPropertyInfo(),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: _buildFeatures(),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: _buildDescription(),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                child: _buildMap(),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: _buildContactInfo(),
-            ),
-            const _Comments(),
-          ],
+          ),
         ),
       ),
     );
+  }
+
+  Future<void> shareImage(GlobalKey globalKey, context) async {
+    try {
+      RenderRepaintBoundary boundary =
+          globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+      ui.Image image = await boundary.toImage(pixelRatio: 3.0);
+      ByteData? byteData =
+          await image.toByteData(format: ui.ImageByteFormat.png);
+      Uint8List pngBytes = byteData!.buffer.asUint8List();
+      File imgFile = File('${(await getTemporaryDirectory()).path}/share.png');
+      imgFile.writeAsBytesSync(pngBytes);
+      final RenderBox box = context.findRenderObject() as RenderBox;
+      Share.shareXFiles(
+        [XFile(imgFile.path)],
+        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
+      );
+    } catch (e) {
+      print(e);
+    }
   }
 
   Widget _buildImageCarousel() {
@@ -250,24 +288,54 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
         ),
         Positioned(
           bottom: 10,
-          left: 10,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.7),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.thumb_up, color: Colors.white, size: 16),
-                const SizedBox(width: 4),
-                Text(
-                  '${widget.data.likeCount}',
-                  style: const TextStyle(color: Colors.white, fontSize: 12),
+          left: 80,
+          child: Consumer(
+            builder: (context, ref, child) {
+              final likesCount = ref.watch(propertyLikeListProvider(
+                  page: 1, propertyId: widget.data.id));
+              return Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.7),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-              ],
-            ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.thumb_up, color: Colors.white, size: 16),
+                    const SizedBox(width: 4),
+                    Text(
+                      '${likesCount.value?.length ?? 0} likes',
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+        Positioned(
+          bottom: 10,
+          left: 170,
+          child: Consumer(
+            builder: (context, ref, child) {
+              final likesCount = ref.watch(propertyLikeListProvider(
+                  page: 1, propertyId: widget.data.id));
+              return Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.7),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: InkWell(
+                  onTap: () {
+                    shareImage(_globalKeyScreenShot, context);
+                  },
+                  child: const Text('Share',
+                      style: TextStyle(color: Colors.white, fontSize: 13)),
+                ),
+              );
+            },
           ),
         )
       ],

@@ -53,7 +53,7 @@ class _AdminPropertyDetailPageState
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Property Details'),
+        title: const Text('Property Detail'),
       ),
       bottomNavigationBar: bottomAppBar,
       body: SingleChildScrollView(
@@ -179,85 +179,103 @@ class _AdminPropertyDetailPageState
                     'Submission Date: ${widget.property.createdAt.toLocal().toString().split(' ')[0]}',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  if (isCurrentUserOwner &&
-                      status.value == PropertyAndAutoVerbalStatus.approved) ...[
-                    if (!autoVerbalAdded.value)
-                      TextButton.icon(
-                        icon: const Icon(Icons.add),
-                        label: const Text('Add to AutoVerbal'),
-                        onPressed: () async {
-                          final result = await context.push((_) =>
-                              AddAutoVerbalPage(
-                                  propertyModel: widget.property));
-                          if (result == true) {
-                            autoVerbalAdded.value = true;
-                            scrollCtr.jumpTo(0);
-                          }
-                        },
-                      )
-                    else
-                      Text('(Added to AutoVerbal)',
-                          style: Theme.of(context).textTheme.labelSmall),
-                  ],
                   const SizedBox(height: 24),
                   if (isCurrentUserOwner) ...[
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        FilledButton(
-                          onPressed: () {
-                            context.push((_) =>
-                                EditPropertyPage(initial: widget.property));
-                          },
-                          child: const Text('Edit Property'),
-                        ),
-                        const SizedBox(width: 16),
-                        FilledButton(
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: const Text('Delete Property'),
-                                  content: const Text(
-                                      'Are you sure you want to delete this property?'),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      child: const Text('Cancel'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                    FilledButton(
-                                      style: FilledButton.styleFrom(
-                                        backgroundColor:
-                                            Theme.of(context).colorScheme.error,
-                                      ),
-                                      child: const Text('Delete'),
-                                      onPressed: () async {
-                                        final close = BotToast.showLoading();
-                                        final delete = ref.read(
-                                          deletePropertyProvider(
-                                                  widget.property.id)
-                                              .notifier,
-                                        );
-                                        await delete();
-                                        close();
-                                        if (!context.mounted) return;
-                                        Navigator.of(context).pop();
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          },
-                          style: FilledButton.styleFrom(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.error,
+                        if (isCurrentUserOwner &&
+                            status.value ==
+                                PropertyAndAutoVerbalStatus.approved) ...[
+                          if (!autoVerbalAdded.value)
+                            Container(
+                              width: 160,
+                              child: FilledButton(
+                                onPressed: () async {
+                                  final result = await context.push((_) =>
+                                      AddAutoVerbalPage(
+                                          propertyModel: widget.property));
+                                  if (result == true) {
+                                    autoVerbalAdded.value = true;
+                                    scrollCtr.jumpTo(0);
+                                  }
+                                },
+                                child: const Text('Send to property'),
+                              ),
+                            )
+                          else
+                            FilledButton(
+                              onPressed: () {},
+                              child: Text(
+                                'Sent to AutoVerbal',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                        ],
+                        const SizedBox(width: 5),
+                        Container(
+                          width: 132,
+                          child: FilledButton(
+                            onPressed: () {
+                              context.push(
+                                (_) =>
+                                    EditPropertyPage(initial: widget.property),
+                              );
+                            },
+                            child: const Text('Edit'),
                           ),
-                          child: const Text('Delete Property'),
+                        ),
+                        const SizedBox(width: 5),
+                        Container(
+                          width: 105,
+                          child: FilledButton(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text('Delete'),
+                                    content: const Text(
+                                        'Are you sure you want to delete this property?'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: const Text('Cancel'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      FilledButton(
+                                        style: FilledButton.styleFrom(
+                                          backgroundColor: Theme.of(context)
+                                              .colorScheme
+                                              .error,
+                                        ),
+                                        child: const Text('Delete'),
+                                        onPressed: () async {
+                                          final close = BotToast.showLoading();
+                                          final delete = ref.read(
+                                            deletePropertyProvider(
+                                                    widget.property.id)
+                                                .notifier,
+                                          );
+                                          await delete();
+                                          close();
+                                          if (!context.mounted) return;
+                                          Navigator.of(context).pop();
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            style: FilledButton.styleFrom(
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.error,
+                            ),
+                            child: const Text('Delete'),
+                          ),
                         ),
                       ],
                     ),

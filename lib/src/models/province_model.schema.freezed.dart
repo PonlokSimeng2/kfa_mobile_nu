@@ -112,8 +112,9 @@ class __$$ProvinceModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 @TableModel(ProvinceModel.tableName)
+@JsonSerializable(explicitToJson: true)
 class _$ProvinceModelImpl extends _ProvinceModel {
   const _$ProvinceModelImpl(
       {@JsonKey(name: ProvinceModel.idKey) required this.id,

@@ -175,8 +175,9 @@ class __$$VPointTransactionModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 @TableModel(VPointTransactionModel.tableName)
+@JsonSerializable(explicitToJson: true)
 class _$VPointTransactionModelImpl extends _VPointTransactionModel {
   const _$VPointTransactionModelImpl(
       {@JsonKey(name: VPointTransactionModel.idKey) required this.id,

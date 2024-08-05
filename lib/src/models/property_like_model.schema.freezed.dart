@@ -172,8 +172,9 @@ class __$$PropertyLikeModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 @TableModel(PropertyLikeModel.tableName)
+@JsonSerializable(explicitToJson: true)
 class _$PropertyLikeModelImpl extends _PropertyLikeModel {
   const _$PropertyLikeModelImpl(
       {@JsonKey(name: PropertyLikeModel.idKey) required this.id,

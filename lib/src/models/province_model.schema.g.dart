@@ -19,3 +19,15 @@ Map<String, dynamic> _$$ProvinceModelImplToJson(_$ProvinceModelImpl instance) =>
       'id': instance.id,
       'name': instance.name,
     };
+
+// **************************************************************************
+// TableModelGenerator
+// **************************************************************************
+
+const _tableProvinceModel = TableBuilder(
+  tableName: "provinces",
+  columns: [
+    ColumnBuilder('id'),
+    ColumnBuilder('name'),
+  ],
+);

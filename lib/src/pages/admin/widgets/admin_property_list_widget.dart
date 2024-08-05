@@ -1,6 +1,7 @@
 import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
 import 'package:kfa_mobile_nu/src/models/base.dart';
 import 'package:kfa_mobile_nu/src/models/property_model.dart';
+import 'package:kfa_mobile_nu/src/models/property_model.schema.dart';
 import 'package:kfa_mobile_nu/src/pages/admin/admin_property_detail_page.dart';
 
 import '../../../../exports.dart';
@@ -14,7 +15,8 @@ class AdminPropertyListWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final firstPageCountAsync = ref.watch(
-      propertyListProvider(page: 0, filter: filter).select((v) => v.whenData((v) => v.length)),
+      propertyListProvider(page: 0, filter: filter)
+          .select((v) => v.whenData((v) => v.length)),
     );
 
     return firstPageCountAsync.when(
@@ -36,10 +38,11 @@ class AdminPropertyListWidget extends ConsumerWidget {
           child: ListView.builder(
             itemCount: count,
             itemBuilder: (context, index) {
-              final propertyAsync =
-                  ref.watch(propertyAtIndexProvider(index: index, filter: filter));
+              final propertyAsync = ref
+                  .watch(propertyAtIndexProvider(index: index, filter: filter));
               return propertyAsync?.whenOrNull(
-                    loading: (isFirstItem) => const Center(child: CircularProgressIndicator()),
+                    loading: (isFirstItem) =>
+                        const Center(child: CircularProgressIndicator()),
                     data: (property) => _buildListItem(context, property),
                   ) ??
                   const SizedBox.shrink();
@@ -71,7 +74,8 @@ class AdminPropertyListWidget extends ConsumerWidget {
                 width: 60,
                 height: 60,
                 fit: BoxFit.cover,
-                placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                placeholder: (context, url) =>
+                    const Center(child: CircularProgressIndicator()),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),
@@ -112,7 +116,8 @@ class AdminPropertyListWidget extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: _getStatusColor(property.status),
                     borderRadius: BorderRadius.circular(12),

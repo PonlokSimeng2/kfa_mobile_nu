@@ -187,8 +187,9 @@ class __$$PropertyCommentModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 @TableModel(PropertyCommentModel.tableName)
+@JsonSerializable(explicitToJson: true)
 class _$PropertyCommentModelImpl extends _PropertyCommentModel {
   const _$PropertyCommentModelImpl(
       {@JsonKey(name: PropertyCommentModel.idKey) required this.id,

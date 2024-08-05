@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kfa_mobile_nu/src/models/property_model.schema.dart';
 import 'package:kfa_mobile_nu/src/models/property_type_model.schema.dart';
 import 'package:kfa_mobile_nu/src/models/province_model.schema.dart';
 import 'package:kfa_mobile_nu/src/providers/report_provider.dart';
@@ -47,10 +48,13 @@ FutureOr<IList<PropertyModel>> propertyList(
 
   final offset = page * _limit;
 
-  var query = sb.from(PropertyModel.table.tableName).select(PropertyModel.table.selectStatement);
+  var query = sb
+      .from(PropertyModel.table.tableName)
+      .select(PropertyModel.table.selectStatement);
 
   if (filter?.statuses != null && filter!.statuses.isNotEmpty) {
-    query = query.inFilter(PropertyTable.status, filter.statuses.map((e) => e.name).toList());
+    query = query.inFilter(
+        PropertyTable.status, filter.statuses.map((e) => e.name).toList());
   }
 
   if (filter?.listingType != null) {
@@ -66,8 +70,10 @@ FutureOr<IList<PropertyModel>> propertyList(
   }
 
   if (filter?.titleOrDescription != null) {
-    final titleLike = "${PropertyTable.title}.ilike.%${filter!.titleOrDescription}%";
-    final descriptionLike = "${PropertyTable.description}.ilike.%${filter.titleOrDescription}%";
+    final titleLike =
+        "${PropertyTable.title}.ilike.%${filter!.titleOrDescription}%";
+    final descriptionLike =
+        "${PropertyTable.description}.ilike.%${filter.titleOrDescription}%";
     query = query.or("$titleLike,$descriptionLike");
   }
 
@@ -105,7 +111,8 @@ PaginatedItem<PropertyModel>? propertyAtIndex(
   final page = index ~/ _limit;
 
   final pageItems = ref.watch(propertyListProvider(page: page, filter: filter));
-  final hasNextPage = ref.exists(propertyListProvider(page: page + 1, filter: filter));
+  final hasNextPage =
+      ref.exists(propertyListProvider(page: page + 1, filter: filter));
 
   return PaginatedItem.build(
     pageItems: pageItems,
@@ -117,7 +124,9 @@ PaginatedItem<PropertyModel>? propertyAtIndex(
 
 @freezed
 class InsertPropertyState
-    with _$InsertPropertyState, ProviderStatusClassMixin<InsertPropertyState, void> {
+    with
+        _$InsertPropertyState,
+        ProviderStatusClassMixin<InsertPropertyState, void> {
   const InsertPropertyState._();
 
   const factory InsertPropertyState({
@@ -194,7 +203,8 @@ class InsertProperty extends _$InsertProperty with _$InsertPropertyForm {
         for (final xFile in state.imageFiles) {
           final path = xFile.path;
           final file = File(path);
-          final newPath = '${DateTime.now().microsecondsSinceEpoch}${p.extension(path)}';
+          final newPath =
+              '${DateTime.now().microsecondsSinceEpoch}${p.extension(path)}';
 
           await sb.storage.from('files').upload(newPath, file);
 
@@ -244,7 +254,9 @@ class InsertProperty extends _$InsertProperty with _$InsertPropertyForm {
 
 @freezed
 class UpdatePropertyState
-    with _$UpdatePropertyState, ProviderStatusClassMixin<UpdatePropertyState, void> {
+    with
+        _$UpdatePropertyState,
+        ProviderStatusClassMixin<UpdatePropertyState, void> {
   const UpdatePropertyState._();
 
   const factory UpdatePropertyState({
@@ -272,7 +284,8 @@ class UpdatePropertyState
     @Default(ProviderStatus.initial()) ProviderStatus<void> status,
   }) = _UpdatePropertyState;
 
-  UpdatePropertyParam toParam({required List<String> imageUrls, required String userId}) {
+  UpdatePropertyParam toParam(
+      {required List<String> imageUrls, required String userId}) {
     return UpdatePropertyParam(
       listingType: propertyListingType,
       images: imageUrls,
@@ -338,7 +351,8 @@ class UpdateProperty extends _$UpdateProperty with _$UpdatePropertyForm {
   Future<ProviderStatus<void>> call() async {
     return await perform<void>(
       (state) async {
-        if (state.newImageFiles.isEmpty && state.existingImageUrls.isEmpty) throw 'Images is empty';
+        if (state.newImageFiles.isEmpty && state.existingImageUrls.isEmpty)
+          throw 'Images is empty';
         final userId = ref.watch(authProvider);
         if (userId == null) throw 'User must be login';
         if (state.province == null) throw 'Province is required';
@@ -353,7 +367,8 @@ class UpdateProperty extends _$UpdateProperty with _$UpdatePropertyForm {
         for (final xFile in state.newImageFiles) {
           final path = xFile.path;
           final file = File(path);
-          final newPath = '${DateTime.now().microsecondsSinceEpoch}${p.extension(path)}';
+          final newPath =
+              '${DateTime.now().microsecondsSinceEpoch}${p.extension(path)}';
 
           await sb.storage.from('files').upload(newPath, file);
 
@@ -364,7 +379,8 @@ class UpdateProperty extends _$UpdateProperty with _$UpdatePropertyForm {
 
         await sb
             .from(PropertyModel.table.tableName)
-            .update(state.toParam(imageUrls: imageUrls, userId: userId).toJson())
+            .update(
+                state.toParam(imageUrls: imageUrls, userId: userId).toJson())
             .eq(PropertyTable.id, initial.id);
       },
       onSuccess: (success) {
@@ -383,7 +399,10 @@ class DeleteProperty extends _$DeleteProperty {
     return await perform(
       (state) async {
         final sb = ref.watch(supabaseProvider).client;
-        await sb.from(PropertyModel.table.tableName).delete().eq('id', propertyId);
+        await sb
+            .from(PropertyModel.table.tableName)
+            .delete()
+            .eq('id', propertyId);
       },
       onSuccess: (success) {
         ref.invalidate(propertyListProvider);
@@ -402,7 +421,8 @@ class IncrementPropertyView extends _$IncrementPropertyView {
     return await perform(
       (state) async {
         final sb = ref.watch(supabaseProvider).client;
-        await sb.rpc('increment_property_view_count', params: {'property_id': propertyId});
+        await sb.rpc('increment_property_view_count',
+            params: {'property_id': propertyId});
       },
     );
   }

@@ -7,6 +7,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:getwidget/components/button/gf_button.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kfa_mobile_nu/exports.dart';
+import 'package:kfa_mobile_nu/src/models/property_model.schema.dart';
 import 'package:kfa_mobile_nu/src/providers/auto_verbal_provider.dart';
 import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
 import 'package:kfa_mobile_nu/src/widgets/bank_dropdown.dart';
@@ -79,7 +80,8 @@ class AddAutoVerbalPage extends HookConsumerWidget {
             body: Padding(
               padding: const EdgeInsets.all(8.0),
               child: SingleChildScrollView(
-                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -1202,16 +1204,20 @@ class _ImagePicker extends HookWidget {
     final currentImageIndex = useState(0);
 
     return InsertAutoVerbalExistingImageUrlsFieldWidget(
-      builder: (ref, existingImageUrls, changeExistingImageUrls, showValidation) {
+      builder:
+          (ref, existingImageUrls, changeExistingImageUrls, showValidation) {
         return InsertAutoVerbalImageFilesFieldWidget(
           builder: (ref, imageFiles, changeImageFiles, showValidation) {
-            final hasImage = imageFiles.isNotEmpty || existingImageUrls.isNotEmpty;
-            final imagePaths = existingImageUrls.addAll(imageFiles.map((e) => e.path).toList());
+            final hasImage =
+                imageFiles.isNotEmpty || existingImageUrls.isNotEmpty;
+            final imagePaths = existingImageUrls
+                .addAll(imageFiles.map((e) => e.path).toList());
 
             return Column(
               children: [
                 Container(
-                  margin: EdgeInsets.all(30).copyWith(bottom: imageFiles.isEmpty ? 20 : 0),
+                  margin: EdgeInsets.all(30)
+                      .copyWith(bottom: imageFiles.isEmpty ? 20 : 0),
                   decoration: BoxDecoration(
                     color: kwhite,
                     borderRadius: BorderRadius.circular(10),
@@ -1250,7 +1256,8 @@ class _ImagePicker extends HookWidget {
                           children: [
                             PageView.builder(
                               controller: pageController,
-                              onPageChanged: (value) => currentImageIndex.value = value,
+                              onPageChanged: (value) =>
+                                  currentImageIndex.value = value,
                               itemCount: imagePaths.length,
                               itemBuilder: (context, index) {
                                 final path = imagePaths[index];

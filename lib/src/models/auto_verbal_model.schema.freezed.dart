@@ -680,8 +680,9 @@ class __$$AutoVerbalModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 @TableModel(AutoVerbalModel.tableName)
+@JsonSerializable(explicitToJson: true)
 class _$AutoVerbalModelImpl extends _AutoVerbalModel {
   const _$AutoVerbalModelImpl(
       {@JsonKey(name: AutoVerbalModel.idKey) required this.id,
@@ -690,48 +691,53 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
       required this.autoVerbalId,
       @JsonKey(name: AutoVerbalModel.imageKey)
       required final List<String> image,
-      @JsonKey(name: AutoVerbalModel.bankBranchKey) this.bankBranch,
+      @JsonKey(name: AutoVerbalModel.bankBranchKey) required this.bankBranch,
       @JsonKey(name: AutoVerbalModel.latitudeKey) required this.latitude,
       @JsonKey(name: AutoVerbalModel.longitudeKey) required this.longitude,
       @JsonKey(name: AutoVerbalModel.ownerNameKey) required this.ownerName,
       @JsonKey(name: AutoVerbalModel.ownerPhoneKey) required this.ownerPhone,
-      @JsonKey(name: AutoVerbalModel.bankOfficerNameKey) this.bankOfficerName,
-      @JsonKey(name: AutoVerbalModel.bankOfficerPhoneKey) this.bankOfficerPhone,
+      @JsonKey(name: AutoVerbalModel.bankOfficerNameKey)
+      required this.bankOfficerName,
+      @JsonKey(name: AutoVerbalModel.bankOfficerPhoneKey)
+      required this.bankOfficerPhone,
       @JsonKey(name: AutoVerbalModel.createdAtKey) required this.createdAt,
-      @JsonKey(name: AutoVerbalModel.approvedAtKey) this.approvedAt,
-      @JsonKey(name: AutoVerbalModel.rejectAtKey) this.rejectAt,
-      @JsonKey(name: AutoVerbalModel.rejectReasonKey) this.rejectReason,
+      @JsonKey(name: AutoVerbalModel.approvedAtKey) required this.approvedAt,
+      @JsonKey(name: AutoVerbalModel.rejectAtKey) required this.rejectAt,
+      @JsonKey(name: AutoVerbalModel.rejectReasonKey)
+      required this.rejectReason,
       @JsonKey(name: AutoVerbalModel.minValueKey) required this.minValue,
       @JsonKey(name: AutoVerbalModel.maxValueKey) required this.maxValue,
       @JsonKey(name: AutoVerbalModel.minValueSqmKey) required this.minValueSqm,
       @JsonKey(name: AutoVerbalModel.maxValueSqmKey) required this.maxValueSqm,
       @JsonKey(name: AutoVerbalModel.areaKey) required this.area,
-      @JsonKey(name: AutoVerbalModel.buildinglengthKey) this.buildinglength,
-      @JsonKey(name: AutoVerbalModel.buildingwidthKey) this.buildingwidth,
+      @JsonKey(name: AutoVerbalModel.buildinglengthKey)
+      required this.buildinglength,
+      @JsonKey(name: AutoVerbalModel.buildingwidthKey)
+      required this.buildingwidth,
       @JsonKey(name: AutoVerbalModel.landlengthKey) required this.landlength,
       @JsonKey(name: AutoVerbalModel.landwidthKey) required this.landwidth,
-      @JsonKey(name: AutoVerbalModel.bedKey) this.bed,
-      @JsonKey(name: AutoVerbalModel.bathKey) this.bath,
-      @JsonKey(name: AutoVerbalModel.livingroomKey) this.livingroom,
-      @JsonKey(name: AutoVerbalModel.floorKey) this.floor,
+      @JsonKey(name: AutoVerbalModel.bedKey) required this.bed,
+      @JsonKey(name: AutoVerbalModel.bathKey) required this.bath,
+      @JsonKey(name: AutoVerbalModel.livingroomKey) required this.livingroom,
+      @JsonKey(name: AutoVerbalModel.floorKey) required this.floor,
       @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
       @JsonKey(name: AutoVerbalModel.propertyTypeKey)
       required this.propertyType,
       @JoinedColumn(foreignKey: "bank_id", candidateKey: null)
       @JsonKey(name: AutoVerbalModel.bankKey)
-      this.bank,
+      required this.bank,
       @JoinedColumn(foreignKey: null, candidateKey: "auto_verbals_user_id_fkey")
       @JsonKey(name: AutoVerbalModel.userKey)
-      this.user,
+      required this.user,
       @JoinedColumn(foreignKey: "approved_by", candidateKey: null)
       @JsonKey(name: AutoVerbalModel.approvedByKey)
-      this.approvedBy,
+      required this.approvedBy,
       @JoinedColumn(foreignKey: "province_id", candidateKey: null)
       @JsonKey(name: AutoVerbalModel.provinceKey)
       required this.province,
       @JoinedColumn(foreignKey: "road_id", candidateKey: null)
       @JsonKey(name: AutoVerbalModel.roadKey)
-      this.road})
+      required this.road})
       : _image = image,
         super._();
 
@@ -987,7 +993,8 @@ abstract class _AutoVerbalModel extends AutoVerbalModel {
       required final String autoVerbalId,
       @JsonKey(name: AutoVerbalModel.imageKey)
       required final List<String> image,
-      @JsonKey(name: AutoVerbalModel.bankBranchKey) final String? bankBranch,
+      @JsonKey(name: AutoVerbalModel.bankBranchKey)
+      required final String? bankBranch,
       @JsonKey(name: AutoVerbalModel.latitudeKey)
       required final double latitude,
       @JsonKey(name: AutoVerbalModel.longitudeKey)
@@ -997,15 +1004,17 @@ abstract class _AutoVerbalModel extends AutoVerbalModel {
       @JsonKey(name: AutoVerbalModel.ownerPhoneKey)
       required final String ownerPhone,
       @JsonKey(name: AutoVerbalModel.bankOfficerNameKey)
-      final String? bankOfficerName,
+      required final String? bankOfficerName,
       @JsonKey(name: AutoVerbalModel.bankOfficerPhoneKey)
-      final String? bankOfficerPhone,
+      required final String? bankOfficerPhone,
       @JsonKey(name: AutoVerbalModel.createdAtKey)
       required final DateTime createdAt,
-      @JsonKey(name: AutoVerbalModel.approvedAtKey) final DateTime? approvedAt,
-      @JsonKey(name: AutoVerbalModel.rejectAtKey) final DateTime? rejectAt,
+      @JsonKey(name: AutoVerbalModel.approvedAtKey)
+      required final DateTime? approvedAt,
+      @JsonKey(name: AutoVerbalModel.rejectAtKey)
+      required final DateTime? rejectAt,
       @JsonKey(name: AutoVerbalModel.rejectReasonKey)
-      final String? rejectReason,
+      required final String? rejectReason,
       @JsonKey(name: AutoVerbalModel.minValueKey)
       required final double minValue,
       @JsonKey(name: AutoVerbalModel.maxValueKey)
@@ -1016,35 +1025,36 @@ abstract class _AutoVerbalModel extends AutoVerbalModel {
       required final double maxValueSqm,
       @JsonKey(name: AutoVerbalModel.areaKey) required final double area,
       @JsonKey(name: AutoVerbalModel.buildinglengthKey)
-      final double? buildinglength,
+      required final double? buildinglength,
       @JsonKey(name: AutoVerbalModel.buildingwidthKey)
-      final double? buildingwidth,
+      required final double? buildingwidth,
       @JsonKey(name: AutoVerbalModel.landlengthKey)
       required final double landlength,
       @JsonKey(name: AutoVerbalModel.landwidthKey)
       required final double landwidth,
-      @JsonKey(name: AutoVerbalModel.bedKey) final int? bed,
-      @JsonKey(name: AutoVerbalModel.bathKey) final int? bath,
-      @JsonKey(name: AutoVerbalModel.livingroomKey) final int? livingroom,
-      @JsonKey(name: AutoVerbalModel.floorKey) final int? floor,
+      @JsonKey(name: AutoVerbalModel.bedKey) required final int? bed,
+      @JsonKey(name: AutoVerbalModel.bathKey) required final int? bath,
+      @JsonKey(name: AutoVerbalModel.livingroomKey)
+      required final int? livingroom,
+      @JsonKey(name: AutoVerbalModel.floorKey) required final int? floor,
       @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
       @JsonKey(name: AutoVerbalModel.propertyTypeKey)
       required final PropertyTypeModel propertyType,
       @JoinedColumn(foreignKey: "bank_id", candidateKey: null)
       @JsonKey(name: AutoVerbalModel.bankKey)
-      final BankModel? bank,
+      required final BankModel? bank,
       @JoinedColumn(foreignKey: null, candidateKey: "auto_verbals_user_id_fkey")
       @JsonKey(name: AutoVerbalModel.userKey)
-      final UserModel? user,
+      required final UserModel? user,
       @JoinedColumn(foreignKey: "approved_by", candidateKey: null)
       @JsonKey(name: AutoVerbalModel.approvedByKey)
-      final UserModel? approvedBy,
+      required final UserModel? approvedBy,
       @JoinedColumn(foreignKey: "province_id", candidateKey: null)
       @JsonKey(name: AutoVerbalModel.provinceKey)
       required final ProvinceModel province,
       @JoinedColumn(foreignKey: "road_id", candidateKey: null)
       @JsonKey(name: AutoVerbalModel.roadKey)
-      final RoadModel? road}) = _$AutoVerbalModelImpl;
+      required final RoadModel? road}) = _$AutoVerbalModelImpl;
   const _AutoVerbalModel._() : super._();
 
   factory _AutoVerbalModel.fromJson(Map<String, dynamic> json) =
@@ -1612,7 +1622,8 @@ class __$$CreateAutoVerbalParamImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$CreateAutoVerbalParamImpl extends _CreateAutoVerbalParam {
   const _$CreateAutoVerbalParamImpl(
       {@JsonKey(name: CreateAutoVerbalParam.imageKey)
@@ -2454,7 +2465,8 @@ class __$$UpdateAutoVerbalParamImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$UpdateAutoVerbalParamImpl extends _UpdateAutoVerbalParam {
   const _$UpdateAutoVerbalParamImpl(
       {@JsonKey(name: UpdateAutoVerbalParam.statusKey) required this.status,

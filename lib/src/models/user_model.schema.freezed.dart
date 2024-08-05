@@ -223,13 +223,14 @@ class __$$UserModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 @TableModel(UserModel.tableName)
+@JsonSerializable(explicitToJson: true)
 class _$UserModelImpl extends _UserModel {
   const _$UserModelImpl(
       {@JsonKey(name: UserModel.idKey) required this.id,
       @JsonKey(name: UserModel.userIdKey) required this.userId,
-      @JsonKey(name: UserModel.photoKey) this.photo,
+      @JsonKey(name: UserModel.photoKey) required this.photo,
       @JsonKey(name: UserModel.firstNameKey) required this.firstName,
       @JsonKey(name: UserModel.lastNameKey) required this.lastName,
       @JsonKey(name: UserModel.emailKey) required this.email,
@@ -321,7 +322,7 @@ abstract class _UserModel extends UserModel {
   const factory _UserModel(
       {@JsonKey(name: UserModel.idKey) required final String id,
       @JsonKey(name: UserModel.userIdKey) required final String userId,
-      @JsonKey(name: UserModel.photoKey) final String? photo,
+      @JsonKey(name: UserModel.photoKey) required final String? photo,
       @JsonKey(name: UserModel.firstNameKey) required final String firstName,
       @JsonKey(name: UserModel.lastNameKey) required final String lastName,
       @JsonKey(name: UserModel.emailKey) required final String email,
@@ -497,7 +498,8 @@ class __$$UserLiteModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$UserLiteModelImpl extends _UserLiteModel {
   const _$UserLiteModelImpl(
       {@JsonKey(name: UserLiteModel.idKey) required this.id,

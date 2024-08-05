@@ -78,6 +78,8 @@ mixin _$PropertyModel {
   String? get rejectReason => throw _privateConstructorUsedError;
   @JsonKey(name: PropertyModel.viewCountKey)
   int get viewCount => throw _privateConstructorUsedError;
+  @JsonKey(name: PropertyModel.likeCountKey)
+  int get likeCount => throw _privateConstructorUsedError;
   @JsonKey(name: PropertyModel.autoVerbalAddedKey)
   bool get autoVerbalAdded => throw _privateConstructorUsedError;
   @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
@@ -137,6 +139,7 @@ abstract class $PropertyModelCopyWith<$Res> {
       @JsonKey(name: PropertyModel.rejectedAtKey) DateTime? rejectedAt,
       @JsonKey(name: PropertyModel.rejectReasonKey) String? rejectReason,
       @JsonKey(name: PropertyModel.viewCountKey) int viewCount,
+      @JsonKey(name: PropertyModel.likeCountKey) int likeCount,
       @JsonKey(name: PropertyModel.autoVerbalAddedKey) bool autoVerbalAdded,
       @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
       @JsonKey(name: PropertyModel.propertyTypeKey)
@@ -200,6 +203,7 @@ class _$PropertyModelCopyWithImpl<$Res, $Val extends PropertyModel>
     Object? rejectedAt = freezed,
     Object? rejectReason = freezed,
     Object? viewCount = null,
+    Object? likeCount = null,
     Object? autoVerbalAdded = null,
     Object? propertyType = null,
     Object? province = null,
@@ -323,6 +327,10 @@ class _$PropertyModelCopyWithImpl<$Res, $Val extends PropertyModel>
           ? _value.viewCount
           : viewCount // ignore: cast_nullable_to_non_nullable
               as int,
+      likeCount: null == likeCount
+          ? _value.likeCount
+          : likeCount // ignore: cast_nullable_to_non_nullable
+              as int,
       autoVerbalAdded: null == autoVerbalAdded
           ? _value.autoVerbalAdded
           : autoVerbalAdded // ignore: cast_nullable_to_non_nullable
@@ -423,6 +431,7 @@ abstract class _$$PropertyModelImplCopyWith<$Res>
       @JsonKey(name: PropertyModel.rejectedAtKey) DateTime? rejectedAt,
       @JsonKey(name: PropertyModel.rejectReasonKey) String? rejectReason,
       @JsonKey(name: PropertyModel.viewCountKey) int viewCount,
+      @JsonKey(name: PropertyModel.likeCountKey) int likeCount,
       @JsonKey(name: PropertyModel.autoVerbalAddedKey) bool autoVerbalAdded,
       @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
       @JsonKey(name: PropertyModel.propertyTypeKey)
@@ -488,6 +497,7 @@ class __$$PropertyModelImplCopyWithImpl<$Res>
     Object? rejectedAt = freezed,
     Object? rejectReason = freezed,
     Object? viewCount = null,
+    Object? likeCount = null,
     Object? autoVerbalAdded = null,
     Object? propertyType = null,
     Object? province = null,
@@ -611,6 +621,10 @@ class __$$PropertyModelImplCopyWithImpl<$Res>
           ? _value.viewCount
           : viewCount // ignore: cast_nullable_to_non_nullable
               as int,
+      likeCount: null == likeCount
+          ? _value.likeCount
+          : likeCount // ignore: cast_nullable_to_non_nullable
+              as int,
       autoVerbalAdded: null == autoVerbalAdded
           ? _value.autoVerbalAdded
           : autoVerbalAdded // ignore: cast_nullable_to_non_nullable
@@ -636,8 +650,9 @@ class __$$PropertyModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 @TableModel(PropertyModel.tableName)
+@JsonSerializable(explicitToJson: true)
 class _$PropertyModelImpl extends _PropertyModel {
   const _$PropertyModelImpl(
       {@JsonKey(name: PropertyModel.idKey) required this.id,
@@ -652,25 +667,26 @@ class _$PropertyModelImpl extends _PropertyModel {
       @JsonKey(name: PropertyModel.longitudeKey) required this.longitude,
       @JsonKey(name: PropertyModel.priceKey) required this.price,
       @JsonKey(name: PropertyModel.sqmKey) required this.sqm,
-      @JsonKey(name: PropertyModel.bedroomsKey) this.bedrooms,
-      @JsonKey(name: PropertyModel.bathroomsKey) this.bathrooms,
-      @JsonKey(name: PropertyModel.floorsKey) this.floors,
-      @JsonKey(name: PropertyModel.parkingKey) this.parking,
-      @JsonKey(name: PropertyModel.livingRoomsKey) this.livingRooms,
+      @JsonKey(name: PropertyModel.bedroomsKey) required this.bedrooms,
+      @JsonKey(name: PropertyModel.bathroomsKey) required this.bathrooms,
+      @JsonKey(name: PropertyModel.floorsKey) required this.floors,
+      @JsonKey(name: PropertyModel.parkingKey) required this.parking,
+      @JsonKey(name: PropertyModel.livingRoomsKey) required this.livingRooms,
       @JsonKey(name: PropertyModel.landLengthKey) required this.landLength,
       @JsonKey(name: PropertyModel.landWidthKey) required this.landWidth,
-      @JsonKey(name: PropertyModel.houseLengthKey) this.houseLength,
-      @JsonKey(name: PropertyModel.houseWidthKey) this.houseWidth,
+      @JsonKey(name: PropertyModel.houseLengthKey) required this.houseLength,
+      @JsonKey(name: PropertyModel.houseWidthKey) required this.houseWidth,
       @JsonKey(name: PropertyModel.pricePerSqmKey) required this.pricePerSqm,
       @JsonKey(name: PropertyModel.createdAtKey) required this.createdAt,
       @JsonKey(name: PropertyModel.userIdKey) required this.userId,
       @JsonKey(name: PropertyModel.propertyTypeIdKey)
       required this.propertyTypeId,
       @JsonKey(name: PropertyModel.provinceIdKey) required this.provinceId,
-      @JsonKey(name: PropertyModel.approvedAtKey) this.approvedAt,
-      @JsonKey(name: PropertyModel.rejectedAtKey) this.rejectedAt,
-      @JsonKey(name: PropertyModel.rejectReasonKey) this.rejectReason,
+      @JsonKey(name: PropertyModel.approvedAtKey) required this.approvedAt,
+      @JsonKey(name: PropertyModel.rejectedAtKey) required this.rejectedAt,
+      @JsonKey(name: PropertyModel.rejectReasonKey) required this.rejectReason,
       @JsonKey(name: PropertyModel.viewCountKey) required this.viewCount,
+      @JsonKey(name: PropertyModel.likeCountKey) required this.likeCount,
       @JsonKey(name: PropertyModel.autoVerbalAddedKey)
       required this.autoVerbalAdded,
       @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
@@ -682,7 +698,7 @@ class _$PropertyModelImpl extends _PropertyModel {
       @JoinedColumn(
           foreignKey: null, candidateKey: "properties_approved_by_fkey")
       @JsonKey(name: PropertyModel.approvedByKey)
-      this.approvedBy,
+      required this.approvedBy,
       @JoinedColumn(foreignKey: "user_id", candidateKey: null)
       @JsonKey(name: PropertyModel.userKey)
       required this.user})
@@ -786,6 +802,9 @@ class _$PropertyModelImpl extends _PropertyModel {
   @JsonKey(name: PropertyModel.viewCountKey)
   final int viewCount;
   @override
+  @JsonKey(name: PropertyModel.likeCountKey)
+  final int likeCount;
+  @override
   @JsonKey(name: PropertyModel.autoVerbalAddedKey)
   final bool autoVerbalAdded;
   @override
@@ -807,7 +826,7 @@ class _$PropertyModelImpl extends _PropertyModel {
 
   @override
   String toString() {
-    return 'PropertyModel(id: $id, status: $status, propertyId: $propertyId, listingType: $listingType, images: $images, title: $title, description: $description, latitude: $latitude, longitude: $longitude, price: $price, sqm: $sqm, bedrooms: $bedrooms, bathrooms: $bathrooms, floors: $floors, parking: $parking, livingRooms: $livingRooms, landLength: $landLength, landWidth: $landWidth, houseLength: $houseLength, houseWidth: $houseWidth, pricePerSqm: $pricePerSqm, createdAt: $createdAt, userId: $userId, propertyTypeId: $propertyTypeId, provinceId: $provinceId, approvedAt: $approvedAt, rejectedAt: $rejectedAt, rejectReason: $rejectReason, viewCount: $viewCount, autoVerbalAdded: $autoVerbalAdded, propertyType: $propertyType, province: $province, approvedBy: $approvedBy, user: $user)';
+    return 'PropertyModel(id: $id, status: $status, propertyId: $propertyId, listingType: $listingType, images: $images, title: $title, description: $description, latitude: $latitude, longitude: $longitude, price: $price, sqm: $sqm, bedrooms: $bedrooms, bathrooms: $bathrooms, floors: $floors, parking: $parking, livingRooms: $livingRooms, landLength: $landLength, landWidth: $landWidth, houseLength: $houseLength, houseWidth: $houseWidth, pricePerSqm: $pricePerSqm, createdAt: $createdAt, userId: $userId, propertyTypeId: $propertyTypeId, provinceId: $provinceId, approvedAt: $approvedAt, rejectedAt: $rejectedAt, rejectReason: $rejectReason, viewCount: $viewCount, likeCount: $likeCount, autoVerbalAdded: $autoVerbalAdded, propertyType: $propertyType, province: $province, approvedBy: $approvedBy, user: $user)';
   }
 
   @override
@@ -864,6 +883,8 @@ class _$PropertyModelImpl extends _PropertyModel {
                 other.rejectReason == rejectReason) &&
             (identical(other.viewCount, viewCount) ||
                 other.viewCount == viewCount) &&
+            (identical(other.likeCount, likeCount) ||
+                other.likeCount == likeCount) &&
             (identical(other.autoVerbalAdded, autoVerbalAdded) ||
                 other.autoVerbalAdded == autoVerbalAdded) &&
             (identical(other.propertyType, propertyType) ||
@@ -908,6 +929,7 @@ class _$PropertyModelImpl extends _PropertyModel {
         rejectedAt,
         rejectReason,
         viewCount,
+        likeCount,
         autoVerbalAdded,
         propertyType,
         province,
@@ -948,17 +970,20 @@ abstract class _PropertyModel extends PropertyModel {
       required final double longitude,
       @JsonKey(name: PropertyModel.priceKey) required final double price,
       @JsonKey(name: PropertyModel.sqmKey) required final double sqm,
-      @JsonKey(name: PropertyModel.bedroomsKey) final int? bedrooms,
-      @JsonKey(name: PropertyModel.bathroomsKey) final int? bathrooms,
-      @JsonKey(name: PropertyModel.floorsKey) final int? floors,
-      @JsonKey(name: PropertyModel.parkingKey) final int? parking,
-      @JsonKey(name: PropertyModel.livingRoomsKey) final int? livingRooms,
+      @JsonKey(name: PropertyModel.bedroomsKey) required final int? bedrooms,
+      @JsonKey(name: PropertyModel.bathroomsKey) required final int? bathrooms,
+      @JsonKey(name: PropertyModel.floorsKey) required final int? floors,
+      @JsonKey(name: PropertyModel.parkingKey) required final int? parking,
+      @JsonKey(name: PropertyModel.livingRoomsKey)
+      required final int? livingRooms,
       @JsonKey(name: PropertyModel.landLengthKey)
       required final double landLength,
       @JsonKey(name: PropertyModel.landWidthKey)
       required final double landWidth,
-      @JsonKey(name: PropertyModel.houseLengthKey) final double? houseLength,
-      @JsonKey(name: PropertyModel.houseWidthKey) final double? houseWidth,
+      @JsonKey(name: PropertyModel.houseLengthKey)
+      required final double? houseLength,
+      @JsonKey(name: PropertyModel.houseWidthKey)
+      required final double? houseWidth,
       @JsonKey(name: PropertyModel.pricePerSqmKey)
       required final double pricePerSqm,
       @JsonKey(name: PropertyModel.createdAtKey)
@@ -967,10 +992,14 @@ abstract class _PropertyModel extends PropertyModel {
       @JsonKey(name: PropertyModel.propertyTypeIdKey)
       required final int propertyTypeId,
       @JsonKey(name: PropertyModel.provinceIdKey) required final int provinceId,
-      @JsonKey(name: PropertyModel.approvedAtKey) final DateTime? approvedAt,
-      @JsonKey(name: PropertyModel.rejectedAtKey) final DateTime? rejectedAt,
-      @JsonKey(name: PropertyModel.rejectReasonKey) final String? rejectReason,
+      @JsonKey(name: PropertyModel.approvedAtKey)
+      required final DateTime? approvedAt,
+      @JsonKey(name: PropertyModel.rejectedAtKey)
+      required final DateTime? rejectedAt,
+      @JsonKey(name: PropertyModel.rejectReasonKey)
+      required final String? rejectReason,
       @JsonKey(name: PropertyModel.viewCountKey) required final int viewCount,
+      @JsonKey(name: PropertyModel.likeCountKey) required final int likeCount,
       @JsonKey(name: PropertyModel.autoVerbalAddedKey)
       required final bool autoVerbalAdded,
       @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
@@ -982,7 +1011,7 @@ abstract class _PropertyModel extends PropertyModel {
       @JoinedColumn(
           foreignKey: null, candidateKey: "properties_approved_by_fkey")
       @JsonKey(name: PropertyModel.approvedByKey)
-      final UserModel? approvedBy,
+      required final UserModel? approvedBy,
       @JoinedColumn(foreignKey: "user_id", candidateKey: null)
       @JsonKey(name: PropertyModel.userKey)
       required final UserModel user}) = _$PropertyModelImpl;
@@ -1078,6 +1107,9 @@ abstract class _PropertyModel extends PropertyModel {
   @override
   @JsonKey(name: PropertyModel.viewCountKey)
   int get viewCount;
+  @override
+  @JsonKey(name: PropertyModel.likeCountKey)
+  int get likeCount;
   @override
   @JsonKey(name: PropertyModel.autoVerbalAddedKey)
   bool get autoVerbalAdded;
@@ -1469,7 +1501,8 @@ class __$$CreatePropertyParamImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$CreatePropertyParamImpl extends _CreatePropertyParam {
   const _$CreatePropertyParamImpl(
       {@JsonKey(name: CreatePropertyParam.listingTypeKey)
@@ -2162,7 +2195,8 @@ class __$$UpdatePropertyParamImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$UpdatePropertyParamImpl extends _UpdatePropertyParam {
   const _$UpdatePropertyParamImpl(
       {@JsonKey(name: UpdatePropertyParam.listingTypeKey)

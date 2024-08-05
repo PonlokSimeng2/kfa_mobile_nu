@@ -144,14 +144,17 @@ class __$$PropertyCategoryModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 @TableModel(PropertyCategoryModel.tableName)
+@JsonSerializable(explicitToJson: true)
 class _$PropertyCategoryModelImpl extends _PropertyCategoryModel {
   const _$PropertyCategoryModelImpl(
       {@JsonKey(name: PropertyCategoryModel.idKey) required this.id,
       @JsonKey(name: PropertyCategoryModel.nameKey) required this.name,
-      @JsonKey(name: PropertyCategoryModel.totalSaleKey) this.totalSale,
-      @JsonKey(name: PropertyCategoryModel.totalRentKey) this.totalRent})
+      @JsonKey(name: PropertyCategoryModel.totalSaleKey)
+      required this.totalSale,
+      @JsonKey(name: PropertyCategoryModel.totalRentKey)
+      required this.totalRent})
       : super._();
 
   factory _$PropertyCategoryModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -211,9 +214,10 @@ abstract class _PropertyCategoryModel extends PropertyCategoryModel {
   const factory _PropertyCategoryModel(
       {@JsonKey(name: PropertyCategoryModel.idKey) required final int id,
       @JsonKey(name: PropertyCategoryModel.nameKey) required final String name,
-      @JsonKey(name: PropertyCategoryModel.totalSaleKey) final int? totalSale,
+      @JsonKey(name: PropertyCategoryModel.totalSaleKey)
+      required final int? totalSale,
       @JsonKey(name: PropertyCategoryModel.totalRentKey)
-      final int? totalRent}) = _$PropertyCategoryModelImpl;
+      required final int? totalRent}) = _$PropertyCategoryModelImpl;
   const _PropertyCategoryModel._() : super._();
 
   factory _PropertyCategoryModel.fromJson(Map<String, dynamic> json) =

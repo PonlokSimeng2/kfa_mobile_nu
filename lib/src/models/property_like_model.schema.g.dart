@@ -27,3 +27,19 @@ Map<String, dynamic> _$$PropertyLikeModelImplToJson(
       'created_at': instance.createdAt.toIso8601String(),
       'user': instance.user.toJson(),
     };
+
+// **************************************************************************
+// TableModelGenerator
+// **************************************************************************
+
+const _tablePropertyLikeModel = TableBuilder(
+  tableName: "property_likes",
+  columns: [
+    ColumnBuilder('id'),
+    ColumnBuilder('property_id'),
+    ColumnBuilder('user_id'),
+    ColumnBuilder('created_at'),
+    ColumnBuilder.join(UserModel.table,
+        key: "user", candidateKey: null, foreignKey: 'user_id'),
+  ],
+);

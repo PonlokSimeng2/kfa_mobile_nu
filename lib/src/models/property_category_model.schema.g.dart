@@ -25,3 +25,17 @@ Map<String, dynamic> _$$PropertyCategoryModelImplToJson(
       'sale_count': instance.totalSale,
       'rent_count': instance.totalRent,
     };
+
+// **************************************************************************
+// TableModelGenerator
+// **************************************************************************
+
+const _tablePropertyCategoryModel = TableBuilder(
+  tableName: "property_type_categories",
+  columns: [
+    ColumnBuilder('property_type_category_id'),
+    ColumnBuilder('category_name'),
+    ColumnBuilder('sale_count'),
+    ColumnBuilder('rent_count'),
+  ],
+);

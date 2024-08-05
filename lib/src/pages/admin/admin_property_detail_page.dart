@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
+import 'package:kfa_mobile_nu/src/models/property_model.schema.dart';
 import 'package:kfa_mobile_nu/src/models/user_model.dart';
 import 'package:kfa_mobile_nu/src/providers/admin_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
@@ -18,10 +19,12 @@ class AdminPropertyDetailPage extends StatefulHookConsumerWidget {
   const AdminPropertyDetailPage({super.key, required this.property});
 
   @override
-  ConsumerState<AdminPropertyDetailPage> createState() => _AdminPropertyDetailPageState();
+  ConsumerState<AdminPropertyDetailPage> createState() =>
+      _AdminPropertyDetailPageState();
 }
 
-class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPage> {
+class _AdminPropertyDetailPageState
+    extends ConsumerState<AdminPropertyDetailPage> {
   @override
   Widget build(BuildContext context) {
     final status = useState(widget.property.status);
@@ -39,7 +42,8 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
           PropertyAndAutoVerbalStatus.resubmit =>
             _buildApproveRejectButton(context, status),
           PropertyAndAutoVerbalStatus.approved => _buildApproved(),
-          PropertyAndAutoVerbalStatus.rejected => _buildRejected(redColor, context)
+          PropertyAndAutoVerbalStatus.rejected =>
+            _buildRejected(redColor, context)
         },
       );
     }
@@ -69,7 +73,8 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                     placeholder: (context, url) => const Center(
                       child: CircularProgressIndicator(),
                     ),
-                    errorWidget: (context, url, error) => const Icon(Icons.error),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   );
                 },
               ),
@@ -89,7 +94,8 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                       ),
                       const SizedBox(width: 8),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
                           color: widget.property.status.statusColor,
                           borderRadius: BorderRadius.circular(12),
@@ -132,10 +138,14 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _buildDetailRow('Area', '${widget.property.sqm} sqm'),
-                          _buildDetailRow('Bedrooms', '${widget.property.bedrooms ?? "N/A"}'),
-                          _buildDetailRow('Bathrooms', '${widget.property.bathrooms ?? "N/A"}'),
-                          _buildDetailRow('Floors', '${widget.property.floors ?? "N/A"}'),
-                          _buildDetailRow('Parking', '${widget.property.parking ?? "N/A"}'),
+                          _buildDetailRow('Bedrooms',
+                              '${widget.property.bedrooms ?? "N/A"}'),
+                          _buildDetailRow('Bathrooms',
+                              '${widget.property.bathrooms ?? "N/A"}'),
+                          _buildDetailRow(
+                              'Floors', '${widget.property.floors ?? "N/A"}'),
+                          _buildDetailRow(
+                              'Parking', '${widget.property.parking ?? "N/A"}'),
                           _buildDetailRow(
                             'Living Rooms',
                             '${widget.property.livingRooms ?? "N/A"}',
@@ -154,7 +164,8 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                             'Price per sqm',
                             '\$${widget.property.pricePerSqm.toStringAsFixed(2)}',
                           ),
-                          _buildDetailRow('Location', widget.property.province.name),
+                          _buildDetailRow(
+                              'Location', widget.property.province.name),
                         ],
                       ),
                     ),
@@ -175,8 +186,9 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                         icon: const Icon(Icons.add),
                         label: const Text('Add to AutoVerbal'),
                         onPressed: () async {
-                          final result = await context
-                              .push((_) => AddAutoVerbalPage(propertyModel: widget.property));
+                          final result = await context.push((_) =>
+                              AddAutoVerbalPage(
+                                  propertyModel: widget.property));
                           if (result == true) {
                             autoVerbalAdded.value = true;
                             scrollCtr.jumpTo(0);
@@ -184,7 +196,8 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                         },
                       )
                     else
-                      Text('(Added to AutoVerbal)', style: Theme.of(context).textTheme.labelSmall),
+                      Text('(Added to AutoVerbal)',
+                          style: Theme.of(context).textTheme.labelSmall),
                   ],
                   const SizedBox(height: 24),
                   if (isCurrentUserOwner) ...[
@@ -193,7 +206,8 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                       children: [
                         FilledButton(
                           onPressed: () {
-                            context.push((_) => EditPropertyPage(initial: widget.property));
+                            context.push((_) =>
+                                EditPropertyPage(initial: widget.property));
                           },
                           child: const Text('Edit Property'),
                         ),
@@ -205,8 +219,8 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                               builder: (BuildContext context) {
                                 return AlertDialog(
                                   title: const Text('Delete Property'),
-                                  content:
-                                      const Text('Are you sure you want to delete this property?'),
+                                  content: const Text(
+                                      'Are you sure you want to delete this property?'),
                                   actions: <Widget>[
                                     TextButton(
                                       child: const Text('Cancel'),
@@ -216,13 +230,16 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                                     ),
                                     FilledButton(
                                       style: FilledButton.styleFrom(
-                                        backgroundColor: Theme.of(context).colorScheme.error,
+                                        backgroundColor:
+                                            Theme.of(context).colorScheme.error,
                                       ),
                                       child: const Text('Delete'),
                                       onPressed: () async {
                                         final close = BotToast.showLoading();
                                         final delete = ref.read(
-                                          deletePropertyProvider(widget.property.id).notifier,
+                                          deletePropertyProvider(
+                                                  widget.property.id)
+                                              .notifier,
                                         );
                                         await delete();
                                         close();
@@ -237,7 +254,8 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                             );
                           },
                           style: FilledButton.styleFrom(
-                            backgroundColor: Theme.of(context).colorScheme.error,
+                            backgroundColor:
+                                Theme.of(context).colorScheme.error,
                           ),
                           child: const Text('Delete Property'),
                         ),
@@ -360,7 +378,8 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
               );
 
               if (confirmed == true && context.mounted) {
-                final approve = ref.read(approvePropertyProvider(widget.property.id).notifier);
+                final approve = ref
+                    .read(approvePropertyProvider(widget.property.id).notifier);
                 final closeLoading = BotToast.showLoading();
                 final result = await approve();
                 closeLoading();
@@ -380,7 +399,8 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
               padding: const EdgeInsets.symmetric(vertical: 12),
               decoration: BoxDecoration(
                 color: Colors.green,
-                borderRadius: const BorderRadius.horizontal(left: Radius.circular(12)),
+                borderRadius:
+                    const BorderRadius.horizontal(left: Radius.circular(12)),
                 border: Border.all(color: Colors.grey),
               ),
               child: const Text(
@@ -408,7 +428,8 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Text('Are you sure you want to reject this property?'),
+                        const Text(
+                            'Are you sure you want to reject this property?'),
                         const SizedBox(height: 16),
                         TextField(
                           autofocus: true,
@@ -449,7 +470,8 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
               );
 
               if (rejectReason.isNotNullOrBlank && context.mounted) {
-                final reject = ref.read(rejectPropertyProvider(widget.property.id).notifier);
+                final reject = ref
+                    .read(rejectPropertyProvider(widget.property.id).notifier);
                 final closeLoading = BotToast.showLoading();
                 final result = await reject(reason: rejectReason);
                 closeLoading();
@@ -469,7 +491,8 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
               padding: const EdgeInsets.symmetric(vertical: 12),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.error.withOpacity(0.8),
-                borderRadius: const BorderRadius.horizontal(right: Radius.circular(12)),
+                borderRadius:
+                    const BorderRadius.horizontal(right: Radius.circular(12)),
                 border: Border.all(color: Colors.grey),
               ),
               child: const Text(

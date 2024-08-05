@@ -21,3 +21,15 @@ Map<String, dynamic> _$$PropertyTypeModelImplToJson(
       'id': instance.id,
       'name': instance.name,
     };
+
+// **************************************************************************
+// TableModelGenerator
+// **************************************************************************
+
+const _tablePropertyTypeModel = TableBuilder(
+  tableName: "properties_types",
+  columns: [
+    ColumnBuilder('id'),
+    ColumnBuilder('name'),
+  ],
+);

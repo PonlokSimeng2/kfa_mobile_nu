@@ -172,6 +172,11 @@ class PropertyTable {
   /// Key: `view_count`
   static const String viewCount = "view_count";
 
+  /// Column: like_count
+  /// Data type: `int`
+  /// Key: `like_count`
+  static const String likeCount = "like_count";
+
   /// Column: auto_verbal_added
   /// Data type: `bool`
   /// Key: `auto_verbal_added`
@@ -243,6 +248,7 @@ class PropertyModel with _$PropertyModel {
   /// - DateTime? rejectedAt : JsonKey('rejected_at')
   /// - String? rejectReason : JsonKey('reject_reason')
   /// - int viewCount : JsonKey('view_count')
+  /// - int likeCount : JsonKey('like_count')
   /// - bool autoVerbalAdded : JsonKey('auto_verbal_added')
   /// - PropertyTypeModel propertyType : JsonKey('propertyType')
   /// - ProvinceModel province : JsonKey('province')
@@ -282,6 +288,7 @@ class PropertyModel with _$PropertyModel {
     @JsonKey(name: PropertyModel.rejectedAtKey) required DateTime? rejectedAt,
     @JsonKey(name: PropertyModel.rejectReasonKey) required String? rejectReason,
     @JsonKey(name: PropertyModel.viewCountKey) required int viewCount,
+    @JsonKey(name: PropertyModel.likeCountKey) required int likeCount,
     @JsonKey(name: PropertyModel.autoVerbalAddedKey)
     required bool autoVerbalAdded,
     @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
@@ -394,6 +401,9 @@ class PropertyModel with _$PropertyModel {
 
   /// Field name for viewCount field with JsonKey('view_count')
   static const String viewCountKey = "view_count";
+
+  /// Field name for likeCount field with JsonKey('like_count')
+  static const String likeCountKey = "like_count";
 
   /// Field name for autoVerbalAdded field with JsonKey('auto_verbal_added')
   static const String autoVerbalAddedKey = "auto_verbal_added";

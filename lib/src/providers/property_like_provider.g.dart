@@ -331,6 +331,147 @@ class _PropertyLikeAtIndexProviderElement
   int get index => (origin as PropertyLikeAtIndexProvider).index;
 }
 
+String _$hasLikedHash() => r'ecbb95698ad48963e094684c93a54eafb4d101f7';
+
+abstract class _$HasLiked extends BuildlessAutoDisposeAsyncNotifier<bool> {
+  late final int propertyId;
+
+  FutureOr<bool> build(
+    int propertyId,
+  );
+}
+
+/// See also [HasLiked].
+@ProviderFor(HasLiked)
+const hasLikedProvider = HasLikedFamily();
+
+/// See also [HasLiked].
+class HasLikedFamily extends Family<AsyncValue<bool>> {
+  /// See also [HasLiked].
+  const HasLikedFamily();
+
+  /// See also [HasLiked].
+  HasLikedProvider call(
+    int propertyId,
+  ) {
+    return HasLikedProvider(
+      propertyId,
+    );
+  }
+
+  @override
+  HasLikedProvider getProviderOverride(
+    covariant HasLikedProvider provider,
+  ) {
+    return call(
+      provider.propertyId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'hasLikedProvider';
+}
+
+/// See also [HasLiked].
+class HasLikedProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<HasLiked, bool> {
+  /// See also [HasLiked].
+  HasLikedProvider(
+    int propertyId,
+  ) : this._internal(
+          () => HasLiked()..propertyId = propertyId,
+          from: hasLikedProvider,
+          name: r'hasLikedProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$hasLikedHash,
+          dependencies: HasLikedFamily._dependencies,
+          allTransitiveDependencies: HasLikedFamily._allTransitiveDependencies,
+          propertyId: propertyId,
+        );
+
+  HasLikedProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.propertyId,
+  }) : super.internal();
+
+  final int propertyId;
+
+  @override
+  FutureOr<bool> runNotifierBuild(
+    covariant HasLiked notifier,
+  ) {
+    return notifier.build(
+      propertyId,
+    );
+  }
+
+  @override
+  Override overrideWith(HasLiked Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: HasLikedProvider._internal(
+        () => create()..propertyId = propertyId,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        propertyId: propertyId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<HasLiked, bool> createElement() {
+    return _HasLikedProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is HasLikedProvider && other.propertyId == propertyId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, propertyId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin HasLikedRef on AutoDisposeAsyncNotifierProviderRef<bool> {
+  /// The parameter `propertyId` of this provider.
+  int get propertyId;
+}
+
+class _HasLikedProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<HasLiked, bool>
+    with HasLikedRef {
+  _HasLikedProviderElement(super.provider);
+
+  @override
+  int get propertyId => (origin as HasLikedProvider).propertyId;
+}
+
 String _$propertyLikeHash() => r'1a0fccffd2e9c849deb76ac83ff7cf7c6c5453b3';
 
 abstract class _$PropertyLike

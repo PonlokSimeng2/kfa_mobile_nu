@@ -3,12 +3,13 @@ import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
 import 'package:kfa_mobile_nu/src/models/property_model.schema.dart';
 import 'package:kfa_mobile_nu/src/models/user_model.dart';
+import 'package:kfa_mobile_nu/src/pages/property_comment.dart';
 import 'package:kfa_mobile_nu/src/providers/admin_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 
 import '../../models/base.dart';
-import '../../models/property_model.dart';
 import '../../providers/property_provider.dart';
 import '../add_autoverbal_page.dart';
 import '../edit_property_page.dart';
@@ -19,12 +20,10 @@ class AdminPropertyDetailPage extends StatefulHookConsumerWidget {
   const AdminPropertyDetailPage({super.key, required this.property});
 
   @override
-  ConsumerState<AdminPropertyDetailPage> createState() =>
-      _AdminPropertyDetailPageState();
+  ConsumerState<AdminPropertyDetailPage> createState() => _AdminPropertyDetailPageState();
 }
 
-class _AdminPropertyDetailPageState
-    extends ConsumerState<AdminPropertyDetailPage> {
+class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPage> {
   @override
   Widget build(BuildContext context) {
     final status = useState(widget.property.status);
@@ -42,8 +41,7 @@ class _AdminPropertyDetailPageState
           PropertyAndAutoVerbalStatus.resubmit =>
             _buildApproveRejectButton(context, status),
           PropertyAndAutoVerbalStatus.approved => _buildApproved(),
-          PropertyAndAutoVerbalStatus.rejected =>
-            _buildRejected(redColor, context)
+          PropertyAndAutoVerbalStatus.rejected => _buildRejected(redColor, context)
         },
       );
     }
@@ -56,13 +54,11 @@ class _AdminPropertyDetailPageState
         title: const Text('Property Detail'),
       ),
       bottomNavigationBar: bottomAppBar,
-      body: SingleChildScrollView(
+      body: CustomScrollView(
         controller: scrollCtr,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Image carousel
-            SizedBox(
+        slivers: [
+          SliverToBoxAdapter(
+            child: SizedBox(
               height: 200,
               child: PageView.builder(
                 itemCount: widget.property.images.length,
@@ -73,18 +69,18 @@ class _AdminPropertyDetailPageState
                     placeholder: (context, url) => const Center(
                       child: CircularProgressIndicator(),
                     ),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
+                    errorWidget: (context, url, error) => const Icon(Icons.error),
                   );
                 },
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.all(16.0),
+            sliver: MultiSliver(
+              children: [
+                SliverToBoxAdapter(
+                  child: Row(
                     children: [
                       Expanded(
                         child: Text(
@@ -95,7 +91,9 @@ class _AdminPropertyDetailPageState
                       const SizedBox(width: 8),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
                         decoration: BoxDecoration(
                           color: widget.property.status.statusColor,
                           borderRadius: BorderRadius.circular(12),
@@ -111,26 +109,34 @@ class _AdminPropertyDetailPageState
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
-                  Text(
+                ),
+                const SliverToBoxAdapter(child: SizedBox(height: 8)),
+                SliverToBoxAdapter(
+                  child: Text(
                     '${widget.property.propertyType.name} for ${widget.property.listingType.name}',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  const SizedBox(height: 16),
-                  Text(
+                ),
+                const SliverToBoxAdapter(child: SizedBox(height: 16)),
+                SliverToBoxAdapter(
+                  child: Text(
                     'Price: \$${widget.property.price.toStringAsFixed(2)}',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                   ),
-                  const SizedBox(height: 16),
-                  Text(
+                ),
+                const SliverToBoxAdapter(child: SizedBox(height: 16)),
+                SliverToBoxAdapter(
+                  child: Text(
                     'Description:',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  Text(widget.property.description),
-                  const SizedBox(height: 16),
-                  Card.outlined(
+                ),
+                SliverToBoxAdapter(child: Text(widget.property.description)),
+                const SliverToBoxAdapter(child: SizedBox(height: 16)),
+                SliverToBoxAdapter(
+                  child: Card.outlined(
                     margin: EdgeInsets.zero,
                     child: Padding(
                       padding: const EdgeInsets.all(16),
@@ -138,14 +144,22 @@ class _AdminPropertyDetailPageState
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _buildDetailRow('Area', '${widget.property.sqm} sqm'),
-                          _buildDetailRow('Bedrooms',
-                              '${widget.property.bedrooms ?? "N/A"}'),
-                          _buildDetailRow('Bathrooms',
-                              '${widget.property.bathrooms ?? "N/A"}'),
                           _buildDetailRow(
-                              'Floors', '${widget.property.floors ?? "N/A"}'),
+                            'Bedrooms',
+                            '${widget.property.bedrooms ?? "N/A"}',
+                          ),
                           _buildDetailRow(
-                              'Parking', '${widget.property.parking ?? "N/A"}'),
+                            'Bathrooms',
+                            '${widget.property.bathrooms ?? "N/A"}',
+                          ),
+                          _buildDetailRow(
+                            'Floors',
+                            '${widget.property.floors ?? "N/A"}',
+                          ),
+                          _buildDetailRow(
+                            'Parking',
+                            '${widget.property.parking ?? "N/A"}',
+                          ),
                           _buildDetailRow(
                             'Living Rooms',
                             '${widget.property.livingRooms ?? "N/A"}',
@@ -165,126 +179,136 @@ class _AdminPropertyDetailPageState
                             '\$${widget.property.pricePerSqm.toStringAsFixed(2)}',
                           ),
                           _buildDetailRow(
-                              'Location', widget.property.province.name),
+                            'Location',
+                            widget.property.province.name,
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  const SizedBox(height: 24),
-                  Text(
+                ),
+                const SliverToBoxAdapter(child: SizedBox(height: 24)),
+                SliverToBoxAdapter(
+                  child: Text(
                     'Submitted by: ${widget.property.user.fullName}',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  Text(
+                ),
+                SliverToBoxAdapter(
+                  child: Text(
                     'Submission Date: ${widget.property.createdAt.toLocal().toString().split(' ')[0]}',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  const SizedBox(height: 24),
-                  if (isCurrentUserOwner) ...[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        if (isCurrentUserOwner &&
-                            status.value ==
-                                PropertyAndAutoVerbalStatus.approved) ...[
-                          if (!autoVerbalAdded.value)
-                            Container(
-                              width: 160,
-                              child: FilledButton(
-                                onPressed: () async {
-                                  final result = await context.push((_) =>
-                                      AddAutoVerbalPage(
-                                          propertyModel: widget.property));
-                                  if (result == true) {
-                                    autoVerbalAdded.value = true;
-                                    scrollCtr.jumpTo(0);
-                                  }
-                                },
-                                child: const Text('Send to property'),
-                              ),
-                            )
-                          else
-                            FilledButton(
-                              onPressed: () {},
-                              child: Text(
-                                'Sent to AutoVerbal',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                        ],
-                        const SizedBox(width: 5),
-                        Container(
-                          width: 132,
-                          child: FilledButton(
-                            onPressed: () {
-                              context.push(
-                                (_) =>
-                                    EditPropertyPage(initial: widget.property),
-                              );
-                            },
-                            child: const Text('Edit'),
-                          ),
-                        ),
-                        const SizedBox(width: 5),
-                        Container(
-                          width: 105,
-                          child: FilledButton(
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: const Text('Delete'),
-                                    content: const Text(
-                                        'Are you sure you want to delete this property?'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        child: const Text('Cancel'),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
+                ),
+                const SliverToBoxAdapter(child: SizedBox(height: 24)),
+                PropertyComment(propertyId: widget.property.id, padding: 0),
+                const SliverToBoxAdapter(child: SizedBox(height: 24)),
+                if (isCurrentUserOwner)
+                  SliverToBoxAdapter(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          if (isCurrentUserOwner &&
+                              status.value == PropertyAndAutoVerbalStatus.approved) ...[
+                            if (!autoVerbalAdded.value)
+                              SizedBox(
+                                width: 160,
+                                child: FilledButton(
+                                  onPressed: () async {
+                                    final result = await context.push(
+                                      (_) => AddAutoVerbalPage(
+                                        propertyModel: widget.property,
                                       ),
-                                      FilledButton(
-                                        style: FilledButton.styleFrom(
-                                          backgroundColor: Theme.of(context)
-                                              .colorScheme
-                                              .error,
+                                    );
+                                    if (result == true) {
+                                      autoVerbalAdded.value = true;
+                                      scrollCtr.jumpTo(0);
+                                    }
+                                  },
+                                  child: const Text('Send to property'),
+                                ),
+                              )
+                            else
+                              FilledButton(
+                                onPressed: () {},
+                                child: const Text(
+                                  'Sent to AutoVerbal',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                          ],
+                          const SizedBox(width: 5),
+                          SizedBox(
+                            width: 132,
+                            child: FilledButton(
+                              onPressed: () {
+                                context.push(
+                                  (_) => EditPropertyPage(initial: widget.property),
+                                );
+                              },
+                              child: const Text('Edit'),
+                            ),
+                          ),
+                          const SizedBox(width: 5),
+                          SizedBox(
+                            width: 105,
+                            child: FilledButton(
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('Delete'),
+                                      content: const Text(
+                                        'Are you sure you want to delete this property?',
+                                      ),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: const Text('Cancel'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
                                         ),
-                                        child: const Text('Delete'),
-                                        onPressed: () async {
-                                          final close = BotToast.showLoading();
-                                          final delete = ref.read(
-                                            deletePropertyProvider(
-                                                    widget.property.id)
-                                                .notifier,
-                                          );
-                                          await delete();
-                                          close();
-                                          if (!context.mounted) return;
-                                          Navigator.of(context).pop();
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            },
-                            style: FilledButton.styleFrom(
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.error,
+                                        FilledButton(
+                                          style: FilledButton.styleFrom(
+                                            backgroundColor: Theme.of(context).colorScheme.error,
+                                          ),
+                                          child: const Text('Delete'),
+                                          onPressed: () async {
+                                            final close = BotToast.showLoading();
+                                            final delete = ref.read(
+                                              deletePropertyProvider(
+                                                widget.property.id,
+                                              ).notifier,
+                                            );
+                                            await delete();
+                                            close();
+                                            if (!context.mounted) return;
+                                            Navigator.of(context).pop();
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                              style: FilledButton.styleFrom(
+                                backgroundColor: Theme.of(context).colorScheme.error,
+                              ),
+                              child: const Text('Delete'),
                             ),
-                            child: const Text('Delete'),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ],
-                ],
-              ),
+                  ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -396,8 +420,7 @@ class _AdminPropertyDetailPageState
               );
 
               if (confirmed == true && context.mounted) {
-                final approve = ref
-                    .read(approvePropertyProvider(widget.property.id).notifier);
+                final approve = ref.read(approvePropertyProvider(widget.property.id).notifier);
                 final closeLoading = BotToast.showLoading();
                 final result = await approve();
                 closeLoading();
@@ -417,8 +440,7 @@ class _AdminPropertyDetailPageState
               padding: const EdgeInsets.symmetric(vertical: 12),
               decoration: BoxDecoration(
                 color: Colors.green,
-                borderRadius:
-                    const BorderRadius.horizontal(left: Radius.circular(12)),
+                borderRadius: const BorderRadius.horizontal(left: Radius.circular(12)),
                 border: Border.all(color: Colors.grey),
               ),
               child: const Text(
@@ -447,7 +469,8 @@ class _AdminPropertyDetailPageState
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         const Text(
-                            'Are you sure you want to reject this property?'),
+                          'Are you sure you want to reject this property?',
+                        ),
                         const SizedBox(height: 16),
                         TextField(
                           autofocus: true,
@@ -488,8 +511,7 @@ class _AdminPropertyDetailPageState
               );
 
               if (rejectReason.isNotNullOrBlank && context.mounted) {
-                final reject = ref
-                    .read(rejectPropertyProvider(widget.property.id).notifier);
+                final reject = ref.read(rejectPropertyProvider(widget.property.id).notifier);
                 final closeLoading = BotToast.showLoading();
                 final result = await reject(reason: rejectReason);
                 closeLoading();
@@ -509,8 +531,7 @@ class _AdminPropertyDetailPageState
               padding: const EdgeInsets.symmetric(vertical: 12),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.error.withOpacity(0.8),
-                borderRadius:
-                    const BorderRadius.horizontal(right: Radius.circular(12)),
+                borderRadius: const BorderRadius.horizontal(right: Radius.circular(12)),
                 border: Border.all(color: Colors.grey),
               ),
               child: const Text(

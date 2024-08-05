@@ -50,6 +50,25 @@ PaginatedItem<PropertyLikeModel>? propertyLikeAtIndex(
 }
 
 @riverpod
+class HasLiked extends _$HasLiked {
+  @override
+  FutureOr<bool> build(int propertyId) async {
+    final sb = ref.read(supabaseProvider).client;
+    final result = await sb.rpc(
+      'has_liked',
+      params: {
+        'property_id': propertyId,
+      },
+    );
+    return result ?? false;
+  }
+
+  void _set(bool value) {
+    state = AsyncValue.data(value);
+  }
+}
+
+@riverpod
 class PropertyLike extends _$PropertyLike {
   @override
   ProviderStatus<void> build(int propertyId) => const ProviderStatus.initial();
@@ -57,15 +76,23 @@ class PropertyLike extends _$PropertyLike {
   Future<ProviderStatus<void>> call() async {
     return await perform(
       (state) async {
-        final userId = ref.read(authProvider);
-        final sb = ref.read(supabaseProvider).client;
-        await sb.from(PropertyLikeModel.tableName).upsert(
-          {
-            PropertyLikeModel.propertyIdKey: propertyId,
-            PropertyLikeModel.userIdKey: userId,
-            PropertyLikeModel.createdAtKey: DateTime.now().toIso8601String(),
-          },
-        );
+        // to make it fast side effect
+        ref.read(hasLikedProvider(propertyId).notifier)._set(true);
+
+        try {
+          final userId = ref.read(authProvider);
+          final sb = ref.read(supabaseProvider).client;
+          await sb.from(PropertyLikeModel.tableName).upsert(
+            {
+              PropertyLikeModel.propertyIdKey: propertyId,
+              PropertyLikeModel.userIdKey: userId,
+              PropertyLikeModel.createdAtKey: DateTime.now().toIso8601String(),
+            },
+          );
+        } catch (_) {
+          ref.read(hasLikedProvider(propertyId).notifier)._set(false);
+          rethrow;
+        }
       },
       onSuccess: (_) {
         ref.invalidate(propertyLikeListProvider);
@@ -82,12 +109,20 @@ class PropertyUnlike extends _$PropertyUnlike {
   Future<ProviderStatus<void>> call() async {
     return await perform(
       (state) async {
-        final userId = ref.read(authProvider);
-        final sb = ref.read(supabaseProvider).client;
-        await sb.from(PropertyLikeModel.tableName).delete().match({
-          PropertyLikeModel.propertyIdKey: propertyId,
-          PropertyLikeModel.userIdKey: userId!,
-        });
+        // to make it fast side effect
+        ref.read(hasLikedProvider(propertyId).notifier)._set(false);
+
+        try {
+          final userId = ref.read(authProvider);
+          final sb = ref.read(supabaseProvider).client;
+          await sb.from(PropertyLikeModel.tableName).delete().match({
+            PropertyLikeModel.propertyIdKey: propertyId,
+            PropertyLikeModel.userIdKey: userId!,
+          });
+        } catch (_) {
+          ref.read(hasLikedProvider(propertyId).notifier)._set(true);
+          rethrow;
+        }
       },
       onSuccess: (_) {
         ref.invalidate(propertyLikeListProvider);

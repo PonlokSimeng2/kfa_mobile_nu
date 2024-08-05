@@ -9,6 +9,7 @@ import 'package:kfa_mobile_nu/src/pages/report_main_page.dart';
 import '../../exports.dart';
 import '../../gen/assets.gen.dart';
 import '../helpers/build_context_helper.dart';
+import '../providers/property_provider.dart';
 import '../providers/user_provider.dart';
 import 'account_page.dart';
 import 'admin/admin_home_page.dart';
@@ -302,7 +303,11 @@ class __UserHomeState extends ConsumerState<_UserHome> {
           const Expanded(
             child: Padding(
               padding: EdgeInsets.all(3.0),
-              child: PropertyListPage(),
+              child: PropertyListPage(
+                initialFilter: PropertyListFilter(
+                  showAutoVerbalAddedItem: false,
+                ),
+              ),
             ),
           ),
         ],

@@ -26,6 +26,7 @@ mixin _$PropertyListFilter {
   double? get minPrice => throw _privateConstructorUsedError;
   double? get maxPrice => throw _privateConstructorUsedError;
   String? get userId => throw _privateConstructorUsedError;
+  bool get showAutoVerbalAddedItem => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PropertyListFilterCopyWith<PropertyListFilter> get copyWith =>
@@ -47,7 +48,8 @@ abstract class $PropertyListFilterCopyWith<$Res> {
       PropertyListingType? listingType,
       double? minPrice,
       double? maxPrice,
-      String? userId});
+      String? userId,
+      bool showAutoVerbalAddedItem});
 
   $ProvinceModelCopyWith<$Res>? get province;
   $PropertyTypeModelCopyWith<$Res>? get propertyType;
@@ -75,6 +77,7 @@ class _$PropertyListFilterCopyWithImpl<$Res, $Val extends PropertyListFilter>
     Object? minPrice = freezed,
     Object? maxPrice = freezed,
     Object? userId = freezed,
+    Object? showAutoVerbalAddedItem = null,
   }) {
     return _then(_value.copyWith(
       statuses: null == statuses
@@ -113,6 +116,10 @@ class _$PropertyListFilterCopyWithImpl<$Res, $Val extends PropertyListFilter>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String?,
+      showAutoVerbalAddedItem: null == showAutoVerbalAddedItem
+          ? _value.showAutoVerbalAddedItem
+          : showAutoVerbalAddedItem // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -158,7 +165,8 @@ abstract class _$$PropertyListFilterImplCopyWith<$Res>
       PropertyListingType? listingType,
       double? minPrice,
       double? maxPrice,
-      String? userId});
+      String? userId,
+      bool showAutoVerbalAddedItem});
 
   @override
   $ProvinceModelCopyWith<$Res>? get province;
@@ -186,6 +194,7 @@ class __$$PropertyListFilterImplCopyWithImpl<$Res>
     Object? minPrice = freezed,
     Object? maxPrice = freezed,
     Object? userId = freezed,
+    Object? showAutoVerbalAddedItem = null,
   }) {
     return _then(_$PropertyListFilterImpl(
       statuses: null == statuses
@@ -224,6 +233,10 @@ class __$$PropertyListFilterImplCopyWithImpl<$Res>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String?,
+      showAutoVerbalAddedItem: null == showAutoVerbalAddedItem
+          ? _value.showAutoVerbalAddedItem
+          : showAutoVerbalAddedItem // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -241,7 +254,8 @@ class _$PropertyListFilterImpl extends _PropertyListFilter
       this.listingType,
       this.minPrice,
       this.maxPrice,
-      this.userId})
+      this.userId,
+      this.showAutoVerbalAddedItem = true})
       : super._();
 
   @override
@@ -264,10 +278,13 @@ class _$PropertyListFilterImpl extends _PropertyListFilter
   final double? maxPrice;
   @override
   final String? userId;
+  @override
+  @JsonKey()
+  final bool showAutoVerbalAddedItem;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PropertyListFilter(statuses: $statuses, propertyIds: $propertyIds, titleOrDescription: $titleOrDescription, province: $province, propertyType: $propertyType, listingType: $listingType, minPrice: $minPrice, maxPrice: $maxPrice, userId: $userId)';
+    return 'PropertyListFilter(statuses: $statuses, propertyIds: $propertyIds, titleOrDescription: $titleOrDescription, province: $province, propertyType: $propertyType, listingType: $listingType, minPrice: $minPrice, maxPrice: $maxPrice, userId: $userId, showAutoVerbalAddedItem: $showAutoVerbalAddedItem)';
   }
 
   @override
@@ -283,7 +300,9 @@ class _$PropertyListFilterImpl extends _PropertyListFilter
       ..add(DiagnosticsProperty('listingType', listingType))
       ..add(DiagnosticsProperty('minPrice', minPrice))
       ..add(DiagnosticsProperty('maxPrice', maxPrice))
-      ..add(DiagnosticsProperty('userId', userId));
+      ..add(DiagnosticsProperty('userId', userId))
+      ..add(DiagnosticsProperty(
+          'showAutoVerbalAddedItem', showAutoVerbalAddedItem));
   }
 
   @override
@@ -306,7 +325,10 @@ class _$PropertyListFilterImpl extends _PropertyListFilter
                 other.minPrice == minPrice) &&
             (identical(other.maxPrice, maxPrice) ||
                 other.maxPrice == maxPrice) &&
-            (identical(other.userId, userId) || other.userId == userId));
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(
+                    other.showAutoVerbalAddedItem, showAutoVerbalAddedItem) ||
+                other.showAutoVerbalAddedItem == showAutoVerbalAddedItem));
   }
 
   @override
@@ -320,7 +342,8 @@ class _$PropertyListFilterImpl extends _PropertyListFilter
       listingType,
       minPrice,
       maxPrice,
-      userId);
+      userId,
+      showAutoVerbalAddedItem);
 
   @JsonKey(ignore: true)
   @override
@@ -340,7 +363,8 @@ abstract class _PropertyListFilter extends PropertyListFilter {
       final PropertyListingType? listingType,
       final double? minPrice,
       final double? maxPrice,
-      final String? userId}) = _$PropertyListFilterImpl;
+      final String? userId,
+      final bool showAutoVerbalAddedItem}) = _$PropertyListFilterImpl;
   const _PropertyListFilter._() : super._();
 
   @override
@@ -361,6 +385,8 @@ abstract class _PropertyListFilter extends PropertyListFilter {
   double? get maxPrice;
   @override
   String? get userId;
+  @override
+  bool get showAutoVerbalAddedItem;
   @override
   @JsonKey(ignore: true)
   _$$PropertyListFilterImplCopyWith<_$PropertyListFilterImpl> get copyWith =>

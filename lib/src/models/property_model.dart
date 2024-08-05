@@ -42,14 +42,13 @@ class PropertySchema extends KimappSchema {
   final rejectedAt = Field<DateTime?>('rejected_at');
   final rejectReason = Field<String?>('reject_reason');
   final viewCount = Field<int>('view_count');
+  final likeCount = Field<int>('like_count');
   final autoVerbalAdded = Field<bool>('auto_verbal_added');
 
   // Joins
-  final propertyType =
-      Field.join<PropertyTypeModel>().withForeignKey('property_type_id');
+  final propertyType = Field.join<PropertyTypeModel>().withForeignKey('property_type_id');
   final province = Field.join<ProvinceModel>().withForeignKey('province_id');
-  final approvedBy =
-      Field.join<UserModel?>().withCandidateKey('properties_approved_by_fkey');
+  final approvedBy = Field.join<UserModel?>().withCandidateKey('properties_approved_by_fkey');
   final user = Field.join<UserModel>().withForeignKey('user_id');
 
   @override
@@ -70,6 +69,7 @@ class PropertySchema extends KimappSchema {
             createdAt,
             status,
             viewCount,
+            likeCount,
             autoVerbalAdded,
           ],
         ),
@@ -87,6 +87,7 @@ class PropertySchema extends KimappSchema {
             rejectReason,
             status,
             viewCount,
+            likeCount,
             autoVerbalAdded,
           ],
         ),

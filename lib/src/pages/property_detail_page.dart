@@ -1,27 +1,22 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'dart:ui' as ui;
 
-import 'package:bot_toast/bot_toast.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kfa_mobile_nu/src/models/property_model.schema.dart';
+import 'package:kfa_mobile_nu/src/pages/property_comment.dart';
+import 'package:kfa_mobile_nu/src/pages/property_like_badge.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
-import 'package:kfa_mobile_nu/src/providers/property_comment_provider.dart';
-import 'package:kfa_mobile_nu/src/providers/property_like_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/property_provider.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:readmore/readmore.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:sliver_tools/sliver_tools.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:timeago/timeago.dart' as timeago;
 import 'package:url_launcher/url_launcher.dart';
-import 'dart:ui' as ui;
+
 import '../../exports.dart';
-import '../models/property_comment_model.dart';
-import '../models/property_model.dart';
 import '../providers/favortie_provider.dart';
 import '../widgets/auth_wrapper_widget.dart';
 
@@ -52,36 +47,6 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _incrementViewCount();
     });
-
-    _listenCommentRealtime();
-  }
-
-  RealtimeChannel? _realtimeChannel;
-
-  void _listenCommentRealtime() {
-    final sb = ref.read(supabaseProvider);
-    _realtimeChannel = sb.client
-        .channel('public:property_comments')
-        .onPostgresChanges(
-          event: PostgresChangeEvent.all,
-          schema: 'public',
-          table: 'property_comments',
-          filter: PostgresChangeFilter(
-            type: PostgresChangeFilterType.eq,
-            column: 'property_id',
-            value: widget.data.id,
-          ),
-          callback: (payload) {
-            ref.invalidate(propertyCommentListProvider);
-          },
-        )
-        .subscribe();
-  }
-
-  @override
-  void dispose() {
-    _realtimeChannel?.unsubscribe();
-    super.dispose();
   }
 
   void _incrementViewCount() async {
@@ -90,8 +55,7 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
       return;
     }
 
-    final increment =
-        ref.read(incrementPropertyViewProvider(widget.data.id).notifier);
+    final increment = ref.read(incrementPropertyViewProvider(widget.data.id).notifier);
     await increment();
   }
 
@@ -139,18 +103,14 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
                       ),
                       child: Consumer(
                         builder: (context, ref, child) {
-                          final isFavorite =
-                              ref.watch(isFavoriteProvider(widget.data.id));
+                          final isFavorite = ref.watch(isFavoriteProvider(widget.data.id));
                           return IconButton(
                             icon: Icon(
-                              isFavorite
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
+                              isFavorite ? Icons.favorite : Icons.favorite_border,
                               color: isFavorite ? Colors.red : Colors.white,
                             ),
                             onPressed: () {
-                              final notifier =
-                                  ref.read(favoritePropertyProvider.notifier);
+                              final notifier = ref.read(favoritePropertyProvider.notifier);
                               if (isFavorite) {
                                 notifier.removeFromFavorite(widget.data.id);
                                 ScaffoldMessenger.of(context).clearSnackBars();
@@ -191,15 +151,14 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
                 ),
                 SliverToBoxAdapter(
                   child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                     child: _buildMap(),
                   ),
                 ),
                 SliverToBoxAdapter(
                   child: _buildContactInfo(),
                 ),
-                const _Comments(),
+                PropertyComment(propertyId: widget.data.id),
               ],
             ),
           ),
@@ -210,13 +169,12 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
 
   Future<void> shareImage(GlobalKey globalKey, context) async {
     try {
-      RenderRepaintBoundary boundary =
+      final RenderRepaintBoundary boundary =
           globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
-      ui.Image image = await boundary.toImage(pixelRatio: 3.0);
-      ByteData? byteData =
-          await image.toByteData(format: ui.ImageByteFormat.png);
-      Uint8List pngBytes = byteData!.buffer.asUint8List();
-      File imgFile = File('${(await getTemporaryDirectory()).path}/share.png');
+      final ui.Image image = await boundary.toImage(pixelRatio: 3.0);
+      final ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+      final Uint8List pngBytes = byteData!.buffer.asUint8List();
+      final File imgFile = File('${(await getTemporaryDirectory()).path}/share.png');
       imgFile.writeAsBytesSync(pngBytes);
       final RenderBox box = context.findRenderObject() as RenderBox;
       Share.shareXFiles(
@@ -245,8 +203,7 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
             viewportFraction: 1,
             enlargeCenterPage: false,
             autoPlay: true,
-            onPageChanged: (index, _) =>
-                setState(() => _currentImageIndex = index),
+            onPageChanged: (index, _) => setState(() => _currentImageIndex = index),
           ),
         ),
         Positioned(
@@ -267,33 +224,9 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
         Positioned(
           bottom: 10,
           left: 10,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.7),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.remove_red_eye, color: Colors.white, size: 16),
-                const SizedBox(width: 4),
-                Text(
-                  '${widget.data.viewCount}',
-                  style: const TextStyle(color: Colors.white, fontSize: 12),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 10,
-          left: 80,
-          child: Consumer(
-            builder: (context, ref, child) {
-              final likesCount = ref.watch(propertyLikeListProvider(
-                  page: 1, propertyId: widget.data.id));
-              return Container(
+          child: Row(
+            children: [
+              Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.black.withOpacity(0.7),
@@ -302,26 +235,19 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.thumb_up, color: Colors.white, size: 16),
+                    const Icon(Icons.remove_red_eye, color: Colors.white, size: 16),
                     const SizedBox(width: 4),
                     Text(
-                      '${likesCount.value?.length ?? 0} likes',
+                      '${widget.data.viewCount}',
                       style: const TextStyle(color: Colors.white, fontSize: 12),
                     ),
                   ],
                 ),
-              );
-            },
-          ),
-        ),
-        Positioned(
-          bottom: 10,
-          left: 170,
-          child: Consumer(
-            builder: (context, ref, child) {
-              final likesCount = ref.watch(propertyLikeListProvider(
-                  page: 1, propertyId: widget.data.id));
-              return Container(
+              ),
+              const SizedBox(width: 8),
+              PropertyLikeBadge(property: widget.data),
+              const SizedBox(width: 8),
+              Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.black.withOpacity(0.7),
@@ -331,13 +257,15 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
                   onTap: () {
                     shareImage(_globalKeyScreenShot, context);
                   },
-                  child: const Text('Share',
-                      style: TextStyle(color: Colors.white, fontSize: 13)),
+                  child: const Text(
+                    'Share',
+                    style: TextStyle(color: Colors.white, fontSize: 13),
+                  ),
                 ),
-              );
-            },
+              ),
+            ],
           ),
-        )
+        ),
       ],
     );
   }
@@ -350,26 +278,17 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
         children: [
           Text(
             widget.data.listingType.name.capitalize(),
-            style: Theme.of(context)
-                .textTheme
-                .headlineSmall
-                ?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           Text(
             widget.data.title,
-            style: Theme.of(context)
-                .textTheme
-                .bodyLarge
-                ?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           Text(
             '\$${widget.data.price}',
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge
-                ?.copyWith(color: Colors.green),
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.green),
           ),
         ],
       ),
@@ -495,266 +414,6 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
           ],
         );
       },
-    );
-  }
-}
-
-class _Comments extends ConsumerWidget {
-  const _Comments({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return MultiSliver(
-      children: [
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              'Comments',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ),
-        ),
-        SliverPadding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          sliver: SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                final paginated = ref.watch(
-                  propertyCommentAtIndexProvider(
-                    propertyId: (context.findAncestorWidgetOfExactType<
-                            PropertyDetailPage>() as PropertyDetailPage)
-                        .data
-                        .id,
-                    index: index,
-                  ),
-                );
-                return paginated?.whenOrNull(
-                  loading: (isFirstItem) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  },
-                  data: (comment) {
-                    return ListTile(
-                      onLongPress: () {
-                        final currentUserId = ref.read(authProvider);
-                        if (currentUserId == comment.userId) {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return SafeArea(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    ListTile(
-                                      leading: const Icon(Icons.edit),
-                                      title: const Text('Edit Comment'),
-                                      onTap: () {
-                                        Navigator.pop(context);
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return _EditCommentDialog(
-                                                comment: comment);
-                                          },
-                                        );
-                                      },
-                                    ),
-                                    ListTile(
-                                      leading: const Icon(Icons.delete),
-                                      title: const Text('Delete Comment'),
-                                      onTap: () async {
-                                        final notifier = ref.read(
-                                          deletePropertyCommentProvider(
-                                                  comment.id)
-                                              .notifier,
-                                        );
-                                        final close = BotToast.showLoading();
-                                        final result = await notifier.call();
-                                        close();
-                                        if (result.isFailure) {
-                                          BotToast.showText(
-                                              text: result.failure!.message());
-                                        } else {
-                                          if (!context.mounted) return;
-                                          Navigator.pop(context);
-                                        }
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
-                        }
-                      },
-                      leading: CircleAvatar(
-                        backgroundImage: comment.user.photo != null
-                            ? NetworkImage(comment.user.photo!)
-                            : null,
-                        child: comment.user.photo == null
-                            ? Text(comment.user.firstName[0].toUpperCase())
-                            : null,
-                      ),
-                      title: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFE0E0E0).withOpacity(0.4),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 4),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                  "${comment.user.firstName} ${comment.user.lastName}"),
-                              Text(comment.content),
-                            ],
-                          ),
-                        ),
-                      ),
-                      subtitle: Text(
-                        timeago.format(comment.createdAt),
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
-          ),
-        ),
-        const SliverToBoxAdapter(
-          child: Padding(
-            padding: EdgeInsets.all(16.0),
-            child: _CreateCommentBox(),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _EditCommentDialog extends HookConsumerWidget {
-  const _EditCommentDialog({super.key, required this.comment});
-
-  final PropertyCommentModel comment;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final formKey = useMemoized(() => GlobalKey<FormState>());
-    final contentCtr = useTextEditingController(text: comment.content);
-
-    return AlertDialog(
-      title: const Text('Edit Comment'),
-      content: Form(
-        key: formKey,
-        child: TextFormField(
-          controller: contentCtr,
-          autofocus: true,
-          textCapitalization: TextCapitalization.sentences,
-          validator: (value) {
-            if (value == null || value.trim().isEmpty) {
-              return 'Comment cannot be empty';
-            }
-            return null;
-          },
-          decoration: const InputDecoration(
-            hintText: 'Edit your comment...',
-            border: OutlineInputBorder(),
-          ),
-        ),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Cancel'),
-        ),
-        TextButton(
-          onPressed: () async {
-            if (formKey.currentState?.validate() == false) {
-              return;
-            }
-
-            final close = BotToast.showLoading();
-            final notifier =
-                ref.read(editPropertyCommentProvider(comment.id).notifier);
-            final result = await notifier.call(newContent: contentCtr.text);
-            close();
-
-            if (result.isFailure) {
-              BotToast.showText(text: result.failure!.message());
-              return;
-            }
-
-            Navigator.of(context).pop();
-            ref.invalidate(propertyCommentListProvider);
-          },
-          child: const Text('Save'),
-        ),
-      ],
-    );
-  }
-}
-
-class _CreateCommentBox extends HookConsumerWidget {
-  const _CreateCommentBox({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final formKey = useMemoized(() => GlobalKey<FormState>());
-    final contentCtr = useTextEditingController();
-    final propertyId =
-        (context.findAncestorWidgetOfExactType<PropertyDetailPage>()
-                as PropertyDetailPage)
-            .data
-            .id;
-
-    return Form(
-      key: formKey,
-      child: Row(
-        children: [
-          Expanded(
-            child: TextFormField(
-              controller: contentCtr,
-              validator: (value) {
-                if (value == null || value.trim().isEmpty) {
-                  return 'Comment cannot be empty';
-                }
-                return null;
-              },
-              decoration: const InputDecoration(
-                hintText: 'Add a comment...',
-                border: OutlineInputBorder(),
-              ),
-            ),
-          ),
-          const SizedBox(width: 8),
-          IconButton(
-            icon: const Icon(Icons.send),
-            onPressed: () async {
-              if (formKey.currentState?.validate() == false) {
-                return;
-              }
-
-              final close = BotToast.showLoading();
-              final notifier =
-                  ref.read(addPropertyCommentProvider(propertyId).notifier);
-              final result = await notifier.call(contentCtr.text);
-              close();
-
-              if (result.isFailure) {
-                BotToast.showText(text: result.failure!.message());
-                return;
-              }
-
-              contentCtr.clear();
-            },
-          ),
-        ],
-      ),
     );
   }
 }

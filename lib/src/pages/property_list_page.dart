@@ -51,7 +51,8 @@ class __PropertyListPageState extends ConsumerState<_PropertyListPage> {
     final filter = ref.watch(_filterProvider);
 
     final firstPageCountAsync = ref.watch(
-      propertyListProvider(page: 0, filter: filter).select((v) => v.whenData((v) => v.length)),
+      propertyListProvider(page: 0, filter: filter)
+          .select((v) => v.whenData((v) => v.length)),
     );
     return Scaffold(
       body: Column(
@@ -105,8 +106,8 @@ class __PropertyListPageState extends ConsumerState<_PropertyListPage> {
     PropertyListingType? valueType,
   ) {
     final filter = ref.watch(_filterProvider);
-    final isSelected =
-        (filter.listingType == null && valueType == null) || filter.listingType == valueType;
+    final isSelected = (filter.listingType == null && valueType == null) ||
+        filter.listingType == valueType;
     return ElevatedButton.icon(
       onPressed: () {
         ref.read(_filterProvider.notifier).update((old) {
@@ -117,7 +118,8 @@ class __PropertyListPageState extends ConsumerState<_PropertyListPage> {
       label: Text(label),
       style: ElevatedButton.styleFrom(
         foregroundColor: isSelected ? Colors.white : Colors.black,
-        backgroundColor: isSelected ? Theme.of(context).primaryColor : Colors.white,
+        backgroundColor:
+            isSelected ? Theme.of(context).primaryColor : Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
     );
@@ -129,14 +131,15 @@ class __PropertyListPageState extends ConsumerState<_PropertyListPage> {
     return ElevatedButton.icon(
       onPressed: () {
         ref.read(_filterProvider.notifier).update((old) {
-          return old.copyWith(listingType: null);
+          return old.copyWith(listingType: null, propertyType: null);
         });
       },
       icon: Icon(Icons.list, color: isSelected ? Colors.white : Colors.grey),
       label: const Text('All'),
       style: ElevatedButton.styleFrom(
         foregroundColor: isSelected ? Colors.white : Colors.black,
-        backgroundColor: isSelected ? Theme.of(context).primaryColor : Colors.white,
+        backgroundColor:
+            isSelected ? Theme.of(context).primaryColor : Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
     );
@@ -207,14 +210,16 @@ class _GridView extends ConsumerWidget {
               children: [
                 Expanded(
                   child: ClipRRect(
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+                    borderRadius:
+                        const BorderRadius.vertical(top: Radius.circular(10)),
                     child: CachedNetworkImage(
                       imageUrl: item.images.first,
                       fit: BoxFit.cover,
                       width: double.infinity,
                       placeholder: (context, url) =>
                           const Center(child: CircularProgressIndicator()),
-                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                     ),
                   ),
                 ),
@@ -275,7 +280,8 @@ class _GridView extends ConsumerWidget {
                     color: isFavorite ? Colors.red : Colors.white,
                   ),
                   onPressed: () {
-                    final notifier = ref.read(favoritePropertyProvider.notifier);
+                    final notifier =
+                        ref.read(favoritePropertyProvider.notifier);
                     if (isFavorite) {
                       notifier.removeFromFavorite(item.id);
                     } else {
@@ -285,7 +291,9 @@ class _GridView extends ConsumerWidget {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
-                          isFavorite ? 'Removed from favorites' : 'Added to favorites',
+                          isFavorite
+                              ? 'Removed from favorites'
+                              : 'Added to favorites',
                         ),
                       ),
                     );

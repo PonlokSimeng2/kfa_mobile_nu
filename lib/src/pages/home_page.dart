@@ -105,14 +105,6 @@ class __UserHomeState extends ConsumerState<_UserHome> {
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.add_to_photos_sharp),
-                      title: const Text('Add Auto Verbal'),
-                      onTap: () {
-                        context.push((context) => AddAutoVerbalPage());
-                        Scaffold.of(context).closeDrawer();
-                      },
-                    ),
-                    ListTile(
                       leading: const Icon(Icons.compare_sharp),
                       title: const Text('My Properties'),
                       onTap: () {
@@ -131,7 +123,8 @@ class __UserHomeState extends ConsumerState<_UserHome> {
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.format_list_numbered_rtl_rounded),
+                      leading:
+                          const Icon(Icons.format_list_numbered_rtl_rounded),
                       title: const Text('Report'),
                       onTap: () {
                         context.push((context) => const ReportMainPage());

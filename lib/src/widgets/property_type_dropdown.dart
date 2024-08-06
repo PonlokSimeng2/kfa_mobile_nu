@@ -40,9 +40,10 @@ class PropertyTypeDropDown extends ConsumerWidget {
       decoration: InputDecoration(
         fillColor: kwhite,
         filled: true,
-        contentPadding: const EdgeInsets.symmetric(vertical: 8).copyWith(left: 16, right: 8),
-        labelText: 'Property Type*',
-        hintText: 'Select',
+        contentPadding: const EdgeInsets.symmetric(vertical: 8)
+            .copyWith(left: 16, right: 8),
+        // labelText: 'Property Type*',
+        hintText: 'Property Type*', // Changed to center alignment
         prefixIcon: prefixicon,
         // prefixIcon: Icon(
         //   Icons.app_registration_sharp,

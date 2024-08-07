@@ -11,6 +11,7 @@ import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/cache_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
+import 'package:kfa_mobile_nu/src/providers/theme_provider.dart';
 
 class AccountPage extends ConsumerStatefulWidget {
   const AccountPage({super.key});
@@ -49,7 +50,6 @@ class _AccountPageState extends ConsumerState<AccountPage> {
       if (pickedFile != null) {
         final CroppedFile? croppedFile = await _cropper.cropImage(
           sourcePath: pickedFile.path,
-          // aspectRatioPresets: [CropAspectRatioPreset.square],
           uiSettings: [
             AndroidUiSettings(
               toolbarTitle: 'Crop Image',
@@ -94,22 +94,26 @@ class _AccountPageState extends ConsumerState<AccountPage> {
   @override
   Widget build(BuildContext context) {
     final userAsync = ref.watch(currentUserProvider);
+    final isDarkMode = ref.watch(themeProvider) == ThemeMode.dark;
 
     return AuthWrapperWidget(
       child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 245, 250, 246),
+        backgroundColor: isDarkMode
+            ? Colors.grey[900]
+            : const Color.fromARGB(255, 245, 250, 246),
         appBar: AppBar(
-          backgroundColor: kwhite_new,
+          backgroundColor: isDarkMode ? Colors.grey[800] : kwhite_new,
           elevation: 0,
           centerTitle: true,
           leading: IconButton(
             onPressed: () => Navigator.pop(context),
-            icon: const Icon(Icons.chevron_left, size: 35),
+            icon: Icon(Icons.chevron_left,
+                size: 35, color: isDarkMode ? Colors.white : Colors.black),
           ),
-          title: const Text(
+          title: Text(
             'Account',
             style: TextStyle(
-              color: Colors.white,
+              color: isDarkMode ? Colors.white : Colors.black,
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
@@ -117,7 +121,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
           toolbarHeight: 70,
         ),
         body: userAsync.when(
-          data: (user) => _buildContent(context, user),
+          data: (user) => _buildContent(context, user, isDarkMode),
           loading: () => const Center(child: CircularProgressIndicator()),
           error: (error, stack) => Center(child: Text('Error: $error')),
         ),
@@ -125,7 +129,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
     );
   }
 
-  Widget _buildContent(BuildContext context, UserModel? user) {
+  Widget _buildContent(BuildContext context, UserModel? user, bool isDarkMode) {
     if (user == null) {
       return const Center(child: Text('No user data available'));
     }
@@ -138,21 +142,21 @@ class _AccountPageState extends ConsumerState<AccountPage> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          _buildProfileHeader(user),
-          _buildForm(user),
-          _buildActionButtons(),
+          _buildProfileHeader(user, isDarkMode),
+          _buildForm(user, isDarkMode),
+          _buildActionButtons(isDarkMode),
         ],
       ),
     );
   }
 
-  Widget _buildProfileHeader(UserModel user) {
+  Widget _buildProfileHeader(UserModel user, bool isDarkMode) {
     return Container(
       width: double.infinity,
       height: 200,
-      decoration: const BoxDecoration(
-        color: kwhite_new,
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        color: isDarkMode ? Colors.grey[800] : kwhite_new,
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(20),
           bottomRight: Radius.circular(20),
         ),
@@ -198,8 +202,8 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                 children: [
                   Text(
                     'Name: ${user.firstName} ${user.lastName}',
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color: isDarkMode ? Colors.white : Colors.black,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -207,8 +211,8 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                   const SizedBox(height: 10),
                   Text(
                     'ID: ${user.userId}',
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color: isDarkMode ? Colors.white : Colors.black,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -222,15 +226,15 @@ class _AccountPageState extends ConsumerState<AccountPage> {
     );
   }
 
-  Widget _buildForm(UserModel user) {
+  Widget _buildForm(UserModel user, bool isDarkMode) {
     return Container(
       padding: const EdgeInsets.all(32.0),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: isDarkMode ? Colors.grey[800] : Colors.white,
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
-            color: Colors.blue.withOpacity(0.1),
+            color: isDarkMode ? Colors.black12 : Colors.blue.withOpacity(0.1),
             spreadRadius: 10,
             blurRadius: 20,
             offset: const Offset(0, 10),
@@ -245,7 +249,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             style: TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.bold,
-              color: Colors.blue[800],
+              color: isDarkMode ? Colors.white : Colors.blue[800],
               letterSpacing: 1.2,
             ),
           ),
@@ -254,7 +258,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             'Update your profile details below',
             style: TextStyle(
               fontSize: 16,
-              color: Colors.grey[600],
+              color: isDarkMode ? Colors.grey[400] : Colors.grey[600],
               letterSpacing: 0.5,
             ),
           ),
@@ -264,6 +268,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             label: 'First Name',
             initialValue: user.firstName ?? '',
             onChanged: (value) => _firstNameController.text = value,
+            isDarkMode: isDarkMode,
           ),
           const SizedBox(height: 24),
           _buildInputField(
@@ -271,6 +276,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             label: 'Last Name',
             initialValue: user.lastName ?? '',
             onChanged: (value) => _lastNameController.text = value,
+            isDarkMode: isDarkMode,
           ),
           const SizedBox(height: 24),
           _buildInputField(
@@ -279,6 +285,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             initialValue: user.phone ?? '',
             onChanged: (value) => _phoneController.text = value,
             keyboardType: TextInputType.phone,
+            isDarkMode: isDarkMode,
           ),
           const SizedBox(height: 24),
           _buildInputField(
@@ -287,9 +294,10 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             initialValue: user.email ?? '',
             onChanged: (value) => _emailController.text = value,
             keyboardType: TextInputType.emailAddress,
+            isDarkMode: isDarkMode,
           ),
           const SizedBox(height: 24),
-          _buildPasswordField(),
+          _buildPasswordField(isDarkMode),
         ],
       ),
     );
@@ -301,14 +309,15 @@ class _AccountPageState extends ConsumerState<AccountPage> {
     required String initialValue,
     required Function(String) onChanged,
     TextInputType keyboardType = TextInputType.text,
+    required bool isDarkMode,
   }) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: Colors.grey[100],
+        color: isDarkMode ? Colors.grey[700] : Colors.grey[100],
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
+            color: isDarkMode ? Colors.black12 : Colors.grey.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 3,
             offset: const Offset(0, 2),
@@ -319,11 +328,16 @@ class _AccountPageState extends ConsumerState<AccountPage> {
         initialValue: initialValue,
         onChanged: onChanged,
         keyboardType: keyboardType,
-        style: const TextStyle(fontSize: 16, color: Colors.black87),
+        style: TextStyle(
+            fontSize: 16, color: isDarkMode ? Colors.white : Colors.black87),
         decoration: InputDecoration(
-          prefixIcon: Icon(icon, color: Colors.blue[600], size: 22),
+          prefixIcon: Icon(icon,
+              color: isDarkMode ? Colors.blue[300] : Colors.blue[600],
+              size: 22),
           labelText: label,
-          labelStyle: TextStyle(color: Colors.grey[600], fontSize: 14),
+          labelStyle: TextStyle(
+              color: isDarkMode ? Colors.grey[400] : Colors.grey[600],
+              fontSize: 14),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
             borderSide: BorderSide.none,
@@ -337,16 +351,17 @@ class _AccountPageState extends ConsumerState<AccountPage> {
     );
   }
 
-  Widget _buildPasswordField() {
+  Widget _buildPasswordField(bool isDarkMode) {
     return StatefulBuilder(
       builder: (context, setState) {
         return Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            color: Colors.grey[100],
+            color: isDarkMode ? Colors.grey[700] : Colors.grey[100],
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.1),
+                color:
+                    isDarkMode ? Colors.black12 : Colors.grey.withOpacity(0.1),
                 spreadRadius: 1,
                 blurRadius: 3,
                 offset: const Offset(0, 2),
@@ -356,12 +371,17 @@ class _AccountPageState extends ConsumerState<AccountPage> {
           child: TextFormField(
             controller: _passwordController,
             obscureText: _isObscure,
-            style: const TextStyle(fontSize: 16, color: Colors.black87),
+            style: TextStyle(
+                fontSize: 16,
+                color: isDarkMode ? Colors.white : Colors.black87),
             decoration: InputDecoration(
-              prefixIcon:
-                  Icon(Icons.lock_outline, color: Colors.blue[600], size: 22),
+              prefixIcon: Icon(Icons.lock_outline,
+                  color: isDarkMode ? Colors.blue[300] : Colors.blue[600],
+                  size: 22),
               labelText: 'Password',
-              labelStyle: TextStyle(color: Colors.grey[600], fontSize: 14),
+              labelStyle: TextStyle(
+                  color: isDarkMode ? Colors.grey[400] : Colors.grey[600],
+                  fontSize: 14),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
                 borderSide: BorderSide.none,
@@ -375,7 +395,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                   _isObscure
                       ? Icons.visibility_outlined
                       : Icons.visibility_off_outlined,
-                  color: Colors.blue[600],
+                  color: isDarkMode ? Colors.blue[300] : Colors.blue[600],
                   size: 22,
                 ),
                 onPressed: () => setState(() => _isObscure = !_isObscure),
@@ -387,31 +407,46 @@ class _AccountPageState extends ConsumerState<AccountPage> {
     );
   }
 
-  Widget _buildActionButtons() {
+  Widget _buildActionButtons(bool isDarkMode) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 24.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           FilledButton(
-            child: const Text('Save Changes'),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(
+                  isDarkMode ? Colors.blue[700] : Colors.blue),
+            ),
+            child: Text('Save Changes',
+                style:
+                    TextStyle(color: isDarkMode ? Colors.white : Colors.black)),
             onPressed: () async {
               final updatedUser = UserModel(
                 id: ref.read(currentUserProvider).value!.id,
                 firstName: _firstNameController.text,
                 lastName: _lastNameController.text,
                 email: _emailController.text,
-                phone: _phoneController.text, userId: '', photo: '', vpoints: 0,
-                isAdmin: false, joinedAt: DateTime.now(),
-                // Add other fields as necessary
+                phone: _phoneController.text,
+                userId: '',
+                photo: '',
+                vpoints: 0,
+                isAdmin: false,
+                joinedAt: DateTime.now(),
               );
               await _updateUserData(updatedUser);
             },
           ),
           const SizedBox(width: 16),
           FilledButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(
+                  isDarkMode ? Colors.red[700] : Colors.red),
+            ),
             onPressed: _logOut,
-            child: const Text('Log Out'),
+            child: Text('Log Out',
+                style:
+                    TextStyle(color: isDarkMode ? Colors.white : Colors.black)),
           ),
         ],
       ),

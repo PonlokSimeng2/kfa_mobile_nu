@@ -2,16 +2,19 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kfa_mobile_nu/constaints.dart';
+import 'package:kfa_mobile_nu/exports.dart';
 import 'package:readmore/readmore.dart';
+import 'package:kfa_mobile_nu/src/providers/theme_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AboutUsPage extends StatefulWidget {
-  const AboutUsPage({super.key});
+class AboutUsPage extends ConsumerStatefulWidget {
+  const AboutUsPage({Key? key}) : super(key: key);
 
   @override
-  State<AboutUsPage> createState() => _AboutUsPageState();
+  ConsumerState<AboutUsPage> createState() => _AboutUsPageState();
 }
 
-class _AboutUsPageState extends State<AboutUsPage> {
+class _AboutUsPageState extends ConsumerState<AboutUsPage> {
   final String content =
       "\tKhmer Foundation Appraisals (KFA), Co., Ltd, is a legal and one of the top 5 Real Estates and Consulting Companies founded by Oknha Noun Rithy who has over 10 years experiences in Real Estates market in Cambodia. The KFA Company was registered with the Ministry of Economy and Finance with its registration number EV-15-165 and Ministry of Commerce with its registration number Co. 0206 KH/2015.\n\n"
       "\tThe Company brings an in-depth understanding and knowledge of sales, leasing, and consulting services across Cambodia and has created numerous successful real estate transactions throughout the country. The Company provides Asset and Property Appraisals, Property Consultancy for both selling and leasing property across Cambodia, including Property Management, Investment, Development, Engineering, and Construction. The Company also provides appraisals services for mortgage origination, relocation, forced sales, reviews, bankruptcy, asset valuation, share allocation, divorce, trust/estate matters, and court testimony.\n\n"
@@ -63,16 +66,20 @@ class _AboutUsPageState extends State<AboutUsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = ref.watch(themeProvider) == ThemeMode.dark;
+
     return Scaffold(
-      backgroundColor: kwhite_new,
+      backgroundColor: isDarkMode
+          ? Colors.grey[900]
+          : const Color.fromARGB(255, 245, 250, 246),
       appBar: AppBar(
-        backgroundColor: kwhite_new,
+        backgroundColor: isDarkMode ? Colors.grey[800] : kwhite_new,
         elevation: 0,
         centerTitle: true,
-        title: const Text(
+        title: Text(
           'About us',
           style: TextStyle(
-            color: Colors.white,
+            color: isDarkMode ? Colors.white : Colors.black,
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
@@ -80,9 +87,9 @@ class _AboutUsPageState extends State<AboutUsPage> {
         toolbarHeight: 70,
       ),
       body: Container(
-        padding: const EdgeInsets.only(top: 15),
-        decoration: const BoxDecoration(
-          color: kBackgroundColor,
+        padding: EdgeInsets.only(top: 15),
+        decoration: BoxDecoration(
+          color: isDarkMode ? Colors.grey[800] : kBackgroundColor,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -90,13 +97,13 @@ class _AboutUsPageState extends State<AboutUsPage> {
         ),
         child: SingleChildScrollView(
           child: Container(
-            constraints: const BoxConstraints(
+            constraints: BoxConstraints(
               maxWidth: double.infinity,
               maxHeight: double.infinity,
             ),
-            padding: const EdgeInsets.only(right: 15, left: 15, bottom: 15),
-            decoration: const BoxDecoration(
-              color: kBackgroundColor,
+            padding: EdgeInsets.only(right: 15, left: 15, bottom: 15),
+            decoration: BoxDecoration(
+              color: isDarkMode ? Colors.grey[800] : kBackgroundColor,
               borderRadius: BorderRadius.only(),
             ),
             child: Column(
@@ -115,7 +122,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                         return Builder(
                           builder: (BuildContext context) {
                             return Container(
-                              margin: const EdgeInsets.symmetric(
+                              margin: EdgeInsets.symmetric(
                                 horizontal: 0,
                                 vertical: 0,
                               ),
@@ -125,31 +132,35 @@ class _AboutUsPageState extends State<AboutUsPage> {
                         );
                       }).toList(),
                     ),
-                    const SizedBox(height: 10),
-                    const Text(
+                    SizedBox(height: 10),
+                    Text(
                       "Welcome to Khmer Foundation Appraisals Co., Ltd.",
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: isDarkMode ? Colors.white : Colors.black,
+                      ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 10),
-                _buildSection("About Us", content),
-                _buildSection("Founder & Chairman/CEO's Message", message),
-                const Image(
+                SizedBox(height: 10),
+                _buildSection("About Us", content, isDarkMode),
+                _buildSection(
+                    "Founder & Chairman/CEO's Message", message, isDarkMode),
+                Image(
                   fit: BoxFit.fitWidth,
                   alignment: Alignment.center,
                   image: AssetImage('assets/images/message-banner3.jpg'),
                 ),
-                _buildSection("Company Overview", overview),
-                _buildSection("Vision and Mission", vision),
-                _buildSection("Our People", ourpeople),
-                _buildSection("Company Profile", profile),
-                const SizedBox(height: 10),
-                const Row(
+                _buildSection("Company Overview", overview, isDarkMode),
+                _buildSection("Vision and Mission", vision, isDarkMode),
+                _buildSection("Our People", ourpeople, isDarkMode),
+                _buildSection("Company Profile", profile, isDarkMode),
+                SizedBox(height: 10),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
+                  children: const [
                     Image(
                       image: AssetImage(
                         'assets/images/Company-Profile-Cover2020_1.png',
@@ -171,41 +182,50 @@ class _AboutUsPageState extends State<AboutUsPage> {
     );
   }
 
-  Widget _buildSection(String title, String text) {
+  Widget _buildSection(String title, String text, bool isDarkMode) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
-          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            color: isDarkMode ? Colors.white : Colors.black,
+          ),
         ),
-        const SizedBox(height: 5),
-        ReadMore(text: text),
-        const SizedBox(height: 10),
-        const Divider(color: Colors.blueAccent, thickness: 0.5),
+        SizedBox(height: 5),
+        ReadMore(text: text, isDarkMode: isDarkMode),
+        SizedBox(height: 10),
+        Divider(color: Colors.blueAccent, thickness: 0.5),
       ],
     );
   }
 }
 
-class ReadMore extends StatelessWidget {
+class ReadMore extends StatefulWidget {
   const ReadMore({
-    super.key,
+    Key? key,
     required this.text,
-  });
+    required bool isDarkMode,
+  }) : super(key: key);
 
   final String text;
+  @override
+  State<ReadMore> createState() => _ReadMoreState();
+}
 
+class _ReadMoreState extends State<ReadMore> {
   @override
   Widget build(BuildContext context) {
     return ReadMoreText(
-      text,
+      widget.text,
       trimLines: 6,
       textAlign: TextAlign.justify,
       trimMode: TrimMode.Line,
       trimCollapsedText: " read more ",
       trimExpandedText: " Show Less ",
-      style: const TextStyle(
+      style: TextStyle(
         fontSize: 15,
         height: 1,
       ),

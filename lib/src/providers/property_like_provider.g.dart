@@ -331,7 +331,7 @@ class _PropertyLikeAtIndexProviderElement
   int get index => (origin as PropertyLikeAtIndexProvider).index;
 }
 
-String _$hasLikedHash() => r'ecbb95698ad48963e094684c93a54eafb4d101f7';
+String _$hasLikedHash() => r'1e03bd04ae8ed72af7cd68935142a347a42d3654';
 
 abstract class _$HasLiked extends BuildlessAutoDisposeAsyncNotifier<bool> {
   late final int propertyId;
@@ -472,7 +472,7 @@ class _HasLikedProviderElement
   int get propertyId => (origin as HasLikedProvider).propertyId;
 }
 
-String _$propertyLikeHash() => r'1a0fccffd2e9c849deb76ac83ff7cf7c6c5453b3';
+String _$propertyLikeHash() => r'6413a9d746022af3803b874b29e87dfe50ff7e10';
 
 abstract class _$PropertyLike
     extends BuildlessAutoDisposeNotifier<ProviderStatus<void>> {
@@ -615,7 +615,7 @@ class _PropertyLikeProviderElement extends AutoDisposeNotifierProviderElement<
   int get propertyId => (origin as PropertyLikeProvider).propertyId;
 }
 
-String _$propertyUnlikeHash() => r'd42796eafcac9453acf0c58e58650f93d5513297';
+String _$propertyUnlikeHash() => r'be7241972fac32b8f80dc222053d9394f986c384';
 
 abstract class _$PropertyUnlike
     extends BuildlessAutoDisposeNotifier<ProviderStatus<void>> {

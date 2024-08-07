@@ -2993,7 +2993,7 @@ class _AutoVerbalDetailProviderElement
   int get id => (origin as AutoVerbalDetailProvider).id;
 }
 
-String _$insertAutoVerbalHash() => r'dd8fdb1960e5153115541f0e0a200e99a1332fe6';
+String _$insertAutoVerbalHash() => r'7b78b11f6c24ad09811f81eac608d11dfa7f728d';
 
 abstract class _$InsertAutoVerbal
     extends BuildlessAutoDisposeNotifier<InsertAutoVerbalState> {

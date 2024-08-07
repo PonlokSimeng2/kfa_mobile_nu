@@ -2,6 +2,7 @@ import 'package:kfa_mobile_nu/src/models/property_type_model.schema.dart';
 
 import '../../exports.dart';
 import '../providers/property_type_provider.dart';
+import '../providers/theme_provider.dart';
 
 class PropertyTypeDropDown extends ConsumerWidget {
   const PropertyTypeDropDown({
@@ -18,6 +19,7 @@ class PropertyTypeDropDown extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final propertyTypeList = ref.watch(propertyTypeListProvider);
+    final isDarkMode = ref.watch(themeProvider) == ThemeMode.dark;
 
     return DropdownButtonFormField<PropertyTypeModel>(
       isExpanded: true,
@@ -33,33 +35,35 @@ class PropertyTypeDropDown extends ConsumerWidget {
                 child: Text(e.name),
               );
             }).toList(),
-      icon: const Icon(
+      icon: Icon(
         Icons.arrow_drop_down,
-        color: kImageColor,
+        color: isDarkMode ? Colors.white : kImageColor,
       ),
+      dropdownColor: isDarkMode ? Colors.grey[800] : kwhite,
+      style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
       decoration: InputDecoration(
-        fillColor: kwhite,
+        fillColor: isDarkMode ? Colors.grey[900] : kwhite,
         filled: true,
         contentPadding: const EdgeInsets.symmetric(vertical: 8)
             .copyWith(left: 16, right: 8),
-        // labelText: 'Property Type*',
-        hintText: 'Property Type*', // Changed to center alignment
-        prefixIcon: prefixicon,
-        // prefixIcon: Icon(
-        //   Icons.app_registration_sharp,
-        //   color: kImageColor,
-        // ),
+        hintText: 'Property Type*',
+        hintStyle:
+            TextStyle(color: isDarkMode ? Colors.grey[400] : Colors.grey[600]),
+        prefixIcon: prefixicon != null
+            ? Icon(prefixicon!.icon,
+                color: isDarkMode ? Colors.white : kImageColor)
+            : null,
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: kPrimaryColor,
+          borderSide: BorderSide(
+            color: isDarkMode ? Colors.blue[300]! : kPrimaryColor,
             width: 2.0,
           ),
           borderRadius: BorderRadius.circular(10.0),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
+          borderSide: BorderSide(
             width: 1,
-            color: kPrimaryColor,
+            color: isDarkMode ? Colors.grey[600]! : kPrimaryColor,
           ),
           borderRadius: BorderRadius.circular(10.0),
         ),

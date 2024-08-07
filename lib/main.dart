@@ -9,12 +9,12 @@ import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import 'exports.dart';
 import 'firebase_options.dart';
 import 'provider_observers.dart';
 import 'src/providers/auth_provider.dart';
 import 'src/providers/cache_provider.dart';
+import 'src/providers/theme_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -106,6 +106,7 @@ class _MyAppState extends ConsumerState<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    final themeMode = ref.watch(themeProvider);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -121,12 +122,22 @@ class _MyAppState extends ConsumerState<MyApp> {
           iconColor: kImageColor,
         ),
       ),
-      themeMode: ThemeMode.light,
-      //home: const AutoVerbalListPage(),
+      darkTheme: ThemeData.dark().copyWith(
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.blue, brightness: Brightness.dark),
+        primaryColor: Colors.blue[700],
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.grey[900],
+          foregroundColor: Colors.white,
+          elevation: 0,
+          centerTitle: true,
+        ),
+        listTileTheme: ListTileThemeData(
+          iconColor: Colors.blue[300],
+        ),
+      ),
+      themeMode: themeMode,
       home: const HomePage(),
-      //home: const AutoVerbalListPage(),
-      // home: PropertyListPage(),
-      //home: const ReportMainPage(),
       builder: BotToastInit(),
     );
   }

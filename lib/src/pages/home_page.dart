@@ -1,19 +1,15 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:kfa_mobile_nu/src/pages/add_autoverbal_page.dart';
 import 'package:kfa_mobile_nu/src/pages/add_property_page.dart';
 import 'package:kfa_mobile_nu/src/pages/favorite_list_page.dart';
 import 'package:kfa_mobile_nu/src/pages/my_property_page.dart';
 import 'package:kfa_mobile_nu/src/pages/report_main_page.dart';
-
+import 'package:kfa_mobile_nu/src/pages/setting_page.dart';
 import '../../exports.dart';
 import '../../gen/assets.gen.dart';
 import '../helpers/build_context_helper.dart';
 import '../providers/user_provider.dart';
-import 'account_page.dart';
 import 'admin/admin_home_page.dart';
-import 'contact_us_page.dart';
-import 'login_page.dart';
 import 'property_list_page.dart';
 
 class HomePage extends ConsumerWidget {
@@ -89,14 +85,6 @@ class __UserHomeState extends ConsumerState<_UserHome> {
                 child: ListView(
                   children: [
                     ListTile(
-                      leading: const Icon(Icons.account_box),
-                      title: const Text('Account'),
-                      onTap: () {
-                        context.push((context) => const AccountPage());
-                        Scaffold.of(context).closeDrawer();
-                      },
-                    ),
-                    ListTile(
                       leading: const Icon(Icons.add_to_photos_sharp),
                       title: const Text('Add Property'),
                       onTap: () {
@@ -132,29 +120,15 @@ class __UserHomeState extends ConsumerState<_UserHome> {
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.contact_phone),
-                      title: const Text('Contact Us'),
+                      leading: const Icon(Icons.settings),
+                      title: const Text('Setting'),
                       onTap: () {
-                        context.push((context) => const ContactUsPage());
+                        context.push((context) => const SettingPage());
                         Scaffold.of(context).closeDrawer();
                       },
                     ),
                   ],
                 ),
-              ),
-              TextButton.icon(
-                label: const Text('Sign in?'),
-                icon: const Icon(
-                  Icons.login,
-                  size: 18,
-                ),
-                onPressed: () {
-                  context.push(
-                    (context) => const LoginPage(
-                      openAsPage: true,
-                    ),
-                  );
-                },
               ),
             ],
           );

@@ -12,6 +12,7 @@ import 'package:kfa_mobile_nu/src/providers/cache_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
 import 'package:kfa_mobile_nu/src/providers/theme_provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AccountPage extends ConsumerStatefulWidget {
   const AccountPage({super.key});
@@ -76,10 +77,22 @@ class _AccountPageState extends ConsumerState<AccountPage> {
   }
 
   Future<void> _updateUserData(UserModel user) async {
-    // Implement your update logic here
-    // For example:
-    // await ref.read(userProvider.notifier).updateUser(user);
-    Fluttertoast.showToast(msg: 'User data updated successfully');
+    try {
+      final sb = ref.read(supabaseProvider).client;
+      await sb.from('users').update({
+        'first_name': user.firstName,
+        'last_name': user.lastName,
+        'email': user.email,
+        'phone': user.phone,
+      }).eq('id', user.id);
+
+      // Invalidate the currentUserProvider to force a refresh
+      ref.invalidate(currentUserProvider);
+
+      Fluttertoast.showToast(msg: 'User data updated successfully');
+    } catch (e) {
+      Fluttertoast.showToast(msg: 'Failed to update user data: $e');
+    }
   }
 
   Future<void> _logOut() async {
@@ -352,56 +365,138 @@ class _AccountPageState extends ConsumerState<AccountPage> {
   }
 
   Widget _buildPasswordField(bool isDarkMode) {
-    return StatefulBuilder(
-      builder: (context, setState) {
-        return Container(
-          decoration: BoxDecoration(
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: isDarkMode ? Colors.grey[700] : Colors.grey[100],
+        boxShadow: [
+          BoxShadow(
+            color: isDarkMode ? Colors.black12 : Colors.grey.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 3,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: TextFormField(
+        controller: _passwordController,
+        obscureText: true,
+        readOnly: true,
+        style: TextStyle(
+            fontSize: 16, color: isDarkMode ? Colors.white : Colors.black87),
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.lock_outline,
+              color: isDarkMode ? Colors.blue[300] : Colors.blue[600],
+              size: 22),
+          labelText: 'Password',
+          labelStyle: TextStyle(
+              color: isDarkMode ? Colors.grey[400] : Colors.grey[600],
+              fontSize: 14),
+          border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
-            color: isDarkMode ? Colors.grey[700] : Colors.grey[100],
-            boxShadow: [
-              BoxShadow(
-                color:
-                    isDarkMode ? Colors.black12 : Colors.grey.withOpacity(0.1),
-                spreadRadius: 1,
-                blurRadius: 3,
-                offset: const Offset(0, 2),
+            borderSide: BorderSide.none,
+          ),
+          filled: true,
+          fillColor: Colors.transparent,
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+          suffixIcon: IconButton(
+            icon: Icon(
+              Icons.edit,
+              color: isDarkMode ? Colors.blue[300] : Colors.blue[600],
+              size: 22,
+            ),
+            onPressed: () => _showChangePasswordDialog(isDarkMode),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showChangePasswordDialog(bool isDarkMode) {
+    final currentPasswordController = TextEditingController();
+    final newPasswordController = TextEditingController();
+    final confirmPasswordController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Change Password'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: currentPasswordController,
+                obscureText: true,
+                decoration: InputDecoration(labelText: 'Current Password'),
+              ),
+              TextField(
+                controller: newPasswordController,
+                obscureText: true,
+                decoration: InputDecoration(labelText: 'New Password'),
+              ),
+              TextField(
+                controller: confirmPasswordController,
+                obscureText: true,
+                decoration: InputDecoration(labelText: 'Confirm New Password'),
               ),
             ],
           ),
-          child: TextFormField(
-            controller: _passwordController,
-            obscureText: _isObscure,
-            style: TextStyle(
-                fontSize: 16,
-                color: isDarkMode ? Colors.white : Colors.black87),
-            decoration: InputDecoration(
-              prefixIcon: Icon(Icons.lock_outline,
-                  color: isDarkMode ? Colors.blue[300] : Colors.blue[600],
-                  size: 22),
-              labelText: 'Password',
-              labelStyle: TextStyle(
-                  color: isDarkMode ? Colors.grey[400] : Colors.grey[600],
-                  fontSize: 14),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: BorderSide.none,
-              ),
-              filled: true,
-              fillColor: Colors.transparent,
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-              suffixIcon: IconButton(
-                icon: Icon(
-                  _isObscure
-                      ? Icons.visibility_outlined
-                      : Icons.visibility_off_outlined,
-                  color: isDarkMode ? Colors.blue[300] : Colors.blue[600],
-                  size: 22,
-                ),
-                onPressed: () => setState(() => _isObscure = !_isObscure),
-              ),
+          actions: [
+            TextButton(
+              child: Text('Cancel'),
+              onPressed: () => Navigator.of(context).pop(),
             ),
-          ),
+            ElevatedButton(
+              child: Text('Confirm'),
+              onPressed: () async {
+                final currentUser = ref.read(currentUserProvider).value;
+                if (currentUser == null) {
+                  Fluttertoast.showToast(msg: 'User not found');
+                  return;
+                }
+
+                // Check if current password is correct
+                final sb = ref.read(supabaseProvider).client;
+                final response = await sb.auth.signInWithPassword(
+                  email: currentUser.email,
+                  password: currentPasswordController.text,
+                );
+
+                if (response.user == null) {
+                  Fluttertoast.showToast(msg: 'Current password is incorrect');
+                  return;
+                }
+
+                // Check if new password and confirm password match
+                if (newPasswordController.text !=
+                    confirmPasswordController.text) {
+                  Fluttertoast.showToast(msg: 'New passwords do not match');
+                  return;
+                }
+
+                try {
+                  // Update the password in Supabase Auth
+                  final updateResponse = await sb.auth.updateUser(
+                    UserAttributes(password: newPasswordController.text),
+                  );
+
+                  if (updateResponse.user == null) {
+                    throw Exception('User not found');
+                  }
+
+                  // Refresh the current user provider
+                  ref.invalidate(currentUserProvider);
+
+                  Fluttertoast.showToast(msg: 'Password updated successfully');
+                  Navigator.of(context).pop();
+                } catch (e) {
+                  Fluttertoast.showToast(msg: 'Failed to update password: $e');
+                }
+              },
+            ),
+          ],
         );
       },
     );

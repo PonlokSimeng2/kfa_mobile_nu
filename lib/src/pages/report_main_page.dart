@@ -5,6 +5,7 @@ import 'package:kfa_mobile_nu/src/pages/report_property_page.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/report_provider.dart';
 import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
+import 'package:kfa_mobile_nu/src/providers/theme_provider.dart';
 
 class ReportMainPage extends HookConsumerWidget {
   const ReportMainPage({super.key});
@@ -12,25 +13,30 @@ class ReportMainPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final pageCtr = usePageController();
+    final isDarkMode = ref.watch(themeProvider) == ThemeMode.dark;
 
     return Scaffold(
-      backgroundColor: kwhite_new,
+      backgroundColor: isDarkMode ? Colors.grey[900] : kwhite_new,
       body: AuthWrapperWidget(
         child: NestedScrollView(
           headerSliverBuilder: (context, value) {
             return [
-              const SliverAppBar(
+              SliverAppBar(
                 floating: true,
-                backgroundColor: kwhite_new,
+                backgroundColor: isDarkMode ? Colors.grey[800] : kwhite_new,
                 elevation: 0,
                 surfaceTintColor: Colors.transparent,
-                title: Text('Report'),
+                title: Text('Report',
+                    style: TextStyle(
+                        color: isDarkMode ? Colors.white : Colors.black)),
               ),
               SliverToBoxAdapter(
                 child: Container(
                   padding: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).scaffoldBackgroundColor,
+                    color: isDarkMode
+                        ? Colors.grey[800]
+                        : Theme.of(context).scaffoldBackgroundColor,
                     borderRadius: const BorderRadius.vertical(
                       top: Radius.circular(15),
                     ),
@@ -38,20 +44,20 @@ class ReportMainPage extends HookConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Welcome to the Report Page',
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black87,
+                          color: isDarkMode ? Colors.white : Colors.black87,
                         ),
                       ),
                       const SizedBox(height: 10),
-                      const Text(
+                      Text(
                         'Here you can view and manage all your reports.',
                         style: TextStyle(
                           fontSize: 16,
-                          color: Colors.black54,
+                          color: isDarkMode ? Colors.white70 : Colors.black54,
                         ),
                       ),
                       const SizedBox(height: 20),
@@ -64,7 +70,8 @@ class ReportMainPage extends HookConsumerWidget {
                                 final count = ref.watch(
                                   countPropertyAndAutoVerbalProvider(
                                     userId: ref.watch(authProvider),
-                                    statuses: PropertyAndAutoVerbalStatus.values.lock,
+                                    statuses:
+                                        PropertyAndAutoVerbalStatus.values.lock,
                                   ).select(
                                     (v) => v.whenOrNull(
                                       data: (data) => data.propertyCount,
@@ -80,6 +87,7 @@ class ReportMainPage extends HookConsumerWidget {
                                     value: count?.toString() ?? "...",
                                     icon: Icons.pending,
                                     color: Colors.orange,
+                                    isDarkMode: isDarkMode,
                                   ),
                                 );
                               },
@@ -91,7 +99,8 @@ class ReportMainPage extends HookConsumerWidget {
                                 final count = ref.watch(
                                   countPropertyAndAutoVerbalProvider(
                                     userId: ref.watch(authProvider),
-                                    statuses: PropertyAndAutoVerbalStatus.values.lock,
+                                    statuses:
+                                        PropertyAndAutoVerbalStatus.values.lock,
                                   ).select(
                                     (v) => v.whenOrNull(
                                       data: (data) => data.autoVerbalCount,
@@ -107,6 +116,7 @@ class ReportMainPage extends HookConsumerWidget {
                                     value: count?.toString() ?? "...",
                                     icon: Icons.insert_chart,
                                     color: Colors.blue,
+                                    isDarkMode: isDarkMode,
                                   ),
                                 );
                               },
@@ -121,7 +131,9 @@ class ReportMainPage extends HookConsumerWidget {
             ];
           },
           body: ColoredBox(
-            color: Theme.of(context).scaffoldBackgroundColor,
+            color: isDarkMode
+                ? Colors.grey[900]!
+                : Theme.of(context).scaffoldBackgroundColor,
             child: PageView(
               controller: pageCtr,
               physics: const NeverScrollableScrollPhysics(),
@@ -141,16 +153,18 @@ class ReportMainPage extends HookConsumerWidget {
     required String value,
     required IconData icon,
     required Color color,
+    required bool isDarkMode,
   }) {
     return Card(
       elevation: 4,
+      color: isDarkMode ? Colors.grey[800] : Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: color.withOpacity(0.1),
+          color: isDarkMode ? color.withOpacity(0.2) : color.withOpacity(0.1),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
@@ -176,7 +190,7 @@ class ReportMainPage extends HookConsumerWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
-                color: color,
+                color: isDarkMode ? Colors.white70 : color,
               ),
             ),
           ],

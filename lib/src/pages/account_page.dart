@@ -108,12 +108,12 @@ class _AccountPageState extends ConsumerState<AccountPage> {
           leading: IconButton(
             onPressed: () => Navigator.pop(context),
             icon: Icon(Icons.chevron_left,
-                size: 35, color: isDarkMode ? Colors.white : Colors.black),
+                size: 35, color: isDarkMode ? Colors.white : Colors.white),
           ),
           title: Text(
             'Account',
             style: TextStyle(
-              color: isDarkMode ? Colors.white : Colors.black,
+              color: isDarkMode ? Colors.white : Colors.white,
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
@@ -203,7 +203,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                   Text(
                     'Name: ${user.firstName} ${user.lastName}',
                     style: TextStyle(
-                      color: isDarkMode ? Colors.white : Colors.black,
+                      color: isDarkMode ? Colors.white : Colors.white,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -212,7 +212,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                   Text(
                     'ID: ${user.userId}',
                     style: TextStyle(
-                      color: isDarkMode ? Colors.white : Colors.black,
+                      color: isDarkMode ? Colors.white : Colors.white,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),

@@ -12,6 +12,7 @@ import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
 import 'package:kfa_mobile_nu/src/widgets/map_picker.dart';
 import 'package:kfa_mobile_nu/src/widgets/property_type_dropdown.dart';
 import 'package:kfa_mobile_nu/src/widgets/province_dropdown.dart';
+import 'package:kfa_mobile_nu/src/providers/theme_provider.dart';
 
 typedef OnChangeCallback = void Function(dynamic value);
 
@@ -20,12 +21,20 @@ class AddPropertyPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isDarkMode = ref.watch(themeProvider) == ThemeMode.dark;
+
     return InsertPropertyFormWidget(
       builder: (ref, formKey, status, isProgressing, failure, submit) {
         return AuthWrapperWidget(
           child: Scaffold(
+            backgroundColor: isDarkMode ? Colors.grey[900] : Colors.white,
             appBar: AppBar(
-              title: const Text('Add Property'),
+              backgroundColor: isDarkMode ? Colors.grey[800] : Colors.blue,
+              title: Text(
+                'Add Property',
+                style:
+                    TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+              ),
               centerTitle: true,
               actions: [
                 Padding(
@@ -65,9 +74,11 @@ class AddPropertyPage extends HookConsumerWidget {
                         }
                       }
                     },
-                    child: isProgressing
-                        ? const Text('SAVING')
-                        : const Text('SAVE'),
+                    child: Text(
+                      isProgressing ? 'SAVING' : 'SAVE',
+                      style: TextStyle(
+                          color: isDarkMode ? Colors.white : Colors.black),
+                    ),
                   ),
                 ),
               ],
@@ -112,7 +123,12 @@ class AddPropertyPage extends HookConsumerWidget {
                                     const EdgeInsets.only(right: 30, left: 30),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    border: Border.all(width: 1),
+                                    border: Border.all(
+                                      width: 1,
+                                      color: isDarkMode
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   height:
@@ -144,6 +160,11 @@ class AddPropertyPage extends HookConsumerWidget {
                               right: 30, left: 30, top: 10),
                           child: Container(
                             child: ProvinceDropDown(
+                              prefixicon: Icon(
+                                Icons.app_registration_sharp,
+                                color: isDarkMode ? Colors.white : Colors.green,
+                                size: 30.0,
+                              ),
                               value: province,
                               onChanged: (value) {
                                 changeProvince(value);
@@ -168,9 +189,9 @@ class AddPropertyPage extends HookConsumerWidget {
                               right: 30, left: 30, top: 10),
                           child: Container(
                             child: PropertyTypeDropDown(
-                              prefixicon: const Icon(
+                              prefixicon: Icon(
                                 Icons.app_registration_sharp,
-                                color: Colors.green,
+                                color: isDarkMode ? Colors.white : Colors.green,
                                 size: 30.0,
                               ),
                               value: propertyType,
@@ -200,28 +221,43 @@ class AddPropertyPage extends HookConsumerWidget {
                                         MediaQuery.of(context).size.height *
                                             0.015,
                                     fontWeight: FontWeight.bold,
+                                    color: isDarkMode
+                                        ? Colors.white
+                                        : Colors.black,
                                   ),
                                   decoration: InputDecoration(
                                     contentPadding:
                                         const EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: const Icon(
+                                    prefixIcon: Icon(
                                       Icons.feed_outlined,
-                                      color: kImageColor,
+                                      color: isDarkMode
+                                          ? Colors.white
+                                          : kImageColor,
                                     ),
                                     hintText: 'Price',
-                                    fillColor: kwhite,
+                                    hintStyle: TextStyle(
+                                      color: isDarkMode
+                                          ? Colors.grey[400]
+                                          : Colors.grey[600],
+                                    ),
+                                    fillColor:
+                                        isDarkMode ? Colors.grey[800] : kwhite,
                                     filled: true,
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
+                                      borderSide: BorderSide(
+                                        color: isDarkMode
+                                            ? Colors.white
+                                            : kPrimaryColor,
                                         width: 2.0,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
+                                      borderSide: BorderSide(
                                         width: 1,
-                                        color: kPrimaryColor,
+                                        color: isDarkMode
+                                            ? Colors.grey
+                                            : kPrimaryColor,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -246,28 +282,43 @@ class AddPropertyPage extends HookConsumerWidget {
                                         MediaQuery.of(context).size.height *
                                             0.015,
                                     fontWeight: FontWeight.bold,
+                                    color: isDarkMode
+                                        ? Colors.white
+                                        : Colors.black,
                                   ),
                                   decoration: InputDecoration(
                                     contentPadding:
                                         const EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: const Icon(
+                                    prefixIcon: Icon(
                                       Icons.feed_outlined,
-                                      color: kImageColor,
+                                      color: isDarkMode
+                                          ? Colors.white
+                                          : kImageColor,
                                     ),
                                     hintText: 'Sqm*',
-                                    fillColor: kwhite,
+                                    hintStyle: TextStyle(
+                                      color: isDarkMode
+                                          ? Colors.grey[400]
+                                          : Colors.grey[600],
+                                    ),
+                                    fillColor:
+                                        isDarkMode ? Colors.grey[800] : kwhite,
                                     filled: true,
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
+                                      borderSide: BorderSide(
+                                        color: isDarkMode
+                                            ? Colors.white
+                                            : kPrimaryColor,
                                         width: 2.0,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
+                                      borderSide: BorderSide(
                                         width: 1,
-                                        color: kPrimaryColor,
+                                        color: isDarkMode
+                                            ? Colors.grey
+                                            : kPrimaryColor,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -294,6 +345,9 @@ class AddPropertyPage extends HookConsumerWidget {
                                         MediaQuery.of(context).size.height *
                                             0.015,
                                     fontWeight: FontWeight.bold,
+                                    color: isDarkMode
+                                        ? Colors.white
+                                        : Colors.black,
                                   ),
                                   onChanged: (value) {
                                     changeBed(int.parse(value));
@@ -301,24 +355,36 @@ class AddPropertyPage extends HookConsumerWidget {
                                   decoration: InputDecoration(
                                     contentPadding:
                                         const EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: const Icon(
+                                    prefixIcon: Icon(
                                       Icons.bed_outlined,
-                                      color: kImageColor,
+                                      color: isDarkMode
+                                          ? Colors.white
+                                          : kImageColor,
                                     ),
                                     hintText: 'bed',
-                                    fillColor: kwhite,
+                                    hintStyle: TextStyle(
+                                      color: isDarkMode
+                                          ? Colors.grey[400]
+                                          : Colors.grey[600],
+                                    ),
+                                    fillColor:
+                                        isDarkMode ? Colors.grey[800] : kwhite,
                                     filled: true,
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
+                                      borderSide: BorderSide(
+                                        color: isDarkMode
+                                            ? Colors.white
+                                            : kPrimaryColor,
                                         width: 2.0,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
+                                      borderSide: BorderSide(
                                         width: 1,
-                                        color: kPrimaryColor,
+                                        color: isDarkMode
+                                            ? Colors.grey
+                                            : kPrimaryColor,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -340,6 +406,9 @@ class AddPropertyPage extends HookConsumerWidget {
                                         MediaQuery.of(context).size.height *
                                             0.015,
                                     fontWeight: FontWeight.bold,
+                                    color: isDarkMode
+                                        ? Colors.white
+                                        : Colors.black,
                                   ),
                                   onChanged: (value) {
                                     changeBath(int.parse(value));
@@ -347,24 +416,36 @@ class AddPropertyPage extends HookConsumerWidget {
                                   decoration: InputDecoration(
                                     contentPadding:
                                         const EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: const Icon(
+                                    prefixIcon: Icon(
                                       Icons.feed_outlined,
-                                      color: kImageColor,
+                                      color: isDarkMode
+                                          ? Colors.white
+                                          : kImageColor,
                                     ),
                                     hintText: 'bath',
-                                    fillColor: kwhite,
+                                    hintStyle: TextStyle(
+                                      color: isDarkMode
+                                          ? Colors.grey[400]
+                                          : Colors.grey[600],
+                                    ),
+                                    fillColor:
+                                        isDarkMode ? Colors.grey[800] : kwhite,
                                     filled: true,
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
+                                      borderSide: BorderSide(
+                                        color: isDarkMode
+                                            ? Colors.white
+                                            : kPrimaryColor,
                                         width: 2.0,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
+                                      borderSide: BorderSide(
                                         width: 1,
-                                        color: kPrimaryColor,
+                                        color: isDarkMode
+                                            ? Colors.grey
+                                            : kPrimaryColor,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -377,9 +458,14 @@ class AddPropertyPage extends HookConsumerWidget {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 27.0),
-                      child: Text('Size Land*'),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 27.0),
+                      child: Text(
+                        'Size Land*',
+                        style: TextStyle(
+                          color: isDarkMode ? Colors.white : Colors.black,
+                        ),
+                      ),
                     ),
                     SizedBox(
                       child: Row(
@@ -403,26 +489,40 @@ class AddPropertyPage extends HookConsumerWidget {
                                           MediaQuery.of(context).size.height *
                                               0.015,
                                       fontWeight: FontWeight.bold,
+                                      color: isDarkMode
+                                          ? Colors.white
+                                          : Colors.black,
                                     ),
                                     decoration: InputDecoration(
                                       contentPadding:
                                           const EdgeInsets.symmetric(
                                               vertical: 8),
                                       hintText: 'L',
-                                      fillColor: kwhite,
+                                      hintStyle: TextStyle(
+                                        color: isDarkMode
+                                            ? Colors.grey[400]
+                                            : Colors.grey[600],
+                                      ),
+                                      fillColor: isDarkMode
+                                          ? Colors.grey[800]
+                                          : kwhite,
                                       filled: true,
                                       focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                          color: kPrimaryColor,
+                                        borderSide: BorderSide(
+                                          color: isDarkMode
+                                              ? Colors.white
+                                              : kPrimaryColor,
                                           width: 2.0,
                                         ),
                                         borderRadius:
                                             BorderRadius.circular(10.0),
                                       ),
                                       enabledBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           width: 1,
-                                          color: kPrimaryColor,
+                                          color: isDarkMode
+                                              ? Colors.grey
+                                              : kPrimaryColor,
                                         ),
                                         borderRadius:
                                             BorderRadius.circular(10.0),
@@ -455,24 +555,37 @@ class AddPropertyPage extends HookConsumerWidget {
                                         MediaQuery.of(context).size.height *
                                             0.015,
                                     fontWeight: FontWeight.bold,
+                                    color: isDarkMode
+                                        ? Colors.white
+                                        : Colors.black,
                                   ),
                                   decoration: InputDecoration(
                                     contentPadding:
                                         const EdgeInsets.symmetric(vertical: 8),
                                     hintText: 'W',
-                                    fillColor: kwhite,
+                                    hintStyle: TextStyle(
+                                      color: isDarkMode
+                                          ? Colors.grey[400]
+                                          : Colors.grey[600],
+                                    ),
+                                    fillColor:
+                                        isDarkMode ? Colors.grey[800] : kwhite,
                                     filled: true,
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
+                                      borderSide: BorderSide(
+                                        color: isDarkMode
+                                            ? Colors.white
+                                            : kPrimaryColor,
                                         width: 2.0,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
+                                      borderSide: BorderSide(
                                         width: 1,
-                                        color: kPrimaryColor,
+                                        color: isDarkMode
+                                            ? Colors.grey
+                                            : kPrimaryColor,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -488,9 +601,14 @@ class AddPropertyPage extends HookConsumerWidget {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 27.0),
-                      child: Text('Size Building'),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 27.0),
+                      child: Text(
+                        'Size Building',
+                        style: TextStyle(
+                          color: isDarkMode ? Colors.white : Colors.black,
+                        ),
+                      ),
                     ),
                     SizedBox(
                       child: Row(
@@ -514,26 +632,40 @@ class AddPropertyPage extends HookConsumerWidget {
                                           MediaQuery.of(context).size.height *
                                               0.015,
                                       fontWeight: FontWeight.bold,
+                                      color: isDarkMode
+                                          ? Colors.white
+                                          : Colors.black,
                                     ),
                                     decoration: InputDecoration(
                                       contentPadding:
                                           const EdgeInsets.symmetric(
                                               vertical: 8),
                                       hintText: 'L',
-                                      fillColor: kwhite,
+                                      hintStyle: TextStyle(
+                                        color: isDarkMode
+                                            ? Colors.grey[400]
+                                            : Colors.grey[600],
+                                      ),
+                                      fillColor: isDarkMode
+                                          ? Colors.grey[800]
+                                          : kwhite,
                                       filled: true,
                                       focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                          color: kPrimaryColor,
+                                        borderSide: BorderSide(
+                                          color: isDarkMode
+                                              ? Colors.white
+                                              : kPrimaryColor,
                                           width: 2.0,
                                         ),
                                         borderRadius:
                                             BorderRadius.circular(10.0),
                                       ),
                                       enabledBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           width: 1,
-                                          color: kPrimaryColor,
+                                          color: isDarkMode
+                                              ? Colors.grey
+                                              : kPrimaryColor,
                                         ),
                                         borderRadius:
                                             BorderRadius.circular(10.0),
@@ -566,24 +698,37 @@ class AddPropertyPage extends HookConsumerWidget {
                                         MediaQuery.of(context).size.height *
                                             0.015,
                                     fontWeight: FontWeight.bold,
+                                    color: isDarkMode
+                                        ? Colors.white
+                                        : Colors.black,
                                   ),
                                   decoration: InputDecoration(
                                     contentPadding:
                                         const EdgeInsets.symmetric(vertical: 8),
                                     hintText: 'W',
-                                    fillColor: kwhite,
+                                    hintStyle: TextStyle(
+                                      color: isDarkMode
+                                          ? Colors.grey[400]
+                                          : Colors.grey[600],
+                                    ),
+                                    fillColor:
+                                        isDarkMode ? Colors.grey[800] : kwhite,
                                     filled: true,
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
+                                      borderSide: BorderSide(
+                                        color: isDarkMode
+                                            ? Colors.white
+                                            : kPrimaryColor,
                                         width: 2.0,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
+                                      borderSide: BorderSide(
                                         width: 1,
-                                        color: kPrimaryColor,
+                                        color: isDarkMode
+                                            ? Colors.grey
+                                            : kPrimaryColor,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -615,6 +760,9 @@ class AddPropertyPage extends HookConsumerWidget {
                                         MediaQuery.of(context).size.height *
                                             0.015,
                                     fontWeight: FontWeight.bold,
+                                    color: isDarkMode
+                                        ? Colors.white
+                                        : Colors.black,
                                   ),
                                   onChanged: (value) {
                                     changeFloors(int.parse(value));
@@ -622,24 +770,36 @@ class AddPropertyPage extends HookConsumerWidget {
                                   decoration: InputDecoration(
                                     contentPadding:
                                         const EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: const Icon(
+                                    prefixIcon: Icon(
                                       Icons.bed_outlined,
-                                      color: kImageColor,
+                                      color: isDarkMode
+                                          ? Colors.white
+                                          : kImageColor,
                                     ),
                                     hintText: 'floor',
-                                    fillColor: kwhite,
+                                    hintStyle: TextStyle(
+                                      color: isDarkMode
+                                          ? Colors.grey[400]
+                                          : Colors.grey[600],
+                                    ),
+                                    fillColor:
+                                        isDarkMode ? Colors.grey[800] : kwhite,
                                     filled: true,
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
+                                      borderSide: BorderSide(
+                                        color: isDarkMode
+                                            ? Colors.white
+                                            : kPrimaryColor,
                                         width: 2.0,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
+                                      borderSide: BorderSide(
                                         width: 1,
-                                        color: kPrimaryColor,
+                                        color: isDarkMode
+                                            ? Colors.grey
+                                            : kPrimaryColor,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -662,6 +822,9 @@ class AddPropertyPage extends HookConsumerWidget {
                                         MediaQuery.of(context).size.height *
                                             0.015,
                                     fontWeight: FontWeight.bold,
+                                    color: isDarkMode
+                                        ? Colors.white
+                                        : Colors.black,
                                   ),
                                   onChanged: (value) {
                                     changeParking(int.parse(value));
@@ -669,24 +832,36 @@ class AddPropertyPage extends HookConsumerWidget {
                                   decoration: InputDecoration(
                                     contentPadding:
                                         const EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: const Icon(
+                                    prefixIcon: Icon(
                                       Icons.feed_outlined,
-                                      color: kImageColor,
+                                      color: isDarkMode
+                                          ? Colors.white
+                                          : kImageColor,
                                     ),
                                     hintText: 'parking',
-                                    fillColor: kwhite,
+                                    hintStyle: TextStyle(
+                                      color: isDarkMode
+                                          ? Colors.grey[400]
+                                          : Colors.grey[600],
+                                    ),
+                                    fillColor:
+                                        isDarkMode ? Colors.grey[800] : kwhite,
                                     filled: true,
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
+                                      borderSide: BorderSide(
+                                        color: isDarkMode
+                                            ? Colors.white
+                                            : kPrimaryColor,
                                         width: 2.0,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
+                                      borderSide: BorderSide(
                                         width: 1,
-                                        color: kPrimaryColor,
+                                        color: isDarkMode
+                                            ? Colors.grey
+                                            : kPrimaryColor,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -721,28 +896,43 @@ class AddPropertyPage extends HookConsumerWidget {
                                         MediaQuery.of(context).size.height *
                                             0.015,
                                     fontWeight: FontWeight.bold,
+                                    color: isDarkMode
+                                        ? Colors.white
+                                        : Colors.black,
                                   ),
                                   decoration: InputDecoration(
                                     contentPadding:
                                         const EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: const Icon(
+                                    prefixIcon: Icon(
                                       Icons.bed_outlined,
-                                      color: kImageColor,
+                                      color: isDarkMode
+                                          ? Colors.white
+                                          : kImageColor,
                                     ),
                                     hintText: 'LivingRoom',
-                                    fillColor: kwhite,
+                                    hintStyle: TextStyle(
+                                      color: isDarkMode
+                                          ? Colors.grey[400]
+                                          : Colors.grey[600],
+                                    ),
+                                    fillColor:
+                                        isDarkMode ? Colors.grey[800] : kwhite,
                                     filled: true,
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
+                                      borderSide: BorderSide(
+                                        color: isDarkMode
+                                            ? Colors.white
+                                            : kPrimaryColor,
                                         width: 2.0,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
+                                      borderSide: BorderSide(
                                         width: 1,
-                                        color: kPrimaryColor,
+                                        color: isDarkMode
+                                            ? Colors.grey
+                                            : kPrimaryColor,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -781,38 +971,54 @@ class AddPropertyPage extends HookConsumerWidget {
                                           child: Text(
                                             "For ${value.name.capitalize()}",
                                             overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               height: 1,
+                                              color: isDarkMode
+                                                  ? Colors.white
+                                                  : Colors.black,
                                             ),
                                           ),
                                         ),
                                       )
                                       .toList(),
-                                  icon: const Icon(
+                                  icon: Icon(
                                     Icons.arrow_drop_down,
-                                    color: kImageColor,
+                                    color:
+                                        isDarkMode ? Colors.white : kImageColor,
                                   ),
                                   decoration: InputDecoration(
                                     contentPadding:
                                         const EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: const Icon(
+                                    prefixIcon: Icon(
                                       Icons.bed_outlined,
-                                      color: kImageColor,
+                                      color: isDarkMode
+                                          ? Colors.white
+                                          : kImageColor,
                                     ),
                                     hintText: 'Type*',
-                                    fillColor: kwhite,
+                                    hintStyle: TextStyle(
+                                      color: isDarkMode
+                                          ? Colors.grey[400]
+                                          : Colors.grey[600],
+                                    ),
+                                    fillColor:
+                                        isDarkMode ? Colors.grey[800] : kwhite,
                                     filled: true,
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
+                                      borderSide: BorderSide(
+                                        color: isDarkMode
+                                            ? Colors.white
+                                            : kPrimaryColor,
                                         width: 2.0,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
+                                      borderSide: BorderSide(
                                         width: 1,
-                                        color: kPrimaryColor,
+                                        color: isDarkMode
+                                            ? Colors.grey
+                                            : kPrimaryColor,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -820,6 +1026,9 @@ class AddPropertyPage extends HookConsumerWidget {
                                   onChanged: (value) {
                                     changePropertyListingType(value!);
                                   },
+                                  dropdownColor: isDarkMode
+                                      ? Colors.grey[800]
+                                      : Colors.white,
                                 );
                               },
                             ),
@@ -843,18 +1052,27 @@ class AddPropertyPage extends HookConsumerWidget {
                             margin: const EdgeInsets.all(10),
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color:
+                                  isDarkMode ? Colors.grey[800] : Colors.white,
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
-                                color: Colors.grey,
+                                color: isDarkMode ? Colors.grey : Colors.grey,
                                 width: 1,
                               ),
                             ),
                             child: TextFormField(
                               controller: textController,
                               maxLines: 3,
-                              decoration: const InputDecoration.collapsed(
+                              style: TextStyle(
+                                color: isDarkMode ? Colors.white : Colors.black,
+                              ),
+                              decoration: InputDecoration.collapsed(
                                 hintText: 'Title',
+                                hintStyle: TextStyle(
+                                  color: isDarkMode
+                                      ? Colors.grey[400]
+                                      : Colors.grey[600],
+                                ),
                               ),
                             ),
                           ),
@@ -877,18 +1095,27 @@ class AddPropertyPage extends HookConsumerWidget {
                             margin: const EdgeInsets.all(10),
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color:
+                                  isDarkMode ? Colors.grey[800] : Colors.white,
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
-                                color: Colors.grey,
+                                color: isDarkMode ? Colors.grey : Colors.grey,
                                 width: 1,
                               ),
                             ),
                             child: TextFormField(
                               controller: textController,
                               maxLines: 3,
-                              decoration: const InputDecoration.collapsed(
+                              style: TextStyle(
+                                color: isDarkMode ? Colors.white : Colors.black,
+                              ),
+                              decoration: InputDecoration.collapsed(
                                 hintText: 'Description',
+                                hintStyle: TextStyle(
+                                  color: isDarkMode
+                                      ? Colors.grey[400]
+                                      : Colors.grey[600],
+                                ),
                               ),
                             ),
                           ),
@@ -906,15 +1133,16 @@ class AddPropertyPage extends HookConsumerWidget {
   }
 }
 
-class _ImagePicker extends HookWidget {
+class _ImagePicker extends HookConsumerWidget {
   const _ImagePicker({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final pageController = usePageController();
     final currentImageIndex = useState(0);
+    final isDarkMode = ref.watch(themeProvider) == ThemeMode.dark;
 
     return InsertPropertyImageFilesFieldWidget(
       builder: (ref, imageFiles, changeImageFiles, showValidation) {
@@ -924,9 +1152,12 @@ class _ImagePicker extends HookWidget {
               margin: const EdgeInsets.all(30)
                   .copyWith(bottom: imageFiles.isEmpty ? 20 : 0),
               decoration: BoxDecoration(
-                color: kwhite,
+                color: isDarkMode ? Colors.grey[800] : kwhite,
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(width: 1),
+                border: Border.all(
+                  width: 1,
+                  color: isDarkMode ? Colors.grey : Colors.black,
+                ),
               ),
               height: 200,
               width: double.infinity,
@@ -939,7 +1170,7 @@ class _ImagePicker extends HookWidget {
                           changeImageFiles,
                         );
                       },
-                      child: const SizedBox(
+                      child: SizedBox(
                         width: double.infinity,
                         height: double.infinity,
                         child: Center(
@@ -949,8 +1180,15 @@ class _ImagePicker extends HookWidget {
                               Icon(
                                 Icons.image_outlined,
                                 size: 78,
+                                color: isDarkMode ? Colors.white : Colors.black,
                               ),
-                              Text('Add Image'),
+                              Text(
+                                'Add Image',
+                                style: TextStyle(
+                                  color:
+                                      isDarkMode ? Colors.white : Colors.black,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -985,13 +1223,13 @@ class _ImagePicker extends HookWidget {
                               horizontal: 4,
                             ),
                             decoration: BoxDecoration(
-                              color: Colors.black,
+                              color: isDarkMode ? Colors.white : Colors.black,
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: Text(
                               '${currentImageIndex.value + 1}/${imageFiles.length}',
-                              style: const TextStyle(
-                                color: Colors.white,
+                              style: TextStyle(
+                                color: isDarkMode ? Colors.black : Colors.white,
                                 fontSize: 12,
                               ),
                             ),
@@ -1011,9 +1249,9 @@ class _ImagePicker extends HookWidget {
                                 }
                               }
                             },
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.clear,
-                              color: Colors.red,
+                              color: isDarkMode ? Colors.white : Colors.red,
                             ),
                           ),
                         ),
@@ -1029,8 +1267,16 @@ class _ImagePicker extends HookWidget {
                     changeImageFiles,
                   );
                 },
-                icon: const Icon(Icons.add),
-                label: const Text('Add more image'),
+                icon: Icon(
+                  Icons.add,
+                  color: isDarkMode ? Colors.white : Colors.blue,
+                ),
+                label: Text(
+                  'Add more image',
+                  style: TextStyle(
+                    color: isDarkMode ? Colors.white : Colors.blue,
+                  ),
+                ),
               ),
             ],
           ],

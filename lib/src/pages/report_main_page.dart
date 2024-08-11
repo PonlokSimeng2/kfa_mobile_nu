@@ -21,12 +21,14 @@ class ReportMainPage extends HookConsumerWidget {
             return [
               SliverAppBar(
                 floating: true,
-                backgroundColor: context.isDarkMode ? Colors.grey[800] : kPrimaryColor,
+                backgroundColor:
+                    context.isDarkMode ? Colors.grey[800] : kPrimaryColor,
                 elevation: 0,
                 surfaceTintColor: Colors.transparent,
                 title: Text(
                   'Report',
-                  style: TextStyle(color: context.isDarkMode ? Colors.white : Colors.black),
+                  style: TextStyle(
+                      color: context.isDarkMode ? Colors.white : Colors.black),
                 ),
               ),
               SliverToBoxAdapter(
@@ -48,7 +50,9 @@ class ReportMainPage extends HookConsumerWidget {
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
-                          color: context.isDarkMode ? Colors.white : Colors.black87,
+                          color: context.isDarkMode
+                              ? Colors.white
+                              : Colors.black87,
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -56,7 +60,9 @@ class ReportMainPage extends HookConsumerWidget {
                         'Here you can view and manage all your reports.',
                         style: TextStyle(
                           fontSize: 16,
-                          color: context.isDarkMode ? Colors.white70 : Colors.black54,
+                          color: context.isDarkMode
+                              ? Colors.white70
+                              : Colors.black54,
                         ),
                       ),
                       const SizedBox(height: 20),
@@ -69,7 +75,8 @@ class ReportMainPage extends HookConsumerWidget {
                                 final count = ref.watch(
                                   countPropertyAndAutoVerbalProvider(
                                     userId: ref.watch(authProvider),
-                                    statuses: PropertyAndAutoVerbalStatus.values.lock,
+                                    statuses:
+                                        PropertyAndAutoVerbalStatus.values.lock,
                                   ).select(
                                     (v) => v.whenOrNull(
                                       data: (data) => data.propertyCount,
@@ -97,7 +104,8 @@ class ReportMainPage extends HookConsumerWidget {
                                 final count = ref.watch(
                                   countPropertyAndAutoVerbalProvider(
                                     userId: ref.watch(authProvider),
-                                    statuses: PropertyAndAutoVerbalStatus.values.lock,
+                                    statuses:
+                                        PropertyAndAutoVerbalStatus.values.lock,
                                   ).select(
                                     (v) => v.whenOrNull(
                                       data: (data) => data.autoVerbalCount,
@@ -128,8 +136,9 @@ class ReportMainPage extends HookConsumerWidget {
             ];
           },
           body: ColoredBox(
-            color:
-                context.isDarkMode ? Colors.grey[900]! : Theme.of(context).scaffoldBackgroundColor,
+            color: context.isDarkMode
+                ? Colors.grey[900]!
+                : Theme.of(context).scaffoldBackgroundColor,
             child: PageView(
               controller: pageCtr,
               physics: const NeverScrollableScrollPhysics(),
@@ -160,7 +169,9 @@ class ReportMainPage extends HookConsumerWidget {
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: context.isDarkMode ? color.withOpacity(0.2) : color.withOpacity(0.1),
+          color: context.isDarkMode
+              ? color.withOpacity(0.2)
+              : color.withOpacity(0.1),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(

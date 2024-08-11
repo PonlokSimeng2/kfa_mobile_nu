@@ -45,5 +45,18 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>This app needs access to location when open.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Access to the camera is required to capture photos.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Your photo use to set profile image for your account,add to property and add to autoverbal.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>MFMailComposeViewController</string>
+	<key>LSApplicationQueriesSchemes</key>
+    <array>
+       <string>sms</string>
+       <string>tel</string>
+    </array>
 </dict>
 </plist>

@@ -30,7 +30,6 @@ class PropertyDetailPage extends ConsumerStatefulWidget {
 
 class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
   final Set<Marker> _markers = {};
-  final CarouselController _carouselController = CarouselController();
   int _currentImageIndex = 0;
 
   @override
@@ -197,7 +196,6 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
               fit: BoxFit.cover,
             );
           }).toList(),
-          carouselController: _carouselController,
           options: CarouselOptions(
             height: MediaQuery.sizeOf(context).width,
             viewportFraction: 1,

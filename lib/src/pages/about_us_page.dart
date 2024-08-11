@@ -1,14 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:kfa_mobile_nu/constaints.dart';
 import 'package:kfa_mobile_nu/exports.dart';
-import 'package:readmore/readmore.dart';
 import 'package:kfa_mobile_nu/src/providers/theme_provider.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:readmore/readmore.dart';
 
 class AboutUsPage extends ConsumerStatefulWidget {
-  const AboutUsPage({Key? key}) : super(key: key);
+  const AboutUsPage({super.key});
 
   @override
   ConsumerState<AboutUsPage> createState() => _AboutUsPageState();
@@ -69,9 +65,7 @@ class _AboutUsPageState extends ConsumerState<AboutUsPage> {
     final isDarkMode = ref.watch(themeProvider) == ThemeMode.dark;
 
     return Scaffold(
-      backgroundColor: isDarkMode
-          ? Colors.grey[900]
-          : const Color.fromARGB(255, 245, 250, 246),
+      backgroundColor: isDarkMode ? Colors.grey[900] : const Color.fromARGB(255, 245, 250, 246),
       appBar: AppBar(
         backgroundColor: isDarkMode ? Colors.grey[800] : kwhite_new,
         elevation: 0,
@@ -87,24 +81,24 @@ class _AboutUsPageState extends ConsumerState<AboutUsPage> {
         toolbarHeight: 70,
       ),
       body: Container(
-        padding: EdgeInsets.only(top: 15),
+        padding: const EdgeInsets.only(top: 15),
         decoration: BoxDecoration(
           color: isDarkMode ? Colors.grey[800] : kBackgroundColor,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
           ),
         ),
         child: SingleChildScrollView(
           child: Container(
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               maxWidth: double.infinity,
               maxHeight: double.infinity,
             ),
-            padding: EdgeInsets.only(right: 15, left: 15, bottom: 15),
+            padding: const EdgeInsets.only(right: 15, left: 15, bottom: 15),
             decoration: BoxDecoration(
               color: isDarkMode ? Colors.grey[800] : kBackgroundColor,
-              borderRadius: BorderRadius.only(),
+              borderRadius: const BorderRadius.only(),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,7 +116,7 @@ class _AboutUsPageState extends ConsumerState<AboutUsPage> {
                         return Builder(
                           builder: (BuildContext context) {
                             return Container(
-                              margin: EdgeInsets.symmetric(
+                              margin: const EdgeInsets.symmetric(
                                 horizontal: 0,
                                 vertical: 0,
                               ),
@@ -132,7 +126,7 @@ class _AboutUsPageState extends ConsumerState<AboutUsPage> {
                         );
                       }).toList(),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
                       "Welcome to Khmer Foundation Appraisals Co., Ltd.",
                       style: TextStyle(
@@ -143,11 +137,14 @@ class _AboutUsPageState extends ConsumerState<AboutUsPage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 _buildSection("About Us", content, isDarkMode),
                 _buildSection(
-                    "Founder & Chairman/CEO's Message", message, isDarkMode),
-                Image(
+                  "Founder & Chairman/CEO's Message",
+                  message,
+                  isDarkMode,
+                ),
+                const Image(
                   fit: BoxFit.fitWidth,
                   alignment: Alignment.center,
                   image: AssetImage('assets/images/message-banner3.jpg'),
@@ -156,11 +153,11 @@ class _AboutUsPageState extends ConsumerState<AboutUsPage> {
                 _buildSection("Vision and Mission", vision, isDarkMode),
                 _buildSection("Our People", ourpeople, isDarkMode),
                 _buildSection("Company Profile", profile, isDarkMode),
-                SizedBox(height: 10),
-                Row(
+                const SizedBox(height: 10),
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
+                  children: [
                     Image(
                       image: AssetImage(
                         'assets/images/Company-Profile-Cover2020_1.png',
@@ -194,10 +191,10 @@ class _AboutUsPageState extends ConsumerState<AboutUsPage> {
             color: isDarkMode ? Colors.white : Colors.black,
           ),
         ),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         ReadMore(text: text, isDarkMode: isDarkMode),
-        SizedBox(height: 10),
-        Divider(color: Colors.blueAccent, thickness: 0.5),
+        const SizedBox(height: 10),
+        const Divider(color: Colors.blueAccent, thickness: 0.5),
       ],
     );
   }
@@ -205,10 +202,10 @@ class _AboutUsPageState extends ConsumerState<AboutUsPage> {
 
 class ReadMore extends StatefulWidget {
   const ReadMore({
-    Key? key,
+    super.key,
     required this.text,
     required bool isDarkMode,
-  }) : super(key: key);
+  });
 
   final String text;
   @override
@@ -225,7 +222,7 @@ class _ReadMoreState extends State<ReadMore> {
       trimMode: TrimMode.Line,
       trimCollapsedText: " read more ",
       trimExpandedText: " Show Less ",
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 15,
         height: 1,
       ),

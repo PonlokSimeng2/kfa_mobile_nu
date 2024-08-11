@@ -1,10 +1,11 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:kfa_mobile_nu/src/pages/add_property_page.dart';
 import 'package:kfa_mobile_nu/src/pages/favorite_list_page.dart';
 import 'package:kfa_mobile_nu/src/pages/my_property_page.dart';
 import 'package:kfa_mobile_nu/src/pages/report_main_page.dart';
 import 'package:kfa_mobile_nu/src/pages/setting_page.dart';
+
 import '../../exports.dart';
 import '../../gen/assets.gen.dart';
 import '../helpers/build_context_helper.dart';
@@ -111,8 +112,7 @@ class __UserHomeState extends ConsumerState<_UserHome> {
                       },
                     ),
                     ListTile(
-                      leading:
-                          const Icon(Icons.format_list_numbered_rtl_rounded),
+                      leading: const Icon(Icons.format_list_numbered_rtl_rounded),
                       title: const Text('Report'),
                       onTap: () {
                         context.push((context) => const ReportMainPage());
@@ -209,7 +209,7 @@ class __UserHomeState extends ConsumerState<_UserHome> {
         color: const Color.fromARGB(54, 15, 179, 204),
         border: Border.all(),
       ),
-      child: CarouselSlider(
+      child: FlutterCarousel(
         items: [
           Assets.images.banners.bannerKFA.image(fit: BoxFit.cover),
           Assets.images.banners.awards2020s.image(fit: BoxFit.cover),
@@ -248,7 +248,6 @@ class __UserHomeState extends ConsumerState<_UserHome> {
         options: CarouselOptions(
           autoPlay: true,
           viewportFraction: 1,
-          enlargeFactor: 0.3,
           enlargeCenterPage: true,
           aspectRatio: 1.8,
         ),
@@ -262,11 +261,11 @@ class __UserHomeState extends ConsumerState<_UserHome> {
       appBar: _buildAppBar(),
       drawer: _buildDrawer(context),
       backgroundColor: kwhite_new,
-      body: Column(
+      body: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildBanner(),
-          const Expanded(
+          // _buildBanner(),
+          Expanded(
             child: Padding(
               padding: EdgeInsets.all(3.0),
               child: PropertyListPage(),

@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/providers/theme_provider.dart';
 import 'package:readmore/readmore.dart';
@@ -106,7 +106,7 @@ class _AboutUsPageState extends ConsumerState<AboutUsPage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    CarouselSlider(
+                    FlutterCarousel(
                       options: CarouselOptions(
                         height: 120,
                         autoPlay: true,

@@ -34,8 +34,12 @@ mixin _$PropertyCommentModel {
   @JsonKey(name: PropertyCommentModel.userKey)
   UserModel get user => throw _privateConstructorUsedError;
 
+  /// Serializes this PropertyCommentModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PropertyCommentModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PropertyCommentModelCopyWith<PropertyCommentModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -70,6 +74,8 @@ class _$PropertyCommentModelCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PropertyCommentModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -108,6 +114,8 @@ class _$PropertyCommentModelCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of PropertyCommentModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserModelCopyWith<$Res> get user {
@@ -147,6 +155,8 @@ class __$$PropertyCommentModelImplCopyWithImpl<$Res>
       $Res Function(_$PropertyCommentModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PropertyCommentModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -246,12 +256,14 @@ class _$PropertyCommentModelImpl extends _PropertyCommentModel {
             (identical(other.user, user) || other.user == user));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, id, propertyId, userId, createdAt, content, user);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PropertyCommentModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PropertyCommentModelImplCopyWith<_$PropertyCommentModelImpl>
@@ -306,8 +318,11 @@ abstract class _PropertyCommentModel extends PropertyCommentModel {
   @JoinedColumn(foreignKey: "user_id", candidateKey: null)
   @JsonKey(name: PropertyCommentModel.userKey)
   UserModel get user;
+
+  /// Create a copy of PropertyCommentModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PropertyCommentModelImplCopyWith<_$PropertyCommentModelImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

@@ -36,7 +36,9 @@ mixin _$AutoVerbalListFilter {
   double? get livingroom => throw _privateConstructorUsedError;
   double? get floor => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AutoVerbalListFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AutoVerbalListFilterCopyWith<AutoVerbalListFilter> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -84,6 +86,8 @@ class _$AutoVerbalListFilterCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AutoVerbalListFilter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -182,6 +186,8 @@ class _$AutoVerbalListFilterCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of AutoVerbalListFilter
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ProvinceModelCopyWith<$Res>? get province {
@@ -194,6 +200,8 @@ class _$AutoVerbalListFilterCopyWithImpl<$Res,
     });
   }
 
+  /// Create a copy of AutoVerbalListFilter
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PropertyTypeModelCopyWith<$Res>? get propertyType {
@@ -206,6 +214,8 @@ class _$AutoVerbalListFilterCopyWithImpl<$Res,
     });
   }
 
+  /// Create a copy of AutoVerbalListFilter
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $BankModelCopyWith<$Res>? get bank {
@@ -218,6 +228,8 @@ class _$AutoVerbalListFilterCopyWithImpl<$Res,
     });
   }
 
+  /// Create a copy of AutoVerbalListFilter
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $RoadModelCopyWith<$Res>? get road {
@@ -277,6 +289,8 @@ class __$$AutoVerbalListFilterImplCopyWithImpl<$Res>
       $Res Function(_$AutoVerbalListFilterImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AutoVerbalListFilter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -501,7 +515,9 @@ class _$AutoVerbalListFilterImpl extends _AutoVerbalListFilter {
       livingroom,
       floor);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AutoVerbalListFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AutoVerbalListFilterImplCopyWith<_$AutoVerbalListFilterImpl>
@@ -568,8 +584,11 @@ abstract class _AutoVerbalListFilter extends AutoVerbalListFilter {
   double? get livingroom;
   @override
   double? get floor;
+
+  /// Create a copy of AutoVerbalListFilter
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AutoVerbalListFilterImplCopyWith<_$AutoVerbalListFilterImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -606,7 +625,9 @@ mixin _$InsertAutoVerbalState {
   int? get floor => throw _privateConstructorUsedError;
   ProviderStatus<void> get status => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of InsertAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $InsertAutoVerbalStateCopyWith<InsertAutoVerbalState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -665,6 +686,8 @@ class _$InsertAutoVerbalStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of InsertAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -813,6 +836,8 @@ class _$InsertAutoVerbalStateCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of InsertAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PropertyTypeModelCopyWith<$Res>? get propertyType {
@@ -825,6 +850,8 @@ class _$InsertAutoVerbalStateCopyWithImpl<$Res,
     });
   }
 
+  /// Create a copy of InsertAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ProvinceModelCopyWith<$Res>? get province {
@@ -837,6 +864,8 @@ class _$InsertAutoVerbalStateCopyWithImpl<$Res,
     });
   }
 
+  /// Create a copy of InsertAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $BankModelCopyWith<$Res>? get bank {
@@ -849,6 +878,8 @@ class _$InsertAutoVerbalStateCopyWithImpl<$Res,
     });
   }
 
+  /// Create a copy of InsertAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $RoadModelCopyWith<$Res>? get road {
@@ -861,6 +892,8 @@ class _$InsertAutoVerbalStateCopyWithImpl<$Res,
     });
   }
 
+  /// Create a copy of InsertAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ProviderStatusCopyWith<void, $Res> get status {
@@ -930,6 +963,8 @@ class __$$InsertAutoVerbalStateImplCopyWithImpl<$Res>
       $Res Function(_$InsertAutoVerbalStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of InsertAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1267,7 +1302,9 @@ class _$InsertAutoVerbalStateImpl extends _InsertAutoVerbalState {
         status
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of InsertAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$InsertAutoVerbalStateImplCopyWith<_$InsertAutoVerbalStateImpl>
@@ -1307,7 +1344,8 @@ abstract class _InsertAutoVerbalState extends InsertAutoVerbalState {
       final ProviderStatus<void> status}) = _$InsertAutoVerbalStateImpl;
   const _InsertAutoVerbalState._() : super._();
 
-  @override // only useful when copy from property
+// only useful when copy from property
+  @override
   IList<String> get existingImageUrls;
   @override
   int? get propertyId;
@@ -1363,8 +1401,11 @@ abstract class _InsertAutoVerbalState extends InsertAutoVerbalState {
   int? get floor;
   @override
   ProviderStatus<void> get status;
+
+  /// Create a copy of InsertAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$InsertAutoVerbalStateImplCopyWith<_$InsertAutoVerbalStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -1399,7 +1440,9 @@ mixin _$UpdateAutoVerbalState {
   int? get floor => throw _privateConstructorUsedError;
   ProviderStatus<void> get status => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UpdateAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UpdateAutoVerbalStateCopyWith<UpdateAutoVerbalState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1457,6 +1500,8 @@ class _$UpdateAutoVerbalStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UpdateAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1600,6 +1645,8 @@ class _$UpdateAutoVerbalStateCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of UpdateAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PropertyTypeModelCopyWith<$Res>? get propertyType {
@@ -1612,6 +1659,8 @@ class _$UpdateAutoVerbalStateCopyWithImpl<$Res,
     });
   }
 
+  /// Create a copy of UpdateAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ProvinceModelCopyWith<$Res>? get province {
@@ -1624,6 +1673,8 @@ class _$UpdateAutoVerbalStateCopyWithImpl<$Res,
     });
   }
 
+  /// Create a copy of UpdateAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $BankModelCopyWith<$Res>? get bank {
@@ -1636,6 +1687,8 @@ class _$UpdateAutoVerbalStateCopyWithImpl<$Res,
     });
   }
 
+  /// Create a copy of UpdateAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $RoadModelCopyWith<$Res>? get road {
@@ -1648,6 +1701,8 @@ class _$UpdateAutoVerbalStateCopyWithImpl<$Res,
     });
   }
 
+  /// Create a copy of UpdateAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ProviderStatusCopyWith<void, $Res> get status {
@@ -1716,6 +1771,8 @@ class __$$UpdateAutoVerbalStateImplCopyWithImpl<$Res>
       $Res Function(_$UpdateAutoVerbalStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UpdateAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2040,7 +2097,9 @@ class _$UpdateAutoVerbalStateImpl extends _UpdateAutoVerbalState {
         status
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UpdateAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UpdateAutoVerbalStateImplCopyWith<_$UpdateAutoVerbalStateImpl>
@@ -2133,8 +2192,11 @@ abstract class _UpdateAutoVerbalState extends UpdateAutoVerbalState {
   int? get floor;
   @override
   ProviderStatus<void> get status;
+
+  /// Create a copy of UpdateAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UpdateAutoVerbalStateImplCopyWith<_$UpdateAutoVerbalStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

@@ -25,8 +25,12 @@ mixin _$ProvinceModel {
   @JsonKey(name: ProvinceModel.nameKey)
   String get name => throw _privateConstructorUsedError;
 
+  /// Serializes this ProvinceModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ProvinceModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ProvinceModelCopyWith<ProvinceModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -52,6 +56,8 @@ class _$ProvinceModelCopyWithImpl<$Res, $Val extends ProvinceModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ProvinceModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -92,6 +98,8 @@ class __$$ProvinceModelImplCopyWithImpl<$Res>
       _$ProvinceModelImpl _value, $Res Function(_$ProvinceModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ProvinceModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -145,11 +153,13 @@ class _$ProvinceModelImpl extends _ProvinceModel {
             (identical(other.name, name) || other.name == name));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, name);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ProvinceModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ProvinceModelImplCopyWith<_$ProvinceModelImpl> get copyWith =>
@@ -179,8 +189,11 @@ abstract class _ProvinceModel extends ProvinceModel {
   @override
   @JsonKey(name: ProvinceModel.nameKey)
   String get name;
+
+  /// Create a copy of ProvinceModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ProvinceModelImplCopyWith<_$ProvinceModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

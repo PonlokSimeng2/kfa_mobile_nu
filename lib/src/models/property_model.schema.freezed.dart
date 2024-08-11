@@ -97,8 +97,12 @@ mixin _$PropertyModel {
   @JsonKey(name: PropertyModel.userKey)
   UserModel get user => throw _privateConstructorUsedError;
 
+  /// Serializes this PropertyModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PropertyModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PropertyModelCopyWith<PropertyModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -175,6 +179,8 @@ class _$PropertyModelCopyWithImpl<$Res, $Val extends PropertyModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PropertyModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -363,6 +369,8 @@ class _$PropertyModelCopyWithImpl<$Res, $Val extends PropertyModel>
     ) as $Val);
   }
 
+  /// Create a copy of PropertyModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PropertyTypeModelCopyWith<$Res> get propertyType {
@@ -371,6 +379,8 @@ class _$PropertyModelCopyWithImpl<$Res, $Val extends PropertyModel>
     });
   }
 
+  /// Create a copy of PropertyModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ProvinceModelCopyWith<$Res> get province {
@@ -379,6 +389,8 @@ class _$PropertyModelCopyWithImpl<$Res, $Val extends PropertyModel>
     });
   }
 
+  /// Create a copy of PropertyModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserModelCopyWith<$Res>? get approvedBy {
@@ -391,6 +403,8 @@ class _$PropertyModelCopyWithImpl<$Res, $Val extends PropertyModel>
     });
   }
 
+  /// Create a copy of PropertyModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserModelCopyWith<$Res> get user {
@@ -476,6 +490,8 @@ class __$$PropertyModelImplCopyWithImpl<$Res>
       _$PropertyModelImpl _value, $Res Function(_$PropertyModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PropertyModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -919,7 +935,7 @@ class _$PropertyModelImpl extends _PropertyModel {
             (identical(other.user, user) || other.user == user));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -961,7 +977,9 @@ class _$PropertyModelImpl extends _PropertyModel {
         user
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PropertyModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PropertyModelImplCopyWith<_$PropertyModelImpl> get copyWith =>
@@ -1158,8 +1176,11 @@ abstract class _PropertyModel extends PropertyModel {
   @JoinedColumn(foreignKey: "user_id", candidateKey: null)
   @JsonKey(name: PropertyModel.userKey)
   UserModel get user;
+
+  /// Create a copy of PropertyModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PropertyModelImplCopyWith<_$PropertyModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1213,8 +1234,12 @@ mixin _$CreatePropertyParam {
   @JsonKey(name: CreatePropertyParam.provinceIdKey)
   int get provinceId => throw _privateConstructorUsedError;
 
+  /// Serializes this CreatePropertyParam to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CreatePropertyParam
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CreatePropertyParamCopyWith<CreatePropertyParam> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1260,6 +1285,8 @@ class _$CreatePropertyParamCopyWithImpl<$Res, $Val extends CreatePropertyParam>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CreatePropertyParam
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1415,6 +1442,8 @@ class __$$CreatePropertyParamImplCopyWithImpl<$Res>
       $Res Function(_$CreatePropertyParamImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CreatePropertyParam
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1688,7 +1717,7 @@ class _$CreatePropertyParamImpl extends _CreatePropertyParam {
                 other.provinceId == provinceId));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -1715,7 +1744,9 @@ class _$CreatePropertyParamImpl extends _CreatePropertyParam {
         provinceId
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CreatePropertyParam
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CreatePropertyParamImplCopyWith<_$CreatePropertyParamImpl> get copyWith =>
@@ -1838,8 +1869,11 @@ abstract class _CreatePropertyParam extends CreatePropertyParam {
   @override
   @JsonKey(name: CreatePropertyParam.provinceIdKey)
   int get provinceId;
+
+  /// Create a copy of CreatePropertyParam
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CreatePropertyParamImplCopyWith<_$CreatePropertyParamImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1895,8 +1929,12 @@ mixin _$UpdatePropertyParam {
   @JsonKey(name: UpdatePropertyParam.provinceIdKey)
   int get provinceId => throw _privateConstructorUsedError;
 
+  /// Serializes this UpdatePropertyParam to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of UpdatePropertyParam
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UpdatePropertyParamCopyWith<UpdatePropertyParam> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1943,6 +1981,8 @@ class _$UpdatePropertyParamCopyWithImpl<$Res, $Val extends UpdatePropertyParam>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UpdatePropertyParam
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2104,6 +2144,8 @@ class __$$UpdatePropertyParamImplCopyWithImpl<$Res>
       $Res Function(_$UpdatePropertyParamImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UpdatePropertyParam
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2388,7 +2430,7 @@ class _$UpdatePropertyParamImpl extends _UpdatePropertyParam {
                 other.provinceId == provinceId));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -2416,7 +2458,9 @@ class _$UpdatePropertyParamImpl extends _UpdatePropertyParam {
         provinceId
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UpdatePropertyParam
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UpdatePropertyParamImplCopyWith<_$UpdatePropertyParamImpl> get copyWith =>
@@ -2544,8 +2588,11 @@ abstract class _UpdatePropertyParam extends UpdatePropertyParam {
   @override
   @JsonKey(name: UpdatePropertyParam.provinceIdKey)
   int get provinceId;
+
+  /// Create a copy of UpdatePropertyParam
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UpdatePropertyParamImplCopyWith<_$UpdatePropertyParamImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

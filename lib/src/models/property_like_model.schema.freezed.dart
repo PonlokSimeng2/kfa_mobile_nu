@@ -32,8 +32,12 @@ mixin _$PropertyLikeModel {
   @JsonKey(name: PropertyLikeModel.userKey)
   UserModel get user => throw _privateConstructorUsedError;
 
+  /// Serializes this PropertyLikeModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PropertyLikeModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PropertyLikeModelCopyWith<PropertyLikeModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -66,6 +70,8 @@ class _$PropertyLikeModelCopyWithImpl<$Res, $Val extends PropertyLikeModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PropertyLikeModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -99,6 +105,8 @@ class _$PropertyLikeModelCopyWithImpl<$Res, $Val extends PropertyLikeModel>
     ) as $Val);
   }
 
+  /// Create a copy of PropertyLikeModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserModelCopyWith<$Res> get user {
@@ -137,6 +145,8 @@ class __$$PropertyLikeModelImplCopyWithImpl<$Res>
       $Res Function(_$PropertyLikeModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PropertyLikeModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -225,12 +235,14 @@ class _$PropertyLikeModelImpl extends _PropertyLikeModel {
             (identical(other.user, user) || other.user == user));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, id, propertyId, userId, createdAt, user);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PropertyLikeModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PropertyLikeModelImplCopyWith<_$PropertyLikeModelImpl> get copyWith =>
@@ -277,8 +289,11 @@ abstract class _PropertyLikeModel extends PropertyLikeModel {
   @JoinedColumn(foreignKey: "user_id", candidateKey: null)
   @JsonKey(name: PropertyLikeModel.userKey)
   UserModel get user;
+
+  /// Create a copy of PropertyLikeModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PropertyLikeModelImplCopyWith<_$PropertyLikeModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

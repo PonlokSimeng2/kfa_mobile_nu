@@ -28,7 +28,9 @@ mixin _$PropertyListFilter {
   String? get userId => throw _privateConstructorUsedError;
   bool get showHiddenFromHomePageItem => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PropertyListFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PropertyListFilterCopyWith<PropertyListFilter> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -65,6 +67,8 @@ class _$PropertyListFilterCopyWithImpl<$Res, $Val extends PropertyListFilter>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PropertyListFilter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -123,6 +127,8 @@ class _$PropertyListFilterCopyWithImpl<$Res, $Val extends PropertyListFilter>
     ) as $Val);
   }
 
+  /// Create a copy of PropertyListFilter
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ProvinceModelCopyWith<$Res>? get province {
@@ -135,6 +141,8 @@ class _$PropertyListFilterCopyWithImpl<$Res, $Val extends PropertyListFilter>
     });
   }
 
+  /// Create a copy of PropertyListFilter
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PropertyTypeModelCopyWith<$Res>? get propertyType {
@@ -182,6 +190,8 @@ class __$$PropertyListFilterImplCopyWithImpl<$Res>
       $Res Function(_$PropertyListFilterImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PropertyListFilter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -346,7 +356,9 @@ class _$PropertyListFilterImpl extends _PropertyListFilter
       userId,
       showHiddenFromHomePageItem);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PropertyListFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PropertyListFilterImplCopyWith<_$PropertyListFilterImpl> get copyWith =>
@@ -388,8 +400,11 @@ abstract class _PropertyListFilter extends PropertyListFilter {
   String? get userId;
   @override
   bool get showHiddenFromHomePageItem;
+
+  /// Create a copy of PropertyListFilter
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PropertyListFilterImplCopyWith<_$PropertyListFilterImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -419,7 +434,9 @@ mixin _$InsertPropertyState {
   double get buildingWidth => throw _privateConstructorUsedError;
   ProviderStatus<void> get status => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of InsertPropertyState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $InsertPropertyStateCopyWith<InsertPropertyState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -468,6 +485,8 @@ class _$InsertPropertyStateCopyWithImpl<$Res, $Val extends InsertPropertyState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of InsertPropertyState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -581,6 +600,8 @@ class _$InsertPropertyStateCopyWithImpl<$Res, $Val extends InsertPropertyState>
     ) as $Val);
   }
 
+  /// Create a copy of InsertPropertyState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ProvinceModelCopyWith<$Res>? get province {
@@ -593,6 +614,8 @@ class _$InsertPropertyStateCopyWithImpl<$Res, $Val extends InsertPropertyState>
     });
   }
 
+  /// Create a copy of InsertPropertyState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PropertyTypeModelCopyWith<$Res>? get propertyType {
@@ -605,6 +628,8 @@ class _$InsertPropertyStateCopyWithImpl<$Res, $Val extends InsertPropertyState>
     });
   }
 
+  /// Create a copy of InsertPropertyState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ProviderStatusCopyWith<void, $Res> get status {
@@ -661,6 +686,8 @@ class __$$InsertPropertyStateImplCopyWithImpl<$Res>
       $Res Function(_$InsertPropertyStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of InsertPropertyState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -949,7 +976,9 @@ class _$InsertPropertyStateImpl extends _InsertPropertyState
         status
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of InsertPropertyState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$InsertPropertyStateImplCopyWith<_$InsertPropertyStateImpl> get copyWith =>
@@ -1024,8 +1053,11 @@ abstract class _InsertPropertyState extends InsertPropertyState {
   double get buildingWidth;
   @override
   ProviderStatus<void> get status;
+
+  /// Create a copy of InsertPropertyState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$InsertPropertyStateImplCopyWith<_$InsertPropertyStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1056,7 +1088,9 @@ mixin _$UpdatePropertyState {
   double get buildingWidth => throw _privateConstructorUsedError;
   ProviderStatus<void> get status => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UpdatePropertyState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UpdatePropertyStateCopyWith<UpdatePropertyState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1106,6 +1140,8 @@ class _$UpdatePropertyStateCopyWithImpl<$Res, $Val extends UpdatePropertyState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UpdatePropertyState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1224,6 +1260,8 @@ class _$UpdatePropertyStateCopyWithImpl<$Res, $Val extends UpdatePropertyState>
     ) as $Val);
   }
 
+  /// Create a copy of UpdatePropertyState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ProvinceModelCopyWith<$Res>? get province {
@@ -1236,6 +1274,8 @@ class _$UpdatePropertyStateCopyWithImpl<$Res, $Val extends UpdatePropertyState>
     });
   }
 
+  /// Create a copy of UpdatePropertyState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PropertyTypeModelCopyWith<$Res>? get propertyType {
@@ -1248,6 +1288,8 @@ class _$UpdatePropertyStateCopyWithImpl<$Res, $Val extends UpdatePropertyState>
     });
   }
 
+  /// Create a copy of UpdatePropertyState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ProviderStatusCopyWith<void, $Res> get status {
@@ -1305,6 +1347,8 @@ class __$$UpdatePropertyStateImplCopyWithImpl<$Res>
       $Res Function(_$UpdatePropertyStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UpdatePropertyState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1605,7 +1649,9 @@ class _$UpdatePropertyStateImpl extends _UpdatePropertyState
         status
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UpdatePropertyState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UpdatePropertyStateImplCopyWith<_$UpdatePropertyStateImpl> get copyWith =>
@@ -1683,8 +1729,11 @@ abstract class _UpdatePropertyState extends UpdatePropertyState {
   double get buildingWidth;
   @override
   ProviderStatus<void> get status;
+
+  /// Create a copy of UpdatePropertyState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UpdatePropertyStateImplCopyWith<_$UpdatePropertyStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

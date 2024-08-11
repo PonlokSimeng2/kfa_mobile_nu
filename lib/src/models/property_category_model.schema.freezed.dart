@@ -30,8 +30,12 @@ mixin _$PropertyCategoryModel {
   @JsonKey(name: PropertyCategoryModel.totalRentKey)
   int? get totalRent => throw _privateConstructorUsedError;
 
+  /// Serializes this PropertyCategoryModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PropertyCategoryModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PropertyCategoryModelCopyWith<PropertyCategoryModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -60,6 +64,8 @@ class _$PropertyCategoryModelCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PropertyCategoryModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -114,6 +120,8 @@ class __$$PropertyCategoryModelImplCopyWithImpl<$Res>
       $Res Function(_$PropertyCategoryModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PropertyCategoryModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -191,11 +199,13 @@ class _$PropertyCategoryModelImpl extends _PropertyCategoryModel {
                 other.totalRent == totalRent));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, totalSale, totalRent);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PropertyCategoryModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PropertyCategoryModelImplCopyWith<_$PropertyCategoryModelImpl>
@@ -235,8 +245,11 @@ abstract class _PropertyCategoryModel extends PropertyCategoryModel {
   @override
   @JsonKey(name: PropertyCategoryModel.totalRentKey)
   int? get totalRent;
+
+  /// Create a copy of PropertyCategoryModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PropertyCategoryModelImplCopyWith<_$PropertyCategoryModelImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

@@ -19,7 +19,9 @@ mixin _$ReportData {
   int get totalSale => throw _privateConstructorUsedError;
   int get totalRent => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ReportData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ReportDataCopyWith<ReportData> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -43,6 +45,8 @@ class _$ReportDataCopyWithImpl<$Res, $Val extends ReportData>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ReportData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -81,6 +85,8 @@ class __$$ReportDataImplCopyWithImpl<$Res>
       _$ReportDataImpl _value, $Res Function(_$ReportDataImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ReportData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -130,7 +136,9 @@ class _$ReportDataImpl extends _ReportData {
   @override
   int get hashCode => Object.hash(runtimeType, totalSale, totalRent);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ReportData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ReportDataImplCopyWith<_$ReportDataImpl> get copyWith =>
@@ -147,8 +155,11 @@ abstract class _ReportData extends ReportData {
   int get totalSale;
   @override
   int get totalRent;
+
+  /// Create a copy of ReportData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ReportDataImplCopyWith<_$ReportDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

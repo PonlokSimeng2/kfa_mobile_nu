@@ -95,8 +95,12 @@ mixin _$AutoVerbalModel {
   @JsonKey(name: AutoVerbalModel.roadKey)
   RoadModel? get road => throw _privateConstructorUsedError;
 
+  /// Serializes this AutoVerbalModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of AutoVerbalModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AutoVerbalModelCopyWith<AutoVerbalModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -176,6 +180,8 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AutoVerbalModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -354,6 +360,8 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
     ) as $Val);
   }
 
+  /// Create a copy of AutoVerbalModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PropertyTypeModelCopyWith<$Res> get propertyType {
@@ -362,6 +370,8 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
     });
   }
 
+  /// Create a copy of AutoVerbalModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $BankModelCopyWith<$Res>? get bank {
@@ -374,6 +384,8 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
     });
   }
 
+  /// Create a copy of AutoVerbalModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserModelCopyWith<$Res>? get user {
@@ -386,6 +398,8 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
     });
   }
 
+  /// Create a copy of AutoVerbalModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserModelCopyWith<$Res>? get approvedBy {
@@ -398,6 +412,8 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
     });
   }
 
+  /// Create a copy of AutoVerbalModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ProvinceModelCopyWith<$Res> get province {
@@ -406,6 +422,8 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
     });
   }
 
+  /// Create a copy of AutoVerbalModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $RoadModelCopyWith<$Res>? get road {
@@ -500,6 +518,8 @@ class __$$AutoVerbalModelImplCopyWithImpl<$Res>
       _$AutoVerbalModelImpl _value, $Res Function(_$AutoVerbalModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AutoVerbalModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -929,7 +949,7 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
             (identical(other.road, road) || other.road == road));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -969,7 +989,9 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
         road
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AutoVerbalModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AutoVerbalModelImplCopyWith<_$AutoVerbalModelImpl> get copyWith =>
@@ -1168,8 +1190,11 @@ abstract class _AutoVerbalModel extends AutoVerbalModel {
   @JoinedColumn(foreignKey: "road_id", candidateKey: null)
   @JsonKey(name: AutoVerbalModel.roadKey)
   RoadModel? get road;
+
+  /// Create a copy of AutoVerbalModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AutoVerbalModelImplCopyWith<_$AutoVerbalModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1234,8 +1259,12 @@ mixin _$CreateAutoVerbalParam {
   @JsonKey(name: CreateAutoVerbalParam.userIdKey)
   String get userId => throw _privateConstructorUsedError;
 
+  /// Serializes this CreateAutoVerbalParam to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CreateAutoVerbalParam
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CreateAutoVerbalParamCopyWith<CreateAutoVerbalParam> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1291,6 +1320,8 @@ class _$CreateAutoVerbalParamCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CreateAutoVerbalParam
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1482,6 +1513,8 @@ class __$$CreateAutoVerbalParamImplCopyWithImpl<$Res>
       $Res Function(_$CreateAutoVerbalParamImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CreateAutoVerbalParam
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1815,7 +1848,7 @@ class _$CreateAutoVerbalParamImpl extends _CreateAutoVerbalParam {
             (identical(other.userId, userId) || other.userId == userId));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -1847,7 +1880,9 @@ class _$CreateAutoVerbalParamImpl extends _CreateAutoVerbalParam {
         userId
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CreateAutoVerbalParam
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CreateAutoVerbalParamImplCopyWith<_$CreateAutoVerbalParamImpl>
@@ -1995,8 +2030,11 @@ abstract class _CreateAutoVerbalParam extends CreateAutoVerbalParam {
   @override
   @JsonKey(name: CreateAutoVerbalParam.userIdKey)
   String get userId;
+
+  /// Create a copy of CreateAutoVerbalParam
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CreateAutoVerbalParamImplCopyWith<_$CreateAutoVerbalParamImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -2063,8 +2101,12 @@ mixin _$UpdateAutoVerbalParam {
   @JsonKey(name: UpdateAutoVerbalParam.bankIdKey)
   int? get bankId => throw _privateConstructorUsedError;
 
+  /// Serializes this UpdateAutoVerbalParam to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of UpdateAutoVerbalParam
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UpdateAutoVerbalParamCopyWith<UpdateAutoVerbalParam> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2122,6 +2164,8 @@ class _$UpdateAutoVerbalParamCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UpdateAutoVerbalParam
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2320,6 +2364,8 @@ class __$$UpdateAutoVerbalParamImplCopyWithImpl<$Res>
       $Res Function(_$UpdateAutoVerbalParamImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UpdateAutoVerbalParam
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2665,7 +2711,7 @@ class _$UpdateAutoVerbalParamImpl extends _UpdateAutoVerbalParam {
             (identical(other.bankId, bankId) || other.bankId == bankId));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -2698,7 +2744,9 @@ class _$UpdateAutoVerbalParamImpl extends _UpdateAutoVerbalParam {
         bankId
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UpdateAutoVerbalParam
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UpdateAutoVerbalParamImplCopyWith<_$UpdateAutoVerbalParamImpl>
@@ -2851,8 +2899,11 @@ abstract class _UpdateAutoVerbalParam extends UpdateAutoVerbalParam {
   @override
   @JsonKey(name: UpdateAutoVerbalParam.bankIdKey)
   int? get bankId;
+
+  /// Create a copy of UpdateAutoVerbalParam
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UpdateAutoVerbalParamImplCopyWith<_$UpdateAutoVerbalParamImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

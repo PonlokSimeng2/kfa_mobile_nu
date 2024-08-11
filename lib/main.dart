@@ -9,6 +9,7 @@ import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
 import 'exports.dart';
 import 'firebase_options.dart';
 import 'provider_observers.dart';
@@ -109,7 +110,7 @@ class _MyAppState extends ConsumerState<MyApp> {
     final themeMode = ref.watch(themeProvider);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
+      theme: ThemeData.light().copyWith(
         colorScheme: ColorScheme.fromSeed(seedColor: kwhite_new),
         primaryColor: kwhite_new,
         appBarTheme: const AppBarTheme(
@@ -124,7 +125,9 @@ class _MyAppState extends ConsumerState<MyApp> {
       ),
       darkTheme: ThemeData.dark().copyWith(
         colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.blue, brightness: Brightness.dark),
+          seedColor: Colors.blue,
+          brightness: Brightness.dark,
+        ),
         primaryColor: Colors.blue[700],
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.grey[900],

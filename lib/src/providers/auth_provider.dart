@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -17,6 +18,8 @@ class Auth extends _$Auth {
   }
 
   Future<void> _initializeOneSignal(String userId) async {
+    if (kIsWeb) return;
+
     await OneSignal.login(userId);
   }
 
@@ -38,7 +41,9 @@ class Auth extends _$Auth {
 
   Future<void> signOut() async {
     await ref.watch(supabaseProvider).client.auth.signOut();
-    await OneSignal.logout();
+    if (!kIsWeb) {
+      await OneSignal.logout();
+    }
     ref.invalidateSelf();
   }
 

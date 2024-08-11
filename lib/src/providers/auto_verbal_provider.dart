@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kfa_mobile_nu/src/models/auto_verbal_model.dart';
@@ -260,11 +258,11 @@ class InsertAutoVerbal extends _$InsertAutoVerbal with _$InsertAutoVerbalForm {
 
         final newImageUrls = await Future.wait(
           state.imageFiles.map((imageFile) async {
-            final path = imageFile.path;
-            final file = File(path);
-            final newPath = '${DateTime.now().microsecondsSinceEpoch}${p.extension(path)}';
+            final bytes = await imageFile.readAsBytes();
+            final newPath =
+                '${DateTime.now().microsecondsSinceEpoch}${p.extension(imageFile.path)}';
 
-            await sb.storage.from('files').upload(newPath, file);
+            await sb.storage.from('files').uploadBinary(newPath, bytes);
             return sb.storage.from('files').getPublicUrl(newPath);
           }),
         );
@@ -420,11 +418,11 @@ class UpdateAutoVerbal extends _$UpdateAutoVerbal with _$UpdateAutoVerbalForm {
 
         final newImageUrls = await Future.wait(
           state.newImageFiles.map((imageFile) async {
-            final path = imageFile.path;
-            final file = File(path);
-            final newPath = '${DateTime.now().microsecondsSinceEpoch}${p.extension(path)}';
+            final bytes = await imageFile.readAsBytes();
+            final newPath =
+                '${DateTime.now().microsecondsSinceEpoch}${p.extension(imageFile.path)}';
 
-            await sb.storage.from('files').upload(newPath, file);
+            await sb.storage.from('files').uploadBinary(newPath, bytes);
             return sb.storage.from('files').getPublicUrl(newPath);
           }),
         );

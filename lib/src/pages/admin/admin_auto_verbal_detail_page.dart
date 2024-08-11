@@ -4,11 +4,11 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kfa_mobile_nu/exports.dart';
-import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
 import 'package:kfa_mobile_nu/src/models/user_model.dart';
 import 'package:kfa_mobile_nu/src/pages/admin/auto_verbal_pdf_report.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
+import 'package:kfa_mobile_nu/src/widgets/max_width_box.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:share_plus/share_plus.dart';
@@ -24,17 +24,14 @@ class AdminAutoVerbalDetailPage extends StatefulHookConsumerWidget {
   const AdminAutoVerbalDetailPage({super.key, required this.autoVerbal});
 
   @override
-  ConsumerState<AdminAutoVerbalDetailPage> createState() =>
-      _AdminAutoVerbalDetailPageState();
+  ConsumerState<AdminAutoVerbalDetailPage> createState() => _AdminAutoVerbalDetailPageState();
 }
 
-class _AdminAutoVerbalDetailPageState
-    extends ConsumerState<AdminAutoVerbalDetailPage> {
+class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetailPage> {
   @override
   Widget build(BuildContext context) {
     final state =
-        ref.watch(autoVerbalDetailProvider(widget.autoVerbal.id)).valueOrNull ??
-            widget.autoVerbal;
+        ref.watch(autoVerbalDetailProvider(widget.autoVerbal.id)).valueOrNull ?? widget.autoVerbal;
     final status = useState(widget.autoVerbal.status);
     final redColor = Theme.of(context).colorScheme.error.withOpacity(0.8);
     final isAdmin = ref.watch(isAdminProvider);
@@ -48,8 +45,7 @@ class _AdminAutoVerbalDetailPageState
           PropertyAndAutoVerbalStatus.resubmit =>
             _buildApproveRejectButton(context, state, status),
           PropertyAndAutoVerbalStatus.approved => _buildApproved(),
-          PropertyAndAutoVerbalStatus.rejected =>
-            _buildRejected(redColor, context)
+          PropertyAndAutoVerbalStatus.rejected => _buildRejected(redColor, context)
         },
       );
     }
@@ -80,6 +76,13 @@ class _AdminAutoVerbalDetailPageState
         centerTitle: false,
         title: const Text('Auto Verbal Details'),
         actions: [
+          if (isAdmin)
+            IconButton(
+              onPressed: () {
+                context.push((context) => EditAutoVerbalPage(autoVerbal: state));
+              },
+              icon: const Icon(Icons.edit),
+            ),
           if (state.status == PropertyAndAutoVerbalStatus.approved)
             Row(
               children: [
@@ -93,275 +96,275 @@ class _AdminAutoVerbalDetailPageState
                 ),
               ],
             ),
+          const SizedBox(width: 4),
         ],
       ),
       bottomNavigationBar: bottomAppBar,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Image carousel
-            SizedBox(
-              height: 200,
-              child: PageView.builder(
-                itemCount: state.image.length,
-                itemBuilder: (context, index) {
-                  return CachedNetworkImage(
-                    imageUrl: state.image[index],
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) => const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
-                  );
-                },
+      body: MaxWidthBox(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Image carousel
+              SizedBox(
+                height: 200,
+                child: PageView.builder(
+                  itemCount: state.image.length,
+                  itemBuilder: (context, index) {
+                    return CachedNetworkImage(
+                      imageUrl: state.image[index],
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                    );
+                  },
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          state.autoVerbalId,
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: state.status.statusColor,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Text(
-                          state.status.name.toUpperCase(),
-                          style: TextStyle(
-                            color: state.status.statusTextColor,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    state.propertyType.name,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Value Range: \$${state.minValue.toStringAsFixed(2)} - \$${state.maxValue.toStringAsFixed(2)}',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
-                  const SizedBox(height: 16),
-                  Card.outlined(
-                    margin: EdgeInsets.zero,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _buildDetailRow(
-                            'Area',
-                            '${state.area} sqm',
-                          ),
-                          _buildDetailRow(
-                            'Land Width',
-                            '${state.landwidth} m',
-                          ),
-                          _buildDetailRow(
-                            'Land Length',
-                            '${state.landlength} m',
-                          ),
-                          if (state.buildinglength != null)
-                            _buildDetailRow(
-                              'Building Length',
-                              '${state.buildinglength} m',
-                            ),
-                          if (state.buildingwidth != null)
-                            _buildDetailRow(
-                              'Building Width',
-                              '${state.buildingwidth} m',
-                            ),
-                          _buildDetailRow(
-                            'Min Value/sqm',
-                            '\$${state.minValue.toStringAsFixed(2)}',
-                          ),
-                          _buildDetailRow(
-                            'Max Value/sqm',
-                            '\$${state.maxValue.toStringAsFixed(2)}',
-                          ),
-                          _buildDetailRow(
-                            'Location',
-                            state.province.name,
-                          ),
-                          _buildDetailRow(
-                            'Bank',
-                            state.bank?.name ?? 'N/A',
-                          ),
-                          if (state.bankBranch != null)
-                            _buildDetailRow(
-                              'Bank Branch',
-                              state.bankBranch!,
-                            ),
-                          _buildDetailRow(
-                            'Owner Name',
-                            state.ownerName,
-                          ),
-                          _buildDetailRow(
-                            'Owner Phone',
-                            state.ownerPhone,
-                          ),
-                          _buildDetailRow(
-                            'Bank Officer Name',
-                            state.bankOfficerName ?? 'N/A',
-                          ),
-                          _buildDetailRow(
-                            'Bank Officer Phone',
-                            state.bankOfficerPhone ?? 'N/A',
-                          ),
-                          if (state.road != null)
-                            _buildDetailRow(
-                              'Road',
-                              state.road!.name,
-                            ),
-                          if (state.bed != null)
-                            _buildDetailRow(
-                              'Bedrooms',
-                              state.bed.toString(),
-                            ),
-                          if (state.bath != null)
-                            _buildDetailRow(
-                              'Bathrooms',
-                              state.bath.toString(),
-                            ),
-                          if (state.livingroom != null)
-                            _buildDetailRow(
-                              'Living Rooms',
-                              state.livingroom.toString(),
-                            ),
-                          if (state.floor != null)
-                            _buildDetailRow(
-                              'Floors',
-                              state.floor.toString(),
-                            ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  Text(
-                    'Location',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const SizedBox(height: 8),
-                  SizedBox(
-                    height: 200,
-                    child: GoogleMap(
-                      mapType: MapType.hybrid,
-                      initialCameraPosition: CameraPosition(
-                        target: LatLng(state.latitude, state.longitude),
-                        zoom: 15,
-                      ),
-                      markers: {
-                        Marker(
-                          markerId: const MarkerId('property'),
-                          position: LatLng(state.latitude, state.longitude),
-                          infoWindow:
-                              InfoWindow(title: state.propertyType.name),
-                        ),
-                      },
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  Text(
-                    'Submitted by: ${state.user?.fullName ?? "N/A"}',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  Text(
-                    'Submission Date: ${state.createdAt.toLocal().toString().split(' ')[0]}',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 24),
-                  if (isCurrentUserOwner &&
-                      state.status != PropertyAndAutoVerbalStatus.approved) ...[
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        FilledButton(
-                          onPressed: () {
-                            context.push(
-                                (_) => EditAutoVerbalPage(autoVerbal: state));
-                          },
-                          child: const Text('Edit'),
-                        ),
-                        const SizedBox(width: 16),
-                        FilledButton(
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: const Text('Delete'),
-                                  content: const Text(
-                                    'Are you sure you want to delete this auto verbal?',
-                                  ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      child: const Text('Cancel'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                    FilledButton(
-                                      style: FilledButton.styleFrom(
-                                        backgroundColor:
-                                            Theme.of(context).colorScheme.error,
-                                      ),
-                                      child: const Text('Delete'),
-                                      onPressed: () async {
-                                        final close = BotToast.showLoading();
-                                        final delete = ref.read(
-                                          deleteAutoVerbalProvider(
-                                            state.id,
-                                          ).notifier,
-                                        );
-                                        await delete();
-                                        close();
-                                        if (!context.mounted) return;
-                                        Navigator.of(context).pop();
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          },
-                          style: FilledButton.styleFrom(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.error,
+                        Expanded(
+                          child: Text(
+                            state.autoVerbalId,
+                            style: Theme.of(context).textTheme.headlineSmall,
                           ),
-                          child: const Text('Delete Auto Verbal'),
+                        ),
+                        const SizedBox(width: 8),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: state.status.statusColor,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            state.status.name.toUpperCase(),
+                            style: TextStyle(
+                              color: state.status.statusTextColor,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ],
                     ),
+                    const SizedBox(height: 8),
+                    Text(
+                      state.propertyType.name,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'Value Range: \$${state.minValue.toStringAsFixed(2)} - \$${state.maxValue.toStringAsFixed(2)}',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                    const SizedBox(height: 16),
+                    Card.outlined(
+                      margin: EdgeInsets.zero,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildDetailRow(
+                              'Area',
+                              '${state.area} sqm',
+                            ),
+                            _buildDetailRow(
+                              'Land Width',
+                              '${state.landwidth} m',
+                            ),
+                            _buildDetailRow(
+                              'Land Length',
+                              '${state.landlength} m',
+                            ),
+                            if (state.buildinglength != null)
+                              _buildDetailRow(
+                                'Building Length',
+                                '${state.buildinglength} m',
+                              ),
+                            if (state.buildingwidth != null)
+                              _buildDetailRow(
+                                'Building Width',
+                                '${state.buildingwidth} m',
+                              ),
+                            _buildDetailRow(
+                              'Min Value/sqm',
+                              '\$${state.minValue.toStringAsFixed(2)}',
+                            ),
+                            _buildDetailRow(
+                              'Max Value/sqm',
+                              '\$${state.maxValue.toStringAsFixed(2)}',
+                            ),
+                            _buildDetailRow(
+                              'Location',
+                              state.province.name,
+                            ),
+                            _buildDetailRow(
+                              'Bank',
+                              state.bank?.name ?? 'N/A',
+                            ),
+                            if (state.bankBranch != null)
+                              _buildDetailRow(
+                                'Bank Branch',
+                                state.bankBranch!,
+                              ),
+                            _buildDetailRow(
+                              'Owner Name',
+                              state.ownerName,
+                            ),
+                            _buildDetailRow(
+                              'Owner Phone',
+                              state.ownerPhone,
+                            ),
+                            _buildDetailRow(
+                              'Bank Officer Name',
+                              state.bankOfficerName ?? 'N/A',
+                            ),
+                            _buildDetailRow(
+                              'Bank Officer Phone',
+                              state.bankOfficerPhone ?? 'N/A',
+                            ),
+                            if (state.road != null)
+                              _buildDetailRow(
+                                'Road',
+                                state.road!.name,
+                              ),
+                            if (state.bed != null)
+                              _buildDetailRow(
+                                'Bedrooms',
+                                state.bed.toString(),
+                              ),
+                            if (state.bath != null)
+                              _buildDetailRow(
+                                'Bathrooms',
+                                state.bath.toString(),
+                              ),
+                            if (state.livingroom != null)
+                              _buildDetailRow(
+                                'Living Rooms',
+                                state.livingroom.toString(),
+                              ),
+                            if (state.floor != null)
+                              _buildDetailRow(
+                                'Floors',
+                                state.floor.toString(),
+                              ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    Text(
+                      'Location',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    const SizedBox(height: 8),
+                    SizedBox(
+                      height: 200,
+                      child: GoogleMap(
+                        mapType: MapType.hybrid,
+                        initialCameraPosition: CameraPosition(
+                          target: LatLng(state.latitude, state.longitude),
+                          zoom: 15,
+                        ),
+                        markers: {
+                          Marker(
+                            markerId: const MarkerId('property'),
+                            position: LatLng(state.latitude, state.longitude),
+                            infoWindow: InfoWindow(title: state.propertyType.name),
+                          ),
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    Text(
+                      'Submitted by: ${state.user?.fullName ?? "N/A"}',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    Text(
+                      'Submission Date: ${state.createdAt.toLocal().toString().split(' ')[0]}',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 24),
+                    if (isCurrentUserOwner &&
+                        state.status != PropertyAndAutoVerbalStatus.approved) ...[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          FilledButton(
+                            onPressed: () {
+                              context.push(
+                                (_) => EditAutoVerbalPage(autoVerbal: state),
+                              );
+                            },
+                            child: const Text('Edit'),
+                          ),
+                          const SizedBox(width: 16),
+                          FilledButton(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text('Delete'),
+                                    content: const Text(
+                                      'Are you sure you want to delete this auto verbal?',
+                                    ),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: const Text('Cancel'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      FilledButton(
+                                        style: FilledButton.styleFrom(
+                                          backgroundColor: Theme.of(context).colorScheme.error,
+                                        ),
+                                        child: const Text('Delete'),
+                                        onPressed: () async {
+                                          final close = BotToast.showLoading();
+                                          final delete = ref.read(
+                                            deleteAutoVerbalProvider(
+                                              state.id,
+                                            ).notifier,
+                                          );
+                                          await delete();
+                                          close();
+                                          if (!context.mounted) return;
+                                          Navigator.of(context).pop();
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            style: FilledButton.styleFrom(
+                              backgroundColor: Theme.of(context).colorScheme.error,
+                            ),
+                            child: const Text('Delete Auto Verbal'),
+                          ),
+                        ],
+                      ),
+                    ],
                   ],
-                ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -447,8 +450,7 @@ class _AdminAutoVerbalDetailPageState
               padding: const EdgeInsets.symmetric(vertical: 12),
               decoration: BoxDecoration(
                 color: Colors.green,
-                borderRadius:
-                    const BorderRadius.horizontal(left: Radius.circular(12)),
+                borderRadius: const BorderRadius.horizontal(left: Radius.circular(12)),
                 border: Border.all(color: Colors.grey),
               ),
               child: const Text(
@@ -519,8 +521,7 @@ class _AdminAutoVerbalDetailPageState
               );
 
               if (rejectReason.isNotNullOrBlank && context.mounted) {
-                final reject =
-                    ref.read(rejectAutoVerbalProvider(state.id).notifier);
+                final reject = ref.read(rejectAutoVerbalProvider(state.id).notifier);
                 final closeLoading = BotToast.showLoading();
                 final result = await reject(reason: rejectReason!);
                 closeLoading();
@@ -540,8 +541,7 @@ class _AdminAutoVerbalDetailPageState
               padding: const EdgeInsets.symmetric(vertical: 12),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.error.withOpacity(0.8),
-                borderRadius:
-                    const BorderRadius.horizontal(right: Radius.circular(12)),
+                borderRadius: const BorderRadius.horizontal(right: Radius.circular(12)),
                 border: Border.all(color: Colors.grey),
               ),
               child: const Text(
@@ -636,7 +636,12 @@ class _ApproveDialog extends HookConsumerWidget {
         ),
         ElevatedButton(
           onPressed: () => _handleApprove(
-              context, ref, formKey, minValueController, maxValueController),
+            context,
+            ref,
+            formKey,
+            minValueController,
+            maxValueController,
+          ),
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.green,
             shape: RoundedRectangleBorder(
@@ -706,8 +711,7 @@ class _ApproveDialog extends HookConsumerWidget {
       }
 
       final close = BotToast.showLoading();
-      final approve =
-          ref.read(approveAutoVerbalProvider(autoVerbal.id).notifier);
+      final approve = ref.read(approveAutoVerbalProvider(autoVerbal.id).notifier);
       final result = await approve(minValue: minValue, maxValue: maxValue);
       close();
 

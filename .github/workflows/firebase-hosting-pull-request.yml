@@ -1,0 +1,30 @@
+name: Deploy to Firebase Hosting on Push to Main
+'on':
+  push:
+    branches:
+      - main
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0'
+          channel: 'stable'
+
+      - name: Get flutter dependencies
+        run: flutter pub get
+
+      - name: Build flutter web
+        run: flutter build web --wasm
+
+      - name: Deploy to Firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_KFA_MOBILE_942F0 }}'
+          projectId: kfa-mobile-942f0
+          channelId: live

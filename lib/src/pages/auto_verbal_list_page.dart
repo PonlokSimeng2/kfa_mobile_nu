@@ -1,6 +1,4 @@
-import 'package:intl/intl.dart';
 import 'package:kfa_mobile_nu/exports.dart';
-import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
 import 'package:kfa_mobile_nu/src/models/models.dart';
 import 'package:kfa_mobile_nu/src/pages/admin/admin_auto_verbal_detail_page.dart';
 import 'package:kfa_mobile_nu/src/pages/client_auto_verbal_detail_page.dart';
@@ -8,6 +6,17 @@ import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 
 import '../providers/auto_verbal_provider.dart';
 import '../widgets/auth_wrapper_widget.dart';
+
+final _initialFilterProvider = Provider.autoDispose<AutoVerbalListFilter>((ref) {
+  throw UnimplementedError();
+});
+
+final _filterProvider = StateProvider<AutoVerbalListFilter>(
+  (ref) {
+    return ref.read(_initialFilterProvider);
+  },
+  dependencies: [_initialFilterProvider],
+);
 
 class AutoVerbalListPage extends ConsumerStatefulWidget {
   const AutoVerbalListPage({super.key, this.openItemInAdminPage = false});
@@ -99,25 +108,13 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: Row(
           children: [
-            _buildFilterButton('All', Icons.list, null),
+            _buildFilterButton(null),
             const SizedBox(width: 10),
-            _buildFilterButton(
-              'Pending',
-              Icons.pending,
-              PropertyAndAutoVerbalStatus.pending,
-            ),
+            _buildFilterButton(PropertyAndAutoVerbalStatus.pending),
             const SizedBox(width: 10),
-            _buildFilterButton(
-              'Approved',
-              Icons.check_circle,
-              PropertyAndAutoVerbalStatus.approved,
-            ),
+            _buildFilterButton(PropertyAndAutoVerbalStatus.approved),
             const SizedBox(width: 10),
-            _buildFilterButton(
-              'Rejected',
-              Icons.cancel,
-              PropertyAndAutoVerbalStatus.rejected,
-            ),
+            _buildFilterButton(PropertyAndAutoVerbalStatus.rejected),
           ],
         ),
       ),
@@ -163,6 +160,7 @@ class _GridView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final openItemInAdminPage = _AutoVerbalInherited.of(context)?.openItemInAdminPage ?? false;
     return RefreshIndicator(
       onRefresh: () async {
         ref.invalidate(autoVerbalListProvider);
@@ -189,7 +187,7 @@ class _GridView extends ConsumerWidget {
               );
             },
             data: (item) {
-              return _buildAutoVerbalCard(context, item);
+              return _buildAutoVerbalCard(context, item, openItemInAdminPage);
             },
           );
         },
@@ -197,7 +195,11 @@ class _GridView extends ConsumerWidget {
     );
   }
 
-  Widget _buildAutoVerbalCard(BuildContext context, AutoVerbalModel item) {
+  Widget _buildAutoVerbalCard(
+    BuildContext context,
+    AutoVerbalModel item,
+    bool openItemInAdminPage,
+  ) {
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

@@ -12,6 +12,7 @@ import 'package:kfa_mobile_nu/src/providers/auto_verbal_provider.dart';
 import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
 import 'package:kfa_mobile_nu/src/widgets/bank_dropdown.dart';
 import 'package:kfa_mobile_nu/src/widgets/map_picker.dart';
+import 'package:kfa_mobile_nu/src/widgets/max_width_box.dart';
 import 'package:kfa_mobile_nu/src/widgets/property_type_dropdown.dart';
 import 'package:kfa_mobile_nu/src/widgets/province_dropdown.dart';
 import 'package:kfa_mobile_nu/src/widgets/road_dropdown.dart';
@@ -74,892 +75,894 @@ class EditAutoVerbalPage extends HookConsumerWidget {
                 ),
               ],
             ),
-            body: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SingleChildScrollView(
-                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 10,
-                    ),
-                    _ImagePicker(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    _LatLog(),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    UpdateAutoVerbalProvinceFieldWidget(
-                      builder: (ref, province, changeProvince, showValidation) {
-                        return Padding(
-                          padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                          child: Container(
-                            child: ProvinceDropDown(
-                              value: province,
-                              onChanged: (value) {
-                                changeProvince(value);
-                              },
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    UpdateAutoVerbalPropertyTypeFieldWidget(
-                      builder: (
-                        ref,
-                        propertyType,
-                        changePropertyType,
-                        showValidation,
-                      ) {
-                        return Padding(
-                          padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                          child: Container(
-                            child: PropertyTypeDropDown(
-                              value: propertyType,
-                              onChanged: (value) {
-                                changePropertyType(value);
-                              },
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: UpdateAutoVerbalMinValueFieldWidget(
-                              builder: (
-                                ref,
-                                minValue,
-                                changeMinValue,
-                                showValidation,
-                              ) {
-                                return TextFormField(
-                                  initialValue: minValue.toString(),
-                                  onChanged: (value) {
-                                    changeMinValue(double.parse(value));
-                                  },
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                    fontSize: MediaQuery.of(context).size.height * 0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: Icon(
-                                      Icons.brightness_1,
-                                      color: kImageColor,
-                                    ),
-                                    hintText: 'Min Value',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: UpdateAutoVerbalMaxValueFieldWidget(
-                              builder: (
-                                ref,
-                                maxValue,
-                                changeMaxValue,
-                                showValidation,
-                              ) {
-                                return TextFormField(
-                                  initialValue: maxValue.toString(),
-                                  onChanged: (value) {
-                                    changeMaxValue(double.parse(value));
-                                  },
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                    fontSize: MediaQuery.of(context).size.height * 0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: Icon(
-                                      Icons.brightness_1,
-                                      color: kImageColor,
-                                    ),
-                                    hintText: 'Max Value',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
+            body: MaxWidthBox(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SingleChildScrollView(
+                  keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 10,
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        right: 30,
-                        left: 30,
-                        top: 10,
+                      _ImagePicker(),
+                      SizedBox(
+                        height: 10,
                       ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: UpdateAutoVerbalOwnerNameFieldWidget(
-                              builder: (
-                                ref,
-                                textController,
-                                ownerName,
-                                changeOwnerName,
-                                showValidation,
-                              ) {
-                                return TextFormField(
-                                  validator: (value) {
-                                    if (textController == null || textController.text.isEmpty) {
-                                      return 'Owner name is required';
-                                    }
-                                    return null;
-                                  },
-                                  controller: textController,
-                                  keyboardType: TextInputType.text,
-                                  style: TextStyle(
-                                    fontSize: MediaQuery.of(context).size.height * 0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: Icon(
-                                      Icons.person_outline,
-                                      color: kImageColor,
-                                    ),
-                                    hintText: 'Owner',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: Colors.red,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: UpdateAutoVerbalOwnerPhoneFieldWidget(
-                              builder: (
-                                ref,
-                                textController,
-                                ownerPhone,
-                                changeOwnerPhone,
-                                showValidation,
-                              ) {
-                                return TextFormField(
-                                  controller: textController,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Owner phone is required';
-                                    }
-                                    return null;
-                                  },
-                                  keyboardType: TextInputType.phone,
-                                  style: TextStyle(
-                                    fontSize: MediaQuery.of(context).size.height * 0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: Icon(
-                                      Icons.phone_outlined,
-                                      color: kImageColor,
-                                    ),
-                                    hintText: 'Contact',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: Colors.red,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
+                      _LatLog(),
+                      SizedBox(
+                        height: 5,
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: UpdateAutoVerbalBankOfficerNameFieldWidget(
-                              builder: (
-                                ref,
-                                textController,
-                                bankOfficerName,
-                                changeBankOfficerName,
-                                showValidation,
-                              ) {
-                                return TextFormField(
-                                  controller: textController,
-                                  keyboardType: TextInputType.text,
-                                  style: TextStyle(
-                                    fontSize: MediaQuery.of(context).size.height * 0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: Icon(
-                                      Icons.person_outline,
-                                      color: kImageColor,
-                                    ),
-                                    hintText: 'Bank Officer',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                );
-                              },
+                      UpdateAutoVerbalProvinceFieldWidget(
+                        builder: (ref, province, changeProvince, showValidation) {
+                          return Padding(
+                            padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+                            child: Container(
+                              child: ProvinceDropDown(
+                                value: province,
+                                onChanged: (value) {
+                                  changeProvince(value);
+                                },
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: UpdateAutoVerbalBankOfficerPhoneFieldWidget(
-                              builder: (
-                                ref,
-                                textController,
-                                bankOfficerPhone,
-                                changeBankOfficerPhone,
-                                showValidation,
-                              ) {
-                                return TextFormField(
-                                  controller: textController,
-                                  keyboardType: TextInputType.phone,
-                                  style: TextStyle(
-                                    fontSize: MediaQuery.of(context).size.height * 0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: Icon(
-                                      Icons.phone_outlined,
-                                      color: kImageColor,
-                                    ),
-                                    hintText: 'Bank Contact',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
+                          );
+                        },
                       ),
-                    ),
-                    UpdateAutoVerbalBankFieldWidget(
-                      builder: (ref, bank, changeBank, showValidation) {
-                        return Padding(
-                          padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                          child: Container(
-                            child: BankDropDown(
-                              value: bank,
-                              onChanged: (value) {
-                                changeBank(value);
-                              },
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                      child: UpdateAutoVerbalBankBranchFieldWidget(
+                      SizedBox(
+                        height: 5,
+                      ),
+                      UpdateAutoVerbalPropertyTypeFieldWidget(
                         builder: (
                           ref,
-                          textController,
-                          bankBranch,
-                          changeBankBranch,
+                          propertyType,
+                          changePropertyType,
                           showValidation,
                         ) {
-                          return TextFormField(
-                            controller: textController,
-                            keyboardType: TextInputType.text,
-                            style: TextStyle(
-                              fontSize: MediaQuery.of(context).size.height * 0.015,
-                              fontWeight: FontWeight.bold,
+                          return Padding(
+                            padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+                            child: Container(
+                              child: PropertyTypeDropDown(
+                                value: propertyType,
+                                onChanged: (value) {
+                                  changePropertyType(value);
+                                },
+                              ),
                             ),
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(vertical: 8),
-                              prefixIcon: Icon(
-                                Icons.food_bank,
-                                color: kImageColor,
+                          );
+                        },
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: UpdateAutoVerbalMinValueFieldWidget(
+                                builder: (
+                                  ref,
+                                  minValue,
+                                  changeMinValue,
+                                  showValidation,
+                                ) {
+                                  return TextFormField(
+                                    initialValue: minValue.toString(),
+                                    onChanged: (value) {
+                                      changeMinValue(double.parse(value));
+                                    },
+                                    keyboardType: TextInputType.number,
+                                    style: TextStyle(
+                                      fontSize: MediaQuery.of(context).size.height * 0.015,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(vertical: 8),
+                                      prefixIcon: Icon(
+                                        Icons.brightness_1,
+                                        color: kImageColor,
+                                      ),
+                                      hintText: 'Min Value',
+                                      fillColor: kwhite,
+                                      filled: true,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: kPrimaryColor,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1,
+                                          color: kPrimaryColor,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
-                              hintText: 'Bank Branch',
-                              fillColor: kwhite,
-                              filled: true,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                  color: kPrimaryColor,
-                                  width: 2.0,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: UpdateAutoVerbalMaxValueFieldWidget(
+                                builder: (
+                                  ref,
+                                  maxValue,
+                                  changeMaxValue,
+                                  showValidation,
+                                ) {
+                                  return TextFormField(
+                                    initialValue: maxValue.toString(),
+                                    onChanged: (value) {
+                                      changeMaxValue(double.parse(value));
+                                    },
+                                    keyboardType: TextInputType.number,
+                                    style: TextStyle(
+                                      fontSize: MediaQuery.of(context).size.height * 0.015,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(vertical: 8),
+                                      prefixIcon: Icon(
+                                        Icons.brightness_1,
+                                        color: kImageColor,
+                                      ),
+                                      hintText: 'Max Value',
+                                      fillColor: kwhite,
+                                      filled: true,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: kPrimaryColor,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1,
+                                          color: kPrimaryColor,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          right: 30,
+                          left: 30,
+                          top: 10,
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: UpdateAutoVerbalOwnerNameFieldWidget(
+                                builder: (
+                                  ref,
+                                  textController,
+                                  ownerName,
+                                  changeOwnerName,
+                                  showValidation,
+                                ) {
+                                  return TextFormField(
+                                    validator: (value) {
+                                      if (textController == null || textController.text.isEmpty) {
+                                        return 'Owner name is required';
+                                      }
+                                      return null;
+                                    },
+                                    controller: textController,
+                                    keyboardType: TextInputType.text,
+                                    style: TextStyle(
+                                      fontSize: MediaQuery.of(context).size.height * 0.015,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(vertical: 8),
+                                      prefixIcon: Icon(
+                                        Icons.person_outline,
+                                        color: kImageColor,
+                                      ),
+                                      hintText: 'Owner',
+                                      fillColor: kwhite,
+                                      filled: true,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: kPrimaryColor,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1,
+                                          color: kPrimaryColor,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1,
+                                          color: Colors.red,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: UpdateAutoVerbalOwnerPhoneFieldWidget(
+                                builder: (
+                                  ref,
+                                  textController,
+                                  ownerPhone,
+                                  changeOwnerPhone,
+                                  showValidation,
+                                ) {
+                                  return TextFormField(
+                                    controller: textController,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Owner phone is required';
+                                      }
+                                      return null;
+                                    },
+                                    keyboardType: TextInputType.phone,
+                                    style: TextStyle(
+                                      fontSize: MediaQuery.of(context).size.height * 0.015,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(vertical: 8),
+                                      prefixIcon: Icon(
+                                        Icons.phone_outlined,
+                                        color: kImageColor,
+                                      ),
+                                      hintText: 'Contact',
+                                      fillColor: kwhite,
+                                      filled: true,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: kPrimaryColor,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1,
+                                          color: kPrimaryColor,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1,
+                                          color: Colors.red,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: UpdateAutoVerbalBankOfficerNameFieldWidget(
+                                builder: (
+                                  ref,
+                                  textController,
+                                  bankOfficerName,
+                                  changeBankOfficerName,
+                                  showValidation,
+                                ) {
+                                  return TextFormField(
+                                    controller: textController,
+                                    keyboardType: TextInputType.text,
+                                    style: TextStyle(
+                                      fontSize: MediaQuery.of(context).size.height * 0.015,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(vertical: 8),
+                                      prefixIcon: Icon(
+                                        Icons.person_outline,
+                                        color: kImageColor,
+                                      ),
+                                      hintText: 'Bank Officer',
+                                      fillColor: kwhite,
+                                      filled: true,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: kPrimaryColor,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1,
+                                          color: kPrimaryColor,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: UpdateAutoVerbalBankOfficerPhoneFieldWidget(
+                                builder: (
+                                  ref,
+                                  textController,
+                                  bankOfficerPhone,
+                                  changeBankOfficerPhone,
+                                  showValidation,
+                                ) {
+                                  return TextFormField(
+                                    controller: textController,
+                                    keyboardType: TextInputType.phone,
+                                    style: TextStyle(
+                                      fontSize: MediaQuery.of(context).size.height * 0.015,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(vertical: 8),
+                                      prefixIcon: Icon(
+                                        Icons.phone_outlined,
+                                        color: kImageColor,
+                                      ),
+                                      hintText: 'Bank Contact',
+                                      fillColor: kwhite,
+                                      filled: true,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: kPrimaryColor,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1,
+                                          color: kPrimaryColor,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      UpdateAutoVerbalBankFieldWidget(
+                        builder: (ref, bank, changeBank, showValidation) {
+                          return Padding(
+                            padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+                            child: Container(
+                              child: BankDropDown(
+                                value: bank,
+                                onChanged: (value) {
+                                  changeBank(value);
+                                },
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+                        child: UpdateAutoVerbalBankBranchFieldWidget(
+                          builder: (
+                            ref,
+                            textController,
+                            bankBranch,
+                            changeBankBranch,
+                            showValidation,
+                          ) {
+                            return TextFormField(
+                              controller: textController,
+                              keyboardType: TextInputType.text,
+                              style: TextStyle(
+                                fontSize: MediaQuery.of(context).size.height * 0.015,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(vertical: 8),
+                                prefixIcon: Icon(
+                                  Icons.food_bank,
+                                  color: kImageColor,
                                 ),
-                                borderRadius: BorderRadius.circular(10.0),
+                                hintText: 'Bank Branch',
+                                fillColor: kwhite,
+                                filled: true,
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                    color: kPrimaryColor,
+                                    width: 2.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 1,
+                                    color: kPrimaryColor,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
                               ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
+                            );
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: UpdateAutoVerbalBuildinglengthFieldWidget(
+                                builder: (
+                                  ref,
+                                  buildinglength,
+                                  changeBuildinglength,
+                                  showValidation,
+                                ) {
+                                  return TextFormField(
+                                    initialValue: buildinglength.toString(),
+                                    keyboardType: TextInputType.number,
+                                    style: TextStyle(
+                                      fontSize: MediaQuery.of(context).size.height * 0.015,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    onChanged: (value) {
+                                      changeBuildinglength(double.parse(value));
+                                    },
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(vertical: 8),
+                                      prefixIcon: Icon(
+                                        Icons.food_bank,
+                                        color: kImageColor,
+                                      ),
+                                      hintText: 'Building Length',
+                                      fillColor: kwhite,
+                                      filled: true,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: kPrimaryColor,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1,
+                                          color: kPrimaryColor,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: UpdateAutoVerbalBuildingwidthFieldWidget(
+                                builder: (
+                                  ref,
+                                  buildingwidth,
+                                  changeBuildingwidth,
+                                  showValidation,
+                                ) {
+                                  return TextFormField(
+                                    initialValue: buildingwidth.toString(),
+                                    keyboardType: TextInputType.number,
+                                    style: TextStyle(
+                                      fontSize: MediaQuery.of(context).size.height * 0.015,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    onChanged: (value) {
+                                      changeBuildingwidth(double.parse(value));
+                                    },
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(vertical: 8),
+                                      prefixIcon: Icon(
+                                        Icons.food_bank,
+                                        color: kImageColor,
+                                      ),
+                                      hintText: 'Building Width',
+                                      fillColor: kwhite,
+                                      filled: true,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: kPrimaryColor,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1,
+                                          color: kPrimaryColor,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: UpdateAutoVerbalLandlengthFieldWidget(
+                                builder: (
+                                  ref,
+                                  landlength,
+                                  changeLandlength,
+                                  showValidation,
+                                ) {
+                                  return TextFormField(
+                                    initialValue: landlength.toString(),
+                                    keyboardType: TextInputType.number,
+                                    style: TextStyle(
+                                      fontSize: MediaQuery.of(context).size.height * 0.015,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    onChanged: (value) {
+                                      changeLandlength(double.parse(value));
+                                    },
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(vertical: 8),
+                                      prefixIcon: Icon(
+                                        Icons.food_bank,
+                                        color: kImageColor,
+                                      ),
+                                      hintText: 'Land Length',
+                                      fillColor: kwhite,
+                                      filled: true,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: kPrimaryColor,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1,
+                                          color: kPrimaryColor,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: UpdateAutoVerbalLandwidthFieldWidget(
+                                builder: (
+                                  ref,
+                                  landwidth,
+                                  changeLandwidth,
+                                  showValidation,
+                                ) {
+                                  return TextFormField(
+                                    initialValue: landwidth.toString(),
+                                    keyboardType: TextInputType.number,
+                                    style: TextStyle(
+                                      fontSize: MediaQuery.of(context).size.height * 0.015,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    onChanged: (value) {
+                                      changeLandwidth(double.parse(value));
+                                    },
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(vertical: 8),
+                                      prefixIcon: Icon(
+                                        Icons.food_bank,
+                                        color: kImageColor,
+                                      ),
+                                      hintText: 'Land Width',
+                                      fillColor: kwhite,
+                                      filled: true,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: kPrimaryColor,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1,
+                                          color: kPrimaryColor,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: UpdateAutoVerbalBedFieldWidget(
+                                builder: (ref, bed, changeBed, showValidation) {
+                                  return TextFormField(
+                                    initialValue: bed.toString(),
+                                    keyboardType: TextInputType.number,
+                                    style: TextStyle(
+                                      fontSize: MediaQuery.of(context).size.height * 0.015,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    onChanged: (value) {
+                                      changeBed(int.parse(value));
+                                    },
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(vertical: 8),
+                                      prefixIcon: Icon(
+                                        Icons.bed,
+                                        color: kImageColor,
+                                      ),
+                                      hintText: 'BedRoom',
+                                      fillColor: kwhite,
+                                      filled: true,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: kPrimaryColor,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1,
+                                          color: kPrimaryColor,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: UpdateAutoVerbalBathFieldWidget(
+                                builder: (ref, bath, changeBath, showValidation) {
+                                  return TextFormField(
+                                    initialValue: bath.toString(),
+                                    keyboardType: TextInputType.number,
+                                    style: TextStyle(
+                                      fontSize: MediaQuery.of(context).size.height * 0.015,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    onChanged: (value) {
+                                      changeBath(int.parse(value));
+                                    },
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(vertical: 8),
+                                      prefixIcon: Icon(
+                                        Icons.bathroom,
+                                        color: kImageColor,
+                                      ),
+                                      hintText: 'Bath',
+                                      fillColor: kwhite,
+                                      filled: true,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: kPrimaryColor,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1,
+                                          color: kPrimaryColor,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: UpdateAutoVerbalLivingroomFieldWidget(
+                                builder: (
+                                  ref,
+                                  livingRoom,
+                                  changeLivingRoom,
+                                  showValidation,
+                                ) {
+                                  return TextFormField(
+                                    initialValue: livingRoom.toString(),
+                                    keyboardType: TextInputType.number,
+                                    style: TextStyle(
+                                      fontSize: MediaQuery.of(context).size.height * 0.015,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    onChanged: (value) {
+                                      changeLivingRoom(int.parse(value));
+                                    },
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(vertical: 8),
+                                      prefixIcon: Icon(
+                                        Icons.food_bank,
+                                        color: kImageColor,
+                                      ),
+                                      hintText: 'Living Room',
+                                      fillColor: kwhite,
+                                      filled: true,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: kPrimaryColor,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1,
+                                          color: kPrimaryColor,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: UpdateAutoVerbalFloorFieldWidget(
+                                builder: (ref, floor, changeFloor, showValidation) {
+                                  return TextFormField(
+                                    initialValue: floor.toString(),
+                                    keyboardType: TextInputType.number,
+                                    style: TextStyle(
+                                      fontSize: MediaQuery.of(context).size.height * 0.015,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    onChanged: (value) {
+                                      changeFloor(int.parse(value));
+                                    },
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(vertical: 8),
+                                      prefixIcon: Icon(
+                                        Icons.food_bank,
+                                        color: kImageColor,
+                                      ),
+                                      hintText: 'Floor',
+                                      fillColor: kwhite,
+                                      filled: true,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: kPrimaryColor,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1,
+                                          color: kPrimaryColor,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      UpdateAutoVerbalRoadFieldWidget(
+                        builder: (ref, road, changeRoad, showValidation) {
+                          return Padding(
+                            padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+                            child: Container(
+                              child: RoadDropDown(
+                                value: road,
+                                onChanged: (value) {
+                                  changeRoad(value);
+                                },
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20, left: 20),
+                        child: UpdateAutoVerbalAreaFieldWidget(
+                          builder: (ref, area, changeArea, showValidation) {
+                            return Container(
+                              height: 50,
+                              width: double.infinity,
+                              margin: EdgeInsets.all(10),
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  color: Colors.grey,
                                   width: 1,
-                                  color: kPrimaryColor,
                                 ),
-                                borderRadius: BorderRadius.circular(10.0),
                               ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: UpdateAutoVerbalBuildinglengthFieldWidget(
-                              builder: (
-                                ref,
-                                buildinglength,
-                                changeBuildinglength,
-                                showValidation,
-                              ) {
-                                return TextFormField(
-                                  initialValue: buildinglength.toString(),
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                    fontSize: MediaQuery.of(context).size.height * 0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  onChanged: (value) {
-                                    changeBuildinglength(double.parse(value));
-                                  },
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: Icon(
-                                      Icons.food_bank,
-                                      color: kImageColor,
-                                    ),
-                                    hintText: 'Building Length',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: UpdateAutoVerbalBuildingwidthFieldWidget(
-                              builder: (
-                                ref,
-                                buildingwidth,
-                                changeBuildingwidth,
-                                showValidation,
-                              ) {
-                                return TextFormField(
-                                  initialValue: buildingwidth.toString(),
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                    fontSize: MediaQuery.of(context).size.height * 0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  onChanged: (value) {
-                                    changeBuildingwidth(double.parse(value));
-                                  },
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: Icon(
-                                      Icons.food_bank,
-                                      color: kImageColor,
-                                    ),
-                                    hintText: 'Building Width',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: UpdateAutoVerbalLandlengthFieldWidget(
-                              builder: (
-                                ref,
-                                landlength,
-                                changeLandlength,
-                                showValidation,
-                              ) {
-                                return TextFormField(
-                                  initialValue: landlength.toString(),
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                    fontSize: MediaQuery.of(context).size.height * 0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  onChanged: (value) {
-                                    changeLandlength(double.parse(value));
-                                  },
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: Icon(
-                                      Icons.food_bank,
-                                      color: kImageColor,
-                                    ),
-                                    hintText: 'Land Length',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: UpdateAutoVerbalLandwidthFieldWidget(
-                              builder: (
-                                ref,
-                                landwidth,
-                                changeLandwidth,
-                                showValidation,
-                              ) {
-                                return TextFormField(
-                                  initialValue: landwidth.toString(),
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                    fontSize: MediaQuery.of(context).size.height * 0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  onChanged: (value) {
-                                    changeLandwidth(double.parse(value));
-                                  },
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: Icon(
-                                      Icons.food_bank,
-                                      color: kImageColor,
-                                    ),
-                                    hintText: 'Land Width',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: UpdateAutoVerbalBedFieldWidget(
-                              builder: (ref, bed, changeBed, showValidation) {
-                                return TextFormField(
-                                  initialValue: bed.toString(),
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                    fontSize: MediaQuery.of(context).size.height * 0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  onChanged: (value) {
-                                    changeBed(int.parse(value));
-                                  },
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: Icon(
-                                      Icons.bed,
-                                      color: kImageColor,
-                                    ),
-                                    hintText: 'BedRoom',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: UpdateAutoVerbalBathFieldWidget(
-                              builder: (ref, bath, changeBath, showValidation) {
-                                return TextFormField(
-                                  initialValue: bath.toString(),
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                    fontSize: MediaQuery.of(context).size.height * 0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  onChanged: (value) {
-                                    changeBath(int.parse(value));
-                                  },
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: Icon(
-                                      Icons.bathroom,
-                                      color: kImageColor,
-                                    ),
-                                    hintText: 'Bath',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: UpdateAutoVerbalLivingroomFieldWidget(
-                              builder: (
-                                ref,
-                                livingRoom,
-                                changeLivingRoom,
-                                showValidation,
-                              ) {
-                                return TextFormField(
-                                  initialValue: livingRoom.toString(),
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                    fontSize: MediaQuery.of(context).size.height * 0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  onChanged: (value) {
-                                    changeLivingRoom(int.parse(value));
-                                  },
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: Icon(
-                                      Icons.food_bank,
-                                      color: kImageColor,
-                                    ),
-                                    hintText: 'Living Room',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: UpdateAutoVerbalFloorFieldWidget(
-                              builder: (ref, floor, changeFloor, showValidation) {
-                                return TextFormField(
-                                  initialValue: floor.toString(),
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                    fontSize: MediaQuery.of(context).size.height * 0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  onChanged: (value) {
-                                    changeFloor(int.parse(value));
-                                  },
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: Icon(
-                                      Icons.food_bank,
-                                      color: kImageColor,
-                                    ),
-                                    hintText: 'Floor',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    UpdateAutoVerbalRoadFieldWidget(
-                      builder: (ref, road, changeRoad, showValidation) {
-                        return Padding(
-                          padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                          child: Container(
-                            child: RoadDropDown(
-                              value: road,
-                              onChanged: (value) {
-                                changeRoad(value);
-                              },
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20, left: 20),
-                      child: UpdateAutoVerbalAreaFieldWidget(
-                        builder: (ref, area, changeArea, showValidation) {
-                          return Container(
-                            height: 50,
-                            width: double.infinity,
-                            margin: EdgeInsets.all(10),
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                color: Colors.grey,
-                                width: 1,
+                              child: TextFormField(
+                                initialValue: area.toString(),
+                                keyboardType: TextInputType.number,
+                                onChanged: (value) {
+                                  changeArea(double.parse(value));
+                                },
+                                maxLines: 3,
+                                decoration: InputDecoration.collapsed(
+                                  hintText: 'Arrea',
+                                ),
                               ),
-                            ),
-                            child: TextFormField(
-                              initialValue: area.toString(),
-                              keyboardType: TextInputType.number,
-                              onChanged: (value) {
-                                changeArea(double.parse(value));
-                              },
-                              maxLines: 3,
-                              decoration: InputDecoration.collapsed(
-                                hintText: 'Arrea',
-                              ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                    // Add Image Picker Section
-                  ],
+                      // Add Image Picker Section
+                    ],
+                  ),
                 ),
               ),
             ),

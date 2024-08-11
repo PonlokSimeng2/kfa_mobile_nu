@@ -1,6 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:kfa_mobile_nu/exports.dart';
-import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
 import 'package:kfa_mobile_nu/src/models/property_model.schema.dart';
 import 'package:kfa_mobile_nu/src/models/user_model.dart';
 import 'package:kfa_mobile_nu/src/pages/property_comment.dart';
@@ -55,28 +54,37 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
       appBar: AppBar(
         title: const Text('Property Detail'),
         actions: [
-          IconButton(
-            icon: Icon(isHidden.value ? Icons.visibility_off : Icons.visibility),
-            onPressed: () async {
-              final toggleHidden =
-                  ref.read(togglePropertyHiddenProvider(widget.property.id).notifier);
-              final closeLoading = BotToast.showLoading();
-              final result = await toggleHidden(hiddenFromHomePage: !isHidden.value);
-              closeLoading();
-              if (result.isSuccess) {
-                isHidden.value = !isHidden.value;
-                if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(isHidden.value ? 'Property hidden' : 'Property visible'),
-                    ),
-                  );
+          if (isAdmin)
+            IconButton(
+              onPressed: () {
+                context.push((context) => EditPropertyPage(initial: widget.property));
+              },
+              icon: const Icon(Icons.edit),
+            ),
+          if (isCurrentUserOwner)
+            IconButton(
+              icon: Icon(isHidden.value ? Icons.visibility_off : Icons.visibility),
+              onPressed: () async {
+                final toggleHidden =
+                    ref.read(togglePropertyHiddenProvider(widget.property.id).notifier);
+                final closeLoading = BotToast.showLoading();
+                final result = await toggleHidden(hiddenFromHomePage: !isHidden.value);
+                closeLoading();
+                if (result.isSuccess) {
+                  isHidden.value = !isHidden.value;
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(isHidden.value ? 'Property hidden' : 'Property visible'),
+                      ),
+                    );
+                  }
+                } else {
+                  BotToast.showText(text: result.failure!.message());
                 }
-              } else {
-                BotToast.showText(text: result.failure!.message());
-              }
-            },
-          ),
+              },
+            ),
+          const SizedBox(width: 4),
         ],
       ),
       bottomNavigationBar: bottomAppBar,
@@ -90,13 +98,17 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                 child: PageView.builder(
                   itemCount: widget.property.images.length,
                   itemBuilder: (context, index) {
+                    final url = widget.property.images[index];
+
                     return CachedNetworkImage(
-                      imageUrl: widget.property.images[index],
+                      imageUrl: url,
                       fit: BoxFit.cover,
                       placeholder: (context, url) => const Center(
                         child: CircularProgressIndicator(),
                       ),
-                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                      errorWidget: (context, url, error) {
+                        return const Icon(Icons.error);
+                      },
                     );
                   },
                 ),

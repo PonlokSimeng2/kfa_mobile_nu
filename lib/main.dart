@@ -22,9 +22,12 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
-  OneSignal.initialize("4c477f3d-2679-457e-87b0-57808114f822");
-  OneSignal.Notifications.requestPermission(true);
+
+  if (!kIsWeb) {
+    OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+    OneSignal.initialize("4c477f3d-2679-457e-87b0-57808114f822");
+    OneSignal.Notifications.requestPermission(true);
+  }
 
   final sharePref = await SharedPreferences.getInstance();
   await initSupabase();

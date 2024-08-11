@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter/foundation.dart';
 import 'package:getwidget/components/button/gf_button.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kfa_mobile_nu/exports.dart';
@@ -12,6 +13,7 @@ import 'package:kfa_mobile_nu/src/models/property_model.schema.dart';
 import 'package:kfa_mobile_nu/src/providers/property_provider.dart';
 import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
 import 'package:kfa_mobile_nu/src/widgets/map_picker.dart';
+import 'package:kfa_mobile_nu/src/widgets/max_width_box.dart';
 import 'package:kfa_mobile_nu/src/widgets/property_type_dropdown.dart';
 import 'package:kfa_mobile_nu/src/widgets/province_dropdown.dart';
 
@@ -73,845 +75,987 @@ class EditPropertyPage extends HookConsumerWidget {
                 ),
               ],
             ),
-            body: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SingleChildScrollView(
-                keyboardDismissBehavior:
-                    ScrollViewKeyboardDismissBehavior.onDrag,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _ImagePicker(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    UpdatePropertyLatitudeFieldWidget(
-                      builder: (ref, latitude, changeLatitude, showValidation) {
-                        return UpdatePropertyLongitudeFieldWidget(
-                          builder: (
-                            ref,
-                            longitude,
-                            changeLongitude,
-                            showValidation,
-                          ) {
-                            final mapUrl =
-                                "https://maps.googleapis.com/maps/api/staticmap?center=$latitude,$longitude&zoom=18&size=1080x920&maptype=hybrid&markers=color:red%7C%7C$latitude,$longitude&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI";
-                            return InkWell(
-                              onTap: () async {
-                                final result = await MapPickerPage.show(
-                                  context,
-                                  initialLat: latitude,
-                                  initialLng: longitude,
-                                );
-                                if (result != null) {
-                                  changeLatitude(result.latitude);
-                                  changeLongitude(result.longitude);
-                                }
-                              },
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(right: 30, left: 30),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(width: 1),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.3,
-                                  width: MediaQuery.of(context).size.width,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: FadeInImage.assetNetwork(
-                                      fit: BoxFit.cover,
-                                      placeholderFit: BoxFit.contain,
-                                      placeholder: 'assets/earth.gif',
-                                      image: mapUrl,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    UpdatePropertyProvinceFieldWidget(
-                      builder: (ref, province, changeProvince, showValidation) {
-                        return Padding(
-                          padding:
-                              EdgeInsets.only(right: 30, left: 30, top: 10),
-                          child: Container(
-                            child: ProvinceDropDown(
-                              value: province,
-                              onChanged: (value) {
-                                changeProvince(value);
-                              },
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    UpdatePropertyPropertyTypeFieldWidget(
-                      builder: (
-                        ref,
-                        propertyType,
-                        changePropertyType,
-                        showValidation,
-                      ) {
-                        return Padding(
-                          padding:
-                              EdgeInsets.only(right: 30, left: 30, top: 10),
-                          child: Container(
-                            child: PropertyTypeDropDown(
-                              value: propertyType,
-                              onChanged: (value) {
-                                changePropertyType(value);
-                              },
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                      child: Row(
-                        children: [
-                          UpdatePropertyPriceFieldWidget(
-                            builder: (ref, price, changePrice, showValidation) {
-                              return Expanded(
-                                child: TextFormField(
-                                  initialValue: price.toString(),
-                                  onChanged: (value) {
-                                    changePrice(double.parse(value));
-                                  },
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: Icon(
-                                      Icons.feed_outlined,
-                                      color: kImageColor,
-                                    ),
-                                    hintText: 'Price',
-                                    labelText: 'Price',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          UpdatePropertySqmFieldWidget(
-                            builder: (ref, sqm, changeSqm, showValidation) {
-                              return Expanded(
-                                child: TextFormField(
-                                  initialValue: sqm.toString(),
-                                  onChanged: (value) {
-                                    changeSqm(double.parse(value));
-                                  },
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: Icon(
-                                      Icons.feed_outlined,
-                                      color: kImageColor,
-                                    ),
-                                    hintText: 'Sqm*',
-                                    labelText: 'Sqm',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ],
+            body: MaxWidthBox(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SingleChildScrollView(
+                  keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _ImagePicker(),
+                      SizedBox(height: 10),
+                      _LatLng(),
+                      SizedBox(height: 5),
+                      _Province(),
+                      SizedBox(height: 5),
+                      _PropertyType(),
+                      Padding(
+                        padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+                        child: Row(
+                          children: [
+                            _Price(),
+                            SizedBox(width: 10),
+                            _Sqm(),
+                          ],
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                      child: Row(
-                        children: [
-                          UpdatePropertyBedroomsFieldWidget(
-                            builder: (ref, bed, changeBed, showValidation) {
-                              return Expanded(
-                                child: TextFormField(
-                                  initialValue: bed.toString(),
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  onChanged: (value) {
-                                    changeBed(int.parse(value));
-                                  },
-                                  decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: Icon(
-                                      Icons.bed_outlined,
-                                      color: kImageColor,
-                                    ),
-                                    hintText: 'bed',
-                                    labelText: 'Bed',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          UpdatePropertyBathroomsFieldWidget(
-                            builder: (ref, bath, changeBath, showValidation) {
-                              return Expanded(
-                                child: TextFormField(
-                                  initialValue: bath.toString(),
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  onChanged: (value) {
-                                    changeBath(int.parse(value));
-                                  },
-                                  decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: Icon(
-                                      Icons.feed_outlined,
-                                      color: kImageColor,
-                                    ),
-                                    hintText: 'bath',
-                                    labelText: 'Bath',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ],
+                      Padding(
+                        padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+                        child: Row(
+                          children: [
+                            _Bedrooms(),
+                            SizedBox(width: 10),
+                            _Bathroom(),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 27.0),
-                      child: Text('Size Land*'),
-                    ),
-                    SizedBox(
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 27.0),
-                            child: UpdatePropertyLandLengthFieldWidget(
-                              builder: (
-                                ref,
-                                landLength,
-                                changeLandLength,
-                                showValidation,
-                              ) {
-                                return Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.4,
-                                  child: TextFormField(
-                                    initialValue: landLength.toString(),
-                                    keyboardType: TextInputType.number,
-                                    style: TextStyle(
-                                      fontSize:
-                                          MediaQuery.of(context).size.height *
-                                              0.015,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    decoration: InputDecoration(
-                                      contentPadding:
-                                          EdgeInsets.symmetric(vertical: 8),
-                                      hintText: 'L',
-                                      labelText: 'L',
-                                      fillColor: kwhite,
-                                      filled: true,
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                          color: kPrimaryColor,
-                                          width: 2.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 1,
-                                          color: kPrimaryColor,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                    ),
-                                    onChanged: (value) {
-                                      changeLandLength(double.parse(value));
-                                    },
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          UpdatePropertyLandWidthFieldWidget(
-                            builder: (
-                              ref,
-                              landWidth,
-                              changeLandWidth,
-                              showValidation,
-                            ) {
-                              return Container(
-                                width: MediaQuery.of(context).size.width * 0.4,
-                                child: TextFormField(
-                                  initialValue: landWidth.toString(),
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 8),
-                                    hintText: 'W',
-                                    labelText: 'W',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                  onChanged: (value) {
-                                    changeLandWidth(double.parse(value));
-                                  },
-                                ),
-                              );
-                            },
-                          ),
-                        ],
+                      SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 27.0),
+                        child: Text('Size Land*'),
                       ),
-                    ),
-                    SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 27.0),
-                      child: Text('Size Building'),
-                    ),
-                    SizedBox(
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 27.0),
-                            child: UpdatePropertyBuildingLengthFieldWidget(
-                              builder: (
-                                ref,
-                                buildingLength,
-                                changeBuildingLength,
-                                showValidation,
-                              ) {
-                                return Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.4,
-                                  child: TextFormField(
-                                    initialValue: buildingLength.toString(),
-                                    keyboardType: TextInputType.number,
-                                    style: TextStyle(
-                                      fontSize:
-                                          MediaQuery.of(context).size.height *
-                                              0.015,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    decoration: InputDecoration(
-                                      contentPadding:
-                                          EdgeInsets.symmetric(vertical: 8),
-                                      hintText: 'L',
-                                      labelText: 'L',
-                                      fillColor: kwhite,
-                                      filled: true,
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                          color: kPrimaryColor,
-                                          width: 2.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 1,
-                                          color: kPrimaryColor,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                    ),
-                                    onChanged: (value) {
-                                      changeBuildingLength(double.parse(value));
-                                    },
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          UpdatePropertyBuildingWidthFieldWidget(
-                            builder: (
-                              ref,
-                              buildingWidth,
-                              changeBuildingWidth,
-                              showValidation,
-                            ) {
-                              return Container(
-                                width: MediaQuery.of(context).size.width * 0.4,
-                                child: TextFormField(
-                                  initialValue: buildingWidth.toString(),
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 8),
-                                    hintText: 'W',
-                                    labelText: 'W',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                  onChanged: (value) {
-                                    changeBuildingWidth(double.parse(value));
-                                  },
-                                ),
-                              );
-                            },
-                          ),
-                        ],
+                      Padding(
+                        padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+                        child: Row(
+                          children: [
+                            Expanded(child: _LandLength()),
+                            SizedBox(width: 10),
+                            Expanded(child: _LandWidth()),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 10),
-                    Padding(
-                      padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                      child: Row(
-                        children: [
-                          UpdatePropertyFloorsFieldWidget(
-                            builder:
-                                (ref, floors, changeFloors, showValidation) {
-                              return Expanded(
-                                child: TextFormField(
-                                  initialValue: floors.toString(),
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  onChanged: (value) {
-                                    changeFloors(int.parse(value));
-                                  },
-                                  decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 8),
-                                    labelText: 'Floor',
-                                    prefixIcon: Icon(
-                                      Icons.bed_outlined,
-                                      color: kImageColor,
-                                    ),
-                                    hintText: 'floor',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          UpdatePropertyParkingFieldWidget(
-                            builder:
-                                (ref, parking, changeParking, showValidation) {
-                              return Expanded(
-                                child: TextFormField(
-                                  initialValue: parking.toString(),
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  onChanged: (value) {
-                                    changeParking(int.parse(value));
-                                  },
-                                  decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 8),
-                                    labelText: 'Parking',
-                                    prefixIcon: Icon(
-                                      Icons.feed_outlined,
-                                      color: kImageColor,
-                                    ),
-                                    hintText: 'parking',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ],
+                      SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 27.0),
+                        child: Text('Size Building'),
                       ),
-                    ),
-                    UpdatePropertyLivingRoomsFieldWidget(
-                      builder: (
-                        ref,
-                        livingRooms,
-                        changeLivingRooms,
-                        showValidation,
-                      ) {
-                        return Padding(
-                          padding:
-                              EdgeInsets.only(right: 30, left: 30, top: 10),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: TextFormField(
-                                  initialValue: livingRooms.toString(),
-                                  onChanged: (value) {
-                                    changeLivingRooms(int.parse(value));
-                                  },
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.015,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: Icon(
-                                      Icons.bed_outlined,
-                                      color: kImageColor,
-                                    ),
-                                    hintText: 'LivingRoom',
-                                    labelText: 'LivingRoom',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: UpdatePropertyPropertyListingTypeFieldWidget(
-                              builder: (
-                                ref,
-                                propertyListingType,
-                                changePropertyListingType,
-                                showValidation,
-                              ) {
-                                return DropdownButtonFormField<
-                                    PropertyListingType>(
-                                  isExpanded: true,
-                                  value: propertyListingType,
-                                  items: PropertyListingType.values
-                                      .map<
-                                          DropdownMenuItem<
-                                              PropertyListingType>>(
-                                        (value) => DropdownMenuItem<
-                                            PropertyListingType>(
-                                          value: value,
-                                          child: Text(
-                                            "For " + value.name.capitalize(),
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              height: 1,
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                      .toList(),
-                                  icon: Icon(
-                                    Icons.arrow_drop_down,
-                                    color: kImageColor,
-                                  ),
-                                  decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon: Icon(
-                                      Icons.bed_outlined,
-                                      color: kImageColor,
-                                    ),
-                                    hintText: 'Type*',
-                                    fillColor: kwhite,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: kPrimaryColor,
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: kPrimaryColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                  onChanged: (value) {
-                                    changePropertyListingType(value!);
-                                  },
-                                );
-                              },
-                            ),
-                          ),
-                        ],
+                      Padding(
+                        padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+                        child: Row(
+                          children: [
+                            Expanded(child: _BuildingLength()),
+                            SizedBox(width: 10),
+                            Expanded(child: _BuidingWidth()),
+                          ],
+                        ),
                       ),
-                    ),
-                    UpdatePropertyTitleFieldWidget(
-                      builder: (
-                        ref,
-                        textController,
-                        title,
-                        changeTitle,
-                        showValidation,
-                      ) {
-                        return Padding(
-                          padding: const EdgeInsets.only(right: 20, left: 20),
-                          child: Container(
-                            height: 50,
-                            width: double.infinity,
-                            margin: EdgeInsets.all(10),
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                color: Colors.grey,
-                                width: 1,
-                              ),
-                            ),
-                            child: TextFormField(
-                              controller: textController,
-                              maxLines: 3,
-                              decoration: InputDecoration.collapsed(
-                                hintText: 'Title',
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    UpdatePropertyDescriptionFieldWidget(
-                      builder: (
-                        ref,
-                        textController,
-                        description,
-                        changeDescription,
-                        showValidation,
-                      ) {
-                        return Padding(
-                          padding: const EdgeInsets.only(right: 20, left: 20),
-                          child: Container(
-                            height: 150,
-                            width: double.infinity,
-                            margin: EdgeInsets.all(10),
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                color: Colors.grey,
-                                width: 1,
-                              ),
-                            ),
-                            child: TextFormField(
-                              controller: textController,
-                              maxLines: 3,
-                              decoration: InputDecoration.collapsed(
-                                hintText: 'Description',
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
+                      SizedBox(height: 10),
+                      Padding(
+                        padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+                        child: Row(
+                          children: [
+                            _Floor(),
+                            SizedBox(width: 10),
+                            _Parking(),
+                          ],
+                        ),
+                      ),
+                      _LivingRoom(),
+                      Padding(
+                        padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+                        child: Row(
+                          children: [
+                            Expanded(child: _ListingType()),
+                          ],
+                        ),
+                      ),
+                      _Title(),
+                      _Description(),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
+        );
+      },
+    );
+  }
+}
+
+class _Description extends StatelessWidget {
+  const _Description({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return UpdatePropertyDescriptionFieldWidget(
+      builder: (
+        ref,
+        textController,
+        description,
+        changeDescription,
+        showValidation,
+      ) {
+        return Padding(
+          padding: const EdgeInsets.only(right: 20, left: 20),
+          child: Container(
+            height: 150,
+            width: double.infinity,
+            margin: EdgeInsets.all(10),
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: Colors.grey,
+                width: 1,
+              ),
+            ),
+            child: TextFormField(
+              controller: textController,
+              maxLines: 3,
+              decoration: InputDecoration.collapsed(
+                hintText: 'Description',
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _Title extends StatelessWidget {
+  const _Title({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return UpdatePropertyTitleFieldWidget(
+      builder: (
+        ref,
+        textController,
+        title,
+        changeTitle,
+        showValidation,
+      ) {
+        return Padding(
+          padding: const EdgeInsets.only(right: 20, left: 20),
+          child: Container(
+            height: 50,
+            width: double.infinity,
+            margin: EdgeInsets.all(10),
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: Colors.grey,
+                width: 1,
+              ),
+            ),
+            child: TextFormField(
+              controller: textController,
+              maxLines: 3,
+              decoration: InputDecoration.collapsed(
+                hintText: 'Title',
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _ListingType extends StatelessWidget {
+  const _ListingType({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return UpdatePropertyPropertyListingTypeFieldWidget(
+      builder: (
+        ref,
+        propertyListingType,
+        changePropertyListingType,
+        showValidation,
+      ) {
+        return DropdownButtonFormField<PropertyListingType>(
+          isExpanded: true,
+          value: propertyListingType,
+          items: PropertyListingType.values
+              .map<DropdownMenuItem<PropertyListingType>>(
+                (value) => DropdownMenuItem<PropertyListingType>(
+                  value: value,
+                  child: Text(
+                    "For " + value.name.capitalize(),
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      height: 1,
+                    ),
+                  ),
+                ),
+              )
+              .toList(),
+          icon: Icon(
+            Icons.arrow_drop_down,
+            color: kImageColor,
+          ),
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.symmetric(
+              vertical: 8,
+              horizontal: 8,
+            ),
+            prefixIcon: Icon(
+              Icons.bed_outlined,
+              color: kImageColor,
+            ),
+            hintText: 'Type*',
+            fillColor: kwhite,
+            filled: true,
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                color: kPrimaryColor,
+                width: 2.0,
+              ),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 1,
+                color: kPrimaryColor,
+              ),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+          onChanged: (value) {
+            changePropertyListingType(value!);
+          },
+        );
+      },
+    );
+  }
+}
+
+class _LivingRoom extends StatelessWidget {
+  const _LivingRoom({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return UpdatePropertyLivingRoomsFieldWidget(
+      builder: (
+        ref,
+        livingRooms,
+        changeLivingRooms,
+        showValidation,
+      ) {
+        return Padding(
+          padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextFormField(
+                  initialValue: livingRooms.toString(),
+                  onChanged: (value) {
+                    changeLivingRooms(int.parse(value));
+                  },
+                  keyboardType: TextInputType.number,
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.height * 0.015,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.symmetric(
+                      vertical: 8,
+                      horizontal: 8,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.bed_outlined,
+                      color: kImageColor,
+                    ),
+                    hintText: 'LivingRoom',
+                    labelText: 'LivingRoom',
+                    fillColor: kwhite,
+                    filled: true,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: kPrimaryColor,
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 1,
+                        color: kPrimaryColor,
+                      ),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _Parking extends StatelessWidget {
+  const _Parking({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return UpdatePropertyParkingFieldWidget(
+      builder: (ref, parking, changeParking, showValidation) {
+        return Expanded(
+          child: TextFormField(
+            initialValue: parking.toString(),
+            keyboardType: TextInputType.number,
+            style: TextStyle(
+              fontSize: MediaQuery.of(context).size.height * 0.015,
+              fontWeight: FontWeight.bold,
+            ),
+            onChanged: (value) {
+              changeParking(int.parse(value));
+            },
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(
+                vertical: 8,
+                horizontal: 8,
+              ),
+              labelText: 'Parking',
+              prefixIcon: Icon(
+                Icons.feed_outlined,
+                color: kImageColor,
+              ),
+              hintText: 'parking',
+              fillColor: kwhite,
+              filled: true,
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  color: kPrimaryColor,
+                  width: 2.0,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: 1,
+                  color: kPrimaryColor,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _Floor extends StatelessWidget {
+  const _Floor({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return UpdatePropertyFloorsFieldWidget(
+      builder: (ref, floors, changeFloors, showValidation) {
+        return Expanded(
+          child: TextFormField(
+            initialValue: floors.toString(),
+            keyboardType: TextInputType.number,
+            style: TextStyle(
+              fontSize: MediaQuery.of(context).size.height * 0.015,
+              fontWeight: FontWeight.bold,
+            ),
+            onChanged: (value) {
+              changeFloors(int.parse(value));
+            },
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(
+                vertical: 8,
+                horizontal: 8,
+              ),
+              labelText: 'Floor',
+              prefixIcon: Icon(
+                Icons.bed_outlined,
+                color: kImageColor,
+              ),
+              hintText: 'floor',
+              fillColor: kwhite,
+              filled: true,
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  color: kPrimaryColor,
+                  width: 2.0,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: 1,
+                  color: kPrimaryColor,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _BuidingWidth extends StatelessWidget {
+  const _BuidingWidth({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return UpdatePropertyBuildingWidthFieldWidget(
+      builder: (
+        ref,
+        buildingWidth,
+        changeBuildingWidth,
+        showValidation,
+      ) {
+        return TextFormField(
+          initialValue: buildingWidth.toString(),
+          keyboardType: TextInputType.number,
+          style: TextStyle(
+            fontSize: MediaQuery.of(context).size.height * 0.015,
+            fontWeight: FontWeight.bold,
+          ),
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.symmetric(
+              vertical: 8,
+              horizontal: 8,
+            ),
+            hintText: 'W',
+            labelText: 'W',
+            fillColor: kwhite,
+            filled: true,
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                color: kPrimaryColor,
+                width: 2.0,
+              ),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 1,
+                color: kPrimaryColor,
+              ),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+          onChanged: (value) {
+            changeBuildingWidth(double.parse(value));
+          },
+        );
+      },
+    );
+  }
+}
+
+class _BuildingLength extends StatelessWidget {
+  const _BuildingLength({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return UpdatePropertyBuildingLengthFieldWidget(
+      builder: (
+        ref,
+        buildingLength,
+        changeBuildingLength,
+        showValidation,
+      ) {
+        return TextFormField(
+          initialValue: buildingLength.toString(),
+          keyboardType: TextInputType.number,
+          style: TextStyle(
+            fontSize: MediaQuery.of(context).size.height * 0.015,
+            fontWeight: FontWeight.bold,
+          ),
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.symmetric(
+              vertical: 8,
+              horizontal: 8,
+            ),
+            hintText: 'L',
+            labelText: 'L',
+            fillColor: kwhite,
+            filled: true,
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                color: kPrimaryColor,
+                width: 2.0,
+              ),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 1,
+                color: kPrimaryColor,
+              ),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+          onChanged: (value) {
+            changeBuildingLength(double.parse(value));
+          },
+        );
+      },
+    );
+  }
+}
+
+class _LandWidth extends StatelessWidget {
+  const _LandWidth({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return UpdatePropertyLandWidthFieldWidget(
+      builder: (
+        ref,
+        landWidth,
+        changeLandWidth,
+        showValidation,
+      ) {
+        return Container(
+          child: TextFormField(
+            initialValue: landWidth.toString(),
+            keyboardType: TextInputType.number,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(
+                vertical: 8,
+                horizontal: 8,
+              ),
+              hintText: 'W',
+              labelText: 'W',
+              fillColor: kwhite,
+              filled: true,
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  color: kPrimaryColor,
+                  width: 2.0,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: 1,
+                  color: kPrimaryColor,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+            onChanged: (value) {
+              changeLandWidth(double.parse(value));
+            },
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _LandLength extends StatelessWidget {
+  const _LandLength({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return UpdatePropertyLandLengthFieldWidget(
+      builder: (
+        ref,
+        landLength,
+        changeLandLength,
+        showValidation,
+      ) {
+        return Container(
+          child: TextFormField(
+            initialValue: landLength.toString(),
+            keyboardType: TextInputType.number,
+            style: TextStyle(
+              fontSize: MediaQuery.of(context).size.height * 0.015,
+              fontWeight: FontWeight.bold,
+            ),
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(
+                vertical: 8,
+                horizontal: 8,
+              ),
+              hintText: 'L',
+              labelText: 'L',
+              fillColor: kwhite,
+              filled: true,
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  color: kPrimaryColor,
+                  width: 2.0,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: 1,
+                  color: kPrimaryColor,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+            onChanged: (value) {
+              changeLandLength(double.parse(value));
+            },
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _Bathroom extends StatelessWidget {
+  const _Bathroom({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return UpdatePropertyBathroomsFieldWidget(
+      builder: (ref, bath, changeBath, showValidation) {
+        return Expanded(
+          child: TextFormField(
+            initialValue: bath.toString(),
+            keyboardType: TextInputType.number,
+            style: TextStyle(
+              fontSize: MediaQuery.of(context).size.height * 0.015,
+              fontWeight: FontWeight.bold,
+            ),
+            onChanged: (value) {
+              changeBath(int.parse(value));
+            },
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(
+                vertical: 8,
+                horizontal: 8,
+              ),
+              prefixIcon: Icon(
+                Icons.feed_outlined,
+                color: kImageColor,
+              ),
+              hintText: 'bath',
+              labelText: 'Bath',
+              fillColor: kwhite,
+              filled: true,
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  color: kPrimaryColor,
+                  width: 2.0,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: 1,
+                  color: kPrimaryColor,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _Bedrooms extends StatelessWidget {
+  const _Bedrooms({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return UpdatePropertyBedroomsFieldWidget(
+      builder: (ref, bed, changeBed, showValidation) {
+        return Expanded(
+          child: TextFormField(
+            initialValue: bed.toString(),
+            keyboardType: TextInputType.number,
+            style: TextStyle(
+              fontSize: MediaQuery.of(context).size.height * 0.015,
+              fontWeight: FontWeight.bold,
+            ),
+            onChanged: (value) {
+              changeBed(int.parse(value));
+            },
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(
+                vertical: 8,
+                horizontal: 8,
+              ),
+              prefixIcon: Icon(
+                Icons.bed_outlined,
+                color: kImageColor,
+              ),
+              hintText: 'bed',
+              labelText: 'Bed',
+              fillColor: kwhite,
+              filled: true,
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  color: kPrimaryColor,
+                  width: 2.0,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: 1,
+                  color: kPrimaryColor,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _Sqm extends StatelessWidget {
+  const _Sqm({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return UpdatePropertySqmFieldWidget(
+      builder: (ref, sqm, changeSqm, showValidation) {
+        return Expanded(
+          child: TextFormField(
+            initialValue: sqm.toString(),
+            onChanged: (value) {
+              changeSqm(double.parse(value));
+            },
+            keyboardType: TextInputType.number,
+            style: TextStyle(
+              fontSize: MediaQuery.of(context).size.height * 0.015,
+              fontWeight: FontWeight.bold,
+            ),
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(
+                vertical: 8,
+                horizontal: 8,
+              ),
+              prefixIcon: Icon(
+                Icons.feed_outlined,
+                color: kImageColor,
+              ),
+              hintText: 'Sqm*',
+              labelText: 'Sqm',
+              fillColor: kwhite,
+              filled: true,
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  color: kPrimaryColor,
+                  width: 2.0,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: 1,
+                  color: kPrimaryColor,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _Price extends StatelessWidget {
+  const _Price({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return UpdatePropertyPriceFieldWidget(
+      builder: (ref, price, changePrice, showValidation) {
+        return Expanded(
+          child: TextFormField(
+            initialValue: price.toString(),
+            onChanged: (value) {
+              changePrice(double.parse(value));
+            },
+            keyboardType: TextInputType.number,
+            style: TextStyle(
+              fontSize: MediaQuery.of(context).size.height * 0.015,
+              fontWeight: FontWeight.bold,
+            ),
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(
+                vertical: 8,
+                horizontal: 8,
+              ),
+              prefixIcon: Icon(
+                Icons.feed_outlined,
+                color: kImageColor,
+              ),
+              hintText: 'Price',
+              labelText: 'Price',
+              fillColor: kwhite,
+              filled: true,
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  color: kPrimaryColor,
+                  width: 2.0,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: 1,
+                  color: kPrimaryColor,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _PropertyType extends StatelessWidget {
+  const _PropertyType({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return UpdatePropertyPropertyTypeFieldWidget(
+      builder: (
+        ref,
+        propertyType,
+        changePropertyType,
+        showValidation,
+      ) {
+        return Padding(
+          padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+          child: Container(
+            child: PropertyTypeDropDown(
+              value: propertyType,
+              onChanged: (value) {
+                changePropertyType(value);
+              },
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _Province extends StatelessWidget {
+  const _Province({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return UpdatePropertyProvinceFieldWidget(
+      builder: (ref, province, changeProvince, showValidation) {
+        return Padding(
+          padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+          child: Container(
+            child: ProvinceDropDown(
+              value: province,
+              onChanged: (value) {
+                changeProvince(value);
+              },
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _LatLng extends StatelessWidget {
+  const _LatLng({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return UpdatePropertyLatitudeFieldWidget(
+      builder: (ref, latitude, changeLatitude, showValidation) {
+        return UpdatePropertyLongitudeFieldWidget(
+          builder: (
+            ref,
+            longitude,
+            changeLongitude,
+            showValidation,
+          ) {
+            final mapUrl =
+                "https://maps.googleapis.com/maps/api/staticmap?center=$latitude,$longitude&zoom=18&size=1080x920&maptype=hybrid&markers=color:red%7C%7C$latitude,$longitude&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI";
+            return InkWell(
+              onTap: () async {
+                final result = await MapPickerPage.show(
+                  context,
+                  initialLat: latitude,
+                  initialLng: longitude,
+                );
+                if (result != null) {
+                  changeLatitude(result.latitude);
+                  changeLongitude(result.longitude);
+                }
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(right: 30, left: 30),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  width: MediaQuery.of(context).size.width,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: FadeInImage.assetNetwork(
+                      fit: BoxFit.cover,
+                      placeholderFit: BoxFit.contain,
+                      placeholder: 'assets/earth.gif',
+                      image: mapUrl,
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
         );
       },
     );
@@ -929,20 +1073,16 @@ class _ImagePicker extends HookWidget {
     final currentImageIndex = useState(0);
 
     return UpdatePropertyExistingImageUrlsFieldWidget(
-      builder:
-          (ref, existingImageUrls, changeExistingImageUrls, showValidation) {
+      builder: (ref, existingImageUrls, changeExistingImageUrls, showValidation) {
         return UpdatePropertyNewImageFilesFieldWidget(
           builder: (ref, imageFiles, changeImageFiles, showValidation) {
-            final hasImage =
-                imageFiles.isNotEmpty || existingImageUrls.isNotEmpty;
-            final imagePaths = existingImageUrls
-                .addAll(imageFiles.map((e) => e.path).toList());
+            final hasImage = imageFiles.isNotEmpty || existingImageUrls.isNotEmpty;
+            final imagePaths = existingImageUrls.addAll(imageFiles.map((e) => e.path).toList());
 
             return Column(
               children: [
                 Container(
-                  margin: EdgeInsets.all(30)
-                      .copyWith(bottom: imageFiles.isEmpty ? 20 : 0),
+                  margin: EdgeInsets.all(30).copyWith(bottom: imageFiles.isEmpty ? 20 : 0),
                   decoration: BoxDecoration(
                     color: kwhite,
                     borderRadius: BorderRadius.circular(10),
@@ -981,13 +1121,33 @@ class _ImagePicker extends HookWidget {
                           children: [
                             PageView.builder(
                               controller: pageController,
-                              onPageChanged: (value) =>
-                                  currentImageIndex.value = value,
+                              onPageChanged: (value) => currentImageIndex.value = value,
                               itemCount: imagePaths.length,
                               itemBuilder: (context, index) {
                                 final path = imagePaths[index];
 
                                 final isUrl = path.startsWith('http');
+
+                                if (kIsWeb && isUrl) {
+                                  return FutureBuilder(
+                                    future: XFile(path).readAsBytes(),
+                                    builder: (context, snapshot) {
+                                      if (!snapshot.hasData) {
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      }
+
+                                      return ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.memory(
+                                          snapshot.data!,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      );
+                                    },
+                                  );
+                                }
 
                                 return ClipRRect(
                                   borderRadius: BorderRadius.circular(10),

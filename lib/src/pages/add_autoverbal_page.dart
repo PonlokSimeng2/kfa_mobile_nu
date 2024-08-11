@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter/foundation.dart';
 import 'package:getwidget/components/button/gf_button.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kfa_mobile_nu/exports.dart';
@@ -15,8 +16,6 @@ import 'package:kfa_mobile_nu/src/widgets/map_picker.dart';
 import 'package:kfa_mobile_nu/src/widgets/property_type_dropdown.dart';
 import 'package:kfa_mobile_nu/src/widgets/province_dropdown.dart';
 import 'package:kfa_mobile_nu/src/widgets/road_dropdown.dart';
-
-import '../models/property_model.dart';
 
 class AddAutoVerbalPage extends HookConsumerWidget {
   AddAutoVerbalPage({super.key, this.propertyModel});
@@ -80,8 +79,7 @@ class AddAutoVerbalPage extends HookConsumerWidget {
             body: Padding(
               padding: const EdgeInsets.all(8.0),
               child: SingleChildScrollView(
-                keyboardDismissBehavior:
-                    ScrollViewKeyboardDismissBehavior.onDrag,
+                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -1204,20 +1202,16 @@ class _ImagePicker extends HookWidget {
     final currentImageIndex = useState(0);
 
     return InsertAutoVerbalExistingImageUrlsFieldWidget(
-      builder:
-          (ref, existingImageUrls, changeExistingImageUrls, showValidation) {
+      builder: (ref, existingImageUrls, changeExistingImageUrls, showValidation) {
         return InsertAutoVerbalImageFilesFieldWidget(
           builder: (ref, imageFiles, changeImageFiles, showValidation) {
-            final hasImage =
-                imageFiles.isNotEmpty || existingImageUrls.isNotEmpty;
-            final imagePaths = existingImageUrls
-                .addAll(imageFiles.map((e) => e.path).toList());
+            final hasImage = imageFiles.isNotEmpty || existingImageUrls.isNotEmpty;
+            final imagePaths = existingImageUrls.addAll(imageFiles.map((e) => e.path).toList());
 
             return Column(
               children: [
                 Container(
-                  margin: EdgeInsets.all(30)
-                      .copyWith(bottom: imageFiles.isEmpty ? 20 : 0),
+                  margin: EdgeInsets.all(30).copyWith(bottom: imageFiles.isEmpty ? 20 : 0),
                   decoration: BoxDecoration(
                     color: kwhite,
                     borderRadius: BorderRadius.circular(10),
@@ -1256,13 +1250,33 @@ class _ImagePicker extends HookWidget {
                           children: [
                             PageView.builder(
                               controller: pageController,
-                              onPageChanged: (value) =>
-                                  currentImageIndex.value = value,
+                              onPageChanged: (value) => currentImageIndex.value = value,
                               itemCount: imagePaths.length,
                               itemBuilder: (context, index) {
                                 final path = imagePaths[index];
 
                                 final isUrl = path.startsWith('http');
+
+                                if (kIsWeb && isUrl) {
+                                  return FutureBuilder(
+                                    future: XFile(path).readAsBytes(),
+                                    builder: (context, snapshot) {
+                                      if (!snapshot.hasData) {
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      }
+
+                                      return ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.memory(
+                                          snapshot.data!,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      );
+                                    },
+                                  );
+                                }
 
                                 return ClipRRect(
                                   borderRadius: BorderRadius.circular(10),

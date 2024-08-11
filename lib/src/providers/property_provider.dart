@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
@@ -201,11 +199,10 @@ class InsertProperty extends _$InsertProperty with _$InsertPropertyForm {
         final List<String> imageUrls = [];
         // upload image and get url
         for (final xFile in state.imageFiles) {
-          final path = xFile.path;
-          final file = File(path);
-          final newPath = '${DateTime.now().microsecondsSinceEpoch}${p.extension(path)}';
+          final bytes = await xFile.readAsBytes();
+          final newPath = '${DateTime.now().microsecondsSinceEpoch}${p.extension(xFile.path)}';
 
-          await sb.storage.from('files').upload(newPath, file);
+          await sb.storage.from('files').uploadBinary(newPath, bytes);
 
           paths.add(newPath);
           final imageUrl = sb.storage.from('files').getPublicUrl(newPath);
@@ -365,11 +362,10 @@ class UpdateProperty extends _$UpdateProperty with _$UpdatePropertyForm {
         final List<String> imageUrls = [...state.existingImageUrls];
         // upload new images and get urls
         for (final xFile in state.newImageFiles) {
-          final path = xFile.path;
-          final file = File(path);
-          final newPath = '${DateTime.now().microsecondsSinceEpoch}${p.extension(path)}';
+          final bytes = await xFile.readAsBytes();
+          final newPath = '${DateTime.now().microsecondsSinceEpoch}${p.extension(xFile.path)}';
 
-          await sb.storage.from('files').upload(newPath, file);
+          await sb.storage.from('files').uploadBinary(newPath, bytes);
 
           paths.add(newPath);
           final imageUrl = sb.storage.from('files').getPublicUrl(newPath);

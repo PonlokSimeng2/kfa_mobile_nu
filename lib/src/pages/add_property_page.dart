@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter/foundation.dart';
 import 'package:getwidget/components/button/gf_button.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kfa_mobile_nu/exports.dart';
@@ -1034,6 +1035,27 @@ class _ImagePicker extends HookConsumerWidget {
                           itemCount: imageFiles.length,
                           itemBuilder: (context, index) {
                             final xFile = imageFiles[index];
+
+                            if (kIsWeb) {
+                              return FutureBuilder(
+                                future: xFile.readAsBytes(),
+                                builder: (context, snapshot) {
+                                  if (!snapshot.hasData) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+
+                                  return ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.memory(
+                                      snapshot.data!,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  );
+                                },
+                              );
+                            }
 
                             return ClipRRect(
                               borderRadius: BorderRadius.circular(10),

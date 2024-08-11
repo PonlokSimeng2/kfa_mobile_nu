@@ -51,6 +51,18 @@ class MyApp extends ConsumerStatefulWidget {
 }
 
 class _MyAppState extends ConsumerState<MyApp> {
+  RealtimeChannel? _autoVerbalChannel;
+  RealtimeChannel? _notificationChannel;
+  RealtimeChannel? _propertyChannel;
+
+  @override
+  void dispose() {
+    _notificationChannel?.unsubscribe();
+    _autoVerbalChannel?.unsubscribe();
+    _propertyChannel?.unsubscribe();
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -60,11 +72,37 @@ class _MyAppState extends ConsumerState<MyApp> {
     );
 
     _initializeSupabaseRealtime();
+    _listenAdminNotificationOnWeb();
+  }
+
+  void _listenAdminNotificationOnWeb() {
+    if (!kIsWeb) return;
+
+    final sb = ref.read(supabaseProvider);
+    _notificationChannel = sb.client
+        .channel('public:notifications')
+        .onPostgresChanges(
+          event: PostgresChangeEvent.insert,
+          schema: 'public',
+          table: 'notifications',
+          callback: (payload) {
+            final isAdmin = ref.read(isAdminProvider);
+            if (context.mounted && isAdmin) {
+              final title = payload.newRecord['title'];
+              final message = payload.newRecord['message'];
+              BotToast.showSimpleNotification(
+                title: title,
+                subTitle: message,
+              );
+            }
+          },
+        )
+        .subscribe();
   }
 
   void _initializeSupabaseRealtime() {
     final sb = ref.read(supabaseProvider);
-    sb.client
+    _autoVerbalChannel = sb.client
         .channel('public:auto_verbals')
         .onPostgresChanges(
           event: PostgresChangeEvent.all,
@@ -86,7 +124,7 @@ class _MyAppState extends ConsumerState<MyApp> {
         )
         .subscribe();
 
-    sb.client
+    _propertyChannel = sb.client
         .channel('public:properties')
         .onPostgresChanges(
           event: PostgresChangeEvent.all,
@@ -113,6 +151,7 @@ class _MyAppState extends ConsumerState<MyApp> {
     final themeMode = ref.watch(appThemeModeProvider);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      navigatorObservers: [BotToastNavigatorObserver()],
       theme: ThemeData.light().copyWith(
         colorScheme: ColorScheme.fromSeed(seedColor: kPrimaryColor),
         primaryColor: kPrimaryColor,

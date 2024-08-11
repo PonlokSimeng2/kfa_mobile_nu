@@ -101,7 +101,7 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
             return old.copyWith(
               statuses: PropertyAndAutoVerbalStatus.values.lock,
             );
-          } else if (status == PropertyAndAutoVerbalStatus.resubmit) {
+          } else if (status == PropertyAndAutoVerbalStatus.pending) {
             return old.copyWith(
               statuses: [
                 PropertyAndAutoVerbalStatus.pending,

@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
@@ -34,26 +33,13 @@ class Auth extends _$Auth {
           .signInWithPassword(email: email, password: password);
       final userId = result.user!.id;
       await _ensureAdmin(userId);
-      await _recordFcmToken(userId);
       ref.invalidateSelf();
       await _initializeOneSignal(result.user!.id);
       return null;
     } catch (e) {
       log("Error login", error: e);
-      print(e.toString());
       return e.toString();
     }
-  }
-
-  Future<void> _recordFcmToken(String userId) async {
-    if (!kIsWeb) return;
-
-    final fcmToken = await FirebaseMessaging.instance.getToken(
-      vapidKey:
-          'BNfVXw-uU2bbvnEny3izER0ERJOiatZJqWLP8FUQN7NwnxzFlfoavgsLQLbBqjTUxSil5k_h3vD6hMDfJ0UGDR0',
-    );
-    final sb = ref.read(supabaseProvider);
-    await sb.client.from('users').update({'fcm_token': fcmToken}).eq('id', userId);
   }
 
   Future<void> _clearFcmToken(String userId) async {

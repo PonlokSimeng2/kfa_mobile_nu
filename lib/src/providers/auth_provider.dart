@@ -42,12 +42,6 @@ class Auth extends _$Auth {
     }
   }
 
-  Future<void> _clearFcmToken(String userId) async {
-    if (!kIsWeb) return;
-    final sb = ref.read(supabaseProvider);
-    await sb.client.from('users').update({'fcm_token': null}).eq('id', state!);
-  }
-
   Future<void> _ensureAdmin(String userId) async {
     if (!kIsWeb) return;
 
@@ -60,7 +54,6 @@ class Auth extends _$Auth {
 
   Future<void> signOut() async {
     await ref.read(supabaseProvider).client.auth.signOut();
-    await _clearFcmToken(state!);
     if (!kIsWeb) {
       await OneSignal.logout();
     }

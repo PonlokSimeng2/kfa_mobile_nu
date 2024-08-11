@@ -1,15 +1,31 @@
+import 'package:intl/intl.dart';
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/models/models.dart';
 import 'package:kfa_mobile_nu/src/pages/admin/admin_property_detail_page.dart';
 import 'package:kfa_mobile_nu/src/pages/property_detail_page.dart';
-import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
-import 'package:intl/intl.dart';
 
+import '../providers/auth_provider.dart';
 import '../providers/property_provider.dart';
 import '../widgets/auth_wrapper_widget.dart';
 import '../widgets/property_type_dropdown.dart';
 
 class ReportPropertyPage extends ConsumerStatefulWidget {
+  static final filter = StateProvider.autoDispose<PropertyListFilter>((ref) {
+    return PropertyListFilter(
+      listingType: PropertyListingType.rent,
+      propertyType: null,
+      userId: ref.read(authProvider),
+      showHiddenFromHomePageItem: true,
+      statuses: PropertyAndAutoVerbalStatus.values.lock,
+    );
+  });
+
+  static void setDateRangeFilter(WidgetRef ref, DateTime? dateFrom, DateTime? dateTo) {
+    ref.read(ReportPropertyPage.filter.notifier).update((old) {
+      return old.copyWith(dateFrom: dateFrom, dateTo: dateTo);
+    });
+  }
+
   const ReportPropertyPage({super.key, this.openItemInAdminPage = false});
 
   final bool openItemInAdminPage;
@@ -43,17 +59,10 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
 
   @override
   Widget build(BuildContext context) {
-    final userAsync = ref.watch(currentUserProvider);
     final firstPageCountAsync = ref.watch(
       propertyListProvider(
         page: 0,
-        filter: PropertyListFilter(
-          listingType: _type,
-          propertyType: _selectedPropertyType,
-          userId: userAsync.value?.id,
-          showHiddenFromHomePageItem: true,
-          statuses: PropertyAndAutoVerbalStatus.values.lock,
-        ),
+        filter: ref.watch(ReportPropertyPage.filter),
       ).select((v) => v.whenData((v) => v.length)),
     );
 
@@ -67,8 +76,7 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
               _buildPropertyTypeDropdown(),
               Expanded(
                 child: firstPageCountAsync.when(
-                  loading: () =>
-                      const Center(child: CircularProgressIndicator()),
+                  loading: () => const Center(child: CircularProgressIndicator()),
                   error: (error, stack) => Center(child: Text('Error: $error')),
                   data: (count) {
                     if (count == 0) {
@@ -80,8 +88,7 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
                       );
                     }
                     return _GridView(
-                      type: _type,
-                      propertyType: _selectedPropertyType,
+                      filter: ref.watch(ReportPropertyPage.filter),
                     );
                   },
                 ),
@@ -116,8 +123,7 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
     IconData icon,
     PropertyListingType? valueType,
   ) {
-    final isSelected =
-        (_type == null && valueType == null) || _type == valueType;
+    final isSelected = (_type == null && valueType == null) || _type == valueType;
     return ElevatedButton.icon(
       onPressed: () => setState(() {
         _type = valueType;
@@ -127,8 +133,7 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
       label: Text(label),
       style: ElevatedButton.styleFrom(
         foregroundColor: isSelected ? Colors.white : Colors.black,
-        backgroundColor:
-            isSelected ? Theme.of(context).primaryColor : Colors.white,
+        backgroundColor: isSelected ? Theme.of(context).primaryColor : Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
     );
@@ -150,23 +155,15 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
 }
 
 class _GridView extends ConsumerWidget {
-  final PropertyListingType? type;
-  final PropertyTypeModel? propertyType;
-  const _GridView({this.type, this.propertyType});
+  final PropertyListFilter filter;
+  const _GridView({required this.filter});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userAsync = ref.watch(currentUserProvider);
     final dataSource = _PropertyDataSource(
       context: context,
       ref: ref,
-      filter: PropertyListFilter(
-        listingType: type,
-        propertyType: propertyType,
-        userId: userAsync.value?.id,
-        showHiddenFromHomePageItem: true,
-        statuses: PropertyAndAutoVerbalStatus.values.lock,
-      ),
+      filter: filter,
       onTap: (item) {
         final reportPropInherited = _ReportPropInherited.of(context);
         if (reportPropInherited!.openItemInAdminPage) {
@@ -211,9 +208,7 @@ class _PropertyDataSource extends DataTableSource {
   }
 
   void _fetchRowCount() {
-    ref
-        .read(propertyListProvider(page: 0, filter: filter).future)
-        .then((value) {
+    ref.read(propertyListProvider(page: 0, filter: filter).future).then((value) {
       _rowCount = value.length;
       notifyListeners();
     });
@@ -221,15 +216,17 @@ class _PropertyDataSource extends DataTableSource {
 
   @override
   DataRow? getRow(int index) {
-    final propertyAsync =
-        ref.watch(propertyListProvider(page: index ~/ 10, filter: filter));
+    final propertyAsync = ref.watch(propertyListProvider(page: index ~/ 10, filter: filter));
     return propertyAsync.when(
       loading: () => DataRow(
-          cells: List.generate(8, (_) => const DataCell(Text('Loading...')))),
-      error: (error, stack) => DataRow(cells: [
-        DataCell(Text(error.toString())),
-        ...List.generate(7, (_) => const DataCell(Text(''))),
-      ]),
+        cells: List.generate(8, (_) => const DataCell(Text('Loading...'))),
+      ),
+      error: (error, stack) => DataRow(
+        cells: [
+          DataCell(Text(error.toString())),
+          ...List.generate(7, (_) => const DataCell(Text(''))),
+        ],
+      ),
       data: (properties) {
         if (index >= properties.length) return null;
         final property = properties[index % 10];
@@ -255,7 +252,8 @@ class _PropertyDataSource extends DataTableSource {
             DataCell(Text(property.propertyType.name)),
             DataCell(Text(property.province.name)),
             DataCell(
-                Text('\$${NumberFormat('#,##0.00').format(property.price)}')),
+              Text('\$${NumberFormat('#,##0.00').format(property.price)}'),
+            ),
             DataCell(Text(property.status.name)),
             DataCell(Text(DateFormat('yyyy-MM-dd').format(property.createdAt))),
           ],

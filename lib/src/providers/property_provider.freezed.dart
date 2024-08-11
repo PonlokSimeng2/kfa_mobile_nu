@@ -26,6 +26,8 @@ mixin _$PropertyListFilter {
   double? get minPrice => throw _privateConstructorUsedError;
   double? get maxPrice => throw _privateConstructorUsedError;
   String? get userId => throw _privateConstructorUsedError;
+  DateTime? get dateFrom => throw _privateConstructorUsedError;
+  DateTime? get dateTo => throw _privateConstructorUsedError;
   bool get showHiddenFromHomePageItem => throw _privateConstructorUsedError;
 
   /// Create a copy of PropertyListFilter
@@ -51,6 +53,8 @@ abstract class $PropertyListFilterCopyWith<$Res> {
       double? minPrice,
       double? maxPrice,
       String? userId,
+      DateTime? dateFrom,
+      DateTime? dateTo,
       bool showHiddenFromHomePageItem});
 
   $ProvinceModelCopyWith<$Res>? get province;
@@ -81,6 +85,8 @@ class _$PropertyListFilterCopyWithImpl<$Res, $Val extends PropertyListFilter>
     Object? minPrice = freezed,
     Object? maxPrice = freezed,
     Object? userId = freezed,
+    Object? dateFrom = freezed,
+    Object? dateTo = freezed,
     Object? showHiddenFromHomePageItem = null,
   }) {
     return _then(_value.copyWith(
@@ -120,6 +126,14 @@ class _$PropertyListFilterCopyWithImpl<$Res, $Val extends PropertyListFilter>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String?,
+      dateFrom: freezed == dateFrom
+          ? _value.dateFrom
+          : dateFrom // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      dateTo: freezed == dateTo
+          ? _value.dateTo
+          : dateTo // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       showHiddenFromHomePageItem: null == showHiddenFromHomePageItem
           ? _value.showHiddenFromHomePageItem
           : showHiddenFromHomePageItem // ignore: cast_nullable_to_non_nullable
@@ -174,6 +188,8 @@ abstract class _$$PropertyListFilterImplCopyWith<$Res>
       double? minPrice,
       double? maxPrice,
       String? userId,
+      DateTime? dateFrom,
+      DateTime? dateTo,
       bool showHiddenFromHomePageItem});
 
   @override
@@ -204,6 +220,8 @@ class __$$PropertyListFilterImplCopyWithImpl<$Res>
     Object? minPrice = freezed,
     Object? maxPrice = freezed,
     Object? userId = freezed,
+    Object? dateFrom = freezed,
+    Object? dateTo = freezed,
     Object? showHiddenFromHomePageItem = null,
   }) {
     return _then(_$PropertyListFilterImpl(
@@ -243,6 +261,14 @@ class __$$PropertyListFilterImplCopyWithImpl<$Res>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String?,
+      dateFrom: freezed == dateFrom
+          ? _value.dateFrom
+          : dateFrom // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      dateTo: freezed == dateTo
+          ? _value.dateTo
+          : dateTo // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       showHiddenFromHomePageItem: null == showHiddenFromHomePageItem
           ? _value.showHiddenFromHomePageItem
           : showHiddenFromHomePageItem // ignore: cast_nullable_to_non_nullable
@@ -265,6 +291,8 @@ class _$PropertyListFilterImpl extends _PropertyListFilter
       this.minPrice,
       this.maxPrice,
       this.userId,
+      this.dateFrom,
+      this.dateTo,
       this.showHiddenFromHomePageItem = false})
       : super._();
 
@@ -289,12 +317,16 @@ class _$PropertyListFilterImpl extends _PropertyListFilter
   @override
   final String? userId;
   @override
+  final DateTime? dateFrom;
+  @override
+  final DateTime? dateTo;
+  @override
   @JsonKey()
   final bool showHiddenFromHomePageItem;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PropertyListFilter(statuses: $statuses, propertyIds: $propertyIds, titleOrDescription: $titleOrDescription, province: $province, propertyType: $propertyType, listingType: $listingType, minPrice: $minPrice, maxPrice: $maxPrice, userId: $userId, showHiddenFromHomePageItem: $showHiddenFromHomePageItem)';
+    return 'PropertyListFilter(statuses: $statuses, propertyIds: $propertyIds, titleOrDescription: $titleOrDescription, province: $province, propertyType: $propertyType, listingType: $listingType, minPrice: $minPrice, maxPrice: $maxPrice, userId: $userId, dateFrom: $dateFrom, dateTo: $dateTo, showHiddenFromHomePageItem: $showHiddenFromHomePageItem)';
   }
 
   @override
@@ -311,6 +343,8 @@ class _$PropertyListFilterImpl extends _PropertyListFilter
       ..add(DiagnosticsProperty('minPrice', minPrice))
       ..add(DiagnosticsProperty('maxPrice', maxPrice))
       ..add(DiagnosticsProperty('userId', userId))
+      ..add(DiagnosticsProperty('dateFrom', dateFrom))
+      ..add(DiagnosticsProperty('dateTo', dateTo))
       ..add(DiagnosticsProperty(
           'showHiddenFromHomePageItem', showHiddenFromHomePageItem));
   }
@@ -336,6 +370,9 @@ class _$PropertyListFilterImpl extends _PropertyListFilter
             (identical(other.maxPrice, maxPrice) ||
                 other.maxPrice == maxPrice) &&
             (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.dateFrom, dateFrom) ||
+                other.dateFrom == dateFrom) &&
+            (identical(other.dateTo, dateTo) || other.dateTo == dateTo) &&
             (identical(other.showHiddenFromHomePageItem,
                     showHiddenFromHomePageItem) ||
                 other.showHiddenFromHomePageItem ==
@@ -354,6 +391,8 @@ class _$PropertyListFilterImpl extends _PropertyListFilter
       minPrice,
       maxPrice,
       userId,
+      dateFrom,
+      dateTo,
       showHiddenFromHomePageItem);
 
   /// Create a copy of PropertyListFilter
@@ -377,6 +416,8 @@ abstract class _PropertyListFilter extends PropertyListFilter {
       final double? minPrice,
       final double? maxPrice,
       final String? userId,
+      final DateTime? dateFrom,
+      final DateTime? dateTo,
       final bool showHiddenFromHomePageItem}) = _$PropertyListFilterImpl;
   const _PropertyListFilter._() : super._();
 
@@ -398,6 +439,10 @@ abstract class _PropertyListFilter extends PropertyListFilter {
   double? get maxPrice;
   @override
   String? get userId;
+  @override
+  DateTime? get dateFrom;
+  @override
+  DateTime? get dateTo;
   @override
   bool get showHiddenFromHomePageItem;
 

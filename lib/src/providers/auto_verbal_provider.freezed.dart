@@ -35,6 +35,8 @@ mixin _$AutoVerbalListFilter {
   double? get bath => throw _privateConstructorUsedError;
   double? get livingroom => throw _privateConstructorUsedError;
   double? get floor => throw _privateConstructorUsedError;
+  DateTime? get dateFrom => throw _privateConstructorUsedError;
+  DateTime? get dateTo => throw _privateConstructorUsedError;
 
   /// Create a copy of AutoVerbalListFilter
   /// with the given fields replaced by the non-null parameter values.
@@ -67,7 +69,9 @@ abstract class $AutoVerbalListFilterCopyWith<$Res> {
       double? bed,
       double? bath,
       double? livingroom,
-      double? floor});
+      double? floor,
+      DateTime? dateFrom,
+      DateTime? dateTo});
 
   $ProvinceModelCopyWith<$Res>? get province;
   $PropertyTypeModelCopyWith<$Res>? get propertyType;
@@ -109,6 +113,8 @@ class _$AutoVerbalListFilterCopyWithImpl<$Res,
     Object? bath = freezed,
     Object? livingroom = freezed,
     Object? floor = freezed,
+    Object? dateFrom = freezed,
+    Object? dateTo = freezed,
   }) {
     return _then(_value.copyWith(
       statuses: null == statuses
@@ -183,6 +189,14 @@ class _$AutoVerbalListFilterCopyWithImpl<$Res,
           ? _value.floor
           : floor // ignore: cast_nullable_to_non_nullable
               as double?,
+      dateFrom: freezed == dateFrom
+          ? _value.dateFrom
+          : dateFrom // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      dateTo: freezed == dateTo
+          ? _value.dateTo
+          : dateTo // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 
@@ -269,7 +283,9 @@ abstract class _$$AutoVerbalListFilterImplCopyWith<$Res>
       double? bed,
       double? bath,
       double? livingroom,
-      double? floor});
+      double? floor,
+      DateTime? dateFrom,
+      DateTime? dateTo});
 
   @override
   $ProvinceModelCopyWith<$Res>? get province;
@@ -312,6 +328,8 @@ class __$$AutoVerbalListFilterImplCopyWithImpl<$Res>
     Object? bath = freezed,
     Object? livingroom = freezed,
     Object? floor = freezed,
+    Object? dateFrom = freezed,
+    Object? dateTo = freezed,
   }) {
     return _then(_$AutoVerbalListFilterImpl(
       statuses: null == statuses
@@ -386,6 +404,14 @@ class __$$AutoVerbalListFilterImplCopyWithImpl<$Res>
           ? _value.floor
           : floor // ignore: cast_nullable_to_non_nullable
               as double?,
+      dateFrom: freezed == dateFrom
+          ? _value.dateFrom
+          : dateFrom // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      dateTo: freezed == dateTo
+          ? _value.dateTo
+          : dateTo // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -411,7 +437,9 @@ class _$AutoVerbalListFilterImpl extends _AutoVerbalListFilter {
       this.bed,
       this.bath,
       this.livingroom,
-      this.floor})
+      this.floor,
+      this.dateFrom,
+      this.dateTo})
       : super._();
 
   @override
@@ -451,10 +479,14 @@ class _$AutoVerbalListFilterImpl extends _AutoVerbalListFilter {
   final double? livingroom;
   @override
   final double? floor;
+  @override
+  final DateTime? dateFrom;
+  @override
+  final DateTime? dateTo;
 
   @override
   String toString() {
-    return 'AutoVerbalListFilter(statuses: $statuses, ownerNameOrPhone: $ownerNameOrPhone, province: $province, propertyType: $propertyType, bank: $bank, bankBranch: $bankBranch, minValue: $minValue, maxValue: $maxValue, userId: $userId, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, road: $road, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor)';
+    return 'AutoVerbalListFilter(statuses: $statuses, ownerNameOrPhone: $ownerNameOrPhone, province: $province, propertyType: $propertyType, bank: $bank, bankBranch: $bankBranch, minValue: $minValue, maxValue: $maxValue, userId: $userId, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, road: $road, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, dateFrom: $dateFrom, dateTo: $dateTo)';
   }
 
   @override
@@ -490,30 +522,36 @@ class _$AutoVerbalListFilterImpl extends _AutoVerbalListFilter {
             (identical(other.bath, bath) || other.bath == bath) &&
             (identical(other.livingroom, livingroom) ||
                 other.livingroom == livingroom) &&
-            (identical(other.floor, floor) || other.floor == floor));
+            (identical(other.floor, floor) || other.floor == floor) &&
+            (identical(other.dateFrom, dateFrom) ||
+                other.dateFrom == dateFrom) &&
+            (identical(other.dateTo, dateTo) || other.dateTo == dateTo));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(statuses),
-      ownerNameOrPhone,
-      province,
-      propertyType,
-      bank,
-      bankBranch,
-      minValue,
-      maxValue,
-      userId,
-      buildinglength,
-      buildingwidth,
-      landlength,
-      landwidth,
-      road,
-      bed,
-      bath,
-      livingroom,
-      floor);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        const DeepCollectionEquality().hash(statuses),
+        ownerNameOrPhone,
+        province,
+        propertyType,
+        bank,
+        bankBranch,
+        minValue,
+        maxValue,
+        userId,
+        buildinglength,
+        buildingwidth,
+        landlength,
+        landwidth,
+        road,
+        bed,
+        bath,
+        livingroom,
+        floor,
+        dateFrom,
+        dateTo
+      ]);
 
   /// Create a copy of AutoVerbalListFilter
   /// with the given fields replaced by the non-null parameter values.
@@ -545,7 +583,9 @@ abstract class _AutoVerbalListFilter extends AutoVerbalListFilter {
       final double? bed,
       final double? bath,
       final double? livingroom,
-      final double? floor}) = _$AutoVerbalListFilterImpl;
+      final double? floor,
+      final DateTime? dateFrom,
+      final DateTime? dateTo}) = _$AutoVerbalListFilterImpl;
   const _AutoVerbalListFilter._() : super._();
 
   @override
@@ -584,6 +624,10 @@ abstract class _AutoVerbalListFilter extends AutoVerbalListFilter {
   double? get livingroom;
   @override
   double? get floor;
+  @override
+  DateTime? get dateFrom;
+  @override
+  DateTime? get dateTo;
 
   /// Create a copy of AutoVerbalListFilter
   /// with the given fields replaced by the non-null parameter values.

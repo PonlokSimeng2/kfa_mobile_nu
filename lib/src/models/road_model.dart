@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 import '../../exports.dart';
 
 part 'road_model.freezed.dart';
@@ -14,8 +15,7 @@ class RoadModel with _$RoadModel {
     required String name,
   }) = _RoadModel;
 
-  factory RoadModel.fromJson(Map<String, dynamic> json) =>
-      _$RoadModelFromJson(json);
+  factory RoadModel.fromJson(Map<String, dynamic> json) => _$RoadModelFromJson(json);
 
   static const TableBuilder table = _tableRoadModel;
 }

@@ -2,26 +2,31 @@ import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/models/models.dart';
 import 'package:kfa_mobile_nu/src/pages/admin/admin_auto_verbal_detail_page.dart';
 import 'package:kfa_mobile_nu/src/pages/client_auto_verbal_detail_page.dart';
-import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 
+import '../providers/auth_provider.dart';
 import '../providers/auto_verbal_provider.dart';
 import '../widgets/auth_wrapper_widget.dart';
 
-final _initialFilterProvider = Provider.autoDispose<AutoVerbalListFilter>((ref) {
-  throw UnimplementedError();
-});
-
-final _filterProvider = StateProvider<AutoVerbalListFilter>(
+final _filterProvider = StateProvider.autoDispose<AutoVerbalListFilter>(
   (ref) {
-    return ref.read(_initialFilterProvider);
+    final currentUserId = ref.watch(authProvider);
+    return AutoVerbalListFilter(
+      userId: currentUserId,
+      statuses: PropertyAndAutoVerbalStatus.values.lock,
+    );
   },
-  dependencies: [_initialFilterProvider],
 );
 
 class AutoVerbalListPage extends ConsumerStatefulWidget {
   const AutoVerbalListPage({super.key, this.openItemInAdminPage = false});
 
   final bool openItemInAdminPage;
+
+  static void setDateRangeFilter(WidgetRef ref, DateTime? dateFrom, DateTime? dateTo) {
+    ref.read(_filterProvider.notifier).update((old) {
+      return old.copyWith(dateFrom: dateFrom, dateTo: dateTo);
+    });
+  }
 
   @override
   ConsumerState<AutoVerbalListPage> createState() => _AutoVerbalListPageState();
@@ -51,15 +56,10 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
 
   @override
   Widget build(BuildContext context) {
-    final userAsync = ref.watch(currentUserProvider);
     final firstPageCountAsync = ref.watch(
       autoVerbalListProvider(
         page: 0,
-        filter: AutoVerbalListFilter(
-          // status: _status,
-          userId: userAsync.value?.id,
-          statuses: PropertyAndAutoVerbalStatus.values.lock,
-        ),
+        filter: ref.watch(_filterProvider),
       ).select((v) => v.whenData((v) => v.length)),
     );
 

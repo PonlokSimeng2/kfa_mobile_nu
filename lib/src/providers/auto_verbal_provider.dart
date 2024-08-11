@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kfa_mobile_nu/src/helpers/date_time_helper.dart';
 import 'package:kfa_mobile_nu/src/models/auto_verbal_model.dart';
 import 'package:kfa_mobile_nu/src/models/bank_model.dart';
 import 'package:kfa_mobile_nu/src/models/base.dart';
@@ -44,6 +45,8 @@ class AutoVerbalListFilter with _$AutoVerbalListFilter {
     double? bath,
     double? livingroom,
     double? floor,
+    DateTime? dateFrom,
+    DateTime? dateTo,
   }) = _AutoVerbalListFilter;
 }
 
@@ -95,6 +98,18 @@ FutureOr<IList<AutoVerbalModel>> autoVerbalList(
 
   if (filter?.userId != null) {
     query = query.eq('user_id', filter!.userId!);
+  }
+
+  if (filter?.dateFrom != null) {
+    query = query.gte(
+      AutoVerbalTable.createdAt,
+      filter!.dateFrom!.firstMinuteOfDay().toIso8601String(),
+    );
+  }
+
+  if (filter?.dateTo != null) {
+    query =
+        query.lte(AutoVerbalTable.createdAt, filter!.dateTo!.lastMinuteOfDay().toIso8601String());
   }
 
   return await query

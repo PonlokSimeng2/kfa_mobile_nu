@@ -49,6 +49,8 @@ class Auth extends _$Auth {
   }
 
   Future<void> _ensureAdmin(String userId) async {
+    if (!kIsWeb) return;
+
     final userDetail = await getUser(ref, userId);
     if (userDetail == null || userDetail.isAdmin == false) {
       await signOut();

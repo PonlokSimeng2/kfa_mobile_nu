@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kfa_mobile_nu/src/helpers/date_time_helper.dart';
 import 'package:kfa_mobile_nu/src/models/property_model.schema.dart';
 import 'package:kfa_mobile_nu/src/models/property_type_model.schema.dart';
 import 'package:kfa_mobile_nu/src/models/province_model.schema.dart';
@@ -33,6 +36,8 @@ class PropertyListFilter with _$PropertyListFilter {
     double? minPrice,
     double? maxPrice,
     String? userId,
+    DateTime? dateFrom,
+    DateTime? dateTo,
     @Default(false) bool showHiddenFromHomePageItem,
   }) = _PropertyListFilter;
 }
@@ -43,6 +48,10 @@ FutureOr<IList<PropertyModel>> propertyList(
   required int page,
   PropertyListFilter? filter,
 }) async {
+  ref.listenSelf((previous, next) {
+    log('next $next');
+  });
+
   final sb = ref.watch(supabaseProvider).client;
 
   final offset = page * _limit;
@@ -92,6 +101,15 @@ FutureOr<IList<PropertyModel>> propertyList(
 
   if (filter?.propertyIds != null && filter!.propertyIds.isNotEmpty) {
     query = query.inFilter(PropertyTable.id, filter.propertyIds.toList());
+  }
+
+  if (filter?.dateFrom != null) {
+    query =
+        query.gte(PropertyTable.createdAt, filter!.dateFrom!.firstMinuteOfDay().toIso8601String());
+  }
+
+  if (filter?.dateTo != null) {
+    query = query.lte(PropertyTable.createdAt, filter!.dateTo!.lastMinuteOfDay().toIso8601String());
   }
 
   return await query

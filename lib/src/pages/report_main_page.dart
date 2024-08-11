@@ -1,6 +1,5 @@
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/models/base.dart';
-import 'package:kfa_mobile_nu/src/models/property_model.dart';
 import 'package:kfa_mobile_nu/src/pages/auto_verbal_list_page.dart';
 import 'package:kfa_mobile_nu/src/pages/report_property_page.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
@@ -16,10 +15,11 @@ class ReportMainPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isPropertyPage = useState(true);
     final pageCtr = usePageController();
     final dateRange = useState<DateTimeRange?>(null);
 
-    Future<void> _selectDateRange() async {
+    Future<void> selectDateRange() async {
       final picked = await showDateRangePicker(
         context: context,
         firstDate: DateTime(2000),
@@ -28,10 +28,11 @@ class ReportMainPage extends HookConsumerWidget {
       );
       if (picked != null) {
         dateRange.value = picked;
+        ReportPropertyPage.setDateRangeFilter(ref, picked.start, picked.end);
       }
     }
 
-    Future<void> _generateAndPrintPDF() async {
+    Future<void> generateAndPrintPDF() async {
       if (dateRange.value == null) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Please select a date range first')),
@@ -68,12 +69,14 @@ class ReportMainPage extends HookConsumerWidget {
                   context: context,
                   data: <List<String>>[
                     <String>['ID', 'Title', 'Price', 'Created At'],
-                    ...filteredProperties.map((property) => [
-                          property.id.toString(),
-                          property.title,
-                          property.price.toString(),
-                          property.createdAt.toString(),
-                        ]),
+                    ...filteredProperties.map(
+                      (property) => [
+                        property.id.toString(),
+                        property.title,
+                        property.price.toString(),
+                        property.createdAt.toString(),
+                      ],
+                    ),
                   ],
                 ),
               ],
@@ -95,25 +98,27 @@ class ReportMainPage extends HookConsumerWidget {
             return [
               SliverAppBar(
                 floating: true,
-                backgroundColor:
-                    context.isDarkMode ? Colors.grey[800] : kPrimaryColor,
+                backgroundColor: context.isDarkMode ? Colors.grey[800] : kPrimaryColor,
                 elevation: 0,
                 surfaceTintColor: Colors.transparent,
                 title: Text(
                   'Report',
                   style: TextStyle(
-                      color: context.isDarkMode ? Colors.white : Colors.white),
+                    color: context.isDarkMode ? Colors.white : Colors.white,
+                  ),
                 ),
-                actions: [
-                  IconButton(
-                    icon: const Icon(Icons.date_range),
-                    onPressed: _selectDateRange,
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.print),
-                    onPressed: _generateAndPrintPDF,
-                  ),
-                ],
+                actions: isPropertyPage.value
+                    ? [
+                        IconButton(
+                          icon: const Icon(Icons.date_range),
+                          onPressed: selectDateRange,
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.print),
+                          onPressed: generateAndPrintPDF,
+                        ),
+                      ]
+                    : [],
               ),
               SliverToBoxAdapter(
                 child: Container(
@@ -134,32 +139,46 @@ class ReportMainPage extends HookConsumerWidget {
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
-                          color: context.isDarkMode
-                              ? Colors.white
-                              : Colors.black87,
+                          color: context.isDarkMode ? Colors.white : Colors.black87,
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      Text(
-                        'Here you can view and manage all your reports.',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: context.isDarkMode
-                              ? Colors.white70
-                              : Colors.black54,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      if (dateRange.value != null)
-                        Text(
-                          'Selected Date Range: ${dateRange.value!.start.toString().split(' ')[0]} - ${dateRange.value!.end.toString().split(' ')[0]}',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: context.isDarkMode
-                                ? Colors.white70
-                                : Colors.black54,
+                      if (dateRange.value != null) ...[
+                        const SizedBox(height: 10),
+                        RichText(
+                          text: TextSpan(
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: context.isDarkMode ? Colors.white70 : Colors.black54,
+                            ),
+                            children: [
+                              const TextSpan(
+                                text: 'Date Range: ',
+                              ),
+                              TextSpan(
+                                text:
+                                    '${dateRange.value!.start.toString().split(' ')[0]} - ${dateRange.value!.end.toString().split(' ')[0]}',
+                                style: const TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              const TextSpan(text: '  '),
+                              WidgetSpan(
+                                child: InkWell(
+                                  child: const Text(
+                                    'Clear',
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    dateRange.value = null;
+                                    ReportPropertyPage.setDateRangeFilter(ref, null, null);
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
                         ),
+                      ],
                       const SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -170,8 +189,7 @@ class ReportMainPage extends HookConsumerWidget {
                                 final count = ref.watch(
                                   countPropertyAndAutoVerbalProvider(
                                     userId: ref.watch(authProvider),
-                                    statuses:
-                                        PropertyAndAutoVerbalStatus.values.lock,
+                                    statuses: PropertyAndAutoVerbalStatus.values.lock,
                                   ).select(
                                     (v) => v.whenOrNull(
                                       data: (data) => data.propertyCount,
@@ -199,8 +217,7 @@ class ReportMainPage extends HookConsumerWidget {
                                 final count = ref.watch(
                                   countPropertyAndAutoVerbalProvider(
                                     userId: ref.watch(authProvider),
-                                    statuses:
-                                        PropertyAndAutoVerbalStatus.values.lock,
+                                    statuses: PropertyAndAutoVerbalStatus.values.lock,
                                   ).select(
                                     (v) => v.whenOrNull(
                                       data: (data) => data.autoVerbalCount,
@@ -231,11 +248,13 @@ class ReportMainPage extends HookConsumerWidget {
             ];
           },
           body: ColoredBox(
-            color: context.isDarkMode
-                ? Colors.grey[900]!
-                : Theme.of(context).scaffoldBackgroundColor,
+            color:
+                context.isDarkMode ? Colors.grey[900]! : Theme.of(context).scaffoldBackgroundColor,
             child: PageView(
               controller: pageCtr,
+              onPageChanged: (index) {
+                isPropertyPage.value = index == 0;
+              },
               physics: const NeverScrollableScrollPhysics(),
               children: const [
                 ReportPropertyPage(openItemInAdminPage: true),
@@ -264,9 +283,7 @@ class ReportMainPage extends HookConsumerWidget {
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: context.isDarkMode
-              ? color.withOpacity(0.2)
-              : color.withOpacity(0.1),
+          color: context.isDarkMode ? color.withOpacity(0.2) : color.withOpacity(0.1),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(

@@ -2,7 +2,6 @@ import 'package:kfa_mobile_nu/src/models/property_type_model.schema.dart';
 
 import '../../exports.dart';
 import '../providers/property_type_provider.dart';
-import '../providers/theme_provider.dart';
 
 class PropertyTypeDropDown extends ConsumerWidget {
   const PropertyTypeDropDown({
@@ -19,7 +18,6 @@ class PropertyTypeDropDown extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final propertyTypeList = ref.watch(propertyTypeListProvider);
-    final isDarkMode = ref.watch(themeProvider) == ThemeMode.dark;
 
     return DropdownButtonFormField<PropertyTypeModel>(
       isExpanded: true,
@@ -37,25 +35,25 @@ class PropertyTypeDropDown extends ConsumerWidget {
             }).toList(),
       icon: Icon(
         Icons.arrow_drop_down,
-        color: isDarkMode ? Colors.white : kImageColor,
+        color: context.isDarkMode ? Colors.white : kImageColor,
       ),
-      dropdownColor: isDarkMode ? Colors.grey[800] : kwhite,
-      style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+      dropdownColor: context.isDarkMode ? Colors.grey[800] : kwhite,
+      style: TextStyle(color: context.isDarkMode ? Colors.white : Colors.black),
       decoration: InputDecoration(
-        fillColor: isDarkMode ? Colors.grey[900] : kwhite,
+        fillColor: context.isDarkMode ? Colors.grey[900] : kwhite,
         filled: true,
-        contentPadding: const EdgeInsets.symmetric(vertical: 8)
-            .copyWith(left: 16, right: 8),
+        contentPadding: const EdgeInsets.symmetric(vertical: 8).copyWith(left: 16, right: 8),
         hintText: 'Property Type*',
-        hintStyle:
-            TextStyle(color: isDarkMode ? Colors.grey[400] : Colors.grey[600]),
+        hintStyle: TextStyle(color: context.isDarkMode ? Colors.grey[400] : Colors.grey[600]),
         prefixIcon: prefixicon != null
-            ? Icon(prefixicon!.icon,
-                color: isDarkMode ? Colors.white : kImageColor)
+            ? Icon(
+                prefixicon!.icon,
+                color: context.isDarkMode ? Colors.white : kImageColor,
+              )
             : null,
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: isDarkMode ? Colors.blue[300]! : kPrimaryColor,
+            color: context.isDarkMode ? Colors.blue[300]! : kPrimaryColor,
             width: 2.0,
           ),
           borderRadius: BorderRadius.circular(10.0),
@@ -63,7 +61,7 @@ class PropertyTypeDropDown extends ConsumerWidget {
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: 1,
-            color: isDarkMode ? Colors.grey[600]! : kPrimaryColor,
+            color: context.isDarkMode ? Colors.grey[600]! : kPrimaryColor,
           ),
           borderRadius: BorderRadius.circular(10.0),
         ),

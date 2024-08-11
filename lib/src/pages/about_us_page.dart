@@ -1,6 +1,5 @@
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:kfa_mobile_nu/exports.dart';
-import 'package:kfa_mobile_nu/src/providers/theme_provider.dart';
 import 'package:readmore/readmore.dart';
 
 class AboutUsPage extends ConsumerStatefulWidget {
@@ -62,18 +61,17 @@ class _AboutUsPageState extends ConsumerState<AboutUsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = ref.watch(themeProvider) == ThemeMode.dark;
-
     return Scaffold(
-      backgroundColor: isDarkMode ? Colors.grey[900] : const Color.fromARGB(255, 245, 250, 246),
+      backgroundColor:
+          context.isDarkMode ? Colors.grey[900] : const Color.fromARGB(255, 245, 250, 246),
       appBar: AppBar(
-        backgroundColor: isDarkMode ? Colors.grey[800] : kwhite_new,
+        backgroundColor: context.isDarkMode ? Colors.grey[800] : kPrimaryColor,
         elevation: 0,
         centerTitle: true,
         title: Text(
           'About us',
           style: TextStyle(
-            color: isDarkMode ? Colors.white : Colors.white,
+            color: context.isDarkMode ? Colors.white : Colors.black,
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
@@ -83,7 +81,7 @@ class _AboutUsPageState extends ConsumerState<AboutUsPage> {
       body: Container(
         padding: const EdgeInsets.only(top: 15),
         decoration: BoxDecoration(
-          color: isDarkMode ? Colors.grey[800] : kBackgroundColor,
+          color: context.isDarkMode ? Colors.grey[800] : kBackgroundColor,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -97,7 +95,7 @@ class _AboutUsPageState extends ConsumerState<AboutUsPage> {
             ),
             padding: const EdgeInsets.only(right: 15, left: 15, bottom: 15),
             decoration: BoxDecoration(
-              color: isDarkMode ? Colors.grey[800] : kBackgroundColor,
+              color: context.isDarkMode ? Colors.grey[800] : kBackgroundColor,
               borderRadius: const BorderRadius.only(),
             ),
             child: Column(
@@ -132,27 +130,38 @@ class _AboutUsPageState extends ConsumerState<AboutUsPage> {
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
-                        color: isDarkMode ? Colors.white : Colors.black,
+                        color: context.isDarkMode ? Colors.white : Colors.black,
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 10),
-                _buildSection("About Us", content, isDarkMode),
+                _buildSection("About Us", content),
                 _buildSection(
                   "Founder & Chairman/CEO's Message",
                   message,
-                  isDarkMode,
                 ),
                 const Image(
                   fit: BoxFit.fitWidth,
                   alignment: Alignment.center,
                   image: AssetImage('assets/images/message-banner3.jpg'),
                 ),
-                _buildSection("Company Overview", overview, isDarkMode),
-                _buildSection("Vision and Mission", vision, isDarkMode),
-                _buildSection("Our People", ourpeople, isDarkMode),
-                _buildSection("Company Profile", profile, isDarkMode),
+                _buildSection(
+                  "Company Overview",
+                  overview,
+                ),
+                _buildSection(
+                  "Vision and Mission",
+                  vision,
+                ),
+                _buildSection(
+                  "Our People",
+                  ourpeople,
+                ),
+                _buildSection(
+                  "Company Profile",
+                  profile,
+                ),
                 const SizedBox(height: 10),
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -179,20 +188,19 @@ class _AboutUsPageState extends ConsumerState<AboutUsPage> {
     );
   }
 
-  Widget _buildSection(String title, String text, bool isDarkMode) {
+  Widget _buildSection(String title, String text) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.bold,
-            color: isDarkMode ? Colors.white : Colors.black,
           ),
         ),
         const SizedBox(height: 5),
-        ReadMore(text: text, isDarkMode: isDarkMode),
+        ReadMore(text: text),
         const SizedBox(height: 10),
         const Divider(color: Colors.blueAccent, thickness: 0.5),
       ],
@@ -204,7 +212,6 @@ class ReadMore extends StatefulWidget {
   const ReadMore({
     super.key,
     required this.text,
-    required bool isDarkMode,
   });
 
   final String text;

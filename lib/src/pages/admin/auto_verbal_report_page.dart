@@ -1,16 +1,15 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:kfa_mobile_nu/exports.dart';
-import 'package:kfa_mobile_nu/gen/assets.gen.dart';
 import 'package:kfa_mobile_nu/src/models/base.dart';
 import 'package:kfa_mobile_nu/src/providers/auto_verbal_provider.dart';
 
+import '../../widgets/app_logo.dart';
 import 'widgets/admin_auto_verbal_list_widget.dart';
 
 final _filterProvider = StateProvider.autoDispose<AutoVerbalListFilter>((ref) {
   return AutoVerbalListFilter(
     statuses: [
       PropertyAndAutoVerbalStatus.pending,
-      PropertyAndAutoVerbalStatus.resubmit
+      PropertyAndAutoVerbalStatus.resubmit,
     ].lock,
   );
 });
@@ -25,35 +24,7 @@ class AutoVerbalReportPage extends StatefulHookConsumerWidget {
 class _AutoVerbalReportPageState extends ConsumerState<AutoVerbalReportPage> {
   AppBar _buildAppBar() {
     return AppBar(
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Assets.images.kFALogo.image(
-            width: 55,
-            height: 55,
-          ),
-          DefaultTextStyle(
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.bold,
-            ),
-            child: AnimatedTextKit(
-              animatedTexts: [
-                WavyAnimatedText(
-                  'MOBILE  ',
-                  textAlign: TextAlign.center,
-                  textStyle: const TextStyle(color: Colors.white),
-                ),
-              ],
-              pause: const Duration(milliseconds: 300),
-              isRepeatingAnimation: true,
-              repeatForever: true,
-              onTap: () {},
-            ),
-          ),
-        ],
-      ),
+      title: const AppLogo(),
     );
   }
 
@@ -66,7 +37,7 @@ class _AutoVerbalReportPageState extends ConsumerState<AutoVerbalReportPage> {
             color: Colors.white,
             borderRadius: BorderRadius.circular(15),
           ),
-          margin: const EdgeInsets.all(16),
+          margin: context.responsiveMargin,
           child: Column(
             children: [
               Container(
@@ -80,8 +51,9 @@ class _AutoVerbalReportPageState extends ConsumerState<AutoVerbalReportPage> {
                   children: [
                     // _buildTabButton(null),
                     ...PropertyAndAutoVerbalStatus.values
-                        .where((status) =>
-                            status != PropertyAndAutoVerbalStatus.resubmit)
+                        .where(
+                          (status) => status != PropertyAndAutoVerbalStatus.resubmit,
+                        )
                         .map((status) => _buildTabButton(status)),
                   ],
                 ),
@@ -128,8 +100,7 @@ class _AutoVerbalReportPageState extends ConsumerState<AutoVerbalReportPage> {
             bottom: BorderSide(
               color: isSelected ||
                       (status == null &&
-                          statuses.length ==
-                              PropertyAndAutoVerbalStatus.values.length)
+                          statuses.length == PropertyAndAutoVerbalStatus.values.length)
                   ? Colors.blue
                   : Colors.transparent,
               width: 2,
@@ -140,9 +111,7 @@ class _AutoVerbalReportPageState extends ConsumerState<AutoVerbalReportPage> {
           status?.name.capitalize() ?? 'All',
           style: TextStyle(
             color: isSelected ||
-                    (status == null &&
-                        statuses.length ==
-                            PropertyAndAutoVerbalStatus.values.length)
+                    (status == null && statuses.length == PropertyAndAutoVerbalStatus.values.length)
                 ? Colors.blue
                 : Colors.grey,
             fontWeight: FontWeight.bold,

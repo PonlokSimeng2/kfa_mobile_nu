@@ -1,41 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kfa_mobile_nu/src/providers/cache_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>((ref) {
-  final prefs = ref.watch(sharePrefProvider);
-  return ThemeNotifier(prefs);
-});
+part 'theme_provider.g.dart';
 
-class ThemeNotifier extends StateNotifier<ThemeMode> {
-  final SharedPreferences _prefs;
-
-  ThemeNotifier(this._prefs) : super(ThemeMode.system) {
-    _loadTheme();
-  }
-
-  static const String _themeKey = 'theme_mode';
-
-  void _loadTheme() {
-    final savedTheme = _prefs.getString(_themeKey);
-    if (savedTheme != null) {
-      state = ThemeMode.values.firstWhere(
-        (e) => e.toString() == savedTheme,
-        orElse: () => ThemeMode.system,
-      );
+@riverpod
+class AppThemeMode extends _$AppThemeMode {
+  @override
+  ThemeMode build() {
+    final prefs = ref.watch(sharePrefProvider);
+    ref.listenSelf((pre, next) {
+      if (next != pre) {
+        prefs.setString('theme_mode_name', next.name);
+      }
+    });
+    final themeName = prefs.getString('theme_mode_name');
+    if (themeName == null) {
+      return ThemeMode.light;
     }
-  }
-
-  void setTheme(ThemeMode mode) {
-    state = mode;
-    _prefs.setString(_themeKey, mode.toString());
+    return ThemeMode.values.byName(themeName);
   }
 
   void toggleTheme() {
-    final newMode = state == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
-    setTheme(newMode);
+    state = state == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
   }
-
-  bool get isDarkMode => state == ThemeMode.dark;
 }

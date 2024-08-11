@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
+import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -30,12 +31,21 @@ class Auth extends _$Auth {
           .client
           .auth
           .signInWithPassword(email: email, password: password);
+      await _ensureAdmin(result.user!.id);
       ref.invalidateSelf();
       await _initializeOneSignal(result.user!.id);
       return null;
     } catch (e) {
       log("Error login", error: e);
       return e.toString();
+    }
+  }
+
+  Future<void> _ensureAdmin(String userId) async {
+    final userDetail = await getUser(ref, userId);
+    if (userDetail == null || userDetail.isAdmin == false) {
+      await signOut();
+      throw 'Invalid user';
     }
   }
 
@@ -56,6 +66,10 @@ class Auth extends _$Auth {
     required String phone,
   }) async {
     try {
+      if (kIsWeb) {
+        return "Admin is not allowed to sign up";
+      }
+
       final result = await ref.watch(supabaseProvider).client.auth.signUp(
         email: email,
         password: password,

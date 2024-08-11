@@ -1,5 +1,4 @@
 import 'package:kfa_mobile_nu/exports.dart';
-import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
 import 'package:kfa_mobile_nu/src/models/models.dart';
 import 'package:kfa_mobile_nu/src/pages/admin/admin_property_detail_page.dart';
 import 'package:kfa_mobile_nu/src/pages/property_detail_page.dart';

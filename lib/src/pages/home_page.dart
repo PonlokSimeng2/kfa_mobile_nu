@@ -1,14 +1,14 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:kfa_mobile_nu/src/pages/add_property_page.dart';
 import 'package:kfa_mobile_nu/src/pages/favorite_list_page.dart';
 import 'package:kfa_mobile_nu/src/pages/my_property_page.dart';
 import 'package:kfa_mobile_nu/src/pages/report_main_page.dart';
 import 'package:kfa_mobile_nu/src/pages/setting_page.dart';
+import 'package:kfa_mobile_nu/src/widgets/app_logo.dart';
 
 import '../../exports.dart';
 import '../../gen/assets.gen.dart';
-import '../helpers/build_context_helper.dart';
 import '../providers/user_provider.dart';
 import 'admin/admin_home_page.dart';
 import 'property_list_page.dart';
@@ -19,6 +19,11 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userAsync = ref.watch(currentUserProvider);
+
+    // by default web only for admin
+    if (kIsWeb) {
+      return const _AdminHome();
+    }
 
     return userAsync.onData(
       (user) {
@@ -36,7 +41,7 @@ class HomePage extends ConsumerWidget {
 
   Scaffold _buildLoadingScreen() {
     return Scaffold(
-      backgroundColor: kwhite_new,
+      backgroundColor: kPrimaryColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -139,66 +144,7 @@ class __UserHomeState extends ConsumerState<_UserHome> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Assets.images.kFALogo.image(
-            width: 55,
-            height: 55,
-          ),
-          DefaultTextStyle(
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.bold,
-            ),
-            child: AnimatedTextKit(
-              animatedTexts: [
-                WavyAnimatedText(
-                  'MOBILE  ',
-                  textAlign: TextAlign.center,
-                  textStyle: const TextStyle(color: Colors.white),
-                ),
-              ],
-              pause: const Duration(milliseconds: 300),
-              isRepeatingAnimation: true,
-              repeatForever: true,
-              onTap: () {},
-            ),
-          ),
-          DefaultTextStyle(
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.bold,
-            ),
-            child: AnimatedTextKit(
-              animatedTexts: [
-                WavyAnimatedText(
-                  '',
-                  textAlign: TextAlign.center,
-                  textStyle: const TextStyle(
-                    color: Colors.yellow,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    shadows: [
-                      Shadow(
-                        blurRadius: 5.0,
-                        color: Colors.yellow,
-                        offset: Offset(1.5, 1.5),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-              pause: const Duration(milliseconds: 300),
-              isRepeatingAnimation: true,
-              repeatForever: true,
-              onTap: () {},
-            ),
-          ),
-        ],
-      ),
+      title: const AppLogo(),
     );
   }
 
@@ -260,7 +206,7 @@ class __UserHomeState extends ConsumerState<_UserHome> {
     return Scaffold(
       appBar: _buildAppBar(),
       drawer: _buildDrawer(context),
-      backgroundColor: kwhite_new,
+      backgroundColor: kPrimaryColor,
       body: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

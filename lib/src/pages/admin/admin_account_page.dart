@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:kfa_mobile_nu/src/models/user_model.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
+import 'package:kfa_mobile_nu/src/providers/theme_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 
 import '../../../exports.dart';
@@ -16,8 +17,16 @@ class AdminAccountPage extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('Account'),
         elevation: 0,
-        backgroundColor: kwhite_new,
+        backgroundColor: kPrimaryColor,
         foregroundColor: Colors.white,
+        actions: [
+          Switch(
+            value: context.isDarkMode,
+            onChanged: (value) {
+              ref.read(appThemeModeProvider.notifier).toggleTheme();
+            },
+          ),
+        ],
       ),
       body: userAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
@@ -31,7 +40,7 @@ class AdminAccountPage extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-                  color: kwhite_new,
+                  color: kPrimaryColor,
                   padding: const EdgeInsets.only(bottom: 32.0),
                   child: Center(
                     child: CircleAvatar(
@@ -48,9 +57,10 @@ class AdminAccountPage extends ConsumerWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: context.responsiveMargin,
                   child: Card(
                     elevation: 4,
+                    margin: EdgeInsets.zero,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
@@ -103,7 +113,7 @@ class AdminAccountPage extends ConsumerWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         children: [
-          Icon(icon, color: kwhite_new),
+          Icon(icon, color: kPrimaryColor),
           const SizedBox(width: 16),
           Expanded(
             child: Column(

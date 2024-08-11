@@ -11,6 +11,7 @@ import 'package:sliver_tools/sliver_tools.dart';
 
 import '../../models/base.dart';
 import '../../providers/property_provider.dart';
+import '../../widgets/max_width_box.dart';
 import '../add_autoverbal_page.dart';
 import '../edit_property_page.dart';
 
@@ -79,261 +80,263 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
         ],
       ),
       bottomNavigationBar: bottomAppBar,
-      body: CustomScrollView(
-        controller: scrollCtr,
-        slivers: [
-          SliverToBoxAdapter(
-            child: SizedBox(
-              height: 200,
-              child: PageView.builder(
-                itemCount: widget.property.images.length,
-                itemBuilder: (context, index) {
-                  return CachedNetworkImage(
-                    imageUrl: widget.property.images[index],
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) => const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                    errorWidget: (context, url, error) => const Icon(Icons.error),
-                  );
-                },
+      body: MaxWidthBox(
+        child: CustomScrollView(
+          controller: scrollCtr,
+          slivers: [
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 200,
+                child: PageView.builder(
+                  itemCount: widget.property.images.length,
+                  itemBuilder: (context, index) {
+                    return CachedNetworkImage(
+                      imageUrl: widget.property.images[index],
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.all(16.0),
-            sliver: MultiSliver(
-              children: [
-                SliverToBoxAdapter(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          widget.property.title,
-                          style: Theme.of(context).textTheme.headlineSmall,
+            SliverPadding(
+              padding: const EdgeInsets.all(16.0),
+              sliver: MultiSliver(
+                children: [
+                  SliverToBoxAdapter(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            widget.property.title,
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 8),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
+                        const SizedBox(width: 8),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: widget.property.status.statusColor,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            widget.property.status.name.toUpperCase(),
+                            style: TextStyle(
+                              color: widget.property.status.statusTextColor,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
-                        decoration: BoxDecoration(
-                          color: widget.property.status.statusColor,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Text(
-                          widget.property.status.name.toUpperCase(),
-                          style: TextStyle(
-                            color: widget.property.status.statusTextColor,
-                            fontSize: 12,
+                      ],
+                    ),
+                  ),
+                  const SliverToBoxAdapter(child: SizedBox(height: 8)),
+                  SliverToBoxAdapter(
+                    child: Text(
+                      '${widget.property.propertyType.name} for ${widget.property.listingType.name}',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ),
+                  const SliverToBoxAdapter(child: SizedBox(height: 16)),
+                  SliverToBoxAdapter(
+                    child: Text(
+                      'Price: \$${widget.property.price.toStringAsFixed(2)}',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SliverToBoxAdapter(child: SizedBox(height: 8)),
-                SliverToBoxAdapter(
-                  child: Text(
-                    '${widget.property.propertyType.name} for ${widget.property.listingType.name}',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                ),
-                const SliverToBoxAdapter(child: SizedBox(height: 16)),
-                SliverToBoxAdapter(
-                  child: Text(
-                    'Price: \$${widget.property.price.toStringAsFixed(2)}',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
-                ),
-                const SliverToBoxAdapter(child: SizedBox(height: 16)),
-                SliverToBoxAdapter(
-                  child: Text(
-                    'Description:',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                ),
-                SliverToBoxAdapter(child: Text(widget.property.description)),
-                const SliverToBoxAdapter(child: SizedBox(height: 16)),
-                SliverToBoxAdapter(
-                  child: Card.outlined(
-                    margin: EdgeInsets.zero,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _buildDetailRow('Area', '${widget.property.sqm} sqm'),
-                          _buildDetailRow(
-                            'Bedrooms',
-                            '${widget.property.bedrooms ?? "N/A"}',
-                          ),
-                          _buildDetailRow(
-                            'Bathrooms',
-                            '${widget.property.bathrooms ?? "N/A"}',
-                          ),
-                          _buildDetailRow(
-                            'Floors',
-                            '${widget.property.floors ?? "N/A"}',
-                          ),
-                          _buildDetailRow(
-                            'Parking',
-                            '${widget.property.parking ?? "N/A"}',
-                          ),
-                          _buildDetailRow(
-                            'Living Rooms',
-                            '${widget.property.livingRooms ?? "N/A"}',
-                          ),
-                          _buildDetailRow(
-                            'Land Size',
-                            '${widget.property.landLength} x ${widget.property.landWidth} m',
-                          ),
-                          if (widget.property.houseLength != null &&
-                              widget.property.houseWidth != null)
-                            _buildDetailRow(
-                              'House Size',
-                              '${widget.property.houseLength} x ${widget.property.houseWidth} m',
-                            ),
-                          _buildDetailRow(
-                            'Price per sqm',
-                            '\$${widget.property.pricePerSqm.toStringAsFixed(2)}',
-                          ),
-                          _buildDetailRow(
-                            'Location',
-                            widget.property.province.name,
-                          ),
-                        ],
-                      ),
                     ),
                   ),
-                ),
-                const SliverToBoxAdapter(child: SizedBox(height: 24)),
-                SliverToBoxAdapter(
-                  child: Text(
-                    'Submitted by: ${widget.property.user.fullName}',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: Text(
-                    'Submission Date: ${widget.property.createdAt.toLocal().toString().split(' ')[0]}',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                ),
-                const SliverToBoxAdapter(child: SizedBox(height: 24)),
-                PropertyComment(propertyId: widget.property.id, padding: 0),
-                const SliverToBoxAdapter(child: SizedBox(height: 24)),
-                if (isCurrentUserOwner)
+                  const SliverToBoxAdapter(child: SizedBox(height: 16)),
                   SliverToBoxAdapter(
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          if (isCurrentUserOwner &&
-                              status.value == PropertyAndAutoVerbalStatus.approved) ...[
-                            if (!autoVerbalAdded.value)
-                              SizedBox(
-                                width: 160,
-                                child: FilledButton(
-                                  onPressed: () async {
-                                    final result = await context.push(
-                                      (_) => AddAutoVerbalPage(
-                                        propertyModel: widget.property,
-                                      ),
-                                    );
-                                    if (result == true) {
-                                      autoVerbalAdded.value = true;
-                                      scrollCtr.jumpTo(0);
-                                    }
-                                  },
-                                  child: const Text('Send to property'),
-                                ),
-                              )
-                            else
-                              FilledButton(
-                                onPressed: () {},
-                                child: const Text(
-                                  'Sent to AutoVerbal',
-                                  style: TextStyle(color: Colors.white),
-                                ),
+                    child: Text(
+                      'Description:',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ),
+                  SliverToBoxAdapter(child: Text(widget.property.description)),
+                  const SliverToBoxAdapter(child: SizedBox(height: 16)),
+                  SliverToBoxAdapter(
+                    child: Card.outlined(
+                      margin: EdgeInsets.zero,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildDetailRow('Area', '${widget.property.sqm} sqm'),
+                            _buildDetailRow(
+                              'Bedrooms',
+                              '${widget.property.bedrooms ?? "N/A"}',
+                            ),
+                            _buildDetailRow(
+                              'Bathrooms',
+                              '${widget.property.bathrooms ?? "N/A"}',
+                            ),
+                            _buildDetailRow(
+                              'Floors',
+                              '${widget.property.floors ?? "N/A"}',
+                            ),
+                            _buildDetailRow(
+                              'Parking',
+                              '${widget.property.parking ?? "N/A"}',
+                            ),
+                            _buildDetailRow(
+                              'Living Rooms',
+                              '${widget.property.livingRooms ?? "N/A"}',
+                            ),
+                            _buildDetailRow(
+                              'Land Size',
+                              '${widget.property.landLength} x ${widget.property.landWidth} m',
+                            ),
+                            if (widget.property.houseLength != null &&
+                                widget.property.houseWidth != null)
+                              _buildDetailRow(
+                                'House Size',
+                                '${widget.property.houseLength} x ${widget.property.houseWidth} m',
                               ),
+                            _buildDetailRow(
+                              'Price per sqm',
+                              '\$${widget.property.pricePerSqm.toStringAsFixed(2)}',
+                            ),
+                            _buildDetailRow(
+                              'Location',
+                              widget.property.province.name,
+                            ),
                           ],
-                          const SizedBox(width: 5),
-                          SizedBox(
-                            width: 132,
-                            child: FilledButton(
-                              onPressed: () {
-                                context.push(
-                                  (_) => EditPropertyPage(initial: widget.property),
-                                );
-                              },
-                              child: const Text('Edit'),
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          SizedBox(
-                            width: 105,
-                            child: FilledButton(
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: const Text('Delete'),
-                                      content: const Text(
-                                        'Are you sure you want to delete this property?',
-                                      ),
-                                      actions: <Widget>[
-                                        TextButton(
-                                          child: const Text('Cancel'),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                        FilledButton(
-                                          style: FilledButton.styleFrom(
-                                            backgroundColor: Theme.of(context).colorScheme.error,
-                                          ),
-                                          child: const Text('Delete'),
-                                          onPressed: () async {
-                                            final close = BotToast.showLoading();
-                                            final delete = ref.read(
-                                              deletePropertyProvider(
-                                                widget.property.id,
-                                              ).notifier,
-                                            );
-                                            await delete();
-                                            close();
-                                            if (!context.mounted) return;
-                                            Navigator.of(context).pop();
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              },
-                              style: FilledButton.styleFrom(
-                                backgroundColor: Theme.of(context).colorScheme.error,
-                              ),
-                              child: const Text('Delete'),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
-              ],
+                  const SliverToBoxAdapter(child: SizedBox(height: 24)),
+                  SliverToBoxAdapter(
+                    child: Text(
+                      'Submitted by: ${widget.property.user.fullName}',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Text(
+                      'Submission Date: ${widget.property.createdAt.toLocal().toString().split(' ')[0]}',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ),
+                  const SliverToBoxAdapter(child: SizedBox(height: 24)),
+                  PropertyComment(propertyId: widget.property.id, padding: 0),
+                  const SliverToBoxAdapter(child: SizedBox(height: 24)),
+                  if (isCurrentUserOwner)
+                    SliverToBoxAdapter(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            if (isCurrentUserOwner &&
+                                status.value == PropertyAndAutoVerbalStatus.approved) ...[
+                              if (!autoVerbalAdded.value)
+                                SizedBox(
+                                  width: 160,
+                                  child: FilledButton(
+                                    onPressed: () async {
+                                      final result = await context.push(
+                                        (_) => AddAutoVerbalPage(
+                                          propertyModel: widget.property,
+                                        ),
+                                      );
+                                      if (result == true) {
+                                        autoVerbalAdded.value = true;
+                                        scrollCtr.jumpTo(0);
+                                      }
+                                    },
+                                    child: const Text('Send to property'),
+                                  ),
+                                )
+                              else
+                                FilledButton(
+                                  onPressed: () {},
+                                  child: const Text(
+                                    'Sent to AutoVerbal',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                            ],
+                            const SizedBox(width: 5),
+                            SizedBox(
+                              width: 132,
+                              child: FilledButton(
+                                onPressed: () {
+                                  context.push(
+                                    (_) => EditPropertyPage(initial: widget.property),
+                                  );
+                                },
+                                child: const Text('Edit'),
+                              ),
+                            ),
+                            const SizedBox(width: 5),
+                            SizedBox(
+                              width: 105,
+                              child: FilledButton(
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text('Delete'),
+                                        content: const Text(
+                                          'Are you sure you want to delete this property?',
+                                        ),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            child: const Text('Cancel'),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                          FilledButton(
+                                            style: FilledButton.styleFrom(
+                                              backgroundColor: Theme.of(context).colorScheme.error,
+                                            ),
+                                            child: const Text('Delete'),
+                                            onPressed: () async {
+                                              final close = BotToast.showLoading();
+                                              final delete = ref.read(
+                                                deletePropertyProvider(
+                                                  widget.property.id,
+                                                ).notifier,
+                                              );
+                                              await delete();
+                                              close();
+                                              if (!context.mounted) return;
+                                              Navigator.of(context).pop();
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
+                                style: FilledButton.styleFrom(
+                                  backgroundColor: Theme.of(context).colorScheme.error,
+                                ),
+                                child: const Text('Delete'),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -1,11 +1,10 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:kfa_mobile_nu/exports.dart';
-import 'package:kfa_mobile_nu/gen/assets.gen.dart';
 import 'package:kfa_mobile_nu/src/providers/property_category_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/property_provider.dart';
 
 import '../../models/base.dart';
+import '../../widgets/app_logo.dart';
 import 'widgets/admin_property_list_widget.dart';
 
 final _filterProvider = StateProvider.autoDispose<PropertyListFilter>((ref) {
@@ -24,66 +23,7 @@ class PropertyReportPage extends StatefulHookConsumerWidget {
 class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
   AppBar _buildAppBar() {
     return AppBar(
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Assets.images.kFALogo.image(
-            width: 55,
-            height: 55,
-          ),
-          DefaultTextStyle(
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.bold,
-            ),
-            child: AnimatedTextKit(
-              animatedTexts: [
-                WavyAnimatedText(
-                  'MOBILE  ',
-                  textAlign: TextAlign.center,
-                  textStyle: const TextStyle(color: Colors.white),
-                ),
-              ],
-              pause: const Duration(milliseconds: 300),
-              isRepeatingAnimation: true,
-              repeatForever: true,
-              onTap: () {},
-            ),
-          ),
-          DefaultTextStyle(
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.bold,
-            ),
-            child: AnimatedTextKit(
-              animatedTexts: [
-                WavyAnimatedText(
-                  '',
-                  textAlign: TextAlign.center,
-                  textStyle: const TextStyle(
-                    color: Colors.yellow,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    shadows: [
-                      Shadow(
-                        blurRadius: 5.0,
-                        color: Colors.yellow,
-                        offset: Offset(1.5, 1.5),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-              pause: const Duration(milliseconds: 300),
-              isRepeatingAnimation: true,
-              repeatForever: true,
-              onTap: () {},
-            ),
-          ),
-        ],
-      ),
+      title: const AppLogo(),
     );
   }
 
@@ -96,7 +36,7 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
             color: Colors.white,
             borderRadius: BorderRadius.circular(15),
           ),
-          margin: const EdgeInsets.all(16),
+          margin: context.responsiveMargin,
           child: Column(
             children: [
               Container(
@@ -209,7 +149,7 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
     return Scaffold(
       appBar: _buildAppBar(),
       body: Container(
-        color: Colors.grey[100],
+        color: context.scaffoldBackgroundColor,
         child: SafeArea(
           child: Column(
             children: [

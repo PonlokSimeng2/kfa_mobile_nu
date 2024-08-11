@@ -1,5 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -8,7 +9,6 @@ import '../../constaints.dart';
 import '../helpers/build_context_helper.dart';
 import '../providers/auth_provider.dart';
 import '../providers/cache_provider.dart';
-import '../providers/theme_provider.dart';
 import '../widgets/responsive.dart';
 import 'home_page.dart';
 import 'register_page.dart';
@@ -51,12 +51,9 @@ class _LoginState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = ref.watch(themeProvider) == ThemeMode.dark;
-    final themeData = Theme.of(context);
-
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: isDarkMode ? themeData.primaryColorDark : kwhite_new,
+        backgroundColor: kPrimaryColor,
         elevation: 0,
         centerTitle: true,
         title: Image.asset(
@@ -66,11 +63,11 @@ class _LoginState extends ConsumerState<LoginPage> {
         ),
         toolbarHeight: 100,
       ),
-      backgroundColor: isDarkMode ? themeData.primaryColorDark : kwhite_new,
+      backgroundColor: kPrimaryColor,
       body: Container(
         height: double.infinity,
         decoration: BoxDecoration(
-          color: isDarkMode ? themeData.scaffoldBackgroundColor : kwhite,
+          color: context.scaffoldBackgroundColor,
           borderRadius: const BorderRadius.only(
             topRight: Radius.circular(30.0),
             topLeft: Radius.circular(30.0),
@@ -78,7 +75,7 @@ class _LoginState extends ConsumerState<LoginPage> {
         ),
         child: SingleChildScrollView(
           child: Responsive(
-            mobile: login(context, isDarkMode),
+            mobile: login(context),
             tablet: Row(
               children: [
                 Expanded(
@@ -87,7 +84,7 @@ class _LoginState extends ConsumerState<LoginPage> {
                     children: [
                       SizedBox(
                         width: 500,
-                        child: login(context, isDarkMode),
+                        child: login(context),
                       ),
                     ],
                   ),
@@ -102,21 +99,21 @@ class _LoginState extends ConsumerState<LoginPage> {
                     children: [
                       SizedBox(
                         width: 500,
-                        child: login(context, isDarkMode),
+                        child: login(context),
                       ),
                     ],
                   ),
                 ),
               ],
             ),
-            phone: login(context, isDarkMode),
+            phone: login(context),
           ),
         ),
       ),
     );
   }
 
-  Padding login(BuildContext context, bool isDarkMode) {
+  Padding login(BuildContext context) {
     final themeData = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
@@ -129,7 +126,7 @@ class _LoginState extends ConsumerState<LoginPage> {
               style: TextStyle(
                 fontSize: 25.0,
                 fontWeight: FontWeight.bold,
-                color: isDarkMode ? themeData.primaryColorLight : kwhite_new,
+                color: context.isDarkMode ? themeData.primaryColorLight : kPrimaryColor,
               ),
             ),
             const SizedBox(
@@ -138,9 +135,7 @@ class _LoginState extends ConsumerState<LoginPage> {
             const SizedBox(
               height: 30.0,
             ),
-            ((status == false)
-                ? input(context, isDarkMode)
-                : output(context, isDarkMode)),
+            ((status == false) ? input(context) : output(context)),
             const SizedBox(
               height: 10.0,
             ),
@@ -148,7 +143,7 @@ class _LoginState extends ConsumerState<LoginPage> {
               width: 150,
               child: AnimatedButton(
                 text: 'Login',
-                color: isDarkMode ? themeData.primaryColorLight : kwhite_new,
+                color: context.isDarkMode ? themeData.primaryColorLight : kPrimaryColor,
                 pressEvent: () async {
                   _formKey.currentState?.save();
                   if (!_formKey.currentState!.validate()) return;
@@ -210,45 +205,44 @@ class _LoginState extends ConsumerState<LoginPage> {
             const SizedBox(
               height: 20.0,
             ),
-            Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: "Don't have any account? ",
-                    style: TextStyle(
+            if (!kIsWeb)
+              Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "Don't have any account? ",
+                      style: TextStyle(
                         fontSize: 16.0,
-                        color:
-                            isDarkMode ? themeData.hintColor : kTextLightColor),
-                  ),
-                  TextSpan(
-                    text: 'Register',
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const RegisterPage(),
-                          ),
-                        );
-                      },
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: isDarkMode
-                          ? themeData.primaryColorLight
-                          : kImageColor,
-                      fontWeight: FontWeight.bold,
+                        color: context.isDarkMode ? themeData.hintColor : kTextLightColor,
+                      ),
                     ),
-                  ),
-                ],
+                    TextSpan(
+                      text: 'Register',
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RegisterPage(),
+                            ),
+                          );
+                        },
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: context.isDarkMode ? themeData.primaryColorLight : kImageColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
           ],
         ),
       ),
     );
   }
 
-  Widget input(BuildContext context, bool isDarkMode) {
+  Widget input(BuildContext context) {
     final themeData = Theme.of(context);
     return Column(
       children: [
@@ -257,20 +251,19 @@ class _LoginState extends ConsumerState<LoginPage> {
           child: TextFormField(
             controller: emailCtr,
             decoration: InputDecoration(
-              fillColor: isDarkMode
+              fillColor: context.isDarkMode
                   ? themeData.cardColor
                   : const Color.fromARGB(255, 255, 255, 255),
               filled: true,
               labelText: 'Email',
-              labelStyle:
-                  TextStyle(color: isDarkMode ? themeData.hintColor : null),
+              labelStyle: TextStyle(color: context.isDarkMode ? themeData.hintColor : null),
               prefixIcon: Icon(
                 Icons.email,
-                color: isDarkMode ? themeData.primaryColorLight : kImageColor,
+                color: context.isDarkMode ? themeData.primaryColorLight : kImageColor,
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: isDarkMode
+                  color: context.isDarkMode
                       ? themeData.primaryColorLight
                       : const Color.fromRGBO(0, 126, 250, 1),
                   width: 2.0,
@@ -280,7 +273,7 @@ class _LoginState extends ConsumerState<LoginPage> {
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   width: 1,
-                  color: isDarkMode
+                  color: context.isDarkMode
                       ? themeData.primaryColorLight
                       : const Color.fromRGBO(0, 126, 250, 1),
                 ),
@@ -300,9 +293,8 @@ class _LoginState extends ConsumerState<LoginPage> {
                 ),
               ),
             ),
-            style: TextStyle(
-                color:
-                    isDarkMode ? themeData.textTheme.bodyLarge?.color : null),
+            style:
+                TextStyle(color: context.isDarkMode ? themeData.textTheme.bodyLarge?.color : null),
             validator: (input) {
               if (input == null || input.isEmpty) {
                 return 'require *';
@@ -320,18 +312,17 @@ class _LoginState extends ConsumerState<LoginPage> {
             controller: passwordCtr,
             obscureText: _isObscure,
             decoration: InputDecoration(
-              fillColor: isDarkMode ? themeData.cardColor : kwhite,
+              fillColor: context.isDarkMode ? themeData.cardColor : kwhite,
               filled: true,
               labelText: 'Enter password',
-              labelStyle:
-                  TextStyle(color: isDarkMode ? themeData.hintColor : null),
+              labelStyle: TextStyle(color: context.isDarkMode ? themeData.hintColor : null),
               prefixIcon: Icon(
                 Icons.key,
-                color: isDarkMode ? themeData.primaryColorLight : kImageColor,
+                color: context.isDarkMode ? themeData.primaryColorLight : kImageColor,
               ),
               suffixIcon: IconButton(
                 icon: Icon(
-                  color: isDarkMode ? themeData.primaryColorLight : kImageColor,
+                  color: context.isDarkMode ? themeData.primaryColorLight : kImageColor,
                   _isObscure ? Icons.visibility : Icons.visibility_off,
                 ),
                 onPressed: () {
@@ -342,10 +333,9 @@ class _LoginState extends ConsumerState<LoginPage> {
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                    color: isDarkMode
-                        ? themeData.primaryColorLight
-                        : kPrimaryColor,
-                    width: 2.0),
+                  color: context.isDarkMode ? themeData.primaryColorLight : kPrimaryColor,
+                  width: 2.0,
+                ),
                 borderRadius: BorderRadius.circular(10.0),
               ),
               errorBorder: OutlineInputBorder(
@@ -365,15 +355,13 @@ class _LoginState extends ConsumerState<LoginPage> {
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   width: 1,
-                  color:
-                      isDarkMode ? themeData.primaryColorLight : kPrimaryColor,
+                  color: context.isDarkMode ? themeData.primaryColorLight : kPrimaryColor,
                 ),
                 borderRadius: BorderRadius.circular(10.0),
               ),
             ),
-            style: TextStyle(
-                color:
-                    isDarkMode ? themeData.textTheme.bodyLarge?.color : null),
+            style:
+                TextStyle(color: context.isDarkMode ? themeData.textTheme.bodyLarge?.color : null),
             validator: (input) {
               if (input == null || input.isEmpty) {
                 return 'require *';
@@ -386,7 +374,7 @@ class _LoginState extends ConsumerState<LoginPage> {
     );
   }
 
-  Widget output(BuildContext context, bool isDarkMode) {
+  Widget output(BuildContext context) {
     final themeData = Theme.of(context);
     return Column(
       children: [
@@ -395,20 +383,19 @@ class _LoginState extends ConsumerState<LoginPage> {
           child: TextFormField(
             controller: emailCtr,
             decoration: InputDecoration(
-              fillColor: isDarkMode
+              fillColor: context.isDarkMode
                   ? themeData.cardColor
                   : const Color.fromARGB(255, 255, 255, 255),
               filled: true,
               labelText: 'Email',
-              labelStyle:
-                  TextStyle(color: isDarkMode ? themeData.hintColor : null),
+              labelStyle: TextStyle(color: context.isDarkMode ? themeData.hintColor : null),
               prefixIcon: Icon(
                 Icons.email,
-                color: isDarkMode ? themeData.primaryColorLight : kImageColor,
+                color: context.isDarkMode ? themeData.primaryColorLight : kImageColor,
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: isDarkMode
+                  color: context.isDarkMode
                       ? themeData.primaryColorLight
                       : const Color.fromRGBO(0, 126, 250, 1),
                   width: 2.0,
@@ -418,7 +405,7 @@ class _LoginState extends ConsumerState<LoginPage> {
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   width: 1,
-                  color: isDarkMode
+                  color: context.isDarkMode
                       ? themeData.primaryColorLight
                       : const Color.fromRGBO(0, 126, 250, 1),
                 ),
@@ -438,9 +425,8 @@ class _LoginState extends ConsumerState<LoginPage> {
                 ),
               ),
             ),
-            style: TextStyle(
-                color:
-                    isDarkMode ? themeData.textTheme.bodyLarge?.color : null),
+            style:
+                TextStyle(color: context.isDarkMode ? themeData.textTheme.bodyLarge?.color : null),
             validator: (input) {
               if (input == null || input.isEmpty) {
                 return 'require *';
@@ -458,18 +444,17 @@ class _LoginState extends ConsumerState<LoginPage> {
             controller: passwordCtr,
             obscureText: _isObscure,
             decoration: InputDecoration(
-              fillColor: isDarkMode ? themeData.cardColor : kwhite,
+              fillColor: context.isDarkMode ? themeData.cardColor : kwhite,
               filled: true,
               labelText: 'Enter password',
-              labelStyle:
-                  TextStyle(color: isDarkMode ? themeData.hintColor : null),
+              labelStyle: TextStyle(color: context.isDarkMode ? themeData.hintColor : null),
               prefixIcon: Icon(
                 Icons.key,
-                color: isDarkMode ? themeData.primaryColorLight : kImageColor,
+                color: context.isDarkMode ? themeData.primaryColorLight : kImageColor,
               ),
               suffixIcon: IconButton(
                 icon: Icon(
-                  color: isDarkMode ? themeData.primaryColorLight : kImageColor,
+                  color: context.isDarkMode ? themeData.primaryColorLight : kImageColor,
                   _isObscure ? Icons.visibility : Icons.visibility_off,
                 ),
                 onPressed: () {

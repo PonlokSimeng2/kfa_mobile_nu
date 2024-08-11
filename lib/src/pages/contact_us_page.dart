@@ -1,15 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:kfa_mobile_nu/constaints.dart';
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:kfa_mobile_nu/src/providers/theme_provider.dart';
 import 'package:readmore/readmore.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ContactUsPage extends ConsumerStatefulWidget {
-  const ContactUsPage({Key? key}) : super(key: key);
+  const ContactUsPage({super.key});
 
   @override
   ConsumerState<ContactUsPage> createState() => _ContactUsPageState();
@@ -38,17 +34,17 @@ class _ContactUsPageState extends ConsumerState<ContactUsPage> {
   }
 
   void setCustomMarker() async {
-    mapMarker = await BitmapDescriptor.defaultMarker;
+    mapMarker = BitmapDescriptor.defaultMarker;
   }
 
   void _onMapCreated(GoogleMapController controller) {
     setState(() {
       _markers.add(
         Marker(
-          markerId: MarkerId('id-1'),
-          position: LatLng(11.518936, 104.934026),
+          markerId: const MarkerId('id-1'),
+          position: const LatLng(11.518936, 104.934026),
           icon: mapMarker,
-          infoWindow: InfoWindow(
+          infoWindow: const InfoWindow(
             title: "Khmer Foundation Appraisal Co., Ltd",
             snippet: "Real estate agent",
           ),
@@ -67,28 +63,26 @@ class _ContactUsPageState extends ConsumerState<ContactUsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = ref.watch(themeProvider) == ThemeMode.dark;
-
     return AuthWrapperWidget(
       child: Scaffold(
         backgroundColor:
-            isDarkMode ? Colors.grey[900] : Color.fromARGB(235, 7, 9, 145),
+            context.isDarkMode ? Colors.grey[900] : const Color.fromARGB(235, 7, 9, 145),
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.chevron_left_outlined,
               size: 40,
               color: Colors.white,
             ),
           ),
           backgroundColor:
-              isDarkMode ? Colors.grey[800] : Color.fromARGB(235, 7, 9, 145),
+              context.isDarkMode ? Colors.grey[800] : const Color.fromARGB(235, 7, 9, 145),
           elevation: 0,
           centerTitle: true,
-          title: Text(
+          title: const Text(
             'Contact Us',
             style: TextStyle(
               color: Colors.white,
@@ -99,38 +93,38 @@ class _ContactUsPageState extends ConsumerState<ContactUsPage> {
           toolbarHeight: 70,
         ),
         body: Container(
-          padding: EdgeInsets.only(top: 15),
+          padding: const EdgeInsets.only(top: 15),
           decoration: BoxDecoration(
-            color: isDarkMode ? Colors.grey[800] : kBackgroundColor,
-            borderRadius: BorderRadius.only(
+            color: context.isDarkMode ? Colors.grey[800] : kBackgroundColor,
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
             ),
           ),
           child: SingleChildScrollView(
             child: Container(
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                 maxWidth: double.infinity,
                 maxHeight: double.infinity,
               ),
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
-                color: isDarkMode ? Colors.grey[800] : kBackgroundColor,
+                color: context.isDarkMode ? Colors.grey[800] : kBackgroundColor,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildSection("Contact Information", contactInfo, isDarkMode),
-                  SizedBox(height: 15),
+                  _buildSection("Contact Information", contactInfo),
+                  const SizedBox(height: 15),
                   Text(
                     "Our Location",
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: isDarkMode ? Colors.white : Colors.black,
+                      color: context.isDarkMode ? Colors.white : Colors.black,
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Container(
                     height: 200,
                     width: double.infinity,
@@ -151,9 +145,8 @@ class _ContactUsPageState extends ConsumerState<ContactUsPage> {
                   const SizedBox(height: 15),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          isDarkMode ? Colors.blue[700] : Colors.blue,
-                      minimumSize: Size(double.infinity, 50),
+                      backgroundColor: context.isDarkMode ? Colors.blue[700] : Colors.blue,
+                      minimumSize: const Size(double.infinity, 50),
                     ),
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -167,8 +160,11 @@ class _ContactUsPageState extends ConsumerState<ContactUsPage> {
                       const String googleMapUrl =
                           "https://www.google.com/maps/d/viewer?mid=1Q4igXdd9aAegzPzyN7t9jvSAaat4uBMx&hl=en&ll=11.518657300000022%2C104.9172223&z=17";
                       if (await canLaunch(googleMapUrl)) {
-                        await launch(googleMapUrl,
-                            forceSafariVC: false, forceWebView: false);
+                        await launch(
+                          googleMapUrl,
+                          forceSafariVC: false,
+                          forceWebView: false,
+                        );
                       } else {
                         throw 'Could not launch $googleMapUrl';
                       }
@@ -180,23 +176,29 @@ class _ContactUsPageState extends ConsumerState<ContactUsPage> {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: isDarkMode ? Colors.white : Colors.black,
+                      color: context.isDarkMode ? Colors.white : Colors.black,
                     ),
                   ),
                   const SizedBox(height: 15),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      _buildSocialIcon('assets/images/Facebook_Logo.png',
-                          "https://www.facebook.com/kfa.com.kh/"),
-                      _buildSocialIcon('assets/images/twitter-logo.png',
-                          "https://twitter.com/KFA_Cambodia"),
                       _buildSocialIcon(
-                          'assets/images/LinkedIn_icon_circle.svg.png',
-                          "https://www.linkedin.com/company/khmerfoundationappraisal/"),
+                        'assets/images/Facebook_Logo.png',
+                        "https://www.facebook.com/kfa.com.kh/",
+                      ),
                       _buildSocialIcon(
-                          'assets/images/YouTube_full-color_icon_(2017).svg.webp',
-                          ""),
+                        'assets/images/twitter-logo.png',
+                        "https://twitter.com/KFA_Cambodia",
+                      ),
+                      _buildSocialIcon(
+                        'assets/images/LinkedIn_icon_circle.svg.png',
+                        "https://www.linkedin.com/company/khmerfoundationappraisal/",
+                      ),
+                      _buildSocialIcon(
+                        'assets/images/YouTube_full-color_icon_(2017).svg.webp',
+                        "",
+                      ),
                     ],
                   ),
                 ],
@@ -208,16 +210,15 @@ class _ContactUsPageState extends ConsumerState<ContactUsPage> {
     );
   }
 
-  Widget _buildSection(String title, String text, bool isDarkMode) {
+  Widget _buildSection(String title, String text) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: isDarkMode ? Colors.white : Colors.black,
           ),
         ),
         const SizedBox(height: 10),
@@ -228,9 +229,8 @@ class _ContactUsPageState extends ConsumerState<ContactUsPage> {
           trimMode: TrimMode.Line,
           trimCollapsedText: " Read more ",
           trimExpandedText: " Show less ",
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 15,
-            color: isDarkMode ? Colors.grey[400] : Colors.black54,
           ),
         ),
         const SizedBox(height: 15),

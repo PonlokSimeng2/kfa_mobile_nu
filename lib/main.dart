@@ -107,14 +107,15 @@ class _MyAppState extends ConsumerState<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final themeMode = ref.watch(themeProvider);
+    final themeMode = ref.watch(appThemeModeProvider);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light().copyWith(
-        colorScheme: ColorScheme.fromSeed(seedColor: kwhite_new),
-        primaryColor: kwhite_new,
+        colorScheme: ColorScheme.fromSeed(seedColor: kPrimaryColor),
+        primaryColor: kPrimaryColor,
+        scaffoldBackgroundColor: Colors.grey[100],
         appBarTheme: const AppBarTheme(
-          backgroundColor: kwhite_new,
+          backgroundColor: kPrimaryColor,
           foregroundColor: Colors.white,
           elevation: 0,
           centerTitle: true,
@@ -130,7 +131,7 @@ class _MyAppState extends ConsumerState<MyApp> {
         ),
         primaryColor: Colors.blue[700],
         appBarTheme: AppBarTheme(
-          backgroundColor: Colors.grey[900],
+          backgroundColor: Colors.blue[700],
           foregroundColor: Colors.white,
           elevation: 0,
           centerTitle: true,

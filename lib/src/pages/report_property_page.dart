@@ -4,6 +4,7 @@ import 'package:kfa_mobile_nu/src/models/models.dart';
 import 'package:kfa_mobile_nu/src/pages/admin/admin_property_detail_page.dart';
 import 'package:kfa_mobile_nu/src/pages/property_detail_page.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
+import 'package:intl/intl.dart';
 
 import '../providers/property_provider.dart';
 import '../widgets/auth_wrapper_widget.dart';
@@ -67,7 +68,8 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
               _buildPropertyTypeDropdown(),
               Expanded(
                 child: firstPageCountAsync.when(
-                  loading: () => const Center(child: CircularProgressIndicator()),
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
                   error: (error, stack) => Center(child: Text('Error: $error')),
                   data: (count) {
                     if (count == 0) {
@@ -81,7 +83,6 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
                     return _GridView(
                       type: _type,
                       propertyType: _selectedPropertyType,
-                      //status: _selectedStatus,
                     );
                   },
                 ),
@@ -94,15 +95,19 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
   }
 
   Widget _buildFilterButtons() {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _buildFilterButton('All', Icons.list, null),
-          _buildFilterButton('Rent', Icons.home, PropertyListingType.rent),
-          _buildFilterButton('Sale', Icons.sell, PropertyListingType.sale),
-        ],
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: Row(
+          children: [
+            _buildFilterButton('All', Icons.list, null),
+            const SizedBox(width: 10),
+            _buildFilterButton('Rent', Icons.home, PropertyListingType.rent),
+            const SizedBox(width: 10),
+            _buildFilterButton('Sale', Icons.sell, PropertyListingType.sale),
+          ],
+        ),
       ),
     );
   }
@@ -112,7 +117,8 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
     IconData icon,
     PropertyListingType? valueType,
   ) {
-    final isSelected = (_type == null && valueType == null) || _type == valueType;
+    final isSelected =
+        (_type == null && valueType == null) || _type == valueType;
     return ElevatedButton.icon(
       onPressed: () => setState(() {
         _type = valueType;
@@ -122,7 +128,8 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
       label: Text(label),
       style: ElevatedButton.styleFrom(
         foregroundColor: isSelected ? Colors.white : Colors.black,
-        backgroundColor: isSelected ? Theme.of(context).primaryColor : Colors.white,
+        backgroundColor:
+            isSelected ? Theme.of(context).primaryColor : Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
     );
@@ -146,201 +153,124 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
 class _GridView extends ConsumerWidget {
   final PropertyListingType? type;
   final PropertyTypeModel? propertyType;
-  final PropertyAndAutoVerbalStatus? status;
-  const _GridView({this.type, this.propertyType, this.status});
+  const _GridView({this.type, this.propertyType});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userAsync = ref.watch(currentUserProvider);
-    return GridView.builder(
-      padding: const EdgeInsets.all(8),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 0.75,
-        mainAxisSpacing: 10,
-        crossAxisSpacing: 10,
+    final dataSource = _PropertyDataSource(
+      context: context,
+      ref: ref,
+      filter: PropertyListFilter(
+        listingType: type,
+        propertyType: propertyType,
+        userId: userAsync.value?.id,
+        showHiddenFromHomePageItem: true,
+        statuses: PropertyAndAutoVerbalStatus.values.lock,
       ),
-      itemBuilder: (context, index) {
-        final paginated = ref.watch(
-          propertyAtIndexProvider(
-            index: index,
-            filter: PropertyListFilter(
-              listingType: type,
-              propertyType: propertyType,
-              userId: userAsync.value?.id,
-              showHiddenFromHomePageItem: true,
-              statuses: PropertyAndAutoVerbalStatus.values.lock,
+      onTap: (item) {
+        final reportPropInherited = _ReportPropInherited.of(context);
+        if (reportPropInherited!.openItemInAdminPage) {
+          context.push((_) => AdminPropertyDetailPage(property: item));
+        } else {
+          context.push((_) => PropertyDetailPage(data: item));
+        }
+      },
+    );
+
+    return PaginatedDataTable(
+      columns: const [
+        DataColumn(label: Text('No.')),
+        DataColumn(label: Text('Actions')),
+        DataColumn(label: Text('Image')),
+        DataColumn(label: Text('Property Type')),
+        DataColumn(label: Text('Address')),
+        DataColumn(label: Text('Price')),
+        DataColumn(label: Text('Status')),
+        DataColumn(label: Text('Date')),
+      ],
+      source: dataSource,
+      rowsPerPage: 5,
+    );
+  }
+}
+
+class _PropertyDataSource extends DataTableSource {
+  final BuildContext context;
+  final WidgetRef ref;
+  final PropertyListFilter filter;
+  final Function(PropertyModel) onTap;
+  int _rowCount = 0;
+
+  _PropertyDataSource({
+    required this.context,
+    required this.ref,
+    required this.filter,
+    required this.onTap,
+  }) {
+    _fetchRowCount();
+  }
+
+  void _fetchRowCount() {
+    ref
+        .read(propertyListProvider(page: 0, filter: filter).future)
+        .then((value) {
+      _rowCount = value.length;
+      notifyListeners();
+    });
+  }
+
+  @override
+  DataRow? getRow(int index) {
+    final propertyAsync =
+        ref.watch(propertyListProvider(page: index ~/ 10, filter: filter));
+    return propertyAsync.when(
+      loading: () => DataRow(
+          cells: List.generate(8, (_) => const DataCell(Text('Loading...')))),
+      error: (error, stack) => DataRow(cells: [
+        DataCell(Text(error.toString())),
+        ...List.generate(7, (_) => const DataCell(Text(''))),
+      ]),
+      data: (properties) {
+        if (index >= properties.length) return null;
+        final property = properties[index % 10];
+        return DataRow(
+          cells: [
+            DataCell(Text('${index + 1}')),
+            DataCell(
+              IconButton(
+                icon: const Icon(Icons.edit),
+                onPressed: () => onTap(property),
+              ),
             ),
-          ),
-        );
-        return paginated?.whenOrNull(
-          loading: (isFirstItem) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          },
-          data: (item) {
-            return _buildPropertyCard(context, item);
-          },
+            DataCell(
+              property.images.isNotEmpty
+                  ? CachedNetworkImage(
+                      imageUrl: property.images.first,
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.cover,
+                    )
+                  : const Icon(Icons.image_not_supported),
+            ),
+            DataCell(Text(property.propertyType.name)),
+            DataCell(Text(property.province.name)),
+            DataCell(
+                Text('\$${NumberFormat('#,##0.00').format(property.price)}')),
+            DataCell(Text(property.status.name)),
+            DataCell(Text(DateFormat('yyyy-MM-dd').format(property.createdAt))),
+          ],
         );
       },
     );
   }
 
-  Widget _buildPropertyCard(BuildContext context, PropertyModel item) {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: InkWell(
-        onTap: () {
-          final reportPropInherited = _ReportPropInherited.of(context);
-          if (reportPropInherited!.openItemInAdminPage) {
-            context.push((_) => AdminPropertyDetailPage(property: item));
-          } else {
-            context.push((_) => PropertyDetailPage(data: item));
-          }
-        },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    CachedNetworkImage(
-                      imageUrl: item.images.first,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      placeholder: (context, url) =>
-                          const Center(child: CircularProgressIndicator()),
-                      errorWidget: (context, url, error) => const Icon(Icons.error),
-                    ),
-                    Positioned(
-                      bottom: 8,
-                      right: 8,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.7),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(Icons.remove_red_eye, color: Colors.white, size: 16),
-                            const SizedBox(width: 4),
-                            Text(
-                              '${item.viewCount}',
-                              style: const TextStyle(color: Colors.white, fontSize: 12),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    if (item.hiddenFromHomePage)
-                      Positioned(
-                        top: 8,
-                        left: 8,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                          decoration: BoxDecoration(
-                            color: Colors.red.withOpacity(0.7),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: const Text(
-                            'Hidden',
-                            style: TextStyle(color: Colors.white, fontSize: 12),
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    item.title,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    '${item.price} \$',
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
-                        ),
-                        decoration: BoxDecoration(
-                          color: item.listingType.name.toLowerCase() == 'rent'
-                              ? Colors.blue
-                              : Colors.green,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Text(
-                          item.listingType.name.capitalize(),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 4),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
-                        ),
-                        decoration: BoxDecoration(
-                          color: _getStatusColor(item.status),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Text(
-                          item.status.name.capitalize(),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  @override
+  bool get isRowCountApproximate => false;
 
-  Color _getStatusColor(PropertyAndAutoVerbalStatus status) {
-    switch (status) {
-      case PropertyAndAutoVerbalStatus.pending:
-        return Colors.orange;
-      case PropertyAndAutoVerbalStatus.approved:
-        return Colors.green;
-      case PropertyAndAutoVerbalStatus.rejected:
-        return Colors.red;
-      case PropertyAndAutoVerbalStatus.resubmit:
-        return Colors.yellow;
-      default:
-        return Colors.grey;
-    }
-  }
+  @override
+  int get rowCount => _rowCount;
+
+  @override
+  int get selectedRowCount => 0;
 }

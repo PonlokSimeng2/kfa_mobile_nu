@@ -73,7 +73,7 @@ class _AboutUsPageState extends ConsumerState<AboutUsPage> {
         title: Text(
           'About us',
           style: TextStyle(
-            color: isDarkMode ? Colors.white : Colors.black,
+            color: isDarkMode ? Colors.white : Colors.white,
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),

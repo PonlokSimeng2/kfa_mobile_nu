@@ -20,10 +20,12 @@ class AdminPropertyDetailPage extends StatefulHookConsumerWidget {
   const AdminPropertyDetailPage({super.key, required this.property});
 
   @override
-  ConsumerState<AdminPropertyDetailPage> createState() => _AdminPropertyDetailPageState();
+  ConsumerState<AdminPropertyDetailPage> createState() =>
+      _AdminPropertyDetailPageState();
 }
 
-class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPage> {
+class _AdminPropertyDetailPageState
+    extends ConsumerState<AdminPropertyDetailPage> {
   @override
   Widget build(BuildContext context) {
     final status = useState(widget.property.status);
@@ -42,7 +44,8 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
           PropertyAndAutoVerbalStatus.resubmit =>
             _buildApproveRejectButton(context, status),
           PropertyAndAutoVerbalStatus.approved => _buildApproved(),
-          PropertyAndAutoVerbalStatus.rejected => _buildRejected(redColor, context)
+          PropertyAndAutoVerbalStatus.rejected =>
+            _buildRejected(redColor, context)
         },
       );
     }
@@ -52,30 +55,36 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: context.isDarkMode ? Colors.grey[900] : Colors.blue,
         title: const Text('Property Detail'),
         actions: [
           if (isAdmin)
             IconButton(
               onPressed: () {
-                context.push((context) => EditPropertyPage(initial: widget.property));
+                context.push(
+                    (context) => EditPropertyPage(initial: widget.property));
               },
               icon: const Icon(Icons.edit),
             ),
           if (isCurrentUserOwner)
             IconButton(
-              icon: Icon(isHidden.value ? Icons.visibility_off : Icons.visibility),
+              icon: Icon(
+                  isHidden.value ? Icons.visibility_off : Icons.visibility),
               onPressed: () async {
-                final toggleHidden =
-                    ref.read(togglePropertyHiddenProvider(widget.property.id).notifier);
+                final toggleHidden = ref.read(
+                    togglePropertyHiddenProvider(widget.property.id).notifier);
                 final closeLoading = BotToast.showLoading();
-                final result = await toggleHidden(hiddenFromHomePage: !isHidden.value);
+                final result =
+                    await toggleHidden(hiddenFromHomePage: !isHidden.value);
                 closeLoading();
                 if (result.isSuccess) {
                   isHidden.value = !isHidden.value;
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(isHidden.value ? 'Property hidden' : 'Property visible'),
+                        content: Text(isHidden.value
+                            ? 'Property hidden'
+                            : 'Property visible'),
                       ),
                     );
                   }
@@ -182,7 +191,8 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _buildDetailRow('Area', '${widget.property.sqm} sqm'),
+                            _buildDetailRow(
+                                'Area', '${widget.property.sqm} sqm'),
                             _buildDetailRow(
                               'Bedrooms',
                               '${widget.property.bedrooms ?? "N/A"}',
@@ -250,7 +260,8 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             if (isCurrentUserOwner &&
-                                status.value == PropertyAndAutoVerbalStatus.approved) ...[
+                                status.value ==
+                                    PropertyAndAutoVerbalStatus.approved) ...[
                               if (!autoVerbalAdded.value)
                                 SizedBox(
                                   width: 160,
@@ -284,7 +295,8 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                               child: FilledButton(
                                 onPressed: () {
                                   context.push(
-                                    (_) => EditPropertyPage(initial: widget.property),
+                                    (_) => EditPropertyPage(
+                                        initial: widget.property),
                                   );
                                 },
                                 child: const Text('Edit'),
@@ -312,11 +324,14 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                                           ),
                                           FilledButton(
                                             style: FilledButton.styleFrom(
-                                              backgroundColor: Theme.of(context).colorScheme.error,
+                                              backgroundColor: Theme.of(context)
+                                                  .colorScheme
+                                                  .error,
                                             ),
                                             child: const Text('Delete'),
                                             onPressed: () async {
-                                              final close = BotToast.showLoading();
+                                              final close =
+                                                  BotToast.showLoading();
                                               final delete = ref.read(
                                                 deletePropertyProvider(
                                                   widget.property.id,
@@ -335,7 +350,8 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
                                   );
                                 },
                                 style: FilledButton.styleFrom(
-                                  backgroundColor: Theme.of(context).colorScheme.error,
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.error,
                                 ),
                                 child: const Text('Delete'),
                               ),
@@ -460,7 +476,8 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
               );
 
               if (confirmed == true && context.mounted) {
-                final approve = ref.read(approvePropertyProvider(widget.property.id).notifier);
+                final approve = ref
+                    .read(approvePropertyProvider(widget.property.id).notifier);
                 final closeLoading = BotToast.showLoading();
                 final result = await approve();
                 closeLoading();
@@ -480,7 +497,8 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
               padding: const EdgeInsets.symmetric(vertical: 12),
               decoration: BoxDecoration(
                 color: Colors.green,
-                borderRadius: const BorderRadius.horizontal(left: Radius.circular(12)),
+                borderRadius:
+                    const BorderRadius.horizontal(left: Radius.circular(12)),
                 border: Border.all(color: Colors.grey),
               ),
               child: const Text(
@@ -551,7 +569,8 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
               );
 
               if (rejectReason.isNotNullOrBlank && context.mounted) {
-                final reject = ref.read(rejectPropertyProvider(widget.property.id).notifier);
+                final reject = ref
+                    .read(rejectPropertyProvider(widget.property.id).notifier);
                 final closeLoading = BotToast.showLoading();
                 final result = await reject(reason: rejectReason);
                 closeLoading();
@@ -571,7 +590,8 @@ class _AdminPropertyDetailPageState extends ConsumerState<AdminPropertyDetailPag
               padding: const EdgeInsets.symmetric(vertical: 12),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.error.withOpacity(0.8),
-                borderRadius: const BorderRadius.horizontal(right: Radius.circular(12)),
+                borderRadius:
+                    const BorderRadius.horizontal(right: Radius.circular(12)),
                 border: Border.all(color: Colors.grey),
               ),
               child: const Text(

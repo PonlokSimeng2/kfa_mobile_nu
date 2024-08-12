@@ -117,7 +117,8 @@ class __UserHomeState extends ConsumerState<_UserHome> {
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.format_list_numbered_rtl_rounded),
+                      leading:
+                          const Icon(Icons.format_list_numbered_rtl_rounded),
                       title: const Text('Report'),
                       onTap: () {
                         context.push((context) => const ReportMainPage());
@@ -145,6 +146,7 @@ class __UserHomeState extends ConsumerState<_UserHome> {
   AppBar _buildAppBar() {
     return AppBar(
       title: const AppLogo(),
+      backgroundColor: context.isDarkMode ? Colors.grey[900] : Colors.blue,
     );
   }
 
@@ -207,10 +209,10 @@ class __UserHomeState extends ConsumerState<_UserHome> {
       appBar: _buildAppBar(),
       drawer: _buildDrawer(context),
       backgroundColor: kPrimaryColor,
-      body: const Column(
+      body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // _buildBanner(),
+          _buildBanner(),
           Expanded(
             child: Padding(
               padding: EdgeInsets.all(3.0),

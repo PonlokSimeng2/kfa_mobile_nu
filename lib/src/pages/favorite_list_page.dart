@@ -9,11 +9,13 @@ class FavoriteListPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final favoriteIds = ref.watch(favoritePropertyProvider).valueOrNull ?? const IList.empty();
+    final favoriteIds =
+        ref.watch(favoritePropertyProvider).valueOrNull ?? const IList.empty();
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Favorites'),
+        backgroundColor: context.isDarkMode ? Colors.grey[900] : Colors.blue,
       ),
       body: favoriteIds.isEmpty
           ? const Center(

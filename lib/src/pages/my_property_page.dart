@@ -9,10 +9,13 @@ import '../models/property_model.dart';
 import 'admin/widgets/admin_property_list_widget.dart';
 
 final _propertyStatus = PropertyAndAutoVerbalStatus.values.where(
-  (e) => e != PropertyAndAutoVerbalStatus.resubmit && e != PropertyAndAutoVerbalStatus.approved,
+  (e) =>
+      e != PropertyAndAutoVerbalStatus.resubmit &&
+      e != PropertyAndAutoVerbalStatus.approved,
 );
 
-final _listingTypeProvider = StateProvider.autoDispose<PropertyListingType?>((ref) {
+final _listingTypeProvider =
+    StateProvider.autoDispose<PropertyListingType?>((ref) {
   return null;
 });
 
@@ -26,6 +29,7 @@ class MyPropertyPage extends HookConsumerWidget {
     return AuthWrapperWidget(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: context.isDarkMode ? Colors.grey[900] : Colors.blue,
           title: const Text('My Property'),
           actions: [
             Consumer(
@@ -33,16 +37,19 @@ class MyPropertyPage extends HookConsumerWidget {
                 final listingType = ref.watch(_listingTypeProvider);
                 return GFButton(
                   onPressed: () {
-                    ref.read(_listingTypeProvider.notifier).state = listingType == null
-                        ? PropertyListingType.sale
-                        : (listingType == PropertyListingType.sale
-                            ? PropertyListingType.rent
-                            : null);
+                    ref.read(_listingTypeProvider.notifier).state =
+                        listingType == null
+                            ? PropertyListingType.sale
+                            : (listingType == PropertyListingType.sale
+                                ? PropertyListingType.rent
+                                : null);
                   },
                   child: Text(
                     listingType == null
                         ? 'All'
-                        : (listingType == PropertyListingType.sale ? 'Sale' : 'Rent'),
+                        : (listingType == PropertyListingType.sale
+                            ? 'Sale'
+                            : 'Rent'),
                     style: const TextStyle(color: Colors.white),
                   ),
                 );

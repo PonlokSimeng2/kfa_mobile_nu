@@ -54,7 +54,8 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
       return;
     }
 
-    final increment = ref.read(incrementPropertyViewProvider(widget.data.id).notifier);
+    final increment =
+        ref.read(incrementPropertyViewProvider(widget.data.id).notifier);
     await increment();
   }
 
@@ -81,7 +82,8 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
                     'Property Detail',
                     style: TextStyle(color: Colors.white),
                   ),
-                  backgroundColor: Theme.of(context).primaryColor,
+                  backgroundColor:
+                      context.isDarkMode ? Colors.grey[800] : Colors.blue,
                   leading: Container(
                     margin: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
@@ -102,14 +104,18 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
                       ),
                       child: Consumer(
                         builder: (context, ref, child) {
-                          final isFavorite = ref.watch(isFavoriteProvider(widget.data.id));
+                          final isFavorite =
+                              ref.watch(isFavoriteProvider(widget.data.id));
                           return IconButton(
                             icon: Icon(
-                              isFavorite ? Icons.favorite : Icons.favorite_border,
+                              isFavorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
                               color: isFavorite ? Colors.red : Colors.white,
                             ),
                             onPressed: () {
-                              final notifier = ref.read(favoritePropertyProvider.notifier);
+                              final notifier =
+                                  ref.read(favoritePropertyProvider.notifier);
                               if (isFavorite) {
                                 notifier.removeFromFavorite(widget.data.id);
                                 ScaffoldMessenger.of(context).clearSnackBars();
@@ -150,7 +156,8 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
                 ),
                 SliverToBoxAdapter(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                     child: _buildMap(),
                   ),
                 ),
@@ -171,9 +178,11 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
       final RenderRepaintBoundary boundary =
           globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
       final ui.Image image = await boundary.toImage(pixelRatio: 3.0);
-      final ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+      final ByteData? byteData =
+          await image.toByteData(format: ui.ImageByteFormat.png);
       final Uint8List pngBytes = byteData!.buffer.asUint8List();
-      final File imgFile = File('${(await getTemporaryDirectory()).path}/share.png');
+      final File imgFile =
+          File('${(await getTemporaryDirectory()).path}/share.png');
       imgFile.writeAsBytesSync(pngBytes);
       final RenderBox box = context.findRenderObject() as RenderBox;
       Share.shareXFiles(
@@ -201,7 +210,8 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
             viewportFraction: 1,
             enlargeCenterPage: false,
             autoPlay: true,
-            onPageChanged: (index, _) => setState(() => _currentImageIndex = index),
+            onPageChanged: (index, _) =>
+                setState(() => _currentImageIndex = index),
           ),
         ),
         Positioned(
@@ -233,7 +243,8 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.remove_red_eye, color: Colors.white, size: 16),
+                    const Icon(Icons.remove_red_eye,
+                        color: Colors.white, size: 16),
                     const SizedBox(width: 4),
                     Text(
                       '${widget.data.viewCount}',
@@ -276,17 +287,26 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
         children: [
           Text(
             widget.data.listingType.name.capitalize(),
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall
+                ?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           Text(
             widget.data.title,
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           Text(
             '\$${widget.data.price}',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.green),
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge
+                ?.copyWith(color: Colors.green),
           ),
         ],
       ),

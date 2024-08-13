@@ -5,6 +5,8 @@ import 'package:kfa_mobile_nu/src/pages/contact_us_page.dart';
 import 'package:kfa_mobile_nu/src/pages/login_page.dart';
 import 'package:kfa_mobile_nu/src/providers/theme_provider.dart';
 
+import '../providers/user_provider.dart';
+
 class SettingPage extends ConsumerWidget {
   const SettingPage({super.key});
 
@@ -13,7 +15,7 @@ class SettingPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
-        backgroundColor: context.isDarkMode ? Colors.grey[900] : Colors.blue[800],
+        backgroundColor: context.isDarkMode ? Colors.grey[900] : kPrimaryColor,
         elevation: 0,
       ),
       body: Container(
@@ -23,17 +25,87 @@ class SettingPage extends ConsumerWidget {
             end: Alignment.bottomCenter,
             colors: context.isDarkMode
                 ? [Colors.grey[900]!, Colors.grey[700]!]
-                : [Colors.blue[800]!, Colors.blue[200]!],
+                : [kPrimaryColor, kPrimaryColor],
           ),
         ),
         child: ListView(
           children: [
             const SizedBox(height: 20),
-            _buildSettingCard(
-              context: context,
-              icon: Icons.account_circle,
-              title: 'Account',
-              onTap: () => context.push((_) => const AccountPage()),
+            Consumer(
+              builder: (context, ref, _) {
+                final userAsync = ref.watch(currentUserProvider);
+                return userAsync.when(
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
+                  error: (_, __) =>
+                      const Center(child: Text('Error loading user data')),
+                  data: (user) => Card(
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
+                    child: Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            children: [
+                              if (user != null) ...[
+                                CircleAvatar(
+                                  radius: 50,
+                                  backgroundImage: user.photo != null
+                                      ? NetworkImage(user.photo!)
+                                      : null,
+                                  child: user.photo == null
+                                      ? const Icon(Icons.person, size: 50)
+                                      : null,
+                                ),
+                                const SizedBox(height: 16),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      user.firstName,
+                                      style: const TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      user.lastName,
+                                      style: const TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  user.email,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ],
+                          ),
+                        ),
+                        Positioned(
+                          right: 8,
+                          bottom: 8,
+                          child: IconButton(
+                            icon: const Icon(Icons.edit),
+                            onPressed: () {
+                              context.push((context) => const AccountPage());
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
             ),
             _buildSettingCard(
               context: context,
@@ -42,6 +114,8 @@ class SettingPage extends ConsumerWidget {
               onTap: () {
                 // TODO: Implement notifications settings
               },
+              subtitle: 'Configure your notification preferences',
+              iconBackgroundColor: Colors.orange[400]!,
             ),
             _buildSettingCard(
               context: context,
@@ -59,6 +133,8 @@ class SettingPage extends ConsumerWidget {
                   ),
                 );
               },
+              subtitle: 'Switch between light and dark mode',
+              iconBackgroundColor: Colors.purple[400]!,
               trailing: Switch(
                 value: context.isDarkMode,
                 onChanged: (_) {
@@ -73,6 +149,8 @@ class SettingPage extends ConsumerWidget {
               onTap: () {
                 context.push((context) => const AboutUsPage());
               },
+              subtitle: 'Learn more about our app',
+              iconBackgroundColor: Colors.green[400]!,
             ),
             _buildSettingCard(
               context: context,
@@ -81,6 +159,8 @@ class SettingPage extends ConsumerWidget {
               onTap: () {
                 context.push((context) => const ContactUsPage());
               },
+              subtitle: 'Get in touch with our support team',
+              iconBackgroundColor: Colors.teal[400]!,
             ),
             _buildSettingCard(
               context: context,
@@ -93,7 +173,8 @@ class SettingPage extends ConsumerWidget {
                   ),
                 );
               },
-              color: Colors.red[400],
+              subtitle: 'Sign out of your account',
+              iconBackgroundColor: Colors.red[400]!,
             ),
           ],
         ),
@@ -106,7 +187,8 @@ class SettingPage extends ConsumerWidget {
     required IconData icon,
     required String title,
     required VoidCallback onTap,
-    Color? color,
+    required String subtitle,
+    required Color iconBackgroundColor,
     Widget? trailing,
   }) {
     return Card(
@@ -115,21 +197,30 @@ class SettingPage extends ConsumerWidget {
       color: context.isDarkMode ? Colors.grey[800] : Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: ListTile(
-        leading: Icon(
-          icon,
-          color: color ?? (context.isDarkMode ? Colors.blue[300] : Colors.blue[800]),
+        leading: CircleAvatar(
+          backgroundColor: iconBackgroundColor,
+          child: Icon(
+            icon,
+            color: Colors.white,
+          ),
         ),
         title: Text(
           title,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: color ?? (context.isDarkMode ? Colors.white : Colors.black87),
+            color: context.isDarkMode ? Colors.white : Colors.black87,
+          ),
+        ),
+        subtitle: Text(
+          subtitle,
+          style: TextStyle(
+            color: context.isDarkMode ? Colors.grey[400] : Colors.grey[600],
           ),
         ),
         trailing: trailing ??
             Icon(
               Icons.chevron_right,
-              color: color ?? (context.isDarkMode ? Colors.blue[300] : Colors.blue[800]),
+              color: context.isDarkMode ? Colors.blue[300] : Colors.blue[800],
             ),
         onTap: onTap,
       ),

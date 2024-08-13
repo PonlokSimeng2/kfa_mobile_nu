@@ -146,7 +146,7 @@ class __UserHomeState extends ConsumerState<_UserHome> {
   AppBar _buildAppBar() {
     return AppBar(
       title: const AppLogo(),
-      backgroundColor: context.isDarkMode ? Colors.grey[900] : Colors.blue,
+      backgroundColor: context.isDarkMode ? Colors.grey[900] : kPrimaryColor,
     );
   }
 

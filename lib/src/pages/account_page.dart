@@ -7,10 +7,12 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/models/user_model.dart';
+import 'package:kfa_mobile_nu/src/pages/login_page.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/cache_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AccountPage extends ConsumerStatefulWidget {
   const AccountPage({super.key});
@@ -31,6 +33,10 @@ class _AccountPageState extends ConsumerState<AccountPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _oldPasswordController = TextEditingController();
+  final TextEditingController _newPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   @override
   void dispose() {
@@ -39,12 +45,16 @@ class _AccountPageState extends ConsumerState<AccountPage> {
     _emailController.dispose();
     _phoneController.dispose();
     _passwordController.dispose();
+    _oldPasswordController.dispose();
+    _newPasswordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
   Future<void> _openImage() async {
     try {
-      final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+      final XFile? pickedFile =
+          await _picker.pickImage(source: ImageSource.gallery);
       if (pickedFile != null) {
         final CroppedFile? croppedFile = await _cropper.cropImage(
           sourcePath: pickedFile.path,
@@ -107,10 +117,12 @@ class _AccountPageState extends ConsumerState<AccountPage> {
 
     return AuthWrapperWidget(
       child: Scaffold(
-        backgroundColor:
-            context.isDarkMode ? Colors.grey[900] : const Color.fromARGB(255, 245, 250, 246),
+        backgroundColor: context.isDarkMode
+            ? Colors.grey[900]
+            : const Color.fromARGB(255, 245, 250, 246),
         appBar: AppBar(
-          backgroundColor: context.isDarkMode ? Colors.grey[800] : kPrimaryColor,
+          backgroundColor:
+              context.isDarkMode ? Colors.grey[800] : kPrimaryColor,
           elevation: 0,
           centerTitle: true,
           leading: IconButton(
@@ -197,7 +209,8 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                         color: Colors.black54,
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      child: const Icon(Icons.edit, color: Colors.white, size: 16),
+                      child:
+                          const Icon(Icons.edit, color: Colors.white, size: 16),
                     ),
                   ],
                 ),
@@ -244,7 +257,9 @@ class _AccountPageState extends ConsumerState<AccountPage> {
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
-            color: context.isDarkMode ? Colors.black12 : Colors.blue.withOpacity(0.1),
+            color: context.isDarkMode
+                ? Colors.black12
+                : Colors.blue.withOpacity(0.1),
             spreadRadius: 10,
             blurRadius: 20,
             offset: const Offset(0, 10),
@@ -322,7 +337,9 @@ class _AccountPageState extends ConsumerState<AccountPage> {
         color: context.isDarkMode ? Colors.grey[700] : Colors.grey[100],
         boxShadow: [
           BoxShadow(
-            color: context.isDarkMode ? Colors.black12 : Colors.grey.withOpacity(0.1),
+            color: context.isDarkMode
+                ? Colors.black12
+                : Colors.grey.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 3,
             offset: const Offset(0, 2),
@@ -333,10 +350,13 @@ class _AccountPageState extends ConsumerState<AccountPage> {
         initialValue: initialValue,
         onChanged: onChanged,
         keyboardType: keyboardType,
-        style: TextStyle(fontSize: 16, color: context.isDarkMode ? Colors.white : Colors.black87),
+        style: TextStyle(
+            fontSize: 16,
+            color: context.isDarkMode ? Colors.white : Colors.black87),
         decoration: InputDecoration(
-          prefixIcon:
-              Icon(icon, color: context.isDarkMode ? Colors.blue[300] : Colors.blue[600], size: 22),
+          prefixIcon: Icon(icon,
+              color: context.isDarkMode ? Colors.blue[300] : Colors.blue[600],
+              size: 22),
           labelText: label,
           labelStyle: TextStyle(
             color: context.isDarkMode ? Colors.grey[400] : Colors.grey[600],
@@ -348,7 +368,8 @@ class _AccountPageState extends ConsumerState<AccountPage> {
           ),
           filled: true,
           fillColor: Colors.transparent,
-          contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
         ),
       ),
     );
@@ -363,7 +384,9 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             color: context.isDarkMode ? Colors.grey[700] : Colors.grey[100],
             boxShadow: [
               BoxShadow(
-                color: context.isDarkMode ? Colors.black12 : Colors.grey.withOpacity(0.1),
+                color: context.isDarkMode
+                    ? Colors.black12
+                    : Colors.grey.withOpacity(0.1),
                 spreadRadius: 1,
                 blurRadius: 3,
                 offset: const Offset(0, 2),
@@ -373,8 +396,9 @@ class _AccountPageState extends ConsumerState<AccountPage> {
           child: TextFormField(
             controller: _passwordController,
             obscureText: _isObscure,
-            style:
-                TextStyle(fontSize: 16, color: context.isDarkMode ? Colors.white : Colors.black87),
+            style: TextStyle(
+                fontSize: 16,
+                color: context.isDarkMode ? Colors.white : Colors.black87),
             decoration: InputDecoration(
               prefixIcon: Icon(
                 Icons.lock_outline,
@@ -392,14 +416,122 @@ class _AccountPageState extends ConsumerState<AccountPage> {
               ),
               filled: true,
               fillColor: Colors.transparent,
-              contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
               suffixIcon: IconButton(
                 icon: Icon(
-                  _isObscure ? Icons.visibility_outlined : Icons.visibility_off_outlined,
-                  color: context.isDarkMode ? Colors.blue[300] : Colors.blue[600],
+                  Icons.edit,
+                  color:
+                      context.isDarkMode ? Colors.blue[300] : Colors.blue[600],
                   size: 22,
                 ),
-                onPressed: () => setState(() => _isObscure = !_isObscure),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Change Password'),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            TextField(
+                              obscureText: true,
+                              decoration: const InputDecoration(
+                                labelText: 'Old Password',
+                              ),
+                              onChanged: (value) {
+                                _oldPasswordController.text = value;
+                              },
+                            ),
+                            TextField(
+                              obscureText: true,
+                              decoration: const InputDecoration(
+                                labelText: 'New Password',
+                              ),
+                              onChanged: (value) {
+                                _newPasswordController.text = value;
+                              },
+                            ),
+                            TextField(
+                              obscureText: true,
+                              decoration: const InputDecoration(
+                                labelText: 'Confirm New Password',
+                              ),
+                              onChanged: (value) {
+                                _confirmPasswordController.text = value;
+                              },
+                            ),
+                          ],
+                        ),
+                        actions: [
+                          TextButton(
+                            child: const Text('Cancel'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          TextButton(
+                            child: const Text('Change'),
+                            onPressed: () async {
+                              if (_newPasswordController.text !=
+                                  _confirmPasswordController.text) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content:
+                                          Text('New passwords do not match')),
+                                );
+                                return;
+                              }
+
+                              final currentUser =
+                                  ref.read(currentUserProvider).value;
+                              if (currentUser != null) {
+                                try {
+                                  final sb = ref.read(supabaseProvider).client;
+                                  await sb.auth.updateUser(
+                                    UserAttributes(
+                                      password: _newPasswordController.text,
+                                    ),
+                                  );
+
+                                  // Update the user model
+                                  final updatedUser = currentUser.copyWith(
+                                      // Note: We don't store the password in the user model
+                                      );
+
+                                  // Update the user in the database
+                                  await sb
+                                      .from('users')
+                                      .update(updatedUser.toJson())
+                                      .eq('id', updatedUser.id);
+
+                                  // Refresh the currentUserProvider
+                                  ref.refresh(currentUserProvider);
+                                  context.pushReplace(
+                                    (context) => const LoginPage(
+                                      openAsPage: true,
+                                    ),
+                                  );
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text(
+                                            'Password changed successfully')),
+                                  );
+                                } catch (e) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text(
+                                            'Failed to change password: $e')),
+                                  );
+                                }
+                              }
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
               ),
             ),
           ),

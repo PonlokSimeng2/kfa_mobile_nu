@@ -126,7 +126,9 @@ class _LoginState extends ConsumerState<LoginPage> {
               style: TextStyle(
                 fontSize: 25.0,
                 fontWeight: FontWeight.bold,
-                color: context.isDarkMode ? themeData.primaryColorLight : kPrimaryColor,
+                color: context.isDarkMode
+                    ? themeData.primaryColorLight
+                    : kPrimaryColor,
               ),
             ),
             const SizedBox(
@@ -143,7 +145,9 @@ class _LoginState extends ConsumerState<LoginPage> {
               width: 150,
               child: AnimatedButton(
                 text: 'Login',
-                color: context.isDarkMode ? themeData.primaryColorLight : kPrimaryColor,
+                color: context.isDarkMode
+                    ? themeData.primaryColorLight
+                    : kPrimaryColor,
                 pressEvent: () async {
                   _formKey.currentState?.save();
                   if (!_formKey.currentState!.validate()) return;
@@ -213,7 +217,9 @@ class _LoginState extends ConsumerState<LoginPage> {
                       text: "Don't have any account? ",
                       style: TextStyle(
                         fontSize: 16.0,
-                        color: context.isDarkMode ? themeData.hintColor : kTextLightColor,
+                        color: context.isDarkMode
+                            ? themeData.hintColor
+                            : kTextLightColor,
                       ),
                     ),
                     TextSpan(
@@ -229,7 +235,9 @@ class _LoginState extends ConsumerState<LoginPage> {
                         },
                       style: TextStyle(
                         fontSize: 16.0,
-                        color: context.isDarkMode ? themeData.primaryColorLight : kImageColor,
+                        color: context.isDarkMode
+                            ? themeData.primaryColorLight
+                            : kImageColor,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -256,10 +264,13 @@ class _LoginState extends ConsumerState<LoginPage> {
                   : const Color.fromARGB(255, 255, 255, 255),
               filled: true,
               labelText: 'Email',
-              labelStyle: TextStyle(color: context.isDarkMode ? themeData.hintColor : null),
+              labelStyle: TextStyle(
+                  color: context.isDarkMode ? themeData.hintColor : null),
               prefixIcon: Icon(
                 Icons.email,
-                color: context.isDarkMode ? themeData.primaryColorLight : kImageColor,
+                color: context.isDarkMode
+                    ? themeData.primaryColorLight
+                    : kImageColor,
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
@@ -293,8 +304,10 @@ class _LoginState extends ConsumerState<LoginPage> {
                 ),
               ),
             ),
-            style:
-                TextStyle(color: context.isDarkMode ? themeData.textTheme.bodyLarge?.color : null),
+            style: TextStyle(
+                color: context.isDarkMode
+                    ? themeData.textTheme.bodyLarge?.color
+                    : null),
             validator: (input) {
               if (input == null || input.isEmpty) {
                 return 'require *';
@@ -315,14 +328,19 @@ class _LoginState extends ConsumerState<LoginPage> {
               fillColor: context.isDarkMode ? themeData.cardColor : kwhite,
               filled: true,
               labelText: 'Enter password',
-              labelStyle: TextStyle(color: context.isDarkMode ? themeData.hintColor : null),
+              labelStyle: TextStyle(
+                  color: context.isDarkMode ? themeData.hintColor : null),
               prefixIcon: Icon(
                 Icons.key,
-                color: context.isDarkMode ? themeData.primaryColorLight : kImageColor,
+                color: context.isDarkMode
+                    ? themeData.primaryColorLight
+                    : kImageColor,
               ),
               suffixIcon: IconButton(
                 icon: Icon(
-                  color: context.isDarkMode ? themeData.primaryColorLight : kImageColor,
+                  color: context.isDarkMode
+                      ? themeData.primaryColorLight
+                      : kImageColor,
                   _isObscure ? Icons.visibility : Icons.visibility_off,
                 ),
                 onPressed: () {
@@ -333,7 +351,9 @@ class _LoginState extends ConsumerState<LoginPage> {
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: context.isDarkMode ? themeData.primaryColorLight : kPrimaryColor,
+                  color: context.isDarkMode
+                      ? themeData.primaryColorLight
+                      : kPrimaryColor,
                   width: 2.0,
                 ),
                 borderRadius: BorderRadius.circular(10.0),
@@ -355,13 +375,17 @@ class _LoginState extends ConsumerState<LoginPage> {
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   width: 1,
-                  color: context.isDarkMode ? themeData.primaryColorLight : kPrimaryColor,
+                  color: context.isDarkMode
+                      ? themeData.primaryColorLight
+                      : kPrimaryColor,
                 ),
                 borderRadius: BorderRadius.circular(10.0),
               ),
             ),
-            style:
-                TextStyle(color: context.isDarkMode ? themeData.textTheme.bodyLarge?.color : null),
+            style: TextStyle(
+                color: context.isDarkMode
+                    ? themeData.textTheme.bodyLarge?.color
+                    : null),
             validator: (input) {
               if (input == null || input.isEmpty) {
                 return 'require *';
@@ -388,10 +412,13 @@ class _LoginState extends ConsumerState<LoginPage> {
                   : const Color.fromARGB(255, 255, 255, 255),
               filled: true,
               labelText: 'Email',
-              labelStyle: TextStyle(color: context.isDarkMode ? themeData.hintColor : null),
+              labelStyle: TextStyle(
+                  color: context.isDarkMode ? themeData.hintColor : null),
               prefixIcon: Icon(
                 Icons.email,
-                color: context.isDarkMode ? themeData.primaryColorLight : kImageColor,
+                color: context.isDarkMode
+                    ? themeData.primaryColorLight
+                    : kImageColor,
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
@@ -425,8 +452,10 @@ class _LoginState extends ConsumerState<LoginPage> {
                 ),
               ),
             ),
-            style:
-                TextStyle(color: context.isDarkMode ? themeData.textTheme.bodyLarge?.color : null),
+            style: TextStyle(
+                color: context.isDarkMode
+                    ? themeData.textTheme.bodyLarge?.color
+                    : null),
             validator: (input) {
               if (input == null || input.isEmpty) {
                 return 'require *';
@@ -447,14 +476,19 @@ class _LoginState extends ConsumerState<LoginPage> {
               fillColor: context.isDarkMode ? themeData.cardColor : kwhite,
               filled: true,
               labelText: 'Enter password',
-              labelStyle: TextStyle(color: context.isDarkMode ? themeData.hintColor : null),
+              labelStyle: TextStyle(
+                  color: context.isDarkMode ? themeData.hintColor : null),
               prefixIcon: Icon(
                 Icons.key,
-                color: context.isDarkMode ? themeData.primaryColorLight : kImageColor,
+                color: context.isDarkMode
+                    ? themeData.primaryColorLight
+                    : kImageColor,
               ),
               suffixIcon: IconButton(
                 icon: Icon(
-                  color: context.isDarkMode ? themeData.primaryColorLight : kImageColor,
+                  color: context.isDarkMode
+                      ? themeData.primaryColorLight
+                      : kImageColor,
                   _isObscure ? Icons.visibility : Icons.visibility_off,
                 ),
                 onPressed: () {

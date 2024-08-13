@@ -29,7 +29,8 @@ class MyPropertyPage extends HookConsumerWidget {
     return AuthWrapperWidget(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: context.isDarkMode ? Colors.grey[900] : Colors.blue,
+          backgroundColor:
+              context.isDarkMode ? Colors.grey[900] : kPrimaryColor,
           title: const Text('My Property'),
           actions: [
             Consumer(

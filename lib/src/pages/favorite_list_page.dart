@@ -15,7 +15,7 @@ class FavoriteListPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Favorites'),
-        backgroundColor: context.isDarkMode ? Colors.grey[900] : Colors.blue,
+        backgroundColor: context.isDarkMode ? Colors.grey[900] : kPrimaryColor,
       ),
       body: favoriteIds.isEmpty
           ? const Center(

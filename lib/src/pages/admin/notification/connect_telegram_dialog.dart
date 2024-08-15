@@ -18,7 +18,7 @@ class ConnectTelegramDialog extends ConsumerWidget {
   }) {
     showDialog(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: true,
       builder: (context) => ConnectTelegramDialog(
         onConnected: onConnected,
       ),
@@ -29,19 +29,11 @@ class ConnectTelegramDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final telegramAsync = ref.watch(teleDartProvider);
+    final telegramAsync = ref.watch(teleDartProvider).requireValue;
 
     return AlertDialog(
-      title: const Text('ភ្ជាប់ទៅកាន់ Telegram'),
-      content: telegramAsync.onData(
-        loadingWidget: () => const SizedBox(
-          height: 300,
-          child: Center(child: CircularProgressIndicator()),
-        ),
-        (data) {
-          return _Content(data, onConnected);
-        },
-      ),
+      title: const Text('Connect to Telegram'),
+      content: _Content(telegramAsync, onConnected),
     );
   }
 }
@@ -84,21 +76,25 @@ class _Content extends HookConsumerWidget {
     );
 
     final scanner = Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         const Text(
-          '1. សូមស្កេន QR Code ឬចុចតំណរភ្ជាប់ខាងក្រោមនេះ \n2. រួចជ្រើសរើសក្រុបឆាតដែលចងភ្ជាប់ជាមួយជាការស្រេច។',
+          '1. Please scan the QR Code or click the link below \n2. Then select the chat group you want to connect with.',
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 12),
-        QrImageView(
-          data: joinGroupLink,
-          version: QrVersions.auto,
-          size: 250.0,
-          embeddedImage: Assets.images.kFALogo.provider(),
+        SizedBox(
+          width: 250,
+          height: 250,
+          child: QrImageView(
+            data: joinGroupLink,
+            version: QrVersions.auto,
+            embeddedImage: Assets.images.kFALogo.provider(),
+          ),
         ),
         const SizedBox(height: 12),
         const Text(
-          'ឬ',
+          'or',
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -108,15 +104,14 @@ class _Content extends HookConsumerWidget {
         TextButton.icon(
           onPressed: () async {
             final uri = Uri.parse(joinGroupLink);
-            if (await canLaunchUrl(uri)) {
-              await launchUrl(uri);
-            } else {
-              BotToast.showText(text: 'Cannot launch url');
-            }
+            await launchUrl(
+              uri,
+              mode: LaunchMode.externalApplication,
+            );
           },
           icon: const Icon(Icons.link),
           label: const Text(
-            'ចុចតំណរភ្ជាប់នេះ',
+            'Click this link',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -125,7 +120,7 @@ class _Content extends HookConsumerWidget {
         ),
         const SizedBox(height: 12),
         Text(
-          'សូមចំណាំថាដើម្បីអោយការភ្ជាប់បញ្ជប់ទៅដោយជោគជ័យ \nសូមកុំបិទកម្មវិធីអោយសោះរហូតការភ្ជាប់ត្រូវបានបញ្ជប់!',
+          'Please note that for the connection to be successful, \ndo not close the application until the connection is completed!',
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Theme.of(context).colorScheme.error,
@@ -135,55 +130,57 @@ class _Content extends HookConsumerWidget {
       ],
     );
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (fakeLoading.value)
-          const SizedBox(
-            height: 300,
-            child: Center(child: CircularProgressIndicator()),
-          )
-        else if (groupId.value != null) ...[
-          const Icon(
-            Icons.check_circle_outline,
-            size: 88,
-            color: Colors.green,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            groupName.value ?? "--",
-            style: const TextStyle(fontSize: 20),
-          ),
-          const SizedBox(height: 24),
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton(
-              onPressed: () async {
-                hasError.value = false;
-                final close = BotToast.showLoading();
-                final result = await onConnected(groupId.value!);
-                close();
-                if (result != null && context.mounted) {
-                  BotToast.showText(text: result);
-                  hasError.value = true;
-                  return;
-                }
-
-                if (context.mounted) {
-                  if (teleDartMessage.value != null) {
-                    teleDartMessage.value!.reply(
-                      'Congratulation! អ្នកបានភ្ជាប់ទៅកាន់ប្រព័ន្ធដោយជោគជ័យ...',
-                    );
-                  }
-                  Navigator.of(context).pop();
-                }
-              },
-              child: Text(hasError.value ? "ព្យាយាមម្ដងទៀត" : 'ភ្ជាប់'),
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (fakeLoading.value)
+            const SizedBox(
+              height: 300,
+              child: Center(child: CircularProgressIndicator()),
+            )
+          else if (groupId.value != null) ...[
+            const Icon(
+              Icons.check_circle_outline,
+              size: 88,
+              color: Colors.green,
             ),
-          ),
-        ] else
-          scanner,
-      ],
+            const SizedBox(height: 8),
+            Text(
+              groupName.value ?? "--",
+              style: const TextStyle(fontSize: 20),
+            ),
+            const SizedBox(height: 24),
+            SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                onPressed: () async {
+                  hasError.value = false;
+                  final close = BotToast.showLoading();
+                  final result = await onConnected(groupId.value!);
+                  close();
+                  if (result != null && context.mounted) {
+                    BotToast.showText(text: result);
+                    hasError.value = true;
+                    return;
+                  }
+
+                  if (context.mounted) {
+                    if (teleDartMessage.value != null) {
+                      teleDartMessage.value!.reply(
+                        'Congratulations! You have successfully connected to the system...',
+                      );
+                    }
+                    Navigator.of(context).pop();
+                  }
+                },
+                child: Text(hasError.value ? "Try again" : 'Connect'),
+              ),
+            ),
+          ] else
+            scanner,
+        ],
+      ),
     );
   }
 }

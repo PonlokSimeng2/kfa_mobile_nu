@@ -22,36 +22,37 @@ final teleDartProvider = AutoDisposeFutureProvider<TeleDart>.internal(
 );
 
 typedef TeleDartRef = AutoDisposeFutureProviderRef<TeleDart>;
-String _$telegramBotTokenHash() => r'0e621523bdc97b641ceb7526d23deac3c6fb8b08';
+String _$telegramGroupIdHash() => r'e383c5c5cafbd1679c27bd4bad8209cff90c59c9';
 
-/// See also [telegramBotToken].
-@ProviderFor(telegramBotToken)
-final telegramBotTokenProvider = AutoDisposeFutureProvider<String?>.internal(
-  telegramBotToken,
-  name: r'telegramBotTokenProvider',
+/// See also [telegramGroupId].
+@ProviderFor(telegramGroupId)
+final telegramGroupIdProvider = AutoDisposeFutureProvider<int?>.internal(
+  telegramGroupId,
+  name: r'telegramGroupIdProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$telegramBotTokenHash,
+      : _$telegramGroupIdHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef TelegramBotTokenRef = AutoDisposeFutureProviderRef<String?>;
-String _$updateTelegramBotHash() => r'd0d5fa1a6e4ee9e02d02c527e13515ac3ca48369';
+typedef TelegramGroupIdRef = AutoDisposeFutureProviderRef<int?>;
+String _$updateTelegramGroupIdHash() =>
+    r'3e74b82b0e8aa21503e941b953daabb65d6a7e8b';
 
-/// See also [UpdateTelegramBot].
-@ProviderFor(UpdateTelegramBot)
-final updateTelegramBotProvider = AutoDisposeNotifierProvider<UpdateTelegramBot,
-    ProviderStatus<void>>.internal(
-  UpdateTelegramBot.new,
-  name: r'updateTelegramBotProvider',
+/// See also [UpdateTelegramGroupId].
+@ProviderFor(UpdateTelegramGroupId)
+final updateTelegramGroupIdProvider = AutoDisposeNotifierProvider<
+    UpdateTelegramGroupId, ProviderStatus<void>>.internal(
+  UpdateTelegramGroupId.new,
+  name: r'updateTelegramGroupIdProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$updateTelegramBotHash,
+      : _$updateTelegramGroupIdHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$UpdateTelegramBot = AutoDisposeNotifier<ProviderStatus<void>>;
+typedef _$UpdateTelegramGroupId = AutoDisposeNotifier<ProviderStatus<void>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

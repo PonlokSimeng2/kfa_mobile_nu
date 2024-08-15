@@ -19,24 +19,24 @@ Future<TeleDart> teleDart(TeleDartRef ref) async {
 }
 
 @riverpod
-FutureOr<String?> telegramBotToken(TelegramBotTokenRef ref) async {
+FutureOr<int?> telegramGroupId(TelegramGroupIdRef ref) async {
   final sb = ref.watch(supabaseProvider);
   final result = await sb.client
       .from('key_values')
       .select('value')
-      .eq('key', 'telegram_bot_token')
+      .eq('key', 'telegram_group_id')
       .maybeSingle();
 
-  return result?['value'];
+  return int.tryParse(result?['value'] ?? '');
 }
 
 @riverpod
-class UpdateTelegramBot extends _$UpdateTelegramBot {
+class UpdateTelegramGroupId extends _$UpdateTelegramGroupId {
   @override
   ProviderStatus<void> build() => const ProviderStatus.initial();
 
   Future<ProviderStatus<void>> call({
-    required String? botToken,
+    required int? groupId,
   }) async {
     return await perform(
       (state) async {
@@ -47,9 +47,12 @@ class UpdateTelegramBot extends _$UpdateTelegramBot {
 
         final sb = ref.read(supabaseProvider);
         await sb.client.from('key_values').upsert({
-          'key': 'telegram_bot_token',
-          'value': botToken,
+          'key': 'telegram_group_id',
+          'value': groupId,
         });
+      },
+      onSuccess: (_) {
+        ref.invalidate(telegramGroupIdProvider);
       },
     );
   }

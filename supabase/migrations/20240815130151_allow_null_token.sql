@@ -1,0 +1,2 @@
+ALTER TABLE public.key_values
+ALTER COLUMN value DROP NOT NULL;

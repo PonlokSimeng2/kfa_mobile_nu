@@ -1,13 +1,14 @@
 import 'dart:io';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/gestures.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as p;
+
 import '../../exports.dart';
-import '../helpers/build_context_helper.dart';
+import '../providers/auth_provider.dart';
 import 'home_page.dart';
 import 'login_page.dart';
-import '../providers/auth_provider.dart';
-import 'package:path/path.dart' as p;
 
 class RegisterPage extends ConsumerStatefulWidget {
   const RegisterPage({super.key});
@@ -103,13 +104,11 @@ class _RegisterState extends ConsumerState<RegisterPage> {
                         color: kPrimaryColor,
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: kPrimaryColor, width: 2.0),
+                        borderSide: const BorderSide(color: kPrimaryColor, width: 2.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: kPrimaryColor, width: 1.0),
+                        borderSide: const BorderSide(color: kPrimaryColor, width: 1.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
@@ -128,13 +127,11 @@ class _RegisterState extends ConsumerState<RegisterPage> {
                         color: kPrimaryColor,
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: kPrimaryColor, width: 2.0),
+                        borderSide: const BorderSide(color: kPrimaryColor, width: 2.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: kPrimaryColor, width: 1.0),
+                        borderSide: const BorderSide(color: kPrimaryColor, width: 1.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
@@ -153,13 +150,11 @@ class _RegisterState extends ConsumerState<RegisterPage> {
                         color: kPrimaryColor,
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: kPrimaryColor, width: 2.0),
+                        borderSide: const BorderSide(color: kPrimaryColor, width: 2.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: kPrimaryColor, width: 1.0),
+                        borderSide: const BorderSide(color: kPrimaryColor, width: 1.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
@@ -179,13 +174,11 @@ class _RegisterState extends ConsumerState<RegisterPage> {
                         color: kPrimaryColor,
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: kPrimaryColor, width: 2.0),
+                        borderSide: const BorderSide(color: kPrimaryColor, width: 2.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: kPrimaryColor, width: 1.0),
+                        borderSide: const BorderSide(color: kPrimaryColor, width: 1.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
@@ -204,13 +197,11 @@ class _RegisterState extends ConsumerState<RegisterPage> {
                         color: kPrimaryColor,
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: kPrimaryColor, width: 2.0),
+                        borderSide: const BorderSide(color: kPrimaryColor, width: 2.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: kPrimaryColor, width: 1.0),
+                        borderSide: const BorderSide(color: kPrimaryColor, width: 1.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
@@ -277,8 +268,7 @@ class _RegisterState extends ConsumerState<RegisterPage> {
       child: CircleAvatar(
         radius: 50,
         backgroundColor: Colors.grey[200],
-        backgroundImage:
-            _imageFile != null ? FileImage(File(_imageFile!.path)) : null,
+        backgroundImage: _imageFile != null ? FileImage(File(_imageFile!.path)) : null,
         child: _imageFile == null
             ? const Icon(
                 Icons.camera_alt,
@@ -306,8 +296,7 @@ class _RegisterState extends ConsumerState<RegisterPage> {
 
     final sb = ref.read(supabaseProvider).client;
     final file = File(_imageFile!.path);
-    final newPath =
-        '${DateTime.now().microsecondsSinceEpoch}${p.extension(_imageFile!.path)}';
+    final newPath = '${DateTime.now().microsecondsSinceEpoch}${p.extension(_imageFile!.path)}';
 
     try {
       await sb.storage.from('files').upload(newPath, file);

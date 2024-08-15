@@ -2,25 +2,25 @@
 
 // ignore_for_file: non_constant_identifier_names, require_trailing_commas, type=lint
 
-part of 'auth_provider.dart';
+part of 'telegram_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$authHash() => r'1977b74076518a9b9c0bb95228dc6018e5462048';
+String _$teleDartHash() => r'a7420c99c6c4bf7940f4d2e872875839267b7ca1';
 
-/// See also [Auth].
-@ProviderFor(Auth)
-final authProvider = NotifierProvider<Auth, String?>.internal(
-  Auth.new,
-  name: r'authProvider',
+/// See also [teleDart].
+@ProviderFor(teleDart)
+final teleDartProvider = AutoDisposeFutureProvider<TeleDart>.internal(
+  teleDart,
+  name: r'teleDartProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$authHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$teleDartHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$Auth = Notifier<String?>;
+typedef TeleDartRef = AutoDisposeFutureProviderRef<TeleDart>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

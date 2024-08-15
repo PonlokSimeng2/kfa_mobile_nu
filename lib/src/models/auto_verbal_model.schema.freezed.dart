@@ -101,17 +101,20 @@ mixin _$AutoVerbalModel {
   /// Create a copy of AutoVerbalModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $AutoVerbalModelCopyWith<AutoVerbalModel> get copyWith => throw _privateConstructorUsedError;
+  $AutoVerbalModelCopyWith<AutoVerbalModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $AutoVerbalModelCopyWith<$Res> {
-  factory $AutoVerbalModelCopyWith(AutoVerbalModel value, $Res Function(AutoVerbalModel) then) =
+  factory $AutoVerbalModelCopyWith(
+          AutoVerbalModel value, $Res Function(AutoVerbalModel) then) =
       _$AutoVerbalModelCopyWithImpl<$Res, AutoVerbalModel>;
   @useResult
   $Res call(
       {@JsonKey(name: AutoVerbalModel.idKey) int id,
-      @JsonKey(name: AutoVerbalModel.statusKey) PropertyAndAutoVerbalStatus status,
+      @JsonKey(name: AutoVerbalModel.statusKey)
+      PropertyAndAutoVerbalStatus status,
       @JsonKey(name: AutoVerbalModel.autoVerbalIdKey) String autoVerbalId,
       @JsonKey(name: AutoVerbalModel.imageKey) List<String> image,
       @JsonKey(name: AutoVerbalModel.bankBranchKey) String? bankBranch,
@@ -119,8 +122,10 @@ abstract class $AutoVerbalModelCopyWith<$Res> {
       @JsonKey(name: AutoVerbalModel.longitudeKey) double longitude,
       @JsonKey(name: AutoVerbalModel.ownerNameKey) String ownerName,
       @JsonKey(name: AutoVerbalModel.ownerPhoneKey) String ownerPhone,
-      @JsonKey(name: AutoVerbalModel.bankOfficerNameKey) String? bankOfficerName,
-      @JsonKey(name: AutoVerbalModel.bankOfficerPhoneKey) String? bankOfficerPhone,
+      @JsonKey(name: AutoVerbalModel.bankOfficerNameKey)
+      String? bankOfficerName,
+      @JsonKey(name: AutoVerbalModel.bankOfficerPhoneKey)
+      String? bankOfficerPhone,
       @JsonKey(name: AutoVerbalModel.createdAtKey) DateTime createdAt,
       @JsonKey(name: AutoVerbalModel.approvedAtKey) DateTime? approvedAt,
       @JsonKey(name: AutoVerbalModel.rejectAtKey) DateTime? rejectAt,
@@ -433,15 +438,17 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
 }
 
 /// @nodoc
-abstract class _$$AutoVerbalModelImplCopyWith<$Res> implements $AutoVerbalModelCopyWith<$Res> {
-  factory _$$AutoVerbalModelImplCopyWith(
-          _$AutoVerbalModelImpl value, $Res Function(_$AutoVerbalModelImpl) then) =
+abstract class _$$AutoVerbalModelImplCopyWith<$Res>
+    implements $AutoVerbalModelCopyWith<$Res> {
+  factory _$$AutoVerbalModelImplCopyWith(_$AutoVerbalModelImpl value,
+          $Res Function(_$AutoVerbalModelImpl) then) =
       __$$AutoVerbalModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
       {@JsonKey(name: AutoVerbalModel.idKey) int id,
-      @JsonKey(name: AutoVerbalModel.statusKey) PropertyAndAutoVerbalStatus status,
+      @JsonKey(name: AutoVerbalModel.statusKey)
+      PropertyAndAutoVerbalStatus status,
       @JsonKey(name: AutoVerbalModel.autoVerbalIdKey) String autoVerbalId,
       @JsonKey(name: AutoVerbalModel.imageKey) List<String> image,
       @JsonKey(name: AutoVerbalModel.bankBranchKey) String? bankBranch,
@@ -449,8 +456,10 @@ abstract class _$$AutoVerbalModelImplCopyWith<$Res> implements $AutoVerbalModelC
       @JsonKey(name: AutoVerbalModel.longitudeKey) double longitude,
       @JsonKey(name: AutoVerbalModel.ownerNameKey) String ownerName,
       @JsonKey(name: AutoVerbalModel.ownerPhoneKey) String ownerPhone,
-      @JsonKey(name: AutoVerbalModel.bankOfficerNameKey) String? bankOfficerName,
-      @JsonKey(name: AutoVerbalModel.bankOfficerPhoneKey) String? bankOfficerPhone,
+      @JsonKey(name: AutoVerbalModel.bankOfficerNameKey)
+      String? bankOfficerName,
+      @JsonKey(name: AutoVerbalModel.bankOfficerPhoneKey)
+      String? bankOfficerPhone,
       @JsonKey(name: AutoVerbalModel.createdAtKey) DateTime createdAt,
       @JsonKey(name: AutoVerbalModel.approvedAtKey) DateTime? approvedAt,
       @JsonKey(name: AutoVerbalModel.rejectAtKey) DateTime? rejectAt,
@@ -698,26 +707,33 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
   const _$AutoVerbalModelImpl(
       {@JsonKey(name: AutoVerbalModel.idKey) required this.id,
       @JsonKey(name: AutoVerbalModel.statusKey) required this.status,
-      @JsonKey(name: AutoVerbalModel.autoVerbalIdKey) required this.autoVerbalId,
-      @JsonKey(name: AutoVerbalModel.imageKey) required final List<String> image,
+      @JsonKey(name: AutoVerbalModel.autoVerbalIdKey)
+      required this.autoVerbalId,
+      @JsonKey(name: AutoVerbalModel.imageKey)
+      required final List<String> image,
       @JsonKey(name: AutoVerbalModel.bankBranchKey) required this.bankBranch,
       @JsonKey(name: AutoVerbalModel.latitudeKey) required this.latitude,
       @JsonKey(name: AutoVerbalModel.longitudeKey) required this.longitude,
       @JsonKey(name: AutoVerbalModel.ownerNameKey) required this.ownerName,
       @JsonKey(name: AutoVerbalModel.ownerPhoneKey) required this.ownerPhone,
-      @JsonKey(name: AutoVerbalModel.bankOfficerNameKey) required this.bankOfficerName,
-      @JsonKey(name: AutoVerbalModel.bankOfficerPhoneKey) required this.bankOfficerPhone,
+      @JsonKey(name: AutoVerbalModel.bankOfficerNameKey)
+      required this.bankOfficerName,
+      @JsonKey(name: AutoVerbalModel.bankOfficerPhoneKey)
+      required this.bankOfficerPhone,
       @JsonKey(name: AutoVerbalModel.createdAtKey) required this.createdAt,
       @JsonKey(name: AutoVerbalModel.approvedAtKey) required this.approvedAt,
       @JsonKey(name: AutoVerbalModel.rejectAtKey) required this.rejectAt,
-      @JsonKey(name: AutoVerbalModel.rejectReasonKey) required this.rejectReason,
+      @JsonKey(name: AutoVerbalModel.rejectReasonKey)
+      required this.rejectReason,
       @JsonKey(name: AutoVerbalModel.minValueKey) required this.minValue,
       @JsonKey(name: AutoVerbalModel.maxValueKey) required this.maxValue,
       @JsonKey(name: AutoVerbalModel.minValueSqmKey) required this.minValueSqm,
       @JsonKey(name: AutoVerbalModel.maxValueSqmKey) required this.maxValueSqm,
       @JsonKey(name: AutoVerbalModel.areaKey) required this.area,
-      @JsonKey(name: AutoVerbalModel.buildinglengthKey) required this.buildinglength,
-      @JsonKey(name: AutoVerbalModel.buildingwidthKey) required this.buildingwidth,
+      @JsonKey(name: AutoVerbalModel.buildinglengthKey)
+      required this.buildinglength,
+      @JsonKey(name: AutoVerbalModel.buildingwidthKey)
+      required this.buildingwidth,
       @JsonKey(name: AutoVerbalModel.landlengthKey) required this.landlength,
       @JsonKey(name: AutoVerbalModel.landwidthKey) required this.landwidth,
       @JsonKey(name: AutoVerbalModel.bedKey) required this.bed,
@@ -875,41 +891,61 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
             other is _$AutoVerbalModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.autoVerbalId, autoVerbalId) || other.autoVerbalId == autoVerbalId) &&
+            (identical(other.autoVerbalId, autoVerbalId) ||
+                other.autoVerbalId == autoVerbalId) &&
             const DeepCollectionEquality().equals(other._image, _image) &&
-            (identical(other.bankBranch, bankBranch) || other.bankBranch == bankBranch) &&
-            (identical(other.latitude, latitude) || other.latitude == latitude) &&
-            (identical(other.longitude, longitude) || other.longitude == longitude) &&
-            (identical(other.ownerName, ownerName) || other.ownerName == ownerName) &&
-            (identical(other.ownerPhone, ownerPhone) || other.ownerPhone == ownerPhone) &&
+            (identical(other.bankBranch, bankBranch) ||
+                other.bankBranch == bankBranch) &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
+            (identical(other.ownerName, ownerName) ||
+                other.ownerName == ownerName) &&
+            (identical(other.ownerPhone, ownerPhone) ||
+                other.ownerPhone == ownerPhone) &&
             (identical(other.bankOfficerName, bankOfficerName) ||
                 other.bankOfficerName == bankOfficerName) &&
             (identical(other.bankOfficerPhone, bankOfficerPhone) ||
                 other.bankOfficerPhone == bankOfficerPhone) &&
-            (identical(other.createdAt, createdAt) || other.createdAt == createdAt) &&
-            (identical(other.approvedAt, approvedAt) || other.approvedAt == approvedAt) &&
-            (identical(other.rejectAt, rejectAt) || other.rejectAt == rejectAt) &&
-            (identical(other.rejectReason, rejectReason) || other.rejectReason == rejectReason) &&
-            (identical(other.minValue, minValue) || other.minValue == minValue) &&
-            (identical(other.maxValue, maxValue) || other.maxValue == maxValue) &&
-            (identical(other.minValueSqm, minValueSqm) || other.minValueSqm == minValueSqm) &&
-            (identical(other.maxValueSqm, maxValueSqm) || other.maxValueSqm == maxValueSqm) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.approvedAt, approvedAt) ||
+                other.approvedAt == approvedAt) &&
+            (identical(other.rejectAt, rejectAt) ||
+                other.rejectAt == rejectAt) &&
+            (identical(other.rejectReason, rejectReason) ||
+                other.rejectReason == rejectReason) &&
+            (identical(other.minValue, minValue) ||
+                other.minValue == minValue) &&
+            (identical(other.maxValue, maxValue) ||
+                other.maxValue == maxValue) &&
+            (identical(other.minValueSqm, minValueSqm) ||
+                other.minValueSqm == minValueSqm) &&
+            (identical(other.maxValueSqm, maxValueSqm) ||
+                other.maxValueSqm == maxValueSqm) &&
             (identical(other.area, area) || other.area == area) &&
             (identical(other.buildinglength, buildinglength) ||
                 other.buildinglength == buildinglength) &&
             (identical(other.buildingwidth, buildingwidth) ||
                 other.buildingwidth == buildingwidth) &&
-            (identical(other.landlength, landlength) || other.landlength == landlength) &&
-            (identical(other.landwidth, landwidth) || other.landwidth == landwidth) &&
+            (identical(other.landlength, landlength) ||
+                other.landlength == landlength) &&
+            (identical(other.landwidth, landwidth) ||
+                other.landwidth == landwidth) &&
             (identical(other.bed, bed) || other.bed == bed) &&
             (identical(other.bath, bath) || other.bath == bath) &&
-            (identical(other.livingroom, livingroom) || other.livingroom == livingroom) &&
+            (identical(other.livingroom, livingroom) ||
+                other.livingroom == livingroom) &&
             (identical(other.floor, floor) || other.floor == floor) &&
-            (identical(other.propertyType, propertyType) || other.propertyType == propertyType) &&
+            (identical(other.propertyType, propertyType) ||
+                other.propertyType == propertyType) &&
             (identical(other.bank, bank) || other.bank == bank) &&
             (identical(other.user, user) || other.user == user) &&
-            (identical(other.approvedBy, approvedBy) || other.approvedBy == approvedBy) &&
-            (identical(other.province, province) || other.province == province) &&
+            (identical(other.approvedBy, approvedBy) ||
+                other.approvedBy == approvedBy) &&
+            (identical(other.province, province) ||
+                other.province == province) &&
             (identical(other.road, road) || other.road == road));
   }
 
@@ -959,7 +995,8 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
   @override
   @pragma('vm:prefer-inline')
   _$$AutoVerbalModelImplCopyWith<_$AutoVerbalModelImpl> get copyWith =>
-      __$$AutoVerbalModelImplCopyWithImpl<_$AutoVerbalModelImpl>(this, _$identity);
+      __$$AutoVerbalModelImplCopyWithImpl<_$AutoVerbalModelImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -972,32 +1009,55 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
 abstract class _AutoVerbalModel extends AutoVerbalModel {
   const factory _AutoVerbalModel(
       {@JsonKey(name: AutoVerbalModel.idKey) required final int id,
-      @JsonKey(name: AutoVerbalModel.statusKey) required final PropertyAndAutoVerbalStatus status,
-      @JsonKey(name: AutoVerbalModel.autoVerbalIdKey) required final String autoVerbalId,
-      @JsonKey(name: AutoVerbalModel.imageKey) required final List<String> image,
-      @JsonKey(name: AutoVerbalModel.bankBranchKey) required final String? bankBranch,
-      @JsonKey(name: AutoVerbalModel.latitudeKey) required final double latitude,
-      @JsonKey(name: AutoVerbalModel.longitudeKey) required final double longitude,
-      @JsonKey(name: AutoVerbalModel.ownerNameKey) required final String ownerName,
-      @JsonKey(name: AutoVerbalModel.ownerPhoneKey) required final String ownerPhone,
-      @JsonKey(name: AutoVerbalModel.bankOfficerNameKey) required final String? bankOfficerName,
-      @JsonKey(name: AutoVerbalModel.bankOfficerPhoneKey) required final String? bankOfficerPhone,
-      @JsonKey(name: AutoVerbalModel.createdAtKey) required final DateTime createdAt,
-      @JsonKey(name: AutoVerbalModel.approvedAtKey) required final DateTime? approvedAt,
-      @JsonKey(name: AutoVerbalModel.rejectAtKey) required final DateTime? rejectAt,
-      @JsonKey(name: AutoVerbalModel.rejectReasonKey) required final String? rejectReason,
-      @JsonKey(name: AutoVerbalModel.minValueKey) required final double minValue,
-      @JsonKey(name: AutoVerbalModel.maxValueKey) required final double maxValue,
-      @JsonKey(name: AutoVerbalModel.minValueSqmKey) required final double minValueSqm,
-      @JsonKey(name: AutoVerbalModel.maxValueSqmKey) required final double maxValueSqm,
+      @JsonKey(name: AutoVerbalModel.statusKey)
+      required final PropertyAndAutoVerbalStatus status,
+      @JsonKey(name: AutoVerbalModel.autoVerbalIdKey)
+      required final String autoVerbalId,
+      @JsonKey(name: AutoVerbalModel.imageKey)
+      required final List<String> image,
+      @JsonKey(name: AutoVerbalModel.bankBranchKey)
+      required final String? bankBranch,
+      @JsonKey(name: AutoVerbalModel.latitudeKey)
+      required final double latitude,
+      @JsonKey(name: AutoVerbalModel.longitudeKey)
+      required final double longitude,
+      @JsonKey(name: AutoVerbalModel.ownerNameKey)
+      required final String ownerName,
+      @JsonKey(name: AutoVerbalModel.ownerPhoneKey)
+      required final String ownerPhone,
+      @JsonKey(name: AutoVerbalModel.bankOfficerNameKey)
+      required final String? bankOfficerName,
+      @JsonKey(name: AutoVerbalModel.bankOfficerPhoneKey)
+      required final String? bankOfficerPhone,
+      @JsonKey(name: AutoVerbalModel.createdAtKey)
+      required final DateTime createdAt,
+      @JsonKey(name: AutoVerbalModel.approvedAtKey)
+      required final DateTime? approvedAt,
+      @JsonKey(name: AutoVerbalModel.rejectAtKey)
+      required final DateTime? rejectAt,
+      @JsonKey(name: AutoVerbalModel.rejectReasonKey)
+      required final String? rejectReason,
+      @JsonKey(name: AutoVerbalModel.minValueKey)
+      required final double minValue,
+      @JsonKey(name: AutoVerbalModel.maxValueKey)
+      required final double maxValue,
+      @JsonKey(name: AutoVerbalModel.minValueSqmKey)
+      required final double minValueSqm,
+      @JsonKey(name: AutoVerbalModel.maxValueSqmKey)
+      required final double maxValueSqm,
       @JsonKey(name: AutoVerbalModel.areaKey) required final double area,
-      @JsonKey(name: AutoVerbalModel.buildinglengthKey) required final double? buildinglength,
-      @JsonKey(name: AutoVerbalModel.buildingwidthKey) required final double? buildingwidth,
-      @JsonKey(name: AutoVerbalModel.landlengthKey) required final double landlength,
-      @JsonKey(name: AutoVerbalModel.landwidthKey) required final double landwidth,
+      @JsonKey(name: AutoVerbalModel.buildinglengthKey)
+      required final double? buildinglength,
+      @JsonKey(name: AutoVerbalModel.buildingwidthKey)
+      required final double? buildingwidth,
+      @JsonKey(name: AutoVerbalModel.landlengthKey)
+      required final double landlength,
+      @JsonKey(name: AutoVerbalModel.landwidthKey)
+      required final double landwidth,
       @JsonKey(name: AutoVerbalModel.bedKey) required final int? bed,
       @JsonKey(name: AutoVerbalModel.bathKey) required final int? bath,
-      @JsonKey(name: AutoVerbalModel.livingroomKey) required final int? livingroom,
+      @JsonKey(name: AutoVerbalModel.livingroomKey)
+      required final int? livingroom,
       @JsonKey(name: AutoVerbalModel.floorKey) required final int? floor,
       @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
       @JsonKey(name: AutoVerbalModel.propertyTypeKey)
@@ -1019,7 +1079,8 @@ abstract class _AutoVerbalModel extends AutoVerbalModel {
       required final RoadModel? road}) = _$AutoVerbalModelImpl;
   const _AutoVerbalModel._() : super._();
 
-  factory _AutoVerbalModel.fromJson(Map<String, dynamic> json) = _$AutoVerbalModelImpl.fromJson;
+  factory _AutoVerbalModel.fromJson(Map<String, dynamic> json) =
+      _$AutoVerbalModelImpl.fromJson;
 
   @override
   @JsonKey(name: AutoVerbalModel.idKey)
@@ -1138,7 +1199,8 @@ abstract class _AutoVerbalModel extends AutoVerbalModel {
       throw _privateConstructorUsedError;
 }
 
-CreateAutoVerbalParam _$CreateAutoVerbalParamFromJson(Map<String, dynamic> json) {
+CreateAutoVerbalParam _$CreateAutoVerbalParamFromJson(
+    Map<String, dynamic> json) {
   return _CreateAutoVerbalParam.fromJson(json);
 }
 
@@ -1209,8 +1271,8 @@ mixin _$CreateAutoVerbalParam {
 
 /// @nodoc
 abstract class $CreateAutoVerbalParamCopyWith<$Res> {
-  factory $CreateAutoVerbalParamCopyWith(
-          CreateAutoVerbalParam value, $Res Function(CreateAutoVerbalParam) then) =
+  factory $CreateAutoVerbalParamCopyWith(CreateAutoVerbalParam value,
+          $Res Function(CreateAutoVerbalParam) then) =
       _$CreateAutoVerbalParamCopyWithImpl<$Res, CreateAutoVerbalParam>;
   @useResult
   $Res call(
@@ -1220,22 +1282,27 @@ abstract class $CreateAutoVerbalParamCopyWith<$Res> {
       @JsonKey(name: CreateAutoVerbalParam.longitudeKey) double longitude,
       @JsonKey(name: CreateAutoVerbalParam.ownerNameKey) String ownerName,
       @JsonKey(name: CreateAutoVerbalParam.ownerPhoneKey) String ownerPhone,
-      @JsonKey(name: CreateAutoVerbalParam.bankOfficerNameKey) String? bankOfficerName,
-      @JsonKey(name: CreateAutoVerbalParam.bankOfficerPhoneKey) String? bankOfficerPhone,
+      @JsonKey(name: CreateAutoVerbalParam.bankOfficerNameKey)
+      String? bankOfficerName,
+      @JsonKey(name: CreateAutoVerbalParam.bankOfficerPhoneKey)
+      String? bankOfficerPhone,
       @JsonKey(name: CreateAutoVerbalParam.minValueKey) double minValue,
       @JsonKey(name: CreateAutoVerbalParam.maxValueKey) double maxValue,
       @JsonKey(name: CreateAutoVerbalParam.minValueSqmKey) double minValueSqm,
       @JsonKey(name: CreateAutoVerbalParam.maxValueSqmKey) double maxValueSqm,
       @JsonKey(name: CreateAutoVerbalParam.areaKey) double area,
-      @JsonKey(name: CreateAutoVerbalParam.buildinglengthKey) double? buildinglength,
-      @JsonKey(name: CreateAutoVerbalParam.buildingwidthKey) double? buildingwidth,
+      @JsonKey(name: CreateAutoVerbalParam.buildinglengthKey)
+      double? buildinglength,
+      @JsonKey(name: CreateAutoVerbalParam.buildingwidthKey)
+      double? buildingwidth,
       @JsonKey(name: CreateAutoVerbalParam.landlengthKey) double landlength,
       @JsonKey(name: CreateAutoVerbalParam.landwidthKey) double landwidth,
       @JsonKey(name: CreateAutoVerbalParam.bedKey) int? bed,
       @JsonKey(name: CreateAutoVerbalParam.bathKey) int? bath,
       @JsonKey(name: CreateAutoVerbalParam.livingroomKey) int? livingroom,
       @JsonKey(name: CreateAutoVerbalParam.floorKey) int? floor,
-      @JsonKey(name: CreateAutoVerbalParam.propertyTypeIdKey) int propertyTypeId,
+      @JsonKey(name: CreateAutoVerbalParam.propertyTypeIdKey)
+      int propertyTypeId,
       @JsonKey(name: CreateAutoVerbalParam.provinceIdKey) int provinceId,
       @JsonKey(name: CreateAutoVerbalParam.roadIdKey) int? roadId,
       @JsonKey(name: CreateAutoVerbalParam.bankIdKey) int? bankId,
@@ -1243,7 +1310,8 @@ abstract class $CreateAutoVerbalParamCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CreateAutoVerbalParamCopyWithImpl<$Res, $Val extends CreateAutoVerbalParam>
+class _$CreateAutoVerbalParamCopyWithImpl<$Res,
+        $Val extends CreateAutoVerbalParam>
     implements $CreateAutoVerbalParamCopyWith<$Res> {
   _$CreateAutoVerbalParamCopyWithImpl(this._value, this._then);
 
@@ -1397,7 +1465,8 @@ class _$CreateAutoVerbalParamCopyWithImpl<$Res, $Val extends CreateAutoVerbalPar
 abstract class _$$CreateAutoVerbalParamImplCopyWith<$Res>
     implements $CreateAutoVerbalParamCopyWith<$Res> {
   factory _$$CreateAutoVerbalParamImplCopyWith(
-          _$CreateAutoVerbalParamImpl value, $Res Function(_$CreateAutoVerbalParamImpl) then) =
+          _$CreateAutoVerbalParamImpl value,
+          $Res Function(_$CreateAutoVerbalParamImpl) then) =
       __$$CreateAutoVerbalParamImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -1408,22 +1477,27 @@ abstract class _$$CreateAutoVerbalParamImplCopyWith<$Res>
       @JsonKey(name: CreateAutoVerbalParam.longitudeKey) double longitude,
       @JsonKey(name: CreateAutoVerbalParam.ownerNameKey) String ownerName,
       @JsonKey(name: CreateAutoVerbalParam.ownerPhoneKey) String ownerPhone,
-      @JsonKey(name: CreateAutoVerbalParam.bankOfficerNameKey) String? bankOfficerName,
-      @JsonKey(name: CreateAutoVerbalParam.bankOfficerPhoneKey) String? bankOfficerPhone,
+      @JsonKey(name: CreateAutoVerbalParam.bankOfficerNameKey)
+      String? bankOfficerName,
+      @JsonKey(name: CreateAutoVerbalParam.bankOfficerPhoneKey)
+      String? bankOfficerPhone,
       @JsonKey(name: CreateAutoVerbalParam.minValueKey) double minValue,
       @JsonKey(name: CreateAutoVerbalParam.maxValueKey) double maxValue,
       @JsonKey(name: CreateAutoVerbalParam.minValueSqmKey) double minValueSqm,
       @JsonKey(name: CreateAutoVerbalParam.maxValueSqmKey) double maxValueSqm,
       @JsonKey(name: CreateAutoVerbalParam.areaKey) double area,
-      @JsonKey(name: CreateAutoVerbalParam.buildinglengthKey) double? buildinglength,
-      @JsonKey(name: CreateAutoVerbalParam.buildingwidthKey) double? buildingwidth,
+      @JsonKey(name: CreateAutoVerbalParam.buildinglengthKey)
+      double? buildinglength,
+      @JsonKey(name: CreateAutoVerbalParam.buildingwidthKey)
+      double? buildingwidth,
       @JsonKey(name: CreateAutoVerbalParam.landlengthKey) double landlength,
       @JsonKey(name: CreateAutoVerbalParam.landwidthKey) double landwidth,
       @JsonKey(name: CreateAutoVerbalParam.bedKey) int? bed,
       @JsonKey(name: CreateAutoVerbalParam.bathKey) int? bath,
       @JsonKey(name: CreateAutoVerbalParam.livingroomKey) int? livingroom,
       @JsonKey(name: CreateAutoVerbalParam.floorKey) int? floor,
-      @JsonKey(name: CreateAutoVerbalParam.propertyTypeIdKey) int propertyTypeId,
+      @JsonKey(name: CreateAutoVerbalParam.propertyTypeIdKey)
+      int propertyTypeId,
       @JsonKey(name: CreateAutoVerbalParam.provinceIdKey) int provinceId,
       @JsonKey(name: CreateAutoVerbalParam.roadIdKey) int? roadId,
       @JsonKey(name: CreateAutoVerbalParam.bankIdKey) int? bankId,
@@ -1432,10 +1506,11 @@ abstract class _$$CreateAutoVerbalParamImplCopyWith<$Res>
 
 /// @nodoc
 class __$$CreateAutoVerbalParamImplCopyWithImpl<$Res>
-    extends _$CreateAutoVerbalParamCopyWithImpl<$Res, _$CreateAutoVerbalParamImpl>
+    extends _$CreateAutoVerbalParamCopyWithImpl<$Res,
+        _$CreateAutoVerbalParamImpl>
     implements _$$CreateAutoVerbalParamImplCopyWith<$Res> {
-  __$$CreateAutoVerbalParamImplCopyWithImpl(
-      _$CreateAutoVerbalParamImpl _value, $Res Function(_$CreateAutoVerbalParamImpl) _then)
+  __$$CreateAutoVerbalParamImplCopyWithImpl(_$CreateAutoVerbalParamImpl _value,
+      $Res Function(_$CreateAutoVerbalParamImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of CreateAutoVerbalParam
@@ -1584,29 +1659,45 @@ class __$$CreateAutoVerbalParamImplCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$CreateAutoVerbalParamImpl extends _CreateAutoVerbalParam {
   const _$CreateAutoVerbalParamImpl(
-      {@JsonKey(name: CreateAutoVerbalParam.imageKey) required final List<String> image,
-      @JsonKey(name: CreateAutoVerbalParam.bankBranchKey) required this.bankBranch,
+      {@JsonKey(name: CreateAutoVerbalParam.imageKey)
+      required final List<String> image,
+      @JsonKey(name: CreateAutoVerbalParam.bankBranchKey)
+      required this.bankBranch,
       @JsonKey(name: CreateAutoVerbalParam.latitudeKey) required this.latitude,
-      @JsonKey(name: CreateAutoVerbalParam.longitudeKey) required this.longitude,
-      @JsonKey(name: CreateAutoVerbalParam.ownerNameKey) required this.ownerName,
-      @JsonKey(name: CreateAutoVerbalParam.ownerPhoneKey) required this.ownerPhone,
-      @JsonKey(name: CreateAutoVerbalParam.bankOfficerNameKey) required this.bankOfficerName,
-      @JsonKey(name: CreateAutoVerbalParam.bankOfficerPhoneKey) required this.bankOfficerPhone,
+      @JsonKey(name: CreateAutoVerbalParam.longitudeKey)
+      required this.longitude,
+      @JsonKey(name: CreateAutoVerbalParam.ownerNameKey)
+      required this.ownerName,
+      @JsonKey(name: CreateAutoVerbalParam.ownerPhoneKey)
+      required this.ownerPhone,
+      @JsonKey(name: CreateAutoVerbalParam.bankOfficerNameKey)
+      required this.bankOfficerName,
+      @JsonKey(name: CreateAutoVerbalParam.bankOfficerPhoneKey)
+      required this.bankOfficerPhone,
       @JsonKey(name: CreateAutoVerbalParam.minValueKey) required this.minValue,
       @JsonKey(name: CreateAutoVerbalParam.maxValueKey) required this.maxValue,
-      @JsonKey(name: CreateAutoVerbalParam.minValueSqmKey) required this.minValueSqm,
-      @JsonKey(name: CreateAutoVerbalParam.maxValueSqmKey) required this.maxValueSqm,
+      @JsonKey(name: CreateAutoVerbalParam.minValueSqmKey)
+      required this.minValueSqm,
+      @JsonKey(name: CreateAutoVerbalParam.maxValueSqmKey)
+      required this.maxValueSqm,
       @JsonKey(name: CreateAutoVerbalParam.areaKey) required this.area,
-      @JsonKey(name: CreateAutoVerbalParam.buildinglengthKey) required this.buildinglength,
-      @JsonKey(name: CreateAutoVerbalParam.buildingwidthKey) required this.buildingwidth,
-      @JsonKey(name: CreateAutoVerbalParam.landlengthKey) required this.landlength,
-      @JsonKey(name: CreateAutoVerbalParam.landwidthKey) required this.landwidth,
+      @JsonKey(name: CreateAutoVerbalParam.buildinglengthKey)
+      required this.buildinglength,
+      @JsonKey(name: CreateAutoVerbalParam.buildingwidthKey)
+      required this.buildingwidth,
+      @JsonKey(name: CreateAutoVerbalParam.landlengthKey)
+      required this.landlength,
+      @JsonKey(name: CreateAutoVerbalParam.landwidthKey)
+      required this.landwidth,
       @JsonKey(name: CreateAutoVerbalParam.bedKey) required this.bed,
       @JsonKey(name: CreateAutoVerbalParam.bathKey) required this.bath,
-      @JsonKey(name: CreateAutoVerbalParam.livingroomKey) required this.livingroom,
+      @JsonKey(name: CreateAutoVerbalParam.livingroomKey)
+      required this.livingroom,
       @JsonKey(name: CreateAutoVerbalParam.floorKey) required this.floor,
-      @JsonKey(name: CreateAutoVerbalParam.propertyTypeIdKey) required this.propertyTypeId,
-      @JsonKey(name: CreateAutoVerbalParam.provinceIdKey) required this.provinceId,
+      @JsonKey(name: CreateAutoVerbalParam.propertyTypeIdKey)
+      required this.propertyTypeId,
+      @JsonKey(name: CreateAutoVerbalParam.provinceIdKey)
+      required this.provinceId,
       @JsonKey(name: CreateAutoVerbalParam.roadIdKey) required this.roadId,
       @JsonKey(name: CreateAutoVerbalParam.bankIdKey) required this.bankId,
       @JsonKey(name: CreateAutoVerbalParam.userIdKey) required this.userId})
@@ -1712,33 +1803,46 @@ class _$CreateAutoVerbalParamImpl extends _CreateAutoVerbalParam {
         (other.runtimeType == runtimeType &&
             other is _$CreateAutoVerbalParamImpl &&
             const DeepCollectionEquality().equals(other._image, _image) &&
-            (identical(other.bankBranch, bankBranch) || other.bankBranch == bankBranch) &&
-            (identical(other.latitude, latitude) || other.latitude == latitude) &&
-            (identical(other.longitude, longitude) || other.longitude == longitude) &&
-            (identical(other.ownerName, ownerName) || other.ownerName == ownerName) &&
-            (identical(other.ownerPhone, ownerPhone) || other.ownerPhone == ownerPhone) &&
+            (identical(other.bankBranch, bankBranch) ||
+                other.bankBranch == bankBranch) &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
+            (identical(other.ownerName, ownerName) ||
+                other.ownerName == ownerName) &&
+            (identical(other.ownerPhone, ownerPhone) ||
+                other.ownerPhone == ownerPhone) &&
             (identical(other.bankOfficerName, bankOfficerName) ||
                 other.bankOfficerName == bankOfficerName) &&
             (identical(other.bankOfficerPhone, bankOfficerPhone) ||
                 other.bankOfficerPhone == bankOfficerPhone) &&
-            (identical(other.minValue, minValue) || other.minValue == minValue) &&
-            (identical(other.maxValue, maxValue) || other.maxValue == maxValue) &&
-            (identical(other.minValueSqm, minValueSqm) || other.minValueSqm == minValueSqm) &&
-            (identical(other.maxValueSqm, maxValueSqm) || other.maxValueSqm == maxValueSqm) &&
+            (identical(other.minValue, minValue) ||
+                other.minValue == minValue) &&
+            (identical(other.maxValue, maxValue) ||
+                other.maxValue == maxValue) &&
+            (identical(other.minValueSqm, minValueSqm) ||
+                other.minValueSqm == minValueSqm) &&
+            (identical(other.maxValueSqm, maxValueSqm) ||
+                other.maxValueSqm == maxValueSqm) &&
             (identical(other.area, area) || other.area == area) &&
             (identical(other.buildinglength, buildinglength) ||
                 other.buildinglength == buildinglength) &&
             (identical(other.buildingwidth, buildingwidth) ||
                 other.buildingwidth == buildingwidth) &&
-            (identical(other.landlength, landlength) || other.landlength == landlength) &&
-            (identical(other.landwidth, landwidth) || other.landwidth == landwidth) &&
+            (identical(other.landlength, landlength) ||
+                other.landlength == landlength) &&
+            (identical(other.landwidth, landwidth) ||
+                other.landwidth == landwidth) &&
             (identical(other.bed, bed) || other.bed == bed) &&
             (identical(other.bath, bath) || other.bath == bath) &&
-            (identical(other.livingroom, livingroom) || other.livingroom == livingroom) &&
+            (identical(other.livingroom, livingroom) ||
+                other.livingroom == livingroom) &&
             (identical(other.floor, floor) || other.floor == floor) &&
             (identical(other.propertyTypeId, propertyTypeId) ||
                 other.propertyTypeId == propertyTypeId) &&
-            (identical(other.provinceId, provinceId) || other.provinceId == provinceId) &&
+            (identical(other.provinceId, provinceId) ||
+                other.provinceId == provinceId) &&
             (identical(other.roadId, roadId) || other.roadId == roadId) &&
             (identical(other.bankId, bankId) || other.bankId == bankId) &&
             (identical(other.userId, userId) || other.userId == userId));
@@ -1781,8 +1885,9 @@ class _$CreateAutoVerbalParamImpl extends _CreateAutoVerbalParam {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$CreateAutoVerbalParamImplCopyWith<_$CreateAutoVerbalParamImpl> get copyWith =>
-      __$$CreateAutoVerbalParamImplCopyWithImpl<_$CreateAutoVerbalParamImpl>(this, _$identity);
+  _$$CreateAutoVerbalParamImplCopyWith<_$CreateAutoVerbalParamImpl>
+      get copyWith => __$$CreateAutoVerbalParamImplCopyWithImpl<
+          _$CreateAutoVerbalParamImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -1794,33 +1899,52 @@ class _$CreateAutoVerbalParamImpl extends _CreateAutoVerbalParam {
 
 abstract class _CreateAutoVerbalParam extends CreateAutoVerbalParam {
   const factory _CreateAutoVerbalParam(
-      {@JsonKey(name: CreateAutoVerbalParam.imageKey) required final List<String> image,
-      @JsonKey(name: CreateAutoVerbalParam.bankBranchKey) required final String? bankBranch,
-      @JsonKey(name: CreateAutoVerbalParam.latitudeKey) required final double latitude,
-      @JsonKey(name: CreateAutoVerbalParam.longitudeKey) required final double longitude,
-      @JsonKey(name: CreateAutoVerbalParam.ownerNameKey) required final String ownerName,
-      @JsonKey(name: CreateAutoVerbalParam.ownerPhoneKey) required final String ownerPhone,
+      {@JsonKey(name: CreateAutoVerbalParam.imageKey)
+      required final List<String> image,
+      @JsonKey(name: CreateAutoVerbalParam.bankBranchKey)
+      required final String? bankBranch,
+      @JsonKey(name: CreateAutoVerbalParam.latitudeKey)
+      required final double latitude,
+      @JsonKey(name: CreateAutoVerbalParam.longitudeKey)
+      required final double longitude,
+      @JsonKey(name: CreateAutoVerbalParam.ownerNameKey)
+      required final String ownerName,
+      @JsonKey(name: CreateAutoVerbalParam.ownerPhoneKey)
+      required final String ownerPhone,
       @JsonKey(name: CreateAutoVerbalParam.bankOfficerNameKey)
       required final String? bankOfficerName,
       @JsonKey(name: CreateAutoVerbalParam.bankOfficerPhoneKey)
       required final String? bankOfficerPhone,
-      @JsonKey(name: CreateAutoVerbalParam.minValueKey) required final double minValue,
-      @JsonKey(name: CreateAutoVerbalParam.maxValueKey) required final double maxValue,
-      @JsonKey(name: CreateAutoVerbalParam.minValueSqmKey) required final double minValueSqm,
-      @JsonKey(name: CreateAutoVerbalParam.maxValueSqmKey) required final double maxValueSqm,
+      @JsonKey(name: CreateAutoVerbalParam.minValueKey)
+      required final double minValue,
+      @JsonKey(name: CreateAutoVerbalParam.maxValueKey)
+      required final double maxValue,
+      @JsonKey(name: CreateAutoVerbalParam.minValueSqmKey)
+      required final double minValueSqm,
+      @JsonKey(name: CreateAutoVerbalParam.maxValueSqmKey)
+      required final double maxValueSqm,
       @JsonKey(name: CreateAutoVerbalParam.areaKey) required final double area,
-      @JsonKey(name: CreateAutoVerbalParam.buildinglengthKey) required final double? buildinglength,
-      @JsonKey(name: CreateAutoVerbalParam.buildingwidthKey) required final double? buildingwidth,
-      @JsonKey(name: CreateAutoVerbalParam.landlengthKey) required final double landlength,
-      @JsonKey(name: CreateAutoVerbalParam.landwidthKey) required final double landwidth,
+      @JsonKey(name: CreateAutoVerbalParam.buildinglengthKey)
+      required final double? buildinglength,
+      @JsonKey(name: CreateAutoVerbalParam.buildingwidthKey)
+      required final double? buildingwidth,
+      @JsonKey(name: CreateAutoVerbalParam.landlengthKey)
+      required final double landlength,
+      @JsonKey(name: CreateAutoVerbalParam.landwidthKey)
+      required final double landwidth,
       @JsonKey(name: CreateAutoVerbalParam.bedKey) required final int? bed,
       @JsonKey(name: CreateAutoVerbalParam.bathKey) required final int? bath,
-      @JsonKey(name: CreateAutoVerbalParam.livingroomKey) required final int? livingroom,
+      @JsonKey(name: CreateAutoVerbalParam.livingroomKey)
+      required final int? livingroom,
       @JsonKey(name: CreateAutoVerbalParam.floorKey) required final int? floor,
-      @JsonKey(name: CreateAutoVerbalParam.propertyTypeIdKey) required final int propertyTypeId,
-      @JsonKey(name: CreateAutoVerbalParam.provinceIdKey) required final int provinceId,
-      @JsonKey(name: CreateAutoVerbalParam.roadIdKey) required final int? roadId,
-      @JsonKey(name: CreateAutoVerbalParam.bankIdKey) required final int? bankId,
+      @JsonKey(name: CreateAutoVerbalParam.propertyTypeIdKey)
+      required final int propertyTypeId,
+      @JsonKey(name: CreateAutoVerbalParam.provinceIdKey)
+      required final int provinceId,
+      @JsonKey(name: CreateAutoVerbalParam.roadIdKey)
+      required final int? roadId,
+      @JsonKey(name: CreateAutoVerbalParam.bankIdKey)
+      required final int? bankId,
       @JsonKey(name: CreateAutoVerbalParam.userIdKey)
       required final String userId}) = _$CreateAutoVerbalParamImpl;
   const _CreateAutoVerbalParam._() : super._();
@@ -1911,11 +2035,12 @@ abstract class _CreateAutoVerbalParam extends CreateAutoVerbalParam {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CreateAutoVerbalParamImplCopyWith<_$CreateAutoVerbalParamImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$CreateAutoVerbalParamImplCopyWith<_$CreateAutoVerbalParamImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
-UpdateAutoVerbalParam _$UpdateAutoVerbalParamFromJson(Map<String, dynamic> json) {
+UpdateAutoVerbalParam _$UpdateAutoVerbalParamFromJson(
+    Map<String, dynamic> json) {
   return _UpdateAutoVerbalParam.fromJson(json);
 }
 
@@ -1988,42 +2113,49 @@ mixin _$UpdateAutoVerbalParam {
 
 /// @nodoc
 abstract class $UpdateAutoVerbalParamCopyWith<$Res> {
-  factory $UpdateAutoVerbalParamCopyWith(
-          UpdateAutoVerbalParam value, $Res Function(UpdateAutoVerbalParam) then) =
+  factory $UpdateAutoVerbalParamCopyWith(UpdateAutoVerbalParam value,
+          $Res Function(UpdateAutoVerbalParam) then) =
       _$UpdateAutoVerbalParamCopyWithImpl<$Res, UpdateAutoVerbalParam>;
   @useResult
   $Res call(
-      {@JsonKey(name: UpdateAutoVerbalParam.statusKey) PropertyAndAutoVerbalStatus status,
+      {@JsonKey(name: UpdateAutoVerbalParam.statusKey)
+      PropertyAndAutoVerbalStatus status,
       @JsonKey(name: UpdateAutoVerbalParam.imageKey) List<String> image,
       @JsonKey(name: UpdateAutoVerbalParam.bankBranchKey) String? bankBranch,
       @JsonKey(name: UpdateAutoVerbalParam.latitudeKey) double latitude,
       @JsonKey(name: UpdateAutoVerbalParam.longitudeKey) double longitude,
       @JsonKey(name: UpdateAutoVerbalParam.ownerNameKey) String ownerName,
       @JsonKey(name: UpdateAutoVerbalParam.ownerPhoneKey) String ownerPhone,
-      @JsonKey(name: UpdateAutoVerbalParam.bankOfficerNameKey) String? bankOfficerName,
-      @JsonKey(name: UpdateAutoVerbalParam.bankOfficerPhoneKey) String? bankOfficerPhone,
+      @JsonKey(name: UpdateAutoVerbalParam.bankOfficerNameKey)
+      String? bankOfficerName,
+      @JsonKey(name: UpdateAutoVerbalParam.bankOfficerPhoneKey)
+      String? bankOfficerPhone,
       @JsonKey(name: UpdateAutoVerbalParam.createdAtKey) DateTime createdAt,
       @JsonKey(name: UpdateAutoVerbalParam.minValueKey) double minValue,
       @JsonKey(name: UpdateAutoVerbalParam.maxValueKey) double maxValue,
       @JsonKey(name: UpdateAutoVerbalParam.minValueSqmKey) double minValueSqm,
       @JsonKey(name: UpdateAutoVerbalParam.maxValueSqmKey) double maxValueSqm,
       @JsonKey(name: UpdateAutoVerbalParam.areaKey) double area,
-      @JsonKey(name: UpdateAutoVerbalParam.buildinglengthKey) double? buildinglength,
-      @JsonKey(name: UpdateAutoVerbalParam.buildingwidthKey) double? buildingwidth,
+      @JsonKey(name: UpdateAutoVerbalParam.buildinglengthKey)
+      double? buildinglength,
+      @JsonKey(name: UpdateAutoVerbalParam.buildingwidthKey)
+      double? buildingwidth,
       @JsonKey(name: UpdateAutoVerbalParam.landlengthKey) double landlength,
       @JsonKey(name: UpdateAutoVerbalParam.landwidthKey) double landwidth,
       @JsonKey(name: UpdateAutoVerbalParam.bedKey) int? bed,
       @JsonKey(name: UpdateAutoVerbalParam.bathKey) int? bath,
       @JsonKey(name: UpdateAutoVerbalParam.livingroomKey) int? livingroom,
       @JsonKey(name: UpdateAutoVerbalParam.floorKey) int? floor,
-      @JsonKey(name: UpdateAutoVerbalParam.propertyTypeIdKey) int propertyTypeId,
+      @JsonKey(name: UpdateAutoVerbalParam.propertyTypeIdKey)
+      int propertyTypeId,
       @JsonKey(name: UpdateAutoVerbalParam.provinceIdKey) int provinceId,
       @JsonKey(name: UpdateAutoVerbalParam.roadIdKey) int? roadId,
       @JsonKey(name: UpdateAutoVerbalParam.bankIdKey) int? bankId});
 }
 
 /// @nodoc
-class _$UpdateAutoVerbalParamCopyWithImpl<$Res, $Val extends UpdateAutoVerbalParam>
+class _$UpdateAutoVerbalParamCopyWithImpl<$Res,
+        $Val extends UpdateAutoVerbalParam>
     implements $UpdateAutoVerbalParamCopyWith<$Res> {
   _$UpdateAutoVerbalParamCopyWithImpl(this._value, this._then);
 
@@ -2182,35 +2314,42 @@ class _$UpdateAutoVerbalParamCopyWithImpl<$Res, $Val extends UpdateAutoVerbalPar
 abstract class _$$UpdateAutoVerbalParamImplCopyWith<$Res>
     implements $UpdateAutoVerbalParamCopyWith<$Res> {
   factory _$$UpdateAutoVerbalParamImplCopyWith(
-          _$UpdateAutoVerbalParamImpl value, $Res Function(_$UpdateAutoVerbalParamImpl) then) =
+          _$UpdateAutoVerbalParamImpl value,
+          $Res Function(_$UpdateAutoVerbalParamImpl) then) =
       __$$UpdateAutoVerbalParamImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: UpdateAutoVerbalParam.statusKey) PropertyAndAutoVerbalStatus status,
+      {@JsonKey(name: UpdateAutoVerbalParam.statusKey)
+      PropertyAndAutoVerbalStatus status,
       @JsonKey(name: UpdateAutoVerbalParam.imageKey) List<String> image,
       @JsonKey(name: UpdateAutoVerbalParam.bankBranchKey) String? bankBranch,
       @JsonKey(name: UpdateAutoVerbalParam.latitudeKey) double latitude,
       @JsonKey(name: UpdateAutoVerbalParam.longitudeKey) double longitude,
       @JsonKey(name: UpdateAutoVerbalParam.ownerNameKey) String ownerName,
       @JsonKey(name: UpdateAutoVerbalParam.ownerPhoneKey) String ownerPhone,
-      @JsonKey(name: UpdateAutoVerbalParam.bankOfficerNameKey) String? bankOfficerName,
-      @JsonKey(name: UpdateAutoVerbalParam.bankOfficerPhoneKey) String? bankOfficerPhone,
+      @JsonKey(name: UpdateAutoVerbalParam.bankOfficerNameKey)
+      String? bankOfficerName,
+      @JsonKey(name: UpdateAutoVerbalParam.bankOfficerPhoneKey)
+      String? bankOfficerPhone,
       @JsonKey(name: UpdateAutoVerbalParam.createdAtKey) DateTime createdAt,
       @JsonKey(name: UpdateAutoVerbalParam.minValueKey) double minValue,
       @JsonKey(name: UpdateAutoVerbalParam.maxValueKey) double maxValue,
       @JsonKey(name: UpdateAutoVerbalParam.minValueSqmKey) double minValueSqm,
       @JsonKey(name: UpdateAutoVerbalParam.maxValueSqmKey) double maxValueSqm,
       @JsonKey(name: UpdateAutoVerbalParam.areaKey) double area,
-      @JsonKey(name: UpdateAutoVerbalParam.buildinglengthKey) double? buildinglength,
-      @JsonKey(name: UpdateAutoVerbalParam.buildingwidthKey) double? buildingwidth,
+      @JsonKey(name: UpdateAutoVerbalParam.buildinglengthKey)
+      double? buildinglength,
+      @JsonKey(name: UpdateAutoVerbalParam.buildingwidthKey)
+      double? buildingwidth,
       @JsonKey(name: UpdateAutoVerbalParam.landlengthKey) double landlength,
       @JsonKey(name: UpdateAutoVerbalParam.landwidthKey) double landwidth,
       @JsonKey(name: UpdateAutoVerbalParam.bedKey) int? bed,
       @JsonKey(name: UpdateAutoVerbalParam.bathKey) int? bath,
       @JsonKey(name: UpdateAutoVerbalParam.livingroomKey) int? livingroom,
       @JsonKey(name: UpdateAutoVerbalParam.floorKey) int? floor,
-      @JsonKey(name: UpdateAutoVerbalParam.propertyTypeIdKey) int propertyTypeId,
+      @JsonKey(name: UpdateAutoVerbalParam.propertyTypeIdKey)
+      int propertyTypeId,
       @JsonKey(name: UpdateAutoVerbalParam.provinceIdKey) int provinceId,
       @JsonKey(name: UpdateAutoVerbalParam.roadIdKey) int? roadId,
       @JsonKey(name: UpdateAutoVerbalParam.bankIdKey) int? bankId});
@@ -2218,10 +2357,11 @@ abstract class _$$UpdateAutoVerbalParamImplCopyWith<$Res>
 
 /// @nodoc
 class __$$UpdateAutoVerbalParamImplCopyWithImpl<$Res>
-    extends _$UpdateAutoVerbalParamCopyWithImpl<$Res, _$UpdateAutoVerbalParamImpl>
+    extends _$UpdateAutoVerbalParamCopyWithImpl<$Res,
+        _$UpdateAutoVerbalParamImpl>
     implements _$$UpdateAutoVerbalParamImplCopyWith<$Res> {
-  __$$UpdateAutoVerbalParamImplCopyWithImpl(
-      _$UpdateAutoVerbalParamImpl _value, $Res Function(_$UpdateAutoVerbalParamImpl) _then)
+  __$$UpdateAutoVerbalParamImplCopyWithImpl(_$UpdateAutoVerbalParamImpl _value,
+      $Res Function(_$UpdateAutoVerbalParamImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of UpdateAutoVerbalParam
@@ -2376,30 +2516,47 @@ class __$$UpdateAutoVerbalParamImplCopyWithImpl<$Res>
 class _$UpdateAutoVerbalParamImpl extends _UpdateAutoVerbalParam {
   const _$UpdateAutoVerbalParamImpl(
       {@JsonKey(name: UpdateAutoVerbalParam.statusKey) required this.status,
-      @JsonKey(name: UpdateAutoVerbalParam.imageKey) required final List<String> image,
-      @JsonKey(name: UpdateAutoVerbalParam.bankBranchKey) required this.bankBranch,
+      @JsonKey(name: UpdateAutoVerbalParam.imageKey)
+      required final List<String> image,
+      @JsonKey(name: UpdateAutoVerbalParam.bankBranchKey)
+      required this.bankBranch,
       @JsonKey(name: UpdateAutoVerbalParam.latitudeKey) required this.latitude,
-      @JsonKey(name: UpdateAutoVerbalParam.longitudeKey) required this.longitude,
-      @JsonKey(name: UpdateAutoVerbalParam.ownerNameKey) required this.ownerName,
-      @JsonKey(name: UpdateAutoVerbalParam.ownerPhoneKey) required this.ownerPhone,
-      @JsonKey(name: UpdateAutoVerbalParam.bankOfficerNameKey) required this.bankOfficerName,
-      @JsonKey(name: UpdateAutoVerbalParam.bankOfficerPhoneKey) required this.bankOfficerPhone,
-      @JsonKey(name: UpdateAutoVerbalParam.createdAtKey) required this.createdAt,
+      @JsonKey(name: UpdateAutoVerbalParam.longitudeKey)
+      required this.longitude,
+      @JsonKey(name: UpdateAutoVerbalParam.ownerNameKey)
+      required this.ownerName,
+      @JsonKey(name: UpdateAutoVerbalParam.ownerPhoneKey)
+      required this.ownerPhone,
+      @JsonKey(name: UpdateAutoVerbalParam.bankOfficerNameKey)
+      required this.bankOfficerName,
+      @JsonKey(name: UpdateAutoVerbalParam.bankOfficerPhoneKey)
+      required this.bankOfficerPhone,
+      @JsonKey(name: UpdateAutoVerbalParam.createdAtKey)
+      required this.createdAt,
       @JsonKey(name: UpdateAutoVerbalParam.minValueKey) required this.minValue,
       @JsonKey(name: UpdateAutoVerbalParam.maxValueKey) required this.maxValue,
-      @JsonKey(name: UpdateAutoVerbalParam.minValueSqmKey) required this.minValueSqm,
-      @JsonKey(name: UpdateAutoVerbalParam.maxValueSqmKey) required this.maxValueSqm,
+      @JsonKey(name: UpdateAutoVerbalParam.minValueSqmKey)
+      required this.minValueSqm,
+      @JsonKey(name: UpdateAutoVerbalParam.maxValueSqmKey)
+      required this.maxValueSqm,
       @JsonKey(name: UpdateAutoVerbalParam.areaKey) required this.area,
-      @JsonKey(name: UpdateAutoVerbalParam.buildinglengthKey) required this.buildinglength,
-      @JsonKey(name: UpdateAutoVerbalParam.buildingwidthKey) required this.buildingwidth,
-      @JsonKey(name: UpdateAutoVerbalParam.landlengthKey) required this.landlength,
-      @JsonKey(name: UpdateAutoVerbalParam.landwidthKey) required this.landwidth,
+      @JsonKey(name: UpdateAutoVerbalParam.buildinglengthKey)
+      required this.buildinglength,
+      @JsonKey(name: UpdateAutoVerbalParam.buildingwidthKey)
+      required this.buildingwidth,
+      @JsonKey(name: UpdateAutoVerbalParam.landlengthKey)
+      required this.landlength,
+      @JsonKey(name: UpdateAutoVerbalParam.landwidthKey)
+      required this.landwidth,
       @JsonKey(name: UpdateAutoVerbalParam.bedKey) required this.bed,
       @JsonKey(name: UpdateAutoVerbalParam.bathKey) required this.bath,
-      @JsonKey(name: UpdateAutoVerbalParam.livingroomKey) required this.livingroom,
+      @JsonKey(name: UpdateAutoVerbalParam.livingroomKey)
+      required this.livingroom,
       @JsonKey(name: UpdateAutoVerbalParam.floorKey) required this.floor,
-      @JsonKey(name: UpdateAutoVerbalParam.propertyTypeIdKey) required this.propertyTypeId,
-      @JsonKey(name: UpdateAutoVerbalParam.provinceIdKey) required this.provinceId,
+      @JsonKey(name: UpdateAutoVerbalParam.propertyTypeIdKey)
+      required this.propertyTypeId,
+      @JsonKey(name: UpdateAutoVerbalParam.provinceIdKey)
+      required this.provinceId,
       @JsonKey(name: UpdateAutoVerbalParam.roadIdKey) required this.roadId,
       @JsonKey(name: UpdateAutoVerbalParam.bankIdKey) required this.bankId})
       : _image = image,
@@ -2508,34 +2665,48 @@ class _$UpdateAutoVerbalParamImpl extends _UpdateAutoVerbalParam {
             other is _$UpdateAutoVerbalParamImpl &&
             (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality().equals(other._image, _image) &&
-            (identical(other.bankBranch, bankBranch) || other.bankBranch == bankBranch) &&
-            (identical(other.latitude, latitude) || other.latitude == latitude) &&
-            (identical(other.longitude, longitude) || other.longitude == longitude) &&
-            (identical(other.ownerName, ownerName) || other.ownerName == ownerName) &&
-            (identical(other.ownerPhone, ownerPhone) || other.ownerPhone == ownerPhone) &&
+            (identical(other.bankBranch, bankBranch) ||
+                other.bankBranch == bankBranch) &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
+            (identical(other.ownerName, ownerName) ||
+                other.ownerName == ownerName) &&
+            (identical(other.ownerPhone, ownerPhone) ||
+                other.ownerPhone == ownerPhone) &&
             (identical(other.bankOfficerName, bankOfficerName) ||
                 other.bankOfficerName == bankOfficerName) &&
             (identical(other.bankOfficerPhone, bankOfficerPhone) ||
                 other.bankOfficerPhone == bankOfficerPhone) &&
-            (identical(other.createdAt, createdAt) || other.createdAt == createdAt) &&
-            (identical(other.minValue, minValue) || other.minValue == minValue) &&
-            (identical(other.maxValue, maxValue) || other.maxValue == maxValue) &&
-            (identical(other.minValueSqm, minValueSqm) || other.minValueSqm == minValueSqm) &&
-            (identical(other.maxValueSqm, maxValueSqm) || other.maxValueSqm == maxValueSqm) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.minValue, minValue) ||
+                other.minValue == minValue) &&
+            (identical(other.maxValue, maxValue) ||
+                other.maxValue == maxValue) &&
+            (identical(other.minValueSqm, minValueSqm) ||
+                other.minValueSqm == minValueSqm) &&
+            (identical(other.maxValueSqm, maxValueSqm) ||
+                other.maxValueSqm == maxValueSqm) &&
             (identical(other.area, area) || other.area == area) &&
             (identical(other.buildinglength, buildinglength) ||
                 other.buildinglength == buildinglength) &&
             (identical(other.buildingwidth, buildingwidth) ||
                 other.buildingwidth == buildingwidth) &&
-            (identical(other.landlength, landlength) || other.landlength == landlength) &&
-            (identical(other.landwidth, landwidth) || other.landwidth == landwidth) &&
+            (identical(other.landlength, landlength) ||
+                other.landlength == landlength) &&
+            (identical(other.landwidth, landwidth) ||
+                other.landwidth == landwidth) &&
             (identical(other.bed, bed) || other.bed == bed) &&
             (identical(other.bath, bath) || other.bath == bath) &&
-            (identical(other.livingroom, livingroom) || other.livingroom == livingroom) &&
+            (identical(other.livingroom, livingroom) ||
+                other.livingroom == livingroom) &&
             (identical(other.floor, floor) || other.floor == floor) &&
             (identical(other.propertyTypeId, propertyTypeId) ||
                 other.propertyTypeId == propertyTypeId) &&
-            (identical(other.provinceId, provinceId) || other.provinceId == provinceId) &&
+            (identical(other.provinceId, provinceId) ||
+                other.provinceId == provinceId) &&
             (identical(other.roadId, roadId) || other.roadId == roadId) &&
             (identical(other.bankId, bankId) || other.bankId == bankId));
   }
@@ -2578,8 +2749,9 @@ class _$UpdateAutoVerbalParamImpl extends _UpdateAutoVerbalParam {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$UpdateAutoVerbalParamImplCopyWith<_$UpdateAutoVerbalParamImpl> get copyWith =>
-      __$$UpdateAutoVerbalParamImplCopyWithImpl<_$UpdateAutoVerbalParamImpl>(this, _$identity);
+  _$$UpdateAutoVerbalParamImplCopyWith<_$UpdateAutoVerbalParamImpl>
+      get copyWith => __$$UpdateAutoVerbalParamImplCopyWithImpl<
+          _$UpdateAutoVerbalParamImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -2593,33 +2765,52 @@ abstract class _UpdateAutoVerbalParam extends UpdateAutoVerbalParam {
   const factory _UpdateAutoVerbalParam(
       {@JsonKey(name: UpdateAutoVerbalParam.statusKey)
       required final PropertyAndAutoVerbalStatus status,
-      @JsonKey(name: UpdateAutoVerbalParam.imageKey) required final List<String> image,
-      @JsonKey(name: UpdateAutoVerbalParam.bankBranchKey) required final String? bankBranch,
-      @JsonKey(name: UpdateAutoVerbalParam.latitudeKey) required final double latitude,
-      @JsonKey(name: UpdateAutoVerbalParam.longitudeKey) required final double longitude,
-      @JsonKey(name: UpdateAutoVerbalParam.ownerNameKey) required final String ownerName,
-      @JsonKey(name: UpdateAutoVerbalParam.ownerPhoneKey) required final String ownerPhone,
+      @JsonKey(name: UpdateAutoVerbalParam.imageKey)
+      required final List<String> image,
+      @JsonKey(name: UpdateAutoVerbalParam.bankBranchKey)
+      required final String? bankBranch,
+      @JsonKey(name: UpdateAutoVerbalParam.latitudeKey)
+      required final double latitude,
+      @JsonKey(name: UpdateAutoVerbalParam.longitudeKey)
+      required final double longitude,
+      @JsonKey(name: UpdateAutoVerbalParam.ownerNameKey)
+      required final String ownerName,
+      @JsonKey(name: UpdateAutoVerbalParam.ownerPhoneKey)
+      required final String ownerPhone,
       @JsonKey(name: UpdateAutoVerbalParam.bankOfficerNameKey)
       required final String? bankOfficerName,
       @JsonKey(name: UpdateAutoVerbalParam.bankOfficerPhoneKey)
       required final String? bankOfficerPhone,
-      @JsonKey(name: UpdateAutoVerbalParam.createdAtKey) required final DateTime createdAt,
-      @JsonKey(name: UpdateAutoVerbalParam.minValueKey) required final double minValue,
-      @JsonKey(name: UpdateAutoVerbalParam.maxValueKey) required final double maxValue,
-      @JsonKey(name: UpdateAutoVerbalParam.minValueSqmKey) required final double minValueSqm,
-      @JsonKey(name: UpdateAutoVerbalParam.maxValueSqmKey) required final double maxValueSqm,
+      @JsonKey(name: UpdateAutoVerbalParam.createdAtKey)
+      required final DateTime createdAt,
+      @JsonKey(name: UpdateAutoVerbalParam.minValueKey)
+      required final double minValue,
+      @JsonKey(name: UpdateAutoVerbalParam.maxValueKey)
+      required final double maxValue,
+      @JsonKey(name: UpdateAutoVerbalParam.minValueSqmKey)
+      required final double minValueSqm,
+      @JsonKey(name: UpdateAutoVerbalParam.maxValueSqmKey)
+      required final double maxValueSqm,
       @JsonKey(name: UpdateAutoVerbalParam.areaKey) required final double area,
-      @JsonKey(name: UpdateAutoVerbalParam.buildinglengthKey) required final double? buildinglength,
-      @JsonKey(name: UpdateAutoVerbalParam.buildingwidthKey) required final double? buildingwidth,
-      @JsonKey(name: UpdateAutoVerbalParam.landlengthKey) required final double landlength,
-      @JsonKey(name: UpdateAutoVerbalParam.landwidthKey) required final double landwidth,
+      @JsonKey(name: UpdateAutoVerbalParam.buildinglengthKey)
+      required final double? buildinglength,
+      @JsonKey(name: UpdateAutoVerbalParam.buildingwidthKey)
+      required final double? buildingwidth,
+      @JsonKey(name: UpdateAutoVerbalParam.landlengthKey)
+      required final double landlength,
+      @JsonKey(name: UpdateAutoVerbalParam.landwidthKey)
+      required final double landwidth,
       @JsonKey(name: UpdateAutoVerbalParam.bedKey) required final int? bed,
       @JsonKey(name: UpdateAutoVerbalParam.bathKey) required final int? bath,
-      @JsonKey(name: UpdateAutoVerbalParam.livingroomKey) required final int? livingroom,
+      @JsonKey(name: UpdateAutoVerbalParam.livingroomKey)
+      required final int? livingroom,
       @JsonKey(name: UpdateAutoVerbalParam.floorKey) required final int? floor,
-      @JsonKey(name: UpdateAutoVerbalParam.propertyTypeIdKey) required final int propertyTypeId,
-      @JsonKey(name: UpdateAutoVerbalParam.provinceIdKey) required final int provinceId,
-      @JsonKey(name: UpdateAutoVerbalParam.roadIdKey) required final int? roadId,
+      @JsonKey(name: UpdateAutoVerbalParam.propertyTypeIdKey)
+      required final int propertyTypeId,
+      @JsonKey(name: UpdateAutoVerbalParam.provinceIdKey)
+      required final int provinceId,
+      @JsonKey(name: UpdateAutoVerbalParam.roadIdKey)
+      required final int? roadId,
       @JsonKey(name: UpdateAutoVerbalParam.bankIdKey)
       required final int? bankId}) = _$UpdateAutoVerbalParamImpl;
   const _UpdateAutoVerbalParam._() : super._();
@@ -2713,6 +2904,6 @@ abstract class _UpdateAutoVerbalParam extends UpdateAutoVerbalParam {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$UpdateAutoVerbalParamImplCopyWith<_$UpdateAutoVerbalParamImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$UpdateAutoVerbalParamImplCopyWith<_$UpdateAutoVerbalParamImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

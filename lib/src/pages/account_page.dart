@@ -22,7 +22,7 @@ class AccountPage extends ConsumerStatefulWidget {
 class _AccountPageState extends ConsumerState<AccountPage> {
   XFile? _file;
   Uint8List? _imageBytes;
-  bool _isObscure = true;
+  final bool _isObscure = true;
   final ImagePicker _picker = ImagePicker();
   final ImageCropper _cropper = ImageCropper();
 
@@ -33,8 +33,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _oldPasswordController = TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
   @override
   void dispose() {
@@ -51,8 +50,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
 
   Future<void> _openImage() async {
     try {
-      final XFile? pickedFile =
-          await _picker.pickImage(source: ImageSource.gallery);
+      final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
       if (pickedFile != null) {
         final bytes = await pickedFile.readAsBytes();
         setState(() {
@@ -99,12 +97,10 @@ class _AccountPageState extends ConsumerState<AccountPage> {
 
     return AuthWrapperWidget(
       child: Scaffold(
-        backgroundColor: context.isDarkMode
-            ? Colors.grey[900]
-            : const Color.fromARGB(255, 245, 250, 246),
+        backgroundColor:
+            context.isDarkMode ? Colors.grey[900] : const Color.fromARGB(255, 245, 250, 246),
         appBar: AppBar(
-          backgroundColor:
-              context.isDarkMode ? Colors.grey[800] : kPrimaryColor,
+          backgroundColor: context.isDarkMode ? Colors.grey[800] : kPrimaryColor,
           elevation: 0,
           centerTitle: true,
           leading: IconButton(
@@ -191,8 +187,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                         color: Colors.black54,
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      child:
-                          const Icon(Icons.edit, color: Colors.white, size: 16),
+                      child: const Icon(Icons.edit, color: Colors.white, size: 16),
                     ),
                   ],
                 ),
@@ -239,9 +234,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
-            color: context.isDarkMode
-                ? Colors.black12
-                : Colors.blue.withOpacity(0.1),
+            color: context.isDarkMode ? Colors.black12 : Colors.blue.withOpacity(0.1),
             spreadRadius: 10,
             blurRadius: 20,
             offset: const Offset(0, 10),
@@ -319,9 +312,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
         color: context.isDarkMode ? Colors.grey[700] : Colors.grey[100],
         boxShadow: [
           BoxShadow(
-            color: context.isDarkMode
-                ? Colors.black12
-                : Colors.grey.withOpacity(0.1),
+            color: context.isDarkMode ? Colors.black12 : Colors.grey.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 3,
             offset: const Offset(0, 2),
@@ -333,12 +324,15 @@ class _AccountPageState extends ConsumerState<AccountPage> {
         onChanged: onChanged,
         keyboardType: keyboardType,
         style: TextStyle(
-            fontSize: 16,
-            color: context.isDarkMode ? Colors.white : Colors.black87),
+          fontSize: 16,
+          color: context.isDarkMode ? Colors.white : Colors.black87,
+        ),
         decoration: InputDecoration(
-          prefixIcon: Icon(icon,
-              color: context.isDarkMode ? Colors.blue[300] : Colors.blue[600],
-              size: 22),
+          prefixIcon: Icon(
+            icon,
+            color: context.isDarkMode ? Colors.blue[300] : Colors.blue[600],
+            size: 22,
+          ),
           labelText: label,
           labelStyle: TextStyle(
             color: context.isDarkMode ? Colors.grey[400] : Colors.grey[600],
@@ -350,8 +344,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
           ),
           filled: true,
           fillColor: Colors.transparent,
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+          contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
         ),
       ),
     );
@@ -366,9 +359,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             color: context.isDarkMode ? Colors.grey[700] : Colors.grey[100],
             boxShadow: [
               BoxShadow(
-                color: context.isDarkMode
-                    ? Colors.black12
-                    : Colors.grey.withOpacity(0.1),
+                color: context.isDarkMode ? Colors.black12 : Colors.grey.withOpacity(0.1),
                 spreadRadius: 1,
                 blurRadius: 3,
                 offset: const Offset(0, 2),
@@ -379,8 +370,9 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             controller: _passwordController,
             obscureText: _isObscure,
             style: TextStyle(
-                fontSize: 16,
-                color: context.isDarkMode ? Colors.white : Colors.black87),
+              fontSize: 16,
+              color: context.isDarkMode ? Colors.white : Colors.black87,
+            ),
             decoration: InputDecoration(
               prefixIcon: Icon(
                 Icons.lock_outline,
@@ -398,13 +390,11 @@ class _AccountPageState extends ConsumerState<AccountPage> {
               ),
               filled: true,
               fillColor: Colors.transparent,
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+              contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
               suffixIcon: IconButton(
                 icon: Icon(
                   Icons.edit,
-                  color:
-                      context.isDarkMode ? Colors.blue[300] : Colors.blue[600],
+                  color: context.isDarkMode ? Colors.blue[300] : Colors.blue[600],
                   size: 22,
                 ),
                 onPressed: () {
@@ -455,18 +445,16 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                           TextButton(
                             child: const Text('Change'),
                             onPressed: () async {
-                              if (_newPasswordController.text !=
-                                  _confirmPasswordController.text) {
+                              if (_newPasswordController.text != _confirmPasswordController.text) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
-                                      content:
-                                          Text('New passwords do not match')),
+                                    content: Text('New passwords do not match'),
+                                  ),
                                 );
                                 return;
                               }
 
-                              final currentUser =
-                                  ref.read(currentUserProvider).value;
+                              final currentUser = ref.read(currentUserProvider).value;
                               if (currentUser != null) {
                                 try {
                                   final sb = ref.read(supabaseProvider).client;
@@ -495,15 +483,19 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                                     ),
                                   );
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: Text(
-                                            'Password changed successfully')),
+                                    const SnackBar(
+                                      content: Text(
+                                        'Password changed successfully',
+                                      ),
+                                    ),
                                   );
                                 } catch (e) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                        content: Text(
-                                            'Failed to change password: $e')),
+                                      content: Text(
+                                        'Failed to change password: $e',
+                                      ),
+                                    ),
                                   );
                                 }
                               }

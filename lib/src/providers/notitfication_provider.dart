@@ -17,8 +17,11 @@ class NotificationNotifier extends StateNotifier<NotificationState> {
   final SharedPreferences _prefs;
 
   NotificationNotifier(this._prefs)
-      : super(NotificationState(
-            isEnabled: _prefs.getBool('notifications_enabled') ?? true));
+      : super(
+          NotificationState(
+            isEnabled: _prefs.getBool('notifications_enabled') ?? true,
+          ),
+        );
 
   void toggle() {
     final newState = state.copyWith(isEnabled: !state.isEnabled);
@@ -27,8 +30,7 @@ class NotificationNotifier extends StateNotifier<NotificationState> {
   }
 }
 
-final notificationProvider =
-    StateNotifierProvider<NotificationNotifier, NotificationState>((ref) {
+final notificationProvider = StateNotifierProvider<NotificationNotifier, NotificationState>((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);
   return NotificationNotifier(prefs);
 });

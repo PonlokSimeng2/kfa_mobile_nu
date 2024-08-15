@@ -59,16 +59,17 @@ dependencies:
   intl: ^0.19.0
   json_annotation: ^4.9.0
   json_serializable: ^6.8.0
+
   kimapp:
     git:
       url: https://github.com/pckimlong/kimapp.git
       ref: master
       path: packages/kimapp
   line_awesome_flutter: ^3.0.1
+  qr_flutter: ^4.1.0
   logger: ^2.3.0
   multi_image_picker: ^4.8.01
   onesignal_flutter: ^5.2.2
-  # open_file: ^3.3.2
   path: ^1.9.0
   pdf: ^3.11.0
   screenshot: ^3.0.0
@@ -86,6 +87,7 @@ dependencies:
   timeago: ^3.7.0
   url_launcher: ^6.3.0
   video_player: ^2.9.1
+  teledart: ^0.6.1
   
 dev_dependencies:
   build_runner: null

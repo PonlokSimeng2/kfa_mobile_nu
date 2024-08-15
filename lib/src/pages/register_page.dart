@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as p;
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../exports.dart';
 import '../providers/auth_provider.dart';
@@ -26,6 +28,7 @@ class _RegisterState extends ConsumerState<RegisterPage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _otpController = TextEditingController();
   // List of items in our dropdown menu
   var from = [
     'Bank',
@@ -41,6 +44,8 @@ class _RegisterState extends ConsumerState<RegisterPage> {
   String? _imageUrl;
 
   bool isApiCallProcess = false;
+  bool isOtpSent = false;
+
   @override
   void initState() {
     super.initState();
@@ -53,6 +58,7 @@ class _RegisterState extends ConsumerState<RegisterPage> {
     _lastNameController.dispose();
     _emailController.dispose();
     _phoneController.dispose();
+    _otpController.dispose();
     super.dispose();
   }
 
@@ -104,11 +110,13 @@ class _RegisterState extends ConsumerState<RegisterPage> {
                         color: kPrimaryColor,
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: kPrimaryColor, width: 2.0),
+                        borderSide:
+                            const BorderSide(color: kPrimaryColor, width: 2.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: kPrimaryColor, width: 1.0),
+                        borderSide:
+                            const BorderSide(color: kPrimaryColor, width: 1.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
@@ -127,11 +135,13 @@ class _RegisterState extends ConsumerState<RegisterPage> {
                         color: kPrimaryColor,
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: kPrimaryColor, width: 2.0),
+                        borderSide:
+                            const BorderSide(color: kPrimaryColor, width: 2.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: kPrimaryColor, width: 1.0),
+                        borderSide:
+                            const BorderSide(color: kPrimaryColor, width: 1.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
@@ -150,11 +160,13 @@ class _RegisterState extends ConsumerState<RegisterPage> {
                         color: kPrimaryColor,
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: kPrimaryColor, width: 2.0),
+                        borderSide:
+                            const BorderSide(color: kPrimaryColor, width: 2.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: kPrimaryColor, width: 1.0),
+                        borderSide:
+                            const BorderSide(color: kPrimaryColor, width: 1.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
@@ -174,11 +186,13 @@ class _RegisterState extends ConsumerState<RegisterPage> {
                         color: kPrimaryColor,
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: kPrimaryColor, width: 2.0),
+                        borderSide:
+                            const BorderSide(color: kPrimaryColor, width: 2.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: kPrimaryColor, width: 1.0),
+                        borderSide:
+                            const BorderSide(color: kPrimaryColor, width: 1.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
@@ -197,11 +211,13 @@ class _RegisterState extends ConsumerState<RegisterPage> {
                         color: kPrimaryColor,
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: kPrimaryColor, width: 2.0),
+                        borderSide:
+                            const BorderSide(color: kPrimaryColor, width: 2.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: kPrimaryColor, width: 1.0),
+                        borderSide:
+                            const BorderSide(color: kPrimaryColor, width: 1.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
@@ -268,7 +284,8 @@ class _RegisterState extends ConsumerState<RegisterPage> {
       child: CircleAvatar(
         radius: 50,
         backgroundColor: Colors.grey[200],
-        backgroundImage: _imageFile != null ? FileImage(File(_imageFile!.path)) : null,
+        backgroundImage:
+            _imageFile != null ? FileImage(File(_imageFile!.path)) : null,
         child: _imageFile == null
             ? const Icon(
                 Icons.camera_alt,
@@ -296,7 +313,8 @@ class _RegisterState extends ConsumerState<RegisterPage> {
 
     final sb = ref.read(supabaseProvider).client;
     final file = File(_imageFile!.path);
-    final newPath = '${DateTime.now().microsecondsSinceEpoch}${p.extension(_imageFile!.path)}';
+    final newPath =
+        '${DateTime.now().microsecondsSinceEpoch}${p.extension(_imageFile!.path)}';
 
     try {
       await sb.storage.from('files').upload(newPath, file);
@@ -330,11 +348,53 @@ class _RegisterState extends ConsumerState<RegisterPage> {
       });
 
       if (result == null) {
-        _showSuccessDialog();
+        _showOtpDialog();
       } else {
         _showErrorDialog();
       }
     }
+  }
+
+  void _showOtpDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          insetPadding: EdgeInsets.symmetric(horizontal: 16),
+          title: const Text('Enter OTP'),
+          content: PinCodeTextField(
+            appContext: context,
+            length: 6,
+            obscureText: false,
+            animationType: AnimationType.fade,
+            keyboardType: TextInputType.number,
+            pinTheme: PinTheme(
+              shape: PinCodeFieldShape.box,
+              borderRadius: BorderRadius.circular(5),
+              fieldHeight: 50,
+              fieldWidth: 40,
+              activeFillColor: Colors.white,
+            ),
+            animationDuration: const Duration(milliseconds: 300),
+            controller: _otpController,
+            onCompleted: (v) async {
+              final close = BotToast.showLoading();
+              final result = await ref.read(authProvider.notifier).verifyOtp(
+                    _emailController.text,
+                    v,
+                  );
+              close();
+              if (result == null) {
+                _showSuccessDialog();
+              } else {
+                _showErrorDialog();
+              }
+            },
+          ),
+        );
+      },
+    );
   }
 
   void _showSuccessDialog() {

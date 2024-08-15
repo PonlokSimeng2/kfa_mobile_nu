@@ -3,6 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:kfa_mobile_nu/src/pages/home_page.dart';
+import 'package:kfa_mobile_nu/src/pages/phone_otp/phone.dart';
+import 'package:kfa_mobile_nu/src/pages/phone_otp/phone_otp.dart';
 import 'package:kfa_mobile_nu/src/providers/auto_verbal_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/property_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
@@ -184,6 +186,8 @@ class _MyAppState extends ConsumerState<MyApp> {
       ),
       themeMode: themeMode,
       home: const HomePage(),
+      //home: const PhoneAuthScreen(),
+      //home: const MyPhone(),
       builder: BotToastInit(),
     );
   }

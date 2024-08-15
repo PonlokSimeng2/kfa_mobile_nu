@@ -3,8 +3,8 @@ import 'package:kfa_mobile_nu/src/pages/about_us_page.dart';
 import 'package:kfa_mobile_nu/src/pages/account_page.dart';
 import 'package:kfa_mobile_nu/src/pages/contact_us_page.dart';
 import 'package:kfa_mobile_nu/src/pages/login_page.dart';
+import 'package:kfa_mobile_nu/src/providers/notitfication_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/theme_provider.dart';
-
 import '../providers/user_provider.dart';
 
 class SettingPage extends ConsumerWidget {
@@ -112,10 +112,34 @@ class SettingPage extends ConsumerWidget {
               icon: Icons.notifications,
               title: 'Notifications',
               onTap: () {
-                // TODO: Implement notifications settings
+                final notificationState = ref.read(notificationProvider);
+                final notificationNotifier =
+                    ref.read(notificationProvider.notifier);
+                notificationNotifier.toggle();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Notifications settings not implemented yet'),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
               },
               subtitle: 'Configure your notification preferences',
               iconBackgroundColor: Colors.orange[400]!,
+              trailing: Switch(
+                value: false, // TODO: Implement actual notifications state
+                onChanged: (_) {
+                  final notificationState = ref.read(notificationProvider);
+                  final notificationNotifier =
+                      ref.read(notificationProvider.notifier);
+                  notificationNotifier.toggle();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Notifications toggle not implemented yet'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                },
+              ),
             ),
             _buildSettingCard(
               context: context,

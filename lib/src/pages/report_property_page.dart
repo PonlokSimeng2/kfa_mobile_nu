@@ -20,7 +20,8 @@ class ReportPropertyPage extends ConsumerStatefulWidget {
     );
   });
 
-  static void setDateRangeFilter(WidgetRef ref, DateTime? dateFrom, DateTime? dateTo) {
+  static void setDateRangeFilter(
+      WidgetRef ref, DateTime? dateFrom, DateTime? dateTo) {
     ref.read(ReportPropertyPage.filter.notifier).update((old) {
       return old.copyWith(dateFrom: dateFrom, dateTo: dateTo);
     });
@@ -76,7 +77,8 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
               _buildPropertyTypeDropdown(),
               Expanded(
                 child: firstPageCountAsync.when(
-                  loading: () => const Center(child: CircularProgressIndicator()),
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
                   error: (error, stack) => Center(child: Text('Error: $error')),
                   data: (count) {
                     if (count == 0) {
@@ -123,7 +125,8 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
     IconData icon,
     PropertyListingType? valueType,
   ) {
-    final isSelected = (_type == null && valueType == null) || _type == valueType;
+    final isSelected =
+        (_type == null && valueType == null) || _type == valueType;
     return ElevatedButton.icon(
       onPressed: () => setState(() {
         _type = valueType;
@@ -133,7 +136,8 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
       label: Text(label),
       style: ElevatedButton.styleFrom(
         foregroundColor: isSelected ? Colors.white : Colors.black,
-        backgroundColor: isSelected ? Theme.of(context).primaryColor : Colors.white,
+        backgroundColor:
+            isSelected ? Theme.of(context).primaryColor : Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
     );
@@ -208,7 +212,9 @@ class _PropertyDataSource extends DataTableSource {
   }
 
   void _fetchRowCount() {
-    ref.read(propertyListProvider(page: 0, filter: filter).future).then((value) {
+    ref
+        .read(propertyListProvider(page: 0, filter: filter).future)
+        .then((value) {
       _rowCount = value.length;
       notifyListeners();
     });
@@ -216,7 +222,8 @@ class _PropertyDataSource extends DataTableSource {
 
   @override
   DataRow? getRow(int index) {
-    final propertyAsync = ref.watch(propertyListProvider(page: index ~/ 10, filter: filter));
+    final propertyAsync =
+        ref.watch(propertyListProvider(page: index ~/ 10, filter: filter));
     return propertyAsync.when(
       loading: () => DataRow(
         cells: List.generate(8, (_) => const DataCell(Text('Loading...'))),

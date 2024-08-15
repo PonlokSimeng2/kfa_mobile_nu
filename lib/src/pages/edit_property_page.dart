@@ -1128,7 +1128,7 @@ class _ImagePicker extends HookWidget {
 
                                 final isUrl = path.startsWith('http');
 
-                                if (kIsWeb && isUrl) {
+                                if (kIsWeb && !isUrl) {
                                   return FutureBuilder(
                                     future: XFile(path).readAsBytes(),
                                     builder: (context, snapshot) {

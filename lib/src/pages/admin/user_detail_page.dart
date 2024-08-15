@@ -44,7 +44,7 @@ class UserDetailPage extends StatelessWidget {
                 const SizedBox(height: 24),
                 _buildInfoTile('Full Name', user.fullName),
                 _buildInfoTile('Email', user.email),
-                _buildInfoTile('Phone', user.phone ?? 'Not provided'),
+                _buildInfoTile('Phone', user.phone),
                 _buildInfoTile('User ID', user.userId),
                 _buildInfoTile('VPoints', user.vpoints.toString()),
                 _buildInfoTile('Admin', user.isAdmin ? 'Yes' : 'No'),

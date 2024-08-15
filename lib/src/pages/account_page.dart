@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:getwidget/getwidget.dart';
@@ -56,27 +54,11 @@ class _AccountPageState extends ConsumerState<AccountPage> {
       final XFile? pickedFile =
           await _picker.pickImage(source: ImageSource.gallery);
       if (pickedFile != null) {
-        final CroppedFile? croppedFile = await _cropper.cropImage(
-          sourcePath: pickedFile.path,
-          uiSettings: [
-            AndroidUiSettings(
-              toolbarTitle: 'Crop Image',
-              toolbarColor: Colors.blue,
-              toolbarWidgetColor: Colors.white,
-              initAspectRatio: CropAspectRatioPreset.square,
-              lockAspectRatio: true,
-            ),
-            IOSUiSettings(title: 'Crop Image'),
-          ],
-        );
-
-        if (croppedFile != null) {
-          final bytes = await File(croppedFile.path).readAsBytes();
-          setState(() {
-            _file = XFile(croppedFile.path);
-            _imageBytes = bytes;
-          });
-        }
+        final bytes = await pickedFile.readAsBytes();
+        setState(() {
+          _file = pickedFile;
+          _imageBytes = bytes;
+        });
       }
     } catch (e) {
       print("Error picking or cropping image: $e");

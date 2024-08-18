@@ -62,11 +62,22 @@ class _RegisterState extends ConsumerState<RegisterPage> {
     super.dispose();
   }
 
+  void _resetForm() {
+    _firstNameController.clear();
+    _lastNameController.clear();
+    _passwordController.clear();
+    _emailController.clear();
+    _phoneController.clear();
+    _otpController.clear();
+    _imageFile = null;
+    _imageUrl = null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: kPrimaryColor,
         elevation: 0,
         centerTitle: true,
         title: Image.asset(
@@ -119,7 +130,23 @@ class _RegisterState extends ConsumerState<RegisterPage> {
                             const BorderSide(color: kPrimaryColor, width: 1.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 1.0),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 2.0),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your first name';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(
                     height: 20,
@@ -144,7 +171,23 @@ class _RegisterState extends ConsumerState<RegisterPage> {
                             const BorderSide(color: kPrimaryColor, width: 1.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 1.0),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 2.0),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your last name';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(
                     height: 20,
@@ -169,7 +212,27 @@ class _RegisterState extends ConsumerState<RegisterPage> {
                             const BorderSide(color: kPrimaryColor, width: 1.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 1.0),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 2.0),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your email';
+                      }
+                      if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                          .hasMatch(value)) {
+                        return 'Please enter a valid email address';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(
                     height: 20,
@@ -195,7 +258,26 @@ class _RegisterState extends ConsumerState<RegisterPage> {
                             const BorderSide(color: kPrimaryColor, width: 1.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 1.0),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 2.0),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a password';
+                      }
+                      if (value.length < 6) {
+                        return 'Password must be at least 6 characters long';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(
                     height: 20,
@@ -220,7 +302,26 @@ class _RegisterState extends ConsumerState<RegisterPage> {
                             const BorderSide(color: kPrimaryColor, width: 1.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 1.0),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 2.0),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your phone number';
+                      }
+                      if (!RegExp(r'^\+?[\d\s-]+$').hasMatch(value)) {
+                        return 'Please enter a valid phone number';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(
                     height: 20,
@@ -228,7 +329,11 @@ class _RegisterState extends ConsumerState<RegisterPage> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: _handleSubmit,
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          _handleSubmit();
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: kPrimaryColor,
                         shape: RoundedRectangleBorder(
@@ -238,7 +343,7 @@ class _RegisterState extends ConsumerState<RegisterPage> {
                       ),
                       child: const Text(
                         'Register',
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 18, color: Colors.white),
                       ),
                     ),
                   ),
@@ -363,35 +468,47 @@ class _RegisterState extends ConsumerState<RegisterPage> {
         return AlertDialog(
           insetPadding: EdgeInsets.symmetric(horizontal: 16),
           title: const Text('Enter OTP'),
-          content: PinCodeTextField(
-            appContext: context,
-            length: 6,
-            obscureText: false,
-            animationType: AnimationType.fade,
-            keyboardType: TextInputType.number,
-            pinTheme: PinTheme(
-              shape: PinCodeFieldShape.box,
-              borderRadius: BorderRadius.circular(5),
-              fieldHeight: 50,
-              fieldWidth: 40,
-              activeFillColor: Colors.white,
+          content: Container(
+            width: MediaQuery.of(context).size.width * 0.8, // Increased width
+            child: PinCodeTextField(
+              appContext: context,
+              length: 6,
+              obscureText: false,
+              animationType: AnimationType.fade,
+              keyboardType: TextInputType.number,
+              pinTheme: PinTheme(
+                shape: PinCodeFieldShape.box,
+                borderRadius: BorderRadius.circular(5),
+                fieldHeight: 50,
+                fieldWidth: 45, // Slightly increased field width
+                activeFillColor: Colors.white,
+              ),
+              animationDuration: const Duration(milliseconds: 300),
+              controller: _otpController,
+              onCompleted: (v) async {
+                final close = BotToast.showLoading();
+                final result = await ref.read(authProvider.notifier).verifyOtp(
+                      _emailController.text,
+                      v,
+                    );
+                close();
+                if (result == null) {
+                  _showSuccessDialog();
+                } else {
+                  _showErrorDialog();
+                }
+              },
             ),
-            animationDuration: const Duration(milliseconds: 300),
-            controller: _otpController,
-            onCompleted: (v) async {
-              final close = BotToast.showLoading();
-              final result = await ref.read(authProvider.notifier).verifyOtp(
-                    _emailController.text,
-                    v,
-                  );
-              close();
-              if (result == null) {
-                _showSuccessDialog();
-              } else {
-                _showErrorDialog();
-              }
-            },
           ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                _resetForm();
+              },
+              child: const Text('Cancel'),
+            ),
+          ],
         );
       },
     );

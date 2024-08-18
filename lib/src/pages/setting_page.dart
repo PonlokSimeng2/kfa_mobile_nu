@@ -3,6 +3,7 @@ import 'package:kfa_mobile_nu/src/pages/about_us_page.dart';
 import 'package:kfa_mobile_nu/src/pages/account_page.dart';
 import 'package:kfa_mobile_nu/src/pages/contact_us_page.dart';
 import 'package:kfa_mobile_nu/src/pages/login_page.dart';
+import 'package:kfa_mobile_nu/src/pages/register_page.dart';
 import 'package:kfa_mobile_nu/src/providers/notitfication_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/theme_provider.dart';
 import '../providers/user_provider.dart';
@@ -87,20 +88,84 @@ class SettingPage extends ConsumerWidget {
                                     fontSize: 16,
                                   ),
                                 ),
+                              ] else ...[
+                                Center(
+                                  child: Container(
+                                    width: 100,
+                                    height: 100,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                        colors: [
+                                          Colors.blue[300]!,
+                                          Colors.blue[700]!
+                                        ],
+                                      ),
+                                    ),
+                                    child: const Icon(Icons.person,
+                                        size: 50, color: Colors.white),
+                                  ),
+                                ),
+                                const SizedBox(height: 16),
+                                const Text(
+                                  'Welcome, Guest!',
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                const Text(
+                                  'Log in to access all features',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                const SizedBox(height: 16),
+                                ElevatedButton.icon(
+                                  icon: const Icon(Icons.login),
+                                  label: const Text('Log In'),
+                                  style: ElevatedButton.styleFrom(
+                                    foregroundColor: Colors.white,
+                                    backgroundColor: Colors.blue,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 24, vertical: 12),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    context
+                                        .push((context) => const LoginPage());
+                                  },
+                                ),
+                                const SizedBox(height: 8),
+                                TextButton(
+                                  child: const Text('Create an account'),
+                                  onPressed: () {
+                                    context.push(
+                                        (context) => const RegisterPage());
+                                  },
+                                ),
                               ],
                             ],
                           ),
                         ),
-                        Positioned(
-                          right: 8,
-                          bottom: 8,
-                          child: IconButton(
-                            icon: const Icon(Icons.edit),
-                            onPressed: () {
-                              context.push((context) => const AccountPage());
-                            },
+                        if (user != null)
+                          Positioned(
+                            right: 8,
+                            bottom: 8,
+                            child: IconButton(
+                              icon: const Icon(Icons.edit),
+                              onPressed: () {
+                                context.push((context) => const AccountPage());
+                              },
+                            ),
                           ),
-                        ),
                       ],
                     ),
                   ),

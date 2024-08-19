@@ -33,7 +33,8 @@ class _AccountPageState extends ConsumerState<AccountPage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _oldPasswordController = TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   @override
   void dispose() {
@@ -50,16 +51,41 @@ class _AccountPageState extends ConsumerState<AccountPage> {
 
   Future<void> _openImage() async {
     try {
-      final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+      final XFile? pickedFile =
+          await _picker.pickImage(source: ImageSource.gallery);
       if (pickedFile != null) {
         final bytes = await pickedFile.readAsBytes();
         setState(() {
           _file = pickedFile;
           _imageBytes = bytes;
         });
+        await _updateProfileImage(bytes);
       }
     } catch (e) {
       print("Error picking or cropping image: $e");
+    }
+  }
+
+  Future<void> _updateProfileImage(Uint8List imageBytes) async {
+    try {
+      final sb = ref.read(supabaseProvider).client;
+      final user = ref.read(currentUserProvider).value;
+      if (user == null) return;
+
+      final String path = 'profile_images/${user.id}.png';
+      await sb.storage.from('users').uploadBinary(path, imageBytes);
+      final String publicUrl = sb.storage.from('users').getPublicUrl(path);
+
+      await sb.from('users').update({'photo': publicUrl}).eq('id', user.id);
+
+      // Invalidate the currentUserProvider to force a refresh
+      ref.invalidate(currentUserProvider);
+
+      Fluttertoast.showToast(msg: 'Profile image updated successfully');
+    } catch (e) {
+      print('Failed to update profile image: $e');
+      Fluttertoast.showToast(
+          msg: 'Failed to update profile image. Please try again.');
     }
   }
 
@@ -97,10 +123,12 @@ class _AccountPageState extends ConsumerState<AccountPage> {
 
     return AuthWrapperWidget(
       child: Scaffold(
-        backgroundColor:
-            context.isDarkMode ? Colors.grey[900] : const Color.fromARGB(255, 245, 250, 246),
+        backgroundColor: context.isDarkMode
+            ? Colors.grey[900]
+            : const Color.fromARGB(255, 245, 250, 246),
         appBar: AppBar(
-          backgroundColor: context.isDarkMode ? Colors.grey[800] : kPrimaryColor,
+          backgroundColor:
+              context.isDarkMode ? Colors.grey[800] : kPrimaryColor,
           elevation: 0,
           centerTitle: true,
           leading: IconButton(
@@ -177,7 +205,10 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                       size: 65,
                       backgroundImage: _imageBytes != null
                           ? MemoryImage(_imageBytes!)
-                          : const NetworkImage('') as ImageProvider,
+                          : (user.photo != null && user.photo!.isNotEmpty
+                              ? NetworkImage(user.photo!) as ImageProvider
+                              : const AssetImage(
+                                  'assets/images/default_avatar.png')),
                     ),
                     Container(
                       height: 20,
@@ -187,7 +218,8 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                         color: Colors.black54,
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      child: const Icon(Icons.edit, color: Colors.white, size: 16),
+                      child:
+                          const Icon(Icons.edit, color: Colors.white, size: 16),
                     ),
                   ],
                 ),
@@ -234,7 +266,9 @@ class _AccountPageState extends ConsumerState<AccountPage> {
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
-            color: context.isDarkMode ? Colors.black12 : Colors.blue.withOpacity(0.1),
+            color: context.isDarkMode
+                ? Colors.black12
+                : Colors.blue.withOpacity(0.1),
             spreadRadius: 10,
             blurRadius: 20,
             offset: const Offset(0, 10),
@@ -312,7 +346,9 @@ class _AccountPageState extends ConsumerState<AccountPage> {
         color: context.isDarkMode ? Colors.grey[700] : Colors.grey[100],
         boxShadow: [
           BoxShadow(
-            color: context.isDarkMode ? Colors.black12 : Colors.grey.withOpacity(0.1),
+            color: context.isDarkMode
+                ? Colors.black12
+                : Colors.grey.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 3,
             offset: const Offset(0, 2),
@@ -344,7 +380,8 @@ class _AccountPageState extends ConsumerState<AccountPage> {
           ),
           filled: true,
           fillColor: Colors.transparent,
-          contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
         ),
       ),
     );
@@ -359,7 +396,9 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             color: context.isDarkMode ? Colors.grey[700] : Colors.grey[100],
             boxShadow: [
               BoxShadow(
-                color: context.isDarkMode ? Colors.black12 : Colors.grey.withOpacity(0.1),
+                color: context.isDarkMode
+                    ? Colors.black12
+                    : Colors.grey.withOpacity(0.1),
                 spreadRadius: 1,
                 blurRadius: 3,
                 offset: const Offset(0, 2),
@@ -390,11 +429,13 @@ class _AccountPageState extends ConsumerState<AccountPage> {
               ),
               filled: true,
               fillColor: Colors.transparent,
-              contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
               suffixIcon: IconButton(
                 icon: Icon(
                   Icons.edit,
-                  color: context.isDarkMode ? Colors.blue[300] : Colors.blue[600],
+                  color:
+                      context.isDarkMode ? Colors.blue[300] : Colors.blue[600],
                   size: 22,
                 ),
                 onPressed: () {
@@ -445,7 +486,8 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                           TextButton(
                             child: const Text('Change'),
                             onPressed: () async {
-                              if (_newPasswordController.text != _confirmPasswordController.text) {
+                              if (_newPasswordController.text !=
+                                  _confirmPasswordController.text) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: Text('New passwords do not match'),
@@ -454,7 +496,8 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                                 return;
                               }
 
-                              final currentUser = ref.read(currentUserProvider).value;
+                              final currentUser =
+                                  ref.read(currentUserProvider).value;
                               if (currentUser != null) {
                                 try {
                                   final sb = ref.read(supabaseProvider).client;
@@ -499,6 +542,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                                   );
                                 }
                               }
+                              Navigator.of(context).pop();
                             },
                           ),
                         ],

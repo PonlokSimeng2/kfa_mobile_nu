@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
+import 'package:kfa_mobile_nu/src/providers/notitfication_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -23,6 +24,7 @@ class Auth extends _$Auth {
     if (kIsWeb) return;
 
     await OneSignal.login(userId);
+    ref.read(notificationProvider.notifier).setNotificationState(true);
   }
 
   Future<String?> login(String email, String password) async {

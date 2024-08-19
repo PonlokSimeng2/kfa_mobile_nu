@@ -13,6 +13,8 @@ class SettingPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final enabledNotification = ref.watch(notificationProvider).isEnabled;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
@@ -177,32 +179,18 @@ class SettingPage extends ConsumerWidget {
               icon: Icons.notifications,
               title: 'Notifications',
               onTap: () {
-                final notificationState = ref.read(notificationProvider);
                 final notificationNotifier =
                     ref.read(notificationProvider.notifier);
                 notificationNotifier.toggle();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Notifications settings not implemented yet'),
-                    duration: Duration(seconds: 2),
-                  ),
-                );
               },
               subtitle: 'Configure your notification preferences',
               iconBackgroundColor: Colors.orange[400]!,
               trailing: Switch(
-                value: false, // TODO: Implement actual notifications state
+                value: enabledNotification,
                 onChanged: (_) {
-                  final notificationState = ref.read(notificationProvider);
                   final notificationNotifier =
                       ref.read(notificationProvider.notifier);
                   notificationNotifier.toggle();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Notifications toggle not implemented yet'),
-                      duration: Duration(seconds: 2),
-                    ),
-                  );
                 },
               ),
             ),

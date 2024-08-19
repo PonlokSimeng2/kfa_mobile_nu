@@ -3,7 +3,10 @@ import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/models/models.dart';
 import 'package:kfa_mobile_nu/src/pages/admin/admin_property_detail_page.dart';
 import 'package:kfa_mobile_nu/src/pages/property_detail_page.dart';
-
+import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
 import '../providers/auth_provider.dart';
 import '../providers/property_provider.dart';
 import '../widgets/auth_wrapper_widget.dart';
@@ -12,7 +15,7 @@ import '../widgets/property_type_dropdown.dart';
 class ReportPropertyPage extends ConsumerStatefulWidget {
   static final filter = StateProvider.autoDispose<PropertyListFilter>((ref) {
     return PropertyListFilter(
-      listingType: PropertyListingType.rent,
+      listingType: null,
       propertyType: null,
       userId: ref.read(authProvider),
       showHiddenFromHomePageItem: true,
@@ -27,9 +30,14 @@ class ReportPropertyPage extends ConsumerStatefulWidget {
     });
   }
 
-  const ReportPropertyPage({super.key, this.openItemInAdminPage = false});
+  const ReportPropertyPage({
+    super.key,
+    this.openItemInAdminPage = false,
+    this.dateRange,
+  });
 
   final bool openItemInAdminPage;
+  final DateTimeRange? dateRange;
 
   @override
   ConsumerState<ReportPropertyPage> createState() => _ReportPropertyPageState();
@@ -57,6 +65,21 @@ class _ReportPropInherited extends InheritedWidget {
 class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
   PropertyListingType? _type;
   PropertyTypeModel? _selectedPropertyType;
+  DateTimeRange? _dateRange;
+
+  @override
+  void initState() {
+    super.initState();
+    _dateRange = widget.dateRange;
+    if (_dateRange != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ref.read(ReportPropertyPage.filter.notifier).update((old) {
+          return old.copyWith(
+              dateFrom: _dateRange?.start, dateTo: _dateRange?.end);
+        });
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,8 +120,137 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
               ),
             ],
           ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => _generatePDF(context),
+            child: const Icon(Icons.print),
+          ),
         ),
       ),
+    );
+  }
+
+  Future<void> _generatePDF(BuildContext context) async {
+    final filter = ref.read(ReportPropertyPage.filter);
+    final fromDate = filter.dateFrom;
+    final toDate = filter.dateTo;
+
+    final pdf = pw.Document();
+    final properties = await ref.read(
+      propertyListProvider(
+        page: 0,
+        filter: ref.read(ReportPropertyPage.filter),
+      ).future,
+    );
+
+    pdf.addPage(
+      pw.Page(
+        pageFormat: PdfPageFormat.a4,
+        build: (pw.Context context) {
+          return pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              pw.Header(
+                level: 0,
+                child: pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.Text('Property Report',
+                        style: pw.TextStyle(
+                            fontSize: 24, fontWeight: pw.FontWeight.bold)),
+                  ],
+                ),
+              ),
+              pw.SizedBox(height: 20),
+              pw.Container(
+                padding: const pw.EdgeInsets.all(10),
+                decoration: pw.BoxDecoration(
+                  border: pw.Border.all(color: PdfColors.grey300),
+                  borderRadius:
+                      const pw.BorderRadius.all(pw.Radius.circular(10)),
+                ),
+                child: pw.Text(
+                  'Date Range: ${DateFormat('yyyy-MM-dd').format(fromDate ?? DateTime.now())} - ${DateFormat('yyyy-MM-dd').format(toDate ?? DateTime.now())}',
+                  style: pw.TextStyle(fontSize: 14, color: PdfColors.grey700),
+                ),
+              ),
+              pw.SizedBox(height: 20),
+              pw.Table.fromTextArray(
+                context: context,
+                border: null,
+                headerStyle: pw.TextStyle(
+                    fontWeight: pw.FontWeight.bold, color: PdfColors.white),
+                headerDecoration:
+                    const pw.BoxDecoration(color: PdfColors.blueGrey700),
+                cellHeight: 30,
+                cellAlignments: {
+                  0: pw.Alignment.centerLeft,
+                  1: pw.Alignment.centerLeft,
+                  2: pw.Alignment.centerRight,
+                  3: pw.Alignment.center,
+                  4: pw.Alignment.center,
+                },
+                headers: [
+                  'ID',
+                  'Property Type',
+                  'Price',
+                  'Sale/Rent',
+                  'Created At'
+                ],
+                data: properties
+                    .map((property) => [
+                          property.propertyId.toString(),
+                          property.propertyType.name,
+                          '\$${NumberFormat('#,##0.00').format(property.price)}',
+                          property.listingType.name,
+                          DateFormat('yyyy-MM-dd').format(property.createdAt),
+                        ])
+                    .toList(),
+              ),
+              pw.SizedBox(height: 20),
+              pw.Container(
+                padding: const pw.EdgeInsets.all(10),
+                decoration: pw.BoxDecoration(
+                  color: PdfColors.grey200,
+                  borderRadius:
+                      const pw.BorderRadius.all(pw.Radius.circular(10)),
+                ),
+                child: pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.Text(
+                      'Total Properties: ${properties.length}',
+                      style: pw.TextStyle(
+                          fontSize: 16, fontWeight: pw.FontWeight.bold),
+                    ),
+                    pw.Text(
+                      'Report Generated By: ${ref.read(currentUserProvider).when(
+                            data: (user) =>
+                                '${user?.firstName} ${user?.lastName}' ??
+                                'Unknown',
+                            loading: () => 'Loading...',
+                            error: (_, __) => 'Unknown',
+                          )}',
+                      style:
+                          pw.TextStyle(fontSize: 12, color: PdfColors.grey700),
+                    ),
+                  ],
+                ),
+              ),
+              pw.Expanded(child: pw.SizedBox()),
+              pw.Footer(
+                leading: pw.Text(
+                    'Generated on: ${DateFormat('yyyy-MM-dd HH:mm').format(DateTime.now())}'),
+                trailing: pw.Text(
+                    'Page ${context.pageNumber} of ${context.pagesCount}'),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+
+    await Printing.layoutPdf(
+      onLayout: (PdfPageFormat format) async => pdf.save(),
     );
   }
 
@@ -128,10 +280,15 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
     final isSelected =
         (_type == null && valueType == null) || _type == valueType;
     return ElevatedButton.icon(
-      onPressed: () => setState(() {
-        _type = valueType;
-        _selectedPropertyType = null;
-      }),
+      onPressed: () {
+        setState(() {
+          _type = valueType;
+          _selectedPropertyType = null;
+        });
+        ref.read(ReportPropertyPage.filter.notifier).update((old) {
+          return old.copyWith(listingType: valueType);
+        });
+      },
       icon: Icon(icon, color: isSelected ? Colors.white : Colors.grey),
       label: Text(label),
       style: ElevatedButton.styleFrom(
@@ -222,8 +379,8 @@ class _PropertyDataSource extends DataTableSource {
 
   @override
   DataRow? getRow(int index) {
-    final propertyAsync =
-        ref.watch(propertyListProvider(page: index ~/ 10, filter: filter));
+    final propertyAsync = ref.read(
+        propertyListProvider(page: index ~/ propertyListLimit, filter: filter));
     return propertyAsync.when(
       loading: () => DataRow(
         cells: List.generate(8, (_) => const DataCell(Text('Loading...'))),

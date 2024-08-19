@@ -19,7 +19,7 @@ import 'auth_provider.dart';
 part 'property_provider.freezed.dart';
 part 'property_provider.g.dart';
 
-const _limit = 100;
+const propertyListLimit = 100;
 
 @freezed
 class PropertyListFilter with _$PropertyListFilter {
@@ -48,15 +48,13 @@ FutureOr<IList<PropertyModel>> propertyList(
   required int page,
   PropertyListFilter? filter,
 }) async {
-  ref.listenSelf((previous, next) {
-    log('next $next');
-  });
-
   final sb = ref.watch(supabaseProvider).client;
 
-  final offset = page * _limit;
+  final offset = page * propertyListLimit;
 
-  var query = sb.from(PropertyModel.table.tableName).select(PropertyModel.table.selectStatement);
+  var query = sb
+      .from(PropertyModel.table.tableName)
+      .select(PropertyModel.table.selectStatement);
 
   if (filter?.statuses != null && filter!.statuses.isNotEmpty) {
     query = query.inFilter(
@@ -82,8 +80,10 @@ FutureOr<IList<PropertyModel>> propertyList(
   }
 
   if (filter?.titleOrDescription != null) {
-    final titleLike = "${PropertyTable.title}.ilike.%${filter!.titleOrDescription}%";
-    final descriptionLike = "${PropertyTable.description}.ilike.%${filter.titleOrDescription}%";
+    final titleLike =
+        "${PropertyTable.title}.ilike.%${filter!.titleOrDescription}%";
+    final descriptionLike =
+        "${PropertyTable.description}.ilike.%${filter.titleOrDescription}%";
     query = query.or("$titleLike,$descriptionLike");
   }
 
@@ -104,18 +104,19 @@ FutureOr<IList<PropertyModel>> propertyList(
   }
 
   if (filter?.dateFrom != null) {
-    query =
-        query.gte(PropertyTable.createdAt, filter!.dateFrom!.firstMinuteOfDay().toIso8601String());
+    query = query.gte(PropertyTable.createdAt,
+        filter!.dateFrom!.firstMinuteOfDay().toIso8601String());
   }
 
   if (filter?.dateTo != null) {
-    query = query.lte(PropertyTable.createdAt, filter!.dateTo!.lastMinuteOfDay().toIso8601String());
+    query = query.lte(PropertyTable.createdAt,
+        filter!.dateTo!.lastMinuteOfDay().toIso8601String());
   }
 
   return await query
       .order(PropertyTable.id, ascending: false)
-      .limit(_limit)
-      .range(offset, offset + _limit)
+      .limit(propertyListLimit)
+      .range(offset, offset + propertyListLimit)
       .withConverter((jsons) {
     return jsons.map((e) => PropertyModel.fromJson(e)).toIList();
   });
@@ -127,14 +128,15 @@ PaginatedItem<PropertyModel>? propertyAtIndex(
   required int index,
   PropertyListFilter? filter,
 }) {
-  final page = index ~/ _limit;
+  final page = index ~/ propertyListLimit;
 
   final pageItems = ref.watch(propertyListProvider(page: page, filter: filter));
-  final hasNextPage = ref.exists(propertyListProvider(page: page + 1, filter: filter));
+  final hasNextPage =
+      ref.exists(propertyListProvider(page: page + 1, filter: filter));
 
   return PaginatedItem.build(
     pageItems: pageItems,
-    limit: _limit,
+    limit: propertyListLimit,
     index: index,
     showLoadingInAllItem: hasNextPage,
   );
@@ -142,7 +144,9 @@ PaginatedItem<PropertyModel>? propertyAtIndex(
 
 @freezed
 class InsertPropertyState
-    with _$InsertPropertyState, ProviderStatusClassMixin<InsertPropertyState, void> {
+    with
+        _$InsertPropertyState,
+        ProviderStatusClassMixin<InsertPropertyState, void> {
   const InsertPropertyState._();
 
   const factory InsertPropertyState({
@@ -218,7 +222,8 @@ class InsertProperty extends _$InsertProperty with _$InsertPropertyForm {
         // upload image and get url
         for (final xFile in state.imageFiles) {
           final bytes = await xFile.readAsBytes();
-          final newPath = '${DateTime.now().microsecondsSinceEpoch}${p.extension(xFile.path)}';
+          final newPath =
+              '${DateTime.now().microsecondsSinceEpoch}${p.extension(xFile.path)}';
 
           await sb.storage.from('files').uploadBinary(newPath, bytes);
 
@@ -268,7 +273,9 @@ class InsertProperty extends _$InsertProperty with _$InsertPropertyForm {
 
 @freezed
 class UpdatePropertyState
-    with _$UpdatePropertyState, ProviderStatusClassMixin<UpdatePropertyState, void> {
+    with
+        _$UpdatePropertyState,
+        ProviderStatusClassMixin<UpdatePropertyState, void> {
   const UpdatePropertyState._();
 
   const factory UpdatePropertyState({
@@ -381,7 +388,8 @@ class UpdateProperty extends _$UpdateProperty with _$UpdatePropertyForm {
         // upload new images and get urls
         for (final xFile in state.newImageFiles) {
           final bytes = await xFile.readAsBytes();
-          final newPath = '${DateTime.now().microsecondsSinceEpoch}${p.extension(xFile.path)}';
+          final newPath =
+              '${DateTime.now().microsecondsSinceEpoch}${p.extension(xFile.path)}';
 
           await sb.storage.from('files').uploadBinary(newPath, bytes);
 
@@ -413,7 +421,10 @@ class DeleteProperty extends _$DeleteProperty {
     return await perform(
       (state) async {
         final sb = ref.watch(supabaseProvider).client;
-        await sb.from(PropertyModel.table.tableName).delete().eq('id', propertyId);
+        await sb
+            .from(PropertyModel.table.tableName)
+            .delete()
+            .eq('id', propertyId);
       },
       onSuccess: (success) {
         ref.invalidate(propertyListProvider);

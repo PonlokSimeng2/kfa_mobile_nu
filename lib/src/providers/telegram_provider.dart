@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -10,8 +12,16 @@ part 'telegram_provider.g.dart';
 Future<TeleDart> teleDart(TeleDartRef ref) async {
   ref.cacheTime(const Duration(minutes: 5));
 
-  const token = '6981985426:AAEnmigEgz396rMc_yuHguk2gTQ9-aMZhQs';
-  final username = (await Telegram(token).getMe()).username;
+  const token = '6700858194:AAEfGBEB7DlvrD-ly9DbE_YjI2Qc5dlLtfg';
+  final telegram = Telegram(token);
+
+  try {
+    await telegram.deleteWebhook();
+  } catch (e) {
+    log('Failed to delete webhook', error: e);
+  }
+
+  final username = (await telegram.getMe()).username;
   final tele = TeleDart(token, Event(username!));
   tele.start();
   ref.onDispose(tele.close);

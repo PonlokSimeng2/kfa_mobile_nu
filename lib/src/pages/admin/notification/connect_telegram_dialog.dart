@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:kfa_mobile_nu/gen/assets.gen.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -8,10 +11,12 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../../../exports.dart';
 import '../../../providers/telegram_provider.dart';
 
-class ConnectTelegramDialog extends ConsumerWidget {
-  const ConnectTelegramDialog({super.key, required this.onConnected});
+class ConnectTelegramDialog extends ConsumerStatefulWidget {
+  const ConnectTelegramDialog({Key? key, required this.onConnected})
+      : super(key: key);
 
-  /// Show dialog to connect to telegram
+  final Future<String?> Function(int groupId) onConnected;
+
   static void show(
     BuildContext context, {
     required Future<String?> Function(int groupId) onConnected,
@@ -25,57 +30,72 @@ class ConnectTelegramDialog extends ConsumerWidget {
     );
   }
 
-  final Future<String?> Function(int groupId) onConnected;
-
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final telegramAsync = ref.watch(teleDartProvider).requireValue;
-
-    return AlertDialog(
-      title: const Text('Connect to Telegram'),
-      content: _Content(telegramAsync, onConnected),
-    );
-  }
+  ConsumerState<ConnectTelegramDialog> createState() =>
+      _ConnectTelegramDialogState();
 }
 
-class _Content extends HookConsumerWidget {
-  const _Content(this.telegram, this.onConnected);
-
-  final TeleDart telegram;
-  final Future<String?> Function(int groupId) onConnected;
+class _ConnectTelegramDialogState extends ConsumerState<ConnectTelegramDialog> {
+  late TeleDart _telegram;
+  String? _joinGroupLink;
+  String? _groupName;
+  int? _groupId;
+  bool _isLoading = false;
+  bool _hasError = false;
+  TeleDartMessage? _teleDartMessage;
+  StreamSubscription? _streamSubscription;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final code = useMemoized(() => DateTime.now().millisecondsSinceEpoch);
-    final joinGroupLink = "https://telegram.me/KFAMobileBot?startgroup=$code";
-    final groupName = useState<String?>(null);
-    final groupId = useState<int?>(null);
-    final fakeLoading = useState(false);
-    final hasError = useState(false);
-    final teleDartMessage = useState<TeleDartMessage?>(null);
+  void initState() {
+    super.initState();
+    _initTelegram();
+  }
 
-    useEffect(
-      () {
-        telegram.onCommand('start').listen((message) async {
-          if (message.text == null) return;
-          teleDartMessage.value = message;
+  Future<void> _initTelegram() async {
+    final telegramAsync = await ref.read(teleDartProvider.future);
+    _telegram = telegramAsync;
+    setState(() {
+      _joinGroupLink = "https://t.me/kfaadminbot?startgroup";
+    });
+    _setupWebhook();
+  }
 
-          final resultCode = message.text!.split(' ').lastOrNull ?? '';
-          if (resultCode == code.toString()) {
-            fakeLoading.value = true;
-            groupName.value = message.chat.title;
-            groupId.value = message.chat.id;
-            await Future.delayed(const Duration(milliseconds: 300));
-            fakeLoading.value = false;
-          }
-        });
+  void _setupWebhook() {
+    _streamSubscription = _telegram.onMessage().listen((event) async {
+      if (event.newChatMembers != null && event.newChatMembers!.isNotEmpty) {
+        final isBot = event.newChatMembers!.firstOrNullWhere((member) {
+              return member.username == 'kfaadminbot';
+            }) !=
+            null;
 
-        return null;
-      },
-      const [],
-    );
+        if (isBot) {
+          final message = event;
+          _teleDartMessage = message;
+          setState(() {
+            _isLoading = true;
+          });
+          await Future.delayed(const Duration(milliseconds: 300));
+          setState(() {
+            _groupName = message.chat.title;
+            _groupId = message.chat.id;
+            _isLoading = false;
+          });
+        }
+      }
+    });
+  }
 
-    final scanner = Column(
+  @override
+  void dispose() {
+    _streamSubscription?.cancel();
+    super.dispose();
+  }
+
+  Widget _buildScanner() {
+    if (_joinGroupLink == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         const Text(
@@ -87,7 +107,7 @@ class _Content extends HookConsumerWidget {
           width: 250,
           height: 250,
           child: QrImageView(
-            data: joinGroupLink,
+            data: _joinGroupLink!,
             version: QrVersions.auto,
             embeddedImage: Assets.images.kFALogo.provider(),
           ),
@@ -103,7 +123,7 @@ class _Content extends HookConsumerWidget {
         const SizedBox(height: 12),
         TextButton.icon(
           onPressed: () async {
-            final uri = Uri.parse(joinGroupLink);
+            final uri = Uri.parse(_joinGroupLink!);
             await launchUrl(
               uri,
               mode: LaunchMode.externalApplication,
@@ -129,57 +149,67 @@ class _Content extends HookConsumerWidget {
         ),
       ],
     );
+  }
 
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (fakeLoading.value)
-            const SizedBox(
-              height: 300,
-              child: Center(child: CircularProgressIndicator()),
-            )
-          else if (groupId.value != null) ...[
-            const Icon(
-              Icons.check_circle_outline,
-              size: 88,
-              color: Colors.green,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              groupName.value ?? "--",
-              style: const TextStyle(fontSize: 20),
-            ),
-            const SizedBox(height: 24),
-            SizedBox(
-              width: double.infinity,
-              child: FilledButton(
-                onPressed: () async {
-                  hasError.value = false;
-                  final close = BotToast.showLoading();
-                  final result = await onConnected(groupId.value!);
-                  close();
-                  if (result != null && context.mounted) {
-                    BotToast.showText(text: result);
-                    hasError.value = true;
-                    return;
-                  }
-
-                  if (context.mounted) {
-                    if (teleDartMessage.value != null) {
-                      teleDartMessage.value!.reply(
-                        'Congratulations! You have successfully connected to the system...',
-                      );
-                    }
-                    Navigator.of(context).pop();
-                  }
-                },
-                child: Text(hasError.value ? "Try again" : 'Connect'),
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Connect to Telegram'),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (_isLoading)
+              const SizedBox(
+                height: 300,
+                child: Center(child: CircularProgressIndicator()),
+              )
+            else if (_groupId != null) ...[
+              const Icon(
+                Icons.check_circle_outline,
+                size: 88,
+                color: Colors.green,
               ),
-            ),
-          ] else
-            scanner,
-        ],
+              const SizedBox(height: 8),
+              Text(
+                _groupName ?? "--",
+                style: const TextStyle(fontSize: 20),
+              ),
+              const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity,
+                child: FilledButton(
+                  onPressed: () async {
+                    setState(() {
+                      _hasError = false;
+                    });
+                    final close = BotToast.showLoading();
+                    final result = await widget.onConnected(_groupId!);
+                    close();
+                    if (result != null && mounted) {
+                      BotToast.showText(text: result);
+                      setState(() {
+                        _hasError = true;
+                      });
+                      return;
+                    }
+
+                    if (mounted) {
+                      if (_teleDartMessage != null) {
+                        _teleDartMessage!.reply(
+                          'Congratulations! You have successfully connected to the system...',
+                        );
+                      }
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: Text(_hasError ? "Try again" : 'Connect'),
+                ),
+              ),
+            ] else
+              _buildScanner(),
+          ],
+        ),
       ),
     );
   }

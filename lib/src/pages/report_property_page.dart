@@ -94,7 +94,8 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
       child: _ReportPropInherited(
         openItemInAdminPage: widget.openItemInAdminPage,
         child: Scaffold(
-          body: Column(
+          body: ListView(
+            // shrinkWrap: true,
             children: [
               _buildFilterButtons(),
               _buildPropertyTypeDropdown(),
@@ -255,18 +256,20 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
   }
 
   Widget _buildFilterButtons() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        child: Row(
-          children: [
-            _buildFilterButton('All', Icons.list, null),
-            const SizedBox(width: 10),
-            _buildFilterButton('Rent', Icons.home, PropertyListingType.rent),
-            const SizedBox(width: 10),
-            _buildFilterButton('Sale', Icons.sell, PropertyListingType.sale),
-          ],
+    return Center(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            children: [
+              _buildFilterButton('All', Icons.list, null),
+              const SizedBox(width: 10),
+              _buildFilterButton('Rent', Icons.home, PropertyListingType.rent),
+              const SizedBox(width: 10),
+              _buildFilterButton('Sale', Icons.sell, PropertyListingType.sale),
+            ],
+          ),
         ),
       ),
     );

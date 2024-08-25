@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:getwidget/getwidget.dart';
@@ -56,13 +59,12 @@ class _AccountPageState extends ConsumerState<AccountPage> {
       if (pickedFile != null) {
         final bytes = await pickedFile.readAsBytes();
         setState(() {
-          _file = pickedFile;
           _imageBytes = bytes;
         });
         await _updateProfileImage(bytes);
       }
     } catch (e) {
-      print("Error picking or cropping image: $e");
+      Fluttertoast.showToast(msg: "Error picking or cropping image: $e");
     }
   }
 
@@ -70,22 +72,80 @@ class _AccountPageState extends ConsumerState<AccountPage> {
     try {
       final sb = ref.read(supabaseProvider).client;
       final user = ref.read(currentUserProvider).value;
-      if (user == null) return;
+      if (user == null) {
+        Fluttertoast.showToast(msg: 'User not found');
+        return;
+      }
 
-      final String path = 'profile_images/${user.id}.png';
-      await sb.storage.from('users').uploadBinary(path, imageBytes);
+      // Compress the image
+      final compressedImage = await FlutterImageCompress.compressWithList(
+        imageBytes,
+        minHeight: 1024,
+        minWidth: 1024,
+        quality: 85,
+        format: CompressFormat.png, // Specify the format
+      );
+
+      // Check file size (max 5MB for example)
+      if (compressedImage.length > 5 * 1024 * 1024) {
+        Fluttertoast.showToast(
+            msg: 'Image file is too large. Please choose a smaller image.');
+        return;
+      }
+
+      // Delete the old image if it exists
+      if (user.photo != null && user.photo!.isNotEmpty) {
+        await _deleteOldProfileImage(user.photo!);
+      }
+
+      // Generate a unique file name
+      final String fileName =
+          '${user.id}_${DateTime.now().millisecondsSinceEpoch}.png';
+      final String path = 'profile_images/$fileName';
+
+      // Upload the new file
+      await sb.storage.from('users').uploadBinary(path, compressedImage);
+
+      // Get the public URL
       final String publicUrl = sb.storage.from('users').getPublicUrl(path);
 
+      // Update the user record
       await sb.from('users').update({'photo': publicUrl}).eq('id', user.id);
 
-      // Invalidate the currentUserProvider to force a refresh
-      ref.invalidate(currentUserProvider);
+      // Update the local user model
+      final updatedUser = user.copyWith(photo: publicUrl);
+
+      // Update the currentUserProvider
+      // ref.read(currentUserProvider.notifier).state =
+      //     AsyncValue.data(updatedUser);
+
+      setState(() {
+        _imageBytes = Uint8List.fromList(compressedImage);
+      });
 
       Fluttertoast.showToast(msg: 'Profile image updated successfully');
     } catch (e) {
-      print('Failed to update profile image: $e');
+      print('Error updating profile image: $e');
       Fluttertoast.showToast(
-          msg: 'Failed to update profile image. Please try again.');
+          msg: 'Failed to update profile image: ${e.toString()}');
+    }
+  }
+
+  Future<void> _deleteOldProfileImage(String oldImageUrl) async {
+    try {
+      final sb = ref.read(supabaseProvider).client;
+      final uri = Uri.parse(oldImageUrl);
+      final pathSegments = uri.pathSegments;
+      if (pathSegments.length < 2) {
+        throw Exception('Invalid image URL');
+      }
+      final bucketName = pathSegments[pathSegments.length - 2];
+      final fileName = pathSegments.last;
+
+      await sb.storage.from(bucketName).remove([fileName]);
+    } catch (e) {
+      print('Error deleting old profile image: $e');
+      // We don't throw here because we still want to proceed with uploading the new image
     }
   }
 
@@ -114,6 +174,11 @@ class _AccountPageState extends ConsumerState<AccountPage> {
     await ref.read(authProvider.notifier).signOut();
     ref.invalidate(currentUserProvider);
     Fluttertoast.showToast(msg: 'Logged out successfully');
+    context.pushReplace(
+      (context) => const LoginPage(
+        openAsPage: true,
+      ),
+    );
     // Navigate to login page
   }
 
@@ -201,14 +266,13 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                 child: Stack(
                   alignment: Alignment.bottomCenter,
                   children: [
-                    GFAvatar(
-                      size: 65,
-                      backgroundImage: _imageBytes != null
-                          ? MemoryImage(_imageBytes!)
-                          : (user.photo != null && user.photo!.isNotEmpty
-                              ? NetworkImage(user.photo!) as ImageProvider
-                              : const AssetImage(
-                                  'assets/images/default_avatar.png')),
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundImage:
+                          user.photo != null ? NetworkImage(user.photo!) : null,
+                      child: user.photo == null
+                          ? const Icon(Icons.person, size: 50)
+                          : null,
                     ),
                     Container(
                       height: 20,
@@ -444,37 +508,41 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                     builder: (BuildContext context) {
                       return AlertDialog(
                         title: const Text('Change Password'),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            TextField(
-                              obscureText: true,
-                              decoration: const InputDecoration(
-                                labelText: 'Old Password',
+                        content: Container(
+                          width: 300,
+                          height: 190,
+                          child: Column(
+                            // shrinkWrap: true,
+                            children: [
+                              TextField(
+                                obscureText: true,
+                                decoration: const InputDecoration(
+                                  labelText: 'Old Password',
+                                ),
+                                onChanged: (value) {
+                                  _oldPasswordController.text = value;
+                                },
                               ),
-                              onChanged: (value) {
-                                _oldPasswordController.text = value;
-                              },
-                            ),
-                            TextField(
-                              obscureText: true,
-                              decoration: const InputDecoration(
-                                labelText: 'New Password',
+                              TextField(
+                                obscureText: true,
+                                decoration: const InputDecoration(
+                                  labelText: 'New Password',
+                                ),
+                                onChanged: (value) {
+                                  _newPasswordController.text = value;
+                                },
                               ),
-                              onChanged: (value) {
-                                _newPasswordController.text = value;
-                              },
-                            ),
-                            TextField(
-                              obscureText: true,
-                              decoration: const InputDecoration(
-                                labelText: 'Confirm New Password',
+                              TextField(
+                                obscureText: true,
+                                decoration: const InputDecoration(
+                                  labelText: 'Confirm New Password',
+                                ),
+                                onChanged: (value) {
+                                  _confirmPasswordController.text = value;
+                                },
                               ),
-                              onChanged: (value) {
-                                _confirmPasswordController.text = value;
-                              },
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         actions: [
                           TextButton(
@@ -488,11 +556,17 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                             onPressed: () async {
                               if (_newPasswordController.text !=
                                   _confirmPasswordController.text) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('New passwords do not match'),
-                                  ),
-                                );
+                                AwesomeDialog(
+                                  context: context,
+                                  animType: AnimType.leftSlide,
+                                  headerAnimationLoop: false,
+                                  dialogType: DialogType.error,
+                                  dismissOnTouchOutside: true,
+                                  showCloseIcon: false,
+                                  title: "New password doesn't match",
+                                  autoHide: const Duration(seconds: 3),
+                                ).show();
+                                // );
                                 return;
                               }
 
@@ -519,30 +593,44 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                                       .eq('id', updatedUser.id);
 
                                   // Refresh the currentUserProvider
-                                  ref.refresh(currentUserProvider);
-                                  context.pushReplace(
-                                    (context) => const LoginPage(
-                                      openAsPage: true,
-                                    ),
-                                  );
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text(
-                                        'Password changed successfully',
-                                      ),
-                                    ),
-                                  );
+                                  // ref.refresh(currentUserProvider);
+                                  // context.pushReplace(
+                                  //   (context) => const LoginPage(
+                                  //     openAsPage: true,
+                                  //   ),
+                                  // );
+                                  AwesomeDialog(
+                                    context: context,
+                                    animType: AnimType.leftSlide,
+                                    headerAnimationLoop: false,
+                                    dialogType: DialogType.error,
+                                    dismissOnTouchOutside: true,
+                                    showCloseIcon: false,
+                                    title: "Password changed successfully",
+                                    autoHide: const Duration(seconds: 3),
+                                    onDismissCallback: (type) {
+                                      if (context.mounted) {
+                                        context.pushReplace(
+                                            (context) => const LoginPage(
+                                                  openAsPage: true,
+                                                ));
+                                      }
+                                    },
+                                  ).show();
                                 } catch (e) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Failed to change password: $e',
-                                      ),
-                                    ),
-                                  );
+                                  AwesomeDialog(
+                                    context: context,
+                                    animType: AnimType.leftSlide,
+                                    headerAnimationLoop: false,
+                                    dialogType: DialogType.error,
+                                    dismissOnTouchOutside: true,
+                                    showCloseIcon: false,
+                                    title: "Failed to change password",
+                                    autoHide: const Duration(seconds: 3),
+                                  ).show();
                                 }
                               }
-                              Navigator.of(context).pop();
+                              // Navigator.of(context).pop();
                             },
                           ),
                         ],

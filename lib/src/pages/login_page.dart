@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:kfa_mobile_nu/src/pages/setting_page.dart';
 
 import '../../constaints.dart';
 import '../helpers/build_context_helper.dart';
@@ -197,8 +198,7 @@ class _LoginState extends ConsumerState<LoginPage> {
                       dialogType: DialogType.error,
                       animType: AnimType.rightSlide,
                       headerAnimationLoop: false,
-                      title: 'Error',
-                      desc: errorOrNull,
+                      title: 'Login Failed!',
                       btnOkIcon: Icons.cancel,
                       btnOkColor: Colors.red,
                     ).show();

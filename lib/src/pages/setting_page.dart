@@ -4,6 +4,7 @@ import 'package:kfa_mobile_nu/src/pages/account_page.dart';
 import 'package:kfa_mobile_nu/src/pages/contact_us_page.dart';
 import 'package:kfa_mobile_nu/src/pages/login_page.dart';
 import 'package:kfa_mobile_nu/src/pages/register_page.dart';
+import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/notitfication_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/theme_provider.dart';
 import '../providers/user_provider.dart';
@@ -243,11 +244,11 @@ class SettingPage extends ConsumerWidget {
               context: context,
               icon: Icons.exit_to_app,
               title: 'Logout',
-              onTap: () {
+              onTap: () async {
+                await ref.read(authProvider.notifier).signOut();
+                // ignore: use_build_context_synchronously
                 context.pushReplace(
-                  (context) => const LoginPage(
-                    openAsPage: true,
-                  ),
+                  (context) => const LoginPage(openAsPage: true),
                 );
               },
               subtitle: 'Sign out of your account',

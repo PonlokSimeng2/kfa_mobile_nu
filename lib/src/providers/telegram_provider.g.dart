@@ -8,7 +8,7 @@ part of 'telegram_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$teleDartHash() => r'a7420c99c6c4bf7940f4d2e872875839267b7ca1';
+String _$teleDartHash() => r'331c352a1a7859364255630663f2abd480bda778';
 
 /// See also [teleDart].
 @ProviderFor(teleDart)
@@ -38,7 +38,7 @@ final telegramGroupIdProvider = AutoDisposeFutureProvider<int?>.internal(
 
 typedef TelegramGroupIdRef = AutoDisposeFutureProviderRef<int?>;
 String _$updateTelegramGroupIdHash() =>
-    r'3e74b82b0e8aa21503e941b953daabb65d6a7e8b';
+    r'6ffc88a46ba1104155a313c7c3a858b29db9c5fb';
 
 /// See also [UpdateTelegramGroupId].
 @ProviderFor(UpdateTelegramGroupId)

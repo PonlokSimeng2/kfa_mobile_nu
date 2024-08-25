@@ -36,5 +36,22 @@ final isAdminProvider = AutoDisposeProvider<bool>.internal(
 );
 
 typedef IsAdminRef = AutoDisposeProviderRef<bool>;
+String _$updateUserProfileImageHash() =>
+    r'2341e60c66eabf9f39d866a8b9df08d03eb00939';
+
+/// See also [UpdateUserProfileImage].
+@ProviderFor(UpdateUserProfileImage)
+final updateUserProfileImageProvider = AutoDisposeNotifierProvider<
+    UpdateUserProfileImage, ProviderStatus<void>>.internal(
+  UpdateUserProfileImage.new,
+  name: r'updateUserProfileImageProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$updateUserProfileImageHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$UpdateUserProfileImage = AutoDisposeNotifier<ProviderStatus<void>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

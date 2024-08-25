@@ -3,6 +3,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../exports.dart';
 import '../models/user_model.dart';
 import 'auth_provider.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:path/path.dart' as p;
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 part 'user_provider.g.dart';
 
@@ -24,6 +28,63 @@ FutureOr<UserModel?> currentUser(CurrentUserRef ref) async {
 
 @riverpod
 bool isAdmin(IsAdminRef ref) {
-  final isAdmin = ref.watch(currentUserProvider.select((v) => v.valueOrNull?.isAdmin ?? false));
+  final isAdmin = ref.watch(
+      currentUserProvider.select((v) => v.valueOrNull?.isAdmin ?? false));
   return isAdmin;
+}
+
+@riverpod
+class UpdateUserProfileImage extends _$UpdateUserProfileImage {
+  @override
+  ProviderStatus<void> build() => const ProviderStatus.initial();
+  Future<ProviderStatus<void>> call(XFile file) async {
+    return await perform(
+      (state) async {
+        final sb = ref.watch(supabaseProvider).client;
+        final user = ref.watch(currentUserProvider).value;
+        if (user == null) throw 'User not found';
+
+        // Compress the image
+        final compressedImage = await FlutterImageCompress.compressWithList(
+          await file.readAsBytes(),
+          minHeight: 1024,
+          minWidth: 1024,
+          quality: 85,
+          format: CompressFormat.png, // Specify the format
+        );
+
+        // Check file size (max 5MB for example)
+        if (compressedImage.length > 5 * 1024 * 1024) {
+          throw 'Image file is too large. Please choose a smaller image.';
+        }
+
+        // Delete the old image if it exists
+        if (user.photo != null && user.photo!.isNotEmpty) {
+          await sb.storage.from('users').remove(user.photo! as List<String>);
+        }
+
+        // Generate a unique file name
+        final String fileName =
+            '${user.id}_${DateTime.now().millisecondsSinceEpoch}.png';
+        final String path = 'profile_images/$fileName';
+
+        // Upload the new file
+        await sb.storage.from('users').uploadBinary(path, compressedImage);
+
+        // Get the public URL
+        final String publicUrl = sb.storage.from('users').getPublicUrl(path);
+
+        // Update the user record
+        await sb
+            .from(_userTable)
+            .update({'photo': publicUrl}).eq('id', user.id);
+
+        // Update the local user model
+        final updatedUser = user.copyWith(photo: publicUrl);
+
+        // Update the currentUserProvider
+        ref.invalidate(currentUserProvider);
+      },
+    );
+  }
 }

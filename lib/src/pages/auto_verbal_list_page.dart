@@ -96,7 +96,8 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
               : AppBar(
                   title: const Text('Auto Verbal List'),
                 ),
-          body: Column(
+          body: ListView(
+            shrinkWrap: true,
             children: [
               _buildFilterButtons(),
               Expanded(
@@ -267,20 +268,22 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
   }
 
   Widget _buildFilterButtons() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        child: Row(
-          children: [
-            _buildFilterButton(null),
-            const SizedBox(width: 10),
-            _buildFilterButton(PropertyAndAutoVerbalStatus.pending),
-            const SizedBox(width: 10),
-            _buildFilterButton(PropertyAndAutoVerbalStatus.approved),
-            const SizedBox(width: 10),
-            _buildFilterButton(PropertyAndAutoVerbalStatus.rejected),
-          ],
+    return Center(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 8, right: 8),
+          child: Row(
+            children: [
+              _buildFilterButton(null),
+              const SizedBox(width: 10),
+              _buildFilterButton(PropertyAndAutoVerbalStatus.pending),
+              const SizedBox(width: 10),
+              _buildFilterButton(PropertyAndAutoVerbalStatus.approved),
+              const SizedBox(width: 10),
+              _buildFilterButton(PropertyAndAutoVerbalStatus.rejected),
+            ],
+          ),
         ),
       ),
     );

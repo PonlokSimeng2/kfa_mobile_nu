@@ -7,6 +7,7 @@ import 'package:kfa_mobile_nu/src/pages/register_page.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/notitfication_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/theme_provider.dart';
+
 import '../providers/user_provider.dart';
 
 class SettingPage extends ConsumerWidget {
@@ -39,16 +40,14 @@ class SettingPage extends ConsumerWidget {
               builder: (context, ref, _) {
                 final userAsync = ref.watch(currentUserProvider);
                 return userAsync.when(
-                  loading: () =>
-                      const Center(child: CircularProgressIndicator()),
-                  error: (_, __) =>
-                      const Center(child: Text('Error loading user data')),
+                  loading: () => const Center(child: CircularProgressIndicator()),
+                  error: (_, __) => const Center(child: Text('Error loading user data')),
                   data: (user) => Card(
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     elevation: 4,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12)),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                     child: Stack(
                       children: [
                         Padding(
@@ -58,9 +57,8 @@ class SettingPage extends ConsumerWidget {
                               if (user != null) ...[
                                 CircleAvatar(
                                   radius: 50,
-                                  backgroundImage: user.photo != null
-                                      ? NetworkImage(user.photo!)
-                                      : null,
+                                  backgroundImage:
+                                      user.photo != null ? NetworkImage(user.photo!) : null,
                                   child: user.photo == null
                                       ? const Icon(Icons.person, size: 50)
                                       : null,
@@ -72,15 +70,17 @@ class SettingPage extends ConsumerWidget {
                                     Text(
                                       user.firstName,
                                       style: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                     const SizedBox(width: 8),
                                     Text(
                                       user.lastName,
                                       style: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -103,12 +103,15 @@ class SettingPage extends ConsumerWidget {
                                         end: Alignment.bottomRight,
                                         colors: [
                                           Colors.blue[300]!,
-                                          Colors.blue[700]!
+                                          Colors.blue[700]!,
                                         ],
                                       ),
                                     ),
-                                    child: const Icon(Icons.person,
-                                        size: 50, color: Colors.white),
+                                    child: const Icon(
+                                      Icons.person,
+                                      size: 50,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(height: 16),
@@ -136,14 +139,15 @@ class SettingPage extends ConsumerWidget {
                                     foregroundColor: Colors.white,
                                     backgroundColor: Colors.blue,
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 24, vertical: 12),
+                                      horizontal: 24,
+                                      vertical: 12,
+                                    ),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30),
                                     ),
                                   ),
                                   onPressed: () {
-                                    context
-                                        .push((context) => const LoginPage());
+                                    context.push((context) => const LoginPage());
                                   },
                                 ),
                                 const SizedBox(height: 8),
@@ -151,7 +155,8 @@ class SettingPage extends ConsumerWidget {
                                   child: const Text('Create an account'),
                                   onPressed: () {
                                     context.push(
-                                        (context) => const RegisterPage());
+                                      (context) => const RegisterPage(),
+                                    );
                                   },
                                 ),
                               ],
@@ -180,8 +185,7 @@ class SettingPage extends ConsumerWidget {
               icon: Icons.notifications,
               title: 'Notifications',
               onTap: () {
-                final notificationNotifier =
-                    ref.read(notificationProvider.notifier);
+                final notificationNotifier = ref.read(notificationProvider.notifier);
                 notificationNotifier.toggle();
               },
               subtitle: 'Configure your notification preferences',
@@ -189,8 +193,7 @@ class SettingPage extends ConsumerWidget {
               trailing: Switch(
                 value: enabledNotification,
                 onChanged: (_) {
-                  final notificationNotifier =
-                      ref.read(notificationProvider.notifier);
+                  final notificationNotifier = ref.read(notificationProvider.notifier);
                   notificationNotifier.toggle();
                 },
               ),

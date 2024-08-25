@@ -1,9 +1,8 @@
-import 'dart:convert';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:getwidget/getwidget.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kfa_mobile_nu/exports.dart';
@@ -36,8 +35,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _oldPasswordController = TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
   @override
   void dispose() {
@@ -54,8 +52,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
 
   Future<void> _openImage() async {
     try {
-      final XFile? pickedFile =
-          await _picker.pickImage(source: ImageSource.gallery);
+      final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
       if (pickedFile != null) {
         final bytes = await pickedFile.readAsBytes();
         setState(() {
@@ -89,7 +86,8 @@ class _AccountPageState extends ConsumerState<AccountPage> {
       // Check file size (max 5MB for example)
       if (compressedImage.length > 5 * 1024 * 1024) {
         Fluttertoast.showToast(
-            msg: 'Image file is too large. Please choose a smaller image.');
+          msg: 'Image file is too large. Please choose a smaller image.',
+        );
         return;
       }
 
@@ -99,35 +97,24 @@ class _AccountPageState extends ConsumerState<AccountPage> {
       }
 
       // Generate a unique file name
-      final String fileName =
-          '${user.id}_${DateTime.now().millisecondsSinceEpoch}.png';
-      final String path = 'profile_images/$fileName';
+      final String fileName = '${user.id}_${DateTime.now().millisecondsSinceEpoch}.png';
 
       // Upload the new file
-      await sb.storage.from('users').uploadBinary(path, compressedImage);
+      await sb.storage.from('files').uploadBinary(fileName, compressedImage);
 
       // Get the public URL
-      final String publicUrl = sb.storage.from('users').getPublicUrl(path);
+      final String publicUrl = sb.storage.from('files').getPublicUrl(fileName);
 
       // Update the user record
       await sb.from('users').update({'photo': publicUrl}).eq('id', user.id);
 
-      // Update the local user model
-      final updatedUser = user.copyWith(photo: publicUrl);
-
-      // Update the currentUserProvider
-      // ref.read(currentUserProvider.notifier).state =
-      //     AsyncValue.data(updatedUser);
-
-      setState(() {
-        _imageBytes = Uint8List.fromList(compressedImage);
-      });
-
       Fluttertoast.showToast(msg: 'Profile image updated successfully');
+      ref.invalidate(currentUserProvider);
     } catch (e) {
       print('Error updating profile image: $e');
       Fluttertoast.showToast(
-          msg: 'Failed to update profile image: ${e.toString()}');
+        msg: 'Failed to update profile image: ${e.toString()}',
+      );
     }
   }
 
@@ -188,12 +175,10 @@ class _AccountPageState extends ConsumerState<AccountPage> {
 
     return AuthWrapperWidget(
       child: Scaffold(
-        backgroundColor: context.isDarkMode
-            ? Colors.grey[900]
-            : const Color.fromARGB(255, 245, 250, 246),
+        backgroundColor:
+            context.isDarkMode ? Colors.grey[900] : const Color.fromARGB(255, 245, 250, 246),
         appBar: AppBar(
-          backgroundColor:
-              context.isDarkMode ? Colors.grey[800] : kPrimaryColor,
+          backgroundColor: context.isDarkMode ? Colors.grey[800] : kPrimaryColor,
           elevation: 0,
           centerTitle: true,
           leading: IconButton(
@@ -262,15 +247,62 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             Expanded(
               flex: 1,
               child: InkWell(
+                onLongPress: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Delete Profile Picture'),
+                        content:
+                            const Text('Are you sure you want to delete your profile picture?'),
+                        actions: <Widget>[
+                          TextButton(
+                            child: const Text('Cancel'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          TextButton(
+                            child: const Text('Delete'),
+                            onPressed: () async {
+                              setState(() {
+                                _imageBytes = null;
+                              });
+                              if (user.photo != null) {
+                                await _deleteOldProfileImage(user.photo!);
+                              }
+
+                              try {
+                                final close = BotToast.showLoading();
+                                final sb = ref.read(supabaseProvider).client;
+                                await sb.from('users').update({'photo': null}).eq('id', user.id);
+                                close();
+                                Fluttertoast.showToast(msg: 'Profile image updated successfully');
+                                ref.invalidate(currentUserProvider);
+                              } catch (e) {
+                                Fluttertoast.showToast(msg: 'Failed to update user data: $e');
+                              }
+
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
                 onTap: _openImage,
                 child: Stack(
                   alignment: Alignment.bottomCenter,
                   children: [
                     CircleAvatar(
                       radius: 50,
-                      backgroundImage:
-                          user.photo != null ? NetworkImage(user.photo!) : null,
-                      child: user.photo == null
+                      backgroundImage: _imageBytes != null
+                          ? MemoryImage(_imageBytes!)
+                          : user.photo != null
+                              ? NetworkImage(user.photo!)
+                              : null,
+                      child: _imageBytes == null && user.photo == null
                           ? const Icon(Icons.person, size: 50)
                           : null,
                     ),
@@ -282,8 +314,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                         color: Colors.black54,
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      child:
-                          const Icon(Icons.edit, color: Colors.white, size: 16),
+                      child: const Icon(Icons.edit, color: Colors.white, size: 16),
                     ),
                   ],
                 ),
@@ -330,9 +361,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
-            color: context.isDarkMode
-                ? Colors.black12
-                : Colors.blue.withOpacity(0.1),
+            color: context.isDarkMode ? Colors.black12 : Colors.blue.withOpacity(0.1),
             spreadRadius: 10,
             blurRadius: 20,
             offset: const Offset(0, 10),
@@ -410,9 +439,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
         color: context.isDarkMode ? Colors.grey[700] : Colors.grey[100],
         boxShadow: [
           BoxShadow(
-            color: context.isDarkMode
-                ? Colors.black12
-                : Colors.grey.withOpacity(0.1),
+            color: context.isDarkMode ? Colors.black12 : Colors.grey.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 3,
             offset: const Offset(0, 2),
@@ -444,8 +471,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
           ),
           filled: true,
           fillColor: Colors.transparent,
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+          contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
         ),
       ),
     );
@@ -460,9 +486,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             color: context.isDarkMode ? Colors.grey[700] : Colors.grey[100],
             boxShadow: [
               BoxShadow(
-                color: context.isDarkMode
-                    ? Colors.black12
-                    : Colors.grey.withOpacity(0.1),
+                color: context.isDarkMode ? Colors.black12 : Colors.grey.withOpacity(0.1),
                 spreadRadius: 1,
                 blurRadius: 3,
                 offset: const Offset(0, 2),
@@ -493,13 +517,11 @@ class _AccountPageState extends ConsumerState<AccountPage> {
               ),
               filled: true,
               fillColor: Colors.transparent,
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+              contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
               suffixIcon: IconButton(
                 icon: Icon(
                   Icons.edit,
-                  color:
-                      context.isDarkMode ? Colors.blue[300] : Colors.blue[600],
+                  color: context.isDarkMode ? Colors.blue[300] : Colors.blue[600],
                   size: 22,
                 ),
                 onPressed: () {
@@ -508,7 +530,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                     builder: (BuildContext context) {
                       return AlertDialog(
                         title: const Text('Change Password'),
-                        content: Container(
+                        content: SizedBox(
                           width: 300,
                           height: 190,
                           child: Column(
@@ -554,8 +576,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                           TextButton(
                             child: const Text('Change'),
                             onPressed: () async {
-                              if (_newPasswordController.text !=
-                                  _confirmPasswordController.text) {
+                              if (_newPasswordController.text != _confirmPasswordController.text) {
                                 AwesomeDialog(
                                   context: context,
                                   animType: AnimType.leftSlide,
@@ -570,8 +591,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                                 return;
                               }
 
-                              final currentUser =
-                                  ref.read(currentUserProvider).value;
+                              final currentUser = ref.read(currentUserProvider).value;
                               if (currentUser != null) {
                                 try {
                                   final sb = ref.read(supabaseProvider).client;
@@ -611,9 +631,10 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                                     onDismissCallback: (type) {
                                       if (context.mounted) {
                                         context.pushReplace(
-                                            (context) => const LoginPage(
-                                                  openAsPage: true,
-                                                ));
+                                          (context) => const LoginPage(
+                                            openAsPage: true,
+                                          ),
+                                        );
                                       }
                                     },
                                   ).show();

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/foundation.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:getwidget/components/button/gf_button.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kfa_mobile_nu/exports.dart';
@@ -164,6 +165,7 @@ class AddPropertyPage extends HookConsumerWidget {
                           ),
                           child: Container(
                             child: ProvinceDropDown(
+                              showValidation: showValidation,
                               prefixicon: Icon(
                                 Icons.app_registration_sharp,
                                 color: context.isDarkMode
@@ -198,6 +200,7 @@ class AddPropertyPage extends HookConsumerWidget {
                           ),
                           child: Container(
                             child: PropertyTypeDropDown(
+                              showValidation: showValidation,
                               prefixicon: Icon(
                                 Icons.app_registration_sharp,
                                 color: context.isDarkMode
@@ -512,9 +515,8 @@ class AddPropertyPage extends HookConsumerWidget {
                                     decoration: InputDecoration(
                                       contentPadding:
                                           const EdgeInsets.symmetric(
-                                        vertical: 8,
-                                      ),
-                                      hintText: 'L',
+                                              vertical: 8, horizontal: 8),
+                                      hintText: 'Length',
                                       hintStyle: TextStyle(
                                         color: context.isDarkMode
                                             ? Colors.grey[400]
@@ -577,9 +579,9 @@ class AddPropertyPage extends HookConsumerWidget {
                                         : Colors.black,
                                   ),
                                   decoration: InputDecoration(
-                                    contentPadding:
-                                        const EdgeInsets.symmetric(vertical: 8),
-                                    hintText: 'W',
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 8, horizontal: 8),
+                                    hintText: 'Width',
                                     hintStyle: TextStyle(
                                       color: context.isDarkMode
                                           ? Colors.grey[400]
@@ -656,11 +658,10 @@ class AddPropertyPage extends HookConsumerWidget {
                                           : Colors.black,
                                     ),
                                     decoration: InputDecoration(
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                        vertical: 8,
+                                      contentPadding: const EdgeInsets.only(
+                                        left: 10,
                                       ),
-                                      hintText: 'L',
+                                      hintText: 'Length',
                                       hintStyle: TextStyle(
                                         color: context.isDarkMode
                                             ? Colors.grey[400]
@@ -723,9 +724,10 @@ class AddPropertyPage extends HookConsumerWidget {
                                         : Colors.black,
                                   ),
                                   decoration: InputDecoration(
-                                    contentPadding:
-                                        const EdgeInsets.symmetric(vertical: 8),
-                                    hintText: 'W',
+                                    contentPadding: const EdgeInsets.only(
+                                      left: 10,
+                                    ),
+                                    hintText: 'Width',
                                     hintStyle: TextStyle(
                                       color: context.isDarkMode
                                           ? Colors.grey[400]
@@ -1076,7 +1078,9 @@ class AddPropertyPage extends HookConsumerWidget {
                         return Padding(
                           padding: const EdgeInsets.only(right: 20, left: 20),
                           child: Container(
-                            height: 50,
+                            constraints: const BoxConstraints(
+                              minHeight: 50,
+                            ),
                             width: double.infinity,
                             margin: const EdgeInsets.all(10),
                             padding: const EdgeInsets.all(10),
@@ -1086,22 +1090,29 @@ class AddPropertyPage extends HookConsumerWidget {
                                   : Colors.white,
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
-                                color: context.isDarkMode
-                                    ? Colors.grey
-                                    : Colors.grey,
+                                color: showValidation && title.isEmpty
+                                    ? Colors.red
+                                    : context.isDarkMode
+                                        ? Colors.grey
+                                        : Colors.grey,
                                 width: 1,
                               ),
                             ),
                             child: TextFormField(
                               controller: textController,
-                              maxLines: 3,
+                              maxLines: 1,
                               style: TextStyle(
                                 color: context.isDarkMode
                                     ? Colors.white
                                     : Colors.black,
                               ),
-                              decoration: InputDecoration.collapsed(
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                errorText: showValidation && title.isEmpty
+                                    ? 'Please enter title'
+                                    : null,
                                 hintText: 'Title',
+                                isDense: true,
                                 hintStyle: TextStyle(
                                   color: context.isDarkMode
                                       ? Colors.grey[400]
@@ -1344,6 +1355,15 @@ class _ImagePicker extends HookConsumerWidget {
                   style: TextStyle(
                     color: context.isDarkMode ? Colors.white : Colors.blue,
                   ),
+                ),
+              ),
+            ],
+            if (imageFiles.isEmpty) ...[
+              Text(
+                'Please select at least one image.',
+                style: TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ],

@@ -9,8 +9,9 @@ class PropertyTypeDropDown extends ConsumerWidget {
     this.value,
     required this.onChanged,
     this.prefixicon,
+    this.showValidation = true,
   });
-
+  final bool showValidation;
   final PropertyTypeModel? value;
   final void Function(PropertyTypeModel value) onChanged;
   final Icon? prefixicon;
@@ -40,11 +41,25 @@ class PropertyTypeDropDown extends ConsumerWidget {
       dropdownColor: context.isDarkMode ? Colors.grey[800] : kwhite,
       style: TextStyle(color: context.isDarkMode ? Colors.white : Colors.black),
       decoration: InputDecoration(
+        errorText: showValidation && value == null
+            ? 'Please select a property type'
+            : null,
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: context.isDarkMode ? Colors.red : Colors.red,
+            width: 2.0,
+          ),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
         fillColor: context.isDarkMode ? Colors.grey[900] : kwhite,
         filled: true,
-        contentPadding: const EdgeInsets.symmetric(vertical: 8).copyWith(left: 16, right: 8),
-        hintText: 'Property Type*',
-        hintStyle: TextStyle(color: context.isDarkMode ? Colors.grey[400] : Colors.grey[600]),
+        contentPadding: const EdgeInsets.symmetric(vertical: 8)
+            .copyWith(left: 16, right: 8),
+        labelText: 'Property Type*',
+        labelStyle:
+            TextStyle(color: context.isDarkMode ? Colors.white : Colors.black),
+        hintStyle: TextStyle(
+            color: context.isDarkMode ? Colors.grey[400] : Colors.grey[600]),
         prefixIcon: prefixicon != null
             ? Icon(
                 prefixicon!.icon,

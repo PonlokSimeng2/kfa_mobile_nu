@@ -29,6 +29,18 @@ class _RegisterState extends ConsumerState<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _otpController = TextEditingController();
+
+  @override
+  void dispose() {
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _passwordController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    _otpController.dispose();
+    super.dispose();
+  }
+
   // List of items in our dropdown menu
   var from = [
     'Bank',
@@ -52,30 +64,9 @@ class _RegisterState extends ConsumerState<RegisterPage> {
   }
 
   @override
-  void dispose() {
-    _firstNameController.dispose();
-    _passwordController.dispose();
-    _lastNameController.dispose();
-    _emailController.dispose();
-    _phoneController.dispose();
-    _otpController.dispose();
-    super.dispose();
-  }
-
-  void _resetForm() {
-    _firstNameController.clear();
-    _lastNameController.clear();
-    _passwordController.clear();
-    _emailController.clear();
-    _phoneController.clear();
-    _otpController.clear();
-    _imageFile = null;
-    _imageUrl = null;
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
         elevation: 0,
@@ -89,9 +80,9 @@ class _RegisterState extends ConsumerState<RegisterPage> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back,
-            color: kPrimaryColor,
+            color: context.isDarkMode ? Colors.white : Colors.white,
           ),
         ),
       ),
@@ -238,6 +229,7 @@ class _RegisterState extends ConsumerState<RegisterPage> {
                     height: 20,
                   ),
                   TextFormField(
+                    keyboardType: TextInputType.number,
                     controller: _passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
@@ -284,6 +276,7 @@ class _RegisterState extends ConsumerState<RegisterPage> {
                   ),
                   TextFormField(
                     controller: _phoneController,
+                    keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       fillColor: Colors.white,
                       filled: true,
@@ -472,6 +465,7 @@ class _RegisterState extends ConsumerState<RegisterPage> {
             width: MediaQuery.of(context).size.width * 0.8, // Increased width
             child: PinCodeTextField(
               appContext: context,
+              autoDisposeControllers: false,
               length: 6,
               obscureText: false,
               animationType: AnimationType.fade,
@@ -504,7 +498,6 @@ class _RegisterState extends ConsumerState<RegisterPage> {
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
-                _resetForm();
               },
               child: const Text('Cancel'),
             ),

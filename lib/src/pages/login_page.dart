@@ -4,8 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:kfa_mobile_nu/src/pages/setting_page.dart';
-
 import '../../constaints.dart';
 import '../helpers/build_context_helper.dart';
 import '../providers/auth_provider.dart';
@@ -227,12 +225,7 @@ class _LoginState extends ConsumerState<LoginPage> {
                       text: 'Register',
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const RegisterPage(),
-                            ),
-                          );
+                          context.push((_) => const RegisterPage());
                         },
                       style: TextStyle(
                         fontSize: 16.0,
@@ -262,12 +255,7 @@ class _LoginState extends ConsumerState<LoginPage> {
                       text: 'Reset',
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ForgotPasswordPage(),
-                            ),
-                          );
+                          context.push((_) => const ForgotPasswordPage());
                         },
                       style: TextStyle(
                         fontSize: 16.0,

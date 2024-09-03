@@ -1,28 +1,30 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:getwidget/components/button/gf_button.dart';
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/models/base.dart';
 import 'package:kfa_mobile_nu/src/models/user_model.dart';
-import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
-import 'package:kfa_mobile_nu/src/providers/user_provider.dart'; // Updated import
+import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 import 'package:kfa_mobile_nu/src/widgets/max_width_box.dart';
 import 'package:intl/intl.dart'; // Added for date formatting
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kfa_mobile_nu/src/providers/report_provider.dart'; // Added for property count
-import 'package:flutter/services.dart'; // Added for show password
 
-class UserDetailPage extends StatefulWidget {
+class UserDetailPage extends ConsumerStatefulWidget {
   final UserModel user;
 
   const UserDetailPage({super.key, required this.user});
 
   @override
-  _UserDetailPageState createState() => _UserDetailPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _UserDetailPageState();
 }
 
-class _UserDetailPageState extends State<UserDetailPage> {
+class _UserDetailPageState extends ConsumerState<UserDetailPage> {
   bool isAdmin = false;
-  int propertyCount = 0; // Added to store property count
-  bool _showPassword = false; // Added to show password
+
+  @override
+  void initState() {
+    super.initState();
+    isAdmin = widget.user.isAdmin;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +35,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
         centerTitle: true,
         backgroundColor: kPrimaryColor,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.delete, color: Colors.red),
+          GFButton(
             onPressed: () {
               showDialog(
                 context: context,
@@ -58,13 +59,17 @@ class _UserDetailPageState extends State<UserDetailPage> {
                         child: const Text('Delete'),
                         onPressed: () async {
                           final close = BotToast.showLoading();
-                          // final delete = ref.read(
-                          //   deleteUserProvider(
-                          //     widget.user.userId,
-                          //   ).notifier,
-                          // );
-                          // await delete();
+                          final delete = ref.read(
+                            deleteUserProvider(
+                              widget.user.id,
+                            ).notifier,
+                          );
+                          final result = await delete.call();
                           close();
+                          if (result.isFailure) {
+                            BotToast.showText(text: result.failure!.message());
+                            return;
+                          }
                           if (!context.mounted) return;
                           Navigator.of(context).pop();
                           Navigator.of(context).pop();
@@ -75,6 +80,8 @@ class _UserDetailPageState extends State<UserDetailPage> {
                 },
               );
             },
+            text: 'Delete User',
+            color: Colors.red,
           ),
         ],
       ),
@@ -114,30 +121,30 @@ class _UserDetailPageState extends State<UserDetailPage> {
                 _buildInfoTile('Email', widget.user.email, context),
                 _buildInfoTile('Phone', widget.user.phone, context),
                 _buildInfoTile('User ID', widget.user.userId, context),
-                _buildInfoTile(
-                    'VPoints', widget.user.vpoints.toString(), context),
+                // _buildInfoTile(
+                //     'VPoints', widget.user.vpoints.toString(), context),
                 Consumer(
                   builder: (context, ref, child) {
                     final count = ref.watch(
                       countPropertyAndAutoVerbalProvider(
-                        userId: widget.user.userId,
-                        statuses: PropertyAndAutoVerbalStatus.values.lock,
+                        userId: widget.user.id,
+                        statuses: [PropertyAndAutoVerbalStatus.approved].lock,
                       ).select(
                         (v) => v.whenOrNull(
                           data: (data) => data.propertyCount,
                         ),
                       ),
                     );
-                    return _buildInfoTile(
-                        'Total Property', count?.toString() ?? "...", context);
+                    return _buildInfoTile('Total Property',
+                        '${count?.toString()} cases' ?? "...", context);
                   },
                 ),
                 Consumer(
                   builder: (context, ref, child) {
                     final count = ref.watch(
                       countPropertyAndAutoVerbalProvider(
-                        userId: widget.user.userId,
-                        statuses: PropertyAndAutoVerbalStatus.values.lock,
+                        userId: widget.user.id,
+                        statuses: [PropertyAndAutoVerbalStatus.approved].lock,
                       ).select(
                         (v) => v.whenOrNull(
                           data: (data) => data.autoVerbalCount,
@@ -145,22 +152,26 @@ class _UserDetailPageState extends State<UserDetailPage> {
                       ),
                     );
                     return _buildInfoTile('Total Auto Verbal',
-                        count?.toString() ?? "...", context);
+                        '${count?.toString()} cases' ?? "...", context);
                   },
                 ),
                 _buildInfoTile(
-                    'Joined At', _formatDate(widget.user.joinedAt), context),
+                  'Joined At',
+                  _formatDate(widget.user.joinedAt),
+                  context,
+                ),
                 ListTile(
                   title: Text('Admin'),
                   trailing: Switch(
-                    value: widget.user.isAdmin,
-                    onChanged: (bool value) {
+                    value: isAdmin,
+                    onChanged: (bool value) async {
                       setState(() {
                         isAdmin = value;
-                        // Assuming there's a method to update the user's admin status
-                        // This is a placeholder for the actual update logic
-                        // updateAdminStatus(widget.user.userId, isAdmin);
                       });
+                      ref
+                          .read(toggleUserAdminStatusProvider(widget.user.id)
+                              .notifier)
+                          .call(widget.user.id, value);
                     },
                   ),
                 ),

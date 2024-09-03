@@ -96,7 +96,8 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
-                              'Failed to send password reset email: ${e.toString()}'),
+                            'Failed to send password reset email: ${e.toString()}',
+                          ),
                           backgroundColor: Colors.red,
                         ),
                       );

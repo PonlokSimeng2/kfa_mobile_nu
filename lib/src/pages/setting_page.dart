@@ -40,10 +40,13 @@ class SettingPage extends ConsumerWidget {
               builder: (context, ref, _) {
                 final userAsync = ref.watch(currentUserProvider);
                 return userAsync.when(
-                  loading: () => const Center(child: CircularProgressIndicator()),
-                  error: (_, __) => const Center(child: Text('Error loading user data')),
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
+                  error: (_, __) =>
+                      const Center(child: Text('Error loading user data')),
                   data: (user) => Card(
-                    margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     elevation: 4,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -57,8 +60,9 @@ class SettingPage extends ConsumerWidget {
                               if (user != null) ...[
                                 CircleAvatar(
                                   radius: 50,
-                                  backgroundImage:
-                                      user.photo != null ? NetworkImage(user.photo!) : null,
+                                  backgroundImage: user.photo != null
+                                      ? NetworkImage(user.photo!)
+                                      : null,
                                   child: user.photo == null
                                       ? const Icon(Icons.person, size: 50)
                                       : null,
@@ -147,7 +151,9 @@ class SettingPage extends ConsumerWidget {
                                     ),
                                   ),
                                   onPressed: () {
-                                    context.push((context) => const LoginPage());
+                                    context.push((context) => const LoginPage(
+                                          openAsPage: true,
+                                        ));
                                   },
                                 ),
                                 const SizedBox(height: 8),
@@ -185,7 +191,8 @@ class SettingPage extends ConsumerWidget {
               icon: Icons.notifications,
               title: 'Notifications',
               onTap: () {
-                final notificationNotifier = ref.read(notificationProvider.notifier);
+                final notificationNotifier =
+                    ref.read(notificationProvider.notifier);
                 notificationNotifier.toggle();
               },
               subtitle: 'Configure your notification preferences',
@@ -193,7 +200,8 @@ class SettingPage extends ConsumerWidget {
               trailing: Switch(
                 value: enabledNotification,
                 onChanged: (_) {
-                  final notificationNotifier = ref.read(notificationProvider.notifier);
+                  final notificationNotifier =
+                      ref.read(notificationProvider.notifier);
                   notificationNotifier.toggle();
                 },
               ),

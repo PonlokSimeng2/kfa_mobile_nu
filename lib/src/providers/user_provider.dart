@@ -1,11 +1,9 @@
+import 'package:kfa_mobile_nu/src/providers/admin_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../exports.dart';
 import '../models/user_model.dart';
 import 'auth_provider.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:path/path.dart' as p;
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 part 'user_provider.g.dart';
@@ -31,14 +29,34 @@ class DeleteUser extends _$DeleteUser {
   @override
   ProviderStatus<void> build(String userId) => const ProviderStatus.initial();
 
-  Future<ProviderStatus<void>> call(String userId) async {
+  Future<ProviderStatus<void>> call() async {
     return await perform(
       (state) async {
         final sb = ref.watch(supabaseProvider).client;
         await sb.from(_userTable).delete().eq('id', userId);
       },
       onSuccess: (success) {
-        ref.invalidate(currentUserProvider);
+        ref.invalidate(userListProvider);
+      },
+    );
+  }
+}
+
+@riverpod
+class ToggleUserAdminStatus extends _$ToggleUserAdminStatus {
+  @override
+  ProviderStatus<void> build(String userId) => const ProviderStatus.initial();
+
+  Future<ProviderStatus<void>> call(String userId, bool isAdmin) async {
+    return await perform(
+      (state) async {
+        final sb = ref.watch(supabaseProvider).client;
+        await sb
+            .from(_userTable)
+            .update({'is_admin': isAdmin}).eq('id', userId);
+      },
+      onSuccess: (success) {
+        ref.invalidate(userListProvider);
       },
     );
   }
@@ -96,9 +114,6 @@ class UpdateUserProfileImage extends _$UpdateUserProfileImage {
         await sb
             .from(_userTable)
             .update({'photo': publicUrl}).eq('id', user.id);
-
-        // Update the local user model
-        final updatedUser = user.copyWith(photo: publicUrl);
 
         // Update the currentUserProvider
         ref.invalidate(currentUserProvider);

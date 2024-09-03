@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:kfa_mobile_nu/src/pages/create_new_password_page.dart';
 import 'package:kfa_mobile_nu/src/pages/home_page.dart';
 import 'package:kfa_mobile_nu/src/providers/auto_verbal_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/property_provider.dart';
@@ -9,7 +10,6 @@ import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import 'exports.dart';
 import 'firebase_options.dart';
 import 'provider_observers.dart';
@@ -184,6 +184,7 @@ class _MyAppState extends ConsumerState<MyApp> {
       ),
       themeMode: themeMode,
       home: const HomePage(),
+      //home: const CreateNewPasswordPage(),
       builder: BotToastInit(),
     );
   }

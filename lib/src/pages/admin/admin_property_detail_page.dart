@@ -277,7 +277,7 @@ class _AdminPropertyDetailPageState
                                         scrollCtr.jumpTo(0);
                                       }
                                     },
-                                    child: const Text('Send to property'),
+                                    child: const Text('Send to AutoVerbal'),
                                   ),
                                 )
                               else

@@ -64,7 +64,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '739352974848',
     projectId: 'kfa-mobile-942f0',
     storageBucket: 'kfa-mobile-942f0.appspot.com',
-    iosBundleId: 'com.example.kfaMobileNu',
+    iosBundleId: 'com.psimeng.kfaMobileNu',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -73,7 +73,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '739352974848',
     projectId: 'kfa-mobile-942f0',
     storageBucket: 'kfa-mobile-942f0.appspot.com',
-    iosBundleId: 'com.example.kfaMobileNu',
+    iosBundleId: 'com.psimeng.kfaMobileNu',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(

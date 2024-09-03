@@ -36,8 +36,173 @@ final isAdminProvider = AutoDisposeProvider<bool>.internal(
 );
 
 typedef IsAdminRef = AutoDisposeProviderRef<bool>;
+String _$deleteUserHash() => r'ebc3649da6088b59f79f76fa74314133457621b9';
+
+/// Copied from Dart SDK
+class _SystemHash {
+  _SystemHash._();
+
+  static int combine(int hash, int value) {
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + value);
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
+    return hash ^ (hash >> 6);
+  }
+
+  static int finish(int hash) {
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
+    // ignore: parameter_assignments
+    hash = hash ^ (hash >> 11);
+    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
+  }
+}
+
+abstract class _$DeleteUser
+    extends BuildlessAutoDisposeNotifier<ProviderStatus<void>> {
+  late final String userId;
+
+  ProviderStatus<void> build(
+    String userId,
+  );
+}
+
+/// See also [DeleteUser].
+@ProviderFor(DeleteUser)
+const deleteUserProvider = DeleteUserFamily();
+
+/// See also [DeleteUser].
+class DeleteUserFamily extends Family<ProviderStatus<void>> {
+  /// See also [DeleteUser].
+  const DeleteUserFamily();
+
+  /// See also [DeleteUser].
+  DeleteUserProvider call(
+    String userId,
+  ) {
+    return DeleteUserProvider(
+      userId,
+    );
+  }
+
+  @override
+  DeleteUserProvider getProviderOverride(
+    covariant DeleteUserProvider provider,
+  ) {
+    return call(
+      provider.userId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'deleteUserProvider';
+}
+
+/// See also [DeleteUser].
+class DeleteUserProvider
+    extends AutoDisposeNotifierProviderImpl<DeleteUser, ProviderStatus<void>> {
+  /// See also [DeleteUser].
+  DeleteUserProvider(
+    String userId,
+  ) : this._internal(
+          () => DeleteUser()..userId = userId,
+          from: deleteUserProvider,
+          name: r'deleteUserProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$deleteUserHash,
+          dependencies: DeleteUserFamily._dependencies,
+          allTransitiveDependencies:
+              DeleteUserFamily._allTransitiveDependencies,
+          userId: userId,
+        );
+
+  DeleteUserProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.userId,
+  }) : super.internal();
+
+  final String userId;
+
+  @override
+  ProviderStatus<void> runNotifierBuild(
+    covariant DeleteUser notifier,
+  ) {
+    return notifier.build(
+      userId,
+    );
+  }
+
+  @override
+  Override overrideWith(DeleteUser Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: DeleteUserProvider._internal(
+        () => create()..userId = userId,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        userId: userId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeNotifierProviderElement<DeleteUser, ProviderStatus<void>>
+      createElement() {
+    return _DeleteUserProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is DeleteUserProvider && other.userId == userId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, userId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin DeleteUserRef on AutoDisposeNotifierProviderRef<ProviderStatus<void>> {
+  /// The parameter `userId` of this provider.
+  String get userId;
+}
+
+class _DeleteUserProviderElement
+    extends AutoDisposeNotifierProviderElement<DeleteUser, ProviderStatus<void>>
+    with DeleteUserRef {
+  _DeleteUserProviderElement(super.provider);
+
+  @override
+  String get userId => (origin as DeleteUserProvider).userId;
+}
+
 String _$updateUserProfileImageHash() =>
-    r'2341e60c66eabf9f39d866a8b9df08d03eb00939';
+    r'c94218ce898c1bdb1ae979463c0a27dc78c5c31a';
 
 /// See also [UpdateUserProfileImage].
 @ProviderFor(UpdateUserProfileImage)

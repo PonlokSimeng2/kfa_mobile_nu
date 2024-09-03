@@ -27,6 +27,24 @@ FutureOr<UserModel?> currentUser(CurrentUserRef ref) async {
 }
 
 @riverpod
+class DeleteUser extends _$DeleteUser {
+  @override
+  ProviderStatus<void> build(String userId) => const ProviderStatus.initial();
+
+  Future<ProviderStatus<void>> call(String userId) async {
+    return await perform(
+      (state) async {
+        final sb = ref.watch(supabaseProvider).client;
+        await sb.from(_userTable).delete().eq('id', userId);
+      },
+      onSuccess: (success) {
+        ref.invalidate(currentUserProvider);
+      },
+    );
+  }
+}
+
+@riverpod
 bool isAdmin(IsAdminRef ref) {
   final isAdmin = ref.watch(
       currentUserProvider.select((v) => v.valueOrNull?.isAdmin ?? false));

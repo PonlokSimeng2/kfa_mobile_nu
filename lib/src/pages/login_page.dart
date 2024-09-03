@@ -13,6 +13,7 @@ import '../providers/cache_provider.dart';
 import '../widgets/responsive.dart';
 import 'home_page.dart';
 import 'register_page.dart';
+import 'forgot_password_page.dart'; // Added import for forgot password page
 
 const _cacheEmailKey = "cached-email-key";
 const _cachePasswordKey = "cached-password-key";
@@ -230,6 +231,41 @@ class _LoginState extends ConsumerState<LoginPage> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => const RegisterPage(),
+                            ),
+                          );
+                        },
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: context.isDarkMode
+                            ? themeData.primaryColorLight
+                            : kImageColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            if (!kIsWeb)
+              Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "Forgot your password? ",
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: context.isDarkMode
+                            ? themeData.hintColor
+                            : kTextLightColor,
+                      ),
+                    ),
+                    TextSpan(
+                      text: 'Reset',
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ForgotPasswordPage(),
                             ),
                           );
                         },

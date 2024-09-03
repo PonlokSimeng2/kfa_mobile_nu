@@ -1,4 +1,5 @@
 import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
+import 'package:kfa_mobile_nu/src/models/property_model.schema.dart';
 import 'package:kfa_mobile_nu/src/models/user_model.dart';
 import 'package:kfa_mobile_nu/src/pages/admin/user_detail_page.dart';
 import 'package:kfa_mobile_nu/src/providers/admin_provider.dart';
@@ -62,15 +63,17 @@ class UserListPage extends HookConsumerWidget {
         }
         return RefreshIndicator(
           onRefresh: () async {
-            ref.invalidate(userListProvider(page: 0, searchString: searchString));
+            ref.invalidate(
+                userListProvider(page: 0, searchString: searchString));
           },
           child: ListView.builder(
             itemCount: count,
             itemBuilder: (context, index) {
-              final userAsync =
-                  ref.watch(userAtIndexProvider(index: index, searchString: searchString));
+              final userAsync = ref.watch(userAtIndexProvider(
+                  index: index, searchString: searchString));
               return userAsync?.whenOrNull(
-                    loading: (_) => const Center(child: CircularProgressIndicator()),
+                    loading: (_) =>
+                        const Center(child: CircularProgressIndicator()),
                     data: (user) => _buildUserListItem(context, user),
                   ) ??
                   const SizedBox.shrink();
@@ -81,7 +84,10 @@ class UserListPage extends HookConsumerWidget {
     );
   }
 
-  Widget _buildUserListItem(BuildContext context, UserModel user) {
+  Widget _buildUserListItem(
+    BuildContext context,
+    UserModel user,
+  ) {
     return ListTile(
       leading: CircleAvatar(
         backgroundImage: user.photo != null ? NetworkImage(user.photo!) : null,

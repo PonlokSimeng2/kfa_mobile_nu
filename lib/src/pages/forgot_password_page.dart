@@ -27,8 +27,7 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(32.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: ListView(
             children: <Widget>[
               const SizedBox(height: 20.0),
               Container(

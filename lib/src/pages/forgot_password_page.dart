@@ -83,14 +83,16 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
                       return;
                     }
                     try {
-                      // await _authProvider.sendPasswordResetEmail(email: email);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content:
-                              Text('Password reset email sent successfully!'),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
+                      final close = BotToast.showLoading();
+                      final result = await ref
+                          .read(authProvider.notifier)
+                          .forgotPassword(email);
+                      close();
+                      if (result != null) {
+                        _showErrorDialog(result);
+
+                        return;
+                      }
                       _showOtpDialog(email);
                     } catch (e) {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -138,7 +140,9 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
               animationDuration: const Duration(milliseconds: 300),
               onCompleted: (v) async {
                 final close = BotToast.showLoading();
-                final result = await ref.read(authProvider.notifier).verifyOtp(
+                final result = await ref
+                    .read(authProvider.notifier)
+                    .verifyOtpForgotPassword(
                       _emailController.text,
                       v,
                     );

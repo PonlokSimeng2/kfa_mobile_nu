@@ -1,16 +1,20 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:kfa_mobile_nu/exports.dart';
+import 'package:kfa_mobile_nu/src/pages/home_page.dart';
+import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 
-class CreateNewPasswordPage extends StatefulWidget {
+class CreateNewPasswordPage extends ConsumerStatefulWidget {
   const CreateNewPasswordPage({Key? key}) : super(key: key);
 
   @override
-  _CreateNewPasswordPageState createState() => _CreateNewPasswordPageState();
+  ConsumerState<CreateNewPasswordPage> createState() =>
+      _CreateNewPasswordPageState();
 }
 
-class _CreateNewPasswordPageState extends State<CreateNewPasswordPage> {
+class _CreateNewPasswordPageState extends ConsumerState<CreateNewPasswordPage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
@@ -81,7 +85,37 @@ class _CreateNewPasswordPageState extends State<CreateNewPasswordPage> {
                   color: context.isDarkMode
                       ? themeData.primaryColorLight
                       : kPrimaryColor,
-                  pressEvent: () {},
+                  pressEvent: () async {
+                    if (_passwordController.text !=
+                        _confirmPasswordController.text) {
+                      BotToast.showText(text: 'Passwords do not match');
+                      return;
+                    }
+                    final close = BotToast.showLoading();
+                    final result = await ref
+                        .read(authProvider.notifier)
+                        .updatePassword(_passwordController.text);
+                    close();
+                    if (result == null) {
+                      AwesomeDialog(
+                        context: context,
+                        animType: AnimType.leftSlide,
+                        headerAnimationLoop: false,
+                        dialogType: DialogType.success,
+                        dismissOnTouchOutside: true,
+                        showCloseIcon: false,
+                        title: "Password Updated Successfully!",
+                        autoHide: const Duration(seconds: 3),
+                        onDismissCallback: (type) {
+                          if (context.mounted) {
+                            context.pushReplace((context) => const HomePage());
+                          }
+                        },
+                      ).show();
+                    } else {
+                      BotToast.showText(text: result);
+                    }
+                  },
                 ),
               ),
             ],

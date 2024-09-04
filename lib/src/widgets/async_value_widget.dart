@@ -52,11 +52,13 @@ extension AsyncUI<T> on AsyncValue<T> {
   Widget onData(
     Widget Function(T data) onData, {
     Widget Function()? loadingWidget,
+    Widget Function(Object, StackTrace?)? errorWidget,
   }) {
     return AsyncValueWidget(
       value: this,
       data: onData,
       loading: loadingWidget,
+      error: errorWidget,
     );
   }
 }

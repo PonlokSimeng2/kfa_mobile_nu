@@ -5,6 +5,7 @@ import 'package:kfa_mobile_nu/src/pages/favorite_list_page.dart';
 import 'package:kfa_mobile_nu/src/pages/my_property_page.dart';
 import 'package:kfa_mobile_nu/src/pages/report_main_page.dart';
 import 'package:kfa_mobile_nu/src/pages/setting_page.dart';
+import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/widgets/app_logo.dart';
 
 import '../../exports.dart';
@@ -32,6 +33,24 @@ class HomePage extends ConsumerWidget {
         }
 
         return const _AdminHome();
+      },
+      errorWidget: (error, stackTrace) {
+        return Scaffold(
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('An error occurred'),
+                ElevatedButton(
+                  onPressed: () {
+                    ref.read(authProvider.notifier).signOut();
+                  },
+                  child: const Text('Sign Out'),
+                ),
+              ],
+            ),
+          ),
+        );
       },
       loadingWidget: () {
         return _buildLoadingScreen();
@@ -213,7 +232,7 @@ class __UserHomeState extends ConsumerState<_UserHome> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildBanner(),
-          Expanded(
+          const Expanded(
             child: Padding(
               padding: EdgeInsets.all(3.0),
               child: PropertyListPage(),

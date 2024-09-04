@@ -63,11 +63,55 @@ class Auth extends _$Auth {
     ref.invalidateSelf();
   }
 
+  Future<String?> forgotPassword(String email) async {
+    try {
+      final supabase = ref.watch(supabaseProvider).client;
+      await supabase.auth.resetPasswordForEmail(email);
+      return null;
+    } catch (e) {
+      log("Error forgot password", error: e);
+      return e.toString();
+    }
+  }
+
   Future<String?> verifyOtp(String email, String otp) async {
     try {
       final supabase = ref.watch(supabaseProvider).client;
       final result = await supabase.auth.verifyOTP(
         type: OtpType.signup,
+        token: otp,
+        email: email,
+      );
+      final userId = result.user!.id;
+      await _ensureAdmin(userId);
+      ref.invalidateSelf();
+      await _initializeOneSignal(result.user!.id);
+      return null;
+    } catch (e) {
+      log("Error verify otp", error: e);
+      return e.toString();
+    }
+  }
+
+  Future<String?> updatePassword(String newPassword) async {
+    try {
+      final supabase = ref.watch(supabaseProvider).client;
+      await supabase.auth.updateUser(
+        UserAttributes(password: newPassword),
+      );
+
+      return null;
+    } catch (e) {
+      log("Error updating password", error: e);
+      return e.toString();
+    }
+  }
+
+  Future<String?> verifyOtpForgotPassword(String email, String otp) async {
+    try {
+      final supabase = ref.watch(supabaseProvider).client;
+      final result = await supabase.auth.verifyOTP(
+        type: OtpType.recovery,
         token: otp,
         email: email,
       );
@@ -116,6 +160,7 @@ class Auth extends _$Auth {
 
         await _initializeOneSignal(result.user!.id);
         ref.invalidateSelf();
+
         return null;
       } catch (e) {
         if (e.toString().contains('User already registered')) {

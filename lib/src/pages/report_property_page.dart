@@ -307,6 +307,7 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 2),
       child: PropertyTypeDropDown(
+        showValidation: false,
         value: _selectedPropertyType,
         onChanged: (newValue) {
           setState(() {

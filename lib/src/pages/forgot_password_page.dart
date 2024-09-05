@@ -22,11 +22,10 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Forgot Password'),
-        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(32.0),
+          padding: const EdgeInsets.symmetric(horizontal: 32.0),
           child: ListView(
             children: <Widget>[
               const SizedBox(height: 20.0),

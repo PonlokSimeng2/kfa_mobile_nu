@@ -94,32 +94,34 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
       child: _ReportPropInherited(
         openItemInAdminPage: widget.openItemInAdminPage,
         child: Scaffold(
-          body: ListView(
-            // shrinkWrap: true,
-            children: [
-              _buildFilterButtons(),
-              _buildPropertyTypeDropdown(),
-              Expanded(
-                child: firstPageCountAsync.when(
-                  loading: () =>
-                      const Center(child: CircularProgressIndicator()),
-                  error: (error, stack) => Center(child: Text('Error: $error')),
-                  data: (count) {
-                    if (count == 0) {
-                      return const Center(
-                        child: Text(
-                          'No properties available',
-                          style: TextStyle(fontSize: 18),
-                        ),
+          body: SizedBox(
+            child: Column(
+              children: [
+                _buildFilterButtons(),
+                _buildPropertyTypeDropdown(),
+                Expanded(
+                  child: firstPageCountAsync.when(
+                    loading: () =>
+                        const Center(child: CircularProgressIndicator()),
+                    error: (error, stack) =>
+                        Center(child: Text('Error: $error')),
+                    data: (count) {
+                      if (count == 0) {
+                        return const Center(
+                          child: Text(
+                            'No properties available',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        );
+                      }
+                      return _GridView(
+                        filter: ref.watch(ReportPropertyPage.filter),
                       );
-                    }
-                    return _GridView(
-                      filter: ref.watch(ReportPropertyPage.filter),
-                    );
-                  },
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () => _generatePDF(context),
@@ -261,14 +263,18 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
         scrollDirection: Axis.horizontal,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Row(
-            children: [
-              _buildFilterButton('All', Icons.list, null),
-              const SizedBox(width: 10),
-              _buildFilterButton('Rent', Icons.home, PropertyListingType.rent),
-              const SizedBox(width: 10),
-              _buildFilterButton('Sale', Icons.sell, PropertyListingType.sale),
-            ],
+          child: SizedBox(
+            child: Row(
+              children: [
+                _buildFilterButton('All', Icons.list, null),
+                const SizedBox(width: 10),
+                _buildFilterButton(
+                    'Rent', Icons.home, PropertyListingType.rent),
+                const SizedBox(width: 10),
+                _buildFilterButton(
+                    'Sale', Icons.sell, PropertyListingType.sale),
+              ],
+            ),
           ),
         ),
       ),
@@ -339,19 +345,21 @@ class _GridView extends ConsumerWidget {
       },
     );
 
-    return PaginatedDataTable(
-      columns: const [
-        DataColumn(label: Text('No.')),
-        DataColumn(label: Text('Actions')),
-        DataColumn(label: Text('Image')),
-        DataColumn(label: Text('Property Type')),
-        DataColumn(label: Text('Address')),
-        DataColumn(label: Text('Price')),
-        DataColumn(label: Text('Status')),
-        DataColumn(label: Text('Date')),
-      ],
-      source: dataSource,
-      rowsPerPage: 5,
+    return SingleChildScrollView(
+      child: PaginatedDataTable(
+        columns: const [
+          DataColumn(label: Text('No.')),
+          DataColumn(label: Text('Actions')),
+          DataColumn(label: Text('Image')),
+          DataColumn(label: Text('Property Type')),
+          DataColumn(label: Text('Address')),
+          DataColumn(label: Text('Price')),
+          DataColumn(label: Text('Status')),
+          DataColumn(label: Text('Date')),
+        ],
+        source: dataSource,
+        rowsPerPage: 5,
+      ),
     );
   }
 }

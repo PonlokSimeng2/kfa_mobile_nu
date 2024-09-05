@@ -96,8 +96,7 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
               : AppBar(
                   title: const Text('Auto Verbal List'),
                 ),
-          body: ListView(
-            shrinkWrap: true,
+          body: Column(
             children: [
               _buildFilterButtons(),
               Expanded(
@@ -343,18 +342,20 @@ class _GridView extends ConsumerWidget {
       },
     );
 
-    return PaginatedDataTable(
-      columns: const [
-        DataColumn(label: Text('No.')),
-        DataColumn(label: Text('Actions')),
-        DataColumn(label: Text('Image')),
-        DataColumn(label: Text('ID')),
-        DataColumn(label: Text('Province')),
-        DataColumn(label: Text('Status')),
-        DataColumn(label: Text('Date')),
-      ],
-      source: dataSource,
-      rowsPerPage: 5,
+    return SingleChildScrollView(
+      child: PaginatedDataTable(
+        columns: const [
+          DataColumn(label: Text('No.')),
+          DataColumn(label: Text('Actions')),
+          DataColumn(label: Text('Image')),
+          DataColumn(label: Text('ID')),
+          DataColumn(label: Text('Province')),
+          DataColumn(label: Text('Status')),
+          DataColumn(label: Text('Date')),
+        ],
+        source: dataSource,
+        rowsPerPage: 5,
+      ),
     );
   }
 }

@@ -50,10 +50,10 @@ packages:
     dependency: transitive
     description:
       name: app_links
-      sha256: "7e058edbc78bd40b6a8227941b955f38320a4e799bc0983c8146bda41593a491"
+      sha256: ad1a6d598e7e39b46a34f746f9a8b011ee147e4c275d407fa457e7a62f84dd99
       url: "https://pub.dev"
     source: hosted
-    version: "6.3.1"
+    version: "6.3.2"
   app_links_linux:
     dependency: transitive
     description:
@@ -378,10 +378,10 @@ packages:
     dependency: transitive
     description:
       name: dio
-      sha256: "0dfb6b6a1979dac1c1245e17cef824d7b452ea29bd33d3467269f9bef3715fb0"
+      sha256: "5598aa796bbf4699afd5c67c0f5f6e2ed542afc956884b9cd58c306966efc260"
       url: "https://pub.dev"
     source: hosted
-    version: "5.6.0"
+    version: "5.7.0"
   dio_web_adapter:
     dependency: transitive
     description:
@@ -814,10 +814,10 @@ packages:
     dependency: transitive
     description:
       name: google_maps_flutter_android
-      sha256: "60a005bf1ba8d178144e442f6e2d734b0ffc2cc800a05415388472f934ad6d6a"
+      sha256: "075f550650a907a85d00d1e48f135e9cc326f1519652eb5f8caafebacabf7727"
       url: "https://pub.dev"
     source: hosted
-    version: "2.14.4"
+    version: "2.14.5"
   google_maps_flutter_ios:
     dependency: transitive
     description:
@@ -1192,10 +1192,10 @@ packages:
     dependency: "direct main"
     description:
       name: onesignal_flutter
-      sha256: "979792033137058a9836df1407d5662b04ffcfc98d38a11176da6201be8a400c"
+      sha256: "55c1324a8ac9195cfe89abce66e2de69e6138fc3688ca6e57aacdfbd7a6d49cc"
       url: "https://pub.dev"
     source: hosted
-    version: "5.2.4"
+    version: "5.2.5"
   package_config:
     dependency: transitive
     description:
@@ -1464,10 +1464,10 @@ packages:
     dependency: transitive
     description:
       name: retrofit
-      sha256: "1fceca35cc68d5f14ff70ae830acbf157263b42e1cdfd5b38045ca517535b734"
+      sha256: f00d9b02c7d6c091c2b3347d8ed5f982cfa976e532c2567ed203608ee0edb50a
       url: "https://pub.dev"
     source: hosted
-    version: "4.2.0"
+    version: "4.4.0"
   retrofit_generator:
     dependency: "direct dev"
     description:
@@ -1989,10 +1989,10 @@ packages:
     dependency: transitive
     description:
       name: video_player_android
-      sha256: "101028b643a3b43ced72107aacdbc4d30d55365487751de001a36cf0d86038d1"
+      sha256: "38d8fe136c427abdce68b5e8c3c08ea29d7a794b453c7a51b12ecfad4aad9437"
       url: "https://pub.dev"
     source: hosted
-    version: "2.7.2"
+    version: "2.7.3"
   video_player_avfoundation:
     dependency: transitive
     description:

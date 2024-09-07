@@ -104,12 +104,12 @@ PODS:
   - multi_image_picker (4.8.00):
     - BSImagePicker (~> 2.10.3)
     - Flutter
-  - onesignal_flutter (5.2.4):
+  - onesignal_flutter (5.2.5):
     - Flutter
-    - OneSignalXCFramework (= 5.2.3)
-  - OneSignalXCFramework (5.2.3):
-    - OneSignalXCFramework/OneSignalComplete (= 5.2.3)
-  - OneSignalXCFramework/OneSignal (5.2.3):
+    - OneSignalXCFramework (= 5.2.4)
+  - OneSignalXCFramework (5.2.4):
+    - OneSignalXCFramework/OneSignalComplete (= 5.2.4)
+  - OneSignalXCFramework/OneSignal (5.2.4):
     - OneSignalXCFramework/OneSignalCore
     - OneSignalXCFramework/OneSignalExtension
     - OneSignalXCFramework/OneSignalLiveActivities
@@ -117,38 +117,38 @@ PODS:
     - OneSignalXCFramework/OneSignalOSCore
     - OneSignalXCFramework/OneSignalOutcomes
     - OneSignalXCFramework/OneSignalUser
-  - OneSignalXCFramework/OneSignalComplete (5.2.3):
+  - OneSignalXCFramework/OneSignalComplete (5.2.4):
     - OneSignalXCFramework/OneSignal
     - OneSignalXCFramework/OneSignalInAppMessages
     - OneSignalXCFramework/OneSignalLocation
-  - OneSignalXCFramework/OneSignalCore (5.2.3)
-  - OneSignalXCFramework/OneSignalExtension (5.2.3):
+  - OneSignalXCFramework/OneSignalCore (5.2.4)
+  - OneSignalXCFramework/OneSignalExtension (5.2.4):
     - OneSignalXCFramework/OneSignalCore
     - OneSignalXCFramework/OneSignalOutcomes
-  - OneSignalXCFramework/OneSignalInAppMessages (5.2.3):
+  - OneSignalXCFramework/OneSignalInAppMessages (5.2.4):
     - OneSignalXCFramework/OneSignalCore
     - OneSignalXCFramework/OneSignalNotifications
     - OneSignalXCFramework/OneSignalOSCore
     - OneSignalXCFramework/OneSignalOutcomes
     - OneSignalXCFramework/OneSignalUser
-  - OneSignalXCFramework/OneSignalLiveActivities (5.2.3):
+  - OneSignalXCFramework/OneSignalLiveActivities (5.2.4):
     - OneSignalXCFramework/OneSignalCore
     - OneSignalXCFramework/OneSignalOSCore
     - OneSignalXCFramework/OneSignalUser
-  - OneSignalXCFramework/OneSignalLocation (5.2.3):
+  - OneSignalXCFramework/OneSignalLocation (5.2.4):
     - OneSignalXCFramework/OneSignalCore
     - OneSignalXCFramework/OneSignalNotifications
     - OneSignalXCFramework/OneSignalOSCore
     - OneSignalXCFramework/OneSignalUser
-  - OneSignalXCFramework/OneSignalNotifications (5.2.3):
+  - OneSignalXCFramework/OneSignalNotifications (5.2.4):
     - OneSignalXCFramework/OneSignalCore
     - OneSignalXCFramework/OneSignalExtension
     - OneSignalXCFramework/OneSignalOutcomes
-  - OneSignalXCFramework/OneSignalOSCore (5.2.3):
+  - OneSignalXCFramework/OneSignalOSCore (5.2.4):
     - OneSignalXCFramework/OneSignalCore
-  - OneSignalXCFramework/OneSignalOutcomes (5.2.3):
+  - OneSignalXCFramework/OneSignalOutcomes (5.2.4):
     - OneSignalXCFramework/OneSignalCore
-  - OneSignalXCFramework/OneSignalUser (5.2.3):
+  - OneSignalXCFramework/OneSignalUser (5.2.4):
     - OneSignalXCFramework/OneSignalCore
     - OneSignalXCFramework/OneSignalNotifications
     - OneSignalXCFramework/OneSignalOSCore
@@ -198,6 +198,7 @@ DEPENDENCIES:
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - multi_image_picker (from `.symlinks/plugins/multi_image_picker/ios`)
   - onesignal_flutter (from `.symlinks/plugins/onesignal_flutter/ios`)
+  - OneSignalXCFramework (< 6.0, >= 5.0.0)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - printing (from `.symlinks/plugins/printing/ios`)
@@ -305,8 +306,8 @@ SPEC CHECKSUMS:
   libwebp: 1786c9f4ff8a279e4dac1e8f385004d5fc253009
   Mantle: c5aa8794a29a022dfbbfc9799af95f477a69b62d
   multi_image_picker: 443e776a762d7901641854043b60abf88a85d5ef
-  onesignal_flutter: 3d348a51e0c42e112e559a5c9871e2aada3deb7a
-  OneSignalXCFramework: 356e59953e157f6e45a7fdfc863073b3168b2d01
+  onesignal_flutter: bdebb6b09781cac5e2a4b401002edda258592b5d
+  OneSignalXCFramework: 46ca7cd13f44fc5bec42ec3a5f4ff1548a9244d4
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
   permission_handler_apple: 9878588469a2b0d0fc1e048d9f43605f92e6cec2
   printing: 233e1b73bd1f4a05615548e9b5a324c98588640b
@@ -322,6 +323,6 @@ SPEC CHECKSUMS:
   url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
   video_player_avfoundation: 7c6c11d8470e1675df7397027218274b6d2360b3
 
-PODFILE CHECKSUM: 604a63cda5e7efe03719255062cb33cd146cc26a
+PODFILE CHECKSUM: 9240576a0fc837e021e5f3464d311cc795d6d28b
 
 COCOAPODS: 1.15.2

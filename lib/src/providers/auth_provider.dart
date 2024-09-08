@@ -107,6 +107,28 @@ class Auth extends _$Auth {
     }
   }
 
+  Future<String?> updateUserPassword({
+    required String userId,
+    required String newPassword,
+  }) async {
+    try {
+      final adminClient = SupabaseClient(supabaseUrl,
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFnaXJ4a3hrdXZxaHVhemtwYXl0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxOTczODAxNywiZXhwIjoyMDM1MzE0MDE3fQ.MUcljuzfbdNhLSclfrp43mEFeUGoSae_LskZnsomlcM');
+
+      await adminClient.auth.admin.updateUserById(
+        userId,
+        attributes: AdminUserAttributes(
+          password: newPassword,
+        ),
+      );
+
+      return null;
+    } catch (e) {
+      log("Error updating password", error: e);
+      return e.toString();
+    }
+  }
+
   Future<String?> verifyOtpForgotPassword(String email, String otp) async {
     try {
       final supabase = ref.watch(supabaseProvider).client;

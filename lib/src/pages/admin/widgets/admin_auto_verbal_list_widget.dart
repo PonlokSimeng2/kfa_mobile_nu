@@ -34,12 +34,18 @@ class AdminAutoVerbalListWidget extends ConsumerWidget {
           onRefresh: () async {
             ref.invalidate(autoVerbalListProvider(page: 0, filter: filter));
           },
-          child: ListView.builder(
+          child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+              mainAxisExtent: 250,
+              maxCrossAxisExtent: 250,
+              childAspectRatio: 1 / 1.8,
+              crossAxisSpacing: 1,
+              mainAxisSpacing: 1,
+            ),
             itemCount: count,
             itemBuilder: (context, index) {
               final autoVerbalAsync = ref.watch(
-                autoVerbalAtIndexProvider(index: index, filter: filter),
-              );
+                  autoVerbalAtIndexProvider(index: index, filter: filter));
               return autoVerbalAsync?.whenOrNull(
                     loading: (isFirstItem) =>
                         const Center(child: CircularProgressIndicator()),
@@ -54,89 +60,75 @@ class AdminAutoVerbalListWidget extends ConsumerWidget {
   }
 
   Widget _buildListItem(BuildContext context, AutoVerbalModel autoVerbal) {
-    return InkWell(
-      onTap: () {
-        context.push((_) => AdminAutoVerbalDetailPage(autoVerbal: autoVerbal));
-      },
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-        decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(color: Colors.grey[200]!),
-          ),
-        ),
-        child: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: CachedNetworkImage(
-                imageUrl: autoVerbal.image.first,
-                width: 60,
-                height: 60,
-                fit: BoxFit.cover,
-                placeholder: (context, url) =>
-                    const Center(child: CircularProgressIndicator()),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-              ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    autoVerbal.province.name,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                  Text(
-                    autoVerbal.propertyType.name,
-                    style: TextStyle(
-                      color: Colors.grey[600],
-                      fontSize: 14,
-                    ),
-                  ),
-                  Text(
-                    '\$${autoVerbal.minValue} - \$${autoVerbal.maxValue}',
-                    style: const TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 8),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      child: Stack(
+        children: [
+          InkWell(
+            onTap: () => context
+                .push((_) => AdminAutoVerbalDetailPage(autoVerbal: autoVerbal)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: _getStatusColor(autoVerbal.status),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(
-                    autoVerbal.status.name.toUpperCase(),
-                    style: TextStyle(
-                      color: _getStatusTextColor(autoVerbal.status),
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
+                SizedBox(
+                  height: 160,
+                  child: Expanded(
+                    child: ClipRRect(
+                      borderRadius:
+                          const BorderRadius.vertical(top: Radius.circular(10)),
+                      child: CachedNetworkImage(
+                        imageUrl: autoVerbal.image.first,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        placeholder: (context, url) =>
+                            const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 4),
-                const Icon(Icons.chevron_right, color: Colors.grey),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      autoVerbal.province.name,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '${autoVerbal.minValue} - ${autoVerbal.maxValue} \$',
+                      style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
+                      decoration: BoxDecoration(
+                        color: _getStatusColor(autoVerbal.status),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        autoVerbal.status.name.capitalize(),
+                        style: TextStyle(
+                          color: _getStatusTextColor(autoVerbal.status),
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

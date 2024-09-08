@@ -3,6 +3,7 @@ import 'package:getwidget/components/button/gf_button.dart';
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/models/base.dart';
 import 'package:kfa_mobile_nu/src/models/user_model.dart';
+import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 import 'package:kfa_mobile_nu/src/widgets/max_width_box.dart';
 import 'package:intl/intl.dart'; // Added for date formatting
@@ -19,6 +20,8 @@ class UserDetailPage extends ConsumerStatefulWidget {
 
 class _UserDetailPageState extends ConsumerState<UserDetailPage> {
   bool isAdmin = false;
+  final _formKey = GlobalKey<FormState>();
+  final _newPasswordController = TextEditingController();
 
   @override
   void initState() {
@@ -173,6 +176,50 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                               .notifier)
                           .call(widget.user.id, value);
                     },
+                  ),
+                ),
+                Form(
+                  key: _formKey,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          controller: _newPasswordController,
+                          decoration: const InputDecoration(
+                            labelText: 'New Password',
+                            border: OutlineInputBorder(),
+                          ),
+                          obscureText: true,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      GFButton(
+                        onPressed: () async {
+                          if (!_formKey.currentState!.validate()) {
+                            return;
+                          }
+                          final close = BotToast.showLoading();
+                          final result = await ref
+                              .read(authProvider.notifier)
+                              .updateUserPassword(
+                                userId: widget.user.id,
+                                newPassword: _newPasswordController.text,
+                              );
+                          close();
+                          if (result == null) {
+                            BotToast.showText(
+                                text: 'Password updated successfully.');
+                          } else {
+                            BotToast.showText(text: result);
+                          }
+                          _formKey.currentState!.reset();
+                          _newPasswordController.clear();
+                        },
+                        text: 'Update Password',
+                        color: Colors.blue,
+                      ),
+                    ],
                   ),
                 ),
               ],

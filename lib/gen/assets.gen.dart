@@ -553,6 +553,14 @@ class $AssetsImagesBannersGen {
   AssetGenImage get bannerKFA =>
       const AssetGenImage('assets/images/banners/BannerKFA.jpg');
 
+  /// File path: assets/images/banners/banner.jpg
+  AssetGenImage get bannerPropertyReport =>
+      const AssetGenImage('assets/images/banner.jpg');
+
+  /// File path: assets/images/banners/banner2.jpg
+  AssetGenImage get bannerPropertyReport2 =>
+      const AssetGenImage('assets/images/Property_banner.jpg');
+
   /// File path: assets/images/banners/Service.jpg
   AssetGenImage get service =>
       const AssetGenImage('assets/images/banners/Service.jpg');

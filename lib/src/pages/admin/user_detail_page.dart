@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:getwidget/components/button/gf_button.dart';
 import 'package:kfa_mobile_nu/exports.dart';
@@ -208,10 +209,28 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                               );
                           close();
                           if (result == null) {
-                            BotToast.showText(
-                                text: 'Password updated successfully.');
+                            // BotToast.showText(
+                            //     text: 'Password updated successfully!');
+                            AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.success,
+                              animType: AnimType.rightSlide,
+                              headerAnimationLoop: false,
+                              title: 'Update Password Successfully!',
+                              btnOkIcon: Icons.cancel,
+                              btnOkColor: Colors.red,
+                            ).show();
                           } else {
-                            BotToast.showText(text: result);
+                            // BotToast.showText(text: result);
+                            AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.error,
+                              animType: AnimType.rightSlide,
+                              headerAnimationLoop: false,
+                              title: 'Update Password Failed!',
+                              btnOkIcon: Icons.cancel,
+                              btnOkColor: Colors.red,
+                            ).show();
                           }
                           _formKey.currentState!.reset();
                           _newPasswordController.clear();

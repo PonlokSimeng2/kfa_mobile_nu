@@ -1,5 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:kfa_mobile_nu/exports.dart';
+import 'package:kfa_mobile_nu/gen/assets.gen.dart';
 import 'package:kfa_mobile_nu/src/providers/property_category_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/property_provider.dart';
 
@@ -9,7 +11,10 @@ import 'widgets/admin_property_list_widget.dart';
 
 final _filterProvider = StateProvider.autoDispose<PropertyListFilter>((ref) {
   return PropertyListFilter(
-    statuses: [PropertyAndAutoVerbalStatus.pending, PropertyAndAutoVerbalStatus.resubmit].lock,
+    statuses: [
+      PropertyAndAutoVerbalStatus.pending,
+      PropertyAndAutoVerbalStatus.resubmit
+    ].lock,
   );
 });
 
@@ -50,7 +55,8 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
                   children: [
                     _buildTabButton(null),
                     ...PropertyAndAutoVerbalStatus.values
-                        .where((status) => status != PropertyAndAutoVerbalStatus.resubmit)
+                        .where((status) =>
+                            status != PropertyAndAutoVerbalStatus.resubmit)
                         .map((status) => _buildTabButton(status)),
                   ],
                 ),
@@ -120,7 +126,8 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
             bottom: BorderSide(
               color: isSelected ||
                       (status == null &&
-                          statuses.length == PropertyAndAutoVerbalStatus.values.length)
+                          statuses.length ==
+                              PropertyAndAutoVerbalStatus.values.length)
                   ? Colors.blue
                   : Colors.transparent,
               width: 2,
@@ -131,7 +138,9 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
           status?.name.capitalize() ?? 'All',
           style: TextStyle(
             color: isSelected ||
-                    (status == null && statuses.length == PropertyAndAutoVerbalStatus.values.length)
+                    (status == null &&
+                        statuses.length ==
+                            PropertyAndAutoVerbalStatus.values.length)
                 ? Colors.blue
                 : Colors.grey,
             fontWeight: FontWeight.bold,
@@ -145,7 +154,7 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
   Widget build(BuildContext context) {
     final selectedCategoryTypeId = useState<int?>(null);
     final reportDataAsync = ref.watch(propertyCategoryListProvider);
-
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: _buildAppBar(),
       body: Container(
@@ -153,123 +162,144 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
         child: SafeArea(
           child: Column(
             children: [
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16).copyWith(top: 0),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(30),
-                    bottomRight: Radius.circular(30),
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Property Report',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.all(16).copyWith(top: 0),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(30),
+                          bottomRight: Radius.circular(30),
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 8),
-                    GestureDetector(
-                      onTap: () {
-                        selectedCategoryTypeId.value = null;
-                      },
-                      child: SizedBox(
-                        height: 220,
-                        width: double.infinity,
-                        child: reportDataAsync.onData(
-                          (data) {
-                            int totalSale;
-                            int totalRent;
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Property Report',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          GestureDetector(
+                            onTap: () {
+                              selectedCategoryTypeId.value = null;
+                            },
+                            child: SizedBox(
+                              height: 220,
+                              width: double.infinity,
+                              child: reportDataAsync.onData(
+                                (data) {
+                                  int totalSale;
+                                  int totalRent;
 
-                            if (selectedCategoryTypeId.value == null) {
-                              totalSale = data.sumBy((element) => element.totalSale ?? 0);
-                              totalRent = data.sumBy((element) => element.totalRent ?? 0);
-                            } else {
-                              totalSale = data
-                                  .firstWhere(
-                                    (element) => element.id == selectedCategoryTypeId.value,
-                                  )
-                                  .totalSale!;
-                              totalRent = data
-                                  .firstWhere(
-                                    (element) => element.id == selectedCategoryTypeId.value,
-                                  )
-                                  .totalRent!;
-                            }
-                            final totalProperties = totalSale + totalRent;
-                            final salePercentage =
-                                (totalSale / totalProperties * 100).toStringAsFixed(1);
-                            final rentPercentage =
-                                (totalRent / totalProperties * 100).toStringAsFixed(1);
+                                  if (selectedCategoryTypeId.value == null) {
+                                    totalSale = data.sumBy(
+                                        (element) => element.totalSale ?? 0);
+                                    totalRent = data.sumBy(
+                                        (element) => element.totalRent ?? 0);
+                                  } else {
+                                    totalSale = data
+                                        .firstWhere(
+                                          (element) =>
+                                              element.id ==
+                                              selectedCategoryTypeId.value,
+                                        )
+                                        .totalSale!;
+                                    totalRent = data
+                                        .firstWhere(
+                                          (element) =>
+                                              element.id ==
+                                              selectedCategoryTypeId.value,
+                                        )
+                                        .totalRent!;
+                                  }
+                                  final totalProperties = totalSale + totalRent;
+                                  final salePercentage =
+                                      (totalSale / totalProperties * 100)
+                                          .toStringAsFixed(1);
+                                  final rentPercentage =
+                                      (totalRent / totalProperties * 100)
+                                          .toStringAsFixed(1);
 
-                            return Row(
-                              children: [
-                                SizedBox(
-                                  width: 100,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                  return Row(
                                     children: [
-                                      const SizedBox(height: 40),
-                                      ...data.map(
-                                        (e) {
-                                          final selected = selectedCategoryTypeId.value == e.id;
-                                          return InkWell(
-                                            onTap: () {
-                                              if (selected) {
-                                                selectedCategoryTypeId.value = null;
-                                              } else {
-                                                selectedCategoryTypeId.value = e.id;
-                                              }
-                                            },
-                                            child: Container(
-                                              width: double.infinity,
-                                              padding: const EdgeInsets.symmetric(
-                                                horizontal: 12,
-                                                vertical: 12,
-                                              ),
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    selected ? Colors.white24 : Colors.transparent,
-                                                borderRadius: BorderRadius.circular(10),
-                                              ),
-                                              child: Row(
-                                                children: [
-                                                  Container(
-                                                    width: 5,
-                                                    height: 5,
-                                                    decoration: const BoxDecoration(
-                                                      color: Colors.white,
-                                                      shape: BoxShape.circle,
+                                      SizedBox(
+                                        width: 100,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const SizedBox(height: 40),
+                                            ...data.map(
+                                              (e) {
+                                                final selected =
+                                                    selectedCategoryTypeId
+                                                            .value ==
+                                                        e.id;
+                                                return InkWell(
+                                                  onTap: () {
+                                                    if (selected) {
+                                                      selectedCategoryTypeId
+                                                          .value = null;
+                                                    } else {
+                                                      selectedCategoryTypeId
+                                                          .value = e.id;
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    width: double.infinity,
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                      horizontal: 12,
+                                                      vertical: 12,
+                                                    ),
+                                                    decoration: BoxDecoration(
+                                                      color: selected
+                                                          ? Colors.white24
+                                                          : Colors.transparent,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                    ),
+                                                    child: Row(
+                                                      children: [
+                                                        Container(
+                                                          width: 5,
+                                                          height: 5,
+                                                          decoration:
+                                                              const BoxDecoration(
+                                                            color: Colors.white,
+                                                            shape:
+                                                                BoxShape.circle,
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                            width: 8),
+                                                        Expanded(
+                                                          child: Text(
+                                                            e.name,
+                                                            style:
+                                                                const TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
-                                                  const SizedBox(width: 8),
-                                                  Expanded(
-                                                    child: Text(
-                                                      e.name,
-                                                      style: const TextStyle(
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
+                                                );
+                                              },
                                             ),
-                                          );
-                                        },
+                                          ],
+                                        ),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
                                       Expanded(
                                         child: PieChart(
                                           PieChartData(
@@ -292,34 +322,78 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
                                           ),
                                         ),
                                       ),
-                                      const SizedBox(height: 8),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          _buildLegend(
-                                            'Sale',
-                                            const Color(0xFF0088FE),
-                                            totalSale,
-                                          ),
-                                          const SizedBox(width: 20),
-                                          _buildLegend(
-                                            'Rent',
-                                            const Color(0xFF00C49F),
-                                            totalRent,
-                                          ),
-                                        ],
-                                      ),
                                     ],
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  // Carousel widget is removed for mobile devices
+                  if (MediaQuery.of(context).size.width > 860)
+                    Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(30),
+                          bottomLeft: Radius.circular(30),
+                        ),
+                      ),
+                      height: 278,
+                      width: 500,
+                      child: FlutterCarousel(
+                        items: [
+                          Assets.images.banners.bannerKFA
+                              .image(fit: BoxFit.cover),
+                          Assets.images.banners.bannerPropertyReport
+                              .image(fit: BoxFit.cover),
+                          Assets.images.banners.bannerPropertyReport2
+                              .image(fit: BoxFit.cover),
+                        ].map((e) {
+                          return ClipRRect(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(5.0)),
+                            child: Stack(
+                              fit: StackFit.expand,
+                              children: <Widget>[
+                                e,
+                                Positioned(
+                                  bottom: 0.0,
+                                  left: 0.0,
+                                  right: 0.0,
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Color.fromARGB(200, 0, 0, 0),
+                                          Color.fromARGB(0, 0, 0, 0),
+                                        ],
+                                        begin: Alignment.bottomCenter,
+                                        end: Alignment.topCenter,
+                                      ),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 10.0,
+                                      horizontal: 20.0,
+                                    ),
                                   ),
                                 ),
                               ],
-                            );
-                          },
+                            ),
+                          );
+                        }).toList(),
+                        options: CarouselOptions(
+                          autoPlay: true,
+                          viewportFraction: 1,
+                          enlargeCenterPage: true,
+                          aspectRatio: 1.8,
                         ),
                       ),
                     ),
-                  ],
-                ),
+                ],
               ),
               Expanded(child: _buildList()),
             ],

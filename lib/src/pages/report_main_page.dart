@@ -16,6 +16,7 @@ class ReportMainPage extends HookConsumerWidget {
     final isAutoVerbalPage = useState(true);
     final pageCtr = usePageController();
     final dateRange = useState<DateTimeRange?>(null);
+    final reportPageTitle = useState('Welcome to the Report Page');
 
     Future<void> selectDateRange() async {
       final picked = await showDateRangePicker(
@@ -26,8 +27,13 @@ class ReportMainPage extends HookConsumerWidget {
       );
       if (picked != null) {
         dateRange.value = picked;
-        ReportPropertyPage.setDateRangeFilter(ref, picked.start, picked.end);
-        AutoVerbalListPage.setDateRangeFilter(ref, picked.start, picked.end);
+        if (isPropertyPage.value) {
+          ReportPropertyPage.setDateRangeFilter(ref, picked.start, picked.end);
+          reportPageTitle.value = 'Property Report Page';
+        } else if (isAutoVerbalPage.value) {
+          AutoVerbalListPage.setDateRangeFilter(ref, picked.start, picked.end);
+          reportPageTitle.value = 'Autoverbal Report Page';
+        }
       }
     }
 
@@ -38,6 +44,7 @@ class ReportMainPage extends HookConsumerWidget {
           headerSliverBuilder: (context, value) {
             return [
               SliverAppBar(
+                pinned: true,
                 floating: true,
                 backgroundColor:
                     context.isDarkMode ? Colors.grey[800] : kPrimaryColor,
@@ -73,7 +80,7 @@ class ReportMainPage extends HookConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Welcome to the Report Page',
+                        reportPageTitle.value,
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -115,16 +122,23 @@ class ReportMainPage extends HookConsumerWidget {
                                   ),
                                   onTap: () {
                                     dateRange.value = null;
-                                    ReportPropertyPage.setDateRangeFilter(
-                                      ref,
-                                      null,
-                                      null,
-                                    );
-                                    AutoVerbalListPage.setDateRangeFilter(
-                                      ref,
-                                      null,
-                                      null,
-                                    );
+                                    if (isPropertyPage.value) {
+                                      ReportPropertyPage.setDateRangeFilter(
+                                        ref,
+                                        null,
+                                        null,
+                                      );
+                                      reportPageTitle.value =
+                                          'Welcome to the Report Page';
+                                    } else if (isAutoVerbalPage.value) {
+                                      AutoVerbalListPage.setDateRangeFilter(
+                                        ref,
+                                        null,
+                                        null,
+                                      );
+                                      reportPageTitle.value =
+                                          'Welcome to the Report Page';
+                                    }
                                   },
                                 ),
                               ),
@@ -133,68 +147,78 @@ class ReportMainPage extends HookConsumerWidget {
                         ),
                       ],
                       const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Expanded(
-                            child: Consumer(
-                              builder: (context, ref, child) {
-                                final count = ref.watch(
-                                  countPropertyAndAutoVerbalProvider(
-                                    userId: ref.watch(authProvider),
-                                    statuses:
-                                        PropertyAndAutoVerbalStatus.values.lock,
-                                  ).select(
-                                    (v) => v.whenOrNull(
-                                      data: (data) => data.propertyCount,
+                      SizedBox(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Expanded(
+                              child: Consumer(
+                                builder: (context, ref, child) {
+                                  final count = ref.watch(
+                                    countPropertyAndAutoVerbalProvider(
+                                      userId: ref.watch(authProvider),
+                                      statuses: PropertyAndAutoVerbalStatus
+                                          .values.lock,
+                                    ).select(
+                                      (v) => v.whenOrNull(
+                                        data: (data) => data.propertyCount,
+                                      ),
                                     ),
-                                  ),
-                                );
-                                return GestureDetector(
-                                  onTap: () {
-                                    pageCtr.jumpToPage(0);
-                                  },
-                                  child: _buildInfoCard(
-                                    context: context,
-                                    title: 'Total Property',
-                                    value: count?.toString() ?? "...",
-                                    icon: Icons.pending,
-                                    color: Colors.orange,
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          Expanded(
-                            child: Consumer(
-                              builder: (context, ref, child) {
-                                final count = ref.watch(
-                                  countPropertyAndAutoVerbalProvider(
-                                    userId: ref.watch(authProvider),
-                                    statuses:
-                                        PropertyAndAutoVerbalStatus.values.lock,
-                                  ).select(
-                                    (v) => v.whenOrNull(
-                                      data: (data) => data.autoVerbalCount,
+                                  );
+                                  return GestureDetector(
+                                    onTap: () {
+                                      pageCtr.jumpToPage(0);
+                                      isPropertyPage.value = true;
+                                      isAutoVerbalPage.value = false;
+                                      reportPageTitle.value =
+                                          'Property Report Page';
+                                    },
+                                    child: _buildInfoCard(
+                                      context: context,
+                                      title: 'Total Property',
+                                      value: count?.toString() ?? "...",
+                                      icon: Icons.pending,
+                                      color: Colors.orange,
                                     ),
-                                  ),
-                                );
-                                return GestureDetector(
-                                  onTap: () {
-                                    pageCtr.jumpToPage(1);
-                                  },
-                                  child: _buildInfoCard(
-                                    context: context,
-                                    title: 'Total Autoverbal',
-                                    value: count?.toString() ?? "...",
-                                    icon: Icons.insert_chart,
-                                    color: Colors.blue,
-                                  ),
-                                );
-                              },
+                                  );
+                                },
+                              ),
                             ),
-                          ),
-                        ],
+                            Expanded(
+                              child: Consumer(
+                                builder: (context, ref, child) {
+                                  final count = ref.watch(
+                                    countPropertyAndAutoVerbalProvider(
+                                      userId: ref.watch(authProvider),
+                                      statuses: PropertyAndAutoVerbalStatus
+                                          .values.lock,
+                                    ).select(
+                                      (v) => v.whenOrNull(
+                                        data: (data) => data.autoVerbalCount,
+                                      ),
+                                    ),
+                                  );
+                                  return GestureDetector(
+                                    onTap: () {
+                                      pageCtr.jumpToPage(1);
+                                      isPropertyPage.value = false;
+                                      isAutoVerbalPage.value = true;
+                                      reportPageTitle.value =
+                                          'Autoverbal Report Page';
+                                    },
+                                    child: _buildInfoCard(
+                                      context: context,
+                                      title: 'Total Autoverbal',
+                                      value: count?.toString() ?? "...",
+                                      icon: Icons.insert_chart,
+                                      color: Colors.blue,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

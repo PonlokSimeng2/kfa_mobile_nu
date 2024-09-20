@@ -17,4 +17,4 @@ const kDefaultShadow = BoxShadow(
   color: Color(0xFF035AA6), // Black color with 12% opacity
 );
 
-const double kMaxWidth = 1000;
+const double kMaxWidth = 1100;

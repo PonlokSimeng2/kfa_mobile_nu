@@ -26,17 +26,17 @@ class LoginPage extends ConsumerStatefulWidget {
 }
 
 class _LoginState extends ConsumerState<LoginPage> {
+  late TextEditingController emailCtr;
+  late TextEditingController passwordCtr;
+  bool status = false;
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _isObscure = true;
 
   @override
   void dispose() {
     super.dispose();
   }
-
-  bool _isObscure = true;
-  bool status = false;
-  late TextEditingController emailCtr;
-  late TextEditingController passwordCtr;
 
   @override
   void initState() {
@@ -47,70 +47,6 @@ class _LoginState extends ConsumerState<LoginPage> {
     final cachedPassword = cache.getString(_cachePasswordKey);
     emailCtr = TextEditingController(text: cachedEmail);
     passwordCtr = TextEditingController(text: cachedPassword);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kPrimaryColor,
-        elevation: 0,
-        centerTitle: true,
-        title: Image.asset(
-          'assets/images/KFA-Logo.png',
-          height: 120,
-          width: 150,
-        ),
-        toolbarHeight: 100,
-      ),
-      backgroundColor: kPrimaryColor,
-      body: Container(
-        height: double.infinity,
-        decoration: BoxDecoration(
-          color: context.scaffoldBackgroundColor,
-          borderRadius: const BorderRadius.only(
-            topRight: Radius.circular(30.0),
-            topLeft: Radius.circular(30.0),
-          ),
-        ),
-        child: SingleChildScrollView(
-          child: Responsive(
-            mobile: login(context),
-            tablet: Row(
-              children: [
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 500,
-                        child: login(context),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            desktop: Row(
-              children: [
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 500,
-                        child: login(context),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            phone: login(context),
-          ),
-        ),
-      ),
-    );
   }
 
   Padding login(BuildContext context) {
@@ -556,6 +492,70 @@ class _LoginState extends ConsumerState<LoginPage> {
           ),
         ),
       ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: kPrimaryColor,
+        elevation: 0,
+        centerTitle: true,
+        title: Image.asset(
+          'assets/images/KFA-Logo.png',
+          height: 120,
+          width: 150,
+        ),
+        toolbarHeight: 100,
+      ),
+      backgroundColor: kPrimaryColor,
+      body: Container(
+        height: double.infinity,
+        decoration: BoxDecoration(
+          color: context.scaffoldBackgroundColor,
+          borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(30.0),
+            topLeft: Radius.circular(30.0),
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: Responsive(
+            mobile: login(context),
+            tablet: Row(
+              children: [
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 500,
+                        child: login(context),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            desktop: Row(
+              children: [
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 500,
+                        child: login(context),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            phone: login(context),
+          ),
+        ),
+      ),
     );
   }
 }

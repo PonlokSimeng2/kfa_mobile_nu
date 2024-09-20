@@ -162,6 +162,22 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
         child: SafeArea(
           child: Column(
             children: [
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     _buildLegend(
+              //       'Sale',
+              //       const Color(0xFF0088FE),
+              //       totalSale,
+              //     ),
+              //     const SizedBox(width: 20),
+              //     _buildLegend(
+              //       'Rent',
+              //       const Color(0xFF00C49F),
+              //       totalRent,
+              //     ),
+              //   ],
+              // ),
               Row(
                 children: [
                   Expanded(
@@ -301,25 +317,58 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
                                         ),
                                       ),
                                       Expanded(
-                                        child: PieChart(
-                                          PieChartData(
-                                            sections: [
-                                              PieChartSectionData(
-                                                color: const Color(0xFF0088FE),
-                                                value: totalSale.toDouble(),
-                                                title: '$salePercentage%',
-                                                radius: 50,
+                                        child: Column(
+                                          children: [
+                                            if (MediaQuery.of(context)
+                                                    .size
+                                                    .width <
+                                                1029)
+                                              Expanded(
+                                                child: PieChart(
+                                                  PieChartData(
+                                                    sections: [
+                                                      PieChartSectionData(
+                                                        color: const Color(
+                                                            0xFF0088FE),
+                                                        value: totalSale
+                                                            .toDouble(),
+                                                        title:
+                                                            '$salePercentage%',
+                                                        radius: 50,
+                                                      ),
+                                                      PieChartSectionData(
+                                                        color: const Color(
+                                                            0xFF00C49F),
+                                                        value: totalRent
+                                                            .toDouble(),
+                                                        title:
+                                                            '$rentPercentage%',
+                                                        radius: 50,
+                                                      ),
+                                                    ],
+                                                    centerSpaceRadius: 40,
+                                                    sectionsSpace: 0,
+                                                  ),
+                                                ),
                                               ),
-                                              PieChartSectionData(
-                                                color: const Color(0xFF00C49F),
-                                                value: totalRent.toDouble(),
-                                                title: '$rentPercentage%',
-                                                radius: 50,
-                                              ),
-                                            ],
-                                            centerSpaceRadius: 40,
-                                            sectionsSpace: 0,
-                                          ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                _buildLegend(
+                                                  'Sale',
+                                                  const Color(0xFF0088FE),
+                                                  totalSale,
+                                                ),
+                                                const SizedBox(width: 20),
+                                                _buildLegend(
+                                                  'Rent',
+                                                  const Color(0xFF00C49F),
+                                                  totalRent,
+                                                ),
+                                              ],
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],
@@ -333,7 +382,7 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
                     ),
                   ),
                   // Carousel widget is removed for mobile devices
-                  if (MediaQuery.of(context).size.width > 860)
+                  if (MediaQuery.of(context).size.width > 1160)
                     Container(
                       decoration: const BoxDecoration(
                         color: Colors.blue,
@@ -343,7 +392,7 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
                         ),
                       ),
                       height: 278,
-                      width: 500,
+                      width: 800,
                       child: FlutterCarousel(
                         items: [
                           Assets.images.banners.bannerKFA
@@ -393,6 +442,69 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
                         ),
                       ),
                     ),
+                  if (MediaQuery.of(context).size.width < 1161 &&
+                      MediaQuery.of(context).size.width > 1029)
+                    Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(30),
+                          bottomLeft: Radius.circular(30),
+                        ),
+                      ),
+                      height: 278,
+                      width: MediaQuery.of(context).size.width > 650
+                          ? 650
+                          : MediaQuery.of(context).size.width,
+                      child: FlutterCarousel(
+                        items: [
+                          Assets.images.banners.bannerKFA
+                              .image(fit: BoxFit.cover),
+                          Assets.images.banners.bannerPropertyReport
+                              .image(fit: BoxFit.cover),
+                          Assets.images.banners.bannerPropertyReport2
+                              .image(fit: BoxFit.cover),
+                        ].map((e) {
+                          return ClipRRect(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(5.0)),
+                            child: Stack(
+                              fit: StackFit.expand,
+                              children: <Widget>[
+                                e,
+                                Positioned(
+                                  bottom: 0.0,
+                                  left: 0.0,
+                                  right: 0.0,
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Color.fromARGB(200, 0, 0, 0),
+                                          Color.fromARGB(0, 0, 0, 0),
+                                        ],
+                                        begin: Alignment.bottomCenter,
+                                        end: Alignment.topCenter,
+                                      ),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 10.0,
+                                      horizontal: 20.0,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }).toList(),
+                        options: CarouselOptions(
+                          autoPlay: true,
+                          viewportFraction: 1,
+                          enlargeCenterPage: true,
+                          aspectRatio: 1.8,
+                        ),
+                      ),
+                    )
                 ],
               ),
               Expanded(child: _buildList()),

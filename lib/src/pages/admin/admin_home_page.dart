@@ -33,11 +33,18 @@ class AdminHomePage extends HookConsumerWidget {
                 destinations: _navItems
                     .map(
                       (item) => NavigationRailDestination(
-                        icon: Icon(item.$1),
-                        label: Text(item.$2),
+                        icon: Icon(
+                          item.$1,
+                          size: 40,
+                        ),
+                        label: Text(
+                          item.$2,
+                        ),
+                        indicatorColor: Theme.of(context).primaryColor,
                       ),
                     )
                     .toList(),
+                labelType: NavigationRailLabelType.all,
               ),
             Expanded(
               child: MaxWidthBox(
@@ -60,7 +67,8 @@ class AdminHomePage extends HookConsumerWidget {
                 currentIndex: activeIndex.value,
                 items: _navItems
                     .map(
-                      (item) => BottomNavigationBarItem(icon: Icon(item.$1), label: item.$2),
+                      (item) => BottomNavigationBarItem(
+                          icon: Icon(item.$1), label: item.$2),
                     )
                     .toList(),
               ),

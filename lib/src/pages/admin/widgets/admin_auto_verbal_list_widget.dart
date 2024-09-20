@@ -72,19 +72,17 @@ class AdminAutoVerbalListWidget extends ConsumerWidget {
               children: [
                 SizedBox(
                   height: 160,
-                  child: Expanded(
-                    child: ClipRRect(
-                      borderRadius:
-                          const BorderRadius.vertical(top: Radius.circular(10)),
-                      child: CachedNetworkImage(
-                        imageUrl: autoVerbal.image.first,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                        placeholder: (context, url) =>
-                            const Center(child: CircularProgressIndicator()),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
-                      ),
+                  child: ClipRRect(
+                    borderRadius:
+                        const BorderRadius.vertical(top: Radius.circular(10)),
+                    child: CachedNetworkImage(
+                      imageUrl: autoVerbal.image.first,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      placeholder: (context, url) =>
+                          const Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                     ),
                   ),
                 ),

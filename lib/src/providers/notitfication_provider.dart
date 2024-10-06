@@ -35,7 +35,7 @@ class NotificationNotifier extends StateNotifier<NotificationState> {
   }
 
   void toggle() async {
-    if (state.isEnabled) {
+    if (!state.isEnabled) {
       final userId = ref.read(authProvider);
       if (userId != null) {
         await OneSignal.login(userId);

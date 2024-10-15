@@ -35,7 +35,8 @@ class _AccountPageState extends ConsumerState<AccountPage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _oldPasswordController = TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   @override
   void dispose() {
@@ -52,7 +53,8 @@ class _AccountPageState extends ConsumerState<AccountPage> {
 
   Future<void> _openImage() async {
     try {
-      final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+      final XFile? pickedFile =
+          await _picker.pickImage(source: ImageSource.gallery);
       if (pickedFile != null) {
         final bytes = await pickedFile.readAsBytes();
         setState(() {
@@ -97,7 +99,8 @@ class _AccountPageState extends ConsumerState<AccountPage> {
       }
 
       // Generate a unique file name
-      final String fileName = '${user.id}_${DateTime.now().millisecondsSinceEpoch}.png';
+      final String fileName =
+          '${user.id}_${DateTime.now().millisecondsSinceEpoch}.png';
 
       // Upload the new file
       await sb.storage.from('files').uploadBinary(fileName, compressedImage);
@@ -175,10 +178,12 @@ class _AccountPageState extends ConsumerState<AccountPage> {
 
     return AuthWrapperWidget(
       child: Scaffold(
-        backgroundColor:
-            context.isDarkMode ? Colors.grey[900] : const Color.fromARGB(255, 245, 250, 246),
+        backgroundColor: context.isDarkMode
+            ? Colors.grey[900]
+            : const Color.fromARGB(255, 245, 250, 246),
         appBar: AppBar(
-          backgroundColor: context.isDarkMode ? Colors.grey[800] : kPrimaryColor,
+          backgroundColor:
+              context.isDarkMode ? Colors.grey[800] : kPrimaryColor,
           elevation: 0,
           centerTitle: true,
           leading: IconButton(
@@ -253,8 +258,8 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                     builder: (BuildContext context) {
                       return AlertDialog(
                         title: const Text('Delete Profile Picture'),
-                        content:
-                            const Text('Are you sure you want to delete your profile picture?'),
+                        content: const Text(
+                            'Are you sure you want to delete your profile picture?'),
                         actions: <Widget>[
                           TextButton(
                             child: const Text('Cancel'),
@@ -275,12 +280,16 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                               try {
                                 final close = BotToast.showLoading();
                                 final sb = ref.read(supabaseProvider).client;
-                                await sb.from('users').update({'photo': null}).eq('id', user.id);
+                                await sb
+                                    .from('users')
+                                    .update({'photo': null}).eq('id', user.id);
                                 close();
-                                Fluttertoast.showToast(msg: 'Profile image updated successfully');
+                                Fluttertoast.showToast(
+                                    msg: 'Profile image updated successfully');
                                 ref.invalidate(currentUserProvider);
                               } catch (e) {
-                                Fluttertoast.showToast(msg: 'Failed to update user data: $e');
+                                Fluttertoast.showToast(
+                                    msg: 'Failed to update user data: $e');
                               }
 
                               Navigator.of(context).pop();
@@ -314,7 +323,8 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                         color: Colors.black54,
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      child: const Icon(Icons.edit, color: Colors.white, size: 16),
+                      child:
+                          const Icon(Icons.edit, color: Colors.white, size: 16),
                     ),
                   ],
                 ),
@@ -361,7 +371,9 @@ class _AccountPageState extends ConsumerState<AccountPage> {
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
-            color: context.isDarkMode ? Colors.black12 : Colors.blue.withOpacity(0.1),
+            color: context.isDarkMode
+                ? Colors.black12
+                : Colors.blue.withOpacity(0.1),
             spreadRadius: 10,
             blurRadius: 20,
             offset: const Offset(0, 10),
@@ -439,7 +451,9 @@ class _AccountPageState extends ConsumerState<AccountPage> {
         color: context.isDarkMode ? Colors.grey[700] : Colors.grey[100],
         boxShadow: [
           BoxShadow(
-            color: context.isDarkMode ? Colors.black12 : Colors.grey.withOpacity(0.1),
+            color: context.isDarkMode
+                ? Colors.black12
+                : Colors.grey.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 3,
             offset: const Offset(0, 2),
@@ -471,7 +485,8 @@ class _AccountPageState extends ConsumerState<AccountPage> {
           ),
           filled: true,
           fillColor: Colors.transparent,
-          contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
         ),
       ),
     );
@@ -486,7 +501,9 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             color: context.isDarkMode ? Colors.grey[700] : Colors.grey[100],
             boxShadow: [
               BoxShadow(
-                color: context.isDarkMode ? Colors.black12 : Colors.grey.withOpacity(0.1),
+                color: context.isDarkMode
+                    ? Colors.black12
+                    : Colors.grey.withOpacity(0.1),
                 spreadRadius: 1,
                 blurRadius: 3,
                 offset: const Offset(0, 2),
@@ -517,11 +534,13 @@ class _AccountPageState extends ConsumerState<AccountPage> {
               ),
               filled: true,
               fillColor: Colors.transparent,
-              contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
               suffixIcon: IconButton(
                 icon: Icon(
                   Icons.edit,
-                  color: context.isDarkMode ? Colors.blue[300] : Colors.blue[600],
+                  color:
+                      context.isDarkMode ? Colors.blue[300] : Colors.blue[600],
                   size: 22,
                 ),
                 onPressed: () {
@@ -576,7 +595,8 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                           TextButton(
                             child: const Text('Change'),
                             onPressed: () async {
-                              if (_newPasswordController.text != _confirmPasswordController.text) {
+                              if (_newPasswordController.text !=
+                                  _confirmPasswordController.text) {
                                 AwesomeDialog(
                                   context: context,
                                   animType: AnimType.leftSlide,
@@ -591,7 +611,8 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                                 return;
                               }
 
-                              final currentUser = ref.read(currentUserProvider).value;
+                              final currentUser =
+                                  ref.read(currentUserProvider).value;
                               if (currentUser != null) {
                                 try {
                                   final sb = ref.read(supabaseProvider).client;

@@ -95,6 +95,14 @@ class SettingPage extends ConsumerWidget {
                                     fontSize: 16,
                                   ),
                                 ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  'VPoints: ' + user.vpoints.toString(),
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ] else ...[
                                 Center(
                                   child: Container(

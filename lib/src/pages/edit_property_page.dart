@@ -79,7 +79,8 @@ class EditPropertyPage extends HookConsumerWidget {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SingleChildScrollView(
-                  keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -637,6 +638,7 @@ class _LandWidth extends StatelessWidget {
             initialValue: landWidth.toString(),
             keyboardType: TextInputType.number,
             style: TextStyle(
+              fontSize: MediaQuery.of(context).size.height * 0.015,
               fontWeight: FontWeight.bold,
             ),
             decoration: InputDecoration(
@@ -1073,16 +1075,20 @@ class _ImagePicker extends HookWidget {
     final currentImageIndex = useState(0);
 
     return UpdatePropertyExistingImageUrlsFieldWidget(
-      builder: (ref, existingImageUrls, changeExistingImageUrls, showValidation) {
+      builder:
+          (ref, existingImageUrls, changeExistingImageUrls, showValidation) {
         return UpdatePropertyNewImageFilesFieldWidget(
           builder: (ref, imageFiles, changeImageFiles, showValidation) {
-            final hasImage = imageFiles.isNotEmpty || existingImageUrls.isNotEmpty;
-            final imagePaths = existingImageUrls.addAll(imageFiles.map((e) => e.path).toList());
+            final hasImage =
+                imageFiles.isNotEmpty || existingImageUrls.isNotEmpty;
+            final imagePaths = existingImageUrls
+                .addAll(imageFiles.map((e) => e.path).toList());
 
             return Column(
               children: [
                 Container(
-                  margin: EdgeInsets.all(30).copyWith(bottom: imageFiles.isEmpty ? 20 : 0),
+                  margin: EdgeInsets.all(30)
+                      .copyWith(bottom: imageFiles.isEmpty ? 20 : 0),
                   decoration: BoxDecoration(
                     color: kwhite,
                     borderRadius: BorderRadius.circular(10),
@@ -1121,7 +1127,8 @@ class _ImagePicker extends HookWidget {
                           children: [
                             PageView.builder(
                               controller: pageController,
-                              onPageChanged: (value) => currentImageIndex.value = value,
+                              onPageChanged: (value) =>
+                                  currentImageIndex.value = value,
                               itemCount: imagePaths.length,
                               itemBuilder: (context, index) {
                                 final path = imagePaths[index];

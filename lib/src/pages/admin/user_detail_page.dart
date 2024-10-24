@@ -32,6 +32,9 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final currentUserId = ref.watch(authProvider);
+    final isSelf = currentUserId == widget.user.id;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('User Details',
@@ -39,54 +42,58 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
         centerTitle: true,
         backgroundColor: kPrimaryColor,
         actions: [
-          GFButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text('Delete'),
-                    content: const Text(
-                      'Are you sure you want to delete this user?',
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        child: const Text('Cancel'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
+          if (!isSelf)
+            GFButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Delete'),
+                      content: const Text(
+                        'Are you sure you want to delete this user?',
                       ),
-                      FilledButton(
-                        style: FilledButton.styleFrom(
-                          backgroundColor: Theme.of(context).colorScheme.error,
+                      actions: <Widget>[
+                        TextButton(
+                          child: const Text('Cancel'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
                         ),
-                        child: const Text('Delete'),
-                        onPressed: () async {
-                          final close = BotToast.showLoading();
-                          final delete = ref.read(
-                            deleteUserProvider(
-                              widget.user.id,
-                            ).notifier,
-                          );
-                          final result = await delete.call();
-                          close();
-                          if (result.isFailure) {
-                            BotToast.showText(text: result.failure!.message());
-                            return;
-                          }
-                          if (!context.mounted) return;
-                          Navigator.of(context).pop();
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ],
-                  );
-                },
-              );
-            },
-            text: 'Delete User',
-            color: Colors.red,
-          ),
+                        FilledButton(
+                          style: FilledButton.styleFrom(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.error,
+                          ),
+                          child: const Text('Delete'),
+                          onPressed: () async {
+                            final close = BotToast.showLoading();
+                            final delete = ref.read(
+                              deleteUserProvider(
+                                widget.user.id,
+                              ).notifier,
+                            );
+                            final result =
+                                await delete.call(widget.user.isAdmin);
+                            close();
+                            if (result.isFailure) {
+                              BotToast.showText(
+                                  text: result.failure!.message());
+                              return;
+                            }
+                            if (!context.mounted) return;
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              text: 'Delete User',
+              color: Colors.red,
+            ),
         ],
       ),
       body: MaxWidthBox(
@@ -164,19 +171,23 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                   _formatDate(widget.user.joinedAt),
                   context,
                 ),
+
                 ListTile(
                   title: Text('Admin'),
                   trailing: Switch(
                     value: isAdmin,
-                    onChanged: (bool value) async {
-                      setState(() {
-                        isAdmin = value;
-                      });
-                      ref
-                          .read(toggleUserAdminStatusProvider(widget.user.id)
-                              .notifier)
-                          .call(widget.user.id, value);
-                    },
+                    onChanged: isSelf
+                        ? null
+                        : (bool value) async {
+                            setState(() {
+                              isAdmin = value;
+                            });
+                            ref
+                                .read(toggleUserAdminStatusProvider(
+                                        widget.user.id)
+                                    .notifier)
+                                .call(widget.user.id, value);
+                          },
                   ),
                 ),
                 Form(

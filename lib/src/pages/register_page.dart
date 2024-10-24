@@ -448,7 +448,7 @@ class _RegisterState extends ConsumerState<RegisterPage> {
       if (result == null) {
         _showOtpDialog();
       } else {
-        _showErrorDialog();
+        _showErrorDialog(result);
       }
     }
   }
@@ -489,7 +489,7 @@ class _RegisterState extends ConsumerState<RegisterPage> {
                 if (result == null) {
                   _showSuccessDialog();
                 } else {
-                  _showErrorDialog();
+                  _showErrorDialog(result);
                 }
               },
             ),
@@ -526,14 +526,14 @@ class _RegisterState extends ConsumerState<RegisterPage> {
     ).show();
   }
 
-  void _showErrorDialog() {
+  void _showErrorDialog(String message) {
     AwesomeDialog(
       context: context,
       dialogType: DialogType.error,
       animType: AnimType.rightSlide,
       headerAnimationLoop: false,
-      title: 'Error',
-      desc: 'Failed to create account. Please try again.',
+      title: 'Error!',
+      desc: message,
       btnOkOnPress: () {},
       btnOkIcon: Icons.cancel,
       btnOkColor: Colors.red,

@@ -479,7 +479,7 @@ class AddPropertyPage extends HookConsumerWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 27.0),
                       child: Text(
-                        'Size Land*',
+                        'Size Land',
                         style: TextStyle(
                           color:
                               context.isDarkMode ? Colors.white : Colors.black,
@@ -1111,7 +1111,7 @@ class AddPropertyPage extends HookConsumerWidget {
                                 errorText: showValidation && title.isEmpty
                                     ? 'Please enter title'
                                     : null,
-                                hintText: 'Title',
+                                hintText: 'Title *',
                                 isDense: true,
                                 hintStyle: TextStyle(
                                   color: context.isDarkMode

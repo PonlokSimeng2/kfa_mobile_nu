@@ -29,7 +29,7 @@ class DeleteUser extends _$DeleteUser {
   @override
   ProviderStatus<void> build(String userId) => const ProviderStatus.initial();
 
-  Future<ProviderStatus<void>> call() async {
+  Future<ProviderStatus<void>> call(bool isAdmin) async {
     return await perform(
       (state) async {
         final sb = ref.watch(supabaseProvider).client;

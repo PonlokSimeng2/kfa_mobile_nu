@@ -168,6 +168,15 @@ class Auth extends _$Auth {
 
       final supabase = ref.watch(supabaseProvider).client;
 
+      final user = await supabase
+          .from('users')
+          .select('*')
+          .eq('email', email)
+          .maybeSingle();
+      if (user != null) {
+        return "User with this email already exists.";
+      }
+
       try {
         final result = await supabase.auth.signUp(
           email: email,
@@ -205,6 +214,7 @@ class Auth extends _$Auth {
           // Other errors
           throw e;
         }
+        throw e;
       }
     } catch (e) {
       log("Error sign up", error: e);

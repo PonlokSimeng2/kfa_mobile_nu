@@ -203,7 +203,37 @@ class _LoginState extends ConsumerState<LoginPage> {
                     ),
                   ],
                 ),
-              ),
+              )
+            else
+              (Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "Forgot your password? ",
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: context.isDarkMode
+                            ? themeData.hintColor
+                            : kTextLightColor,
+                      ),
+                    ),
+                    TextSpan(
+                      text: 'Reset',
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          context.push((_) => const ForgotPasswordPage());
+                        },
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: context.isDarkMode
+                            ? themeData.primaryColorLight
+                            : kImageColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              )),
           ],
         ),
       ),

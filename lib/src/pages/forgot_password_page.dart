@@ -121,7 +121,7 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
           insetPadding: const EdgeInsets.symmetric(horizontal: 16),
           title: const Text('Enter OTP'),
           content: SizedBox(
-            width: MediaQuery.of(context).size.width * 0.8, // Increased width
+            width: 300, // Increased width
             child: PinCodeTextField(
               appContext: context,
               length: 6,

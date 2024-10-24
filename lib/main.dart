@@ -2,8 +2,6 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:kfa_mobile_nu/src/pages/create_new_password_page.dart';
-import 'package:kfa_mobile_nu/src/pages/home_page.dart';
 import 'package:kfa_mobile_nu/src/providers/auto_verbal_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/property_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
@@ -13,6 +11,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'exports.dart';
 import 'firebase_options.dart';
 import 'provider_observers.dart';
+import 'src/pages/home_page.dart';
 import 'src/providers/auth_provider.dart';
 import 'src/providers/cache_provider.dart';
 import 'src/providers/theme_provider.dart';
@@ -184,6 +183,7 @@ class _MyAppState extends ConsumerState<MyApp> {
       ),
       themeMode: themeMode,
       home: const HomePage(),
+      // home: TestMapPage(),
       //home: const CreateNewPasswordPage(),
       builder: BotToastInit(),
     );

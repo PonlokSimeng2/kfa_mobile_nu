@@ -23,7 +23,19 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
   bool isAdmin = false;
   final _formKey = GlobalKey<FormState>();
   final _newPasswordController = TextEditingController();
-
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _otpController = TextEditingController();
+// Password validation rules
+  bool _hasMinLength = false;
+  bool _hasUppercase = false;
+  bool _hasLowercase = false;
+  bool _hasNumber = false;
+  bool _hasSpecialChar = false;
+  bool _isObscure = true;
   @override
   void initState() {
     super.initState();
@@ -31,10 +43,39 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
   }
 
   @override
+  void dispose() {
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _passwordController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    _otpController.dispose();
+    super.dispose();
+  }
+
+  void _updatePasswordStrength(String password) {
+    setState(() {
+      _hasMinLength = password.length >= 6;
+      _hasUppercase = password.contains(RegExp(r'[A-Z]'));
+      _hasLowercase = password.contains(RegExp(r'[a-z]'));
+      _hasNumber = password.contains(RegExp(r'[0-9]'));
+      _hasSpecialChar = password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+    });
+  }
+
+  bool _isPasswordStrong(String password) {
+    return _hasMinLength &&
+        _hasUppercase &&
+        _hasLowercase &&
+        _hasNumber &&
+        _hasSpecialChar;
+  }
+
+  @override
   Widget build(BuildContext context) {
     final currentUserId = ref.watch(authProvider);
     final isSelf = currentUserId == widget.user.id;
-
+    final themeData = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('User Details',
@@ -197,57 +238,113 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                     children: [
                       Expanded(
                         child: TextFormField(
+                          onChanged: _updatePasswordStrength,
+                          keyboardType: TextInputType.visiblePassword,
                           controller: _newPasswordController,
-                          decoration: const InputDecoration(
-                            labelText: 'New Password',
-                            border: OutlineInputBorder(),
+                          obscureText: _isObscure,
+                          decoration: InputDecoration(
+                            fillColor: Colors.white,
+                            filled: true,
+                            labelText: 'Password',
+                            prefixIcon: const Icon(
+                              Icons.lock,
+                              color: kPrimaryColor,
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: kPrimaryColor, width: 2.0),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: kPrimaryColor, width: 1.0),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Colors.red, width: 1.0),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Colors.red, width: 2.0),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                color: context.isDarkMode
+                                    ? themeData.primaryColorLight
+                                    : kImageColor,
+                                _isObscure
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _isObscure = !_isObscure;
+                                });
+                              },
+                            ),
                           ),
-                          obscureText: true,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return r'Strong password at least 6 characters (Aa1#85...)';
+                            }
+                            if (!_isPasswordStrong(value)) {
+                              return r'Strong password at least 6 characters (Aa1#85...)';
+                            }
+                            return null;
+                          },
                         ),
                       ),
                       const SizedBox(width: 16),
-                      GFButton(
-                        onPressed: () async {
-                          if (!_formKey.currentState!.validate()) {
-                            return;
-                          }
-                          final close = BotToast.showLoading();
-                          final result = await ref
-                              .read(authProvider.notifier)
-                              .updateUserPassword(
-                                userId: widget.user.id,
-                                newPassword: _newPasswordController.text,
-                              );
-                          close();
-                          if (result == null) {
-                            // BotToast.showText(
-                            //     text: 'Password updated successfully!');
-                            AwesomeDialog(
-                              context: context,
-                              dialogType: DialogType.success,
-                              animType: AnimType.rightSlide,
-                              headerAnimationLoop: false,
-                              title: 'Update Password Successfully!',
-                              btnOkIcon: Icons.cancel,
-                              btnOkColor: Colors.red,
-                            ).show();
-                          } else {
-                            // BotToast.showText(text: result);
-                            AwesomeDialog(
-                              context: context,
-                              dialogType: DialogType.error,
-                              animType: AnimType.rightSlide,
-                              headerAnimationLoop: false,
-                              title: 'Update Password Failed!',
-                              btnOkIcon: Icons.cancel,
-                              btnOkColor: Colors.red,
-                            ).show();
-                          }
-                          _formKey.currentState!.reset();
-                          _newPasswordController.clear();
-                        },
-                        text: 'Update Password',
-                        color: Colors.blue,
+                      Container(
+                        height: 50,
+                        child: GFButton(
+                          onPressed: () async {
+                            if (!_formKey.currentState!.validate()) {
+                              return;
+                            }
+                            final close = BotToast.showLoading();
+                            final result = await ref
+                                .read(authProvider.notifier)
+                                .updateUserPassword(
+                                  userId: widget.user.id,
+                                  newPassword: _newPasswordController.text,
+                                );
+                            close();
+                            if (result == null) {
+                              // BotToast.showText(
+                              //     text: 'Password updated successfully!');
+                              AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.success,
+                                animType: AnimType.rightSlide,
+                                headerAnimationLoop: false,
+                                title: 'Update Password Successfully!',
+                                btnOkIcon: Icons.cancel,
+                                btnOkColor: Colors.red,
+                              ).show();
+                              // Navigator.of(context).pop();
+                            } else {
+                              // BotToast.showText(text: result);
+                              AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.error,
+                                animType: AnimType.rightSlide,
+                                headerAnimationLoop: false,
+                                title: 'Update Password Failed!',
+                                btnOkIcon: Icons.cancel,
+                                btnOkColor: Colors.red,
+                              ).show();
+                              Navigator.of(context).pop();
+                            }
+                            _formKey.currentState!.reset();
+                            _newPasswordController.clear();
+                          },
+                          text: 'Update',
+                          color: Colors.blue,
+                        ),
                       ),
                     ],
                   ),

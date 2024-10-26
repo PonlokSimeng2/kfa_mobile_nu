@@ -3,6 +3,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kfa_mobile_nu/exports.dart';
@@ -21,23 +22,33 @@ class AccountPage extends ConsumerStatefulWidget {
   ConsumerState<AccountPage> createState() => _AccountPageState();
 }
 
+const _cachePasswordKey = "cached-password-key";
+
 class _AccountPageState extends ConsumerState<AccountPage> {
   XFile? _file;
   Uint8List? _imageBytes;
   final bool _isObscure = true;
   final ImagePicker _picker = ImagePicker();
   final ImageCropper _cropper = ImageCropper();
-
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
   final TextEditingController _oldPasswordController = TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
-
+  bool isOldPasswordVisible = false;
+  bool isNewPasswordVisible = false;
+  bool isConfirmPasswordVisible = false;
+// Password validation rules
+  bool _hasMinLength = false;
+  bool _hasUppercase = false;
+  bool _hasLowercase = false;
+  bool _hasNumber = false;
+  bool _hasSpecialChar = false;
   @override
   void dispose() {
     _firstNameController.dispose();
@@ -49,6 +60,24 @@ class _AccountPageState extends ConsumerState<AccountPage> {
     _newPasswordController.dispose();
     _confirmPasswordController.dispose();
     super.dispose();
+  }
+
+  void _updatePasswordStrength(String password) {
+    setState(() {
+      _hasMinLength = password.length >= 6;
+      _hasUppercase = password.contains(RegExp(r'[A-Z]'));
+      _hasLowercase = password.contains(RegExp(r'[a-z]'));
+      _hasNumber = password.contains(RegExp(r'[0-9]'));
+      _hasSpecialChar = password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+    });
+  }
+
+  bool _isPasswordStrong(String password) {
+    return _hasMinLength &&
+        _hasUppercase &&
+        _hasLowercase &&
+        _hasNumber &&
+        _hasSpecialChar;
   }
 
   Future<void> _openImage() async {
@@ -175,7 +204,9 @@ class _AccountPageState extends ConsumerState<AccountPage> {
   @override
   Widget build(BuildContext context) {
     final userAsync = ref.watch(currentUserProvider);
-
+    final cache = ref.read(sharePrefProvider);
+    final cachedPassword = cache.getString(_cachePasswordKey);
+    _passwordController = TextEditingController(text: cachedPassword);
     return AuthWrapperWidget(
       child: Scaffold(
         backgroundColor: context.isDarkMode
@@ -511,6 +542,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             ],
           ),
           child: TextFormField(
+            readOnly: true,
             controller: _passwordController,
             obscureText: _isObscure,
             style: TextStyle(
@@ -547,135 +579,336 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('Change Password'),
-                        content: SizedBox(
-                          width: 300,
-                          height: 190,
-                          child: Column(
-                            // shrinkWrap: true,
-                            children: [
-                              TextField(
-                                obscureText: true,
-                                decoration: const InputDecoration(
-                                  labelText: 'Old Password',
+                      return StatefulBuilder(
+                        builder: (context, setState) {
+                          return AlertDialog(
+                            title: const Text('Change Password'),
+                            content: Form(
+                              key: _formKey,
+                              child: SizedBox(
+                                width: 300,
+                                height: 230,
+                                child: Column(
+                                  // shrinkWrap: true,
+                                  children: [
+                                    TextFormField(
+                                      controller: _oldPasswordController,
+                                      keyboardType:
+                                          TextInputType.visiblePassword,
+                                      obscureText: !isOldPasswordVisible,
+                                      decoration: InputDecoration(
+                                        fillColor: Colors.white,
+                                        filled: true,
+                                        labelText: 'Old Password',
+                                        prefixIcon: const Icon(
+                                          Icons.lock,
+                                          color: kPrimaryColor,
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                              color: kPrimaryColor, width: 2.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                              color: kPrimaryColor, width: 1.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                              color: Colors.red, width: 1.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                              color: Colors.red, width: 2.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        suffixIcon: IconButton(
+                                          icon: Icon(
+                                            color: context.isDarkMode
+                                                ? Theme.of(context)
+                                                    .primaryColorLight
+                                                : kImageColor,
+                                            isOldPasswordVisible
+                                                ? Icons.visibility_off
+                                                : Icons.visibility,
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              isOldPasswordVisible =
+                                                  !isOldPasswordVisible;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      validator: (value) {
+                                        if (value != _passwordController.text) {
+                                          return 'Old Password is incorrect';
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                    const SizedBox(height: 10),
+                                    TextFormField(
+                                      onChanged: _updatePasswordStrength,
+                                      controller: _newPasswordController,
+                                      keyboardType:
+                                          TextInputType.visiblePassword,
+                                      obscureText: !isNewPasswordVisible,
+                                      decoration: InputDecoration(
+                                        fillColor: Colors.white,
+                                        filled: true,
+                                        labelText: 'New Password',
+                                        prefixIcon: const Icon(
+                                          Icons.lock,
+                                          color: kPrimaryColor,
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                              color: kPrimaryColor, width: 2.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                              color: kPrimaryColor, width: 1.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                              color: Colors.red, width: 1.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                              color: Colors.red, width: 2.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        suffixIcon: IconButton(
+                                          icon: Icon(
+                                            color: context.isDarkMode
+                                                ? Theme.of(context)
+                                                    .primaryColorLight
+                                                : kImageColor,
+                                            isNewPasswordVisible
+                                                ? Icons.visibility_off
+                                                : Icons.visibility,
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              isNewPasswordVisible =
+                                                  !isNewPasswordVisible;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return r'Strong password at least 6 characters (Aa1#85...)';
+                                        }
+                                        if (!_isPasswordStrong(value)) {
+                                          return r'Strong password at least 6 characters (Aa1#85...)';
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                    const SizedBox(height: 10),
+                                    TextFormField(
+                                      controller: _confirmPasswordController,
+                                      keyboardType:
+                                          TextInputType.visiblePassword,
+                                      obscureText: !isConfirmPasswordVisible,
+                                      decoration: InputDecoration(
+                                        fillColor: Colors.white,
+                                        filled: true,
+                                        labelText: 'Confirm New Password',
+                                        prefixIcon: const Icon(
+                                          Icons.lock,
+                                          color: kPrimaryColor,
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                              color: kPrimaryColor, width: 2.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                              color: kPrimaryColor, width: 1.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                              color: Colors.red, width: 1.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                              color: Colors.red, width: 2.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        suffixIcon: IconButton(
+                                          icon: Icon(
+                                            color: context.isDarkMode
+                                                ? Theme.of(context)
+                                                    .primaryColorLight
+                                                : kImageColor,
+                                            isConfirmPasswordVisible
+                                                ? Icons.visibility_off
+                                                : Icons.visibility,
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              isConfirmPasswordVisible =
+                                                  !isConfirmPasswordVisible;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    )
+                                  ],
                                 ),
-                                onChanged: (value) {
-                                  _oldPasswordController.text = value;
+                              ),
+                            ),
+                            actions: [
+                              TextButton(
+                                child: const Text('Cancel'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
                                 },
                               ),
-                              TextField(
-                                obscureText: true,
-                                decoration: const InputDecoration(
-                                  labelText: 'New Password',
-                                ),
-                                onChanged: (value) {
-                                  _newPasswordController.text = value;
-                                },
-                              ),
-                              TextField(
-                                obscureText: true,
-                                decoration: const InputDecoration(
-                                  labelText: 'Confirm New Password',
-                                ),
-                                onChanged: (value) {
-                                  _confirmPasswordController.text = value;
+                              // Inside _AccountPageState class, update the onPressed method in the Change password button:
+
+                              TextButton(
+                                child: const Text('Change'),
+                                onPressed: () async {
+                                  if (_formKey.currentState!.validate()) {
+                                    // First check if old password matches
+                                    if (_oldPasswordController.text !=
+                                        _passwordController.text) {
+                                      AwesomeDialog(
+                                        context: context,
+                                        animType: AnimType.leftSlide,
+                                        headerAnimationLoop: false,
+                                        dialogType: DialogType.error,
+                                        dismissOnTouchOutside: true,
+                                        showCloseIcon: false,
+                                        title: "Invalid Password",
+                                        desc:
+                                            "Your current password is incorrect. Please verify and try again.",
+                                        autoHide: const Duration(seconds: 3),
+                                      ).show();
+                                      return;
+                                    }
+
+                                    // Then check if new passwords match
+                                    if (_newPasswordController.text !=
+                                        _confirmPasswordController.text) {
+                                      AwesomeDialog(
+                                        context: context,
+                                        animType: AnimType.leftSlide,
+                                        headerAnimationLoop: false,
+                                        dialogType: DialogType.error,
+                                        dismissOnTouchOutside: true,
+                                        showCloseIcon: false,
+                                        title: "New password doesn't match",
+                                        autoHide: const Duration(seconds: 3),
+                                      ).show();
+                                      return;
+                                    }
+
+                                    final newPassword =
+                                        _newPasswordController.text;
+                                    _updatePasswordStrength(newPassword);
+                                    if (!_isPasswordStrong(newPassword)) {
+                                      AwesomeDialog(
+                                        context: context,
+                                        animType: AnimType.leftSlide,
+                                        headerAnimationLoop: false,
+                                        dialogType: DialogType.error,
+                                        dismissOnTouchOutside: true,
+                                        showCloseIcon: false,
+                                        title: "Password is not strong enough",
+                                        desc:
+                                            "Password must be at least 6 characters long, contain uppercase and lowercase letters, numbers, and special characters.",
+                                        autoHide: const Duration(seconds: 3),
+                                      ).show();
+                                      return;
+                                    }
+
+                                    final currentUser =
+                                        ref.read(currentUserProvider).value;
+                                    if (currentUser != null) {
+                                      try {
+                                        final sb =
+                                            ref.read(supabaseProvider).client;
+                                        await sb.auth.updateUser(
+                                          UserAttributes(
+                                            password:
+                                                _newPasswordController.text,
+                                          ),
+                                        );
+
+                                        // Update the user model
+                                        final updatedUser =
+                                            currentUser.copyWith();
+
+                                        // // Update the user in the database
+                                        await sb
+                                            .from('users')
+                                            .update(updatedUser.toJson())
+                                            .eq('id', updatedUser.id);
+
+                                        // Show success message
+                                        AwesomeDialog(
+                                          context: context,
+                                          animType: AnimType.leftSlide,
+                                          headerAnimationLoop: false,
+                                          dialogType: DialogType.success,
+                                          dismissOnTouchOutside: true,
+                                          showCloseIcon: false,
+                                          title:
+                                              "Password changed successfully",
+                                          autoHide: const Duration(seconds: 3),
+                                        ).show();
+                                        // Navigator.of(context).pop();
+                                        // Clear the password fields
+                                        _oldPasswordController.clear();
+                                        _newPasswordController.clear();
+                                        _confirmPasswordController.clear();
+
+                                        // Close the dialog
+                                      } catch (e) {
+                                        AwesomeDialog(
+                                          context: context,
+                                          animType: AnimType.leftSlide,
+                                          headerAnimationLoop: false,
+                                          dialogType: DialogType.error,
+                                          dismissOnTouchOutside: true,
+                                          showCloseIcon: false,
+                                          title: "Failed to change password",
+                                          desc: e.toString(),
+                                          autoHide: const Duration(seconds: 3),
+                                        ).show();
+                                      }
+                                    }
+                                  }
                                 },
                               ),
                             ],
-                          ),
-                        ),
-                        actions: [
-                          TextButton(
-                            child: const Text('Cancel'),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                          TextButton(
-                            child: const Text('Change'),
-                            onPressed: () async {
-                              if (_newPasswordController.text !=
-                                  _confirmPasswordController.text) {
-                                AwesomeDialog(
-                                  context: context,
-                                  animType: AnimType.leftSlide,
-                                  headerAnimationLoop: false,
-                                  dialogType: DialogType.error,
-                                  dismissOnTouchOutside: true,
-                                  showCloseIcon: false,
-                                  title: "New password doesn't match",
-                                  autoHide: const Duration(seconds: 3),
-                                ).show();
-                                // );
-                                return;
-                              }
-
-                              final currentUser =
-                                  ref.read(currentUserProvider).value;
-                              if (currentUser != null) {
-                                try {
-                                  final sb = ref.read(supabaseProvider).client;
-                                  await sb.auth.updateUser(
-                                    UserAttributes(
-                                      password: _newPasswordController.text,
-                                    ),
-                                  );
-
-                                  // Update the user model
-                                  final updatedUser = currentUser.copyWith(
-                                      // Note: We don't store the password in the user model
-                                      );
-
-                                  // Update the user in the database
-                                  await sb
-                                      .from('users')
-                                      .update(updatedUser.toJson())
-                                      .eq('id', updatedUser.id);
-
-                                  // Refresh the currentUserProvider
-                                  // ref.refresh(currentUserProvider);
-                                  // context.pushReplace(
-                                  //   (context) => const LoginPage(
-                                  //     openAsPage: true,
-                                  //   ),
-                                  // );
-                                  AwesomeDialog(
-                                    context: context,
-                                    animType: AnimType.leftSlide,
-                                    headerAnimationLoop: false,
-                                    dialogType: DialogType.error,
-                                    dismissOnTouchOutside: true,
-                                    showCloseIcon: false,
-                                    title: "Password changed successfully",
-                                    autoHide: const Duration(seconds: 3),
-                                    onDismissCallback: (type) {
-                                      if (context.mounted) {
-                                        context.pushReplace(
-                                          (context) => const LoginPage(
-                                            openAsPage: true,
-                                          ),
-                                        );
-                                      }
-                                    },
-                                  ).show();
-                                } catch (e) {
-                                  AwesomeDialog(
-                                    context: context,
-                                    animType: AnimType.leftSlide,
-                                    headerAnimationLoop: false,
-                                    dialogType: DialogType.error,
-                                    dismissOnTouchOutside: true,
-                                    showCloseIcon: false,
-                                    title: "Failed to change password",
-                                    autoHide: const Duration(seconds: 3),
-                                  ).show();
-                                }
-                              }
-                              // Navigator.of(context).pop();
-                            },
-                          ),
-                        ],
+                          );
+                        },
                       );
                     },
                   );

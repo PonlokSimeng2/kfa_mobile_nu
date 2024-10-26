@@ -1,4 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -17,7 +18,8 @@ class _PropertyIdInheritedWidget extends InheritedWidget {
   final int propertyId;
 
   static _PropertyIdInheritedWidget? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<_PropertyIdInheritedWidget>();
+    return context
+        .dependOnInheritedWidgetOfExactType<_PropertyIdInheritedWidget>();
   }
 
   @override
@@ -165,7 +167,7 @@ class _PropertyCommentState extends ConsumerState<PropertyComment> {
         return ListTile(
           onLongPress: () {
             final currentUserId = ref.read(authProvider);
-            if (currentUserId == comment.userId) {
+            if (currentUserId == comment.userId || ref.read(isAdminProvider)) {
               showModalBottomSheet(
                 context: context,
                 builder: (BuildContext context) {
@@ -218,9 +220,12 @@ class _PropertyCommentState extends ConsumerState<PropertyComment> {
             }
           },
           leading: CircleAvatar(
-            backgroundImage: comment.user.photo != null ? NetworkImage(comment.user.photo!) : null,
-            child:
-                comment.user.photo == null ? Text(comment.user.firstName[0].toUpperCase()) : null,
+            backgroundImage: comment.user.photo != null
+                ? NetworkImage(comment.user.photo!)
+                : null,
+            child: comment.user.photo == null
+                ? Text(comment.user.firstName[0].toUpperCase())
+                : null,
           ),
           title: DecoratedBox(
             decoration: BoxDecoration(
@@ -295,7 +300,8 @@ class _EditCommentDialog extends HookConsumerWidget {
             }
 
             final close = BotToast.showLoading();
-            final notifier = ref.read(editPropertyCommentProvider(comment.id).notifier);
+            final notifier =
+                ref.read(editPropertyCommentProvider(comment.id).notifier);
             final result = await notifier.call(newContent: contentCtr.text);
             close();
 
@@ -351,7 +357,8 @@ class _CreateCommentBox extends HookConsumerWidget {
               }
 
               final close = BotToast.showLoading();
-              final notifier = ref.read(addPropertyCommentProvider(propertyId!).notifier);
+              final notifier =
+                  ref.read(addPropertyCommentProvider(propertyId!).notifier);
               final result = await notifier.call(contentCtr.text);
               close();
 

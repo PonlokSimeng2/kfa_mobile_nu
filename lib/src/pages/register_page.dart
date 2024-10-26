@@ -6,7 +6,6 @@ import 'package:flutter/gestures.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as p;
 import 'package:pin_code_fields/pin_code_fields.dart';
-
 import '../../exports.dart';
 import '../providers/auth_provider.dart';
 import 'home_page.dart';
@@ -29,6 +28,12 @@ class _RegisterState extends ConsumerState<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _otpController = TextEditingController();
+// Password validation rules
+  bool _hasMinLength = false;
+  bool _hasUppercase = false;
+  bool _hasLowercase = false;
+  bool _hasNumber = false;
+  bool _hasSpecialChar = false;
 
   @override
   void dispose() {
@@ -39,6 +44,24 @@ class _RegisterState extends ConsumerState<RegisterPage> {
     _phoneController.dispose();
     _otpController.dispose();
     super.dispose();
+  }
+
+  void _updatePasswordStrength(String password) {
+    setState(() {
+      _hasMinLength = password.length >= 6;
+      _hasUppercase = password.contains(RegExp(r'[A-Z]'));
+      _hasLowercase = password.contains(RegExp(r'[a-z]'));
+      _hasNumber = password.contains(RegExp(r'[0-9]'));
+      _hasSpecialChar = password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+    });
+  }
+
+  bool _isPasswordStrong(String password) {
+    return _hasMinLength &&
+        _hasUppercase &&
+        _hasLowercase &&
+        _hasNumber &&
+        _hasSpecialChar;
   }
 
   // List of items in our dropdown menu
@@ -57,7 +80,7 @@ class _RegisterState extends ConsumerState<RegisterPage> {
 
   bool isApiCallProcess = false;
   bool isOtpSent = false;
-
+  bool _isObscure = true;
   @override
   void initState() {
     super.initState();
@@ -65,6 +88,7 @@ class _RegisterState extends ConsumerState<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -220,7 +244,7 @@ class _RegisterState extends ConsumerState<RegisterPage> {
                       }
                       if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
                           .hasMatch(value)) {
-                        return 'Please enter a valid email address';
+                        return 'Please enter a valid email address with @';
                       }
                       return null;
                     },
@@ -229,9 +253,10 @@ class _RegisterState extends ConsumerState<RegisterPage> {
                     height: 20,
                   ),
                   TextFormField(
-                    keyboardType: TextInputType.number,
+                    onChanged: _updatePasswordStrength,
+                    keyboardType: TextInputType.visiblePassword,
                     controller: _passwordController,
-                    obscureText: true,
+                    obscureText: _isObscure,
                     decoration: InputDecoration(
                       fillColor: Colors.white,
                       filled: true,
@@ -260,13 +285,26 @@ class _RegisterState extends ConsumerState<RegisterPage> {
                             const BorderSide(color: Colors.red, width: 2.0),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          color: context.isDarkMode
+                              ? themeData.primaryColorLight
+                              : kImageColor,
+                          _isObscure ? Icons.visibility : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isObscure = !_isObscure;
+                          });
+                        },
+                      ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter a password';
+                        return r'Strong password at least 6 characters (Aa1#85...)';
                       }
-                      if (value.length < 6) {
-                        return 'Password must be at least 6 characters long';
+                      if (!_isPasswordStrong(value)) {
+                        return r'Strong password at least 6 characters (Aa1#85...)';
                       }
                       return null;
                     },

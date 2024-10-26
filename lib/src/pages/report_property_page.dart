@@ -212,10 +212,9 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
               pw.SizedBox(height: 20),
               pw.Container(
                 padding: const pw.EdgeInsets.all(10),
-                decoration: pw.BoxDecoration(
+                decoration: const pw.BoxDecoration(
                   color: PdfColors.grey200,
-                  borderRadius:
-                      const pw.BorderRadius.all(pw.Radius.circular(10)),
+                  borderRadius: pw.BorderRadius.all(pw.Radius.circular(10)),
                 ),
                 child: pw.Row(
                   mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
@@ -242,7 +241,8 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
               pw.Expanded(child: pw.SizedBox()),
               pw.Footer(
                 leading: pw.Text(
-                    'Generated on: ${DateFormat('yyyy-MM-dd HH:mm').format(DateTime.now())}'),
+                  'Generated on: ${DateFormat('yyyy-MM-dd HH:mm').format(DateTime.now())}',
+                ),
                 trailing: pw.Text(
                     'Page ${context.pageNumber} of ${context.pagesCount}'),
               ),
@@ -310,14 +310,17 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
   }
 
   Widget _buildPropertyTypeDropdown() {
+    final filter = ref.watch(ReportPropertyPage.filter);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 2),
       child: PropertyTypeDropDown(
         showValidation: false,
-        value: _selectedPropertyType,
+        value: filter.propertyType,
         onChanged: (newValue) {
           setState(() {
-            _selectedPropertyType = newValue;
+            ref.read(ReportPropertyPage.filter.notifier).update((old) {
+              return old.copyWith(propertyType: newValue);
+            });
           });
         },
       ),

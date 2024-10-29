@@ -4,6 +4,12 @@ import 'user_model.dart';
 
 export 'user_model.schema.dart';
 
+enum UserRole {
+  user,
+  admin,
+  superAdmin,
+}
+
 @Schema(tableName: 'users', className: 'User', baseModelName: 'UserModel')
 class UserSchema extends KimappSchema {
   UserSchema._();
@@ -16,12 +22,15 @@ class UserSchema extends KimappSchema {
   final email = Field<String>('email');
   final phone = Field<String>('phone');
   final vpoints = Field<int>('vpoints');
-  final isAdmin = Field<bool>('is_admin');
+  final role = Field<UserRole>('role');
   final joinedAt = Field<DateTime>('joined_at');
+  final active = Field<bool>('active');
+  final managedBy =
+      Field.join<UserLiteModel?>().withForeignKey('managed_by_id');
 
   @override
   List<Model> get models => [
-        Model('UserLiteModel').addFields({
+        Model('UserLiteModel').table().addFields({
           'id': id,
           'photo': photo,
           'firstName': firstName,
@@ -32,4 +41,13 @@ class UserSchema extends KimappSchema {
 
 extension UserModelX on UserModel {
   String get fullName => '$firstName $lastName';
+  bool get isSuperAdmin => role.isSuperAdmin;
+  bool get isAdmin => role.isAdmin;
+  bool get isUser => role == UserRole.user;
+  bool get forAdmin => isAdmin || isSuperAdmin;
+}
+
+extension UserRoleX on UserRole {
+  bool get isAdmin => this == UserRole.admin || this == UserRole.superAdmin;
+  bool get isSuperAdmin => this == UserRole.superAdmin;
 }

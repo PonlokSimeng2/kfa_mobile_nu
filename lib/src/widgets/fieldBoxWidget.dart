@@ -9,11 +9,11 @@ class FieldBoxWidget extends StatefulWidget {
   final String email;
   final OnChangeCallback get_email;
   const FieldBoxWidget({
-    Key? key,
+    super.key,
     required this.name,
     required this.email,
     required this.get_email,
-  }) : super(key: key);
+  });
 
   @override
   State<FieldBoxWidget> createState() => _FieldBoxWidgetState();

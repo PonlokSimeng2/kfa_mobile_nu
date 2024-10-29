@@ -575,7 +575,7 @@ class _AdminAutoVerbalDetailPageState extends ConsumerState<AdminAutoVerbalDetai
 }
 
 class _ApproveDialog extends HookConsumerWidget {
-  const _ApproveDialog({super.key, required this.autoVerbal});
+  const _ApproveDialog({required this.autoVerbal});
 
   final AutoVerbalModel autoVerbal;
 

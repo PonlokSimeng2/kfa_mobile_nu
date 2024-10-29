@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
+import 'package:kfa_mobile_nu/src/models/models.dart';
 import 'package:kfa_mobile_nu/src/providers/notitfication_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
@@ -113,7 +114,7 @@ class Auth extends _$Auth {
   }) async {
     try {
       final adminClient = SupabaseClient(supabaseUrl,
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFnaXJ4a3hrdXZxaHVhemtwYXl0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxOTczODAxNywiZXhwIjoyMDM1MzE0MDE3fQ.MUcljuzfbdNhLSclfrp43mEFeUGoSae_LskZnsomlcM');
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFnaXJ4a3hrdXZxaHVhemtwYXl0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxOTczODAxNywiZXhwIjoyMDM1MzE0MDE3fQ.MUcljuzfbdNhLSclfrp43mEFeUGoSae_LskZnsomlcM',);
 
       await adminClient.auth.admin.updateUserById(
         userId,
@@ -212,9 +213,9 @@ class Auth extends _$Auth {
           }
         } else {
           // Other errors
-          throw e;
+          rethrow;
         }
-        throw e;
+        rethrow;
       }
     } catch (e) {
       log("Error sign up", error: e);

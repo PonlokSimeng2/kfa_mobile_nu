@@ -1,4 +1,3 @@
-import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
 import 'package:kfa_mobile_nu/src/models/auto_verbal_model.dart';
 import 'package:kfa_mobile_nu/src/models/base.dart';
 import 'package:kfa_mobile_nu/src/pages/admin/admin_auto_verbal_detail_page.dart';
@@ -45,7 +44,7 @@ class AdminAutoVerbalListWidget extends ConsumerWidget {
             itemCount: count,
             itemBuilder: (context, index) {
               final autoVerbalAsync = ref.watch(
-                  autoVerbalAtIndexProvider(index: index, filter: filter));
+                  autoVerbalAtIndexProvider(index: index, filter: filter),);
               return autoVerbalAsync?.whenOrNull(
                     loading: (isFirstItem) =>
                         const Center(child: CircularProgressIndicator()),

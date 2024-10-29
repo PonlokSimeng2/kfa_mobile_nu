@@ -6,7 +6,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../exports.dart';
 import '../models/base.dart';
-import '../models/property_model.dart';
 import '../models/user_model.dart';
 
 part 'admin_provider.freezed.dart';
@@ -96,6 +95,7 @@ FutureOr<IList<UserModel>> userList(
   UserListRef ref, {
   required int page,
   String? searchString,
+  UserModel? admin,
 }) async {
   final sb = ref.watch(supabaseProvider).client;
   const limit = 20;
@@ -111,11 +111,31 @@ FutureOr<IList<UserModel>> userList(
     );
   }
 
+  if (admin != null) {
+    query = query.eq('managed_by_id', admin.id);
+  }
+
   return await query
-      .order(UserTable.joinedAt, ascending: false)
+      .order(UserTable.active, ascending: false)
+      .order(UserTable.role, ascending: true)
+      .order('managed_by_id', ascending: true, nullsFirst: true)
       .limit(limit)
       .range(offset, offset + limit)
       .withConverter((jsons) {
+    return jsons.map((e) => UserModel.fromJson(e)).toIList();
+  });
+}
+
+@riverpod
+FutureOr<IList<UserModel>> adminList(AdminListRef ref) async {
+  final sb = ref.watch(supabaseProvider).client;
+  return await sb
+      .from(UserModel.table.tableName)
+      .select(UserModel.table.selectStatement)
+      .inFilter(UserTable.role, [
+    UserRole.admin.name,
+    UserRole.superAdmin.name,
+  ]).withConverter((jsons) {
     return jsons.map((e) => UserModel.fromJson(e)).toIList();
   });
 }
@@ -125,14 +145,17 @@ PaginatedItem<UserModel>? userAtIndex(
   UserAtIndexRef ref, {
   required int index,
   String? searchString,
+  UserModel? admin,
 }) {
   const limit = 20;
   final page = index ~/ limit;
 
-  final pageItems =
-      ref.watch(userListProvider(page: page, searchString: searchString));
-  final hasNextPage =
-      ref.exists(userListProvider(page: page + 1, searchString: searchString));
+  final pageItems = ref.watch(
+    userListProvider(page: page, searchString: searchString, admin: admin),
+  );
+  final hasNextPage = ref.exists(
+    userListProvider(page: page + 1, searchString: searchString, admin: admin),
+  );
 
   return PaginatedItem.build(
     pageItems: pageItems,
@@ -140,4 +163,49 @@ PaginatedItem<UserModel>? userAtIndex(
     index: index,
     showLoadingInAllItem: hasNextPage,
   );
+}
+
+@riverpod
+class ToggleUserActiveStatus extends _$ToggleUserActiveStatus {
+  @override
+  ProviderStatus<void> build(String userId) => const ProviderStatus.initial();
+
+  Future<ProviderStatus<void>> call(bool active) async {
+    return await perform(
+      (state) async {
+        final isAdmin = ref.watch(isAdminProvider);
+        if (isAdmin != true) {
+          throw Exception('User is not admin');
+        }
+
+        final sb = ref.watch(supabaseProvider).client;
+        await sb.from(UserModel.table.tableName).update({
+          UserTable.active: active,
+        }).eq(UserTable.id, userId);
+      },
+      onSuccess: (_) {
+        ref.invalidate(userListProvider);
+      },
+    );
+  }
+}
+
+@riverpod
+class AssignAdmin extends _$AssignAdmin {
+  @override
+  ProviderStatus<void> build(String userId) => const ProviderStatus.initial();
+
+  Future<ProviderStatus<void>> call(String adminId) async {
+    return await perform(
+      (state) async {
+        final sb = ref.watch(supabaseProvider).client;
+        await sb.from(UserModel.table.tableName).update({
+          'managed_by_id': adminId,
+        }).eq(UserTable.id, userId);
+      },
+      onSuccess: (_) {
+        ref.invalidate(userListProvider);
+      },
+    );
+  }
 }

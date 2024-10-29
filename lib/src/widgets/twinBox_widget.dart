@@ -13,14 +13,14 @@ class TwinBox extends StatefulWidget {
   final OnChangeCallback get_fname;
   final OnChangeCallback get_lname;
   const TwinBox({
-    Key? key,
+    super.key,
     required this.labelText1,
     required this.labelText2,
     required this.fname,
     required this.lname,
     required this.get_fname,
     required this.get_lname,
-  }) : super(key: key);
+  });
 
   @override
   State<TwinBox> createState() => _TwinBoxState();
@@ -70,7 +70,7 @@ class _TwinBoxState extends State<TwinBox> {
               labelText: widget.labelText2,
             ),
           ),
-        )
+        ),
       ],
     );
   }

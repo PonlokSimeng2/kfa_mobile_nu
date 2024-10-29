@@ -20,6 +20,7 @@ FutureOr<IList<PropertyCommentModel>> propertyCommentList(
   final result = await table
       .select(PropertyCommentModel.table.selectStatement)
       .eq(PropertyCommentModel.propertyIdKey, propertyId)
+      .isFilter('deleted_at', null)
       .order(PropertyCommentModel.createdAtKey, ascending: true)
       .limit(_limit)
       .range(offset, offset + _limit)
@@ -38,9 +39,10 @@ PaginatedItem<PropertyCommentModel>? propertyCommentAtIndex(
 }) {
   final page = index ~/ _limit;
 
-  final pageItems = ref.watch(propertyCommentListProvider(propertyId: propertyId, page: page));
-  final hasNextPage =
-      ref.exists(propertyCommentListProvider(propertyId: propertyId, page: page + 1));
+  final pageItems = ref
+      .watch(propertyCommentListProvider(propertyId: propertyId, page: page));
+  final hasNextPage = ref.exists(
+      propertyCommentListProvider(propertyId: propertyId, page: page + 1),);
 
   return PaginatedItem.build(
     pageItems: pageItems,
@@ -79,7 +81,8 @@ class AddPropertyComment extends _$AddPropertyComment {
 @riverpod
 class EditPropertyComment extends _$EditPropertyComment {
   @override
-  ProviderStatus<void> build(PropertyCommentId commentId) => const ProviderStatus.initial();
+  ProviderStatus<void> build(PropertyCommentId commentId) =>
+      const ProviderStatus.initial();
 
   Future<ProviderStatus<void>> call({required String newContent}) async {
     return await perform(
@@ -96,16 +99,16 @@ class EditPropertyComment extends _$EditPropertyComment {
 @riverpod
 class DeletePropertyComment extends _$DeletePropertyComment {
   @override
-  ProviderStatus<void> build(PropertyCommentId commentId) => const ProviderStatus.initial();
+  ProviderStatus<void> build(PropertyCommentId commentId) =>
+      const ProviderStatus.initial();
 
   Future<ProviderStatus<void>> call() async {
     return await perform(
       (state) async {
         final sb = ref.read(supabaseProvider).client;
-        await sb
-            .from(PropertyCommentModel.tableName)
-            .delete()
-            .eq(PropertyCommentModel.idKey, commentId);
+        await sb.from(PropertyCommentModel.tableName).update({
+          'deleted_at': DateTime.now().toIso8601String(),
+        }).eq(PropertyCommentModel.idKey, commentId);
       },
     );
   }

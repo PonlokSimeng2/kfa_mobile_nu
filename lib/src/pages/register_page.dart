@@ -497,9 +497,9 @@ class _RegisterState extends ConsumerState<RegisterPage> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          insetPadding: EdgeInsets.symmetric(horizontal: 16),
+          insetPadding: const EdgeInsets.symmetric(horizontal: 16),
           title: const Text('Enter OTP'),
-          content: Container(
+          content: SizedBox(
             width: MediaQuery.of(context).size.width * 0.8, // Increased width
             child: PinCodeTextField(
               appContext: context,

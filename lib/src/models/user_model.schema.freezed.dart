@@ -36,10 +36,15 @@ mixin _$UserModel {
   String get phone => throw _privateConstructorUsedError;
   @JsonKey(name: UserModel.vpointsKey)
   int get vpoints => throw _privateConstructorUsedError;
-  @JsonKey(name: UserModel.isAdminKey)
-  bool get isAdmin => throw _privateConstructorUsedError;
+  @JsonKey(name: UserModel.roleKey)
+  UserRole get role => throw _privateConstructorUsedError;
   @JsonKey(name: UserModel.joinedAtKey)
   DateTime get joinedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: UserModel.activeKey)
+  bool get active => throw _privateConstructorUsedError;
+  @JoinedColumn(foreignKey: "managed_by_id", candidateKey: null)
+  @JsonKey(name: UserModel.managedByKey)
+  UserLiteModel? get managedBy => throw _privateConstructorUsedError;
 
   /// Serializes this UserModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -65,8 +70,14 @@ abstract class $UserModelCopyWith<$Res> {
       @JsonKey(name: UserModel.emailKey) String email,
       @JsonKey(name: UserModel.phoneKey) String phone,
       @JsonKey(name: UserModel.vpointsKey) int vpoints,
-      @JsonKey(name: UserModel.isAdminKey) bool isAdmin,
-      @JsonKey(name: UserModel.joinedAtKey) DateTime joinedAt});
+      @JsonKey(name: UserModel.roleKey) UserRole role,
+      @JsonKey(name: UserModel.joinedAtKey) DateTime joinedAt,
+      @JsonKey(name: UserModel.activeKey) bool active,
+      @JoinedColumn(foreignKey: "managed_by_id", candidateKey: null)
+      @JsonKey(name: UserModel.managedByKey)
+      UserLiteModel? managedBy});
+
+  $UserLiteModelCopyWith<$Res>? get managedBy;
 }
 
 /// @nodoc
@@ -92,8 +103,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? email = null,
     Object? phone = null,
     Object? vpoints = null,
-    Object? isAdmin = null,
+    Object? role = null,
     Object? joinedAt = null,
+    Object? active = null,
+    Object? managedBy = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -128,15 +141,37 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.vpoints
           : vpoints // ignore: cast_nullable_to_non_nullable
               as int,
-      isAdmin: null == isAdmin
-          ? _value.isAdmin
-          : isAdmin // ignore: cast_nullable_to_non_nullable
-              as bool,
+      role: null == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as UserRole,
       joinedAt: null == joinedAt
           ? _value.joinedAt
           : joinedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      active: null == active
+          ? _value.active
+          : active // ignore: cast_nullable_to_non_nullable
+              as bool,
+      managedBy: freezed == managedBy
+          ? _value.managedBy
+          : managedBy // ignore: cast_nullable_to_non_nullable
+              as UserLiteModel?,
     ) as $Val);
+  }
+
+  /// Create a copy of UserModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UserLiteModelCopyWith<$Res>? get managedBy {
+    if (_value.managedBy == null) {
+      return null;
+    }
+
+    return $UserLiteModelCopyWith<$Res>(_value.managedBy!, (value) {
+      return _then(_value.copyWith(managedBy: value) as $Val);
+    });
   }
 }
 
@@ -157,8 +192,15 @@ abstract class _$$UserModelImplCopyWith<$Res>
       @JsonKey(name: UserModel.emailKey) String email,
       @JsonKey(name: UserModel.phoneKey) String phone,
       @JsonKey(name: UserModel.vpointsKey) int vpoints,
-      @JsonKey(name: UserModel.isAdminKey) bool isAdmin,
-      @JsonKey(name: UserModel.joinedAtKey) DateTime joinedAt});
+      @JsonKey(name: UserModel.roleKey) UserRole role,
+      @JsonKey(name: UserModel.joinedAtKey) DateTime joinedAt,
+      @JsonKey(name: UserModel.activeKey) bool active,
+      @JoinedColumn(foreignKey: "managed_by_id", candidateKey: null)
+      @JsonKey(name: UserModel.managedByKey)
+      UserLiteModel? managedBy});
+
+  @override
+  $UserLiteModelCopyWith<$Res>? get managedBy;
 }
 
 /// @nodoc
@@ -182,8 +224,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? email = null,
     Object? phone = null,
     Object? vpoints = null,
-    Object? isAdmin = null,
+    Object? role = null,
     Object? joinedAt = null,
+    Object? active = null,
+    Object? managedBy = freezed,
   }) {
     return _then(_$UserModelImpl(
       id: null == id
@@ -218,14 +262,22 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.vpoints
           : vpoints // ignore: cast_nullable_to_non_nullable
               as int,
-      isAdmin: null == isAdmin
-          ? _value.isAdmin
-          : isAdmin // ignore: cast_nullable_to_non_nullable
-              as bool,
+      role: null == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as UserRole,
       joinedAt: null == joinedAt
           ? _value.joinedAt
           : joinedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      active: null == active
+          ? _value.active
+          : active // ignore: cast_nullable_to_non_nullable
+              as bool,
+      managedBy: freezed == managedBy
+          ? _value.managedBy
+          : managedBy // ignore: cast_nullable_to_non_nullable
+              as UserLiteModel?,
     ));
   }
 }
@@ -244,8 +296,12 @@ class _$UserModelImpl extends _UserModel {
       @JsonKey(name: UserModel.emailKey) required this.email,
       @JsonKey(name: UserModel.phoneKey) required this.phone,
       @JsonKey(name: UserModel.vpointsKey) required this.vpoints,
-      @JsonKey(name: UserModel.isAdminKey) required this.isAdmin,
-      @JsonKey(name: UserModel.joinedAtKey) required this.joinedAt})
+      @JsonKey(name: UserModel.roleKey) required this.role,
+      @JsonKey(name: UserModel.joinedAtKey) required this.joinedAt,
+      @JsonKey(name: UserModel.activeKey) required this.active,
+      @JoinedColumn(foreignKey: "managed_by_id", candidateKey: null)
+      @JsonKey(name: UserModel.managedByKey)
+      required this.managedBy})
       : super._();
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -276,15 +332,22 @@ class _$UserModelImpl extends _UserModel {
   @JsonKey(name: UserModel.vpointsKey)
   final int vpoints;
   @override
-  @JsonKey(name: UserModel.isAdminKey)
-  final bool isAdmin;
+  @JsonKey(name: UserModel.roleKey)
+  final UserRole role;
   @override
   @JsonKey(name: UserModel.joinedAtKey)
   final DateTime joinedAt;
+  @override
+  @JsonKey(name: UserModel.activeKey)
+  final bool active;
+  @override
+  @JoinedColumn(foreignKey: "managed_by_id", candidateKey: null)
+  @JsonKey(name: UserModel.managedByKey)
+  final UserLiteModel? managedBy;
 
   @override
   String toString() {
-    return 'UserModel(id: $id, userId: $userId, photo: $photo, firstName: $firstName, lastName: $lastName, email: $email, phone: $phone, vpoints: $vpoints, isAdmin: $isAdmin, joinedAt: $joinedAt)';
+    return 'UserModel(id: $id, userId: $userId, photo: $photo, firstName: $firstName, lastName: $lastName, email: $email, phone: $phone, vpoints: $vpoints, role: $role, joinedAt: $joinedAt, active: $active, managedBy: $managedBy)';
   }
 
   @override
@@ -302,15 +365,18 @@ class _$UserModelImpl extends _UserModel {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.vpoints, vpoints) || other.vpoints == vpoints) &&
-            (identical(other.isAdmin, isAdmin) || other.isAdmin == isAdmin) &&
+            (identical(other.role, role) || other.role == role) &&
             (identical(other.joinedAt, joinedAt) ||
-                other.joinedAt == joinedAt));
+                other.joinedAt == joinedAt) &&
+            (identical(other.active, active) || other.active == active) &&
+            (identical(other.managedBy, managedBy) ||
+                other.managedBy == managedBy));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, userId, photo, firstName,
-      lastName, email, phone, vpoints, isAdmin, joinedAt);
+      lastName, email, phone, vpoints, role, joinedAt, active, managedBy);
 
   /// Create a copy of UserModel
   /// with the given fields replaced by the non-null parameter values.
@@ -338,9 +404,12 @@ abstract class _UserModel extends UserModel {
       @JsonKey(name: UserModel.emailKey) required final String email,
       @JsonKey(name: UserModel.phoneKey) required final String phone,
       @JsonKey(name: UserModel.vpointsKey) required final int vpoints,
-      @JsonKey(name: UserModel.isAdminKey) required final bool isAdmin,
-      @JsonKey(name: UserModel.joinedAtKey)
-      required final DateTime joinedAt}) = _$UserModelImpl;
+      @JsonKey(name: UserModel.roleKey) required final UserRole role,
+      @JsonKey(name: UserModel.joinedAtKey) required final DateTime joinedAt,
+      @JsonKey(name: UserModel.activeKey) required final bool active,
+      @JoinedColumn(foreignKey: "managed_by_id", candidateKey: null)
+      @JsonKey(name: UserModel.managedByKey)
+      required final UserLiteModel? managedBy}) = _$UserModelImpl;
   const _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
@@ -371,11 +440,18 @@ abstract class _UserModel extends UserModel {
   @JsonKey(name: UserModel.vpointsKey)
   int get vpoints;
   @override
-  @JsonKey(name: UserModel.isAdminKey)
-  bool get isAdmin;
+  @JsonKey(name: UserModel.roleKey)
+  UserRole get role;
   @override
   @JsonKey(name: UserModel.joinedAtKey)
   DateTime get joinedAt;
+  @override
+  @JsonKey(name: UserModel.activeKey)
+  bool get active;
+  @override
+  @JoinedColumn(foreignKey: "managed_by_id", candidateKey: null)
+  @JsonKey(name: UserModel.managedByKey)
+  UserLiteModel? get managedBy;
 
   /// Create a copy of UserModel
   /// with the given fields replaced by the non-null parameter values.
@@ -520,6 +596,7 @@ class __$$UserLiteModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 
+@TableModel(UserLiteModel.tableName)
 @JsonSerializable(explicitToJson: true)
 class _$UserLiteModelImpl extends _UserLiteModel {
   const _$UserLiteModelImpl(

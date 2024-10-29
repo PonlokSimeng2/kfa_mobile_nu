@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -105,12 +104,12 @@ FutureOr<IList<PropertyModel>> propertyList(
 
   if (filter?.dateFrom != null) {
     query = query.gte(PropertyTable.createdAt,
-        filter!.dateFrom!.firstMinuteOfDay().toIso8601String());
+        filter!.dateFrom!.firstMinuteOfDay().toIso8601String(),);
   }
 
   if (filter?.dateTo != null) {
     query = query.lte(PropertyTable.createdAt,
-        filter!.dateTo!.lastMinuteOfDay().toIso8601String());
+        filter!.dateTo!.lastMinuteOfDay().toIso8601String(),);
   }
 
   return await query

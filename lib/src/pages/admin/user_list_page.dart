@@ -1,10 +1,11 @@
-import 'package:kfa_mobile_nu/src/helpers/build_context_helper.dart';
-import 'package:kfa_mobile_nu/src/models/property_model.schema.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:kfa_mobile_nu/src/models/user_model.dart';
 import 'package:kfa_mobile_nu/src/pages/admin/user_detail_page.dart';
 import 'package:kfa_mobile_nu/src/providers/admin_provider.dart';
 
 import '../../../exports.dart';
+import '../../providers/user_provider.dart';
+import 'admin_picker_dialog.dart';
 
 class UserListPage extends HookConsumerWidget {
   const UserListPage({super.key});
@@ -12,6 +13,9 @@ class UserListPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final searchController = useState('');
+    final currentUser = ref.watch(currentUserProvider).requireValue;
+    final adminCtr = useTextEditingController();
+    final admin = useState<UserModel?>(currentUser);
 
     return Scaffold(
       appBar: AppBar(
@@ -22,30 +26,64 @@ class UserListPage extends HookConsumerWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              onChanged: (value) => searchController.value = value,
-              decoration: InputDecoration(
-                hintText: 'Search users...',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+            child: Column(
+              children: [
+                TextField(
+                  onChanged: (value) => searchController.value = value,
+                  decoration: InputDecoration(
+                    hintText: 'Search users...',
+                    prefixIcon: const Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    filled: true,
+                    fillColor: Colors.grey[200],
+                  ),
                 ),
-                filled: true,
-                fillColor: Colors.grey[200],
-              ),
+                const SizedBox(height: 12),
+                TextField(
+                  controller: adminCtr,
+                  readOnly: true,
+                  onTap: () async {
+                    final result = await AdminPickerDialog.show(context, null);
+                    if (result != null) {
+                      adminCtr.text = result.fullName;
+                      admin.value = result;
+                    }
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Filter by Admin',
+                    prefixIcon: const Icon(Icons.admin_panel_settings_outlined),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    filled: true,
+                    fillColor: Colors.grey[200],
+                    suffixIcon: admin.value != null
+                        ? IconButton(
+                            icon: const Icon(Icons.clear),
+                            onPressed: () {
+                              adminCtr.clear();
+                              admin.value = null;
+                            },
+                          )
+                        : null,
+                  ),
+                ),
+              ],
             ),
           ),
           Expanded(
-            child: _buildUserList(ref, searchController.value),
+            child: _buildUserList(ref, searchController.value, admin.value),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildUserList(WidgetRef ref, String searchString) {
+  Widget _buildUserList(WidgetRef ref, String searchString, UserModel? admin) {
     final firstPageCountAsync = ref.watch(
-      userListProvider(page: 0, searchString: searchString)
+      userListProvider(page: 0, searchString: searchString, admin: admin)
           .select((v) => v.whenData((v) => v.length)),
     );
 
@@ -63,18 +101,24 @@ class UserListPage extends HookConsumerWidget {
         }
         return RefreshIndicator(
           onRefresh: () async {
-            ref.invalidate(
-                userListProvider(page: 0, searchString: searchString));
+            ref.invalidate(userListProvider(
+              page: 0,
+              searchString: searchString,
+              admin: admin,
+            ),);
           },
           child: ListView.builder(
             itemCount: count,
             itemBuilder: (context, index) {
               final userAsync = ref.watch(userAtIndexProvider(
-                  index: index, searchString: searchString));
+                index: index,
+                searchString: searchString,
+                admin: admin,
+              ),);
               return userAsync?.whenOrNull(
                     loading: (_) =>
                         const Center(child: CircularProgressIndicator()),
-                    data: (user) => _buildUserListItem(context, user),
+                    data: (user) => _buildUserListItem(context, ref, user),
                   ) ??
                   const SizedBox.shrink();
             },
@@ -86,6 +130,7 @@ class UserListPage extends HookConsumerWidget {
 
   Widget _buildUserListItem(
     BuildContext context,
+    WidgetRef ref,
     UserModel user,
   ) {
     return ListTile(
@@ -93,11 +138,59 @@ class UserListPage extends HookConsumerWidget {
         backgroundImage: user.photo != null ? NetworkImage(user.photo!) : null,
         child: user.photo == null ? Text(user.firstName[0]) : null,
       ),
-      title: Text(user.fullName),
-      subtitle: Text(user.email),
-      trailing: Icon(
-        user.isAdmin ? Icons.admin_panel_settings : Icons.person,
-        color: user.isAdmin ? Colors.red : Colors.grey,
+      title: user.active
+          ? Text(user.fullName)
+          : Row(children: [
+              Text(user.fullName, style: const TextStyle(color: Colors.grey)),
+              const Text(' (Inactive)',
+                  style: TextStyle(color: Colors.red, fontSize: 10),),
+            ],),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(user.email,
+              style: TextStyle(color: user.active ? null : Colors.grey),),
+          if (user.managedBy != null)
+            Text(
+                'Admin: ${user.managedBy!.firstName} ${user.managedBy!.lastName}',)
+          else if (user.managedBy == null && user.isUser)
+            OutlinedButton(
+              onPressed: () async {
+                final admin = await AdminPickerDialog.show(context, user.id);
+                if (admin != null) {
+                  final close = BotToast.showLoading();
+                  final result = await ref
+                      .read(assignAdminProvider(user.id).notifier)
+                      .call(admin.id);
+                  close();
+
+                  if (result.isSuccess) {
+                    BotToast.showText(text: 'Admin assigned');
+                  }
+
+                  if (result.isFailure) {
+                    BotToast.showText(text: result.failure!.message());
+                  }
+                }
+              },
+              child: const Text('Assign Admin'),
+            ),
+        ],
+      ),
+      trailing: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Icon(
+            user.isAdmin ? Icons.admin_panel_settings : Icons.person,
+            color: user.isAdmin ? Colors.red : Colors.grey,
+          ),
+          if (user.isSuperAdmin)
+            const Text(
+              'Super Admin',
+              style: TextStyle(fontSize: 10, color: Colors.green),
+            ),
+        ],
       ),
       onTap: () {
         context.push((_) => UserDetailPage(user: user));

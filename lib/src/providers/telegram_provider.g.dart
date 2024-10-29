@@ -21,6 +21,8 @@ final teleDartProvider = AutoDisposeFutureProvider<TeleDart>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef TeleDartRef = AutoDisposeFutureProviderRef<TeleDart>;
 String _$telegramGroupIdHash() => r'e383c5c5cafbd1679c27bd4bad8209cff90c59c9';
 
@@ -36,6 +38,8 @@ final telegramGroupIdProvider = AutoDisposeFutureProvider<int?>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef TelegramGroupIdRef = AutoDisposeFutureProviderRef<int?>;
 String _$updateTelegramGroupIdHash() =>
     r'6ffc88a46ba1104155a313c7c3a858b29db9c5fb';
@@ -55,4 +59,4 @@ final updateTelegramGroupIdProvider = AutoDisposeNotifierProvider<
 
 typedef _$UpdateTelegramGroupId = AutoDisposeNotifier<ProviderStatus<void>>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

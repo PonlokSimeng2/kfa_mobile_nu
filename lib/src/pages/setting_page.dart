@@ -97,7 +97,7 @@ class SettingPage extends ConsumerWidget {
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
-                                  'VPoints: ' + user.vpoints.toString(),
+                                  'VPoints: ${user.vpoints}',
                                   style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -161,7 +161,7 @@ class SettingPage extends ConsumerWidget {
                                   onPressed: () {
                                     context.push((context) => const LoginPage(
                                           openAsPage: true,
-                                        ));
+                                        ),);
                                   },
                                 ),
                                 const SizedBox(height: 8),

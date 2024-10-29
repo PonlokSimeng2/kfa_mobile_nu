@@ -21,25 +21,13 @@ FutureOr<UserModel?> currentUser(CurrentUserRef ref) async {
   final userId = ref.watch(authProvider);
   if (userId == null) return null;
 
-  return getUser(ref, userId);
-}
-
-@riverpod
-class DeleteUser extends _$DeleteUser {
-  @override
-  ProviderStatus<void> build(String userId) => const ProviderStatus.initial();
-
-  Future<ProviderStatus<void>> call(bool isAdmin) async {
-    return await perform(
-      (state) async {
-        final sb = ref.watch(supabaseProvider).client;
-        await sb.from(_userTable).delete().eq('id', userId);
-      },
-      onSuccess: (success) {
-        ref.invalidate(userListProvider);
-      },
-    );
+  final user = await getUser(ref, userId);
+  if (user?.active == false) {
+    await ref.read(authProvider.notifier).signOut();
+    throw Exception('User is inactive');
   }
+
+  return user;
 }
 
 @riverpod
@@ -51,9 +39,9 @@ class ToggleUserAdminStatus extends _$ToggleUserAdminStatus {
     return await perform(
       (state) async {
         final sb = ref.watch(supabaseProvider).client;
-        await sb
-            .from(_userTable)
-            .update({'is_admin': isAdmin}).eq('id', userId);
+        await sb.from(_userTable).update({
+          'role': isAdmin ? UserRole.admin.name : UserRole.user.name,
+        }).eq('id', userId);
       },
       onSuccess: (success) {
         ref.invalidate(userListProvider);
@@ -65,7 +53,7 @@ class ToggleUserAdminStatus extends _$ToggleUserAdminStatus {
 @riverpod
 bool isAdmin(IsAdminRef ref) {
   final isAdmin = ref.watch(
-      currentUserProvider.select((v) => v.valueOrNull?.isAdmin ?? false));
+      currentUserProvider.select((v) => v.valueOrNull?.isAdmin ?? false),);
   return isAdmin;
 }
 

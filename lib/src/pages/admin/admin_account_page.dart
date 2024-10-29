@@ -22,7 +22,7 @@ class AdminAccountPage extends ConsumerWidget {
             style: Theme.of(context)
                 .textTheme
                 .titleLarge
-                ?.copyWith(color: Colors.white)),
+                ?.copyWith(color: Colors.white),),
         elevation: 0,
       ),
       body: userAsync.when(
@@ -38,7 +38,7 @@ class AdminAccountPage extends ConsumerWidget {
               children: [
                 _buildProfileHeader(context, user),
                 const SizedBox(height: 16),
-                _AdminSection(),
+                const _AdminSection(),
                 const SizedBox(height: 16),
                 _buildUserInfoCard(context, user),
                 const SizedBox(height: 16),
@@ -86,9 +86,9 @@ class AdminAccountPage extends ConsumerWidget {
             _buildInfoTile(context, Icons.email, 'Email', user.email),
             _buildInfoTile(context, Icons.phone, 'Phone', user.phone),
             _buildInfoTile(context, Icons.admin_panel_settings, 'Admin',
-                user.isAdmin ? 'Yes' : 'No'),
+                user.isAdmin ? 'Yes' : 'No',),
             _buildInfoTile(context, Icons.calendar_today, 'Joined',
-                DateFormat('MMM d, yyyy').format(user.joinedAt)),
+                DateFormat('MMM d, yyyy').format(user.joinedAt),),
           ],
         ),
       ),
@@ -96,7 +96,7 @@ class AdminAccountPage extends ConsumerWidget {
   }
 
   Widget _buildInfoTile(
-      BuildContext context, IconData icon, String title, String value) {
+      BuildContext context, IconData icon, String title, String value,) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
@@ -111,7 +111,7 @@ class AdminAccountPage extends ConsumerWidget {
                     style: Theme.of(context)
                         .textTheme
                         .bodySmall
-                        ?.copyWith(fontWeight: FontWeight.bold)),
+                        ?.copyWith(fontWeight: FontWeight.bold),),
                 const SizedBox(height: 4),
                 Text(value, style: Theme.of(context).textTheme.bodyLarge),
               ],
@@ -143,7 +143,7 @@ class AdminAccountPage extends ConsumerWidget {
 }
 
 class _AdminSection extends ConsumerWidget {
-  const _AdminSection({super.key});
+  const _AdminSection();
 
   @override
   Widget build(BuildContext context, ref) {
@@ -158,7 +158,7 @@ class _AdminSection extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Admin Settings',
-                style: Theme.of(context).textTheme.titleMedium),
+                style: Theme.of(context).textTheme.titleMedium,),
             const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -193,6 +193,7 @@ class _AdminSection extends ConsumerWidget {
                           if (result.isFailure) {
                             return result.failure?.message();
                           }
+                          return null;
                         },
                       );
                     },
@@ -229,7 +230,7 @@ class _AdminSection extends ConsumerWidget {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text(
-                                'Successfully disconnected from Telegram group'),
+                                'Successfully disconnected from Telegram group',),
                           ),
                         );
                       }

@@ -62,17 +62,17 @@ class _AdminPropertyDetailPageState
             IconButton(
               onPressed: () {
                 context.push(
-                    (context) => EditPropertyPage(initial: widget.property));
+                    (context) => EditPropertyPage(initial: widget.property),);
               },
               icon: const Icon(Icons.edit),
             ),
           if (isCurrentUserOwner)
             IconButton(
               icon: Icon(
-                  isHidden.value ? Icons.visibility_off : Icons.visibility),
+                  isHidden.value ? Icons.visibility_off : Icons.visibility,),
               onPressed: () async {
                 final toggleHidden = ref.read(
-                    togglePropertyHiddenProvider(widget.property.id).notifier);
+                    togglePropertyHiddenProvider(widget.property.id).notifier,);
                 final closeLoading = BotToast.showLoading();
                 final result =
                     await toggleHidden(hiddenFromHomePage: !isHidden.value);
@@ -84,7 +84,7 @@ class _AdminPropertyDetailPageState
                       SnackBar(
                         content: Text(isHidden.value
                             ? 'Property hidden'
-                            : 'Property visible'),
+                            : 'Property visible',),
                       ),
                     );
                   }
@@ -192,7 +192,7 @@ class _AdminPropertyDetailPageState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             _buildDetailRow(
-                                'Area', '${widget.property.sqm} sqm'),
+                                'Area', '${widget.property.sqm} sqm',),
                             _buildDetailRow(
                               'Bedrooms',
                               '${widget.property.bedrooms ?? "N/A"}',
@@ -296,7 +296,7 @@ class _AdminPropertyDetailPageState
                                 onPressed: () {
                                   context.push(
                                     (_) => EditPropertyPage(
-                                        initial: widget.property),
+                                        initial: widget.property,),
                                   );
                                 },
                                 child: const Text('Edit'),

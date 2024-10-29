@@ -4,11 +4,15 @@ import 'package:getwidget/components/button/gf_button.dart';
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/models/base.dart';
 import 'package:kfa_mobile_nu/src/models/user_model.dart';
+import 'package:kfa_mobile_nu/src/pages/auto_verbal_list_page.dart';
+import 'package:kfa_mobile_nu/src/pages/report_property_page.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 import 'package:kfa_mobile_nu/src/widgets/max_width_box.dart';
 import 'package:intl/intl.dart'; // Added for date formatting
-import 'package:kfa_mobile_nu/src/providers/report_provider.dart'; // Added for property count
+import 'package:kfa_mobile_nu/src/providers/report_provider.dart';
+
+import '../../providers/admin_provider.dart'; // Added for property count
 
 class UserDetailPage extends ConsumerStatefulWidget {
   final UserModel user;
@@ -36,10 +40,12 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
   bool _hasNumber = false;
   bool _hasSpecialChar = false;
   bool _isObscure = true;
+  bool _isActive = true;
   @override
   void initState() {
     super.initState();
     isAdmin = widget.user.isAdmin;
+    _isActive = widget.user.active;
   }
 
   @override
@@ -75,24 +81,29 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
   Widget build(BuildContext context) {
     final currentUserId = ref.watch(authProvider);
     final isSelf = currentUserId == widget.user.id;
+    final currentUser = ref.watch(currentUserProvider).requireValue;
+    final isNormalUser = widget.user.isUser;
+
     final themeData = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('User Details',
-            style: TextStyle(fontWeight: FontWeight.bold)),
+            style: TextStyle(fontWeight: FontWeight.bold),),
         centerTitle: true,
         backgroundColor: kPrimaryColor,
         actions: [
-          if (!isSelf)
+          if (!isSelf &&
+              (currentUser!.isSuperAdmin ||
+                  (currentUser.isAdmin && isNormalUser)))
             GFButton(
               onPressed: () {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: const Text('Delete'),
-                      content: const Text(
-                        'Are you sure you want to delete this user?',
+                      title: const Text('Update Status'),
+                      content: Text(
+                        '${_isActive ? 'Deactivate' : 'Activate'} this user?',
                       ),
                       actions: <Widget>[
                         TextButton(
@@ -106,25 +117,30 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                             backgroundColor:
                                 Theme.of(context).colorScheme.error,
                           ),
-                          child: const Text('Delete'),
+                          child:
+                              Text(_isActive ? 'Deactivate' : 'Activate'),
                           onPressed: () async {
                             final close = BotToast.showLoading();
-                            final delete = ref.read(
-                              deleteUserProvider(
-                                widget.user.id,
-                              ).notifier,
-                            );
-                            final result =
-                                await delete.call(widget.user.isAdmin);
+
+                            final result = await ref
+                                .read(
+                                  toggleUserActiveStatusProvider(
+                                    widget.user.id,
+                                  ).notifier,
+                                )
+                                .call(!_isActive);
+
                             close();
                             if (result.isFailure) {
                               BotToast.showText(
-                                  text: result.failure!.message());
+                                  text: result.failure!.message(),);
                               return;
                             }
                             if (!context.mounted) return;
                             Navigator.of(context).pop();
-                            Navigator.of(context).pop();
+                            setState(() {
+                              _isActive = !_isActive;
+                            });
                           },
                         ),
                       ],
@@ -132,7 +148,7 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                   },
                 );
               },
-              text: 'Delete User',
+              text: _isActive ? 'Deactivate User' : 'Activate User',
               color: Colors.red,
             ),
         ],
@@ -155,7 +171,7 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                             ? CachedNetworkImage(
                                 imageUrl: widget.user.photo!,
                                 placeholder: (context, url) => const Center(
-                                    child: CircularProgressIndicator()),
+                                    child: CircularProgressIndicator(),),
                                 errorWidget: (context, url, error) =>
                                     const Icon(Icons.error, color: Colors.red),
                                 fit: BoxFit.cover,
@@ -163,7 +179,7 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                                 height: 120,
                               )
                             : const Icon(Icons.person,
-                                size: 60, color: Colors.grey),
+                                size: 60, color: Colors.grey,),
                       ),
                     ),
                   ),
@@ -173,38 +189,82 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                 _buildInfoTile('Email', widget.user.email, context),
                 _buildInfoTile('Phone', widget.user.phone, context),
                 _buildInfoTile('User ID', widget.user.userId, context),
+                if (widget.user.managedBy != null)
+                  _buildInfoTile(
+                    'Managed by',
+                    '${widget.user.managedBy!.firstName} ${widget.user.managedBy!.lastName}',
+                    context,
+                  ),
                 // _buildInfoTile(
                 //     'VPoints', widget.user.vpoints.toString(), context),
                 Consumer(
                   builder: (context, ref, child) {
-                    final count = ref.watch(
-                      countPropertyAndAutoVerbalProvider(
-                        userId: widget.user.id,
-                        statuses: [PropertyAndAutoVerbalStatus.approved].lock,
-                      ).select(
-                        (v) => v.whenOrNull(
-                          data: (data) => data.propertyCount,
-                        ),
+                    return Card(
+                      child: ListTile(
+                        title: const Text('Total Property'),
+                        trailing: Text(
+                            '${ref.watch(countPropertyAndAutoVerbalProvider(
+                                  userId: widget.user.id,
+                                  statuses: [
+                                    PropertyAndAutoVerbalStatus.approved,
+                                  ].lock,
+                                ).select(
+                                  (v) => v.whenOrNull(
+                                    data: (data) => data.propertyCount,
+                                  ),
+                                ),).toString()} cases'),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ReportPropertyPage(
+                                userId: widget.user.id,
+                                openItemInAdminPage: true,
+                                dateRange: DateTimeRange(
+                                  start: DateTime.now(),
+                                  end: DateTime.now(),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     );
-                    return _buildInfoTile('Total Property',
-                        '${count?.toString()} cases' ?? "...", context);
                   },
                 ),
                 Consumer(
                   builder: (context, ref, child) {
-                    final count = ref.watch(
-                      countPropertyAndAutoVerbalProvider(
-                        userId: widget.user.id,
-                        statuses: [PropertyAndAutoVerbalStatus.approved].lock,
-                      ).select(
-                        (v) => v.whenOrNull(
-                          data: (data) => data.autoVerbalCount,
-                        ),
+                    return Card(
+                      child: ListTile(
+                        title: const Text('Total Auto Verbal'),
+                        trailing: Text(
+                            '${ref.watch(countPropertyAndAutoVerbalProvider(
+                                  userId: widget.user.id,
+                                  statuses: [
+                                    PropertyAndAutoVerbalStatus.approved,
+                                  ].lock,
+                                ).select(
+                                  (v) => v.whenOrNull(
+                                    data: (data) => data.autoVerbalCount,
+                                  ),
+                                ),).toString()} cases'),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AutoVerbalListPage(
+                                userId: widget.user.id,
+                                openItemInAdminPage: true,
+                                dateRange: DateTimeRange(
+                                  start: DateTime.now(),
+                                  end: DateTime.now(),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     );
-                    return _buildInfoTile('Total Auto Verbal',
-                        '${count?.toString()} cases' ?? "...", context);
                   },
                 ),
                 _buildInfoTile(
@@ -214,10 +274,10 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                 ),
 
                 ListTile(
-                  title: Text('Admin'),
+                  title: const Text('Admin'),
                   trailing: Switch(
                     value: isAdmin,
-                    onChanged: isSelf
+                    onChanged: (isSelf || !currentUser!.isSuperAdmin)
                         ? null
                         : (bool value) async {
                             setState(() {
@@ -225,8 +285,8 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                             });
                             ref
                                 .read(toggleUserAdminStatusProvider(
-                                        widget.user.id)
-                                    .notifier)
+                                        widget.user.id,)
+                                    .notifier,)
                                 .call(widget.user.id, value);
                           },
                   ),
@@ -252,22 +312,22 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                  color: kPrimaryColor, width: 2.0),
+                                  color: kPrimaryColor, width: 2.0,),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                  color: kPrimaryColor, width: 1.0),
+                                  color: kPrimaryColor, width: 1.0,),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             errorBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                  color: Colors.red, width: 1.0),
+                                  color: Colors.red, width: 1.0,),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             focusedErrorBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                  color: Colors.red, width: 2.0),
+                                  color: Colors.red, width: 2.0,),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             suffixIcon: IconButton(
@@ -298,7 +358,7 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                         ),
                       ),
                       const SizedBox(width: 16),
-                      Container(
+                      SizedBox(
                         height: 50,
                         child: GFButton(
                           onPressed: () async {
@@ -337,7 +397,7 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                                 btnOkIcon: Icons.cancel,
                                 btnOkColor: Colors.red,
                               ).show();
-                              Navigator.of(context).pop();
+                              // Navigator.of(context).pop();
                             }
                             _formKey.currentState!.reset();
                             _newPasswordController.clear();
@@ -357,7 +417,8 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
     );
   }
 
-  Widget _buildInfoTile(String title, String value, BuildContext context) {
+  Widget _buildInfoTile(String title, String value, BuildContext context,
+      {Widget? trailing,}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
@@ -369,7 +430,7 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 color: Colors.grey[700],
-                backgroundColor: Colors.grey[100]),
+                backgroundColor: Colors.grey[100],),
           ),
           const SizedBox(height: 4),
           Text(
@@ -377,8 +438,9 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
             style: TextStyle(
                 fontSize: 16,
                 color: Colors.black,
-                backgroundColor: Colors.grey[100]),
+                backgroundColor: Colors.grey[100],),
           ),
+          trailing ?? const SizedBox.shrink(),
           const Divider(height: 24),
         ],
       ),

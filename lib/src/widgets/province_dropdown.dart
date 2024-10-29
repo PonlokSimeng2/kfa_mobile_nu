@@ -57,7 +57,7 @@ class ProvinceDropDown extends ConsumerWidget {
             TextStyle(color: context.isDarkMode ? Colors.white : Colors.black),
         hintText: 'Select',
         hintStyle: TextStyle(
-            color: context.isDarkMode ? Colors.grey[400] : Colors.grey[600]),
+            color: context.isDarkMode ? Colors.grey[400] : Colors.grey[600],),
         prefixIcon: prefixicon != null
             ? Icon(
                 prefixicon!.icon,

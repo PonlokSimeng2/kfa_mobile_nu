@@ -68,7 +68,7 @@ class AdminHomePage extends HookConsumerWidget {
                 items: _navItems
                     .map(
                       (item) => BottomNavigationBarItem(
-                          icon: Icon(item.$1), label: item.$2),
+                          icon: Icon(item.$1), label: item.$2,),
                     )
                     .toList(),
               ),

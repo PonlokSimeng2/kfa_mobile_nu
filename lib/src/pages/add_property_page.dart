@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/foundation.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:getwidget/components/button/gf_button.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kfa_mobile_nu/exports.dart';
@@ -34,7 +33,7 @@ class AddPropertyPage extends HookConsumerWidget {
               title: Text(
                 'Add Property',
                 style: TextStyle(
-                    color: context.isDarkMode ? Colors.white : Colors.white),
+                    color: context.isDarkMode ? Colors.white : Colors.white,),
               ),
               centerTitle: true,
               actions: [
@@ -515,7 +514,7 @@ class AddPropertyPage extends HookConsumerWidget {
                                     decoration: InputDecoration(
                                       contentPadding:
                                           const EdgeInsets.symmetric(
-                                              vertical: 8, horizontal: 8),
+                                              vertical: 8, horizontal: 8,),
                                       hintText: 'Length',
                                       hintStyle: TextStyle(
                                         color: context.isDarkMode
@@ -580,7 +579,7 @@ class AddPropertyPage extends HookConsumerWidget {
                                   ),
                                   decoration: InputDecoration(
                                     contentPadding: const EdgeInsets.symmetric(
-                                        vertical: 8, horizontal: 8),
+                                        vertical: 8, horizontal: 8,),
                                     hintText: 'Width',
                                     hintStyle: TextStyle(
                                       color: context.isDarkMode
@@ -1184,9 +1183,7 @@ class AddPropertyPage extends HookConsumerWidget {
 }
 
 class _ImagePicker extends HookConsumerWidget {
-  const _ImagePicker({
-    super.key,
-  });
+  const _ImagePicker();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -1359,7 +1356,7 @@ class _ImagePicker extends HookConsumerWidget {
               ),
             ],
             if (imageFiles.isEmpty) ...[
-              Text(
+              const Text(
                 'Please select at least one image.',
                 style: TextStyle(
                   color: Colors.red,

@@ -259,7 +259,7 @@ class _PropertyCommentState extends ConsumerState<PropertyComment> {
 }
 
 class _EditCommentDialog extends HookConsumerWidget {
-  const _EditCommentDialog({super.key, required this.comment});
+  const _EditCommentDialog({required this.comment});
 
   final PropertyCommentModel comment;
 
@@ -321,7 +321,7 @@ class _EditCommentDialog extends HookConsumerWidget {
 }
 
 class _CreateCommentBox extends HookConsumerWidget {
-  const _CreateCommentBox({super.key});
+  const _CreateCommentBox();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

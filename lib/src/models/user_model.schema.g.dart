@@ -18,8 +18,12 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       email: json['email'] as String,
       phone: json['phone'] as String,
       vpoints: (json['vpoints'] as num).toInt(),
-      isAdmin: json['is_admin'] as bool,
+      role: $enumDecode(_$UserRoleEnumMap, json['role']),
       joinedAt: DateTime.parse(json['joined_at'] as String),
+      active: json['active'] as bool,
+      managedBy: json['managedBy'] == null
+          ? null
+          : UserLiteModel.fromJson(json['managedBy'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
@@ -32,9 +36,17 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'email': instance.email,
       'phone': instance.phone,
       'vpoints': instance.vpoints,
-      'is_admin': instance.isAdmin,
+      'role': _$UserRoleEnumMap[instance.role]!,
       'joined_at': instance.joinedAt.toIso8601String(),
+      'active': instance.active,
+      'managedBy': instance.managedBy?.toJson(),
     };
+
+const _$UserRoleEnumMap = {
+  UserRole.user: 'user',
+  UserRole.admin: 'admin',
+  UserRole.superAdmin: 'superAdmin',
+};
 
 _$UserLiteModelImpl _$$UserLiteModelImplFromJson(Map<String, dynamic> json) =>
     _$UserLiteModelImpl(
@@ -67,7 +79,20 @@ const _tableUserModel = TableBuilder(
     ColumnBuilder('email'),
     ColumnBuilder('phone'),
     ColumnBuilder('vpoints'),
-    ColumnBuilder('is_admin'),
+    ColumnBuilder('role'),
     ColumnBuilder('joined_at'),
+    ColumnBuilder('active'),
+    ColumnBuilder.join(UserLiteModel.table,
+        key: "managedBy", candidateKey: null, foreignKey: 'managed_by_id'),
+  ],
+);
+
+const _tableUserLiteModel = TableBuilder(
+  tableName: "users",
+  columns: [
+    ColumnBuilder('id'),
+    ColumnBuilder('photo'),
+    ColumnBuilder('first_name'),
+    ColumnBuilder('last_name'),
   ],
 );

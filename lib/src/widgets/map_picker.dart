@@ -1,12 +1,11 @@
 import 'dart:math';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import '../helpers/build_context_helper.dart';
 
 import '../../../exports.dart';
 
 class MapPickerPage extends HookConsumerWidget {
-  const MapPickerPage._({super.key, this.initialPosition});
+  const MapPickerPage._({this.initialPosition});
 
   static Future<LatLng?> show(
     BuildContext context, {
@@ -24,15 +23,15 @@ class MapPickerPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final latLn = useState(initialPosition ?? LatLng(0, 0));
+    final latLn = useState(initialPosition ?? const LatLng(0, 0));
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 20, 20, 163),
+        backgroundColor: const Color.fromARGB(255, 20, 20, 163),
         centerTitle: true,
         title: const Text("KFA's Map"),
         leading: IconButton(
-          icon: Icon(Icons.check),
+          icon: const Icon(Icons.check),
           onPressed: () {
             Navigator.pop(context, latLn.value);
           },
@@ -93,8 +92,8 @@ class _MapPickerState extends ConsumerState<MapPicker> {
   double getZoomLevel(double radius) {
     double zoomLevel = 16;
     if (radius > 0) {
-      double radiusElevated = radius + radius / 2;
-      double scale = radiusElevated / 500;
+      final double radiusElevated = radius + radius / 2;
+      final double scale = radiusElevated / 500;
       zoomLevel = (16 - log(scale) / log(2)) - 0.4;
     }
     zoomLevel = double.parse(zoomLevel.toStringAsFixed(2));
@@ -171,7 +170,7 @@ class _MapPickerState extends ConsumerState<MapPicker> {
               child: Icon(Icons.location_on, size: 50, color: Colors.red),
             ),
           ),
-        )
+        ),
       ],
     );
   }

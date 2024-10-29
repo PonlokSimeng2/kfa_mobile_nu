@@ -85,7 +85,7 @@ class MyPropertyPage extends HookConsumerWidget {
 }
 
 class _Content extends ConsumerWidget {
-  const _Content({super.key, required this.statuses});
+  const _Content({required this.statuses});
 
   final IList<PropertyAndAutoVerbalStatus> statuses;
 

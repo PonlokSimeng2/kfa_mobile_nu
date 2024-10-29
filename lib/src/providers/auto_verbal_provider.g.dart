@@ -2693,6 +2693,8 @@ class AutoVerbalListProvider
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin AutoVerbalListRef
     on AutoDisposeFutureProviderRef<IList<AutoVerbalModel>> {
   /// The parameter `page` of this provider.
@@ -2842,6 +2844,8 @@ class AutoVerbalAtIndexProvider
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin AutoVerbalAtIndexRef
     on AutoDisposeProviderRef<PaginatedItem<AutoVerbalModel>?> {
   /// The parameter `index` of this provider.
@@ -2979,6 +2983,8 @@ class AutoVerbalDetailProvider
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin AutoVerbalDetailRef on AutoDisposeFutureProviderRef<AutoVerbalModel> {
   /// The parameter `id` of this provider.
   int get id;
@@ -3124,6 +3130,8 @@ class InsertAutoVerbalProvider extends AutoDisposeNotifierProviderImpl<
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin InsertAutoVerbalRef
     on AutoDisposeNotifierProviderRef<InsertAutoVerbalState> {
   /// The parameter `fromProperty` of this provider.
@@ -3270,6 +3278,8 @@ class UpdateAutoVerbalProvider extends AutoDisposeNotifierProviderImpl<
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin UpdateAutoVerbalRef
     on AutoDisposeNotifierProviderRef<UpdateAutoVerbalState> {
   /// The parameter `initial` of this provider.
@@ -3416,6 +3426,8 @@ class DeleteAutoVerbalProvider extends AutoDisposeNotifierProviderImpl<
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin DeleteAutoVerbalRef
     on AutoDisposeNotifierProviderRef<ProviderStatus<void>> {
   /// The parameter `autoVerbalId` of this provider.
@@ -3562,6 +3574,8 @@ class ApproveAutoVerbalProvider extends AutoDisposeNotifierProviderImpl<
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin ApproveAutoVerbalRef
     on AutoDisposeNotifierProviderRef<ProviderStatus<void>> {
   /// The parameter `autoVerbalId` of this provider.
@@ -3708,6 +3722,8 @@ class RejectAutoVerbalProvider extends AutoDisposeNotifierProviderImpl<
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin RejectAutoVerbalRef
     on AutoDisposeNotifierProviderRef<ProviderStatus<void>> {
   /// The parameter `autoVerbalId` of this provider.
@@ -3723,4 +3739,4 @@ class _RejectAutoVerbalProviderElement
   int get autoVerbalId => (origin as RejectAutoVerbalProvider).autoVerbalId;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

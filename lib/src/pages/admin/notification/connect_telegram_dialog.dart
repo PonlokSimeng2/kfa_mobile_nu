@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:kfa_mobile_nu/gen/assets.gen.dart';
@@ -12,8 +11,7 @@ import '../../../../../../exports.dart';
 import '../../../providers/telegram_provider.dart';
 
 class ConnectTelegramDialog extends ConsumerStatefulWidget {
-  const ConnectTelegramDialog({Key? key, required this.onConnected})
-      : super(key: key);
+  const ConnectTelegramDialog({super.key, required this.onConnected});
 
   final Future<String?> Function(int groupId) onConnected;
 

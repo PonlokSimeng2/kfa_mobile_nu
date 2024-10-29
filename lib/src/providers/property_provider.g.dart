@@ -1968,6 +1968,8 @@ class PropertyListProvider
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin PropertyListRef on AutoDisposeFutureProviderRef<IList<PropertyModel>> {
   /// The parameter `page` of this provider.
   int get page;
@@ -2115,6 +2117,8 @@ class PropertyAtIndexProvider
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin PropertyAtIndexRef
     on AutoDisposeProviderRef<PaginatedItem<PropertyModel>?> {
   /// The parameter `index` of this provider.
@@ -2281,6 +2285,8 @@ class UpdatePropertyProvider extends AutoDisposeNotifierProviderImpl<
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin UpdatePropertyRef on AutoDisposeNotifierProviderRef<UpdatePropertyState> {
   /// The parameter `initial` of this provider.
   PropertyModel get initial;
@@ -2424,6 +2430,8 @@ class DeletePropertyProvider extends AutoDisposeNotifierProviderImpl<
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin DeletePropertyRef
     on AutoDisposeNotifierProviderRef<ProviderStatus<void>> {
   /// The parameter `propertyId` of this provider.
@@ -2570,6 +2578,8 @@ class IncrementPropertyViewProvider extends AutoDisposeNotifierProviderImpl<
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin IncrementPropertyViewRef
     on AutoDisposeNotifierProviderRef<ProviderStatus<void>> {
   /// The parameter `propertyId` of this provider.
@@ -2717,6 +2727,8 @@ class TogglePropertyHiddenProvider extends AutoDisposeNotifierProviderImpl<
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin TogglePropertyHiddenRef
     on AutoDisposeNotifierProviderRef<ProviderStatus<void>> {
   /// The parameter `propertyId` of this provider.
@@ -2732,4 +2744,4 @@ class _TogglePropertyHiddenProviderElement
   int get propertyId => (origin as TogglePropertyHiddenProvider).propertyId;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

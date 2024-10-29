@@ -132,7 +132,7 @@ class _MultiplyFormState extends State<Building> {
                 width: w,
                 height: MediaQuery.of(context).size.height * 0.065,
                 child: (_total != 0) ? Text('$_total') : Text('Total'),
-              )
+              ),
             ],
           ),
         ),

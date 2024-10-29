@@ -59,7 +59,7 @@ class PropertyTypeDropDown extends ConsumerWidget {
         labelStyle:
             TextStyle(color: context.isDarkMode ? Colors.white : Colors.black),
         hintStyle: TextStyle(
-            color: context.isDarkMode ? Colors.grey[400] : Colors.grey[600]),
+            color: context.isDarkMode ? Colors.grey[400] : Colors.grey[600],),
         prefixIcon: prefixicon != null
             ? Icon(
                 prefixicon!.icon,

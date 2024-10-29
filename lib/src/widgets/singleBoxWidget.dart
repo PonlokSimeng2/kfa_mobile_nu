@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 class SingleBoxWidget extends StatelessWidget {
   final String phone;
   const SingleBoxWidget({
-    Key? key,
+    super.key,
     required this.phone,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -40,7 +40,7 @@ class ProviderLogger extends ProviderObserver with LoggerMixin {
 
   @override
   void didDisposeProvider(
-      ProviderBase<dynamic> provider, ProviderContainer container) {
+      ProviderBase<dynamic> provider, ProviderContainer container,) {
     log.t('🗑️ DidDisposeProvider: ${provider.providerName}');
   }
 }

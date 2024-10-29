@@ -4,7 +4,6 @@ import 'package:kfa_mobile_nu/src/providers/favortie_provider.dart';
 import 'package:kfa_mobile_nu/src/widgets/property_type_dropdown.dart';
 
 import '../../exports.dart';
-import '../helpers/build_context_helper.dart';
 import '../providers/property_provider.dart';
 import 'property_detail_page.dart';
 
@@ -39,7 +38,7 @@ class PropertyListPage extends ConsumerWidget {
 }
 
 class _PropertyListPage extends ConsumerStatefulWidget {
-  const _PropertyListPage({super.key});
+  const _PropertyListPage();
 
   @override
   ConsumerState<_PropertyListPage> createState() => __PropertyListPageState();

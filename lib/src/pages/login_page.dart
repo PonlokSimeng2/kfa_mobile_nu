@@ -255,7 +255,7 @@ class _LoginState extends ConsumerState<LoginPage> {
               filled: true,
               labelText: 'Email',
               labelStyle: TextStyle(
-                  color: context.isDarkMode ? themeData.hintColor : null),
+                  color: context.isDarkMode ? themeData.hintColor : null,),
               prefixIcon: Icon(
                 Icons.email,
                 color: context.isDarkMode
@@ -297,7 +297,7 @@ class _LoginState extends ConsumerState<LoginPage> {
             style: TextStyle(
                 color: context.isDarkMode
                     ? themeData.textTheme.bodyLarge?.color
-                    : null),
+                    : null,),
             validator: (input) {
               if (input == null || input.isEmpty) {
                 return 'require *';
@@ -319,7 +319,7 @@ class _LoginState extends ConsumerState<LoginPage> {
               filled: true,
               labelText: 'Enter password',
               labelStyle: TextStyle(
-                  color: context.isDarkMode ? themeData.hintColor : null),
+                  color: context.isDarkMode ? themeData.hintColor : null,),
               prefixIcon: Icon(
                 Icons.key,
                 color: context.isDarkMode
@@ -375,7 +375,7 @@ class _LoginState extends ConsumerState<LoginPage> {
             style: TextStyle(
                 color: context.isDarkMode
                     ? themeData.textTheme.bodyLarge?.color
-                    : null),
+                    : null,),
             validator: (input) {
               if (input == null || input.isEmpty) {
                 return 'require *';
@@ -403,7 +403,7 @@ class _LoginState extends ConsumerState<LoginPage> {
               filled: true,
               labelText: 'Email',
               labelStyle: TextStyle(
-                  color: context.isDarkMode ? themeData.hintColor : null),
+                  color: context.isDarkMode ? themeData.hintColor : null,),
               prefixIcon: Icon(
                 Icons.email,
                 color: context.isDarkMode
@@ -445,7 +445,7 @@ class _LoginState extends ConsumerState<LoginPage> {
             style: TextStyle(
                 color: context.isDarkMode
                     ? themeData.textTheme.bodyLarge?.color
-                    : null),
+                    : null,),
             validator: (input) {
               if (input == null || input.isEmpty) {
                 return 'require *';
@@ -467,7 +467,7 @@ class _LoginState extends ConsumerState<LoginPage> {
               filled: true,
               labelText: 'Enter password',
               labelStyle: TextStyle(
-                  color: context.isDarkMode ? themeData.hintColor : null),
+                  color: context.isDarkMode ? themeData.hintColor : null,),
               prefixIcon: Icon(
                 Icons.key,
                 color: context.isDarkMode
@@ -529,7 +529,7 @@ class _LoginState extends ConsumerState<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kPrimaryColor,
+        backgroundColor: context.isDarkMode ? Colors.black87 : kPrimaryColor,
         elevation: 0,
         centerTitle: true,
         title: Image.asset(

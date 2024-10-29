@@ -13,7 +13,7 @@ final _filterProvider = StateProvider.autoDispose<PropertyListFilter>((ref) {
   return PropertyListFilter(
     statuses: [
       PropertyAndAutoVerbalStatus.pending,
-      PropertyAndAutoVerbalStatus.resubmit
+      PropertyAndAutoVerbalStatus.resubmit,
     ].lock,
   );
 });
@@ -56,7 +56,7 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
                     _buildTabButton(null),
                     ...PropertyAndAutoVerbalStatus.values
                         .where((status) =>
-                            status != PropertyAndAutoVerbalStatus.resubmit)
+                            status != PropertyAndAutoVerbalStatus.resubmit,)
                         .map((status) => _buildTabButton(status)),
                   ],
                 ),
@@ -216,9 +216,9 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
 
                                   if (selectedCategoryTypeId.value == null) {
                                     totalSale = data.sumBy(
-                                        (element) => element.totalSale ?? 0);
+                                        (element) => element.totalSale ?? 0,);
                                     totalRent = data.sumBy(
-                                        (element) => element.totalRent ?? 0);
+                                        (element) => element.totalRent ?? 0,);
                                   } else {
                                     totalSale = data
                                         .firstWhere(
@@ -281,7 +281,7 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
                                                           : Colors.transparent,
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              10),
+                                                              10,),
                                                     ),
                                                     child: Row(
                                                       children: [
@@ -296,7 +296,7 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
                                                           ),
                                                         ),
                                                         const SizedBox(
-                                                            width: 8),
+                                                            width: 8,),
                                                         Expanded(
                                                           child: Text(
                                                             e.name,
@@ -329,7 +329,7 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
                                                     sections: [
                                                       PieChartSectionData(
                                                         color: const Color(
-                                                            0xFF0088FE),
+                                                            0xFF0088FE,),
                                                         value: totalSale
                                                             .toDouble(),
                                                         title:
@@ -338,7 +338,7 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
                                                       ),
                                                       PieChartSectionData(
                                                         color: const Color(
-                                                            0xFF00C49F),
+                                                            0xFF00C49F,),
                                                         value: totalRent
                                                             .toDouble(),
                                                         title:
@@ -504,7 +504,7 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
                           aspectRatio: 1.8,
                         ),
                       ),
-                    )
+                    ),
                 ],
               ),
               Expanded(child: _buildList()),

@@ -159,6 +159,8 @@ class PropertyLikeListProvider
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin PropertyLikeListRef
     on AutoDisposeFutureProviderRef<IList<PropertyLikeModel>> {
   /// The parameter `propertyId` of this provider.
@@ -311,6 +313,8 @@ class PropertyLikeAtIndexProvider
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin PropertyLikeAtIndexRef
     on AutoDisposeProviderRef<PaginatedItem<PropertyLikeModel>?> {
   /// The parameter `propertyId` of this provider.
@@ -458,6 +462,8 @@ class HasLikedProvider
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin HasLikedRef on AutoDisposeAsyncNotifierProviderRef<bool> {
   /// The parameter `propertyId` of this provider.
   int get propertyId;
@@ -602,6 +608,8 @@ class PropertyLikeProvider extends AutoDisposeNotifierProviderImpl<PropertyLike,
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin PropertyLikeRef on AutoDisposeNotifierProviderRef<ProviderStatus<void>> {
   /// The parameter `propertyId` of this provider.
   int get propertyId;
@@ -745,6 +753,8 @@ class PropertyUnlikeProvider extends AutoDisposeNotifierProviderImpl<
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin PropertyUnlikeRef
     on AutoDisposeNotifierProviderRef<ProviderStatus<void>> {
   /// The parameter `propertyId` of this provider.
@@ -759,4 +769,4 @@ class _PropertyUnlikeProviderElement extends AutoDisposeNotifierProviderElement<
   int get propertyId => (origin as PropertyUnlikeProvider).propertyId;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

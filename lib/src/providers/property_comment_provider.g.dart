@@ -9,7 +9,7 @@ part of 'property_comment_provider.dart';
 // **************************************************************************
 
 String _$propertyCommentListHash() =>
-    r'50e3cfa0386b4ff278048bdb4eefd12e3ae5bc67';
+    r'd2d59bc8d6865cbdea18f42e308fbd2e0ff8b0c9';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -162,6 +162,8 @@ class PropertyCommentListProvider
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin PropertyCommentListRef
     on AutoDisposeFutureProviderRef<IList<PropertyCommentModel>> {
   /// The parameter `propertyId` of this provider.
@@ -315,6 +317,8 @@ class PropertyCommentAtIndexProvider
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin PropertyCommentAtIndexRef
     on AutoDisposeProviderRef<PaginatedItem<PropertyCommentModel>?> {
   /// The parameter `propertyId` of this provider.
@@ -467,6 +471,8 @@ class AddPropertyCommentProvider extends AutoDisposeNotifierProviderImpl<
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin AddPropertyCommentRef
     on AutoDisposeNotifierProviderRef<ProviderStatus<void>> {
   /// The parameter `propertyId` of this provider.
@@ -613,6 +619,8 @@ class EditPropertyCommentProvider extends AutoDisposeNotifierProviderImpl<
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin EditPropertyCommentRef
     on AutoDisposeNotifierProviderRef<ProviderStatus<void>> {
   /// The parameter `commentId` of this provider.
@@ -630,7 +638,7 @@ class _EditPropertyCommentProviderElement
 }
 
 String _$deletePropertyCommentHash() =>
-    r'be8f78cdebd69ddcfef2a2e375ea8e5ff7d0a6f3';
+    r'4cb6f1ffa67b8799d5ec9c637338a0fe11b2305d';
 
 abstract class _$DeletePropertyComment
     extends BuildlessAutoDisposeNotifier<ProviderStatus<void>> {
@@ -761,6 +769,8 @@ class DeletePropertyCommentProvider extends AutoDisposeNotifierProviderImpl<
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin DeletePropertyCommentRef
     on AutoDisposeNotifierProviderRef<ProviderStatus<void>> {
   /// The parameter `commentId` of this provider.
@@ -777,4 +787,4 @@ class _DeletePropertyCommentProviderElement
       (origin as DeletePropertyCommentProvider).commentId;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

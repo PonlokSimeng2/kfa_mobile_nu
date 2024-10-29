@@ -21,8 +21,10 @@ final reportDataProvider = AutoDisposeFutureProvider<ReportData>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef ReportDataRef = AutoDisposeFutureProviderRef<ReportData>;
-String _$userListHash() => r'f92f108fbef6a34b97b46c4b147e3f00c5e197e9';
+String _$userListHash() => r'da6dcef7d0de18f70e51d71f1447b44aeb72b7bd';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -58,10 +60,12 @@ class UserListFamily extends Family<AsyncValue<IList<UserModel>>> {
   UserListProvider call({
     required int page,
     String? searchString,
+    UserModel? admin,
   }) {
     return UserListProvider(
       page: page,
       searchString: searchString,
+      admin: admin,
     );
   }
 
@@ -72,6 +76,7 @@ class UserListFamily extends Family<AsyncValue<IList<UserModel>>> {
     return call(
       page: provider.page,
       searchString: provider.searchString,
+      admin: provider.admin,
     );
   }
 
@@ -96,11 +101,13 @@ class UserListProvider extends AutoDisposeFutureProvider<IList<UserModel>> {
   UserListProvider({
     required int page,
     String? searchString,
+    UserModel? admin,
   }) : this._internal(
           (ref) => userList(
             ref as UserListRef,
             page: page,
             searchString: searchString,
+            admin: admin,
           ),
           from: userListProvider,
           name: r'userListProvider',
@@ -112,6 +119,7 @@ class UserListProvider extends AutoDisposeFutureProvider<IList<UserModel>> {
           allTransitiveDependencies: UserListFamily._allTransitiveDependencies,
           page: page,
           searchString: searchString,
+          admin: admin,
         );
 
   UserListProvider._internal(
@@ -123,10 +131,12 @@ class UserListProvider extends AutoDisposeFutureProvider<IList<UserModel>> {
     required super.from,
     required this.page,
     required this.searchString,
+    required this.admin,
   }) : super.internal();
 
   final int page;
   final String? searchString;
+  final UserModel? admin;
 
   @override
   Override overrideWith(
@@ -143,6 +153,7 @@ class UserListProvider extends AutoDisposeFutureProvider<IList<UserModel>> {
         debugGetCreateSourceHash: null,
         page: page,
         searchString: searchString,
+        admin: admin,
       ),
     );
   }
@@ -156,7 +167,8 @@ class UserListProvider extends AutoDisposeFutureProvider<IList<UserModel>> {
   bool operator ==(Object other) {
     return other is UserListProvider &&
         other.page == page &&
-        other.searchString == searchString;
+        other.searchString == searchString &&
+        other.admin == admin;
   }
 
   @override
@@ -164,17 +176,23 @@ class UserListProvider extends AutoDisposeFutureProvider<IList<UserModel>> {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, page.hashCode);
     hash = _SystemHash.combine(hash, searchString.hashCode);
+    hash = _SystemHash.combine(hash, admin.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin UserListRef on AutoDisposeFutureProviderRef<IList<UserModel>> {
   /// The parameter `page` of this provider.
   int get page;
 
   /// The parameter `searchString` of this provider.
   String? get searchString;
+
+  /// The parameter `admin` of this provider.
+  UserModel? get admin;
 }
 
 class _UserListProviderElement
@@ -186,9 +204,27 @@ class _UserListProviderElement
   int get page => (origin as UserListProvider).page;
   @override
   String? get searchString => (origin as UserListProvider).searchString;
+  @override
+  UserModel? get admin => (origin as UserListProvider).admin;
 }
 
-String _$userAtIndexHash() => r'560c648ec785e375a1bdf16f666dfdd1fa890026';
+String _$adminListHash() => r'49fb320f908dc257ee42cd13958e8b86ac997b62';
+
+/// See also [adminList].
+@ProviderFor(adminList)
+final adminListProvider = AutoDisposeFutureProvider<IList<UserModel>>.internal(
+  adminList,
+  name: r'adminListProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$adminListHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef AdminListRef = AutoDisposeFutureProviderRef<IList<UserModel>>;
+String _$userAtIndexHash() => r'98272a99119ada62c0d6b878c3f01db185199634';
 
 /// See also [userAtIndex].
 @ProviderFor(userAtIndex)
@@ -203,10 +239,12 @@ class UserAtIndexFamily extends Family<PaginatedItem<UserModel>?> {
   UserAtIndexProvider call({
     required int index,
     String? searchString,
+    UserModel? admin,
   }) {
     return UserAtIndexProvider(
       index: index,
       searchString: searchString,
+      admin: admin,
     );
   }
 
@@ -217,6 +255,7 @@ class UserAtIndexFamily extends Family<PaginatedItem<UserModel>?> {
     return call(
       index: provider.index,
       searchString: provider.searchString,
+      admin: provider.admin,
     );
   }
 
@@ -242,11 +281,13 @@ class UserAtIndexProvider
   UserAtIndexProvider({
     required int index,
     String? searchString,
+    UserModel? admin,
   }) : this._internal(
           (ref) => userAtIndex(
             ref as UserAtIndexRef,
             index: index,
             searchString: searchString,
+            admin: admin,
           ),
           from: userAtIndexProvider,
           name: r'userAtIndexProvider',
@@ -259,6 +300,7 @@ class UserAtIndexProvider
               UserAtIndexFamily._allTransitiveDependencies,
           index: index,
           searchString: searchString,
+          admin: admin,
         );
 
   UserAtIndexProvider._internal(
@@ -270,10 +312,12 @@ class UserAtIndexProvider
     required super.from,
     required this.index,
     required this.searchString,
+    required this.admin,
   }) : super.internal();
 
   final int index;
   final String? searchString;
+  final UserModel? admin;
 
   @override
   Override overrideWith(
@@ -290,6 +334,7 @@ class UserAtIndexProvider
         debugGetCreateSourceHash: null,
         index: index,
         searchString: searchString,
+        admin: admin,
       ),
     );
   }
@@ -303,7 +348,8 @@ class UserAtIndexProvider
   bool operator ==(Object other) {
     return other is UserAtIndexProvider &&
         other.index == index &&
-        other.searchString == searchString;
+        other.searchString == searchString &&
+        other.admin == admin;
   }
 
   @override
@@ -311,17 +357,23 @@ class UserAtIndexProvider
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, index.hashCode);
     hash = _SystemHash.combine(hash, searchString.hashCode);
+    hash = _SystemHash.combine(hash, admin.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin UserAtIndexRef on AutoDisposeProviderRef<PaginatedItem<UserModel>?> {
   /// The parameter `index` of this provider.
   int get index;
 
   /// The parameter `searchString` of this provider.
   String? get searchString;
+
+  /// The parameter `admin` of this provider.
+  UserModel? get admin;
 }
 
 class _UserAtIndexProviderElement
@@ -333,6 +385,8 @@ class _UserAtIndexProviderElement
   int get index => (origin as UserAtIndexProvider).index;
   @override
   String? get searchString => (origin as UserAtIndexProvider).searchString;
+  @override
+  UserModel? get admin => (origin as UserAtIndexProvider).admin;
 }
 
 String _$rejectPropertyHash() => r'462b128ecc854cbdd8fdb46c47976a0d3865bc64';
@@ -465,6 +519,8 @@ class RejectPropertyProvider extends AutoDisposeNotifierProviderImpl<
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin RejectPropertyRef
     on AutoDisposeNotifierProviderRef<ProviderStatus<void>> {
   /// The parameter `propertyId` of this provider.
@@ -609,6 +665,8 @@ class ApprovePropertyProvider extends AutoDisposeNotifierProviderImpl<
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin ApprovePropertyRef
     on AutoDisposeNotifierProviderRef<ProviderStatus<void>> {
   /// The parameter `propertyId` of this provider.
@@ -623,5 +681,298 @@ class _ApprovePropertyProviderElement
   @override
   int get propertyId => (origin as ApprovePropertyProvider).propertyId;
 }
+
+String _$toggleUserActiveStatusHash() =>
+    r'f75c2fac603981465f56f38e66ec2bebe8fa75ae';
+
+abstract class _$ToggleUserActiveStatus
+    extends BuildlessAutoDisposeNotifier<ProviderStatus<void>> {
+  late final String userId;
+
+  ProviderStatus<void> build(
+    String userId,
+  );
+}
+
+/// See also [ToggleUserActiveStatus].
+@ProviderFor(ToggleUserActiveStatus)
+const toggleUserActiveStatusProvider = ToggleUserActiveStatusFamily();
+
+/// See also [ToggleUserActiveStatus].
+class ToggleUserActiveStatusFamily extends Family<ProviderStatus<void>> {
+  /// See also [ToggleUserActiveStatus].
+  const ToggleUserActiveStatusFamily();
+
+  /// See also [ToggleUserActiveStatus].
+  ToggleUserActiveStatusProvider call(
+    String userId,
+  ) {
+    return ToggleUserActiveStatusProvider(
+      userId,
+    );
+  }
+
+  @override
+  ToggleUserActiveStatusProvider getProviderOverride(
+    covariant ToggleUserActiveStatusProvider provider,
+  ) {
+    return call(
+      provider.userId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'toggleUserActiveStatusProvider';
+}
+
+/// See also [ToggleUserActiveStatus].
+class ToggleUserActiveStatusProvider extends AutoDisposeNotifierProviderImpl<
+    ToggleUserActiveStatus, ProviderStatus<void>> {
+  /// See also [ToggleUserActiveStatus].
+  ToggleUserActiveStatusProvider(
+    String userId,
+  ) : this._internal(
+          () => ToggleUserActiveStatus()..userId = userId,
+          from: toggleUserActiveStatusProvider,
+          name: r'toggleUserActiveStatusProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$toggleUserActiveStatusHash,
+          dependencies: ToggleUserActiveStatusFamily._dependencies,
+          allTransitiveDependencies:
+              ToggleUserActiveStatusFamily._allTransitiveDependencies,
+          userId: userId,
+        );
+
+  ToggleUserActiveStatusProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.userId,
+  }) : super.internal();
+
+  final String userId;
+
+  @override
+  ProviderStatus<void> runNotifierBuild(
+    covariant ToggleUserActiveStatus notifier,
+  ) {
+    return notifier.build(
+      userId,
+    );
+  }
+
+  @override
+  Override overrideWith(ToggleUserActiveStatus Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: ToggleUserActiveStatusProvider._internal(
+        () => create()..userId = userId,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        userId: userId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeNotifierProviderElement<ToggleUserActiveStatus,
+      ProviderStatus<void>> createElement() {
+    return _ToggleUserActiveStatusProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ToggleUserActiveStatusProvider && other.userId == userId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, userId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin ToggleUserActiveStatusRef
+    on AutoDisposeNotifierProviderRef<ProviderStatus<void>> {
+  /// The parameter `userId` of this provider.
+  String get userId;
+}
+
+class _ToggleUserActiveStatusProviderElement
+    extends AutoDisposeNotifierProviderElement<ToggleUserActiveStatus,
+        ProviderStatus<void>> with ToggleUserActiveStatusRef {
+  _ToggleUserActiveStatusProviderElement(super.provider);
+
+  @override
+  String get userId => (origin as ToggleUserActiveStatusProvider).userId;
+}
+
+String _$assignAdminHash() => r'07677b7392e93ff062fc7435aed4ea8b88cc8896';
+
+abstract class _$AssignAdmin
+    extends BuildlessAutoDisposeNotifier<ProviderStatus<void>> {
+  late final String userId;
+
+  ProviderStatus<void> build(
+    String userId,
+  );
+}
+
+/// See also [AssignAdmin].
+@ProviderFor(AssignAdmin)
+const assignAdminProvider = AssignAdminFamily();
+
+/// See also [AssignAdmin].
+class AssignAdminFamily extends Family<ProviderStatus<void>> {
+  /// See also [AssignAdmin].
+  const AssignAdminFamily();
+
+  /// See also [AssignAdmin].
+  AssignAdminProvider call(
+    String userId,
+  ) {
+    return AssignAdminProvider(
+      userId,
+    );
+  }
+
+  @override
+  AssignAdminProvider getProviderOverride(
+    covariant AssignAdminProvider provider,
+  ) {
+    return call(
+      provider.userId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'assignAdminProvider';
+}
+
+/// See also [AssignAdmin].
+class AssignAdminProvider
+    extends AutoDisposeNotifierProviderImpl<AssignAdmin, ProviderStatus<void>> {
+  /// See also [AssignAdmin].
+  AssignAdminProvider(
+    String userId,
+  ) : this._internal(
+          () => AssignAdmin()..userId = userId,
+          from: assignAdminProvider,
+          name: r'assignAdminProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$assignAdminHash,
+          dependencies: AssignAdminFamily._dependencies,
+          allTransitiveDependencies:
+              AssignAdminFamily._allTransitiveDependencies,
+          userId: userId,
+        );
+
+  AssignAdminProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.userId,
+  }) : super.internal();
+
+  final String userId;
+
+  @override
+  ProviderStatus<void> runNotifierBuild(
+    covariant AssignAdmin notifier,
+  ) {
+    return notifier.build(
+      userId,
+    );
+  }
+
+  @override
+  Override overrideWith(AssignAdmin Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: AssignAdminProvider._internal(
+        () => create()..userId = userId,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        userId: userId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeNotifierProviderElement<AssignAdmin, ProviderStatus<void>>
+      createElement() {
+    return _AssignAdminProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is AssignAdminProvider && other.userId == userId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, userId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin AssignAdminRef on AutoDisposeNotifierProviderRef<ProviderStatus<void>> {
+  /// The parameter `userId` of this provider.
+  String get userId;
+}
+
+class _AssignAdminProviderElement extends AutoDisposeNotifierProviderElement<
+    AssignAdmin, ProviderStatus<void>> with AssignAdminRef {
+  _AssignAdminProviderElement(super.provider);
+
+  @override
+  String get userId => (origin as AssignAdminProvider).userId;
+}
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

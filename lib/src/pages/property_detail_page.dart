@@ -244,7 +244,7 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const Icon(Icons.remove_red_eye,
-                        color: Colors.white, size: 16),
+                        color: Colors.white, size: 16,),
                     const SizedBox(width: 4),
                     Text(
                       '${widget.data.viewCount}',

@@ -12,14 +12,14 @@ class FormTwin extends StatefulWidget {
   final FormFieldSetter<String> onSaved1;
   final FormFieldSetter<String> onSaved2;
   const FormTwin({
-    Key? key,
+    super.key,
     required this.Label1,
     required this.Label2,
     required this.icon1,
     required this.icon2,
     required this.onSaved1,
     required this.onSaved2,
-  }) : super(key: key);
+  });
 
   @override
   State<FormTwin> createState() => _FormTwinState();

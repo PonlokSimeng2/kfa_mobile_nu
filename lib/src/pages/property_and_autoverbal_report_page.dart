@@ -1,22 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kfa_mobile_nu/src/models/auto_verbal_model.dart';
 import 'package:kfa_mobile_nu/src/models/base.dart';
-import 'package:kfa_mobile_nu/src/models/property_model.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/auto_verbal_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/property_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
-import 'package:kfa_mobile_nu/src/pages/admin/admin_property_detail_page.dart';
 import 'package:kfa_mobile_nu/src/pages/property_detail_page.dart';
-import 'package:kfa_mobile_nu/src/pages/admin/admin_auto_verbal_detail_page.dart';
 import 'package:kfa_mobile_nu/src/pages/client_auto_verbal_detail_page.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:kfa_mobile_nu/exports.dart';
 
 class PropertyAndAutoVerbalReportPage extends ConsumerStatefulWidget {
-  const PropertyAndAutoVerbalReportPage({Key? key}) : super(key: key);
+  const PropertyAndAutoVerbalReportPage({super.key});
 
   @override
   ConsumerState<PropertyAndAutoVerbalReportPage> createState() =>
@@ -189,7 +182,7 @@ class _AutoVerbalGridView extends ConsumerWidget {
 }
 
 Widget _buildCard(BuildContext context, dynamic item,
-    {required bool isProperty}) {
+    {required bool isProperty,}) {
   return Card(
     elevation: 4,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -253,7 +246,7 @@ Widget _buildCard(BuildContext context, dynamic item,
                     if (isProperty)
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
+                            horizontal: 6, vertical: 2,),
                         decoration: BoxDecoration(
                           color: item.listingType.name.toLowerCase() == 'rent'
                               ? Colors.blue
@@ -263,13 +256,13 @@ Widget _buildCard(BuildContext context, dynamic item,
                         child: Text(
                           item.listingType.name.capitalize(),
                           style: const TextStyle(
-                              color: Colors.white, fontSize: 12),
+                              color: Colors.white, fontSize: 12,),
                         ),
                       ),
                     if (isProperty) const SizedBox(width: 4),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 6, vertical: 2),
+                          horizontal: 6, vertical: 2,),
                       decoration: BoxDecoration(
                         color: isProperty
                             ? _getStatusColor(item.status)

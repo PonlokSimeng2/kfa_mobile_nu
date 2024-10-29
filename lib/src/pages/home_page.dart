@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+import 'package:kfa_mobile_nu/src/models/user_model.dart';
 import 'package:kfa_mobile_nu/src/pages/add_property_page.dart';
 import 'package:kfa_mobile_nu/src/pages/favorite_list_page.dart';
 import 'package:kfa_mobile_nu/src/pages/my_property_page.dart';
@@ -28,7 +29,7 @@ class HomePage extends ConsumerWidget {
 
     return userAsync.onData(
       (user) {
-        if (user == null || user.isAdmin == false) {
+        if (user == null || !user.isAdmin) {
           return const _UserHome();
         }
 
@@ -227,7 +228,7 @@ class __UserHomeState extends ConsumerState<_UserHome> {
     return Scaffold(
       appBar: _buildAppBar(),
       drawer: _buildDrawer(context),
-      backgroundColor: kPrimaryColor,
+      backgroundColor: context.isDarkMode ? Colors.black87 : kPrimaryColor,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -101,20 +101,24 @@ class UserListPage extends HookConsumerWidget {
         }
         return RefreshIndicator(
           onRefresh: () async {
-            ref.invalidate(userListProvider(
-              page: 0,
-              searchString: searchString,
-              admin: admin,
-            ),);
+            ref.invalidate(
+              userListProvider(
+                page: 0,
+                searchString: searchString,
+                admin: admin,
+              ),
+            );
           },
           child: ListView.builder(
             itemCount: count,
             itemBuilder: (context, index) {
-              final userAsync = ref.watch(userAtIndexProvider(
-                index: index,
-                searchString: searchString,
-                admin: admin,
-              ),);
+              final userAsync = ref.watch(
+                userAtIndexProvider(
+                  index: index,
+                  searchString: searchString,
+                  admin: admin,
+                ),
+              );
               return userAsync?.whenOrNull(
                     loading: (_) =>
                         const Center(child: CircularProgressIndicator()),
@@ -140,23 +144,30 @@ class UserListPage extends HookConsumerWidget {
       ),
       title: user.active
           ? Text(user.fullName)
-          : Row(children: [
-              Text(user.fullName, style: const TextStyle(color: Colors.grey)),
-              const Text(' (Inactive)',
-                  style: TextStyle(color: Colors.red, fontSize: 10),),
-            ],),
+          : Row(
+              children: [
+                Text(user.fullName, style: const TextStyle(color: Colors.grey)),
+                const Text(
+                  ' (Inactive)',
+                  style: TextStyle(color: Colors.red, fontSize: 10),
+                ),
+              ],
+            ),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(user.email,
-              style: TextStyle(color: user.active ? null : Colors.grey),),
+          Text(
+            user.email,
+            style: TextStyle(color: user.active ? null : Colors.grey),
+          ),
           if (user.managedBy != null)
             Text(
-                'Admin: ${user.managedBy!.firstName} ${user.managedBy!.lastName}',)
+              'Admin: ${user.managedBy!.firstName} ${user.managedBy!.lastName}',
+            )
           else if (user.managedBy == null && user.isUser)
             OutlinedButton(
               onPressed: () async {
-                final admin = await AdminPickerDialog.show(context, user.id);
+                final admin = await ref.read(currentUserProvider.future);
                 if (admin != null) {
                   final close = BotToast.showLoading();
                   final result = await ref
@@ -165,7 +176,7 @@ class UserListPage extends HookConsumerWidget {
                   close();
 
                   if (result.isSuccess) {
-                    BotToast.showText(text: 'Admin assigned');
+                    BotToast.showText(text: 'User Approved');
                   }
 
                   if (result.isFailure) {
@@ -173,8 +184,29 @@ class UserListPage extends HookConsumerWidget {
                   }
                 }
               },
-              child: const Text('Assign Admin'),
+              child: const Text('Approve User'),
             ),
+          // OutlinedButton(
+          //   onPressed: () async {
+          //     final admin = await AdminPickerDialog.show(context, user.id);
+          //     if (admin != null) {
+          //       final close = BotToast.showLoading();
+          //       final result = await ref
+          //           .read(assignAdminProvider(user.id).notifier)
+          //           .call(admin.id);
+          //       close();
+
+          //       if (result.isSuccess) {
+          //         BotToast.showText(text: 'User Approved');
+          //       }
+
+          //       if (result.isFailure) {
+          //         BotToast.showText(text: result.failure!.message());
+          //       }
+          //     }
+          //   },
+          //   child: const Text('Assign Admin'),
+          // ),
         ],
       ),
       trailing: Column(

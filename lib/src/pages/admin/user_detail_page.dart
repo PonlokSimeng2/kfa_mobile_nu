@@ -5,6 +5,8 @@ import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/models/base.dart';
 import 'package:kfa_mobile_nu/src/models/user_model.dart';
 import 'package:kfa_mobile_nu/src/pages/auto_verbal_list_page.dart';
+import 'package:kfa_mobile_nu/src/pages/report_main_page.dart';
+import 'package:kfa_mobile_nu/src/pages/report_main_page_for_admin.dart';
 import 'package:kfa_mobile_nu/src/pages/report_property_page.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
@@ -87,8 +89,10 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
     final themeData = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('User Details',
-            style: TextStyle(fontWeight: FontWeight.bold),),
+        title: const Text(
+          'User Details',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
         backgroundColor: kPrimaryColor,
         actions: [
@@ -117,8 +121,7 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                             backgroundColor:
                                 Theme.of(context).colorScheme.error,
                           ),
-                          child:
-                              Text(_isActive ? 'Deactivate' : 'Activate'),
+                          child: Text(_isActive ? 'Deactivate' : 'Activate'),
                           onPressed: () async {
                             final close = BotToast.showLoading();
 
@@ -133,7 +136,8 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                             close();
                             if (result.isFailure) {
                               BotToast.showText(
-                                  text: result.failure!.message(),);
+                                text: result.failure!.message(),
+                              );
                               return;
                             }
                             if (!context.mounted) return;
@@ -171,15 +175,19 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                             ? CachedNetworkImage(
                                 imageUrl: widget.user.photo!,
                                 placeholder: (context, url) => const Center(
-                                    child: CircularProgressIndicator(),),
+                                  child: CircularProgressIndicator(),
+                                ),
                                 errorWidget: (context, url, error) =>
                                     const Icon(Icons.error, color: Colors.red),
                                 fit: BoxFit.cover,
                                 width: 120,
                                 height: 120,
                               )
-                            : const Icon(Icons.person,
-                                size: 60, color: Colors.grey,),
+                            : const Icon(
+                                Icons.person,
+                                size: 60,
+                                color: Colors.grey,
+                              ),
                       ),
                     ),
                   ),
@@ -195,78 +203,89 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                     '${widget.user.managedBy!.firstName} ${widget.user.managedBy!.lastName}',
                     context,
                   ),
+                Card(
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: ListTile(
+                    title: const Text(
+                      'Report User ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue,
+                      ),
+                    ),
+                    iconColor: Colors.blue,
+                    leading: Icon(Icons.report_problem),
+                    onTap: () {
+                      context.push((context) {
+                        return ReportMainPageForAdmin(
+                          userId: widget.user.id,
+                        );
+                      });
+                    },
+                  ),
+                ),
                 // _buildInfoTile(
                 //     'VPoints', widget.user.vpoints.toString(), context),
-                Consumer(
-                  builder: (context, ref, child) {
-                    return Card(
-                      child: ListTile(
-                        title: const Text('Total Property'),
-                        trailing: Text(
-                            '${ref.watch(countPropertyAndAutoVerbalProvider(
-                                  userId: widget.user.id,
-                                  statuses: [
-                                    PropertyAndAutoVerbalStatus.approved,
-                                  ].lock,
-                                ).select(
-                                  (v) => v.whenOrNull(
-                                    data: (data) => data.propertyCount,
-                                  ),
-                                ),).toString()} cases'),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ReportPropertyPage(
-                                userId: widget.user.id,
-                                openItemInAdminPage: true,
-                                dateRange: DateTimeRange(
-                                  start: DateTime.now(),
-                                  end: DateTime.now(),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    );
-                  },
-                ),
-                Consumer(
-                  builder: (context, ref, child) {
-                    return Card(
-                      child: ListTile(
-                        title: const Text('Total Auto Verbal'),
-                        trailing: Text(
-                            '${ref.watch(countPropertyAndAutoVerbalProvider(
-                                  userId: widget.user.id,
-                                  statuses: [
-                                    PropertyAndAutoVerbalStatus.approved,
-                                  ].lock,
-                                ).select(
-                                  (v) => v.whenOrNull(
-                                    data: (data) => data.autoVerbalCount,
-                                  ),
-                                ),).toString()} cases'),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AutoVerbalListPage(
-                                userId: widget.user.id,
-                                openItemInAdminPage: true,
-                                dateRange: DateTimeRange(
-                                  start: DateTime.now(),
-                                  end: DateTime.now(),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    );
-                  },
-                ),
+                // Consumer(
+                //   builder: (context, ref, child) {
+                //     return Card(
+                //       child: ListTile(
+                //         title: const Text('Total Property'),
+                //         trailing: Text('${ref.watch(
+                //               countPropertyAndAutoVerbalProvider(
+                //                 userId: widget.user.id,
+                //                 statuses:
+                //                     PropertyAndAutoVerbalStatus.values.lock,
+                //               ).select(
+                //                 (v) => v.whenOrNull(
+                //                   data: (data) => data.propertyCount,
+                //                 ),
+                //               ),
+                //             ).toString()} cases'),
+                //         onTap: () {
+                //           context.push((context) {
+                //             return ReportPropertyPage(
+                //               userId: widget.user.id,
+                //               dateRange: null,
+                //             );
+                //           });
+                //         },
+                //       ),
+                //     );
+                //   },
+                // ),
+                // Consumer(
+                //   builder: (context, ref, child) {
+                //     return Card(
+                //       child: ListTile(
+                //         title: const Text('Total Auto Verbal'),
+                //         trailing: Text('${ref.watch(
+                //               countPropertyAndAutoVerbalProvider(
+                //                 userId: widget.user.id,
+                //                 statuses:
+                //                     PropertyAndAutoVerbalStatus.values.lock,
+                //               ).select(
+                //                 (v) => v.whenOrNull(
+                //                   data: (data) => data.autoVerbalCount,
+                //                 ),
+                //               ),
+                //             ).toString()} cases'),
+                //         onTap: () {
+                //           context.push((context) {
+                //             return AutoVerbalListPage(
+                //               userId: widget.user.id,
+                //               dateRange: null,
+                //               openItemInAdminPage: true,
+                //             );
+                //           });
+                //         },
+                //       ),
+                //     );
+                //   },
+                // ),
                 _buildInfoTile(
                   'Joined At',
                   _formatDate(widget.user.joinedAt),
@@ -284,9 +303,11 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                               isAdmin = value;
                             });
                             ref
-                                .read(toggleUserAdminStatusProvider(
-                                        widget.user.id,)
-                                    .notifier,)
+                                .read(
+                                  toggleUserAdminStatusProvider(
+                                    widget.user.id,
+                                  ).notifier,
+                                )
                                 .call(widget.user.id, value);
                           },
                   ),
@@ -312,22 +333,30 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                  color: kPrimaryColor, width: 2.0,),
+                                color: kPrimaryColor,
+                                width: 2.0,
+                              ),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                  color: kPrimaryColor, width: 1.0,),
+                                color: kPrimaryColor,
+                                width: 1.0,
+                              ),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             errorBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                  color: Colors.red, width: 1.0,),
+                                color: Colors.red,
+                                width: 1.0,
+                              ),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             focusedErrorBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                  color: Colors.red, width: 2.0,),
+                                color: Colors.red,
+                                width: 2.0,
+                              ),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             suffixIcon: IconButton(
@@ -417,8 +446,12 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
     );
   }
 
-  Widget _buildInfoTile(String title, String value, BuildContext context,
-      {Widget? trailing,}) {
+  Widget _buildInfoTile(
+    String title,
+    String value,
+    BuildContext context, {
+    Widget? trailing,
+  }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
@@ -427,18 +460,20 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
           Text(
             title,
             style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[700],
-                backgroundColor: Colors.grey[100],),
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey[700],
+              backgroundColor: Colors.grey[100],
+            ),
           ),
           const SizedBox(height: 4),
           Text(
             value,
             style: TextStyle(
-                fontSize: 16,
-                color: Colors.black,
-                backgroundColor: Colors.grey[100],),
+              fontSize: 16,
+              color: Colors.black,
+              backgroundColor: Colors.grey[100],
+            ),
           ),
           trailing ?? const SizedBox.shrink(),
           const Divider(height: 24),

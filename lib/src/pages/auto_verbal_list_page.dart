@@ -21,7 +21,10 @@ class AutoVerbalListPage extends ConsumerStatefulWidget {
   });
 
   static void setDateRangeFilter(
-      WidgetRef ref, DateTime? dateFrom, DateTime? dateTo,) {
+    WidgetRef ref,
+    DateTime? dateFrom,
+    DateTime? dateTo,
+  ) {
     Future.microtask(() {
       ref.read(AutoVerbalListPage.filter.notifier).update((old) {
         return old.copyWith(dateFrom: dateFrom, dateTo: dateTo);
@@ -68,6 +71,13 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
   @override
   void initState() {
     super.initState();
+    if (widget.userId != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ref.read(AutoVerbalListPage.filter.notifier).update((old) {
+          return old.copyWith(userId: widget.userId);
+        });
+      });
+    }
     _dateRange = widget.dateRange;
     if (_dateRange != null) {
       AutoVerbalListPage.setDateRangeFilter(
@@ -91,11 +101,11 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
       child: _AutoVerbalInherited(
         openItemInAdminPage: widget.openItemInAdminPage,
         child: Scaffold(
-          appBar: widget.openItemInAdminPage
-              ? AppBar(
-                  title: const Text('Auto Verbal List'),
-                )
-              : null,
+          // appBar: widget.openItemInAdminPage
+          //     ? AppBar(
+          //         title: const Text('Auto Verbal List'),
+          //       )
+          //     : null,
           body: Column(
             children: [
               _buildFilterButtons(),
@@ -174,9 +184,13 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
                 child: pw.Row(
                   mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                   children: [
-                    pw.Text('Auto Verbal Report',
-                        style: pw.TextStyle(
-                            fontSize: 24, fontWeight: pw.FontWeight.bold,),),
+                    pw.Text(
+                      'Auto Verbal Report',
+                      style: pw.TextStyle(
+                        fontSize: 24,
+                        fontWeight: pw.FontWeight.bold,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -190,7 +204,8 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
                 ),
                 child: pw.Text(
                   'Date Range: ${DateFormat('yyyy-MM-dd').format(fromDate ?? DateTime.now())} - ${DateFormat('yyyy-MM-dd').format(toDate ?? DateTime.now())}',
-                  style: const pw.TextStyle(fontSize: 14, color: PdfColors.grey700),
+                  style: const pw.TextStyle(
+                      fontSize: 14, color: PdfColors.grey700),
                 ),
               ),
               pw.SizedBox(height: 20),
@@ -198,7 +213,9 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
                 context: context,
                 border: null,
                 headerStyle: pw.TextStyle(
-                    fontWeight: pw.FontWeight.bold, color: PdfColors.white,),
+                  fontWeight: pw.FontWeight.bold,
+                  color: PdfColors.white,
+                ),
                 headerDecoration:
                     const pw.BoxDecoration(color: PdfColors.blueGrey700),
                 cellHeight: 30,
@@ -210,12 +227,14 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
                 },
                 headers: ['ID', 'Province', 'Status', 'Created At'],
                 data: autoVerbals
-                    .map((autoVerbal) => [
-                          autoVerbal.autoVerbalId.toString(),
-                          autoVerbal.province.name,
-                          autoVerbal.status.name,
-                          DateFormat('yyyy-MM-dd').format(autoVerbal.createdAt),
-                        ],)
+                    .map(
+                      (autoVerbal) => [
+                        autoVerbal.autoVerbalId.toString(),
+                        autoVerbal.province.name,
+                        autoVerbal.status.name,
+                        DateFormat('yyyy-MM-dd').format(autoVerbal.createdAt),
+                      ],
+                    )
                     .toList(),
               ),
               pw.SizedBox(height: 20),
@@ -223,8 +242,7 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
                 padding: const pw.EdgeInsets.all(10),
                 decoration: const pw.BoxDecoration(
                   color: PdfColors.grey200,
-                  borderRadius:
-                      pw.BorderRadius.all(pw.Radius.circular(10)),
+                  borderRadius: pw.BorderRadius.all(pw.Radius.circular(10)),
                 ),
                 child: pw.Row(
                   mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
@@ -232,7 +250,9 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
                     pw.Text(
                       'Total Auto Verbals: ${autoVerbals.length}',
                       style: pw.TextStyle(
-                          fontSize: 16, fontWeight: pw.FontWeight.bold,),
+                        fontSize: 16,
+                        fontWeight: pw.FontWeight.bold,
+                      ),
                     ),
                     pw.Text(
                       'Report Generated By: ${ref.read(currentUserProvider).when(
@@ -242,8 +262,8 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
                             loading: () => 'Loading...',
                             error: (_, __) => 'Unknown',
                           )}',
-                      style:
-                          const pw.TextStyle(fontSize: 12, color: PdfColors.grey700),
+                      style: const pw.TextStyle(
+                          fontSize: 12, color: PdfColors.grey700),
                     ),
                   ],
                 ),
@@ -251,9 +271,11 @@ class _AutoVerbalListPageState extends ConsumerState<AutoVerbalListPage> {
               pw.Expanded(child: pw.SizedBox()),
               pw.Footer(
                 leading: pw.Text(
-                    'Generated on: ${DateFormat('yyyy-MM-dd HH:mm').format(DateTime.now())}',),
+                  'Generated on: ${DateFormat('yyyy-MM-dd HH:mm').format(DateTime.now())}',
+                ),
                 trailing: pw.Text(
-                    'Page ${context.pageNumber} of ${context.pagesCount}',),
+                  'Page ${context.pageNumber} of ${context.pagesCount}',
+                ),
               ),
             ],
           );
@@ -425,7 +447,8 @@ class _AutoVerbalDataSource extends DataTableSource {
             DataCell(Text(autoVerbal.province.name)),
             DataCell(Text(autoVerbal.status.name)),
             DataCell(
-                Text(DateFormat('yyyy-MM-dd').format(autoVerbal.createdAt)),),
+              Text(DateFormat('yyyy-MM-dd').format(autoVerbal.createdAt)),
+            ),
           ],
         );
       },

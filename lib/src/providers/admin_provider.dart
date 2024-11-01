@@ -112,7 +112,11 @@ FutureOr<IList<UserModel>> userList(
   }
 
   if (admin != null) {
-    query = query.eq('managed_by_id', admin.id);
+    query = query
+        .or(
+          'managed_by_id.eq.${admin.id},managed_by_id.is.null',
+        )
+        .eq('role', UserRole.user.name);
   }
 
   return await query

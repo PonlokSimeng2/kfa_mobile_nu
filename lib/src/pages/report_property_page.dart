@@ -12,7 +12,7 @@ import '../providers/property_provider.dart';
 import '../widgets/auth_wrapper_widget.dart';
 import '../widgets/property_type_dropdown.dart';
 
-class ReportPropertyPage extends ConsumerStatefulWidget {
+class ReportPropertyPage extends StatefulHookConsumerWidget {
   static final filter = StateProvider.autoDispose<PropertyListFilter>((ref) {
     return PropertyListFilter(
       listingType: null,
@@ -24,7 +24,10 @@ class ReportPropertyPage extends ConsumerStatefulWidget {
   });
 
   static void setDateRangeFilter(
-      WidgetRef ref, DateTime? dateFrom, DateTime? dateTo,) {
+    WidgetRef ref,
+    DateTime? dateFrom,
+    DateTime? dateTo,
+  ) {
     ref.read(ReportPropertyPage.filter.notifier).update((old) {
       return old.copyWith(dateFrom: dateFrom, dateTo: dateTo);
     });
@@ -70,12 +73,22 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
   @override
   void initState() {
     super.initState();
+    if (widget.userId != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ref.read(ReportPropertyPage.filter.notifier).update((old) {
+          return old.copyWith(userId: widget.userId);
+        });
+      });
+    }
+
     _dateRange = widget.dateRange;
     if (_dateRange != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         ref.read(ReportPropertyPage.filter.notifier).update((old) {
           return old.copyWith(
-              dateFrom: _dateRange?.start, dateTo: _dateRange?.end,);
+            dateFrom: _dateRange?.start,
+            dateTo: _dateRange?.end,
+          );
         });
       });
     }
@@ -106,17 +119,17 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
       child: _ReportPropInherited(
         openItemInAdminPage: widget.openItemInAdminPage,
         child: Scaffold(
-          appBar: widget.openItemInAdminPage
-              ? AppBar(
-                  title: const Text('Property Report'),
-                  actions: [
-                    IconButton(
-                      onPressed: () => selectDateRange(),
-                      icon: const Icon(Icons.date_range),
-                    ),
-                  ],
-                )
-              : null,
+          // appBar: widget.openItemInAdminPage
+          // ? AppBar(
+          //     title: const Text('Property Report'),
+          //     actions: [
+          //       IconButton(
+          //         onPressed: () => selectDateRange(),
+          //         icon: const Icon(Icons.date_range),
+          //       ),
+          //     ],
+          //   )
+          // : null,
           body: SizedBox(
             child: Column(
               children: [
@@ -180,9 +193,13 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
                 child: pw.Row(
                   mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                   children: [
-                    pw.Text('Property Report',
-                        style: pw.TextStyle(
-                            fontSize: 24, fontWeight: pw.FontWeight.bold,),),
+                    pw.Text(
+                      'Property Report',
+                      style: pw.TextStyle(
+                        fontSize: 24,
+                        fontWeight: pw.FontWeight.bold,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -196,7 +213,8 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
                 ),
                 child: pw.Text(
                   'Date Range: ${DateFormat('yyyy-MM-dd').format(fromDate ?? DateTime.now())} - ${DateFormat('yyyy-MM-dd').format(toDate ?? DateTime.now())}',
-                  style: const pw.TextStyle(fontSize: 14, color: PdfColors.grey700),
+                  style: const pw.TextStyle(
+                      fontSize: 14, color: PdfColors.grey700),
                 ),
               ),
               pw.SizedBox(height: 20),
@@ -204,7 +222,9 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
                 context: context,
                 border: null,
                 headerStyle: pw.TextStyle(
-                    fontWeight: pw.FontWeight.bold, color: PdfColors.white,),
+                  fontWeight: pw.FontWeight.bold,
+                  color: PdfColors.white,
+                ),
                 headerDecoration:
                     const pw.BoxDecoration(color: PdfColors.blueGrey700),
                 cellHeight: 30,
@@ -223,13 +243,15 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
                   'Created At',
                 ],
                 data: properties
-                    .map((property) => [
-                          property.propertyId.toString(),
-                          property.propertyType.name,
-                          '\$${NumberFormat('#,##0.00').format(property.price)}',
-                          property.listingType.name,
-                          DateFormat('yyyy-MM-dd').format(property.createdAt),
-                        ],)
+                    .map(
+                      (property) => [
+                        property.propertyId.toString(),
+                        property.propertyType.name,
+                        '\$${NumberFormat('#,##0.00').format(property.price)}',
+                        property.listingType.name,
+                        DateFormat('yyyy-MM-dd').format(property.createdAt),
+                      ],
+                    )
                     .toList(),
               ),
               pw.SizedBox(height: 20),
@@ -245,7 +267,9 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
                     pw.Text(
                       'Total Properties: ${properties.length}',
                       style: pw.TextStyle(
-                          fontSize: 16, fontWeight: pw.FontWeight.bold,),
+                        fontSize: 16,
+                        fontWeight: pw.FontWeight.bold,
+                      ),
                     ),
                     pw.Text(
                       'Report Generated By: ${ref.read(currentUserProvider).when(
@@ -255,8 +279,8 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
                             loading: () => 'Loading...',
                             error: (_, __) => 'Unknown',
                           )}',
-                      style:
-                          const pw.TextStyle(fontSize: 12, color: PdfColors.grey700),
+                      style: const pw.TextStyle(
+                          fontSize: 12, color: PdfColors.grey700),
                     ),
                   ],
                 ),
@@ -267,7 +291,8 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
                   'Generated on: ${DateFormat('yyyy-MM-dd HH:mm').format(DateTime.now())}',
                 ),
                 trailing: pw.Text(
-                    'Page ${context.pageNumber} of ${context.pagesCount}',),
+                  'Page ${context.pageNumber} of ${context.pagesCount}',
+                ),
               ),
             ],
           );
@@ -292,10 +317,16 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
                 _buildFilterButton('All', Icons.list, null),
                 const SizedBox(width: 10),
                 _buildFilterButton(
-                    'Rent', Icons.home, PropertyListingType.rent,),
+                  'Rent',
+                  Icons.home,
+                  PropertyListingType.rent,
+                ),
                 const SizedBox(width: 10),
                 _buildFilterButton(
-                    'Sale', Icons.sell, PropertyListingType.sale,),
+                  'Sale',
+                  Icons.sell,
+                  PropertyListingType.sale,
+                ),
               ],
             ),
           ),
@@ -418,7 +449,8 @@ class _PropertyDataSource extends DataTableSource {
   @override
   DataRow? getRow(int index) {
     final propertyAsync = ref.read(
-        propertyListProvider(page: index ~/ propertyListLimit, filter: filter),);
+      propertyListProvider(page: index ~/ propertyListLimit, filter: filter),
+    );
     return propertyAsync.when(
       loading: () => DataRow(
         cells: List.generate(8, (_) => const DataCell(Text('Loading...'))),

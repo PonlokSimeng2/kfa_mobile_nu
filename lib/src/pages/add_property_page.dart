@@ -33,7 +33,8 @@ class AddPropertyPage extends HookConsumerWidget {
               title: Text(
                 'Add Property',
                 style: TextStyle(
-                    color: context.isDarkMode ? Colors.white : Colors.white,),
+                  color: context.isDarkMode ? Colors.white : Colors.white,
+                ),
               ),
               centerTitle: true,
               actions: [
@@ -514,7 +515,9 @@ class AddPropertyPage extends HookConsumerWidget {
                                     decoration: InputDecoration(
                                       contentPadding:
                                           const EdgeInsets.symmetric(
-                                              vertical: 8, horizontal: 8,),
+                                        vertical: 8,
+                                        horizontal: 8,
+                                      ),
                                       hintText: 'Length',
                                       hintStyle: TextStyle(
                                         color: context.isDarkMode
@@ -579,7 +582,9 @@ class AddPropertyPage extends HookConsumerWidget {
                                   ),
                                   decoration: InputDecoration(
                                     contentPadding: const EdgeInsets.symmetric(
-                                        vertical: 8, horizontal: 8,),
+                                      vertical: 8,
+                                      horizontal: 8,
+                                    ),
                                     hintText: 'Width',
                                     hintStyle: TextStyle(
                                       color: context.isDarkMode

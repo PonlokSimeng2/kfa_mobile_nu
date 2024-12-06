@@ -3,7 +3,6 @@ import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/models/base.dart';
 import 'package:kfa_mobile_nu/src/pages/auto_verbal_list_page.dart';
 import 'package:kfa_mobile_nu/src/pages/report_property_page.dart';
-import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/report_provider.dart';
 import 'package:kfa_mobile_nu/src/widgets/auth_wrapper_widget.dart';
 
@@ -176,8 +175,8 @@ class ReportMainPageForAdmin extends HookConsumerWidget {
                                     },
                                     child: _buildInfoCard(
                                       context: context,
-                                      title: 'Total Property',
-                                      value: count?.toString() ?? "...",
+                                      title: 'Report Property',
+                                      value: "",
                                       icon: Icons.pending,
                                       color: Colors.orange,
                                     ),
@@ -195,8 +194,8 @@ class ReportMainPageForAdmin extends HookConsumerWidget {
                                           .values.lock,
                                     ).select(
                                       (v) => v.whenOrNull(
-                                        data: (data) => data.autoVerbalCount,
-                                      ),
+                                          // data: (data) => data.autoVerbalCount,
+                                          ),
                                     ),
                                   );
                                   return GestureDetector(
@@ -209,8 +208,8 @@ class ReportMainPageForAdmin extends HookConsumerWidget {
                                     },
                                     child: _buildInfoCard(
                                       context: context,
-                                      title: 'Total Autoverbal',
-                                      value: count?.toString() ?? "...",
+                                      title: 'Report Autoverbal',
+                                      value: "",
                                       icon: Icons.insert_chart,
                                       color: Colors.blue,
                                     ),

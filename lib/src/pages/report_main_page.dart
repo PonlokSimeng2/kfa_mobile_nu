@@ -175,8 +175,8 @@ class ReportMainPage extends HookConsumerWidget {
                                     },
                                     child: _buildInfoCard(
                                       context: context,
-                                      title: 'Total Property',
-                                      value: count?.toString() ?? "...",
+                                      title: 'Report Property',
+                                      value: "",
                                       icon: Icons.pending,
                                       color: Colors.orange,
                                     ),
@@ -208,8 +208,8 @@ class ReportMainPage extends HookConsumerWidget {
                                     },
                                     child: _buildInfoCard(
                                       context: context,
-                                      title: 'Total Autoverbal',
-                                      value: count?.toString() ?? "...",
+                                      title: 'Report Autoverbal',
+                                      value: "",
                                       icon: Icons.insert_chart,
                                       color: Colors.blue,
                                     ),

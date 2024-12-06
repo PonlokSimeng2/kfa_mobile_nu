@@ -2,17 +2,12 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:getwidget/components/button/gf_button.dart';
 import 'package:kfa_mobile_nu/exports.dart';
-import 'package:kfa_mobile_nu/src/models/base.dart';
 import 'package:kfa_mobile_nu/src/models/user_model.dart';
-import 'package:kfa_mobile_nu/src/pages/auto_verbal_list_page.dart';
-import 'package:kfa_mobile_nu/src/pages/report_main_page.dart';
 import 'package:kfa_mobile_nu/src/pages/report_main_page_for_admin.dart';
-import 'package:kfa_mobile_nu/src/pages/report_property_page.dart';
 import 'package:kfa_mobile_nu/src/providers/auth_provider.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 import 'package:kfa_mobile_nu/src/widgets/max_width_box.dart';
 import 'package:intl/intl.dart'; // Added for date formatting
-import 'package:kfa_mobile_nu/src/providers/report_provider.dart';
 
 import '../../providers/admin_provider.dart'; // Added for property count
 
@@ -90,7 +85,7 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'User Details',
+          'User Detail',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -217,7 +212,7 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                       ),
                     ),
                     iconColor: Colors.blue,
-                    leading: Icon(Icons.report_problem),
+                    leading: Icon(Icons.report),
                     onTap: () {
                       context.push((context) {
                         return ReportMainPageForAdmin(

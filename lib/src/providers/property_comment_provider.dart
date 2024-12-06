@@ -42,7 +42,8 @@ PaginatedItem<PropertyCommentModel>? propertyCommentAtIndex(
   final pageItems = ref
       .watch(propertyCommentListProvider(propertyId: propertyId, page: page));
   final hasNextPage = ref.exists(
-      propertyCommentListProvider(propertyId: propertyId, page: page + 1),);
+    propertyCommentListProvider(propertyId: propertyId, page: page + 1),
+  );
 
   return PaginatedItem.build(
     pageItems: pageItems,

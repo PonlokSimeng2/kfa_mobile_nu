@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
@@ -53,7 +52,8 @@ FutureOr<IList<PropertyModel>> propertyList(
 
   var query = sb
       .from(PropertyModel.table.tableName)
-      .select(PropertyModel.table.selectStatement);
+      .select(PropertyModel.table.selectStatement)
+      .isFilter('deleted_at', null);
 
   if (filter?.statuses != null && filter!.statuses.isNotEmpty) {
     query = query.inFilter(
@@ -103,13 +103,17 @@ FutureOr<IList<PropertyModel>> propertyList(
   }
 
   if (filter?.dateFrom != null) {
-    query = query.gte(PropertyTable.createdAt,
-        filter!.dateFrom!.firstMinuteOfDay().toIso8601String(),);
+    query = query.gte(
+      PropertyTable.createdAt,
+      filter!.dateFrom!.firstMinuteOfDay().toIso8601String(),
+    );
   }
 
   if (filter?.dateTo != null) {
-    query = query.lte(PropertyTable.createdAt,
-        filter!.dateTo!.lastMinuteOfDay().toIso8601String(),);
+    query = query.lte(
+      PropertyTable.createdAt,
+      filter!.dateTo!.lastMinuteOfDay().toIso8601String(),
+    );
   }
 
   return await query
@@ -419,11 +423,10 @@ class DeleteProperty extends _$DeleteProperty {
   Future<ProviderStatus<void>> call() async {
     return await perform(
       (state) async {
-        final sb = ref.watch(supabaseProvider).client;
-        await sb
-            .from(PropertyModel.table.tableName)
-            .delete()
-            .eq('id', propertyId);
+        final sb = ref.read(supabaseProvider).client;
+        await sb.from(PropertyModel.tableName).update({
+          'deleted_at': DateTime.now().toIso8601String(),
+        }).eq(PropertyModel.idKey, propertyId);
       },
       onSuccess: (success) {
         ref.invalidate(propertyListProvider);

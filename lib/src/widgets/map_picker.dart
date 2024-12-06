@@ -457,38 +457,40 @@ class _MapPickerState extends ConsumerState<MapPicker> {
               // child: Positioned.fill(
               child: Stack(
                 children: [
-                  // (latitude != 0)
-                  GoogleMap(
-                    initialCameraPosition: _currentPosition,
-                    myLocationButtonEnabled: true,
-                    myLocationEnabled: true,
+                  (latitude != 0)
+                      ? GoogleMap(
+                          initialCameraPosition: _currentPosition,
+                          myLocationButtonEnabled: true,
+                          myLocationEnabled: true,
 
-                    onCameraIdle: _onCameraIdle,
-                    onCameraMove: _onCameraMove,
-                    // markers: Set.from(_marker),
-                    zoomGesturesEnabled: true,
-
-                    markers: _marker.map((e) => e).toSet(),
-                    // polylines: _polylines,
-                    onMapCreated: (controller) => _mapController = controller,
-                    // onCameraMove: (CameraPosition cameraPositiona) {
-                    //     cameraPosition = cameraPositiona; //when map is dragging
-                    //   },
-                    circles: _circle != null ? {widget.circle!} : {},
-                    mapType: MapType.hybrid,
-                    onTap: (argument) {
-                      setState(() {
-                        _addMarker(argument);
-                        print('lat : ${argument.latitude}');
-                        print('long : ${argument.longitude}');
-                      });
-                      searchMap.clear();
-                      listMap = [];
-                    },
-                  )
-                  // : Center(
-                  //     child: Text('Error'),
-                  //   )
+                          onCameraIdle: _onCameraIdle,
+                          onCameraMove: _onCameraMove,
+                          onMapCreated: (GoogleMapController controller) {
+                            mapController = controller;
+                          },
+                          // onCameraMove: (CameraPosition cameraPositiona) {
+                          //   cameraPosition =
+                          //       cameraPositiona; //when map is dragging
+                          // },
+                          // void _onCameraMove(CameraPosition cameraPosition) {
+                          //   _currentPosition = cameraPosition;
+                          // }
+                          //                         // markers: Set.from(_marker),
+                          zoomGesturesEnabled: true,
+                          circles: _circle != null ? {widget.circle!} : {},
+                          mapType: MapType.hybrid,
+                          onTap: (argument) {
+                            setState(() {
+                              print('lat : ${argument.latitude}');
+                              print('long : ${argument.longitude}');
+                            });
+                            searchMap.clear();
+                            listMap = [];
+                          },
+                        )
+                      : Center(
+                          child: Text('Error'),
+                        )
                 ],
               ),
               // child: GoogleMap(
@@ -513,10 +515,17 @@ class _MapPickerState extends ConsumerState<MapPicker> {
         //   ),
         // ),
         Positioned.fill(
-          child: (listMap.isEmpty)
-              ? const SizedBox()
+          top: 60,
+          child: (listMap.isEmpty || searchGoogle)
+              ? const Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: 32),
+                    child: Icon(Icons.location_on, size: 50, color: Colors.red),
+                  ),
+                )
               : Padding(
-                  padding: const EdgeInsets.only(right: 10, left: 10),
+                  padding:
+                      const EdgeInsets.only(right: 10, left: 10, bottom: 300),
                   child: searchGoogle
                       ? Center(child: CircularProgressIndicator())
                       : Container(

@@ -1819,7 +1819,7 @@ class UpdatePropertyBuildingWidthFieldWidget extends HookConsumerWidget {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$propertyListHash() => r'ba0bfa99be660a72a311eb55c44589ccc37ea35e';
+String _$propertyListHash() => r'ef29b1c790051e629093e739cda9cd01588f23e5';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -2300,7 +2300,7 @@ class _UpdatePropertyProviderElement extends AutoDisposeNotifierProviderElement<
   PropertyModel get initial => (origin as UpdatePropertyProvider).initial;
 }
 
-String _$deletePropertyHash() => r'f961ace1eed48a2d5e491492ca594bc2f02c36da';
+String _$deletePropertyHash() => r'4e8c6c6056eacdedf75ca5c12308d37963e0815c';
 
 abstract class _$DeleteProperty
     extends BuildlessAutoDisposeNotifier<ProviderStatus<void>> {

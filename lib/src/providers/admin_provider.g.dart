@@ -24,7 +24,7 @@ final reportDataProvider = AutoDisposeFutureProvider<ReportData>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef ReportDataRef = AutoDisposeFutureProviderRef<ReportData>;
-String _$userListHash() => r'da6dcef7d0de18f70e51d71f1447b44aeb72b7bd';
+String _$userListHash() => r'750507959931bad7f91841d8d38d308374cfea1d';
 
 /// Copied from Dart SDK
 class _SystemHash {

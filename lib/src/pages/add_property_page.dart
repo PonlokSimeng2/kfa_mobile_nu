@@ -20,7 +20,7 @@ class AddPropertyPage extends HookConsumerWidget {
   const AddPropertyPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef bref) {
     return InsertPropertyFormWidget(
       builder: (ref, formKey, status, isProgressing, failure, submit) {
         return AuthWrapperWidget(

@@ -113,8 +113,10 @@ class Auth extends _$Auth {
     required String newPassword,
   }) async {
     try {
-      final adminClient = SupabaseClient(supabaseUrl,
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFnaXJ4a3hrdXZxaHVhemtwYXl0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxOTczODAxNywiZXhwIjoyMDM1MzE0MDE3fQ.MUcljuzfbdNhLSclfrp43mEFeUGoSae_LskZnsomlcM',);
+      final adminClient = SupabaseClient(
+        supabaseUrl,
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFnaXJ4a3hrdXZxaHVhemtwYXl0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxOTczODAxNywiZXhwIjoyMDM1MzE0MDE3fQ.MUcljuzfbdNhLSclfrp43mEFeUGoSae_LskZnsomlcM',
+      );
 
       await adminClient.auth.admin.updateUserById(
         userId,

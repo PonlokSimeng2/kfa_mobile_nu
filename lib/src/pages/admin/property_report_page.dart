@@ -1,5 +1,5 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/gen/assets.gen.dart';
 import 'package:kfa_mobile_nu/src/providers/property_category_provider.dart';
@@ -55,8 +55,10 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
                   children: [
                     _buildTabButton(null),
                     ...PropertyAndAutoVerbalStatus.values
-                        .where((status) =>
-                            status != PropertyAndAutoVerbalStatus.resubmit,)
+                        .where(
+                          (status) =>
+                              status != PropertyAndAutoVerbalStatus.resubmit,
+                        )
                         .map((status) => _buildTabButton(status)),
                   ],
                 ),
@@ -216,9 +218,11 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
 
                                   if (selectedCategoryTypeId.value == null) {
                                     totalSale = data.sumBy(
-                                        (element) => element.totalSale ?? 0,);
+                                      (element) => element.totalSale ?? 0,
+                                    );
                                     totalRent = data.sumBy(
-                                        (element) => element.totalRent ?? 0,);
+                                      (element) => element.totalRent ?? 0,
+                                    );
                                   } else {
                                     totalSale = data
                                         .firstWhere(
@@ -281,7 +285,8 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
                                                           : Colors.transparent,
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              10,),
+                                                        10,
+                                                      ),
                                                     ),
                                                     child: Row(
                                                       children: [
@@ -296,7 +301,8 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
                                                           ),
                                                         ),
                                                         const SizedBox(
-                                                            width: 8,),
+                                                          width: 8,
+                                                        ),
                                                         Expanded(
                                                           child: Text(
                                                             e.name,
@@ -329,7 +335,8 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
                                                     sections: [
                                                       PieChartSectionData(
                                                         color: const Color(
-                                                            0xFF0088FE,),
+                                                          0xFF0088FE,
+                                                        ),
                                                         value: totalSale
                                                             .toDouble(),
                                                         title:
@@ -338,7 +345,8 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
                                                       ),
                                                       PieChartSectionData(
                                                         color: const Color(
-                                                            0xFF00C49F,),
+                                                          0xFF00C49F,
+                                                        ),
                                                         value: totalRent
                                                             .toDouble(),
                                                         title:

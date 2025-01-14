@@ -3,7 +3,6 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/src/models/user_model.dart';
@@ -28,7 +27,6 @@ class _AccountPageState extends ConsumerState<AccountPage> {
   Uint8List? _imageBytes;
   final bool _isObscure = true;
   final ImagePicker _picker = ImagePicker();
-  final ImageCropper _cropper = ImageCropper();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
@@ -289,7 +287,8 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                       return AlertDialog(
                         title: const Text('Delete Profile Picture'),
                         content: const Text(
-                            'Are you sure you want to delete your profile picture?',),
+                          'Are you sure you want to delete your profile picture?',
+                        ),
                         actions: <Widget>[
                           TextButton(
                             child: const Text('Cancel'),
@@ -315,11 +314,13 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                                     .update({'photo': null}).eq('id', user.id);
                                 close();
                                 Fluttertoast.showToast(
-                                    msg: 'Profile image updated successfully',);
+                                  msg: 'Profile image updated successfully',
+                                );
                                 ref.invalidate(currentUserProvider);
                               } catch (e) {
                                 Fluttertoast.showToast(
-                                    msg: 'Failed to update user data: $e',);
+                                  msg: 'Failed to update user data: $e',
+                                );
                               }
 
                               Navigator.of(context).pop();
@@ -605,25 +606,33 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                                         ),
                                         focusedBorder: OutlineInputBorder(
                                           borderSide: const BorderSide(
-                                              color: kPrimaryColor, width: 2.0,),
+                                            color: kPrimaryColor,
+                                            width: 2.0,
+                                          ),
                                           borderRadius:
                                               BorderRadius.circular(10.0),
                                         ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: const BorderSide(
-                                              color: kPrimaryColor, width: 1.0,),
+                                            color: kPrimaryColor,
+                                            width: 1.0,
+                                          ),
                                           borderRadius:
                                               BorderRadius.circular(10.0),
                                         ),
                                         errorBorder: OutlineInputBorder(
                                           borderSide: const BorderSide(
-                                              color: Colors.red, width: 1.0,),
+                                            color: Colors.red,
+                                            width: 1.0,
+                                          ),
                                           borderRadius:
                                               BorderRadius.circular(10.0),
                                         ),
                                         focusedErrorBorder: OutlineInputBorder(
                                           borderSide: const BorderSide(
-                                              color: Colors.red, width: 2.0,),
+                                            color: Colors.red,
+                                            width: 2.0,
+                                          ),
                                           borderRadius:
                                               BorderRadius.circular(10.0),
                                         ),
@@ -669,25 +678,33 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                                         ),
                                         focusedBorder: OutlineInputBorder(
                                           borderSide: const BorderSide(
-                                              color: kPrimaryColor, width: 2.0,),
+                                            color: kPrimaryColor,
+                                            width: 2.0,
+                                          ),
                                           borderRadius:
                                               BorderRadius.circular(10.0),
                                         ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: const BorderSide(
-                                              color: kPrimaryColor, width: 1.0,),
+                                            color: kPrimaryColor,
+                                            width: 1.0,
+                                          ),
                                           borderRadius:
                                               BorderRadius.circular(10.0),
                                         ),
                                         errorBorder: OutlineInputBorder(
                                           borderSide: const BorderSide(
-                                              color: Colors.red, width: 1.0,),
+                                            color: Colors.red,
+                                            width: 1.0,
+                                          ),
                                           borderRadius:
                                               BorderRadius.circular(10.0),
                                         ),
                                         focusedErrorBorder: OutlineInputBorder(
                                           borderSide: const BorderSide(
-                                              color: Colors.red, width: 2.0,),
+                                            color: Colors.red,
+                                            width: 2.0,
+                                          ),
                                           borderRadius:
                                               BorderRadius.circular(10.0),
                                         ),
@@ -735,25 +752,33 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                                         ),
                                         focusedBorder: OutlineInputBorder(
                                           borderSide: const BorderSide(
-                                              color: kPrimaryColor, width: 2.0,),
+                                            color: kPrimaryColor,
+                                            width: 2.0,
+                                          ),
                                           borderRadius:
                                               BorderRadius.circular(10.0),
                                         ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: const BorderSide(
-                                              color: kPrimaryColor, width: 1.0,),
+                                            color: kPrimaryColor,
+                                            width: 1.0,
+                                          ),
                                           borderRadius:
                                               BorderRadius.circular(10.0),
                                         ),
                                         errorBorder: OutlineInputBorder(
                                           borderSide: const BorderSide(
-                                              color: Colors.red, width: 1.0,),
+                                            color: Colors.red,
+                                            width: 1.0,
+                                          ),
                                           borderRadius:
                                               BorderRadius.circular(10.0),
                                         ),
                                         focusedErrorBorder: OutlineInputBorder(
                                           borderSide: const BorderSide(
-                                              color: Colors.red, width: 2.0,),
+                                            color: Colors.red,
+                                            width: 2.0,
+                                          ),
                                           borderRadius:
                                               BorderRadius.circular(10.0),
                                         ),

@@ -62,8 +62,9 @@ class _AboutUsPageState extends ConsumerState<AboutUsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-          context.isDarkMode ? Colors.grey[900] : const Color.fromARGB(255, 245, 250, 246),
+      backgroundColor: context.isDarkMode
+          ? Colors.grey[900]
+          : const Color.fromARGB(255, 245, 250, 246),
       appBar: AppBar(
         backgroundColor: context.isDarkMode ? Colors.grey[800] : kPrimaryColor,
         elevation: 0,

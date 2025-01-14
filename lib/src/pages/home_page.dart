@@ -1,5 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+import 'package:flutter/foundation.dart';
 import 'package:kfa_mobile_nu/src/models/user_model.dart';
 import 'package:kfa_mobile_nu/src/pages/add_property_page.dart';
 import 'package:kfa_mobile_nu/src/pages/favorite_list_page.dart';

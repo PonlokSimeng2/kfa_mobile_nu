@@ -1,0 +1,41 @@
+name: Mobile App Deployment
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.27.2'
+      
+      - name: Build Android APK
+        run: |
+          flutter pub get
+          flutter build apk --release
+      
+      - name: Build iOS IPA
+        run: |
+          flutter build ios --release --no-codesign
+      
+      - name: Deploy to Google Play
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_STORE_CREDENTIALS }}
+          packageName: com.psimeng.kfa_mobile_nu
+          releaseFiles: build/app/outputs/flutter-apk/app-release.apk
+      
+      - name: Deploy to App Store
+        uses: apple-actions/upload-testflight-build@v1
+        with:
+          app-path: build/ios/ipa/app.ipa
+          apple-id: ${{ secrets.APPLE_ID }}
+          app-specific-id: ${{ secrets.APP_SPECIFIC_ID }}
+          apple-password: ${{ secrets.APPLE_PASSWORD }}

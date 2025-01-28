@@ -1,5 +1,4 @@
 name: Mobile App Deployment
-
 on:
   push:
     branches: 
@@ -10,10 +9,22 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      
+      # Add Flutter cache
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.pub-cache
+            .dart_tool/
+            build/
+          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-flutter-
       
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -22,19 +33,39 @@ jobs:
           channel: 'stable'
       
       - name: Install Dependencies
-        run: flutter pub get
+        run: |
+          flutter pub get
+          flutter doctor -v
         
+      # Clean before running tests
+      - name: Clean
+        run: flutter clean
+        
+      # Run tests with verbose flag and save output
       - name: Run Tests
-        run: flutter test
+        run: |
+          mkdir -p test-results
+          flutter test --verbose > test-results/test-output.txt 2>&1 || {
+            cat test-results/test-output.txt
+            exit 1
+          }
         
       - name: Flutter Analysis
         run: flutter analyze
       
       - name: Build Android APK
-        run: flutter build apk --release
-        continue-on-error: false
+        run: flutter build apk --release --verbose
+        
+      # Verify APK exists
+      - name: Verify APK
+        run: |
+          if [ ! -f build/app/outputs/flutter-apk/app-release.apk ]; then
+            echo "APK file not found!"
+            exit 1
+          fi
       
       - name: Deploy to Google Play
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push' # Only deploy on main branch push
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_STORE_CREDENTIALS }}
@@ -47,12 +78,20 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: release-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+          path: |
+            build/app/outputs/flutter-apk/app-release.apk
+            test-results/
           
       - name: Notify on Success
         if: success()
-        run: echo "Build and deployment completed successfully"
+        run: |
+          echo "Build and deployment completed successfully"
+          echo "Test results:"
+          cat test-results/test-output.txt || true
         
       - name: Notify on Failure
         if: failure()
-        run: echo "Build or deployment failed"
+        run: |
+          echo "Error details:"
+          cat test-results/test-output.txt || true
+          echo "Build or deployment failed"

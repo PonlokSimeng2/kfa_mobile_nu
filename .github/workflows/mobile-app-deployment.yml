@@ -2,7 +2,11 @@ name: Mobile App Deployment
 
 on:
   push:
-    branches: [main]
+    branches: 
+      - main
+  pull_request:
+    branches: 
+      - main
   workflow_dispatch:
 
 jobs:
@@ -15,15 +19,20 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.27.2'
+          channel: 'stable'
+      
+      - name: Install Dependencies
+        run: flutter pub get
+        
+      - name: Run Tests
+        run: flutter test
+        
+      - name: Flutter Analysis
+        run: flutter analyze
       
       - name: Build Android APK
-        run: |
-          flutter pub get
-          flutter build apk --release
-      
-      - name: Build iOS IPA
-        run: |
-          flutter build ios --release --no-codesign
+        run: flutter build apk --release
+        continue-on-error: false
       
       - name: Deploy to Google Play
         uses: r0adkll/upload-google-play@v1
@@ -31,11 +40,19 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_STORE_CREDENTIALS }}
           packageName: com.psimeng.kfa_mobile_nu
           releaseFiles: build/app/outputs/flutter-apk/app-release.apk
-      
-      - name: Deploy to App Store
-        uses: apple-actions/upload-testflight-build@v1
+          track: production
+          status: completed
+          
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v3
         with:
-          app-path: build/ios/ipa/app.ipa
-          apple-id: ${{ secrets.APPLE_ID }}
-          app-specific-id: ${{ secrets.APP_SPECIFIC_ID }}
-          apple-password: ${{ secrets.APPLE_PASSWORD }}
+          name: release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+          
+      - name: Notify on Success
+        if: success()
+        run: echo "Build and deployment completed successfully"
+        
+      - name: Notify on Failure
+        if: failure()
+        run: echo "Build or deployment failed"

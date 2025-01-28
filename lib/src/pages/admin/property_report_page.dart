@@ -1,4 +1,5 @@
-import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+import 'package:flutter_carousel_widget/flutter_carousel_widget.dart'
+    as flutter_carousel;
 import 'package:fl_chart/fl_chart.dart';
 import 'package:kfa_mobile_nu/exports.dart';
 import 'package:kfa_mobile_nu/gen/assets.gen.dart';
@@ -401,7 +402,7 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
                       ),
                       height: 278,
                       width: 800,
-                      child: FlutterCarousel(
+                      child: flutter_carousel.FlutterCarousel(
                         items: [
                           Assets.images.banners.bannerKFA
                               .image(fit: BoxFit.cover),
@@ -442,7 +443,7 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
                             ),
                           );
                         }).toList(),
-                        options: CarouselOptions(
+                        options: flutter_carousel.FlutterCarouselOptions(
                           autoPlay: true,
                           viewportFraction: 1,
                           enlargeCenterPage: true,
@@ -464,7 +465,7 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
                       width: MediaQuery.of(context).size.width > 650
                           ? 650
                           : MediaQuery.of(context).size.width,
-                      child: FlutterCarousel(
+                      child: flutter_carousel.FlutterCarousel(
                         items: [
                           Assets.images.banners.bannerKFA
                               .image(fit: BoxFit.cover),
@@ -505,7 +506,7 @@ class _PropertyReportPageState extends ConsumerState<PropertyReportPage> {
                             ),
                           );
                         }).toList(),
-                        options: CarouselOptions(
+                        options: flutter_carousel.FlutterCarouselOptions(
                           autoPlay: true,
                           viewportFraction: 1,
                           enlargeCenterPage: true,

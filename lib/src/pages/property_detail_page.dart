@@ -1,7 +1,8 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+import 'package:flutter_carousel_widget/flutter_carousel_widget.dart'
+    as flutter_carousel;
 import 'package:flutter/rendering.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kfa_mobile_nu/src/models/property_model.schema.dart';
@@ -196,7 +197,7 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
   Widget _buildImageCarousel() {
     return Stack(
       children: [
-        FlutterCarousel(
+        flutter_carousel.FlutterCarousel(
           items: widget.data.images.map((image) {
             return CachedNetworkImage(
               width: double.infinity,
@@ -204,7 +205,7 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
               fit: BoxFit.cover,
             );
           }).toList(),
-          options: CarouselOptions(
+          options: flutter_carousel.FlutterCarouselOptions(
             height: MediaQuery.sizeOf(context).width,
             viewportFraction: 1,
             enlargeCenterPage: false,

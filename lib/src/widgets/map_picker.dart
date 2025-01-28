@@ -9,8 +9,8 @@ import 'dart:convert';
 
 import 'package:kfa_mobile_nu/exports.dart';
 
-class MapPickerPage extends HookConsumerWidget {
-  const MapPickerPage._({this.initialPosition});
+class MapPickerPageTest extends HookConsumerWidget {
+  const MapPickerPageTest._({this.initialPosition});
 
   static Future<LatLng?> show(
     BuildContext context, {
@@ -20,7 +20,7 @@ class MapPickerPage extends HookConsumerWidget {
     return await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => MapPickerPage._(
+        builder: (_) => MapPickerPageTest._(
           initialPosition: LatLng(initialLat ?? 0, initialLng ?? 0),
         ),
       ),

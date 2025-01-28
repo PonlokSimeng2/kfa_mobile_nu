@@ -1154,7 +1154,7 @@ class _LatLog extends StatelessWidget {
                 "https://maps.googleapis.com/maps/api/staticmap?center=$latitude,$longitude&zoom=18&size=1080x920&maptype=hybrid&markers=color:red%7C%7C$latitude,$longitude&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI";
             return InkWell(
               onTap: () async {
-                final result = await MapPickerPage.show(
+                final result = await MapPickerPageTest.show(
                   context,
                   initialLat: latitude,
                   initialLng: longitude,

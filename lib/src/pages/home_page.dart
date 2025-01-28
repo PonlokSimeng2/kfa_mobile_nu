@@ -1,4 +1,5 @@
-import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+import 'package:flutter_carousel_widget/flutter_carousel_widget.dart'
+    as flutter_carousel;
 import 'package:flutter/foundation.dart';
 import 'package:kfa_mobile_nu/src/models/user_model.dart';
 import 'package:kfa_mobile_nu/src/pages/add_property_page.dart';
@@ -177,7 +178,7 @@ class __UserHomeState extends ConsumerState<_UserHome> {
         color: const Color.fromARGB(54, 15, 179, 204),
         border: Border.all(),
       ),
-      child: FlutterCarousel(
+      child: flutter_carousel.FlutterCarousel(
         items: [
           Assets.images.banners.bannerKFA.image(fit: BoxFit.cover),
           Assets.images.banners.awards2020s.image(fit: BoxFit.cover),
@@ -213,7 +214,7 @@ class __UserHomeState extends ConsumerState<_UserHome> {
             ),
           );
         }).toList(),
-        options: CarouselOptions(
+        options: flutter_carousel.FlutterCarouselOptions(
           autoPlay: true,
           viewportFraction: 1,
           enlargeCenterPage: true,

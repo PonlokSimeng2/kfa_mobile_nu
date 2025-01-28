@@ -36,30 +36,30 @@ dependencies:
   cupertino_icons: ^1.0.6
   dartx: ^1.2.0
   dio: ^5.7.0
-  fast_immutable_collections: ^10.2.4
+  fast_immutable_collections: ^11.0.3
   firebase_auth: ^5.0.0
   firebase_core: ^3.3.0
-  fl_chart: ^0.68.0
+  fl_chart: ^0.70.2
   flutter:
     sdk: flutter
-  flutter_carousel_widget: ^2.3.0
+  flutter_carousel_widget: ^3.1.0
   flutter_form_builder: ^9.3.0
   flutter_hooks: ^0.20.5
   flutter_image_compress: ^2.3.0
-  flutter_launcher_icons: ^0.13.1
+  flutter_launcher_icons: ^0.14.3
   flutter_svg: ^2.0.10
   fluttertoast: ^8.2.6
-  form_builder_validators: ^10.0.1
+  form_builder_validators: ^11.1.1
   freezed: ^2.5.0
   freezed_annotation: ^2.4.1
   geocoding: ^3.0.0
-  geolocator: ^12.0.0
+  geolocator: ^13.0.2
   geolocator_android: ^4.5.5
   getwidget: ^5.0.0
   google_fonts: ^6.2.1
   google_maps_flutter: ^2.9.0
   hooks_riverpod: ^2.5.1
-  image_cropper: ^7.1.0
+  image_cropper: ^8.1.0
   image_picker: ^1.1.2
   intl: ^0.19.0
   json_annotation: ^4.9.0
@@ -70,7 +70,7 @@ dependencies:
       ref: master
       path: packages/kimapp
   line_awesome_flutter: ^3.0.1
-  location: ^6.0.2
+  location: ^8.0.0
   location_geocoder: ^1.0.5
   logger: ^2.3.0
   multi_image_picker: ^4.8.01
@@ -86,9 +86,9 @@ dependencies:
   readmore: ^3.0.0
   riverpod_annotation: ^2.3.5
   screenshot: ^3.0.0
-  share_plus: ^9.0.0
+  share_plus: ^10.1.4
   shared_preferences: ^2.2.3
-  sizer: ^2.0.15
+  sizer: ^3.0.5
   sliver_tools: ^0.2.12
   supabase_flutter: ^2.5.6
   teledart: ^0.6.1
@@ -105,13 +105,13 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^3.0.0
+  flutter_lints: ^5.0.0
   kimapp_generator:
     git:
       url: https://github.com/pckimlong/kimapp.git
       ref: master
       path: packages/kimapp_generator
-  retrofit_generator: ^8.1.0
+  retrofit_generator: ^9.1.7
   riverpod_generator: ^2.4.0
   riverpod_lint: ^2.3.7
 

@@ -12,11 +12,11 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       # Add Flutter cache
       - name: Cache Flutter dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.pub-cache
@@ -31,6 +31,7 @@ jobs:
         with:
           flutter-version: '3.27.2'
           channel: 'stable'
+          cache: true  # Enable built-in caching
       
       - name: Install Dependencies
         run: |
@@ -66,7 +67,7 @@ jobs:
       
       - name: Deploy to Google Play
         if: github.ref == 'refs/heads/main' && github.event_name == 'push' # Only deploy on main branch push
-        uses: r0adkll/upload-google-play@v1
+        uses: r0adkll/upload-google-play@v1.1.2  # Updated to latest version
         with:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_STORE_CREDENTIALS }}
           packageName: com.psimeng.kfa_mobile_nu
@@ -75,23 +76,24 @@ jobs:
           status: completed
           
       - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4  # Updated to v4
         with:
           name: release-apk
           path: |
             build/app/outputs/flutter-apk/app-release.apk
             test-results/
+          retention-days: 30  # Added retention period
           
       - name: Notify on Success
         if: success()
         run: |
-          echo "Build and deployment completed successfully"
+          echo "::notice ::Build and deployment completed successfully"
           echo "Test results:"
           cat test-results/test-output.txt || true
         
       - name: Notify on Failure
         if: failure()
         run: |
+          echo "::error ::Build or deployment failed"
           echo "Error details:"
           cat test-results/test-output.txt || true
-          echo "Build or deployment failed"

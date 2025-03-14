@@ -1,0 +1,2 @@
+/Users/ponloksimeng/Documents/GitHub/kfa_mobile_nu/android/app/.cxx/RelWithDebInfo/4t5s4j46/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/ponloksimeng/Documents/GitHub/kfa_mobile_nu/android/app/.cxx/RelWithDebInfo/4t5s4j46/arm64-v8a/CMakeFiles/rebuild_cache.dir

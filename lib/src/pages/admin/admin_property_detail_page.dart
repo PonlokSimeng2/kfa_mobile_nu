@@ -270,28 +270,25 @@ class _AdminPropertyDetailPageState
                                 status.value ==
                                     PropertyAndAutoVerbalStatus.approved) ...[
                               if (!autoVerbalAdded.value)
-                                SizedBox(
-                                  width: 160,
-                                  child: FilledButton(
-                                    onPressed: () async {
-                                      final result = await context.push(
-                                        (_) => AddAutoVerbalPage(
-                                          propertyModel: widget.property,
-                                        ),
-                                      );
-                                      if (result == true) {
-                                        autoVerbalAdded.value = true;
-                                        scrollCtr.jumpTo(0);
-                                      }
-                                    },
-                                    child: const Text('Send to AutoVerbal'),
-                                  ),
+                                FilledButton(
+                                  onPressed: () async {
+                                    final result = await context.push(
+                                      (_) => AddAutoVerbalPage(
+                                        propertyModel: widget.property,
+                                      ),
+                                    );
+                                    if (result == true) {
+                                      autoVerbalAdded.value = true;
+                                      scrollCtr.jumpTo(0);
+                                    }
+                                  },
+                                  child: const Text('Send to AutoVerbal'),
                                 )
                               else
                                 FilledButton(
                                   onPressed: () {},
                                   child: const Text(
-                                    'Sent to AutoVerbal',
+                                    'Already sent to AutoVerbal',
                                     style: TextStyle(color: Colors.white),
                                   ),
                                 ),

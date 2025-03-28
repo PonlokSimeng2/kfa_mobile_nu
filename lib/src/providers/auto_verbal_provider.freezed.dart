@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,47 +10,115 @@ part of 'auto_verbal_provider.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$AutoVerbalListFilter {
-  IList<PropertyAndAutoVerbalStatus> get statuses =>
-      throw _privateConstructorUsedError;
-  String? get ownerNameOrPhone => throw _privateConstructorUsedError;
-  ProvinceModel? get province => throw _privateConstructorUsedError;
-  PropertyTypeModel? get propertyType => throw _privateConstructorUsedError;
-  BankModel? get bank => throw _privateConstructorUsedError;
-  String? get bankBranch => throw _privateConstructorUsedError;
-  double? get minValue => throw _privateConstructorUsedError;
-  double? get maxValue => throw _privateConstructorUsedError;
-  String? get userId => throw _privateConstructorUsedError;
-  double? get buildinglength => throw _privateConstructorUsedError;
-  double? get buildingwidth => throw _privateConstructorUsedError;
-  double? get landlength => throw _privateConstructorUsedError;
-  double? get landwidth => throw _privateConstructorUsedError;
-  RoadModel? get road => throw _privateConstructorUsedError;
-  double? get bed => throw _privateConstructorUsedError;
-  double? get bath => throw _privateConstructorUsedError;
-  double? get livingroom => throw _privateConstructorUsedError;
-  double? get floor => throw _privateConstructorUsedError;
-  DateTime? get dateFrom => throw _privateConstructorUsedError;
-  DateTime? get dateTo => throw _privateConstructorUsedError;
+  IList<PropertyAndAutoVerbalStatus> get statuses;
+  String? get ownerNameOrPhone;
+  ProvinceModel? get province;
+  PropertyTypeModel? get propertyType;
+  BankModel? get bank;
+  String? get bankBranch;
+  double? get minValue;
+  double? get maxValue;
+  String? get userId;
+  double? get buildinglength;
+  double? get buildingwidth;
+  double? get landlength;
+  double? get landwidth;
+  RoadModel? get road;
+  double? get bed;
+  double? get bath;
+  double? get livingroom;
+  double? get floor;
+  DateTime? get dateFrom;
+  DateTime? get dateTo;
 
   /// Create a copy of AutoVerbalListFilter
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $AutoVerbalListFilterCopyWith<AutoVerbalListFilter> get copyWith =>
-      throw _privateConstructorUsedError;
+      _$AutoVerbalListFilterCopyWithImpl<AutoVerbalListFilter>(
+          this as AutoVerbalListFilter, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is AutoVerbalListFilter &&
+            const DeepCollectionEquality().equals(other.statuses, statuses) &&
+            (identical(other.ownerNameOrPhone, ownerNameOrPhone) ||
+                other.ownerNameOrPhone == ownerNameOrPhone) &&
+            (identical(other.province, province) ||
+                other.province == province) &&
+            (identical(other.propertyType, propertyType) ||
+                other.propertyType == propertyType) &&
+            (identical(other.bank, bank) || other.bank == bank) &&
+            (identical(other.bankBranch, bankBranch) ||
+                other.bankBranch == bankBranch) &&
+            (identical(other.minValue, minValue) ||
+                other.minValue == minValue) &&
+            (identical(other.maxValue, maxValue) ||
+                other.maxValue == maxValue) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.buildinglength, buildinglength) ||
+                other.buildinglength == buildinglength) &&
+            (identical(other.buildingwidth, buildingwidth) ||
+                other.buildingwidth == buildingwidth) &&
+            (identical(other.landlength, landlength) ||
+                other.landlength == landlength) &&
+            (identical(other.landwidth, landwidth) ||
+                other.landwidth == landwidth) &&
+            (identical(other.road, road) || other.road == road) &&
+            (identical(other.bed, bed) || other.bed == bed) &&
+            (identical(other.bath, bath) || other.bath == bath) &&
+            (identical(other.livingroom, livingroom) ||
+                other.livingroom == livingroom) &&
+            (identical(other.floor, floor) || other.floor == floor) &&
+            (identical(other.dateFrom, dateFrom) ||
+                other.dateFrom == dateFrom) &&
+            (identical(other.dateTo, dateTo) || other.dateTo == dateTo));
+  }
+
+  @override
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        const DeepCollectionEquality().hash(statuses),
+        ownerNameOrPhone,
+        province,
+        propertyType,
+        bank,
+        bankBranch,
+        minValue,
+        maxValue,
+        userId,
+        buildinglength,
+        buildingwidth,
+        landlength,
+        landwidth,
+        road,
+        bed,
+        bath,
+        livingroom,
+        floor,
+        dateFrom,
+        dateTo
+      ]);
+
+  @override
+  String toString() {
+    return 'AutoVerbalListFilter(statuses: $statuses, ownerNameOrPhone: $ownerNameOrPhone, province: $province, propertyType: $propertyType, bank: $bank, bankBranch: $bankBranch, minValue: $minValue, maxValue: $maxValue, userId: $userId, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, road: $road, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, dateFrom: $dateFrom, dateTo: $dateTo)';
+  }
 }
 
 /// @nodoc
-abstract class $AutoVerbalListFilterCopyWith<$Res> {
+abstract mixin class $AutoVerbalListFilterCopyWith<$Res> {
   factory $AutoVerbalListFilterCopyWith(AutoVerbalListFilter value,
-          $Res Function(AutoVerbalListFilter) then) =
-      _$AutoVerbalListFilterCopyWithImpl<$Res, AutoVerbalListFilter>;
+          $Res Function(AutoVerbalListFilter) _then) =
+      _$AutoVerbalListFilterCopyWithImpl;
   @useResult
   $Res call(
       {IList<PropertyAndAutoVerbalStatus> statuses,
@@ -80,15 +149,12 @@ abstract class $AutoVerbalListFilterCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AutoVerbalListFilterCopyWithImpl<$Res,
-        $Val extends AutoVerbalListFilter>
+class _$AutoVerbalListFilterCopyWithImpl<$Res>
     implements $AutoVerbalListFilterCopyWith<$Res> {
-  _$AutoVerbalListFilterCopyWithImpl(this._value, this._then);
+  _$AutoVerbalListFilterCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final AutoVerbalListFilter _self;
+  final $Res Function(AutoVerbalListFilter) _then;
 
   /// Create a copy of AutoVerbalListFilter
   /// with the given fields replaced by the non-null parameter values.
@@ -116,88 +182,88 @@ class _$AutoVerbalListFilterCopyWithImpl<$Res,
     Object? dateFrom = freezed,
     Object? dateTo = freezed,
   }) {
-    return _then(_value.copyWith(
+    return _then(_self.copyWith(
       statuses: null == statuses
-          ? _value.statuses
+          ? _self.statuses
           : statuses // ignore: cast_nullable_to_non_nullable
               as IList<PropertyAndAutoVerbalStatus>,
       ownerNameOrPhone: freezed == ownerNameOrPhone
-          ? _value.ownerNameOrPhone
+          ? _self.ownerNameOrPhone
           : ownerNameOrPhone // ignore: cast_nullable_to_non_nullable
               as String?,
       province: freezed == province
-          ? _value.province
+          ? _self.province
           : province // ignore: cast_nullable_to_non_nullable
               as ProvinceModel?,
       propertyType: freezed == propertyType
-          ? _value.propertyType
+          ? _self.propertyType
           : propertyType // ignore: cast_nullable_to_non_nullable
               as PropertyTypeModel?,
       bank: freezed == bank
-          ? _value.bank
+          ? _self.bank
           : bank // ignore: cast_nullable_to_non_nullable
               as BankModel?,
       bankBranch: freezed == bankBranch
-          ? _value.bankBranch
+          ? _self.bankBranch
           : bankBranch // ignore: cast_nullable_to_non_nullable
               as String?,
       minValue: freezed == minValue
-          ? _value.minValue
+          ? _self.minValue
           : minValue // ignore: cast_nullable_to_non_nullable
               as double?,
       maxValue: freezed == maxValue
-          ? _value.maxValue
+          ? _self.maxValue
           : maxValue // ignore: cast_nullable_to_non_nullable
               as double?,
       userId: freezed == userId
-          ? _value.userId
+          ? _self.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String?,
       buildinglength: freezed == buildinglength
-          ? _value.buildinglength
+          ? _self.buildinglength
           : buildinglength // ignore: cast_nullable_to_non_nullable
               as double?,
       buildingwidth: freezed == buildingwidth
-          ? _value.buildingwidth
+          ? _self.buildingwidth
           : buildingwidth // ignore: cast_nullable_to_non_nullable
               as double?,
       landlength: freezed == landlength
-          ? _value.landlength
+          ? _self.landlength
           : landlength // ignore: cast_nullable_to_non_nullable
               as double?,
       landwidth: freezed == landwidth
-          ? _value.landwidth
+          ? _self.landwidth
           : landwidth // ignore: cast_nullable_to_non_nullable
               as double?,
       road: freezed == road
-          ? _value.road
+          ? _self.road
           : road // ignore: cast_nullable_to_non_nullable
               as RoadModel?,
       bed: freezed == bed
-          ? _value.bed
+          ? _self.bed
           : bed // ignore: cast_nullable_to_non_nullable
               as double?,
       bath: freezed == bath
-          ? _value.bath
+          ? _self.bath
           : bath // ignore: cast_nullable_to_non_nullable
               as double?,
       livingroom: freezed == livingroom
-          ? _value.livingroom
+          ? _self.livingroom
           : livingroom // ignore: cast_nullable_to_non_nullable
               as double?,
       floor: freezed == floor
-          ? _value.floor
+          ? _self.floor
           : floor // ignore: cast_nullable_to_non_nullable
               as double?,
       dateFrom: freezed == dateFrom
-          ? _value.dateFrom
+          ? _self.dateFrom
           : dateFrom // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       dateTo: freezed == dateTo
-          ? _value.dateTo
+          ? _self.dateTo
           : dateTo // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-    ) as $Val);
+    ));
   }
 
   /// Create a copy of AutoVerbalListFilter
@@ -205,12 +271,12 @@ class _$AutoVerbalListFilterCopyWithImpl<$Res,
   @override
   @pragma('vm:prefer-inline')
   $ProvinceModelCopyWith<$Res>? get province {
-    if (_value.province == null) {
+    if (_self.province == null) {
       return null;
     }
 
-    return $ProvinceModelCopyWith<$Res>(_value.province!, (value) {
-      return _then(_value.copyWith(province: value) as $Val);
+    return $ProvinceModelCopyWith<$Res>(_self.province!, (value) {
+      return _then(_self.copyWith(province: value));
     });
   }
 
@@ -219,12 +285,12 @@ class _$AutoVerbalListFilterCopyWithImpl<$Res,
   @override
   @pragma('vm:prefer-inline')
   $PropertyTypeModelCopyWith<$Res>? get propertyType {
-    if (_value.propertyType == null) {
+    if (_self.propertyType == null) {
       return null;
     }
 
-    return $PropertyTypeModelCopyWith<$Res>(_value.propertyType!, (value) {
-      return _then(_value.copyWith(propertyType: value) as $Val);
+    return $PropertyTypeModelCopyWith<$Res>(_self.propertyType!, (value) {
+      return _then(_self.copyWith(propertyType: value));
     });
   }
 
@@ -233,12 +299,12 @@ class _$AutoVerbalListFilterCopyWithImpl<$Res,
   @override
   @pragma('vm:prefer-inline')
   $BankModelCopyWith<$Res>? get bank {
-    if (_value.bank == null) {
+    if (_self.bank == null) {
       return null;
     }
 
-    return $BankModelCopyWith<$Res>(_value.bank!, (value) {
-      return _then(_value.copyWith(bank: value) as $Val);
+    return $BankModelCopyWith<$Res>(_self.bank!, (value) {
+      return _then(_self.copyWith(bank: value));
     });
   }
 
@@ -247,179 +313,20 @@ class _$AutoVerbalListFilterCopyWithImpl<$Res,
   @override
   @pragma('vm:prefer-inline')
   $RoadModelCopyWith<$Res>? get road {
-    if (_value.road == null) {
+    if (_self.road == null) {
       return null;
     }
 
-    return $RoadModelCopyWith<$Res>(_value.road!, (value) {
-      return _then(_value.copyWith(road: value) as $Val);
+    return $RoadModelCopyWith<$Res>(_self.road!, (value) {
+      return _then(_self.copyWith(road: value));
     });
   }
 }
 
 /// @nodoc
-abstract class _$$AutoVerbalListFilterImplCopyWith<$Res>
-    implements $AutoVerbalListFilterCopyWith<$Res> {
-  factory _$$AutoVerbalListFilterImplCopyWith(_$AutoVerbalListFilterImpl value,
-          $Res Function(_$AutoVerbalListFilterImpl) then) =
-      __$$AutoVerbalListFilterImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {IList<PropertyAndAutoVerbalStatus> statuses,
-      String? ownerNameOrPhone,
-      ProvinceModel? province,
-      PropertyTypeModel? propertyType,
-      BankModel? bank,
-      String? bankBranch,
-      double? minValue,
-      double? maxValue,
-      String? userId,
-      double? buildinglength,
-      double? buildingwidth,
-      double? landlength,
-      double? landwidth,
-      RoadModel? road,
-      double? bed,
-      double? bath,
-      double? livingroom,
-      double? floor,
-      DateTime? dateFrom,
-      DateTime? dateTo});
 
-  @override
-  $ProvinceModelCopyWith<$Res>? get province;
-  @override
-  $PropertyTypeModelCopyWith<$Res>? get propertyType;
-  @override
-  $BankModelCopyWith<$Res>? get bank;
-  @override
-  $RoadModelCopyWith<$Res>? get road;
-}
-
-/// @nodoc
-class __$$AutoVerbalListFilterImplCopyWithImpl<$Res>
-    extends _$AutoVerbalListFilterCopyWithImpl<$Res, _$AutoVerbalListFilterImpl>
-    implements _$$AutoVerbalListFilterImplCopyWith<$Res> {
-  __$$AutoVerbalListFilterImplCopyWithImpl(_$AutoVerbalListFilterImpl _value,
-      $Res Function(_$AutoVerbalListFilterImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of AutoVerbalListFilter
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? statuses = null,
-    Object? ownerNameOrPhone = freezed,
-    Object? province = freezed,
-    Object? propertyType = freezed,
-    Object? bank = freezed,
-    Object? bankBranch = freezed,
-    Object? minValue = freezed,
-    Object? maxValue = freezed,
-    Object? userId = freezed,
-    Object? buildinglength = freezed,
-    Object? buildingwidth = freezed,
-    Object? landlength = freezed,
-    Object? landwidth = freezed,
-    Object? road = freezed,
-    Object? bed = freezed,
-    Object? bath = freezed,
-    Object? livingroom = freezed,
-    Object? floor = freezed,
-    Object? dateFrom = freezed,
-    Object? dateTo = freezed,
-  }) {
-    return _then(_$AutoVerbalListFilterImpl(
-      statuses: null == statuses
-          ? _value.statuses
-          : statuses // ignore: cast_nullable_to_non_nullable
-              as IList<PropertyAndAutoVerbalStatus>,
-      ownerNameOrPhone: freezed == ownerNameOrPhone
-          ? _value.ownerNameOrPhone
-          : ownerNameOrPhone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      province: freezed == province
-          ? _value.province
-          : province // ignore: cast_nullable_to_non_nullable
-              as ProvinceModel?,
-      propertyType: freezed == propertyType
-          ? _value.propertyType
-          : propertyType // ignore: cast_nullable_to_non_nullable
-              as PropertyTypeModel?,
-      bank: freezed == bank
-          ? _value.bank
-          : bank // ignore: cast_nullable_to_non_nullable
-              as BankModel?,
-      bankBranch: freezed == bankBranch
-          ? _value.bankBranch
-          : bankBranch // ignore: cast_nullable_to_non_nullable
-              as String?,
-      minValue: freezed == minValue
-          ? _value.minValue
-          : minValue // ignore: cast_nullable_to_non_nullable
-              as double?,
-      maxValue: freezed == maxValue
-          ? _value.maxValue
-          : maxValue // ignore: cast_nullable_to_non_nullable
-              as double?,
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      buildinglength: freezed == buildinglength
-          ? _value.buildinglength
-          : buildinglength // ignore: cast_nullable_to_non_nullable
-              as double?,
-      buildingwidth: freezed == buildingwidth
-          ? _value.buildingwidth
-          : buildingwidth // ignore: cast_nullable_to_non_nullable
-              as double?,
-      landlength: freezed == landlength
-          ? _value.landlength
-          : landlength // ignore: cast_nullable_to_non_nullable
-              as double?,
-      landwidth: freezed == landwidth
-          ? _value.landwidth
-          : landwidth // ignore: cast_nullable_to_non_nullable
-              as double?,
-      road: freezed == road
-          ? _value.road
-          : road // ignore: cast_nullable_to_non_nullable
-              as RoadModel?,
-      bed: freezed == bed
-          ? _value.bed
-          : bed // ignore: cast_nullable_to_non_nullable
-              as double?,
-      bath: freezed == bath
-          ? _value.bath
-          : bath // ignore: cast_nullable_to_non_nullable
-              as double?,
-      livingroom: freezed == livingroom
-          ? _value.livingroom
-          : livingroom // ignore: cast_nullable_to_non_nullable
-              as double?,
-      floor: freezed == floor
-          ? _value.floor
-          : floor // ignore: cast_nullable_to_non_nullable
-              as double?,
-      dateFrom: freezed == dateFrom
-          ? _value.dateFrom
-          : dateFrom // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      dateTo: freezed == dateTo
-          ? _value.dateTo
-          : dateTo // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$AutoVerbalListFilterImpl extends _AutoVerbalListFilter {
-  const _$AutoVerbalListFilterImpl(
+class _AutoVerbalListFilter extends AutoVerbalListFilter {
+  const _AutoVerbalListFilter(
       {this.statuses = const IListConst([PropertyAndAutoVerbalStatus.approved]),
       this.ownerNameOrPhone,
       this.province,
@@ -484,16 +391,20 @@ class _$AutoVerbalListFilterImpl extends _AutoVerbalListFilter {
   @override
   final DateTime? dateTo;
 
+  /// Create a copy of AutoVerbalListFilter
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'AutoVerbalListFilter(statuses: $statuses, ownerNameOrPhone: $ownerNameOrPhone, province: $province, propertyType: $propertyType, bank: $bank, bankBranch: $bankBranch, minValue: $minValue, maxValue: $maxValue, userId: $userId, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, road: $road, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, dateFrom: $dateFrom, dateTo: $dateTo)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$AutoVerbalListFilterCopyWith<_AutoVerbalListFilter> get copyWith =>
+      __$AutoVerbalListFilterCopyWithImpl<_AutoVerbalListFilter>(
+          this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AutoVerbalListFilterImpl &&
+            other is _AutoVerbalListFilter &&
             const DeepCollectionEquality().equals(other.statuses, statuses) &&
             (identical(other.ownerNameOrPhone, ownerNameOrPhone) ||
                 other.ownerNameOrPhone == ownerNameOrPhone) &&
@@ -553,134 +464,367 @@ class _$AutoVerbalListFilterImpl extends _AutoVerbalListFilter {
         dateTo
       ]);
 
-  /// Create a copy of AutoVerbalListFilter
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$AutoVerbalListFilterImplCopyWith<_$AutoVerbalListFilterImpl>
-      get copyWith =>
-          __$$AutoVerbalListFilterImplCopyWithImpl<_$AutoVerbalListFilterImpl>(
-              this, _$identity);
+  String toString() {
+    return 'AutoVerbalListFilter(statuses: $statuses, ownerNameOrPhone: $ownerNameOrPhone, province: $province, propertyType: $propertyType, bank: $bank, bankBranch: $bankBranch, minValue: $minValue, maxValue: $maxValue, userId: $userId, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, road: $road, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, dateFrom: $dateFrom, dateTo: $dateTo)';
+  }
 }
 
-abstract class _AutoVerbalListFilter extends AutoVerbalListFilter {
-  const factory _AutoVerbalListFilter(
-      {final IList<PropertyAndAutoVerbalStatus> statuses,
-      final String? ownerNameOrPhone,
-      final ProvinceModel? province,
-      final PropertyTypeModel? propertyType,
-      final BankModel? bank,
-      final String? bankBranch,
-      final double? minValue,
-      final double? maxValue,
-      final String? userId,
-      final double? buildinglength,
-      final double? buildingwidth,
-      final double? landlength,
-      final double? landwidth,
-      final RoadModel? road,
-      final double? bed,
-      final double? bath,
-      final double? livingroom,
-      final double? floor,
-      final DateTime? dateFrom,
-      final DateTime? dateTo}) = _$AutoVerbalListFilterImpl;
-  const _AutoVerbalListFilter._() : super._();
+/// @nodoc
+abstract mixin class _$AutoVerbalListFilterCopyWith<$Res>
+    implements $AutoVerbalListFilterCopyWith<$Res> {
+  factory _$AutoVerbalListFilterCopyWith(_AutoVerbalListFilter value,
+          $Res Function(_AutoVerbalListFilter) _then) =
+      __$AutoVerbalListFilterCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {IList<PropertyAndAutoVerbalStatus> statuses,
+      String? ownerNameOrPhone,
+      ProvinceModel? province,
+      PropertyTypeModel? propertyType,
+      BankModel? bank,
+      String? bankBranch,
+      double? minValue,
+      double? maxValue,
+      String? userId,
+      double? buildinglength,
+      double? buildingwidth,
+      double? landlength,
+      double? landwidth,
+      RoadModel? road,
+      double? bed,
+      double? bath,
+      double? livingroom,
+      double? floor,
+      DateTime? dateFrom,
+      DateTime? dateTo});
 
   @override
-  IList<PropertyAndAutoVerbalStatus> get statuses;
+  $ProvinceModelCopyWith<$Res>? get province;
   @override
-  String? get ownerNameOrPhone;
+  $PropertyTypeModelCopyWith<$Res>? get propertyType;
   @override
-  ProvinceModel? get province;
+  $BankModelCopyWith<$Res>? get bank;
   @override
-  PropertyTypeModel? get propertyType;
-  @override
-  BankModel? get bank;
-  @override
-  String? get bankBranch;
-  @override
-  double? get minValue;
-  @override
-  double? get maxValue;
-  @override
-  String? get userId;
-  @override
-  double? get buildinglength;
-  @override
-  double? get buildingwidth;
-  @override
-  double? get landlength;
-  @override
-  double? get landwidth;
-  @override
-  RoadModel? get road;
-  @override
-  double? get bed;
-  @override
-  double? get bath;
-  @override
-  double? get livingroom;
-  @override
-  double? get floor;
-  @override
-  DateTime? get dateFrom;
-  @override
-  DateTime? get dateTo;
+  $RoadModelCopyWith<$Res>? get road;
+}
+
+/// @nodoc
+class __$AutoVerbalListFilterCopyWithImpl<$Res>
+    implements _$AutoVerbalListFilterCopyWith<$Res> {
+  __$AutoVerbalListFilterCopyWithImpl(this._self, this._then);
+
+  final _AutoVerbalListFilter _self;
+  final $Res Function(_AutoVerbalListFilter) _then;
 
   /// Create a copy of AutoVerbalListFilter
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AutoVerbalListFilterImplCopyWith<_$AutoVerbalListFilterImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? statuses = null,
+    Object? ownerNameOrPhone = freezed,
+    Object? province = freezed,
+    Object? propertyType = freezed,
+    Object? bank = freezed,
+    Object? bankBranch = freezed,
+    Object? minValue = freezed,
+    Object? maxValue = freezed,
+    Object? userId = freezed,
+    Object? buildinglength = freezed,
+    Object? buildingwidth = freezed,
+    Object? landlength = freezed,
+    Object? landwidth = freezed,
+    Object? road = freezed,
+    Object? bed = freezed,
+    Object? bath = freezed,
+    Object? livingroom = freezed,
+    Object? floor = freezed,
+    Object? dateFrom = freezed,
+    Object? dateTo = freezed,
+  }) {
+    return _then(_AutoVerbalListFilter(
+      statuses: null == statuses
+          ? _self.statuses
+          : statuses // ignore: cast_nullable_to_non_nullable
+              as IList<PropertyAndAutoVerbalStatus>,
+      ownerNameOrPhone: freezed == ownerNameOrPhone
+          ? _self.ownerNameOrPhone
+          : ownerNameOrPhone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      province: freezed == province
+          ? _self.province
+          : province // ignore: cast_nullable_to_non_nullable
+              as ProvinceModel?,
+      propertyType: freezed == propertyType
+          ? _self.propertyType
+          : propertyType // ignore: cast_nullable_to_non_nullable
+              as PropertyTypeModel?,
+      bank: freezed == bank
+          ? _self.bank
+          : bank // ignore: cast_nullable_to_non_nullable
+              as BankModel?,
+      bankBranch: freezed == bankBranch
+          ? _self.bankBranch
+          : bankBranch // ignore: cast_nullable_to_non_nullable
+              as String?,
+      minValue: freezed == minValue
+          ? _self.minValue
+          : minValue // ignore: cast_nullable_to_non_nullable
+              as double?,
+      maxValue: freezed == maxValue
+          ? _self.maxValue
+          : maxValue // ignore: cast_nullable_to_non_nullable
+              as double?,
+      userId: freezed == userId
+          ? _self.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      buildinglength: freezed == buildinglength
+          ? _self.buildinglength
+          : buildinglength // ignore: cast_nullable_to_non_nullable
+              as double?,
+      buildingwidth: freezed == buildingwidth
+          ? _self.buildingwidth
+          : buildingwidth // ignore: cast_nullable_to_non_nullable
+              as double?,
+      landlength: freezed == landlength
+          ? _self.landlength
+          : landlength // ignore: cast_nullable_to_non_nullable
+              as double?,
+      landwidth: freezed == landwidth
+          ? _self.landwidth
+          : landwidth // ignore: cast_nullable_to_non_nullable
+              as double?,
+      road: freezed == road
+          ? _self.road
+          : road // ignore: cast_nullable_to_non_nullable
+              as RoadModel?,
+      bed: freezed == bed
+          ? _self.bed
+          : bed // ignore: cast_nullable_to_non_nullable
+              as double?,
+      bath: freezed == bath
+          ? _self.bath
+          : bath // ignore: cast_nullable_to_non_nullable
+              as double?,
+      livingroom: freezed == livingroom
+          ? _self.livingroom
+          : livingroom // ignore: cast_nullable_to_non_nullable
+              as double?,
+      floor: freezed == floor
+          ? _self.floor
+          : floor // ignore: cast_nullable_to_non_nullable
+              as double?,
+      dateFrom: freezed == dateFrom
+          ? _self.dateFrom
+          : dateFrom // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      dateTo: freezed == dateTo
+          ? _self.dateTo
+          : dateTo // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+
+  /// Create a copy of AutoVerbalListFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProvinceModelCopyWith<$Res>? get province {
+    if (_self.province == null) {
+      return null;
+    }
+
+    return $ProvinceModelCopyWith<$Res>(_self.province!, (value) {
+      return _then(_self.copyWith(province: value));
+    });
+  }
+
+  /// Create a copy of AutoVerbalListFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PropertyTypeModelCopyWith<$Res>? get propertyType {
+    if (_self.propertyType == null) {
+      return null;
+    }
+
+    return $PropertyTypeModelCopyWith<$Res>(_self.propertyType!, (value) {
+      return _then(_self.copyWith(propertyType: value));
+    });
+  }
+
+  /// Create a copy of AutoVerbalListFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $BankModelCopyWith<$Res>? get bank {
+    if (_self.bank == null) {
+      return null;
+    }
+
+    return $BankModelCopyWith<$Res>(_self.bank!, (value) {
+      return _then(_self.copyWith(bank: value));
+    });
+  }
+
+  /// Create a copy of AutoVerbalListFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $RoadModelCopyWith<$Res>? get road {
+    if (_self.road == null) {
+      return null;
+    }
+
+    return $RoadModelCopyWith<$Res>(_self.road!, (value) {
+      return _then(_self.copyWith(road: value));
+    });
+  }
 }
 
 /// @nodoc
 mixin _$InsertAutoVerbalState {
 // only useful when copy from property
-  IList<String> get existingImageUrls => throw _privateConstructorUsedError;
-  int? get propertyId => throw _privateConstructorUsedError;
-  IList<XFile> get imageFiles => throw _privateConstructorUsedError;
-  PropertyTypeModel? get propertyType => throw _privateConstructorUsedError;
-  ProvinceModel? get province => throw _privateConstructorUsedError;
-  BankModel? get bank => throw _privateConstructorUsedError;
-  String? get bankBranch => throw _privateConstructorUsedError;
-  String? get ownerName => throw _privateConstructorUsedError;
-  String? get ownerPhone => throw _privateConstructorUsedError;
-  String? get bankOfficerName => throw _privateConstructorUsedError;
-  String? get bankOfficerPhone => throw _privateConstructorUsedError;
-  double? get minValue => throw _privateConstructorUsedError;
-  double? get maxValue => throw _privateConstructorUsedError;
-  double? get minValueSqm => throw _privateConstructorUsedError;
-  double? get maxValueSqm => throw _privateConstructorUsedError;
-  double? get latitude => throw _privateConstructorUsedError;
-  double? get longitude => throw _privateConstructorUsedError;
-  double? get area => throw _privateConstructorUsedError;
-  double? get buildinglength => throw _privateConstructorUsedError;
-  double? get buildingwidth => throw _privateConstructorUsedError;
-  double? get landlength => throw _privateConstructorUsedError;
-  double? get landwidth => throw _privateConstructorUsedError;
-  RoadModel? get road => throw _privateConstructorUsedError;
-  int? get bed => throw _privateConstructorUsedError;
-  int? get bath => throw _privateConstructorUsedError;
-  int? get livingroom => throw _privateConstructorUsedError;
-  int? get floor => throw _privateConstructorUsedError;
-  ProviderStatus<void> get status => throw _privateConstructorUsedError;
+  IList<String> get existingImageUrls;
+  int? get propertyId;
+  IList<XFile> get imageFiles;
+  PropertyTypeModel? get propertyType;
+  ProvinceModel? get province;
+  BankModel? get bank;
+  String? get bankBranch;
+  String? get ownerName;
+  String? get ownerPhone;
+  String? get bankOfficerName;
+  String? get bankOfficerPhone;
+  double? get minValue;
+  double? get maxValue;
+  double? get minValueSqm;
+  double? get maxValueSqm;
+  double? get latitude;
+  double? get longitude;
+  double? get area;
+  double? get buildinglength;
+  double? get buildingwidth;
+  double? get landlength;
+  double? get landwidth;
+  RoadModel? get road;
+  int? get bed;
+  int? get bath;
+  int? get livingroom;
+  int? get floor;
+  ProviderStatus<void> get status;
 
   /// Create a copy of InsertAutoVerbalState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $InsertAutoVerbalStateCopyWith<InsertAutoVerbalState> get copyWith =>
-      throw _privateConstructorUsedError;
+      _$InsertAutoVerbalStateCopyWithImpl<InsertAutoVerbalState>(
+          this as InsertAutoVerbalState, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is InsertAutoVerbalState &&
+            const DeepCollectionEquality()
+                .equals(other.existingImageUrls, existingImageUrls) &&
+            (identical(other.propertyId, propertyId) ||
+                other.propertyId == propertyId) &&
+            const DeepCollectionEquality()
+                .equals(other.imageFiles, imageFiles) &&
+            (identical(other.propertyType, propertyType) ||
+                other.propertyType == propertyType) &&
+            (identical(other.province, province) ||
+                other.province == province) &&
+            (identical(other.bank, bank) || other.bank == bank) &&
+            (identical(other.bankBranch, bankBranch) ||
+                other.bankBranch == bankBranch) &&
+            (identical(other.ownerName, ownerName) ||
+                other.ownerName == ownerName) &&
+            (identical(other.ownerPhone, ownerPhone) ||
+                other.ownerPhone == ownerPhone) &&
+            (identical(other.bankOfficerName, bankOfficerName) ||
+                other.bankOfficerName == bankOfficerName) &&
+            (identical(other.bankOfficerPhone, bankOfficerPhone) ||
+                other.bankOfficerPhone == bankOfficerPhone) &&
+            (identical(other.minValue, minValue) ||
+                other.minValue == minValue) &&
+            (identical(other.maxValue, maxValue) ||
+                other.maxValue == maxValue) &&
+            (identical(other.minValueSqm, minValueSqm) ||
+                other.minValueSqm == minValueSqm) &&
+            (identical(other.maxValueSqm, maxValueSqm) ||
+                other.maxValueSqm == maxValueSqm) &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
+            (identical(other.area, area) || other.area == area) &&
+            (identical(other.buildinglength, buildinglength) ||
+                other.buildinglength == buildinglength) &&
+            (identical(other.buildingwidth, buildingwidth) ||
+                other.buildingwidth == buildingwidth) &&
+            (identical(other.landlength, landlength) ||
+                other.landlength == landlength) &&
+            (identical(other.landwidth, landwidth) ||
+                other.landwidth == landwidth) &&
+            (identical(other.road, road) || other.road == road) &&
+            (identical(other.bed, bed) || other.bed == bed) &&
+            (identical(other.bath, bath) || other.bath == bath) &&
+            (identical(other.livingroom, livingroom) ||
+                other.livingroom == livingroom) &&
+            (identical(other.floor, floor) || other.floor == floor) &&
+            (identical(other.status, status) || other.status == status));
+  }
+
+  @override
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        const DeepCollectionEquality().hash(existingImageUrls),
+        propertyId,
+        const DeepCollectionEquality().hash(imageFiles),
+        propertyType,
+        province,
+        bank,
+        bankBranch,
+        ownerName,
+        ownerPhone,
+        bankOfficerName,
+        bankOfficerPhone,
+        minValue,
+        maxValue,
+        minValueSqm,
+        maxValueSqm,
+        latitude,
+        longitude,
+        area,
+        buildinglength,
+        buildingwidth,
+        landlength,
+        landwidth,
+        road,
+        bed,
+        bath,
+        livingroom,
+        floor,
+        status
+      ]);
+
+  @override
+  String toString() {
+    return 'InsertAutoVerbalState(existingImageUrls: $existingImageUrls, propertyId: $propertyId, imageFiles: $imageFiles, propertyType: $propertyType, province: $province, bank: $bank, bankBranch: $bankBranch, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, latitude: $latitude, longitude: $longitude, area: $area, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, road: $road, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, status: $status)';
+  }
 }
 
 /// @nodoc
-abstract class $InsertAutoVerbalStateCopyWith<$Res> {
+abstract mixin class $InsertAutoVerbalStateCopyWith<$Res> {
   factory $InsertAutoVerbalStateCopyWith(InsertAutoVerbalState value,
-          $Res Function(InsertAutoVerbalState) then) =
-      _$InsertAutoVerbalStateCopyWithImpl<$Res, InsertAutoVerbalState>;
+          $Res Function(InsertAutoVerbalState) _then) =
+      _$InsertAutoVerbalStateCopyWithImpl;
   @useResult
   $Res call(
       {IList<String> existingImageUrls,
@@ -720,15 +864,12 @@ abstract class $InsertAutoVerbalStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$InsertAutoVerbalStateCopyWithImpl<$Res,
-        $Val extends InsertAutoVerbalState>
+class _$InsertAutoVerbalStateCopyWithImpl<$Res>
     implements $InsertAutoVerbalStateCopyWith<$Res> {
-  _$InsertAutoVerbalStateCopyWithImpl(this._value, this._then);
+  _$InsertAutoVerbalStateCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final InsertAutoVerbalState _self;
+  final $Res Function(InsertAutoVerbalState) _then;
 
   /// Create a copy of InsertAutoVerbalState
   /// with the given fields replaced by the non-null parameter values.
@@ -764,120 +905,120 @@ class _$InsertAutoVerbalStateCopyWithImpl<$Res,
     Object? floor = freezed,
     Object? status = null,
   }) {
-    return _then(_value.copyWith(
+    return _then(_self.copyWith(
       existingImageUrls: null == existingImageUrls
-          ? _value.existingImageUrls
+          ? _self.existingImageUrls
           : existingImageUrls // ignore: cast_nullable_to_non_nullable
               as IList<String>,
       propertyId: freezed == propertyId
-          ? _value.propertyId
+          ? _self.propertyId
           : propertyId // ignore: cast_nullable_to_non_nullable
               as int?,
       imageFiles: null == imageFiles
-          ? _value.imageFiles
+          ? _self.imageFiles
           : imageFiles // ignore: cast_nullable_to_non_nullable
               as IList<XFile>,
       propertyType: freezed == propertyType
-          ? _value.propertyType
+          ? _self.propertyType
           : propertyType // ignore: cast_nullable_to_non_nullable
               as PropertyTypeModel?,
       province: freezed == province
-          ? _value.province
+          ? _self.province
           : province // ignore: cast_nullable_to_non_nullable
               as ProvinceModel?,
       bank: freezed == bank
-          ? _value.bank
+          ? _self.bank
           : bank // ignore: cast_nullable_to_non_nullable
               as BankModel?,
       bankBranch: freezed == bankBranch
-          ? _value.bankBranch
+          ? _self.bankBranch
           : bankBranch // ignore: cast_nullable_to_non_nullable
               as String?,
       ownerName: freezed == ownerName
-          ? _value.ownerName
+          ? _self.ownerName
           : ownerName // ignore: cast_nullable_to_non_nullable
               as String?,
       ownerPhone: freezed == ownerPhone
-          ? _value.ownerPhone
+          ? _self.ownerPhone
           : ownerPhone // ignore: cast_nullable_to_non_nullable
               as String?,
       bankOfficerName: freezed == bankOfficerName
-          ? _value.bankOfficerName
+          ? _self.bankOfficerName
           : bankOfficerName // ignore: cast_nullable_to_non_nullable
               as String?,
       bankOfficerPhone: freezed == bankOfficerPhone
-          ? _value.bankOfficerPhone
+          ? _self.bankOfficerPhone
           : bankOfficerPhone // ignore: cast_nullable_to_non_nullable
               as String?,
       minValue: freezed == minValue
-          ? _value.minValue
+          ? _self.minValue
           : minValue // ignore: cast_nullable_to_non_nullable
               as double?,
       maxValue: freezed == maxValue
-          ? _value.maxValue
+          ? _self.maxValue
           : maxValue // ignore: cast_nullable_to_non_nullable
               as double?,
       minValueSqm: freezed == minValueSqm
-          ? _value.minValueSqm
+          ? _self.minValueSqm
           : minValueSqm // ignore: cast_nullable_to_non_nullable
               as double?,
       maxValueSqm: freezed == maxValueSqm
-          ? _value.maxValueSqm
+          ? _self.maxValueSqm
           : maxValueSqm // ignore: cast_nullable_to_non_nullable
               as double?,
       latitude: freezed == latitude
-          ? _value.latitude
+          ? _self.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as double?,
       longitude: freezed == longitude
-          ? _value.longitude
+          ? _self.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double?,
       area: freezed == area
-          ? _value.area
+          ? _self.area
           : area // ignore: cast_nullable_to_non_nullable
               as double?,
       buildinglength: freezed == buildinglength
-          ? _value.buildinglength
+          ? _self.buildinglength
           : buildinglength // ignore: cast_nullable_to_non_nullable
               as double?,
       buildingwidth: freezed == buildingwidth
-          ? _value.buildingwidth
+          ? _self.buildingwidth
           : buildingwidth // ignore: cast_nullable_to_non_nullable
               as double?,
       landlength: freezed == landlength
-          ? _value.landlength
+          ? _self.landlength
           : landlength // ignore: cast_nullable_to_non_nullable
               as double?,
       landwidth: freezed == landwidth
-          ? _value.landwidth
+          ? _self.landwidth
           : landwidth // ignore: cast_nullable_to_non_nullable
               as double?,
       road: freezed == road
-          ? _value.road
+          ? _self.road
           : road // ignore: cast_nullable_to_non_nullable
               as RoadModel?,
       bed: freezed == bed
-          ? _value.bed
+          ? _self.bed
           : bed // ignore: cast_nullable_to_non_nullable
               as int?,
       bath: freezed == bath
-          ? _value.bath
+          ? _self.bath
           : bath // ignore: cast_nullable_to_non_nullable
               as int?,
       livingroom: freezed == livingroom
-          ? _value.livingroom
+          ? _self.livingroom
           : livingroom // ignore: cast_nullable_to_non_nullable
               as int?,
       floor: freezed == floor
-          ? _value.floor
+          ? _self.floor
           : floor // ignore: cast_nullable_to_non_nullable
               as int?,
       status: null == status
-          ? _value.status
+          ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as ProviderStatus<void>,
-    ) as $Val);
+    ));
   }
 
   /// Create a copy of InsertAutoVerbalState
@@ -885,12 +1026,12 @@ class _$InsertAutoVerbalStateCopyWithImpl<$Res,
   @override
   @pragma('vm:prefer-inline')
   $PropertyTypeModelCopyWith<$Res>? get propertyType {
-    if (_value.propertyType == null) {
+    if (_self.propertyType == null) {
       return null;
     }
 
-    return $PropertyTypeModelCopyWith<$Res>(_value.propertyType!, (value) {
-      return _then(_value.copyWith(propertyType: value) as $Val);
+    return $PropertyTypeModelCopyWith<$Res>(_self.propertyType!, (value) {
+      return _then(_self.copyWith(propertyType: value));
     });
   }
 
@@ -899,12 +1040,12 @@ class _$InsertAutoVerbalStateCopyWithImpl<$Res,
   @override
   @pragma('vm:prefer-inline')
   $ProvinceModelCopyWith<$Res>? get province {
-    if (_value.province == null) {
+    if (_self.province == null) {
       return null;
     }
 
-    return $ProvinceModelCopyWith<$Res>(_value.province!, (value) {
-      return _then(_value.copyWith(province: value) as $Val);
+    return $ProvinceModelCopyWith<$Res>(_self.province!, (value) {
+      return _then(_self.copyWith(province: value));
     });
   }
 
@@ -913,12 +1054,12 @@ class _$InsertAutoVerbalStateCopyWithImpl<$Res,
   @override
   @pragma('vm:prefer-inline')
   $BankModelCopyWith<$Res>? get bank {
-    if (_value.bank == null) {
+    if (_self.bank == null) {
       return null;
     }
 
-    return $BankModelCopyWith<$Res>(_value.bank!, (value) {
-      return _then(_value.copyWith(bank: value) as $Val);
+    return $BankModelCopyWith<$Res>(_self.bank!, (value) {
+      return _then(_self.copyWith(bank: value));
     });
   }
 
@@ -927,12 +1068,12 @@ class _$InsertAutoVerbalStateCopyWithImpl<$Res,
   @override
   @pragma('vm:prefer-inline')
   $RoadModelCopyWith<$Res>? get road {
-    if (_value.road == null) {
+    if (_self.road == null) {
       return null;
     }
 
-    return $RoadModelCopyWith<$Res>(_value.road!, (value) {
-      return _then(_value.copyWith(road: value) as $Val);
+    return $RoadModelCopyWith<$Res>(_self.road!, (value) {
+      return _then(_self.copyWith(road: value));
     });
   }
 
@@ -941,227 +1082,16 @@ class _$InsertAutoVerbalStateCopyWithImpl<$Res,
   @override
   @pragma('vm:prefer-inline')
   $ProviderStatusCopyWith<void, $Res> get status {
-    return $ProviderStatusCopyWith<void, $Res>(_value.status, (value) {
-      return _then(_value.copyWith(status: value) as $Val);
+    return $ProviderStatusCopyWith<void, $Res>(_self.status, (value) {
+      return _then(_self.copyWith(status: value));
     });
   }
 }
 
 /// @nodoc
-abstract class _$$InsertAutoVerbalStateImplCopyWith<$Res>
-    implements $InsertAutoVerbalStateCopyWith<$Res> {
-  factory _$$InsertAutoVerbalStateImplCopyWith(
-          _$InsertAutoVerbalStateImpl value,
-          $Res Function(_$InsertAutoVerbalStateImpl) then) =
-      __$$InsertAutoVerbalStateImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {IList<String> existingImageUrls,
-      int? propertyId,
-      IList<XFile> imageFiles,
-      PropertyTypeModel? propertyType,
-      ProvinceModel? province,
-      BankModel? bank,
-      String? bankBranch,
-      String? ownerName,
-      String? ownerPhone,
-      String? bankOfficerName,
-      String? bankOfficerPhone,
-      double? minValue,
-      double? maxValue,
-      double? minValueSqm,
-      double? maxValueSqm,
-      double? latitude,
-      double? longitude,
-      double? area,
-      double? buildinglength,
-      double? buildingwidth,
-      double? landlength,
-      double? landwidth,
-      RoadModel? road,
-      int? bed,
-      int? bath,
-      int? livingroom,
-      int? floor,
-      ProviderStatus<void> status});
 
-  @override
-  $PropertyTypeModelCopyWith<$Res>? get propertyType;
-  @override
-  $ProvinceModelCopyWith<$Res>? get province;
-  @override
-  $BankModelCopyWith<$Res>? get bank;
-  @override
-  $RoadModelCopyWith<$Res>? get road;
-  @override
-  $ProviderStatusCopyWith<void, $Res> get status;
-}
-
-/// @nodoc
-class __$$InsertAutoVerbalStateImplCopyWithImpl<$Res>
-    extends _$InsertAutoVerbalStateCopyWithImpl<$Res,
-        _$InsertAutoVerbalStateImpl>
-    implements _$$InsertAutoVerbalStateImplCopyWith<$Res> {
-  __$$InsertAutoVerbalStateImplCopyWithImpl(_$InsertAutoVerbalStateImpl _value,
-      $Res Function(_$InsertAutoVerbalStateImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of InsertAutoVerbalState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? existingImageUrls = null,
-    Object? propertyId = freezed,
-    Object? imageFiles = null,
-    Object? propertyType = freezed,
-    Object? province = freezed,
-    Object? bank = freezed,
-    Object? bankBranch = freezed,
-    Object? ownerName = freezed,
-    Object? ownerPhone = freezed,
-    Object? bankOfficerName = freezed,
-    Object? bankOfficerPhone = freezed,
-    Object? minValue = freezed,
-    Object? maxValue = freezed,
-    Object? minValueSqm = freezed,
-    Object? maxValueSqm = freezed,
-    Object? latitude = freezed,
-    Object? longitude = freezed,
-    Object? area = freezed,
-    Object? buildinglength = freezed,
-    Object? buildingwidth = freezed,
-    Object? landlength = freezed,
-    Object? landwidth = freezed,
-    Object? road = freezed,
-    Object? bed = freezed,
-    Object? bath = freezed,
-    Object? livingroom = freezed,
-    Object? floor = freezed,
-    Object? status = null,
-  }) {
-    return _then(_$InsertAutoVerbalStateImpl(
-      existingImageUrls: null == existingImageUrls
-          ? _value.existingImageUrls
-          : existingImageUrls // ignore: cast_nullable_to_non_nullable
-              as IList<String>,
-      propertyId: freezed == propertyId
-          ? _value.propertyId
-          : propertyId // ignore: cast_nullable_to_non_nullable
-              as int?,
-      imageFiles: null == imageFiles
-          ? _value.imageFiles
-          : imageFiles // ignore: cast_nullable_to_non_nullable
-              as IList<XFile>,
-      propertyType: freezed == propertyType
-          ? _value.propertyType
-          : propertyType // ignore: cast_nullable_to_non_nullable
-              as PropertyTypeModel?,
-      province: freezed == province
-          ? _value.province
-          : province // ignore: cast_nullable_to_non_nullable
-              as ProvinceModel?,
-      bank: freezed == bank
-          ? _value.bank
-          : bank // ignore: cast_nullable_to_non_nullable
-              as BankModel?,
-      bankBranch: freezed == bankBranch
-          ? _value.bankBranch
-          : bankBranch // ignore: cast_nullable_to_non_nullable
-              as String?,
-      ownerName: freezed == ownerName
-          ? _value.ownerName
-          : ownerName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      ownerPhone: freezed == ownerPhone
-          ? _value.ownerPhone
-          : ownerPhone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      bankOfficerName: freezed == bankOfficerName
-          ? _value.bankOfficerName
-          : bankOfficerName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      bankOfficerPhone: freezed == bankOfficerPhone
-          ? _value.bankOfficerPhone
-          : bankOfficerPhone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      minValue: freezed == minValue
-          ? _value.minValue
-          : minValue // ignore: cast_nullable_to_non_nullable
-              as double?,
-      maxValue: freezed == maxValue
-          ? _value.maxValue
-          : maxValue // ignore: cast_nullable_to_non_nullable
-              as double?,
-      minValueSqm: freezed == minValueSqm
-          ? _value.minValueSqm
-          : minValueSqm // ignore: cast_nullable_to_non_nullable
-              as double?,
-      maxValueSqm: freezed == maxValueSqm
-          ? _value.maxValueSqm
-          : maxValueSqm // ignore: cast_nullable_to_non_nullable
-              as double?,
-      latitude: freezed == latitude
-          ? _value.latitude
-          : latitude // ignore: cast_nullable_to_non_nullable
-              as double?,
-      longitude: freezed == longitude
-          ? _value.longitude
-          : longitude // ignore: cast_nullable_to_non_nullable
-              as double?,
-      area: freezed == area
-          ? _value.area
-          : area // ignore: cast_nullable_to_non_nullable
-              as double?,
-      buildinglength: freezed == buildinglength
-          ? _value.buildinglength
-          : buildinglength // ignore: cast_nullable_to_non_nullable
-              as double?,
-      buildingwidth: freezed == buildingwidth
-          ? _value.buildingwidth
-          : buildingwidth // ignore: cast_nullable_to_non_nullable
-              as double?,
-      landlength: freezed == landlength
-          ? _value.landlength
-          : landlength // ignore: cast_nullable_to_non_nullable
-              as double?,
-      landwidth: freezed == landwidth
-          ? _value.landwidth
-          : landwidth // ignore: cast_nullable_to_non_nullable
-              as double?,
-      road: freezed == road
-          ? _value.road
-          : road // ignore: cast_nullable_to_non_nullable
-              as RoadModel?,
-      bed: freezed == bed
-          ? _value.bed
-          : bed // ignore: cast_nullable_to_non_nullable
-              as int?,
-      bath: freezed == bath
-          ? _value.bath
-          : bath // ignore: cast_nullable_to_non_nullable
-              as int?,
-      livingroom: freezed == livingroom
-          ? _value.livingroom
-          : livingroom // ignore: cast_nullable_to_non_nullable
-              as int?,
-      floor: freezed == floor
-          ? _value.floor
-          : floor // ignore: cast_nullable_to_non_nullable
-              as int?,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as ProviderStatus<void>,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$InsertAutoVerbalStateImpl extends _InsertAutoVerbalState {
-  const _$InsertAutoVerbalStateImpl(
+class _InsertAutoVerbalState extends InsertAutoVerbalState {
+  const _InsertAutoVerbalState(
       {this.existingImageUrls = const IList.empty(),
       this.propertyId,
       required this.imageFiles,
@@ -1252,16 +1182,20 @@ class _$InsertAutoVerbalStateImpl extends _InsertAutoVerbalState {
   @JsonKey()
   final ProviderStatus<void> status;
 
+  /// Create a copy of InsertAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'InsertAutoVerbalState(existingImageUrls: $existingImageUrls, propertyId: $propertyId, imageFiles: $imageFiles, propertyType: $propertyType, province: $province, bank: $bank, bankBranch: $bankBranch, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, latitude: $latitude, longitude: $longitude, area: $area, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, road: $road, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, status: $status)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$InsertAutoVerbalStateCopyWith<_InsertAutoVerbalState> get copyWith =>
+      __$InsertAutoVerbalStateCopyWithImpl<_InsertAutoVerbalState>(
+          this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$InsertAutoVerbalStateImpl &&
+            other is _InsertAutoVerbalState &&
             const DeepCollectionEquality()
                 .equals(other.existingImageUrls, existingImageUrls) &&
             (identical(other.propertyId, propertyId) ||
@@ -1346,156 +1280,422 @@ class _$InsertAutoVerbalStateImpl extends _InsertAutoVerbalState {
         status
       ]);
 
-  /// Create a copy of InsertAutoVerbalState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$InsertAutoVerbalStateImplCopyWith<_$InsertAutoVerbalStateImpl>
-      get copyWith => __$$InsertAutoVerbalStateImplCopyWithImpl<
-          _$InsertAutoVerbalStateImpl>(this, _$identity);
+  String toString() {
+    return 'InsertAutoVerbalState(existingImageUrls: $existingImageUrls, propertyId: $propertyId, imageFiles: $imageFiles, propertyType: $propertyType, province: $province, bank: $bank, bankBranch: $bankBranch, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, latitude: $latitude, longitude: $longitude, area: $area, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, road: $road, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, status: $status)';
+  }
 }
 
-abstract class _InsertAutoVerbalState extends InsertAutoVerbalState {
-  const factory _InsertAutoVerbalState(
-      {final IList<String> existingImageUrls,
-      final int? propertyId,
-      required final IList<XFile> imageFiles,
-      required final PropertyTypeModel? propertyType,
-      required final ProvinceModel? province,
-      required final BankModel? bank,
-      required final String? bankBranch,
-      required final String? ownerName,
-      required final String? ownerPhone,
-      required final String? bankOfficerName,
-      required final String? bankOfficerPhone,
-      required final double? minValue,
-      required final double? maxValue,
-      required final double? minValueSqm,
-      required final double? maxValueSqm,
-      required final double? latitude,
-      required final double? longitude,
-      required final double? area,
-      required final double? buildinglength,
-      required final double? buildingwidth,
-      required final double? landlength,
-      required final double? landwidth,
-      required final RoadModel? road,
-      required final int? bed,
-      required final int? bath,
-      required final int? livingroom,
-      required final int? floor,
-      final ProviderStatus<void> status}) = _$InsertAutoVerbalStateImpl;
-  const _InsertAutoVerbalState._() : super._();
+/// @nodoc
+abstract mixin class _$InsertAutoVerbalStateCopyWith<$Res>
+    implements $InsertAutoVerbalStateCopyWith<$Res> {
+  factory _$InsertAutoVerbalStateCopyWith(_InsertAutoVerbalState value,
+          $Res Function(_InsertAutoVerbalState) _then) =
+      __$InsertAutoVerbalStateCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {IList<String> existingImageUrls,
+      int? propertyId,
+      IList<XFile> imageFiles,
+      PropertyTypeModel? propertyType,
+      ProvinceModel? province,
+      BankModel? bank,
+      String? bankBranch,
+      String? ownerName,
+      String? ownerPhone,
+      String? bankOfficerName,
+      String? bankOfficerPhone,
+      double? minValue,
+      double? maxValue,
+      double? minValueSqm,
+      double? maxValueSqm,
+      double? latitude,
+      double? longitude,
+      double? area,
+      double? buildinglength,
+      double? buildingwidth,
+      double? landlength,
+      double? landwidth,
+      RoadModel? road,
+      int? bed,
+      int? bath,
+      int? livingroom,
+      int? floor,
+      ProviderStatus<void> status});
 
-// only useful when copy from property
   @override
-  IList<String> get existingImageUrls;
+  $PropertyTypeModelCopyWith<$Res>? get propertyType;
   @override
-  int? get propertyId;
+  $ProvinceModelCopyWith<$Res>? get province;
   @override
-  IList<XFile> get imageFiles;
+  $BankModelCopyWith<$Res>? get bank;
   @override
-  PropertyTypeModel? get propertyType;
+  $RoadModelCopyWith<$Res>? get road;
   @override
-  ProvinceModel? get province;
-  @override
-  BankModel? get bank;
-  @override
-  String? get bankBranch;
-  @override
-  String? get ownerName;
-  @override
-  String? get ownerPhone;
-  @override
-  String? get bankOfficerName;
-  @override
-  String? get bankOfficerPhone;
-  @override
-  double? get minValue;
-  @override
-  double? get maxValue;
-  @override
-  double? get minValueSqm;
-  @override
-  double? get maxValueSqm;
-  @override
-  double? get latitude;
-  @override
-  double? get longitude;
-  @override
-  double? get area;
-  @override
-  double? get buildinglength;
-  @override
-  double? get buildingwidth;
-  @override
-  double? get landlength;
-  @override
-  double? get landwidth;
-  @override
-  RoadModel? get road;
-  @override
-  int? get bed;
-  @override
-  int? get bath;
-  @override
-  int? get livingroom;
-  @override
-  int? get floor;
-  @override
-  ProviderStatus<void> get status;
+  $ProviderStatusCopyWith<void, $Res> get status;
+}
+
+/// @nodoc
+class __$InsertAutoVerbalStateCopyWithImpl<$Res>
+    implements _$InsertAutoVerbalStateCopyWith<$Res> {
+  __$InsertAutoVerbalStateCopyWithImpl(this._self, this._then);
+
+  final _InsertAutoVerbalState _self;
+  final $Res Function(_InsertAutoVerbalState) _then;
 
   /// Create a copy of InsertAutoVerbalState
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$InsertAutoVerbalStateImplCopyWith<_$InsertAutoVerbalStateImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? existingImageUrls = null,
+    Object? propertyId = freezed,
+    Object? imageFiles = null,
+    Object? propertyType = freezed,
+    Object? province = freezed,
+    Object? bank = freezed,
+    Object? bankBranch = freezed,
+    Object? ownerName = freezed,
+    Object? ownerPhone = freezed,
+    Object? bankOfficerName = freezed,
+    Object? bankOfficerPhone = freezed,
+    Object? minValue = freezed,
+    Object? maxValue = freezed,
+    Object? minValueSqm = freezed,
+    Object? maxValueSqm = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
+    Object? area = freezed,
+    Object? buildinglength = freezed,
+    Object? buildingwidth = freezed,
+    Object? landlength = freezed,
+    Object? landwidth = freezed,
+    Object? road = freezed,
+    Object? bed = freezed,
+    Object? bath = freezed,
+    Object? livingroom = freezed,
+    Object? floor = freezed,
+    Object? status = null,
+  }) {
+    return _then(_InsertAutoVerbalState(
+      existingImageUrls: null == existingImageUrls
+          ? _self.existingImageUrls
+          : existingImageUrls // ignore: cast_nullable_to_non_nullable
+              as IList<String>,
+      propertyId: freezed == propertyId
+          ? _self.propertyId
+          : propertyId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      imageFiles: null == imageFiles
+          ? _self.imageFiles
+          : imageFiles // ignore: cast_nullable_to_non_nullable
+              as IList<XFile>,
+      propertyType: freezed == propertyType
+          ? _self.propertyType
+          : propertyType // ignore: cast_nullable_to_non_nullable
+              as PropertyTypeModel?,
+      province: freezed == province
+          ? _self.province
+          : province // ignore: cast_nullable_to_non_nullable
+              as ProvinceModel?,
+      bank: freezed == bank
+          ? _self.bank
+          : bank // ignore: cast_nullable_to_non_nullable
+              as BankModel?,
+      bankBranch: freezed == bankBranch
+          ? _self.bankBranch
+          : bankBranch // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ownerName: freezed == ownerName
+          ? _self.ownerName
+          : ownerName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ownerPhone: freezed == ownerPhone
+          ? _self.ownerPhone
+          : ownerPhone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bankOfficerName: freezed == bankOfficerName
+          ? _self.bankOfficerName
+          : bankOfficerName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bankOfficerPhone: freezed == bankOfficerPhone
+          ? _self.bankOfficerPhone
+          : bankOfficerPhone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      minValue: freezed == minValue
+          ? _self.minValue
+          : minValue // ignore: cast_nullable_to_non_nullable
+              as double?,
+      maxValue: freezed == maxValue
+          ? _self.maxValue
+          : maxValue // ignore: cast_nullable_to_non_nullable
+              as double?,
+      minValueSqm: freezed == minValueSqm
+          ? _self.minValueSqm
+          : minValueSqm // ignore: cast_nullable_to_non_nullable
+              as double?,
+      maxValueSqm: freezed == maxValueSqm
+          ? _self.maxValueSqm
+          : maxValueSqm // ignore: cast_nullable_to_non_nullable
+              as double?,
+      latitude: freezed == latitude
+          ? _self.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      longitude: freezed == longitude
+          ? _self.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      area: freezed == area
+          ? _self.area
+          : area // ignore: cast_nullable_to_non_nullable
+              as double?,
+      buildinglength: freezed == buildinglength
+          ? _self.buildinglength
+          : buildinglength // ignore: cast_nullable_to_non_nullable
+              as double?,
+      buildingwidth: freezed == buildingwidth
+          ? _self.buildingwidth
+          : buildingwidth // ignore: cast_nullable_to_non_nullable
+              as double?,
+      landlength: freezed == landlength
+          ? _self.landlength
+          : landlength // ignore: cast_nullable_to_non_nullable
+              as double?,
+      landwidth: freezed == landwidth
+          ? _self.landwidth
+          : landwidth // ignore: cast_nullable_to_non_nullable
+              as double?,
+      road: freezed == road
+          ? _self.road
+          : road // ignore: cast_nullable_to_non_nullable
+              as RoadModel?,
+      bed: freezed == bed
+          ? _self.bed
+          : bed // ignore: cast_nullable_to_non_nullable
+              as int?,
+      bath: freezed == bath
+          ? _self.bath
+          : bath // ignore: cast_nullable_to_non_nullable
+              as int?,
+      livingroom: freezed == livingroom
+          ? _self.livingroom
+          : livingroom // ignore: cast_nullable_to_non_nullable
+              as int?,
+      floor: freezed == floor
+          ? _self.floor
+          : floor // ignore: cast_nullable_to_non_nullable
+              as int?,
+      status: null == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as ProviderStatus<void>,
+    ));
+  }
+
+  /// Create a copy of InsertAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PropertyTypeModelCopyWith<$Res>? get propertyType {
+    if (_self.propertyType == null) {
+      return null;
+    }
+
+    return $PropertyTypeModelCopyWith<$Res>(_self.propertyType!, (value) {
+      return _then(_self.copyWith(propertyType: value));
+    });
+  }
+
+  /// Create a copy of InsertAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProvinceModelCopyWith<$Res>? get province {
+    if (_self.province == null) {
+      return null;
+    }
+
+    return $ProvinceModelCopyWith<$Res>(_self.province!, (value) {
+      return _then(_self.copyWith(province: value));
+    });
+  }
+
+  /// Create a copy of InsertAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $BankModelCopyWith<$Res>? get bank {
+    if (_self.bank == null) {
+      return null;
+    }
+
+    return $BankModelCopyWith<$Res>(_self.bank!, (value) {
+      return _then(_self.copyWith(bank: value));
+    });
+  }
+
+  /// Create a copy of InsertAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $RoadModelCopyWith<$Res>? get road {
+    if (_self.road == null) {
+      return null;
+    }
+
+    return $RoadModelCopyWith<$Res>(_self.road!, (value) {
+      return _then(_self.copyWith(road: value));
+    });
+  }
+
+  /// Create a copy of InsertAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProviderStatusCopyWith<void, $Res> get status {
+    return $ProviderStatusCopyWith<void, $Res>(_self.status, (value) {
+      return _then(_self.copyWith(status: value));
+    });
+  }
 }
 
 /// @nodoc
 mixin _$UpdateAutoVerbalState {
-  IList<XFile> get newImageFiles => throw _privateConstructorUsedError;
-  IList<String> get existingImageUrls => throw _privateConstructorUsedError;
-  PropertyTypeModel? get propertyType => throw _privateConstructorUsedError;
-  ProvinceModel? get province => throw _privateConstructorUsedError;
-  BankModel? get bank => throw _privateConstructorUsedError;
-  String get bankBranch => throw _privateConstructorUsedError;
-  String get ownerName => throw _privateConstructorUsedError;
-  String get ownerPhone => throw _privateConstructorUsedError;
-  String get bankOfficerName => throw _privateConstructorUsedError;
-  String get bankOfficerPhone => throw _privateConstructorUsedError;
-  double get minValue => throw _privateConstructorUsedError;
-  double get maxValue => throw _privateConstructorUsedError;
-  double get minValueSqm => throw _privateConstructorUsedError;
-  double get maxValueSqm => throw _privateConstructorUsedError;
-  double get latitude => throw _privateConstructorUsedError;
-  double get longitude => throw _privateConstructorUsedError;
-  double get area => throw _privateConstructorUsedError;
-  double get buildinglength => throw _privateConstructorUsedError;
-  double get buildingwidth => throw _privateConstructorUsedError;
-  double get landlength => throw _privateConstructorUsedError;
-  double get landwidth => throw _privateConstructorUsedError;
-  RoadModel? get road => throw _privateConstructorUsedError;
-  int? get bed => throw _privateConstructorUsedError;
-  int? get bath => throw _privateConstructorUsedError;
-  int? get livingroom => throw _privateConstructorUsedError;
-  int? get floor => throw _privateConstructorUsedError;
-  ProviderStatus<void> get status => throw _privateConstructorUsedError;
+  IList<XFile> get newImageFiles;
+  IList<String> get existingImageUrls;
+  PropertyTypeModel? get propertyType;
+  ProvinceModel? get province;
+  BankModel? get bank;
+  String get bankBranch;
+  String get ownerName;
+  String get ownerPhone;
+  String get bankOfficerName;
+  String get bankOfficerPhone;
+  double get minValue;
+  double get maxValue;
+  double get minValueSqm;
+  double get maxValueSqm;
+  double get latitude;
+  double get longitude;
+  double get area;
+  double get buildinglength;
+  double get buildingwidth;
+  double get landlength;
+  double get landwidth;
+  RoadModel? get road;
+  int? get bed;
+  int? get bath;
+  int? get livingroom;
+  int? get floor;
+  ProviderStatus<void> get status;
 
   /// Create a copy of UpdateAutoVerbalState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $UpdateAutoVerbalStateCopyWith<UpdateAutoVerbalState> get copyWith =>
-      throw _privateConstructorUsedError;
+      _$UpdateAutoVerbalStateCopyWithImpl<UpdateAutoVerbalState>(
+          this as UpdateAutoVerbalState, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is UpdateAutoVerbalState &&
+            const DeepCollectionEquality()
+                .equals(other.newImageFiles, newImageFiles) &&
+            const DeepCollectionEquality()
+                .equals(other.existingImageUrls, existingImageUrls) &&
+            (identical(other.propertyType, propertyType) ||
+                other.propertyType == propertyType) &&
+            (identical(other.province, province) ||
+                other.province == province) &&
+            (identical(other.bank, bank) || other.bank == bank) &&
+            (identical(other.bankBranch, bankBranch) ||
+                other.bankBranch == bankBranch) &&
+            (identical(other.ownerName, ownerName) ||
+                other.ownerName == ownerName) &&
+            (identical(other.ownerPhone, ownerPhone) ||
+                other.ownerPhone == ownerPhone) &&
+            (identical(other.bankOfficerName, bankOfficerName) ||
+                other.bankOfficerName == bankOfficerName) &&
+            (identical(other.bankOfficerPhone, bankOfficerPhone) ||
+                other.bankOfficerPhone == bankOfficerPhone) &&
+            (identical(other.minValue, minValue) ||
+                other.minValue == minValue) &&
+            (identical(other.maxValue, maxValue) ||
+                other.maxValue == maxValue) &&
+            (identical(other.minValueSqm, minValueSqm) ||
+                other.minValueSqm == minValueSqm) &&
+            (identical(other.maxValueSqm, maxValueSqm) ||
+                other.maxValueSqm == maxValueSqm) &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
+            (identical(other.area, area) || other.area == area) &&
+            (identical(other.buildinglength, buildinglength) ||
+                other.buildinglength == buildinglength) &&
+            (identical(other.buildingwidth, buildingwidth) ||
+                other.buildingwidth == buildingwidth) &&
+            (identical(other.landlength, landlength) ||
+                other.landlength == landlength) &&
+            (identical(other.landwidth, landwidth) ||
+                other.landwidth == landwidth) &&
+            (identical(other.road, road) || other.road == road) &&
+            (identical(other.bed, bed) || other.bed == bed) &&
+            (identical(other.bath, bath) || other.bath == bath) &&
+            (identical(other.livingroom, livingroom) ||
+                other.livingroom == livingroom) &&
+            (identical(other.floor, floor) || other.floor == floor) &&
+            (identical(other.status, status) || other.status == status));
+  }
+
+  @override
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        const DeepCollectionEquality().hash(newImageFiles),
+        const DeepCollectionEquality().hash(existingImageUrls),
+        propertyType,
+        province,
+        bank,
+        bankBranch,
+        ownerName,
+        ownerPhone,
+        bankOfficerName,
+        bankOfficerPhone,
+        minValue,
+        maxValue,
+        minValueSqm,
+        maxValueSqm,
+        latitude,
+        longitude,
+        area,
+        buildinglength,
+        buildingwidth,
+        landlength,
+        landwidth,
+        road,
+        bed,
+        bath,
+        livingroom,
+        floor,
+        status
+      ]);
+
+  @override
+  String toString() {
+    return 'UpdateAutoVerbalState(newImageFiles: $newImageFiles, existingImageUrls: $existingImageUrls, propertyType: $propertyType, province: $province, bank: $bank, bankBranch: $bankBranch, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, latitude: $latitude, longitude: $longitude, area: $area, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, road: $road, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, status: $status)';
+  }
 }
 
 /// @nodoc
-abstract class $UpdateAutoVerbalStateCopyWith<$Res> {
+abstract mixin class $UpdateAutoVerbalStateCopyWith<$Res> {
   factory $UpdateAutoVerbalStateCopyWith(UpdateAutoVerbalState value,
-          $Res Function(UpdateAutoVerbalState) then) =
-      _$UpdateAutoVerbalStateCopyWithImpl<$Res, UpdateAutoVerbalState>;
+          $Res Function(UpdateAutoVerbalState) _then) =
+      _$UpdateAutoVerbalStateCopyWithImpl;
   @useResult
   $Res call(
       {IList<XFile> newImageFiles,
@@ -1534,15 +1734,12 @@ abstract class $UpdateAutoVerbalStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UpdateAutoVerbalStateCopyWithImpl<$Res,
-        $Val extends UpdateAutoVerbalState>
+class _$UpdateAutoVerbalStateCopyWithImpl<$Res>
     implements $UpdateAutoVerbalStateCopyWith<$Res> {
-  _$UpdateAutoVerbalStateCopyWithImpl(this._value, this._then);
+  _$UpdateAutoVerbalStateCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final UpdateAutoVerbalState _self;
+  final $Res Function(UpdateAutoVerbalState) _then;
 
   /// Create a copy of UpdateAutoVerbalState
   /// with the given fields replaced by the non-null parameter values.
@@ -1577,116 +1774,116 @@ class _$UpdateAutoVerbalStateCopyWithImpl<$Res,
     Object? floor = freezed,
     Object? status = null,
   }) {
-    return _then(_value.copyWith(
+    return _then(_self.copyWith(
       newImageFiles: null == newImageFiles
-          ? _value.newImageFiles
+          ? _self.newImageFiles
           : newImageFiles // ignore: cast_nullable_to_non_nullable
               as IList<XFile>,
       existingImageUrls: null == existingImageUrls
-          ? _value.existingImageUrls
+          ? _self.existingImageUrls
           : existingImageUrls // ignore: cast_nullable_to_non_nullable
               as IList<String>,
       propertyType: freezed == propertyType
-          ? _value.propertyType
+          ? _self.propertyType
           : propertyType // ignore: cast_nullable_to_non_nullable
               as PropertyTypeModel?,
       province: freezed == province
-          ? _value.province
+          ? _self.province
           : province // ignore: cast_nullable_to_non_nullable
               as ProvinceModel?,
       bank: freezed == bank
-          ? _value.bank
+          ? _self.bank
           : bank // ignore: cast_nullable_to_non_nullable
               as BankModel?,
       bankBranch: null == bankBranch
-          ? _value.bankBranch
+          ? _self.bankBranch
           : bankBranch // ignore: cast_nullable_to_non_nullable
               as String,
       ownerName: null == ownerName
-          ? _value.ownerName
+          ? _self.ownerName
           : ownerName // ignore: cast_nullable_to_non_nullable
               as String,
       ownerPhone: null == ownerPhone
-          ? _value.ownerPhone
+          ? _self.ownerPhone
           : ownerPhone // ignore: cast_nullable_to_non_nullable
               as String,
       bankOfficerName: null == bankOfficerName
-          ? _value.bankOfficerName
+          ? _self.bankOfficerName
           : bankOfficerName // ignore: cast_nullable_to_non_nullable
               as String,
       bankOfficerPhone: null == bankOfficerPhone
-          ? _value.bankOfficerPhone
+          ? _self.bankOfficerPhone
           : bankOfficerPhone // ignore: cast_nullable_to_non_nullable
               as String,
       minValue: null == minValue
-          ? _value.minValue
+          ? _self.minValue
           : minValue // ignore: cast_nullable_to_non_nullable
               as double,
       maxValue: null == maxValue
-          ? _value.maxValue
+          ? _self.maxValue
           : maxValue // ignore: cast_nullable_to_non_nullable
               as double,
       minValueSqm: null == minValueSqm
-          ? _value.minValueSqm
+          ? _self.minValueSqm
           : minValueSqm // ignore: cast_nullable_to_non_nullable
               as double,
       maxValueSqm: null == maxValueSqm
-          ? _value.maxValueSqm
+          ? _self.maxValueSqm
           : maxValueSqm // ignore: cast_nullable_to_non_nullable
               as double,
       latitude: null == latitude
-          ? _value.latitude
+          ? _self.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as double,
       longitude: null == longitude
-          ? _value.longitude
+          ? _self.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
       area: null == area
-          ? _value.area
+          ? _self.area
           : area // ignore: cast_nullable_to_non_nullable
               as double,
       buildinglength: null == buildinglength
-          ? _value.buildinglength
+          ? _self.buildinglength
           : buildinglength // ignore: cast_nullable_to_non_nullable
               as double,
       buildingwidth: null == buildingwidth
-          ? _value.buildingwidth
+          ? _self.buildingwidth
           : buildingwidth // ignore: cast_nullable_to_non_nullable
               as double,
       landlength: null == landlength
-          ? _value.landlength
+          ? _self.landlength
           : landlength // ignore: cast_nullable_to_non_nullable
               as double,
       landwidth: null == landwidth
-          ? _value.landwidth
+          ? _self.landwidth
           : landwidth // ignore: cast_nullable_to_non_nullable
               as double,
       road: freezed == road
-          ? _value.road
+          ? _self.road
           : road // ignore: cast_nullable_to_non_nullable
               as RoadModel?,
       bed: freezed == bed
-          ? _value.bed
+          ? _self.bed
           : bed // ignore: cast_nullable_to_non_nullable
               as int?,
       bath: freezed == bath
-          ? _value.bath
+          ? _self.bath
           : bath // ignore: cast_nullable_to_non_nullable
               as int?,
       livingroom: freezed == livingroom
-          ? _value.livingroom
+          ? _self.livingroom
           : livingroom // ignore: cast_nullable_to_non_nullable
               as int?,
       floor: freezed == floor
-          ? _value.floor
+          ? _self.floor
           : floor // ignore: cast_nullable_to_non_nullable
               as int?,
       status: null == status
-          ? _value.status
+          ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as ProviderStatus<void>,
-    ) as $Val);
+    ));
   }
 
   /// Create a copy of UpdateAutoVerbalState
@@ -1694,12 +1891,12 @@ class _$UpdateAutoVerbalStateCopyWithImpl<$Res,
   @override
   @pragma('vm:prefer-inline')
   $PropertyTypeModelCopyWith<$Res>? get propertyType {
-    if (_value.propertyType == null) {
+    if (_self.propertyType == null) {
       return null;
     }
 
-    return $PropertyTypeModelCopyWith<$Res>(_value.propertyType!, (value) {
-      return _then(_value.copyWith(propertyType: value) as $Val);
+    return $PropertyTypeModelCopyWith<$Res>(_self.propertyType!, (value) {
+      return _then(_self.copyWith(propertyType: value));
     });
   }
 
@@ -1708,12 +1905,12 @@ class _$UpdateAutoVerbalStateCopyWithImpl<$Res,
   @override
   @pragma('vm:prefer-inline')
   $ProvinceModelCopyWith<$Res>? get province {
-    if (_value.province == null) {
+    if (_self.province == null) {
       return null;
     }
 
-    return $ProvinceModelCopyWith<$Res>(_value.province!, (value) {
-      return _then(_value.copyWith(province: value) as $Val);
+    return $ProvinceModelCopyWith<$Res>(_self.province!, (value) {
+      return _then(_self.copyWith(province: value));
     });
   }
 
@@ -1722,12 +1919,12 @@ class _$UpdateAutoVerbalStateCopyWithImpl<$Res,
   @override
   @pragma('vm:prefer-inline')
   $BankModelCopyWith<$Res>? get bank {
-    if (_value.bank == null) {
+    if (_self.bank == null) {
       return null;
     }
 
-    return $BankModelCopyWith<$Res>(_value.bank!, (value) {
-      return _then(_value.copyWith(bank: value) as $Val);
+    return $BankModelCopyWith<$Res>(_self.bank!, (value) {
+      return _then(_self.copyWith(bank: value));
     });
   }
 
@@ -1736,12 +1933,12 @@ class _$UpdateAutoVerbalStateCopyWithImpl<$Res,
   @override
   @pragma('vm:prefer-inline')
   $RoadModelCopyWith<$Res>? get road {
-    if (_value.road == null) {
+    if (_self.road == null) {
       return null;
     }
 
-    return $RoadModelCopyWith<$Res>(_value.road!, (value) {
-      return _then(_value.copyWith(road: value) as $Val);
+    return $RoadModelCopyWith<$Res>(_self.road!, (value) {
+      return _then(_self.copyWith(road: value));
     });
   }
 
@@ -1750,221 +1947,16 @@ class _$UpdateAutoVerbalStateCopyWithImpl<$Res,
   @override
   @pragma('vm:prefer-inline')
   $ProviderStatusCopyWith<void, $Res> get status {
-    return $ProviderStatusCopyWith<void, $Res>(_value.status, (value) {
-      return _then(_value.copyWith(status: value) as $Val);
+    return $ProviderStatusCopyWith<void, $Res>(_self.status, (value) {
+      return _then(_self.copyWith(status: value));
     });
   }
 }
 
 /// @nodoc
-abstract class _$$UpdateAutoVerbalStateImplCopyWith<$Res>
-    implements $UpdateAutoVerbalStateCopyWith<$Res> {
-  factory _$$UpdateAutoVerbalStateImplCopyWith(
-          _$UpdateAutoVerbalStateImpl value,
-          $Res Function(_$UpdateAutoVerbalStateImpl) then) =
-      __$$UpdateAutoVerbalStateImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {IList<XFile> newImageFiles,
-      IList<String> existingImageUrls,
-      PropertyTypeModel? propertyType,
-      ProvinceModel? province,
-      BankModel? bank,
-      String bankBranch,
-      String ownerName,
-      String ownerPhone,
-      String bankOfficerName,
-      String bankOfficerPhone,
-      double minValue,
-      double maxValue,
-      double minValueSqm,
-      double maxValueSqm,
-      double latitude,
-      double longitude,
-      double area,
-      double buildinglength,
-      double buildingwidth,
-      double landlength,
-      double landwidth,
-      RoadModel? road,
-      int? bed,
-      int? bath,
-      int? livingroom,
-      int? floor,
-      ProviderStatus<void> status});
 
-  @override
-  $PropertyTypeModelCopyWith<$Res>? get propertyType;
-  @override
-  $ProvinceModelCopyWith<$Res>? get province;
-  @override
-  $BankModelCopyWith<$Res>? get bank;
-  @override
-  $RoadModelCopyWith<$Res>? get road;
-  @override
-  $ProviderStatusCopyWith<void, $Res> get status;
-}
-
-/// @nodoc
-class __$$UpdateAutoVerbalStateImplCopyWithImpl<$Res>
-    extends _$UpdateAutoVerbalStateCopyWithImpl<$Res,
-        _$UpdateAutoVerbalStateImpl>
-    implements _$$UpdateAutoVerbalStateImplCopyWith<$Res> {
-  __$$UpdateAutoVerbalStateImplCopyWithImpl(_$UpdateAutoVerbalStateImpl _value,
-      $Res Function(_$UpdateAutoVerbalStateImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of UpdateAutoVerbalState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? newImageFiles = null,
-    Object? existingImageUrls = null,
-    Object? propertyType = freezed,
-    Object? province = freezed,
-    Object? bank = freezed,
-    Object? bankBranch = null,
-    Object? ownerName = null,
-    Object? ownerPhone = null,
-    Object? bankOfficerName = null,
-    Object? bankOfficerPhone = null,
-    Object? minValue = null,
-    Object? maxValue = null,
-    Object? minValueSqm = null,
-    Object? maxValueSqm = null,
-    Object? latitude = null,
-    Object? longitude = null,
-    Object? area = null,
-    Object? buildinglength = null,
-    Object? buildingwidth = null,
-    Object? landlength = null,
-    Object? landwidth = null,
-    Object? road = freezed,
-    Object? bed = freezed,
-    Object? bath = freezed,
-    Object? livingroom = freezed,
-    Object? floor = freezed,
-    Object? status = null,
-  }) {
-    return _then(_$UpdateAutoVerbalStateImpl(
-      newImageFiles: null == newImageFiles
-          ? _value.newImageFiles
-          : newImageFiles // ignore: cast_nullable_to_non_nullable
-              as IList<XFile>,
-      existingImageUrls: null == existingImageUrls
-          ? _value.existingImageUrls
-          : existingImageUrls // ignore: cast_nullable_to_non_nullable
-              as IList<String>,
-      propertyType: freezed == propertyType
-          ? _value.propertyType
-          : propertyType // ignore: cast_nullable_to_non_nullable
-              as PropertyTypeModel?,
-      province: freezed == province
-          ? _value.province
-          : province // ignore: cast_nullable_to_non_nullable
-              as ProvinceModel?,
-      bank: freezed == bank
-          ? _value.bank
-          : bank // ignore: cast_nullable_to_non_nullable
-              as BankModel?,
-      bankBranch: null == bankBranch
-          ? _value.bankBranch
-          : bankBranch // ignore: cast_nullable_to_non_nullable
-              as String,
-      ownerName: null == ownerName
-          ? _value.ownerName
-          : ownerName // ignore: cast_nullable_to_non_nullable
-              as String,
-      ownerPhone: null == ownerPhone
-          ? _value.ownerPhone
-          : ownerPhone // ignore: cast_nullable_to_non_nullable
-              as String,
-      bankOfficerName: null == bankOfficerName
-          ? _value.bankOfficerName
-          : bankOfficerName // ignore: cast_nullable_to_non_nullable
-              as String,
-      bankOfficerPhone: null == bankOfficerPhone
-          ? _value.bankOfficerPhone
-          : bankOfficerPhone // ignore: cast_nullable_to_non_nullable
-              as String,
-      minValue: null == minValue
-          ? _value.minValue
-          : minValue // ignore: cast_nullable_to_non_nullable
-              as double,
-      maxValue: null == maxValue
-          ? _value.maxValue
-          : maxValue // ignore: cast_nullable_to_non_nullable
-              as double,
-      minValueSqm: null == minValueSqm
-          ? _value.minValueSqm
-          : minValueSqm // ignore: cast_nullable_to_non_nullable
-              as double,
-      maxValueSqm: null == maxValueSqm
-          ? _value.maxValueSqm
-          : maxValueSqm // ignore: cast_nullable_to_non_nullable
-              as double,
-      latitude: null == latitude
-          ? _value.latitude
-          : latitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      longitude: null == longitude
-          ? _value.longitude
-          : longitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      area: null == area
-          ? _value.area
-          : area // ignore: cast_nullable_to_non_nullable
-              as double,
-      buildinglength: null == buildinglength
-          ? _value.buildinglength
-          : buildinglength // ignore: cast_nullable_to_non_nullable
-              as double,
-      buildingwidth: null == buildingwidth
-          ? _value.buildingwidth
-          : buildingwidth // ignore: cast_nullable_to_non_nullable
-              as double,
-      landlength: null == landlength
-          ? _value.landlength
-          : landlength // ignore: cast_nullable_to_non_nullable
-              as double,
-      landwidth: null == landwidth
-          ? _value.landwidth
-          : landwidth // ignore: cast_nullable_to_non_nullable
-              as double,
-      road: freezed == road
-          ? _value.road
-          : road // ignore: cast_nullable_to_non_nullable
-              as RoadModel?,
-      bed: freezed == bed
-          ? _value.bed
-          : bed // ignore: cast_nullable_to_non_nullable
-              as int?,
-      bath: freezed == bath
-          ? _value.bath
-          : bath // ignore: cast_nullable_to_non_nullable
-              as int?,
-      livingroom: freezed == livingroom
-          ? _value.livingroom
-          : livingroom // ignore: cast_nullable_to_non_nullable
-              as int?,
-      floor: freezed == floor
-          ? _value.floor
-          : floor // ignore: cast_nullable_to_non_nullable
-              as int?,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as ProviderStatus<void>,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$UpdateAutoVerbalStateImpl extends _UpdateAutoVerbalState {
-  const _$UpdateAutoVerbalStateImpl(
+class _UpdateAutoVerbalState extends UpdateAutoVerbalState {
+  const _UpdateAutoVerbalState(
       {required this.newImageFiles,
       required this.existingImageUrls,
       required this.propertyType,
@@ -2050,16 +2042,20 @@ class _$UpdateAutoVerbalStateImpl extends _UpdateAutoVerbalState {
   @JsonKey()
   final ProviderStatus<void> status;
 
+  /// Create a copy of UpdateAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'UpdateAutoVerbalState(newImageFiles: $newImageFiles, existingImageUrls: $existingImageUrls, propertyType: $propertyType, province: $province, bank: $bank, bankBranch: $bankBranch, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, latitude: $latitude, longitude: $longitude, area: $area, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, road: $road, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, status: $status)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$UpdateAutoVerbalStateCopyWith<_UpdateAutoVerbalState> get copyWith =>
+      __$UpdateAutoVerbalStateCopyWithImpl<_UpdateAutoVerbalState>(
+          this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UpdateAutoVerbalStateImpl &&
+            other is _UpdateAutoVerbalState &&
             const DeepCollectionEquality()
                 .equals(other.newImageFiles, newImageFiles) &&
             const DeepCollectionEquality()
@@ -2141,106 +2137,279 @@ class _$UpdateAutoVerbalStateImpl extends _UpdateAutoVerbalState {
         status
       ]);
 
+  @override
+  String toString() {
+    return 'UpdateAutoVerbalState(newImageFiles: $newImageFiles, existingImageUrls: $existingImageUrls, propertyType: $propertyType, province: $province, bank: $bank, bankBranch: $bankBranch, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, latitude: $latitude, longitude: $longitude, area: $area, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, road: $road, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, status: $status)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$UpdateAutoVerbalStateCopyWith<$Res>
+    implements $UpdateAutoVerbalStateCopyWith<$Res> {
+  factory _$UpdateAutoVerbalStateCopyWith(_UpdateAutoVerbalState value,
+          $Res Function(_UpdateAutoVerbalState) _then) =
+      __$UpdateAutoVerbalStateCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {IList<XFile> newImageFiles,
+      IList<String> existingImageUrls,
+      PropertyTypeModel? propertyType,
+      ProvinceModel? province,
+      BankModel? bank,
+      String bankBranch,
+      String ownerName,
+      String ownerPhone,
+      String bankOfficerName,
+      String bankOfficerPhone,
+      double minValue,
+      double maxValue,
+      double minValueSqm,
+      double maxValueSqm,
+      double latitude,
+      double longitude,
+      double area,
+      double buildinglength,
+      double buildingwidth,
+      double landlength,
+      double landwidth,
+      RoadModel? road,
+      int? bed,
+      int? bath,
+      int? livingroom,
+      int? floor,
+      ProviderStatus<void> status});
+
+  @override
+  $PropertyTypeModelCopyWith<$Res>? get propertyType;
+  @override
+  $ProvinceModelCopyWith<$Res>? get province;
+  @override
+  $BankModelCopyWith<$Res>? get bank;
+  @override
+  $RoadModelCopyWith<$Res>? get road;
+  @override
+  $ProviderStatusCopyWith<void, $Res> get status;
+}
+
+/// @nodoc
+class __$UpdateAutoVerbalStateCopyWithImpl<$Res>
+    implements _$UpdateAutoVerbalStateCopyWith<$Res> {
+  __$UpdateAutoVerbalStateCopyWithImpl(this._self, this._then);
+
+  final _UpdateAutoVerbalState _self;
+  final $Res Function(_UpdateAutoVerbalState) _then;
+
   /// Create a copy of UpdateAutoVerbalState
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$UpdateAutoVerbalStateImplCopyWith<_$UpdateAutoVerbalStateImpl>
-      get copyWith => __$$UpdateAutoVerbalStateImplCopyWithImpl<
-          _$UpdateAutoVerbalStateImpl>(this, _$identity);
-}
-
-abstract class _UpdateAutoVerbalState extends UpdateAutoVerbalState {
-  const factory _UpdateAutoVerbalState(
-      {required final IList<XFile> newImageFiles,
-      required final IList<String> existingImageUrls,
-      required final PropertyTypeModel? propertyType,
-      required final ProvinceModel? province,
-      required final BankModel? bank,
-      required final String bankBranch,
-      required final String ownerName,
-      required final String ownerPhone,
-      required final String bankOfficerName,
-      required final String bankOfficerPhone,
-      required final double minValue,
-      required final double maxValue,
-      required final double minValueSqm,
-      required final double maxValueSqm,
-      required final double latitude,
-      required final double longitude,
-      required final double area,
-      required final double buildinglength,
-      required final double buildingwidth,
-      required final double landlength,
-      required final double landwidth,
-      required final RoadModel? road,
-      required final int? bed,
-      required final int? bath,
-      required final int? livingroom,
-      required final int? floor,
-      final ProviderStatus<void> status}) = _$UpdateAutoVerbalStateImpl;
-  const _UpdateAutoVerbalState._() : super._();
-
-  @override
-  IList<XFile> get newImageFiles;
-  @override
-  IList<String> get existingImageUrls;
-  @override
-  PropertyTypeModel? get propertyType;
-  @override
-  ProvinceModel? get province;
-  @override
-  BankModel? get bank;
-  @override
-  String get bankBranch;
-  @override
-  String get ownerName;
-  @override
-  String get ownerPhone;
-  @override
-  String get bankOfficerName;
-  @override
-  String get bankOfficerPhone;
-  @override
-  double get minValue;
-  @override
-  double get maxValue;
-  @override
-  double get minValueSqm;
-  @override
-  double get maxValueSqm;
-  @override
-  double get latitude;
-  @override
-  double get longitude;
-  @override
-  double get area;
-  @override
-  double get buildinglength;
-  @override
-  double get buildingwidth;
-  @override
-  double get landlength;
-  @override
-  double get landwidth;
-  @override
-  RoadModel? get road;
-  @override
-  int? get bed;
-  @override
-  int? get bath;
-  @override
-  int? get livingroom;
-  @override
-  int? get floor;
-  @override
-  ProviderStatus<void> get status;
+  $Res call({
+    Object? newImageFiles = null,
+    Object? existingImageUrls = null,
+    Object? propertyType = freezed,
+    Object? province = freezed,
+    Object? bank = freezed,
+    Object? bankBranch = null,
+    Object? ownerName = null,
+    Object? ownerPhone = null,
+    Object? bankOfficerName = null,
+    Object? bankOfficerPhone = null,
+    Object? minValue = null,
+    Object? maxValue = null,
+    Object? minValueSqm = null,
+    Object? maxValueSqm = null,
+    Object? latitude = null,
+    Object? longitude = null,
+    Object? area = null,
+    Object? buildinglength = null,
+    Object? buildingwidth = null,
+    Object? landlength = null,
+    Object? landwidth = null,
+    Object? road = freezed,
+    Object? bed = freezed,
+    Object? bath = freezed,
+    Object? livingroom = freezed,
+    Object? floor = freezed,
+    Object? status = null,
+  }) {
+    return _then(_UpdateAutoVerbalState(
+      newImageFiles: null == newImageFiles
+          ? _self.newImageFiles
+          : newImageFiles // ignore: cast_nullable_to_non_nullable
+              as IList<XFile>,
+      existingImageUrls: null == existingImageUrls
+          ? _self.existingImageUrls
+          : existingImageUrls // ignore: cast_nullable_to_non_nullable
+              as IList<String>,
+      propertyType: freezed == propertyType
+          ? _self.propertyType
+          : propertyType // ignore: cast_nullable_to_non_nullable
+              as PropertyTypeModel?,
+      province: freezed == province
+          ? _self.province
+          : province // ignore: cast_nullable_to_non_nullable
+              as ProvinceModel?,
+      bank: freezed == bank
+          ? _self.bank
+          : bank // ignore: cast_nullable_to_non_nullable
+              as BankModel?,
+      bankBranch: null == bankBranch
+          ? _self.bankBranch
+          : bankBranch // ignore: cast_nullable_to_non_nullable
+              as String,
+      ownerName: null == ownerName
+          ? _self.ownerName
+          : ownerName // ignore: cast_nullable_to_non_nullable
+              as String,
+      ownerPhone: null == ownerPhone
+          ? _self.ownerPhone
+          : ownerPhone // ignore: cast_nullable_to_non_nullable
+              as String,
+      bankOfficerName: null == bankOfficerName
+          ? _self.bankOfficerName
+          : bankOfficerName // ignore: cast_nullable_to_non_nullable
+              as String,
+      bankOfficerPhone: null == bankOfficerPhone
+          ? _self.bankOfficerPhone
+          : bankOfficerPhone // ignore: cast_nullable_to_non_nullable
+              as String,
+      minValue: null == minValue
+          ? _self.minValue
+          : minValue // ignore: cast_nullable_to_non_nullable
+              as double,
+      maxValue: null == maxValue
+          ? _self.maxValue
+          : maxValue // ignore: cast_nullable_to_non_nullable
+              as double,
+      minValueSqm: null == minValueSqm
+          ? _self.minValueSqm
+          : minValueSqm // ignore: cast_nullable_to_non_nullable
+              as double,
+      maxValueSqm: null == maxValueSqm
+          ? _self.maxValueSqm
+          : maxValueSqm // ignore: cast_nullable_to_non_nullable
+              as double,
+      latitude: null == latitude
+          ? _self.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: null == longitude
+          ? _self.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      area: null == area
+          ? _self.area
+          : area // ignore: cast_nullable_to_non_nullable
+              as double,
+      buildinglength: null == buildinglength
+          ? _self.buildinglength
+          : buildinglength // ignore: cast_nullable_to_non_nullable
+              as double,
+      buildingwidth: null == buildingwidth
+          ? _self.buildingwidth
+          : buildingwidth // ignore: cast_nullable_to_non_nullable
+              as double,
+      landlength: null == landlength
+          ? _self.landlength
+          : landlength // ignore: cast_nullable_to_non_nullable
+              as double,
+      landwidth: null == landwidth
+          ? _self.landwidth
+          : landwidth // ignore: cast_nullable_to_non_nullable
+              as double,
+      road: freezed == road
+          ? _self.road
+          : road // ignore: cast_nullable_to_non_nullable
+              as RoadModel?,
+      bed: freezed == bed
+          ? _self.bed
+          : bed // ignore: cast_nullable_to_non_nullable
+              as int?,
+      bath: freezed == bath
+          ? _self.bath
+          : bath // ignore: cast_nullable_to_non_nullable
+              as int?,
+      livingroom: freezed == livingroom
+          ? _self.livingroom
+          : livingroom // ignore: cast_nullable_to_non_nullable
+              as int?,
+      floor: freezed == floor
+          ? _self.floor
+          : floor // ignore: cast_nullable_to_non_nullable
+              as int?,
+      status: null == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as ProviderStatus<void>,
+    ));
+  }
 
   /// Create a copy of UpdateAutoVerbalState
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$UpdateAutoVerbalStateImplCopyWith<_$UpdateAutoVerbalStateImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $PropertyTypeModelCopyWith<$Res>? get propertyType {
+    if (_self.propertyType == null) {
+      return null;
+    }
+
+    return $PropertyTypeModelCopyWith<$Res>(_self.propertyType!, (value) {
+      return _then(_self.copyWith(propertyType: value));
+    });
+  }
+
+  /// Create a copy of UpdateAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProvinceModelCopyWith<$Res>? get province {
+    if (_self.province == null) {
+      return null;
+    }
+
+    return $ProvinceModelCopyWith<$Res>(_self.province!, (value) {
+      return _then(_self.copyWith(province: value));
+    });
+  }
+
+  /// Create a copy of UpdateAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $BankModelCopyWith<$Res>? get bank {
+    if (_self.bank == null) {
+      return null;
+    }
+
+    return $BankModelCopyWith<$Res>(_self.bank!, (value) {
+      return _then(_self.copyWith(bank: value));
+    });
+  }
+
+  /// Create a copy of UpdateAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $RoadModelCopyWith<$Res>? get road {
+    if (_self.road == null) {
+      return null;
+    }
+
+    return $RoadModelCopyWith<$Res>(_self.road!, (value) {
+      return _then(_self.copyWith(road: value));
+    });
+  }
+
+  /// Create a copy of UpdateAutoVerbalState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProviderStatusCopyWith<void, $Res> get status {
+    return $ProviderStatusCopyWith<void, $Res>(_self.status, (value) {
+      return _then(_self.copyWith(status: value));
+    });
+  }
 }
+
+// dart format on

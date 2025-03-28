@@ -20,7 +20,7 @@ part 'property_provider.g.dart';
 const propertyListLimit = 100;
 
 @freezed
-class PropertyListFilter with _$PropertyListFilter {
+sealed class PropertyListFilter with _$PropertyListFilter {
   const PropertyListFilter._();
 
   const factory PropertyListFilter({
@@ -146,7 +146,7 @@ PaginatedItem<PropertyModel>? propertyAtIndex(
 }
 
 @freezed
-class InsertPropertyState
+sealed class InsertPropertyState
     with
         _$InsertPropertyState,
         ProviderStatusClassMixin<InsertPropertyState, void> {
@@ -275,7 +275,7 @@ class InsertProperty extends _$InsertProperty with _$InsertPropertyForm {
 }
 
 @freezed
-class UpdatePropertyState
+sealed class UpdatePropertyState
     with
         _$UpdatePropertyState,
         ProviderStatusClassMixin<UpdatePropertyState, void> {

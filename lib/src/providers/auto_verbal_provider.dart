@@ -22,7 +22,7 @@ part 'auto_verbal_provider.g.dart';
 const _limit = 100;
 
 @freezed
-class AutoVerbalListFilter with _$AutoVerbalListFilter {
+sealed class AutoVerbalListFilter with _$AutoVerbalListFilter {
   const AutoVerbalListFilter._();
 
   const factory AutoVerbalListFilter({
@@ -147,7 +147,7 @@ PaginatedItem<AutoVerbalModel>? autoVerbalAtIndex(
 }
 
 @freezed
-class InsertAutoVerbalState
+sealed class InsertAutoVerbalState
     with
         _$InsertAutoVerbalState,
         ProviderStatusClassMixin<InsertAutoVerbalState, void> {
@@ -350,7 +350,7 @@ class InsertAutoVerbal extends _$InsertAutoVerbal with _$InsertAutoVerbalForm {
 }
 
 @freezed
-class UpdateAutoVerbalState
+sealed class UpdateAutoVerbalState
     with
         _$UpdateAutoVerbalState,
         ProviderStatusClassMixin<UpdateAutoVerbalState, void> {

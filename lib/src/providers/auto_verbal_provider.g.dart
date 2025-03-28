@@ -80,13 +80,20 @@ class _InsertAutoVerbalFamilyParam {
 
 bool _debugCheckHasInsertAutoVerbalFormWidget(BuildContext context) {
   assert(() {
-    if (context.widget is! InsertAutoVerbalFormWidget &&
-        context.findAncestorWidgetOfExactType<InsertAutoVerbalFormWidget>() ==
-            null) {
+    if ((context.widget is! InsertAutoVerbalFormWidget &&
+            context.findAncestorWidgetOfExactType<
+                    InsertAutoVerbalFormWidget>() ==
+                null) &&
+        (context.widget is! InsertAutoVerbalFormBuilderWidget &&
+            context.findAncestorWidgetOfExactType<
+                    InsertAutoVerbalFormBuilderWidget>() ==
+                null)) {
       throw FlutterError.fromParts(<DiagnosticsNode>[
-        ErrorSummary('No InsertAutoVerbalFormWidget found'),
+        ErrorSummary(
+            'No InsertAutoVerbalFormWidget or InsertAutoVerbalFormBuilderWidget found'),
         ErrorDescription(
-            '${context.widget.runtimeType} widgets require a InsertAutoVerbalFormWidget widget ancestor.'),
+          '${context.widget.runtimeType} widgets require a InsertAutoVerbalFormWidget or InsertAutoVerbalFormBuilderWidget widget ancestor.',
+        ),
       ]);
     }
     return true;
@@ -103,20 +110,26 @@ typedef InsertAutoVerbalFormChildBuilder = Widget Function(
   Future<ProviderStatus<void>> Function() submit,
 );
 
-/// Base form widget for [InsertAutoVerbal] provider
-///
-/// It required to add this as parent widget of fields widget if [InsertAutoVerbal] is a family provider
-/// , otherwise it's optional
 class InsertAutoVerbalFormWidget extends HookConsumerWidget {
+  /// Base form widget for [InsertAutoVerbal] provider
+  ///
+  /// It required to add this as parent widget of fields widget if [InsertAutoVerbal] is a family provider
+  /// , otherwise it's optional
   const InsertAutoVerbalFormWidget({
     super.key,
     this.formKey,
+    this.autovalidateMode,
+    this.onPopInvokedWithResult,
+    this.onChanged,
     required this.fromProperty,
     required this.builder,
   });
 
   /// Form key. If null it will be created by widget
   final GlobalKey<FormState>? formKey;
+  final AutovalidateMode? autovalidateMode;
+  final void Function(bool, Object?)? onPopInvokedWithResult;
+  final void Function()? onChanged;
 
   final PropertyModel? fromProperty;
 
@@ -138,7 +151,8 @@ class InsertAutoVerbalFormWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cachedFormKey = useMemoized(() => formKey ?? GlobalKey<FormState>());
+    final cachedFormKey =
+        useMemoized(() => formKey ?? GlobalKey<FormState>(), [formKey]);
     final family = _InsertAutoVerbalFamilyParam(fromProperty: fromProperty);
 
     final status = ref.watch(
@@ -155,6 +169,9 @@ class InsertAutoVerbalFormWidget extends HookConsumerWidget {
       ],
       child: Form(
         key: cachedFormKey,
+        onChanged: onChanged,
+        autovalidateMode: autovalidateMode,
+        onPopInvokedWithResult: onPopInvokedWithResult,
         child: builder(
           ref,
           cachedFormKey,
@@ -173,6 +190,175 @@ final _insertAutoVerbalFamilyParamProvider =
     Provider<_InsertAutoVerbalFamilyParam>((ref) {
   throw 'You need to add [InsertAutoVerbalFormWidget] as your parent. This allow to internal override family provider param';
 });
+
+/// Form builder widget for [InsertAutoVerbal] provider
+class InsertAutoVerbalFormBuilderWidget extends ConsumerWidget {
+  const InsertAutoVerbalFormBuilderWidget({
+    super.key,
+    required this.fromProperty,
+    required this.builder,
+    this.child,
+  });
+
+  final PropertyModel? fromProperty;
+  final Widget Function(
+    BuildContext context,
+    WidgetRef ref,
+    ProviderStatus<void> status,
+    InsertAutoVerbal notifier,
+    Widget? child,
+  ) builder;
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final family = _InsertAutoVerbalFamilyParam(fromProperty: fromProperty);
+
+    return ProviderScope(
+      overrides: [
+        _insertAutoVerbalFamilyParamProvider.overrideWithValue(family)
+      ],
+      child: Consumer(
+        child: this.child,
+        builder: (context, ref, child) {
+          final notifier = ref.watch(
+              insertAutoVerbalProvider(fromProperty: family.fromProperty)
+                  .notifier);
+          final status = ref.watch(
+              insertAutoVerbalProvider(fromProperty: family.fromProperty)
+                  .select((value) => value.status));
+          return builder(
+            context,
+            ref,
+            status,
+            notifier,
+            child,
+          );
+        },
+      ),
+    );
+  }
+}
+
+/// Widget for manage for [InsertAutoVerbal] provider status
+class InsertAutoVerbalStatusWidget extends ConsumerWidget {
+  const InsertAutoVerbalStatusWidget({
+    super.key,
+    required this.builder,
+    this.child,
+  });
+
+  final Widget Function(
+    BuildContext context,
+    WidgetRef ref,
+    ProviderStatus<void> status,
+    InsertAutoVerbal notifier,
+    Widget? child,
+  ) builder;
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final status = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.status));
+
+    return builder(context, ref, status, notifier, child);
+  }
+}
+
+/// Widget for manage for [InsertAutoVerbal] provider state
+class InsertAutoVerbalStateWidget extends ConsumerWidget {
+  const InsertAutoVerbalStateWidget({
+    super.key,
+    required this.builder,
+    this.child,
+  });
+
+  final Widget Function(
+    BuildContext context,
+    WidgetRef ref,
+    InsertAutoVerbalState state,
+    InsertAutoVerbal notifier,
+    Widget? child,
+  ) builder;
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final state =
+        ref.watch(insertAutoVerbalProvider(fromProperty: family.fromProperty));
+
+    return builder(context, ref, state, notifier, child);
+  }
+}
+
+/// Widget that manages [InsertAutoVerbal] provider state with a selector to optimize performance by reducing unnecessary rebuilds.
+/// The selector allows watching only specific parts of the state that are needed.
+class InsertAutoVerbalSelectWidget<Selected> extends ConsumerWidget {
+  const InsertAutoVerbalSelectWidget({
+    super.key,
+    required this.selector,
+    required this.builder,
+    this.child,
+  });
+
+  final Selected Function(InsertAutoVerbalState state) selector;
+  final Widget Function(
+    BuildContext context,
+    WidgetRef ref,
+    Selected selected,
+    InsertAutoVerbal notifier,
+    Widget? child,
+  ) builder;
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+    final selected = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select(selector));
+
+    return builder(context, ref, selected, notifier, child);
+  }
+}
+
+/// Widget that expose [InsertAutoVerbal] provider notifier manage the state
+/// using this ensure the state is correct map even it is family provider
+class InsertAutoVerbalNotifierWidget extends ConsumerWidget {
+  const InsertAutoVerbalNotifierWidget({
+    super.key,
+    required this.builder,
+  });
+
+  final Widget Function(
+    BuildContext context,
+    WidgetRef ref,
+    InsertAutoVerbal notifier,
+  ) builder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasInsertAutoVerbalFormWidget(context));
+    final family = ref.watch(_insertAutoVerbalFamilyParamProvider);
+    final notifier = ref.watch(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty).notifier);
+
+    return builder(context, ref, notifier);
+  }
+}
 
 typedef InsertAutoVerbalExistingImageUrlsChildBuilder = Widget Function(
   WidgetRef ref,
@@ -432,24 +618,36 @@ class InsertAutoVerbalBankBranchFieldWidget extends HookConsumerWidget {
     final state = ref.watch(
         insertAutoVerbalProvider(fromProperty: family.fromProperty)
             .select((value) => value.bankBranch));
-    final textController = controller ?? useTextEditingController(text: state);
-    useMemoized(() {
-      textController.addListener(() {
-        Future.microtask(() => notifier.onBankBranchChanged(
-            textController.text.isEmpty ? null : textController.text));
-      });
-      return null;
-    });
-
-    ref.listen(
-        insertAutoVerbalProvider(fromProperty: family.fromProperty)
-            .select((value) => value.bankBranch), (previous, current) {
-      if (previous != current) {
-        if (current != textController.text) {
-          Future.microtask(() => textController.text = current ?? '');
+    final textController =
+        controller ?? useTextEditingController(text: state ?? '');
+    useEffect(
+      () {
+        void listener() {
+          final newText =
+              textController.text.isEmpty ? null : textController.text;
+          // Only update if the values actually differ to prevent loops
+          if (state != newText) {
+            notifier.onBankBranchChanged(newText);
+          }
         }
+
+        textController.addListener(listener);
+        return () => textController.removeListener(listener);
+      },
+      [textController],
+    );
+
+    useEffect(() {
+      if (state != textController.text) {
+        // Preserve cursor position when updating text
+        final selection = textController.selection;
+        textController.value = TextEditingValue(
+          text: state ?? '',
+          selection: selection,
+        );
       }
-    });
+      return null;
+    }, [state]);
 
     final showValidation = ref.watch(
         insertAutoVerbalProvider(fromProperty: family.fromProperty)
@@ -494,24 +692,36 @@ class InsertAutoVerbalOwnerNameFieldWidget extends HookConsumerWidget {
     final state = ref.watch(
         insertAutoVerbalProvider(fromProperty: family.fromProperty)
             .select((value) => value.ownerName));
-    final textController = controller ?? useTextEditingController(text: state);
-    useMemoized(() {
-      textController.addListener(() {
-        Future.microtask(() => notifier.onOwnerNameChanged(
-            textController.text.isEmpty ? null : textController.text));
-      });
-      return null;
-    });
-
-    ref.listen(
-        insertAutoVerbalProvider(fromProperty: family.fromProperty)
-            .select((value) => value.ownerName), (previous, current) {
-      if (previous != current) {
-        if (current != textController.text) {
-          Future.microtask(() => textController.text = current ?? '');
+    final textController =
+        controller ?? useTextEditingController(text: state ?? '');
+    useEffect(
+      () {
+        void listener() {
+          final newText =
+              textController.text.isEmpty ? null : textController.text;
+          // Only update if the values actually differ to prevent loops
+          if (state != newText) {
+            notifier.onOwnerNameChanged(newText);
+          }
         }
+
+        textController.addListener(listener);
+        return () => textController.removeListener(listener);
+      },
+      [textController],
+    );
+
+    useEffect(() {
+      if (state != textController.text) {
+        // Preserve cursor position when updating text
+        final selection = textController.selection;
+        textController.value = TextEditingValue(
+          text: state ?? '',
+          selection: selection,
+        );
       }
-    });
+      return null;
+    }, [state]);
 
     final showValidation = ref.watch(
         insertAutoVerbalProvider(fromProperty: family.fromProperty)
@@ -556,24 +766,36 @@ class InsertAutoVerbalOwnerPhoneFieldWidget extends HookConsumerWidget {
     final state = ref.watch(
         insertAutoVerbalProvider(fromProperty: family.fromProperty)
             .select((value) => value.ownerPhone));
-    final textController = controller ?? useTextEditingController(text: state);
-    useMemoized(() {
-      textController.addListener(() {
-        Future.microtask(() => notifier.onOwnerPhoneChanged(
-            textController.text.isEmpty ? null : textController.text));
-      });
-      return null;
-    });
-
-    ref.listen(
-        insertAutoVerbalProvider(fromProperty: family.fromProperty)
-            .select((value) => value.ownerPhone), (previous, current) {
-      if (previous != current) {
-        if (current != textController.text) {
-          Future.microtask(() => textController.text = current ?? '');
+    final textController =
+        controller ?? useTextEditingController(text: state ?? '');
+    useEffect(
+      () {
+        void listener() {
+          final newText =
+              textController.text.isEmpty ? null : textController.text;
+          // Only update if the values actually differ to prevent loops
+          if (state != newText) {
+            notifier.onOwnerPhoneChanged(newText);
+          }
         }
+
+        textController.addListener(listener);
+        return () => textController.removeListener(listener);
+      },
+      [textController],
+    );
+
+    useEffect(() {
+      if (state != textController.text) {
+        // Preserve cursor position when updating text
+        final selection = textController.selection;
+        textController.value = TextEditingValue(
+          text: state ?? '',
+          selection: selection,
+        );
       }
-    });
+      return null;
+    }, [state]);
 
     final showValidation = ref.watch(
         insertAutoVerbalProvider(fromProperty: family.fromProperty)
@@ -618,24 +840,36 @@ class InsertAutoVerbalBankOfficerNameFieldWidget extends HookConsumerWidget {
     final state = ref.watch(
         insertAutoVerbalProvider(fromProperty: family.fromProperty)
             .select((value) => value.bankOfficerName));
-    final textController = controller ?? useTextEditingController(text: state);
-    useMemoized(() {
-      textController.addListener(() {
-        Future.microtask(() => notifier.onBankOfficerNameChanged(
-            textController.text.isEmpty ? null : textController.text));
-      });
-      return null;
-    });
-
-    ref.listen(
-        insertAutoVerbalProvider(fromProperty: family.fromProperty)
-            .select((value) => value.bankOfficerName), (previous, current) {
-      if (previous != current) {
-        if (current != textController.text) {
-          Future.microtask(() => textController.text = current ?? '');
+    final textController =
+        controller ?? useTextEditingController(text: state ?? '');
+    useEffect(
+      () {
+        void listener() {
+          final newText =
+              textController.text.isEmpty ? null : textController.text;
+          // Only update if the values actually differ to prevent loops
+          if (state != newText) {
+            notifier.onBankOfficerNameChanged(newText);
+          }
         }
+
+        textController.addListener(listener);
+        return () => textController.removeListener(listener);
+      },
+      [textController],
+    );
+
+    useEffect(() {
+      if (state != textController.text) {
+        // Preserve cursor position when updating text
+        final selection = textController.selection;
+        textController.value = TextEditingValue(
+          text: state ?? '',
+          selection: selection,
+        );
       }
-    });
+      return null;
+    }, [state]);
 
     final showValidation = ref.watch(
         insertAutoVerbalProvider(fromProperty: family.fromProperty)
@@ -680,24 +914,36 @@ class InsertAutoVerbalBankOfficerPhoneFieldWidget extends HookConsumerWidget {
     final state = ref.watch(
         insertAutoVerbalProvider(fromProperty: family.fromProperty)
             .select((value) => value.bankOfficerPhone));
-    final textController = controller ?? useTextEditingController(text: state);
-    useMemoized(() {
-      textController.addListener(() {
-        Future.microtask(() => notifier.onBankOfficerPhoneChanged(
-            textController.text.isEmpty ? null : textController.text));
-      });
-      return null;
-    });
-
-    ref.listen(
-        insertAutoVerbalProvider(fromProperty: family.fromProperty)
-            .select((value) => value.bankOfficerPhone), (previous, current) {
-      if (previous != current) {
-        if (current != textController.text) {
-          Future.microtask(() => textController.text = current ?? '');
+    final textController =
+        controller ?? useTextEditingController(text: state ?? '');
+    useEffect(
+      () {
+        void listener() {
+          final newText =
+              textController.text.isEmpty ? null : textController.text;
+          // Only update if the values actually differ to prevent loops
+          if (state != newText) {
+            notifier.onBankOfficerPhoneChanged(newText);
+          }
         }
+
+        textController.addListener(listener);
+        return () => textController.removeListener(listener);
+      },
+      [textController],
+    );
+
+    useEffect(() {
+      if (state != textController.text) {
+        // Preserve cursor position when updating text
+        final selection = textController.selection;
+        textController.value = TextEditingValue(
+          text: state ?? '',
+          selection: selection,
+        );
       }
-    });
+      return null;
+    }, [state]);
 
     final showValidation = ref.watch(
         insertAutoVerbalProvider(fromProperty: family.fromProperty)
@@ -1390,13 +1636,20 @@ class _UpdateAutoVerbalFamilyParam {
 
 bool _debugCheckHasUpdateAutoVerbalFormWidget(BuildContext context) {
   assert(() {
-    if (context.widget is! UpdateAutoVerbalFormWidget &&
-        context.findAncestorWidgetOfExactType<UpdateAutoVerbalFormWidget>() ==
-            null) {
+    if ((context.widget is! UpdateAutoVerbalFormWidget &&
+            context.findAncestorWidgetOfExactType<
+                    UpdateAutoVerbalFormWidget>() ==
+                null) &&
+        (context.widget is! UpdateAutoVerbalFormBuilderWidget &&
+            context.findAncestorWidgetOfExactType<
+                    UpdateAutoVerbalFormBuilderWidget>() ==
+                null)) {
       throw FlutterError.fromParts(<DiagnosticsNode>[
-        ErrorSummary('No UpdateAutoVerbalFormWidget found'),
+        ErrorSummary(
+            'No UpdateAutoVerbalFormWidget or UpdateAutoVerbalFormBuilderWidget found'),
         ErrorDescription(
-            '${context.widget.runtimeType} widgets require a UpdateAutoVerbalFormWidget widget ancestor.'),
+          '${context.widget.runtimeType} widgets require a UpdateAutoVerbalFormWidget or UpdateAutoVerbalFormBuilderWidget widget ancestor.',
+        ),
       ]);
     }
     return true;
@@ -1413,20 +1666,26 @@ typedef UpdateAutoVerbalFormChildBuilder = Widget Function(
   Future<ProviderStatus<void>> Function() submit,
 );
 
-/// Base form widget for [UpdateAutoVerbal] provider
-///
-/// It required to add this as parent widget of fields widget if [UpdateAutoVerbal] is a family provider
-/// , otherwise it's optional
 class UpdateAutoVerbalFormWidget extends HookConsumerWidget {
+  /// Base form widget for [UpdateAutoVerbal] provider
+  ///
+  /// It required to add this as parent widget of fields widget if [UpdateAutoVerbal] is a family provider
+  /// , otherwise it's optional
   const UpdateAutoVerbalFormWidget({
     super.key,
     this.formKey,
+    this.autovalidateMode,
+    this.onPopInvokedWithResult,
+    this.onChanged,
     required this.initial,
     required this.builder,
   });
 
   /// Form key. If null it will be created by widget
   final GlobalKey<FormState>? formKey;
+  final AutovalidateMode? autovalidateMode;
+  final void Function(bool, Object?)? onPopInvokedWithResult;
+  final void Function()? onChanged;
 
   final AutoVerbalModel initial;
 
@@ -1448,7 +1707,8 @@ class UpdateAutoVerbalFormWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cachedFormKey = useMemoized(() => formKey ?? GlobalKey<FormState>());
+    final cachedFormKey =
+        useMemoized(() => formKey ?? GlobalKey<FormState>(), [formKey]);
     final family = _UpdateAutoVerbalFamilyParam(initial: initial);
 
     final status = ref.watch(updateAutoVerbalProvider(family.initial)
@@ -1464,6 +1724,9 @@ class UpdateAutoVerbalFormWidget extends HookConsumerWidget {
       ],
       child: Form(
         key: cachedFormKey,
+        onChanged: onChanged,
+        autovalidateMode: autovalidateMode,
+        onPopInvokedWithResult: onPopInvokedWithResult,
         child: builder(
           ref,
           cachedFormKey,
@@ -1482,6 +1745,170 @@ final _updateAutoVerbalFamilyParamProvider =
     Provider<_UpdateAutoVerbalFamilyParam>((ref) {
   throw 'You need to add [UpdateAutoVerbalFormWidget] as your parent. This allow to internal override family provider param';
 });
+
+/// Form builder widget for [UpdateAutoVerbal] provider
+class UpdateAutoVerbalFormBuilderWidget extends ConsumerWidget {
+  const UpdateAutoVerbalFormBuilderWidget({
+    super.key,
+    required this.initial,
+    required this.builder,
+    this.child,
+  });
+
+  final AutoVerbalModel initial;
+  final Widget Function(
+    BuildContext context,
+    WidgetRef ref,
+    ProviderStatus<void> status,
+    UpdateAutoVerbal notifier,
+    Widget? child,
+  ) builder;
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final family = _UpdateAutoVerbalFamilyParam(initial: initial);
+
+    return ProviderScope(
+      overrides: [
+        _updateAutoVerbalFamilyParamProvider.overrideWithValue(family)
+      ],
+      child: Consumer(
+        child: this.child,
+        builder: (context, ref, child) {
+          final notifier =
+              ref.watch(updateAutoVerbalProvider(family.initial).notifier);
+          final status = ref.watch(updateAutoVerbalProvider(family.initial)
+              .select((value) => value.status));
+          return builder(
+            context,
+            ref,
+            status,
+            notifier,
+            child,
+          );
+        },
+      ),
+    );
+  }
+}
+
+/// Widget for manage for [UpdateAutoVerbal] provider status
+class UpdateAutoVerbalStatusWidget extends ConsumerWidget {
+  const UpdateAutoVerbalStatusWidget({
+    super.key,
+    required this.builder,
+    this.child,
+  });
+
+  final Widget Function(
+    BuildContext context,
+    WidgetRef ref,
+    ProviderStatus<void> status,
+    UpdateAutoVerbal notifier,
+    Widget? child,
+  ) builder;
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdateAutoVerbalFormWidget(context));
+    final family = ref.watch(_updateAutoVerbalFamilyParamProvider);
+    final notifier =
+        ref.watch(updateAutoVerbalProvider(family.initial).notifier);
+    final status = ref.watch(updateAutoVerbalProvider(family.initial)
+        .select((value) => value.status));
+
+    return builder(context, ref, status, notifier, child);
+  }
+}
+
+/// Widget for manage for [UpdateAutoVerbal] provider state
+class UpdateAutoVerbalStateWidget extends ConsumerWidget {
+  const UpdateAutoVerbalStateWidget({
+    super.key,
+    required this.builder,
+    this.child,
+  });
+
+  final Widget Function(
+    BuildContext context,
+    WidgetRef ref,
+    UpdateAutoVerbalState state,
+    UpdateAutoVerbal notifier,
+    Widget? child,
+  ) builder;
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdateAutoVerbalFormWidget(context));
+    final family = ref.watch(_updateAutoVerbalFamilyParamProvider);
+    final notifier =
+        ref.watch(updateAutoVerbalProvider(family.initial).notifier);
+    final state = ref.watch(updateAutoVerbalProvider(family.initial));
+
+    return builder(context, ref, state, notifier, child);
+  }
+}
+
+/// Widget that manages [UpdateAutoVerbal] provider state with a selector to optimize performance by reducing unnecessary rebuilds.
+/// The selector allows watching only specific parts of the state that are needed.
+class UpdateAutoVerbalSelectWidget<Selected> extends ConsumerWidget {
+  const UpdateAutoVerbalSelectWidget({
+    super.key,
+    required this.selector,
+    required this.builder,
+    this.child,
+  });
+
+  final Selected Function(UpdateAutoVerbalState state) selector;
+  final Widget Function(
+    BuildContext context,
+    WidgetRef ref,
+    Selected selected,
+    UpdateAutoVerbal notifier,
+    Widget? child,
+  ) builder;
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdateAutoVerbalFormWidget(context));
+    final family = ref.watch(_updateAutoVerbalFamilyParamProvider);
+    final notifier =
+        ref.watch(updateAutoVerbalProvider(family.initial).notifier);
+    final selected =
+        ref.watch(updateAutoVerbalProvider(family.initial).select(selector));
+
+    return builder(context, ref, selected, notifier, child);
+  }
+}
+
+/// Widget that expose [UpdateAutoVerbal] provider notifier manage the state
+/// using this ensure the state is correct map even it is family provider
+class UpdateAutoVerbalNotifierWidget extends ConsumerWidget {
+  const UpdateAutoVerbalNotifierWidget({
+    super.key,
+    required this.builder,
+  });
+
+  final Widget Function(
+    BuildContext context,
+    WidgetRef ref,
+    UpdateAutoVerbal notifier,
+  ) builder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdateAutoVerbalFormWidget(context));
+    final family = ref.watch(_updateAutoVerbalFamilyParamProvider);
+    final notifier =
+        ref.watch(updateAutoVerbalProvider(family.initial).notifier);
+
+    return builder(context, ref, notifier);
+  }
+}
 
 typedef UpdateAutoVerbalNewImageFilesChildBuilder = Widget Function(
   WidgetRef ref,
@@ -1693,23 +2120,33 @@ class UpdateAutoVerbalBankBranchFieldWidget extends HookConsumerWidget {
     final state = ref.watch(updateAutoVerbalProvider(family.initial)
         .select((value) => value.bankBranch));
     final textController = controller ?? useTextEditingController(text: state);
-    useMemoized(() {
-      textController.addListener(() {
-        Future.microtask(
-            () => notifier.onBankBranchChanged(textController.text));
-      });
-      return null;
-    });
-
-    ref.listen(
-        updateAutoVerbalProvider(family.initial)
-            .select((value) => value.bankBranch), (previous, current) {
-      if (previous != current) {
-        if (current != textController.text) {
-          Future.microtask(() => textController.text = current);
+    useEffect(
+      () {
+        void listener() {
+          final newText = textController.text;
+          // Only update if the values actually differ to prevent loops
+          if (state != newText) {
+            notifier.onBankBranchChanged(newText);
+          }
         }
+
+        textController.addListener(listener);
+        return () => textController.removeListener(listener);
+      },
+      [textController],
+    );
+
+    useEffect(() {
+      if (state != textController.text) {
+        // Preserve cursor position when updating text
+        final selection = textController.selection;
+        textController.value = TextEditingValue(
+          text: state,
+          selection: selection,
+        );
       }
-    });
+      return null;
+    }, [state]);
 
     final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
         .select((value) => value.status.isFailure));
@@ -1753,23 +2190,33 @@ class UpdateAutoVerbalOwnerNameFieldWidget extends HookConsumerWidget {
     final state = ref.watch(updateAutoVerbalProvider(family.initial)
         .select((value) => value.ownerName));
     final textController = controller ?? useTextEditingController(text: state);
-    useMemoized(() {
-      textController.addListener(() {
-        Future.microtask(
-            () => notifier.onOwnerNameChanged(textController.text));
-      });
-      return null;
-    });
-
-    ref.listen(
-        updateAutoVerbalProvider(family.initial)
-            .select((value) => value.ownerName), (previous, current) {
-      if (previous != current) {
-        if (current != textController.text) {
-          Future.microtask(() => textController.text = current);
+    useEffect(
+      () {
+        void listener() {
+          final newText = textController.text;
+          // Only update if the values actually differ to prevent loops
+          if (state != newText) {
+            notifier.onOwnerNameChanged(newText);
+          }
         }
+
+        textController.addListener(listener);
+        return () => textController.removeListener(listener);
+      },
+      [textController],
+    );
+
+    useEffect(() {
+      if (state != textController.text) {
+        // Preserve cursor position when updating text
+        final selection = textController.selection;
+        textController.value = TextEditingValue(
+          text: state,
+          selection: selection,
+        );
       }
-    });
+      return null;
+    }, [state]);
 
     final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
         .select((value) => value.status.isFailure));
@@ -1813,23 +2260,33 @@ class UpdateAutoVerbalOwnerPhoneFieldWidget extends HookConsumerWidget {
     final state = ref.watch(updateAutoVerbalProvider(family.initial)
         .select((value) => value.ownerPhone));
     final textController = controller ?? useTextEditingController(text: state);
-    useMemoized(() {
-      textController.addListener(() {
-        Future.microtask(
-            () => notifier.onOwnerPhoneChanged(textController.text));
-      });
-      return null;
-    });
-
-    ref.listen(
-        updateAutoVerbalProvider(family.initial)
-            .select((value) => value.ownerPhone), (previous, current) {
-      if (previous != current) {
-        if (current != textController.text) {
-          Future.microtask(() => textController.text = current);
+    useEffect(
+      () {
+        void listener() {
+          final newText = textController.text;
+          // Only update if the values actually differ to prevent loops
+          if (state != newText) {
+            notifier.onOwnerPhoneChanged(newText);
+          }
         }
+
+        textController.addListener(listener);
+        return () => textController.removeListener(listener);
+      },
+      [textController],
+    );
+
+    useEffect(() {
+      if (state != textController.text) {
+        // Preserve cursor position when updating text
+        final selection = textController.selection;
+        textController.value = TextEditingValue(
+          text: state,
+          selection: selection,
+        );
       }
-    });
+      return null;
+    }, [state]);
 
     final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
         .select((value) => value.status.isFailure));
@@ -1873,23 +2330,33 @@ class UpdateAutoVerbalBankOfficerNameFieldWidget extends HookConsumerWidget {
     final state = ref.watch(updateAutoVerbalProvider(family.initial)
         .select((value) => value.bankOfficerName));
     final textController = controller ?? useTextEditingController(text: state);
-    useMemoized(() {
-      textController.addListener(() {
-        Future.microtask(
-            () => notifier.onBankOfficerNameChanged(textController.text));
-      });
-      return null;
-    });
-
-    ref.listen(
-        updateAutoVerbalProvider(family.initial)
-            .select((value) => value.bankOfficerName), (previous, current) {
-      if (previous != current) {
-        if (current != textController.text) {
-          Future.microtask(() => textController.text = current);
+    useEffect(
+      () {
+        void listener() {
+          final newText = textController.text;
+          // Only update if the values actually differ to prevent loops
+          if (state != newText) {
+            notifier.onBankOfficerNameChanged(newText);
+          }
         }
+
+        textController.addListener(listener);
+        return () => textController.removeListener(listener);
+      },
+      [textController],
+    );
+
+    useEffect(() {
+      if (state != textController.text) {
+        // Preserve cursor position when updating text
+        final selection = textController.selection;
+        textController.value = TextEditingValue(
+          text: state,
+          selection: selection,
+        );
       }
-    });
+      return null;
+    }, [state]);
 
     final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
         .select((value) => value.status.isFailure));
@@ -1933,23 +2400,33 @@ class UpdateAutoVerbalBankOfficerPhoneFieldWidget extends HookConsumerWidget {
     final state = ref.watch(updateAutoVerbalProvider(family.initial)
         .select((value) => value.bankOfficerPhone));
     final textController = controller ?? useTextEditingController(text: state);
-    useMemoized(() {
-      textController.addListener(() {
-        Future.microtask(
-            () => notifier.onBankOfficerPhoneChanged(textController.text));
-      });
-      return null;
-    });
-
-    ref.listen(
-        updateAutoVerbalProvider(family.initial)
-            .select((value) => value.bankOfficerPhone), (previous, current) {
-      if (previous != current) {
-        if (current != textController.text) {
-          Future.microtask(() => textController.text = current);
+    useEffect(
+      () {
+        void listener() {
+          final newText = textController.text;
+          // Only update if the values actually differ to prevent loops
+          if (state != newText) {
+            notifier.onBankOfficerPhoneChanged(newText);
+          }
         }
+
+        textController.addListener(listener);
+        return () => textController.removeListener(listener);
+      },
+      [textController],
+    );
+
+    useEffect(() {
+      if (state != textController.text) {
+        // Preserve cursor position when updating text
+        final selection = textController.selection;
+        textController.value = TextEditingValue(
+          text: state,
+          selection: selection,
+        );
       }
-    });
+      return null;
+    }, [state]);
 
     final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
         .select((value) => value.status.isFailure));

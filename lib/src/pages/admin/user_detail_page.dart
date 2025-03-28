@@ -309,128 +309,152 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                 ),
                 Form(
                   key: _formKey,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          onChanged: _updatePasswordStrength,
-                          keyboardType: TextInputType.visiblePassword,
-                          controller: _newPasswordController,
-                          obscureText: _isObscure,
-                          decoration: InputDecoration(
-                            fillColor: Colors.white,
-                            filled: true,
-                            labelText: 'Password',
-                            prefixIcon: const Icon(
-                              Icons.lock,
-                              color: kPrimaryColor,
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: kPrimaryColor,
-                                width: 2.0,
+                  child: Consumer(
+                    builder: (context, ref, child) {
+                      final currentUser = ref.watch(currentUserProvider);
+
+                      return currentUser.when(
+                        data: (admin) {
+                          // Check if current admin is the owner who approved the user
+                          final isOwnerAdmin = admin != null &&
+                              widget.user.managedBy != null &&
+                              admin.id == widget.user.managedBy!.id;
+
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: TextFormField(
+                                  onChanged: _updatePasswordStrength,
+                                  keyboardType: TextInputType.visiblePassword,
+                                  controller: _newPasswordController,
+                                  obscureText: _isObscure,
+                                  decoration: InputDecoration(
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                    labelText: 'Password',
+                                    prefixIcon: const Icon(
+                                      Icons.lock,
+                                      color: kPrimaryColor,
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: kPrimaryColor,
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: kPrimaryColor,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: Colors.red,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: Colors.red,
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    suffixIcon: IconButton(
+                                      icon: Icon(
+                                        color: context.isDarkMode
+                                            ? themeData.primaryColorLight
+                                            : kImageColor,
+                                        _isObscure
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          _isObscure = !_isObscure;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                  enabled: isOwnerAdmin,
+                                  validator: (value) {
+                                    if (!isOwnerAdmin) {
+                                      return 'Only the approving admin can update password';
+                                    }
+                                    if (value == null || value.isEmpty) {
+                                      return r'Strong password at least 6 characters (Aa1#85...)';
+                                    }
+                                    if (!_isPasswordStrong(value)) {
+                                      return r'Strong password at least 6 characters (Aa1#85...)';
+                                    }
+                                    return null;
+                                  },
+                                ),
                               ),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: kPrimaryColor,
-                                width: 1.0,
+                              const SizedBox(width: 16),
+                              SizedBox(
+                                height: 50,
+                                child: GFButton(
+                                  onPressed: isOwnerAdmin
+                                      ? () async {
+                                          if (!_formKey.currentState!
+                                              .validate()) {
+                                            return;
+                                          }
+                                          final close = BotToast.showLoading();
+                                          final result = await ref
+                                              .read(authProvider.notifier)
+                                              .updateUserPassword(
+                                                userId: widget.user.id,
+                                                newPassword:
+                                                    _newPasswordController.text,
+                                              );
+                                          close();
+                                          if (result == null) {
+                                            AwesomeDialog(
+                                              context: context,
+                                              dialogType: DialogType.success,
+                                              animType: AnimType.rightSlide,
+                                              headerAnimationLoop: false,
+                                              title:
+                                                  'Update Password Successfully!',
+                                              btnOkIcon: Icons.cancel,
+                                              btnOkColor: Colors.red,
+                                            ).show();
+                                          } else {
+                                            AwesomeDialog(
+                                              context: context,
+                                              dialogType: DialogType.error,
+                                              animType: AnimType.rightSlide,
+                                              headerAnimationLoop: false,
+                                              title: 'Update Password Failed!',
+                                              btnOkIcon: Icons.cancel,
+                                              btnOkColor: Colors.red,
+                                            ).show();
+                                          }
+                                          _formKey.currentState!.reset();
+                                          _newPasswordController.clear();
+                                        }
+                                      : null,
+                                  text: 'Update',
+                                  color:
+                                      isOwnerAdmin ? Colors.blue : Colors.grey,
+                                ),
                               ),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Colors.red,
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Colors.red,
-                                width: 2.0,
-                              ),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                color: context.isDarkMode
-                                    ? themeData.primaryColorLight
-                                    : kImageColor,
-                                _isObscure
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  _isObscure = !_isObscure;
-                                });
-                              },
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return r'Strong password at least 6 characters (Aa1#85...)';
-                            }
-                            if (!_isPasswordStrong(value)) {
-                              return r'Strong password at least 6 characters (Aa1#85...)';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      SizedBox(
-                        height: 50,
-                        child: GFButton(
-                          onPressed: () async {
-                            if (!_formKey.currentState!.validate()) {
-                              return;
-                            }
-                            final close = BotToast.showLoading();
-                            final result = await ref
-                                .read(authProvider.notifier)
-                                .updateUserPassword(
-                                  userId: widget.user.id,
-                                  newPassword: _newPasswordController.text,
-                                );
-                            close();
-                            if (result == null) {
-                              // BotToast.showText(
-                              //     text: 'Password updated successfully!');
-                              AwesomeDialog(
-                                context: context,
-                                dialogType: DialogType.success,
-                                animType: AnimType.rightSlide,
-                                headerAnimationLoop: false,
-                                title: 'Update Password Successfully!',
-                                btnOkIcon: Icons.cancel,
-                                btnOkColor: Colors.red,
-                              ).show();
-                              // Navigator.of(context).pop();
-                            } else {
-                              // BotToast.showText(text: result);
-                              AwesomeDialog(
-                                context: context,
-                                dialogType: DialogType.error,
-                                animType: AnimType.rightSlide,
-                                headerAnimationLoop: false,
-                                title: 'Update Password Failed!',
-                                btnOkIcon: Icons.cancel,
-                                btnOkColor: Colors.red,
-                              ).show();
-                              // Navigator.of(context).pop();
-                            }
-                            _formKey.currentState!.reset();
-                            _newPasswordController.clear();
-                          },
-                          text: 'Update',
-                          color: Colors.blue,
-                        ),
-                      ),
-                    ],
+                            ],
+                          );
+                        },
+                        loading: () =>
+                            const Center(child: CircularProgressIndicator()),
+                        error: (error, stack) =>
+                            Center(child: Text('Error: $error')),
+                      );
+                    },
                   ),
                 ),
               ],

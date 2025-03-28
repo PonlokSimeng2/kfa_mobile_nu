@@ -12,7 +12,7 @@ part 'admin_provider.freezed.dart';
 part 'admin_provider.g.dart';
 
 @freezed
-class ReportData with _$ReportData {
+sealed class ReportData with _$ReportData {
   const ReportData._();
 
   const factory ReportData({
@@ -205,6 +205,26 @@ class AssignAdmin extends _$AssignAdmin {
         final sb = ref.watch(supabaseProvider).client;
         await sb.from(UserModel.table.tableName).update({
           'managed_by_id': adminId,
+        }).eq(UserTable.id, userId);
+      },
+      onSuccess: (_) {
+        ref.invalidate(userListProvider);
+      },
+    );
+  }
+}
+
+@riverpod
+class UnAssignAdmin extends _$UnAssignAdmin {
+  @override
+  ProviderStatus<void> build(String userId) => const ProviderStatus.initial();
+
+  Future<ProviderStatus<void>> call() async {
+    return await perform(
+      (state) async {
+        final sb = ref.watch(supabaseProvider).client;
+        await sb.from(UserModel.table.tableName).update({
+          'managed_by_id': null,
         }).eq(UserTable.id, userId);
       },
       onSuccess: (_) {

@@ -974,5 +974,150 @@ class _AssignAdminProviderElement extends AutoDisposeNotifierProviderElement<
   @override
   String get userId => (origin as AssignAdminProvider).userId;
 }
+
+String _$unAssignAdminHash() => r'fde2c7c3d23600c898005f0a830051768495e891';
+
+abstract class _$UnAssignAdmin
+    extends BuildlessAutoDisposeNotifier<ProviderStatus<void>> {
+  late final String userId;
+
+  ProviderStatus<void> build(
+    String userId,
+  );
+}
+
+/// See also [UnAssignAdmin].
+@ProviderFor(UnAssignAdmin)
+const unAssignAdminProvider = UnAssignAdminFamily();
+
+/// See also [UnAssignAdmin].
+class UnAssignAdminFamily extends Family<ProviderStatus<void>> {
+  /// See also [UnAssignAdmin].
+  const UnAssignAdminFamily();
+
+  /// See also [UnAssignAdmin].
+  UnAssignAdminProvider call(
+    String userId,
+  ) {
+    return UnAssignAdminProvider(
+      userId,
+    );
+  }
+
+  @override
+  UnAssignAdminProvider getProviderOverride(
+    covariant UnAssignAdminProvider provider,
+  ) {
+    return call(
+      provider.userId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'unAssignAdminProvider';
+}
+
+/// See also [UnAssignAdmin].
+class UnAssignAdminProvider extends AutoDisposeNotifierProviderImpl<
+    UnAssignAdmin, ProviderStatus<void>> {
+  /// See also [UnAssignAdmin].
+  UnAssignAdminProvider(
+    String userId,
+  ) : this._internal(
+          () => UnAssignAdmin()..userId = userId,
+          from: unAssignAdminProvider,
+          name: r'unAssignAdminProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$unAssignAdminHash,
+          dependencies: UnAssignAdminFamily._dependencies,
+          allTransitiveDependencies:
+              UnAssignAdminFamily._allTransitiveDependencies,
+          userId: userId,
+        );
+
+  UnAssignAdminProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.userId,
+  }) : super.internal();
+
+  final String userId;
+
+  @override
+  ProviderStatus<void> runNotifierBuild(
+    covariant UnAssignAdmin notifier,
+  ) {
+    return notifier.build(
+      userId,
+    );
+  }
+
+  @override
+  Override overrideWith(UnAssignAdmin Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: UnAssignAdminProvider._internal(
+        () => create()..userId = userId,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        userId: userId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeNotifierProviderElement<UnAssignAdmin, ProviderStatus<void>>
+      createElement() {
+    return _UnAssignAdminProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is UnAssignAdminProvider && other.userId == userId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, userId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin UnAssignAdminRef on AutoDisposeNotifierProviderRef<ProviderStatus<void>> {
+  /// The parameter `userId` of this provider.
+  String get userId;
+}
+
+class _UnAssignAdminProviderElement extends AutoDisposeNotifierProviderElement<
+    UnAssignAdmin, ProviderStatus<void>> with UnAssignAdminRef {
+  _UnAssignAdminProviderElement(super.provider);
+
+  @override
+  String get userId => (origin as UnAssignAdminProvider).userId;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

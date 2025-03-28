@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,39 +10,108 @@ part of 'property_provider.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
 
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
 /// @nodoc
-mixin _$PropertyListFilter {
-  IList<PropertyAndAutoVerbalStatus> get statuses =>
-      throw _privateConstructorUsedError;
-  IList<int> get propertyIds => throw _privateConstructorUsedError;
-  String? get titleOrDescription => throw _privateConstructorUsedError;
-  ProvinceModel? get province => throw _privateConstructorUsedError;
-  PropertyTypeModel? get propertyType => throw _privateConstructorUsedError;
-  PropertyListingType? get listingType => throw _privateConstructorUsedError;
-  double? get minPrice => throw _privateConstructorUsedError;
-  double? get maxPrice => throw _privateConstructorUsedError;
-  String? get userId => throw _privateConstructorUsedError;
-  DateTime? get dateFrom => throw _privateConstructorUsedError;
-  DateTime? get dateTo => throw _privateConstructorUsedError;
-  bool get showHiddenFromHomePageItem => throw _privateConstructorUsedError;
+mixin _$PropertyListFilter implements DiagnosticableTreeMixin {
+  IList<PropertyAndAutoVerbalStatus> get statuses;
+  IList<int> get propertyIds;
+  String? get titleOrDescription;
+  ProvinceModel? get province;
+  PropertyTypeModel? get propertyType;
+  PropertyListingType? get listingType;
+  double? get minPrice;
+  double? get maxPrice;
+  String? get userId;
+  DateTime? get dateFrom;
+  DateTime? get dateTo;
+  bool get showHiddenFromHomePageItem;
 
   /// Create a copy of PropertyListFilter
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $PropertyListFilterCopyWith<PropertyListFilter> get copyWith =>
-      throw _privateConstructorUsedError;
+      _$PropertyListFilterCopyWithImpl<PropertyListFilter>(
+          this as PropertyListFilter, _$identity);
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+      ..add(DiagnosticsProperty('type', 'PropertyListFilter'))
+      ..add(DiagnosticsProperty('statuses', statuses))
+      ..add(DiagnosticsProperty('propertyIds', propertyIds))
+      ..add(DiagnosticsProperty('titleOrDescription', titleOrDescription))
+      ..add(DiagnosticsProperty('province', province))
+      ..add(DiagnosticsProperty('propertyType', propertyType))
+      ..add(DiagnosticsProperty('listingType', listingType))
+      ..add(DiagnosticsProperty('minPrice', minPrice))
+      ..add(DiagnosticsProperty('maxPrice', maxPrice))
+      ..add(DiagnosticsProperty('userId', userId))
+      ..add(DiagnosticsProperty('dateFrom', dateFrom))
+      ..add(DiagnosticsProperty('dateTo', dateTo))
+      ..add(DiagnosticsProperty(
+          'showHiddenFromHomePageItem', showHiddenFromHomePageItem));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is PropertyListFilter &&
+            const DeepCollectionEquality().equals(other.statuses, statuses) &&
+            const DeepCollectionEquality()
+                .equals(other.propertyIds, propertyIds) &&
+            (identical(other.titleOrDescription, titleOrDescription) ||
+                other.titleOrDescription == titleOrDescription) &&
+            (identical(other.province, province) ||
+                other.province == province) &&
+            (identical(other.propertyType, propertyType) ||
+                other.propertyType == propertyType) &&
+            (identical(other.listingType, listingType) ||
+                other.listingType == listingType) &&
+            (identical(other.minPrice, minPrice) ||
+                other.minPrice == minPrice) &&
+            (identical(other.maxPrice, maxPrice) ||
+                other.maxPrice == maxPrice) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.dateFrom, dateFrom) ||
+                other.dateFrom == dateFrom) &&
+            (identical(other.dateTo, dateTo) || other.dateTo == dateTo) &&
+            (identical(other.showHiddenFromHomePageItem,
+                    showHiddenFromHomePageItem) ||
+                other.showHiddenFromHomePageItem ==
+                    showHiddenFromHomePageItem));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(statuses),
+      const DeepCollectionEquality().hash(propertyIds),
+      titleOrDescription,
+      province,
+      propertyType,
+      listingType,
+      minPrice,
+      maxPrice,
+      userId,
+      dateFrom,
+      dateTo,
+      showHiddenFromHomePageItem);
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'PropertyListFilter(statuses: $statuses, propertyIds: $propertyIds, titleOrDescription: $titleOrDescription, province: $province, propertyType: $propertyType, listingType: $listingType, minPrice: $minPrice, maxPrice: $maxPrice, userId: $userId, dateFrom: $dateFrom, dateTo: $dateTo, showHiddenFromHomePageItem: $showHiddenFromHomePageItem)';
+  }
 }
 
 /// @nodoc
-abstract class $PropertyListFilterCopyWith<$Res> {
+abstract mixin class $PropertyListFilterCopyWith<$Res> {
   factory $PropertyListFilterCopyWith(
-          PropertyListFilter value, $Res Function(PropertyListFilter) then) =
-      _$PropertyListFilterCopyWithImpl<$Res, PropertyListFilter>;
+          PropertyListFilter value, $Res Function(PropertyListFilter) _then) =
+      _$PropertyListFilterCopyWithImpl;
   @useResult
   $Res call(
       {IList<PropertyAndAutoVerbalStatus> statuses,
@@ -62,14 +132,12 @@ abstract class $PropertyListFilterCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$PropertyListFilterCopyWithImpl<$Res, $Val extends PropertyListFilter>
+class _$PropertyListFilterCopyWithImpl<$Res>
     implements $PropertyListFilterCopyWith<$Res> {
-  _$PropertyListFilterCopyWithImpl(this._value, this._then);
+  _$PropertyListFilterCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final PropertyListFilter _self;
+  final $Res Function(PropertyListFilter) _then;
 
   /// Create a copy of PropertyListFilter
   /// with the given fields replaced by the non-null parameter values.
@@ -89,56 +157,56 @@ class _$PropertyListFilterCopyWithImpl<$Res, $Val extends PropertyListFilter>
     Object? dateTo = freezed,
     Object? showHiddenFromHomePageItem = null,
   }) {
-    return _then(_value.copyWith(
+    return _then(_self.copyWith(
       statuses: null == statuses
-          ? _value.statuses
+          ? _self.statuses
           : statuses // ignore: cast_nullable_to_non_nullable
               as IList<PropertyAndAutoVerbalStatus>,
       propertyIds: null == propertyIds
-          ? _value.propertyIds
+          ? _self.propertyIds
           : propertyIds // ignore: cast_nullable_to_non_nullable
               as IList<int>,
       titleOrDescription: freezed == titleOrDescription
-          ? _value.titleOrDescription
+          ? _self.titleOrDescription
           : titleOrDescription // ignore: cast_nullable_to_non_nullable
               as String?,
       province: freezed == province
-          ? _value.province
+          ? _self.province
           : province // ignore: cast_nullable_to_non_nullable
               as ProvinceModel?,
       propertyType: freezed == propertyType
-          ? _value.propertyType
+          ? _self.propertyType
           : propertyType // ignore: cast_nullable_to_non_nullable
               as PropertyTypeModel?,
       listingType: freezed == listingType
-          ? _value.listingType
+          ? _self.listingType
           : listingType // ignore: cast_nullable_to_non_nullable
               as PropertyListingType?,
       minPrice: freezed == minPrice
-          ? _value.minPrice
+          ? _self.minPrice
           : minPrice // ignore: cast_nullable_to_non_nullable
               as double?,
       maxPrice: freezed == maxPrice
-          ? _value.maxPrice
+          ? _self.maxPrice
           : maxPrice // ignore: cast_nullable_to_non_nullable
               as double?,
       userId: freezed == userId
-          ? _value.userId
+          ? _self.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String?,
       dateFrom: freezed == dateFrom
-          ? _value.dateFrom
+          ? _self.dateFrom
           : dateFrom // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       dateTo: freezed == dateTo
-          ? _value.dateTo
+          ? _self.dateTo
           : dateTo // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       showHiddenFromHomePageItem: null == showHiddenFromHomePageItem
-          ? _value.showHiddenFromHomePageItem
+          ? _self.showHiddenFromHomePageItem
           : showHiddenFromHomePageItem // ignore: cast_nullable_to_non_nullable
               as bool,
-    ) as $Val);
+    ));
   }
 
   /// Create a copy of PropertyListFilter
@@ -146,12 +214,12 @@ class _$PropertyListFilterCopyWithImpl<$Res, $Val extends PropertyListFilter>
   @override
   @pragma('vm:prefer-inline')
   $ProvinceModelCopyWith<$Res>? get province {
-    if (_value.province == null) {
+    if (_self.province == null) {
       return null;
     }
 
-    return $ProvinceModelCopyWith<$Res>(_value.province!, (value) {
-      return _then(_value.copyWith(province: value) as $Val);
+    return $ProvinceModelCopyWith<$Res>(_self.province!, (value) {
+      return _then(_self.copyWith(province: value));
     });
   }
 
@@ -160,128 +228,21 @@ class _$PropertyListFilterCopyWithImpl<$Res, $Val extends PropertyListFilter>
   @override
   @pragma('vm:prefer-inline')
   $PropertyTypeModelCopyWith<$Res>? get propertyType {
-    if (_value.propertyType == null) {
+    if (_self.propertyType == null) {
       return null;
     }
 
-    return $PropertyTypeModelCopyWith<$Res>(_value.propertyType!, (value) {
-      return _then(_value.copyWith(propertyType: value) as $Val);
+    return $PropertyTypeModelCopyWith<$Res>(_self.propertyType!, (value) {
+      return _then(_self.copyWith(propertyType: value));
     });
   }
 }
 
 /// @nodoc
-abstract class _$$PropertyListFilterImplCopyWith<$Res>
-    implements $PropertyListFilterCopyWith<$Res> {
-  factory _$$PropertyListFilterImplCopyWith(_$PropertyListFilterImpl value,
-          $Res Function(_$PropertyListFilterImpl) then) =
-      __$$PropertyListFilterImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {IList<PropertyAndAutoVerbalStatus> statuses,
-      IList<int> propertyIds,
-      String? titleOrDescription,
-      ProvinceModel? province,
-      PropertyTypeModel? propertyType,
-      PropertyListingType? listingType,
-      double? minPrice,
-      double? maxPrice,
-      String? userId,
-      DateTime? dateFrom,
-      DateTime? dateTo,
-      bool showHiddenFromHomePageItem});
 
-  @override
-  $ProvinceModelCopyWith<$Res>? get province;
-  @override
-  $PropertyTypeModelCopyWith<$Res>? get propertyType;
-}
-
-/// @nodoc
-class __$$PropertyListFilterImplCopyWithImpl<$Res>
-    extends _$PropertyListFilterCopyWithImpl<$Res, _$PropertyListFilterImpl>
-    implements _$$PropertyListFilterImplCopyWith<$Res> {
-  __$$PropertyListFilterImplCopyWithImpl(_$PropertyListFilterImpl _value,
-      $Res Function(_$PropertyListFilterImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of PropertyListFilter
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? statuses = null,
-    Object? propertyIds = null,
-    Object? titleOrDescription = freezed,
-    Object? province = freezed,
-    Object? propertyType = freezed,
-    Object? listingType = freezed,
-    Object? minPrice = freezed,
-    Object? maxPrice = freezed,
-    Object? userId = freezed,
-    Object? dateFrom = freezed,
-    Object? dateTo = freezed,
-    Object? showHiddenFromHomePageItem = null,
-  }) {
-    return _then(_$PropertyListFilterImpl(
-      statuses: null == statuses
-          ? _value.statuses
-          : statuses // ignore: cast_nullable_to_non_nullable
-              as IList<PropertyAndAutoVerbalStatus>,
-      propertyIds: null == propertyIds
-          ? _value.propertyIds
-          : propertyIds // ignore: cast_nullable_to_non_nullable
-              as IList<int>,
-      titleOrDescription: freezed == titleOrDescription
-          ? _value.titleOrDescription
-          : titleOrDescription // ignore: cast_nullable_to_non_nullable
-              as String?,
-      province: freezed == province
-          ? _value.province
-          : province // ignore: cast_nullable_to_non_nullable
-              as ProvinceModel?,
-      propertyType: freezed == propertyType
-          ? _value.propertyType
-          : propertyType // ignore: cast_nullable_to_non_nullable
-              as PropertyTypeModel?,
-      listingType: freezed == listingType
-          ? _value.listingType
-          : listingType // ignore: cast_nullable_to_non_nullable
-              as PropertyListingType?,
-      minPrice: freezed == minPrice
-          ? _value.minPrice
-          : minPrice // ignore: cast_nullable_to_non_nullable
-              as double?,
-      maxPrice: freezed == maxPrice
-          ? _value.maxPrice
-          : maxPrice // ignore: cast_nullable_to_non_nullable
-              as double?,
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      dateFrom: freezed == dateFrom
-          ? _value.dateFrom
-          : dateFrom // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      dateTo: freezed == dateTo
-          ? _value.dateTo
-          : dateTo // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      showHiddenFromHomePageItem: null == showHiddenFromHomePageItem
-          ? _value.showHiddenFromHomePageItem
-          : showHiddenFromHomePageItem // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$PropertyListFilterImpl extends _PropertyListFilter
+class _PropertyListFilter extends PropertyListFilter
     with DiagnosticableTreeMixin {
-  const _$PropertyListFilterImpl(
+  const _PropertyListFilter(
       {this.statuses = const IListConst([PropertyAndAutoVerbalStatus.approved]),
       this.propertyIds = const IList.empty(),
       this.titleOrDescription,
@@ -324,14 +285,16 @@ class _$PropertyListFilterImpl extends _PropertyListFilter
   @JsonKey()
   final bool showHiddenFromHomePageItem;
 
+  /// Create a copy of PropertyListFilter
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PropertyListFilter(statuses: $statuses, propertyIds: $propertyIds, titleOrDescription: $titleOrDescription, province: $province, propertyType: $propertyType, listingType: $listingType, minPrice: $minPrice, maxPrice: $maxPrice, userId: $userId, dateFrom: $dateFrom, dateTo: $dateTo, showHiddenFromHomePageItem: $showHiddenFromHomePageItem)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$PropertyListFilterCopyWith<_PropertyListFilter> get copyWith =>
+      __$PropertyListFilterCopyWithImpl<_PropertyListFilter>(this, _$identity);
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'PropertyListFilter'))
       ..add(DiagnosticsProperty('statuses', statuses))
@@ -353,7 +316,7 @@ class _$PropertyListFilterImpl extends _PropertyListFilter
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PropertyListFilterImpl &&
+            other is _PropertyListFilter &&
             const DeepCollectionEquality().equals(other.statuses, statuses) &&
             const DeepCollectionEquality()
                 .equals(other.propertyIds, propertyIds) &&
@@ -395,102 +358,286 @@ class _$PropertyListFilterImpl extends _PropertyListFilter
       dateTo,
       showHiddenFromHomePageItem);
 
-  /// Create a copy of PropertyListFilter
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$PropertyListFilterImplCopyWith<_$PropertyListFilterImpl> get copyWith =>
-      __$$PropertyListFilterImplCopyWithImpl<_$PropertyListFilterImpl>(
-          this, _$identity);
-}
-
-abstract class _PropertyListFilter extends PropertyListFilter {
-  const factory _PropertyListFilter(
-      {final IList<PropertyAndAutoVerbalStatus> statuses,
-      final IList<int> propertyIds,
-      final String? titleOrDescription,
-      final ProvinceModel? province,
-      final PropertyTypeModel? propertyType,
-      final PropertyListingType? listingType,
-      final double? minPrice,
-      final double? maxPrice,
-      final String? userId,
-      final DateTime? dateFrom,
-      final DateTime? dateTo,
-      final bool showHiddenFromHomePageItem}) = _$PropertyListFilterImpl;
-  const _PropertyListFilter._() : super._();
-
-  @override
-  IList<PropertyAndAutoVerbalStatus> get statuses;
-  @override
-  IList<int> get propertyIds;
-  @override
-  String? get titleOrDescription;
-  @override
-  ProvinceModel? get province;
-  @override
-  PropertyTypeModel? get propertyType;
-  @override
-  PropertyListingType? get listingType;
-  @override
-  double? get minPrice;
-  @override
-  double? get maxPrice;
-  @override
-  String? get userId;
-  @override
-  DateTime? get dateFrom;
-  @override
-  DateTime? get dateTo;
-  @override
-  bool get showHiddenFromHomePageItem;
-
-  /// Create a copy of PropertyListFilter
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PropertyListFilterImplCopyWith<_$PropertyListFilterImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'PropertyListFilter(statuses: $statuses, propertyIds: $propertyIds, titleOrDescription: $titleOrDescription, province: $province, propertyType: $propertyType, listingType: $listingType, minPrice: $minPrice, maxPrice: $maxPrice, userId: $userId, dateFrom: $dateFrom, dateTo: $dateTo, showHiddenFromHomePageItem: $showHiddenFromHomePageItem)';
+  }
 }
 
 /// @nodoc
-mixin _$InsertPropertyState {
-  PropertyListingType get propertyListingType =>
-      throw _privateConstructorUsedError;
-  IList<XFile> get imageFiles => throw _privateConstructorUsedError;
-  ProvinceModel? get province => throw _privateConstructorUsedError;
-  PropertyTypeModel? get propertyType => throw _privateConstructorUsedError;
-  String get title => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
-  double get longitude => throw _privateConstructorUsedError;
-  double get latitude => throw _privateConstructorUsedError;
-  double get price => throw _privateConstructorUsedError;
-  double get sqm => throw _privateConstructorUsedError;
-  int get bedrooms => throw _privateConstructorUsedError;
-  int get bathrooms => throw _privateConstructorUsedError;
-  int get floors => throw _privateConstructorUsedError;
-  int get parking => throw _privateConstructorUsedError;
-  double get pricePerSqm => throw _privateConstructorUsedError;
-  int get livingRooms => throw _privateConstructorUsedError;
-  double get landLength => throw _privateConstructorUsedError;
-  double get landWidth => throw _privateConstructorUsedError;
-  double get buildingLength => throw _privateConstructorUsedError;
-  double get buildingWidth => throw _privateConstructorUsedError;
-  ProviderStatus<void> get status => throw _privateConstructorUsedError;
+abstract mixin class _$PropertyListFilterCopyWith<$Res>
+    implements $PropertyListFilterCopyWith<$Res> {
+  factory _$PropertyListFilterCopyWith(
+          _PropertyListFilter value, $Res Function(_PropertyListFilter) _then) =
+      __$PropertyListFilterCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {IList<PropertyAndAutoVerbalStatus> statuses,
+      IList<int> propertyIds,
+      String? titleOrDescription,
+      ProvinceModel? province,
+      PropertyTypeModel? propertyType,
+      PropertyListingType? listingType,
+      double? minPrice,
+      double? maxPrice,
+      String? userId,
+      DateTime? dateFrom,
+      DateTime? dateTo,
+      bool showHiddenFromHomePageItem});
+
+  @override
+  $ProvinceModelCopyWith<$Res>? get province;
+  @override
+  $PropertyTypeModelCopyWith<$Res>? get propertyType;
+}
+
+/// @nodoc
+class __$PropertyListFilterCopyWithImpl<$Res>
+    implements _$PropertyListFilterCopyWith<$Res> {
+  __$PropertyListFilterCopyWithImpl(this._self, this._then);
+
+  final _PropertyListFilter _self;
+  final $Res Function(_PropertyListFilter) _then;
+
+  /// Create a copy of PropertyListFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? statuses = null,
+    Object? propertyIds = null,
+    Object? titleOrDescription = freezed,
+    Object? province = freezed,
+    Object? propertyType = freezed,
+    Object? listingType = freezed,
+    Object? minPrice = freezed,
+    Object? maxPrice = freezed,
+    Object? userId = freezed,
+    Object? dateFrom = freezed,
+    Object? dateTo = freezed,
+    Object? showHiddenFromHomePageItem = null,
+  }) {
+    return _then(_PropertyListFilter(
+      statuses: null == statuses
+          ? _self.statuses
+          : statuses // ignore: cast_nullable_to_non_nullable
+              as IList<PropertyAndAutoVerbalStatus>,
+      propertyIds: null == propertyIds
+          ? _self.propertyIds
+          : propertyIds // ignore: cast_nullable_to_non_nullable
+              as IList<int>,
+      titleOrDescription: freezed == titleOrDescription
+          ? _self.titleOrDescription
+          : titleOrDescription // ignore: cast_nullable_to_non_nullable
+              as String?,
+      province: freezed == province
+          ? _self.province
+          : province // ignore: cast_nullable_to_non_nullable
+              as ProvinceModel?,
+      propertyType: freezed == propertyType
+          ? _self.propertyType
+          : propertyType // ignore: cast_nullable_to_non_nullable
+              as PropertyTypeModel?,
+      listingType: freezed == listingType
+          ? _self.listingType
+          : listingType // ignore: cast_nullable_to_non_nullable
+              as PropertyListingType?,
+      minPrice: freezed == minPrice
+          ? _self.minPrice
+          : minPrice // ignore: cast_nullable_to_non_nullable
+              as double?,
+      maxPrice: freezed == maxPrice
+          ? _self.maxPrice
+          : maxPrice // ignore: cast_nullable_to_non_nullable
+              as double?,
+      userId: freezed == userId
+          ? _self.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dateFrom: freezed == dateFrom
+          ? _self.dateFrom
+          : dateFrom // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      dateTo: freezed == dateTo
+          ? _self.dateTo
+          : dateTo // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      showHiddenFromHomePageItem: null == showHiddenFromHomePageItem
+          ? _self.showHiddenFromHomePageItem
+          : showHiddenFromHomePageItem // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+
+  /// Create a copy of PropertyListFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProvinceModelCopyWith<$Res>? get province {
+    if (_self.province == null) {
+      return null;
+    }
+
+    return $ProvinceModelCopyWith<$Res>(_self.province!, (value) {
+      return _then(_self.copyWith(province: value));
+    });
+  }
+
+  /// Create a copy of PropertyListFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PropertyTypeModelCopyWith<$Res>? get propertyType {
+    if (_self.propertyType == null) {
+      return null;
+    }
+
+    return $PropertyTypeModelCopyWith<$Res>(_self.propertyType!, (value) {
+      return _then(_self.copyWith(propertyType: value));
+    });
+  }
+}
+
+/// @nodoc
+mixin _$InsertPropertyState implements DiagnosticableTreeMixin {
+  PropertyListingType get propertyListingType;
+  IList<XFile> get imageFiles;
+  ProvinceModel? get province;
+  PropertyTypeModel? get propertyType;
+  String get title;
+  String get description;
+  double get longitude;
+  double get latitude;
+  double get price;
+  double get sqm;
+  int get bedrooms;
+  int get bathrooms;
+  int get floors;
+  int get parking;
+  double get pricePerSqm;
+  int get livingRooms;
+  double get landLength;
+  double get landWidth;
+  double get buildingLength;
+  double get buildingWidth;
+  ProviderStatus<void> get status;
 
   /// Create a copy of InsertPropertyState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $InsertPropertyStateCopyWith<InsertPropertyState> get copyWith =>
-      throw _privateConstructorUsedError;
+      _$InsertPropertyStateCopyWithImpl<InsertPropertyState>(
+          this as InsertPropertyState, _$identity);
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+      ..add(DiagnosticsProperty('type', 'InsertPropertyState'))
+      ..add(DiagnosticsProperty('propertyListingType', propertyListingType))
+      ..add(DiagnosticsProperty('imageFiles', imageFiles))
+      ..add(DiagnosticsProperty('province', province))
+      ..add(DiagnosticsProperty('propertyType', propertyType))
+      ..add(DiagnosticsProperty('title', title))
+      ..add(DiagnosticsProperty('description', description))
+      ..add(DiagnosticsProperty('longitude', longitude))
+      ..add(DiagnosticsProperty('latitude', latitude))
+      ..add(DiagnosticsProperty('price', price))
+      ..add(DiagnosticsProperty('sqm', sqm))
+      ..add(DiagnosticsProperty('bedrooms', bedrooms))
+      ..add(DiagnosticsProperty('bathrooms', bathrooms))
+      ..add(DiagnosticsProperty('floors', floors))
+      ..add(DiagnosticsProperty('parking', parking))
+      ..add(DiagnosticsProperty('pricePerSqm', pricePerSqm))
+      ..add(DiagnosticsProperty('livingRooms', livingRooms))
+      ..add(DiagnosticsProperty('landLength', landLength))
+      ..add(DiagnosticsProperty('landWidth', landWidth))
+      ..add(DiagnosticsProperty('buildingLength', buildingLength))
+      ..add(DiagnosticsProperty('buildingWidth', buildingWidth))
+      ..add(DiagnosticsProperty('status', status));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is InsertPropertyState &&
+            (identical(other.propertyListingType, propertyListingType) ||
+                other.propertyListingType == propertyListingType) &&
+            const DeepCollectionEquality()
+                .equals(other.imageFiles, imageFiles) &&
+            (identical(other.province, province) ||
+                other.province == province) &&
+            (identical(other.propertyType, propertyType) ||
+                other.propertyType == propertyType) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.price, price) || other.price == price) &&
+            (identical(other.sqm, sqm) || other.sqm == sqm) &&
+            (identical(other.bedrooms, bedrooms) ||
+                other.bedrooms == bedrooms) &&
+            (identical(other.bathrooms, bathrooms) ||
+                other.bathrooms == bathrooms) &&
+            (identical(other.floors, floors) || other.floors == floors) &&
+            (identical(other.parking, parking) || other.parking == parking) &&
+            (identical(other.pricePerSqm, pricePerSqm) ||
+                other.pricePerSqm == pricePerSqm) &&
+            (identical(other.livingRooms, livingRooms) ||
+                other.livingRooms == livingRooms) &&
+            (identical(other.landLength, landLength) ||
+                other.landLength == landLength) &&
+            (identical(other.landWidth, landWidth) ||
+                other.landWidth == landWidth) &&
+            (identical(other.buildingLength, buildingLength) ||
+                other.buildingLength == buildingLength) &&
+            (identical(other.buildingWidth, buildingWidth) ||
+                other.buildingWidth == buildingWidth) &&
+            (identical(other.status, status) || other.status == status));
+  }
+
+  @override
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        propertyListingType,
+        const DeepCollectionEquality().hash(imageFiles),
+        province,
+        propertyType,
+        title,
+        description,
+        longitude,
+        latitude,
+        price,
+        sqm,
+        bedrooms,
+        bathrooms,
+        floors,
+        parking,
+        pricePerSqm,
+        livingRooms,
+        landLength,
+        landWidth,
+        buildingLength,
+        buildingWidth,
+        status
+      ]);
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'InsertPropertyState(propertyListingType: $propertyListingType, imageFiles: $imageFiles, province: $province, propertyType: $propertyType, title: $title, description: $description, longitude: $longitude, latitude: $latitude, price: $price, sqm: $sqm, bedrooms: $bedrooms, bathrooms: $bathrooms, floors: $floors, parking: $parking, pricePerSqm: $pricePerSqm, livingRooms: $livingRooms, landLength: $landLength, landWidth: $landWidth, buildingLength: $buildingLength, buildingWidth: $buildingWidth, status: $status)';
+  }
 }
 
 /// @nodoc
-abstract class $InsertPropertyStateCopyWith<$Res> {
+abstract mixin class $InsertPropertyStateCopyWith<$Res> {
   factory $InsertPropertyStateCopyWith(
-          InsertPropertyState value, $Res Function(InsertPropertyState) then) =
-      _$InsertPropertyStateCopyWithImpl<$Res, InsertPropertyState>;
+          InsertPropertyState value, $Res Function(InsertPropertyState) _then) =
+      _$InsertPropertyStateCopyWithImpl;
   @useResult
   $Res call(
       {PropertyListingType propertyListingType,
@@ -521,14 +668,12 @@ abstract class $InsertPropertyStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$InsertPropertyStateCopyWithImpl<$Res, $Val extends InsertPropertyState>
+class _$InsertPropertyStateCopyWithImpl<$Res>
     implements $InsertPropertyStateCopyWith<$Res> {
-  _$InsertPropertyStateCopyWithImpl(this._value, this._then);
+  _$InsertPropertyStateCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final InsertPropertyState _self;
+  final $Res Function(InsertPropertyState) _then;
 
   /// Create a copy of InsertPropertyState
   /// with the given fields replaced by the non-null parameter values.
@@ -557,92 +702,92 @@ class _$InsertPropertyStateCopyWithImpl<$Res, $Val extends InsertPropertyState>
     Object? buildingWidth = null,
     Object? status = null,
   }) {
-    return _then(_value.copyWith(
+    return _then(_self.copyWith(
       propertyListingType: null == propertyListingType
-          ? _value.propertyListingType
+          ? _self.propertyListingType
           : propertyListingType // ignore: cast_nullable_to_non_nullable
               as PropertyListingType,
       imageFiles: null == imageFiles
-          ? _value.imageFiles
+          ? _self.imageFiles
           : imageFiles // ignore: cast_nullable_to_non_nullable
               as IList<XFile>,
       province: freezed == province
-          ? _value.province
+          ? _self.province
           : province // ignore: cast_nullable_to_non_nullable
               as ProvinceModel?,
       propertyType: freezed == propertyType
-          ? _value.propertyType
+          ? _self.propertyType
           : propertyType // ignore: cast_nullable_to_non_nullable
               as PropertyTypeModel?,
       title: null == title
-          ? _value.title
+          ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
       description: null == description
-          ? _value.description
+          ? _self.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
       longitude: null == longitude
-          ? _value.longitude
+          ? _self.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
       latitude: null == latitude
-          ? _value.latitude
+          ? _self.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as double,
       price: null == price
-          ? _value.price
+          ? _self.price
           : price // ignore: cast_nullable_to_non_nullable
               as double,
       sqm: null == sqm
-          ? _value.sqm
+          ? _self.sqm
           : sqm // ignore: cast_nullable_to_non_nullable
               as double,
       bedrooms: null == bedrooms
-          ? _value.bedrooms
+          ? _self.bedrooms
           : bedrooms // ignore: cast_nullable_to_non_nullable
               as int,
       bathrooms: null == bathrooms
-          ? _value.bathrooms
+          ? _self.bathrooms
           : bathrooms // ignore: cast_nullable_to_non_nullable
               as int,
       floors: null == floors
-          ? _value.floors
+          ? _self.floors
           : floors // ignore: cast_nullable_to_non_nullable
               as int,
       parking: null == parking
-          ? _value.parking
+          ? _self.parking
           : parking // ignore: cast_nullable_to_non_nullable
               as int,
       pricePerSqm: null == pricePerSqm
-          ? _value.pricePerSqm
+          ? _self.pricePerSqm
           : pricePerSqm // ignore: cast_nullable_to_non_nullable
               as double,
       livingRooms: null == livingRooms
-          ? _value.livingRooms
+          ? _self.livingRooms
           : livingRooms // ignore: cast_nullable_to_non_nullable
               as int,
       landLength: null == landLength
-          ? _value.landLength
+          ? _self.landLength
           : landLength // ignore: cast_nullable_to_non_nullable
               as double,
       landWidth: null == landWidth
-          ? _value.landWidth
+          ? _self.landWidth
           : landWidth // ignore: cast_nullable_to_non_nullable
               as double,
       buildingLength: null == buildingLength
-          ? _value.buildingLength
+          ? _self.buildingLength
           : buildingLength // ignore: cast_nullable_to_non_nullable
               as double,
       buildingWidth: null == buildingWidth
-          ? _value.buildingWidth
+          ? _self.buildingWidth
           : buildingWidth // ignore: cast_nullable_to_non_nullable
               as double,
       status: null == status
-          ? _value.status
+          ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as ProviderStatus<void>,
-    ) as $Val);
+    ));
   }
 
   /// Create a copy of InsertPropertyState
@@ -650,12 +795,12 @@ class _$InsertPropertyStateCopyWithImpl<$Res, $Val extends InsertPropertyState>
   @override
   @pragma('vm:prefer-inline')
   $ProvinceModelCopyWith<$Res>? get province {
-    if (_value.province == null) {
+    if (_self.province == null) {
       return null;
     }
 
-    return $ProvinceModelCopyWith<$Res>(_value.province!, (value) {
-      return _then(_value.copyWith(province: value) as $Val);
+    return $ProvinceModelCopyWith<$Res>(_self.province!, (value) {
+      return _then(_self.copyWith(province: value));
     });
   }
 
@@ -664,12 +809,12 @@ class _$InsertPropertyStateCopyWithImpl<$Res, $Val extends InsertPropertyState>
   @override
   @pragma('vm:prefer-inline')
   $PropertyTypeModelCopyWith<$Res>? get propertyType {
-    if (_value.propertyType == null) {
+    if (_self.propertyType == null) {
       return null;
     }
 
-    return $PropertyTypeModelCopyWith<$Res>(_value.propertyType!, (value) {
-      return _then(_value.copyWith(propertyType: value) as $Val);
+    return $PropertyTypeModelCopyWith<$Res>(_self.propertyType!, (value) {
+      return _then(_self.copyWith(propertyType: value));
     });
   }
 
@@ -678,180 +823,17 @@ class _$InsertPropertyStateCopyWithImpl<$Res, $Val extends InsertPropertyState>
   @override
   @pragma('vm:prefer-inline')
   $ProviderStatusCopyWith<void, $Res> get status {
-    return $ProviderStatusCopyWith<void, $Res>(_value.status, (value) {
-      return _then(_value.copyWith(status: value) as $Val);
+    return $ProviderStatusCopyWith<void, $Res>(_self.status, (value) {
+      return _then(_self.copyWith(status: value));
     });
   }
 }
 
 /// @nodoc
-abstract class _$$InsertPropertyStateImplCopyWith<$Res>
-    implements $InsertPropertyStateCopyWith<$Res> {
-  factory _$$InsertPropertyStateImplCopyWith(_$InsertPropertyStateImpl value,
-          $Res Function(_$InsertPropertyStateImpl) then) =
-      __$$InsertPropertyStateImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {PropertyListingType propertyListingType,
-      IList<XFile> imageFiles,
-      ProvinceModel? province,
-      PropertyTypeModel? propertyType,
-      String title,
-      String description,
-      double longitude,
-      double latitude,
-      double price,
-      double sqm,
-      int bedrooms,
-      int bathrooms,
-      int floors,
-      int parking,
-      double pricePerSqm,
-      int livingRooms,
-      double landLength,
-      double landWidth,
-      double buildingLength,
-      double buildingWidth,
-      ProviderStatus<void> status});
 
-  @override
-  $ProvinceModelCopyWith<$Res>? get province;
-  @override
-  $PropertyTypeModelCopyWith<$Res>? get propertyType;
-  @override
-  $ProviderStatusCopyWith<void, $Res> get status;
-}
-
-/// @nodoc
-class __$$InsertPropertyStateImplCopyWithImpl<$Res>
-    extends _$InsertPropertyStateCopyWithImpl<$Res, _$InsertPropertyStateImpl>
-    implements _$$InsertPropertyStateImplCopyWith<$Res> {
-  __$$InsertPropertyStateImplCopyWithImpl(_$InsertPropertyStateImpl _value,
-      $Res Function(_$InsertPropertyStateImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of InsertPropertyState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? propertyListingType = null,
-    Object? imageFiles = null,
-    Object? province = freezed,
-    Object? propertyType = freezed,
-    Object? title = null,
-    Object? description = null,
-    Object? longitude = null,
-    Object? latitude = null,
-    Object? price = null,
-    Object? sqm = null,
-    Object? bedrooms = null,
-    Object? bathrooms = null,
-    Object? floors = null,
-    Object? parking = null,
-    Object? pricePerSqm = null,
-    Object? livingRooms = null,
-    Object? landLength = null,
-    Object? landWidth = null,
-    Object? buildingLength = null,
-    Object? buildingWidth = null,
-    Object? status = null,
-  }) {
-    return _then(_$InsertPropertyStateImpl(
-      propertyListingType: null == propertyListingType
-          ? _value.propertyListingType
-          : propertyListingType // ignore: cast_nullable_to_non_nullable
-              as PropertyListingType,
-      imageFiles: null == imageFiles
-          ? _value.imageFiles
-          : imageFiles // ignore: cast_nullable_to_non_nullable
-              as IList<XFile>,
-      province: freezed == province
-          ? _value.province
-          : province // ignore: cast_nullable_to_non_nullable
-              as ProvinceModel?,
-      propertyType: freezed == propertyType
-          ? _value.propertyType
-          : propertyType // ignore: cast_nullable_to_non_nullable
-              as PropertyTypeModel?,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      longitude: null == longitude
-          ? _value.longitude
-          : longitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      latitude: null == latitude
-          ? _value.latitude
-          : latitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      price: null == price
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
-              as double,
-      sqm: null == sqm
-          ? _value.sqm
-          : sqm // ignore: cast_nullable_to_non_nullable
-              as double,
-      bedrooms: null == bedrooms
-          ? _value.bedrooms
-          : bedrooms // ignore: cast_nullable_to_non_nullable
-              as int,
-      bathrooms: null == bathrooms
-          ? _value.bathrooms
-          : bathrooms // ignore: cast_nullable_to_non_nullable
-              as int,
-      floors: null == floors
-          ? _value.floors
-          : floors // ignore: cast_nullable_to_non_nullable
-              as int,
-      parking: null == parking
-          ? _value.parking
-          : parking // ignore: cast_nullable_to_non_nullable
-              as int,
-      pricePerSqm: null == pricePerSqm
-          ? _value.pricePerSqm
-          : pricePerSqm // ignore: cast_nullable_to_non_nullable
-              as double,
-      livingRooms: null == livingRooms
-          ? _value.livingRooms
-          : livingRooms // ignore: cast_nullable_to_non_nullable
-              as int,
-      landLength: null == landLength
-          ? _value.landLength
-          : landLength // ignore: cast_nullable_to_non_nullable
-              as double,
-      landWidth: null == landWidth
-          ? _value.landWidth
-          : landWidth // ignore: cast_nullable_to_non_nullable
-              as double,
-      buildingLength: null == buildingLength
-          ? _value.buildingLength
-          : buildingLength // ignore: cast_nullable_to_non_nullable
-              as double,
-      buildingWidth: null == buildingWidth
-          ? _value.buildingWidth
-          : buildingWidth // ignore: cast_nullable_to_non_nullable
-              as double,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as ProviderStatus<void>,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$InsertPropertyStateImpl extends _InsertPropertyState
+class _InsertPropertyState extends InsertPropertyState
     with DiagnosticableTreeMixin {
-  const _$InsertPropertyStateImpl(
+  const _InsertPropertyState(
       {required this.propertyListingType,
       required this.imageFiles,
       required this.province,
@@ -919,14 +901,17 @@ class _$InsertPropertyStateImpl extends _InsertPropertyState
   @JsonKey()
   final ProviderStatus<void> status;
 
+  /// Create a copy of InsertPropertyState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'InsertPropertyState(propertyListingType: $propertyListingType, imageFiles: $imageFiles, province: $province, propertyType: $propertyType, title: $title, description: $description, longitude: $longitude, latitude: $latitude, price: $price, sqm: $sqm, bedrooms: $bedrooms, bathrooms: $bathrooms, floors: $floors, parking: $parking, pricePerSqm: $pricePerSqm, livingRooms: $livingRooms, landLength: $landLength, landWidth: $landWidth, buildingLength: $buildingLength, buildingWidth: $buildingWidth, status: $status)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$InsertPropertyStateCopyWith<_InsertPropertyState> get copyWith =>
+      __$InsertPropertyStateCopyWithImpl<_InsertPropertyState>(
+          this, _$identity);
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'InsertPropertyState'))
       ..add(DiagnosticsProperty('propertyListingType', propertyListingType))
@@ -956,7 +941,7 @@ class _$InsertPropertyStateImpl extends _InsertPropertyState
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$InsertPropertyStateImpl &&
+            other is _InsertPropertyState &&
             (identical(other.propertyListingType, propertyListingType) ||
                 other.propertyListingType == propertyListingType) &&
             const DeepCollectionEquality()
@@ -1021,130 +1006,357 @@ class _$InsertPropertyStateImpl extends _InsertPropertyState
         status
       ]);
 
-  /// Create a copy of InsertPropertyState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$InsertPropertyStateImplCopyWith<_$InsertPropertyStateImpl> get copyWith =>
-      __$$InsertPropertyStateImplCopyWithImpl<_$InsertPropertyStateImpl>(
-          this, _$identity);
-}
-
-abstract class _InsertPropertyState extends InsertPropertyState {
-  const factory _InsertPropertyState(
-      {required final PropertyListingType propertyListingType,
-      required final IList<XFile> imageFiles,
-      required final ProvinceModel? province,
-      required final PropertyTypeModel? propertyType,
-      required final String title,
-      required final String description,
-      required final double longitude,
-      required final double latitude,
-      required final double price,
-      required final double sqm,
-      required final int bedrooms,
-      required final int bathrooms,
-      required final int floors,
-      required final int parking,
-      required final double pricePerSqm,
-      required final int livingRooms,
-      required final double landLength,
-      required final double landWidth,
-      required final double buildingLength,
-      required final double buildingWidth,
-      final ProviderStatus<void> status}) = _$InsertPropertyStateImpl;
-  const _InsertPropertyState._() : super._();
-
-  @override
-  PropertyListingType get propertyListingType;
-  @override
-  IList<XFile> get imageFiles;
-  @override
-  ProvinceModel? get province;
-  @override
-  PropertyTypeModel? get propertyType;
-  @override
-  String get title;
-  @override
-  String get description;
-  @override
-  double get longitude;
-  @override
-  double get latitude;
-  @override
-  double get price;
-  @override
-  double get sqm;
-  @override
-  int get bedrooms;
-  @override
-  int get bathrooms;
-  @override
-  int get floors;
-  @override
-  int get parking;
-  @override
-  double get pricePerSqm;
-  @override
-  int get livingRooms;
-  @override
-  double get landLength;
-  @override
-  double get landWidth;
-  @override
-  double get buildingLength;
-  @override
-  double get buildingWidth;
-  @override
-  ProviderStatus<void> get status;
-
-  /// Create a copy of InsertPropertyState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$InsertPropertyStateImplCopyWith<_$InsertPropertyStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'InsertPropertyState(propertyListingType: $propertyListingType, imageFiles: $imageFiles, province: $province, propertyType: $propertyType, title: $title, description: $description, longitude: $longitude, latitude: $latitude, price: $price, sqm: $sqm, bedrooms: $bedrooms, bathrooms: $bathrooms, floors: $floors, parking: $parking, pricePerSqm: $pricePerSqm, livingRooms: $livingRooms, landLength: $landLength, landWidth: $landWidth, buildingLength: $buildingLength, buildingWidth: $buildingWidth, status: $status)';
+  }
 }
 
 /// @nodoc
-mixin _$UpdatePropertyState {
-  PropertyListingType get propertyListingType =>
-      throw _privateConstructorUsedError;
-  IList<XFile> get newImageFiles => throw _privateConstructorUsedError;
-  IList<String> get existingImageUrls => throw _privateConstructorUsedError;
-  ProvinceModel? get province => throw _privateConstructorUsedError;
-  PropertyTypeModel? get propertyType => throw _privateConstructorUsedError;
-  String get title => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
-  double get longitude => throw _privateConstructorUsedError;
-  double get latitude => throw _privateConstructorUsedError;
-  double get price => throw _privateConstructorUsedError;
-  double get sqm => throw _privateConstructorUsedError;
-  int get bedrooms => throw _privateConstructorUsedError;
-  int get bathrooms => throw _privateConstructorUsedError;
-  int get floors => throw _privateConstructorUsedError;
-  int get parking => throw _privateConstructorUsedError;
-  double get pricePerSqm => throw _privateConstructorUsedError;
-  int get livingRooms => throw _privateConstructorUsedError;
-  double get landLength => throw _privateConstructorUsedError;
-  double get landWidth => throw _privateConstructorUsedError;
-  double get buildingLength => throw _privateConstructorUsedError;
-  double get buildingWidth => throw _privateConstructorUsedError;
-  ProviderStatus<void> get status => throw _privateConstructorUsedError;
+abstract mixin class _$InsertPropertyStateCopyWith<$Res>
+    implements $InsertPropertyStateCopyWith<$Res> {
+  factory _$InsertPropertyStateCopyWith(_InsertPropertyState value,
+          $Res Function(_InsertPropertyState) _then) =
+      __$InsertPropertyStateCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {PropertyListingType propertyListingType,
+      IList<XFile> imageFiles,
+      ProvinceModel? province,
+      PropertyTypeModel? propertyType,
+      String title,
+      String description,
+      double longitude,
+      double latitude,
+      double price,
+      double sqm,
+      int bedrooms,
+      int bathrooms,
+      int floors,
+      int parking,
+      double pricePerSqm,
+      int livingRooms,
+      double landLength,
+      double landWidth,
+      double buildingLength,
+      double buildingWidth,
+      ProviderStatus<void> status});
+
+  @override
+  $ProvinceModelCopyWith<$Res>? get province;
+  @override
+  $PropertyTypeModelCopyWith<$Res>? get propertyType;
+  @override
+  $ProviderStatusCopyWith<void, $Res> get status;
+}
+
+/// @nodoc
+class __$InsertPropertyStateCopyWithImpl<$Res>
+    implements _$InsertPropertyStateCopyWith<$Res> {
+  __$InsertPropertyStateCopyWithImpl(this._self, this._then);
+
+  final _InsertPropertyState _self;
+  final $Res Function(_InsertPropertyState) _then;
+
+  /// Create a copy of InsertPropertyState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? propertyListingType = null,
+    Object? imageFiles = null,
+    Object? province = freezed,
+    Object? propertyType = freezed,
+    Object? title = null,
+    Object? description = null,
+    Object? longitude = null,
+    Object? latitude = null,
+    Object? price = null,
+    Object? sqm = null,
+    Object? bedrooms = null,
+    Object? bathrooms = null,
+    Object? floors = null,
+    Object? parking = null,
+    Object? pricePerSqm = null,
+    Object? livingRooms = null,
+    Object? landLength = null,
+    Object? landWidth = null,
+    Object? buildingLength = null,
+    Object? buildingWidth = null,
+    Object? status = null,
+  }) {
+    return _then(_InsertPropertyState(
+      propertyListingType: null == propertyListingType
+          ? _self.propertyListingType
+          : propertyListingType // ignore: cast_nullable_to_non_nullable
+              as PropertyListingType,
+      imageFiles: null == imageFiles
+          ? _self.imageFiles
+          : imageFiles // ignore: cast_nullable_to_non_nullable
+              as IList<XFile>,
+      province: freezed == province
+          ? _self.province
+          : province // ignore: cast_nullable_to_non_nullable
+              as ProvinceModel?,
+      propertyType: freezed == propertyType
+          ? _self.propertyType
+          : propertyType // ignore: cast_nullable_to_non_nullable
+              as PropertyTypeModel?,
+      title: null == title
+          ? _self.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _self.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      longitude: null == longitude
+          ? _self.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      latitude: null == latitude
+          ? _self.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      price: null == price
+          ? _self.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as double,
+      sqm: null == sqm
+          ? _self.sqm
+          : sqm // ignore: cast_nullable_to_non_nullable
+              as double,
+      bedrooms: null == bedrooms
+          ? _self.bedrooms
+          : bedrooms // ignore: cast_nullable_to_non_nullable
+              as int,
+      bathrooms: null == bathrooms
+          ? _self.bathrooms
+          : bathrooms // ignore: cast_nullable_to_non_nullable
+              as int,
+      floors: null == floors
+          ? _self.floors
+          : floors // ignore: cast_nullable_to_non_nullable
+              as int,
+      parking: null == parking
+          ? _self.parking
+          : parking // ignore: cast_nullable_to_non_nullable
+              as int,
+      pricePerSqm: null == pricePerSqm
+          ? _self.pricePerSqm
+          : pricePerSqm // ignore: cast_nullable_to_non_nullable
+              as double,
+      livingRooms: null == livingRooms
+          ? _self.livingRooms
+          : livingRooms // ignore: cast_nullable_to_non_nullable
+              as int,
+      landLength: null == landLength
+          ? _self.landLength
+          : landLength // ignore: cast_nullable_to_non_nullable
+              as double,
+      landWidth: null == landWidth
+          ? _self.landWidth
+          : landWidth // ignore: cast_nullable_to_non_nullable
+              as double,
+      buildingLength: null == buildingLength
+          ? _self.buildingLength
+          : buildingLength // ignore: cast_nullable_to_non_nullable
+              as double,
+      buildingWidth: null == buildingWidth
+          ? _self.buildingWidth
+          : buildingWidth // ignore: cast_nullable_to_non_nullable
+              as double,
+      status: null == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as ProviderStatus<void>,
+    ));
+  }
+
+  /// Create a copy of InsertPropertyState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProvinceModelCopyWith<$Res>? get province {
+    if (_self.province == null) {
+      return null;
+    }
+
+    return $ProvinceModelCopyWith<$Res>(_self.province!, (value) {
+      return _then(_self.copyWith(province: value));
+    });
+  }
+
+  /// Create a copy of InsertPropertyState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PropertyTypeModelCopyWith<$Res>? get propertyType {
+    if (_self.propertyType == null) {
+      return null;
+    }
+
+    return $PropertyTypeModelCopyWith<$Res>(_self.propertyType!, (value) {
+      return _then(_self.copyWith(propertyType: value));
+    });
+  }
+
+  /// Create a copy of InsertPropertyState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProviderStatusCopyWith<void, $Res> get status {
+    return $ProviderStatusCopyWith<void, $Res>(_self.status, (value) {
+      return _then(_self.copyWith(status: value));
+    });
+  }
+}
+
+/// @nodoc
+mixin _$UpdatePropertyState implements DiagnosticableTreeMixin {
+  PropertyListingType get propertyListingType;
+  IList<XFile> get newImageFiles;
+  IList<String> get existingImageUrls;
+  ProvinceModel? get province;
+  PropertyTypeModel? get propertyType;
+  String get title;
+  String get description;
+  double get longitude;
+  double get latitude;
+  double get price;
+  double get sqm;
+  int get bedrooms;
+  int get bathrooms;
+  int get floors;
+  int get parking;
+  double get pricePerSqm;
+  int get livingRooms;
+  double get landLength;
+  double get landWidth;
+  double get buildingLength;
+  double get buildingWidth;
+  ProviderStatus<void> get status;
 
   /// Create a copy of UpdatePropertyState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $UpdatePropertyStateCopyWith<UpdatePropertyState> get copyWith =>
-      throw _privateConstructorUsedError;
+      _$UpdatePropertyStateCopyWithImpl<UpdatePropertyState>(
+          this as UpdatePropertyState, _$identity);
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+      ..add(DiagnosticsProperty('type', 'UpdatePropertyState'))
+      ..add(DiagnosticsProperty('propertyListingType', propertyListingType))
+      ..add(DiagnosticsProperty('newImageFiles', newImageFiles))
+      ..add(DiagnosticsProperty('existingImageUrls', existingImageUrls))
+      ..add(DiagnosticsProperty('province', province))
+      ..add(DiagnosticsProperty('propertyType', propertyType))
+      ..add(DiagnosticsProperty('title', title))
+      ..add(DiagnosticsProperty('description', description))
+      ..add(DiagnosticsProperty('longitude', longitude))
+      ..add(DiagnosticsProperty('latitude', latitude))
+      ..add(DiagnosticsProperty('price', price))
+      ..add(DiagnosticsProperty('sqm', sqm))
+      ..add(DiagnosticsProperty('bedrooms', bedrooms))
+      ..add(DiagnosticsProperty('bathrooms', bathrooms))
+      ..add(DiagnosticsProperty('floors', floors))
+      ..add(DiagnosticsProperty('parking', parking))
+      ..add(DiagnosticsProperty('pricePerSqm', pricePerSqm))
+      ..add(DiagnosticsProperty('livingRooms', livingRooms))
+      ..add(DiagnosticsProperty('landLength', landLength))
+      ..add(DiagnosticsProperty('landWidth', landWidth))
+      ..add(DiagnosticsProperty('buildingLength', buildingLength))
+      ..add(DiagnosticsProperty('buildingWidth', buildingWidth))
+      ..add(DiagnosticsProperty('status', status));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is UpdatePropertyState &&
+            (identical(other.propertyListingType, propertyListingType) ||
+                other.propertyListingType == propertyListingType) &&
+            const DeepCollectionEquality()
+                .equals(other.newImageFiles, newImageFiles) &&
+            const DeepCollectionEquality()
+                .equals(other.existingImageUrls, existingImageUrls) &&
+            (identical(other.province, province) ||
+                other.province == province) &&
+            (identical(other.propertyType, propertyType) ||
+                other.propertyType == propertyType) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.price, price) || other.price == price) &&
+            (identical(other.sqm, sqm) || other.sqm == sqm) &&
+            (identical(other.bedrooms, bedrooms) ||
+                other.bedrooms == bedrooms) &&
+            (identical(other.bathrooms, bathrooms) ||
+                other.bathrooms == bathrooms) &&
+            (identical(other.floors, floors) || other.floors == floors) &&
+            (identical(other.parking, parking) || other.parking == parking) &&
+            (identical(other.pricePerSqm, pricePerSqm) ||
+                other.pricePerSqm == pricePerSqm) &&
+            (identical(other.livingRooms, livingRooms) ||
+                other.livingRooms == livingRooms) &&
+            (identical(other.landLength, landLength) ||
+                other.landLength == landLength) &&
+            (identical(other.landWidth, landWidth) ||
+                other.landWidth == landWidth) &&
+            (identical(other.buildingLength, buildingLength) ||
+                other.buildingLength == buildingLength) &&
+            (identical(other.buildingWidth, buildingWidth) ||
+                other.buildingWidth == buildingWidth) &&
+            (identical(other.status, status) || other.status == status));
+  }
+
+  @override
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        propertyListingType,
+        const DeepCollectionEquality().hash(newImageFiles),
+        const DeepCollectionEquality().hash(existingImageUrls),
+        province,
+        propertyType,
+        title,
+        description,
+        longitude,
+        latitude,
+        price,
+        sqm,
+        bedrooms,
+        bathrooms,
+        floors,
+        parking,
+        pricePerSqm,
+        livingRooms,
+        landLength,
+        landWidth,
+        buildingLength,
+        buildingWidth,
+        status
+      ]);
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'UpdatePropertyState(propertyListingType: $propertyListingType, newImageFiles: $newImageFiles, existingImageUrls: $existingImageUrls, province: $province, propertyType: $propertyType, title: $title, description: $description, longitude: $longitude, latitude: $latitude, price: $price, sqm: $sqm, bedrooms: $bedrooms, bathrooms: $bathrooms, floors: $floors, parking: $parking, pricePerSqm: $pricePerSqm, livingRooms: $livingRooms, landLength: $landLength, landWidth: $landWidth, buildingLength: $buildingLength, buildingWidth: $buildingWidth, status: $status)';
+  }
 }
 
 /// @nodoc
-abstract class $UpdatePropertyStateCopyWith<$Res> {
+abstract mixin class $UpdatePropertyStateCopyWith<$Res> {
   factory $UpdatePropertyStateCopyWith(
-          UpdatePropertyState value, $Res Function(UpdatePropertyState) then) =
-      _$UpdatePropertyStateCopyWithImpl<$Res, UpdatePropertyState>;
+          UpdatePropertyState value, $Res Function(UpdatePropertyState) _then) =
+      _$UpdatePropertyStateCopyWithImpl;
   @useResult
   $Res call(
       {PropertyListingType propertyListingType,
@@ -1176,14 +1388,12 @@ abstract class $UpdatePropertyStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UpdatePropertyStateCopyWithImpl<$Res, $Val extends UpdatePropertyState>
+class _$UpdatePropertyStateCopyWithImpl<$Res>
     implements $UpdatePropertyStateCopyWith<$Res> {
-  _$UpdatePropertyStateCopyWithImpl(this._value, this._then);
+  _$UpdatePropertyStateCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final UpdatePropertyState _self;
+  final $Res Function(UpdatePropertyState) _then;
 
   /// Create a copy of UpdatePropertyState
   /// with the given fields replaced by the non-null parameter values.
@@ -1213,96 +1423,96 @@ class _$UpdatePropertyStateCopyWithImpl<$Res, $Val extends UpdatePropertyState>
     Object? buildingWidth = null,
     Object? status = null,
   }) {
-    return _then(_value.copyWith(
+    return _then(_self.copyWith(
       propertyListingType: null == propertyListingType
-          ? _value.propertyListingType
+          ? _self.propertyListingType
           : propertyListingType // ignore: cast_nullable_to_non_nullable
               as PropertyListingType,
       newImageFiles: null == newImageFiles
-          ? _value.newImageFiles
+          ? _self.newImageFiles
           : newImageFiles // ignore: cast_nullable_to_non_nullable
               as IList<XFile>,
       existingImageUrls: null == existingImageUrls
-          ? _value.existingImageUrls
+          ? _self.existingImageUrls
           : existingImageUrls // ignore: cast_nullable_to_non_nullable
               as IList<String>,
       province: freezed == province
-          ? _value.province
+          ? _self.province
           : province // ignore: cast_nullable_to_non_nullable
               as ProvinceModel?,
       propertyType: freezed == propertyType
-          ? _value.propertyType
+          ? _self.propertyType
           : propertyType // ignore: cast_nullable_to_non_nullable
               as PropertyTypeModel?,
       title: null == title
-          ? _value.title
+          ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
       description: null == description
-          ? _value.description
+          ? _self.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
       longitude: null == longitude
-          ? _value.longitude
+          ? _self.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
       latitude: null == latitude
-          ? _value.latitude
+          ? _self.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as double,
       price: null == price
-          ? _value.price
+          ? _self.price
           : price // ignore: cast_nullable_to_non_nullable
               as double,
       sqm: null == sqm
-          ? _value.sqm
+          ? _self.sqm
           : sqm // ignore: cast_nullable_to_non_nullable
               as double,
       bedrooms: null == bedrooms
-          ? _value.bedrooms
+          ? _self.bedrooms
           : bedrooms // ignore: cast_nullable_to_non_nullable
               as int,
       bathrooms: null == bathrooms
-          ? _value.bathrooms
+          ? _self.bathrooms
           : bathrooms // ignore: cast_nullable_to_non_nullable
               as int,
       floors: null == floors
-          ? _value.floors
+          ? _self.floors
           : floors // ignore: cast_nullable_to_non_nullable
               as int,
       parking: null == parking
-          ? _value.parking
+          ? _self.parking
           : parking // ignore: cast_nullable_to_non_nullable
               as int,
       pricePerSqm: null == pricePerSqm
-          ? _value.pricePerSqm
+          ? _self.pricePerSqm
           : pricePerSqm // ignore: cast_nullable_to_non_nullable
               as double,
       livingRooms: null == livingRooms
-          ? _value.livingRooms
+          ? _self.livingRooms
           : livingRooms // ignore: cast_nullable_to_non_nullable
               as int,
       landLength: null == landLength
-          ? _value.landLength
+          ? _self.landLength
           : landLength // ignore: cast_nullable_to_non_nullable
               as double,
       landWidth: null == landWidth
-          ? _value.landWidth
+          ? _self.landWidth
           : landWidth // ignore: cast_nullable_to_non_nullable
               as double,
       buildingLength: null == buildingLength
-          ? _value.buildingLength
+          ? _self.buildingLength
           : buildingLength // ignore: cast_nullable_to_non_nullable
               as double,
       buildingWidth: null == buildingWidth
-          ? _value.buildingWidth
+          ? _self.buildingWidth
           : buildingWidth // ignore: cast_nullable_to_non_nullable
               as double,
       status: null == status
-          ? _value.status
+          ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as ProviderStatus<void>,
-    ) as $Val);
+    ));
   }
 
   /// Create a copy of UpdatePropertyState
@@ -1310,12 +1520,12 @@ class _$UpdatePropertyStateCopyWithImpl<$Res, $Val extends UpdatePropertyState>
   @override
   @pragma('vm:prefer-inline')
   $ProvinceModelCopyWith<$Res>? get province {
-    if (_value.province == null) {
+    if (_self.province == null) {
       return null;
     }
 
-    return $ProvinceModelCopyWith<$Res>(_value.province!, (value) {
-      return _then(_value.copyWith(province: value) as $Val);
+    return $ProvinceModelCopyWith<$Res>(_self.province!, (value) {
+      return _then(_self.copyWith(province: value));
     });
   }
 
@@ -1324,12 +1534,12 @@ class _$UpdatePropertyStateCopyWithImpl<$Res, $Val extends UpdatePropertyState>
   @override
   @pragma('vm:prefer-inline')
   $PropertyTypeModelCopyWith<$Res>? get propertyType {
-    if (_value.propertyType == null) {
+    if (_self.propertyType == null) {
       return null;
     }
 
-    return $PropertyTypeModelCopyWith<$Res>(_value.propertyType!, (value) {
-      return _then(_value.copyWith(propertyType: value) as $Val);
+    return $PropertyTypeModelCopyWith<$Res>(_self.propertyType!, (value) {
+      return _then(_self.copyWith(propertyType: value));
     });
   }
 
@@ -1338,186 +1548,17 @@ class _$UpdatePropertyStateCopyWithImpl<$Res, $Val extends UpdatePropertyState>
   @override
   @pragma('vm:prefer-inline')
   $ProviderStatusCopyWith<void, $Res> get status {
-    return $ProviderStatusCopyWith<void, $Res>(_value.status, (value) {
-      return _then(_value.copyWith(status: value) as $Val);
+    return $ProviderStatusCopyWith<void, $Res>(_self.status, (value) {
+      return _then(_self.copyWith(status: value));
     });
   }
 }
 
 /// @nodoc
-abstract class _$$UpdatePropertyStateImplCopyWith<$Res>
-    implements $UpdatePropertyStateCopyWith<$Res> {
-  factory _$$UpdatePropertyStateImplCopyWith(_$UpdatePropertyStateImpl value,
-          $Res Function(_$UpdatePropertyStateImpl) then) =
-      __$$UpdatePropertyStateImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {PropertyListingType propertyListingType,
-      IList<XFile> newImageFiles,
-      IList<String> existingImageUrls,
-      ProvinceModel? province,
-      PropertyTypeModel? propertyType,
-      String title,
-      String description,
-      double longitude,
-      double latitude,
-      double price,
-      double sqm,
-      int bedrooms,
-      int bathrooms,
-      int floors,
-      int parking,
-      double pricePerSqm,
-      int livingRooms,
-      double landLength,
-      double landWidth,
-      double buildingLength,
-      double buildingWidth,
-      ProviderStatus<void> status});
 
-  @override
-  $ProvinceModelCopyWith<$Res>? get province;
-  @override
-  $PropertyTypeModelCopyWith<$Res>? get propertyType;
-  @override
-  $ProviderStatusCopyWith<void, $Res> get status;
-}
-
-/// @nodoc
-class __$$UpdatePropertyStateImplCopyWithImpl<$Res>
-    extends _$UpdatePropertyStateCopyWithImpl<$Res, _$UpdatePropertyStateImpl>
-    implements _$$UpdatePropertyStateImplCopyWith<$Res> {
-  __$$UpdatePropertyStateImplCopyWithImpl(_$UpdatePropertyStateImpl _value,
-      $Res Function(_$UpdatePropertyStateImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of UpdatePropertyState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? propertyListingType = null,
-    Object? newImageFiles = null,
-    Object? existingImageUrls = null,
-    Object? province = freezed,
-    Object? propertyType = freezed,
-    Object? title = null,
-    Object? description = null,
-    Object? longitude = null,
-    Object? latitude = null,
-    Object? price = null,
-    Object? sqm = null,
-    Object? bedrooms = null,
-    Object? bathrooms = null,
-    Object? floors = null,
-    Object? parking = null,
-    Object? pricePerSqm = null,
-    Object? livingRooms = null,
-    Object? landLength = null,
-    Object? landWidth = null,
-    Object? buildingLength = null,
-    Object? buildingWidth = null,
-    Object? status = null,
-  }) {
-    return _then(_$UpdatePropertyStateImpl(
-      propertyListingType: null == propertyListingType
-          ? _value.propertyListingType
-          : propertyListingType // ignore: cast_nullable_to_non_nullable
-              as PropertyListingType,
-      newImageFiles: null == newImageFiles
-          ? _value.newImageFiles
-          : newImageFiles // ignore: cast_nullable_to_non_nullable
-              as IList<XFile>,
-      existingImageUrls: null == existingImageUrls
-          ? _value.existingImageUrls
-          : existingImageUrls // ignore: cast_nullable_to_non_nullable
-              as IList<String>,
-      province: freezed == province
-          ? _value.province
-          : province // ignore: cast_nullable_to_non_nullable
-              as ProvinceModel?,
-      propertyType: freezed == propertyType
-          ? _value.propertyType
-          : propertyType // ignore: cast_nullable_to_non_nullable
-              as PropertyTypeModel?,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      longitude: null == longitude
-          ? _value.longitude
-          : longitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      latitude: null == latitude
-          ? _value.latitude
-          : latitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      price: null == price
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
-              as double,
-      sqm: null == sqm
-          ? _value.sqm
-          : sqm // ignore: cast_nullable_to_non_nullable
-              as double,
-      bedrooms: null == bedrooms
-          ? _value.bedrooms
-          : bedrooms // ignore: cast_nullable_to_non_nullable
-              as int,
-      bathrooms: null == bathrooms
-          ? _value.bathrooms
-          : bathrooms // ignore: cast_nullable_to_non_nullable
-              as int,
-      floors: null == floors
-          ? _value.floors
-          : floors // ignore: cast_nullable_to_non_nullable
-              as int,
-      parking: null == parking
-          ? _value.parking
-          : parking // ignore: cast_nullable_to_non_nullable
-              as int,
-      pricePerSqm: null == pricePerSqm
-          ? _value.pricePerSqm
-          : pricePerSqm // ignore: cast_nullable_to_non_nullable
-              as double,
-      livingRooms: null == livingRooms
-          ? _value.livingRooms
-          : livingRooms // ignore: cast_nullable_to_non_nullable
-              as int,
-      landLength: null == landLength
-          ? _value.landLength
-          : landLength // ignore: cast_nullable_to_non_nullable
-              as double,
-      landWidth: null == landWidth
-          ? _value.landWidth
-          : landWidth // ignore: cast_nullable_to_non_nullable
-              as double,
-      buildingLength: null == buildingLength
-          ? _value.buildingLength
-          : buildingLength // ignore: cast_nullable_to_non_nullable
-              as double,
-      buildingWidth: null == buildingWidth
-          ? _value.buildingWidth
-          : buildingWidth // ignore: cast_nullable_to_non_nullable
-              as double,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as ProviderStatus<void>,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$UpdatePropertyStateImpl extends _UpdatePropertyState
+class _UpdatePropertyState extends UpdatePropertyState
     with DiagnosticableTreeMixin {
-  const _$UpdatePropertyStateImpl(
+  const _UpdatePropertyState(
       {required this.propertyListingType,
       required this.newImageFiles,
       required this.existingImageUrls,
@@ -1588,14 +1629,17 @@ class _$UpdatePropertyStateImpl extends _UpdatePropertyState
   @JsonKey()
   final ProviderStatus<void> status;
 
+  /// Create a copy of UpdatePropertyState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'UpdatePropertyState(propertyListingType: $propertyListingType, newImageFiles: $newImageFiles, existingImageUrls: $existingImageUrls, province: $province, propertyType: $propertyType, title: $title, description: $description, longitude: $longitude, latitude: $latitude, price: $price, sqm: $sqm, bedrooms: $bedrooms, bathrooms: $bathrooms, floors: $floors, parking: $parking, pricePerSqm: $pricePerSqm, livingRooms: $livingRooms, landLength: $landLength, landWidth: $landWidth, buildingLength: $buildingLength, buildingWidth: $buildingWidth, status: $status)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$UpdatePropertyStateCopyWith<_UpdatePropertyState> get copyWith =>
+      __$UpdatePropertyStateCopyWithImpl<_UpdatePropertyState>(
+          this, _$identity);
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'UpdatePropertyState'))
       ..add(DiagnosticsProperty('propertyListingType', propertyListingType))
@@ -1626,7 +1670,7 @@ class _$UpdatePropertyStateImpl extends _UpdatePropertyState
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UpdatePropertyStateImpl &&
+            other is _UpdatePropertyState &&
             (identical(other.propertyListingType, propertyListingType) ||
                 other.propertyListingType == propertyListingType) &&
             const DeepCollectionEquality()
@@ -1694,91 +1738,217 @@ class _$UpdatePropertyStateImpl extends _UpdatePropertyState
         status
       ]);
 
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'UpdatePropertyState(propertyListingType: $propertyListingType, newImageFiles: $newImageFiles, existingImageUrls: $existingImageUrls, province: $province, propertyType: $propertyType, title: $title, description: $description, longitude: $longitude, latitude: $latitude, price: $price, sqm: $sqm, bedrooms: $bedrooms, bathrooms: $bathrooms, floors: $floors, parking: $parking, pricePerSqm: $pricePerSqm, livingRooms: $livingRooms, landLength: $landLength, landWidth: $landWidth, buildingLength: $buildingLength, buildingWidth: $buildingWidth, status: $status)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$UpdatePropertyStateCopyWith<$Res>
+    implements $UpdatePropertyStateCopyWith<$Res> {
+  factory _$UpdatePropertyStateCopyWith(_UpdatePropertyState value,
+          $Res Function(_UpdatePropertyState) _then) =
+      __$UpdatePropertyStateCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {PropertyListingType propertyListingType,
+      IList<XFile> newImageFiles,
+      IList<String> existingImageUrls,
+      ProvinceModel? province,
+      PropertyTypeModel? propertyType,
+      String title,
+      String description,
+      double longitude,
+      double latitude,
+      double price,
+      double sqm,
+      int bedrooms,
+      int bathrooms,
+      int floors,
+      int parking,
+      double pricePerSqm,
+      int livingRooms,
+      double landLength,
+      double landWidth,
+      double buildingLength,
+      double buildingWidth,
+      ProviderStatus<void> status});
+
+  @override
+  $ProvinceModelCopyWith<$Res>? get province;
+  @override
+  $PropertyTypeModelCopyWith<$Res>? get propertyType;
+  @override
+  $ProviderStatusCopyWith<void, $Res> get status;
+}
+
+/// @nodoc
+class __$UpdatePropertyStateCopyWithImpl<$Res>
+    implements _$UpdatePropertyStateCopyWith<$Res> {
+  __$UpdatePropertyStateCopyWithImpl(this._self, this._then);
+
+  final _UpdatePropertyState _self;
+  final $Res Function(_UpdatePropertyState) _then;
+
   /// Create a copy of UpdatePropertyState
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$UpdatePropertyStateImplCopyWith<_$UpdatePropertyStateImpl> get copyWith =>
-      __$$UpdatePropertyStateImplCopyWithImpl<_$UpdatePropertyStateImpl>(
-          this, _$identity);
-}
-
-abstract class _UpdatePropertyState extends UpdatePropertyState {
-  const factory _UpdatePropertyState(
-      {required final PropertyListingType propertyListingType,
-      required final IList<XFile> newImageFiles,
-      required final IList<String> existingImageUrls,
-      required final ProvinceModel? province,
-      required final PropertyTypeModel? propertyType,
-      required final String title,
-      required final String description,
-      required final double longitude,
-      required final double latitude,
-      required final double price,
-      required final double sqm,
-      required final int bedrooms,
-      required final int bathrooms,
-      required final int floors,
-      required final int parking,
-      required final double pricePerSqm,
-      required final int livingRooms,
-      required final double landLength,
-      required final double landWidth,
-      required final double buildingLength,
-      required final double buildingWidth,
-      final ProviderStatus<void> status}) = _$UpdatePropertyStateImpl;
-  const _UpdatePropertyState._() : super._();
-
-  @override
-  PropertyListingType get propertyListingType;
-  @override
-  IList<XFile> get newImageFiles;
-  @override
-  IList<String> get existingImageUrls;
-  @override
-  ProvinceModel? get province;
-  @override
-  PropertyTypeModel? get propertyType;
-  @override
-  String get title;
-  @override
-  String get description;
-  @override
-  double get longitude;
-  @override
-  double get latitude;
-  @override
-  double get price;
-  @override
-  double get sqm;
-  @override
-  int get bedrooms;
-  @override
-  int get bathrooms;
-  @override
-  int get floors;
-  @override
-  int get parking;
-  @override
-  double get pricePerSqm;
-  @override
-  int get livingRooms;
-  @override
-  double get landLength;
-  @override
-  double get landWidth;
-  @override
-  double get buildingLength;
-  @override
-  double get buildingWidth;
-  @override
-  ProviderStatus<void> get status;
+  $Res call({
+    Object? propertyListingType = null,
+    Object? newImageFiles = null,
+    Object? existingImageUrls = null,
+    Object? province = freezed,
+    Object? propertyType = freezed,
+    Object? title = null,
+    Object? description = null,
+    Object? longitude = null,
+    Object? latitude = null,
+    Object? price = null,
+    Object? sqm = null,
+    Object? bedrooms = null,
+    Object? bathrooms = null,
+    Object? floors = null,
+    Object? parking = null,
+    Object? pricePerSqm = null,
+    Object? livingRooms = null,
+    Object? landLength = null,
+    Object? landWidth = null,
+    Object? buildingLength = null,
+    Object? buildingWidth = null,
+    Object? status = null,
+  }) {
+    return _then(_UpdatePropertyState(
+      propertyListingType: null == propertyListingType
+          ? _self.propertyListingType
+          : propertyListingType // ignore: cast_nullable_to_non_nullable
+              as PropertyListingType,
+      newImageFiles: null == newImageFiles
+          ? _self.newImageFiles
+          : newImageFiles // ignore: cast_nullable_to_non_nullable
+              as IList<XFile>,
+      existingImageUrls: null == existingImageUrls
+          ? _self.existingImageUrls
+          : existingImageUrls // ignore: cast_nullable_to_non_nullable
+              as IList<String>,
+      province: freezed == province
+          ? _self.province
+          : province // ignore: cast_nullable_to_non_nullable
+              as ProvinceModel?,
+      propertyType: freezed == propertyType
+          ? _self.propertyType
+          : propertyType // ignore: cast_nullable_to_non_nullable
+              as PropertyTypeModel?,
+      title: null == title
+          ? _self.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _self.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      longitude: null == longitude
+          ? _self.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      latitude: null == latitude
+          ? _self.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      price: null == price
+          ? _self.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as double,
+      sqm: null == sqm
+          ? _self.sqm
+          : sqm // ignore: cast_nullable_to_non_nullable
+              as double,
+      bedrooms: null == bedrooms
+          ? _self.bedrooms
+          : bedrooms // ignore: cast_nullable_to_non_nullable
+              as int,
+      bathrooms: null == bathrooms
+          ? _self.bathrooms
+          : bathrooms // ignore: cast_nullable_to_non_nullable
+              as int,
+      floors: null == floors
+          ? _self.floors
+          : floors // ignore: cast_nullable_to_non_nullable
+              as int,
+      parking: null == parking
+          ? _self.parking
+          : parking // ignore: cast_nullable_to_non_nullable
+              as int,
+      pricePerSqm: null == pricePerSqm
+          ? _self.pricePerSqm
+          : pricePerSqm // ignore: cast_nullable_to_non_nullable
+              as double,
+      livingRooms: null == livingRooms
+          ? _self.livingRooms
+          : livingRooms // ignore: cast_nullable_to_non_nullable
+              as int,
+      landLength: null == landLength
+          ? _self.landLength
+          : landLength // ignore: cast_nullable_to_non_nullable
+              as double,
+      landWidth: null == landWidth
+          ? _self.landWidth
+          : landWidth // ignore: cast_nullable_to_non_nullable
+              as double,
+      buildingLength: null == buildingLength
+          ? _self.buildingLength
+          : buildingLength // ignore: cast_nullable_to_non_nullable
+              as double,
+      buildingWidth: null == buildingWidth
+          ? _self.buildingWidth
+          : buildingWidth // ignore: cast_nullable_to_non_nullable
+              as double,
+      status: null == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as ProviderStatus<void>,
+    ));
+  }
 
   /// Create a copy of UpdatePropertyState
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$UpdatePropertyStateImplCopyWith<_$UpdatePropertyStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $ProvinceModelCopyWith<$Res>? get province {
+    if (_self.province == null) {
+      return null;
+    }
+
+    return $ProvinceModelCopyWith<$Res>(_self.province!, (value) {
+      return _then(_self.copyWith(province: value));
+    });
+  }
+
+  /// Create a copy of UpdatePropertyState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PropertyTypeModelCopyWith<$Res>? get propertyType {
+    if (_self.propertyType == null) {
+      return null;
+    }
+
+    return $PropertyTypeModelCopyWith<$Res>(_self.propertyType!, (value) {
+      return _then(_self.copyWith(propertyType: value));
+    });
+  }
+
+  /// Create a copy of UpdatePropertyState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProviderStatusCopyWith<void, $Res> get status {
+    return $ProviderStatusCopyWith<void, $Res>(_self.status, (value) {
+      return _then(_self.copyWith(status: value));
+    });
+  }
 }
+
+// dart format on

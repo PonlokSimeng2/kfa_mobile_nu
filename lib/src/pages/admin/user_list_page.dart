@@ -163,8 +163,42 @@ class UserListPage extends HookConsumerWidget {
           if (user.managedBy != null)
             Text(
               'Admin: ${user.managedBy!.firstName} ${user.managedBy!.lastName}',
-            )
-          else if (user.managedBy == null && user.isUser)
+            ),
+          if (user.managedBy != null)
+            Consumer(
+              builder: (context, ref, child) {
+                final currentUser = ref.watch(currentUserProvider);
+
+                return currentUser.when(
+                  data: (admin) {
+                    if (admin != null && admin.id == user.managedBy!.id) {
+                      return OutlinedButton(
+                        onPressed: () async {
+                          final close = BotToast.showLoading();
+                          final result = await ref
+                              .read(unAssignAdminProvider(user.id).notifier)
+                              .call();
+                          close();
+
+                          if (result.isSuccess) {
+                            BotToast.showText(text: 'Admin Unassigned');
+                          }
+
+                          if (result.isFailure) {
+                            BotToast.showText(text: result.failure!.message());
+                          }
+                        },
+                        child: const Text('Unassign Admin'),
+                      );
+                    }
+                    return const SizedBox.shrink();
+                  },
+                  loading: () => const SizedBox.shrink(),
+                  error: (error, stack) => const SizedBox.shrink(),
+                );
+              },
+            ),
+          if (user.managedBy == null && user.isUser)
             OutlinedButton(
               onPressed: () async {
                 final admin = await ref.read(currentUserProvider.future);
@@ -186,27 +220,6 @@ class UserListPage extends HookConsumerWidget {
               },
               child: const Text('Approve User'),
             ),
-          // OutlinedButton(
-          //   onPressed: () async {
-          //     final admin = await AdminPickerDialog.show(context, user.id);
-          //     if (admin != null) {
-          //       final close = BotToast.showLoading();
-          //       final result = await ref
-          //           .read(assignAdminProvider(user.id).notifier)
-          //           .call(admin.id);
-          //       close();
-
-          //       if (result.isSuccess) {
-          //         BotToast.showText(text: 'User Approved');
-          //       }
-
-          //       if (result.isFailure) {
-          //         BotToast.showText(text: result.failure!.message());
-          //       }
-          //     }
-          //   },
-          //   child: const Text('Assign Admin'),
-          // ),
         ],
       ),
       trailing: Column(

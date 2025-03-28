@@ -54,13 +54,19 @@ mixin _$InsertPropertyForm on _$InsertProperty {
 
 bool _debugCheckHasInsertPropertyFormWidget(BuildContext context) {
   assert(() {
-    if (context.widget is! InsertPropertyFormWidget &&
-        context.findAncestorWidgetOfExactType<InsertPropertyFormWidget>() ==
-            null) {
+    if ((context.widget is! InsertPropertyFormWidget &&
+            context.findAncestorWidgetOfExactType<InsertPropertyFormWidget>() ==
+                null) &&
+        (context.widget is! InsertPropertyFormBuilderWidget &&
+            context.findAncestorWidgetOfExactType<
+                    InsertPropertyFormBuilderWidget>() ==
+                null)) {
       throw FlutterError.fromParts(<DiagnosticsNode>[
-        ErrorSummary('No InsertPropertyFormWidget found'),
+        ErrorSummary(
+            'No InsertPropertyFormWidget or InsertPropertyFormBuilderWidget found'),
         ErrorDescription(
-            '${context.widget.runtimeType} widgets require a InsertPropertyFormWidget widget ancestor.'),
+          '${context.widget.runtimeType} widgets require a InsertPropertyFormWidget or InsertPropertyFormBuilderWidget widget ancestor.',
+        ),
       ]);
     }
     return true;
@@ -77,19 +83,25 @@ typedef InsertPropertyFormChildBuilder = Widget Function(
   Future<ProviderStatus<void>> Function() submit,
 );
 
-/// Base form widget for [InsertProperty] provider
-///
-/// It required to add this as parent widget of fields widget if [InsertProperty] is a family provider
-/// , otherwise it's optional
 class InsertPropertyFormWidget extends HookConsumerWidget {
+  /// Base form widget for [InsertProperty] provider
+  ///
+  /// It required to add this as parent widget of fields widget if [InsertProperty] is a family provider
+  /// , otherwise it's optional
   const InsertPropertyFormWidget({
     super.key,
     this.formKey,
+    this.autovalidateMode,
+    this.onPopInvokedWithResult,
+    this.onChanged,
     required this.builder,
   });
 
   /// Form key. If null it will be created by widget
   final GlobalKey<FormState>? formKey;
+  final AutovalidateMode? autovalidateMode;
+  final void Function(bool, Object?)? onPopInvokedWithResult;
+  final void Function()? onChanged;
 
   /// Child widget builder
   ///
@@ -109,7 +121,8 @@ class InsertPropertyFormWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cachedFormKey = useMemoized(() => formKey ?? GlobalKey<FormState>());
+    final cachedFormKey =
+        useMemoized(() => formKey ?? GlobalKey<FormState>(), [formKey]);
 
     final status =
         ref.watch(insertPropertyProvider.select((value) => value.status));
@@ -119,6 +132,9 @@ class InsertPropertyFormWidget extends HookConsumerWidget {
 
     return Form(
       key: cachedFormKey,
+      onChanged: onChanged,
+      autovalidateMode: autovalidateMode,
+      onPopInvokedWithResult: onPopInvokedWithResult,
       child: builder(
         ref,
         cachedFormKey,
@@ -128,6 +144,155 @@ class InsertPropertyFormWidget extends HookConsumerWidget {
         controller.call,
       ),
     );
+  }
+}
+
+/// Form builder widget for [InsertProperty] provider
+class InsertPropertyFormBuilderWidget extends ConsumerWidget {
+  const InsertPropertyFormBuilderWidget({
+    super.key,
+    required this.builder,
+    this.child,
+  });
+
+  final Widget Function(
+    BuildContext context,
+    WidgetRef ref,
+    ProviderStatus<void> status,
+    InsertProperty notifier,
+    Widget? child,
+  ) builder;
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Consumer(
+      child: child,
+      builder: (context, ref, child) {
+        final notifier = ref.watch(insertPropertyProvider.notifier);
+        final status =
+            ref.watch(insertPropertyProvider.select((value) => value.status));
+        return builder(
+          context,
+          ref,
+          status,
+          notifier,
+          child,
+        );
+      },
+    );
+  }
+}
+
+/// Widget for manage for [InsertProperty] provider status
+class InsertPropertyStatusWidget extends ConsumerWidget {
+  const InsertPropertyStatusWidget({
+    super.key,
+    required this.builder,
+    this.child,
+  });
+
+  final Widget Function(
+    BuildContext context,
+    WidgetRef ref,
+    ProviderStatus<void> status,
+    InsertProperty notifier,
+    Widget? child,
+  ) builder;
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasInsertPropertyFormWidget(context));
+
+    final notifier = ref.watch(insertPropertyProvider.notifier);
+    final status =
+        ref.watch(insertPropertyProvider.select((value) => value.status));
+
+    return builder(context, ref, status, notifier, child);
+  }
+}
+
+/// Widget for manage for [InsertProperty] provider state
+class InsertPropertyStateWidget extends ConsumerWidget {
+  const InsertPropertyStateWidget({
+    super.key,
+    required this.builder,
+    this.child,
+  });
+
+  final Widget Function(
+    BuildContext context,
+    WidgetRef ref,
+    InsertPropertyState state,
+    InsertProperty notifier,
+    Widget? child,
+  ) builder;
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasInsertPropertyFormWidget(context));
+
+    final notifier = ref.watch(insertPropertyProvider.notifier);
+    final state = ref.watch(insertPropertyProvider);
+
+    return builder(context, ref, state, notifier, child);
+  }
+}
+
+/// Widget that manages [InsertProperty] provider state with a selector to optimize performance by reducing unnecessary rebuilds.
+/// The selector allows watching only specific parts of the state that are needed.
+class InsertPropertySelectWidget<Selected> extends ConsumerWidget {
+  const InsertPropertySelectWidget({
+    super.key,
+    required this.selector,
+    required this.builder,
+    this.child,
+  });
+
+  final Selected Function(InsertPropertyState state) selector;
+  final Widget Function(
+    BuildContext context,
+    WidgetRef ref,
+    Selected selected,
+    InsertProperty notifier,
+    Widget? child,
+  ) builder;
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasInsertPropertyFormWidget(context));
+
+    final notifier = ref.watch(insertPropertyProvider.notifier);
+    final selected = ref.watch(insertPropertyProvider.select(selector));
+
+    return builder(context, ref, selected, notifier, child);
+  }
+}
+
+/// Widget that expose [InsertProperty] provider notifier manage the state
+/// using this ensure the state is correct map even it is family provider
+class InsertPropertyNotifierWidget extends ConsumerWidget {
+  const InsertPropertyNotifierWidget({
+    super.key,
+    required this.builder,
+  });
+
+  final Widget Function(
+    BuildContext context,
+    WidgetRef ref,
+    InsertProperty notifier,
+  ) builder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasInsertPropertyFormWidget(context));
+
+    final notifier = ref.watch(insertPropertyProvider.notifier);
+
+    return builder(context, ref, notifier);
   }
 }
 
@@ -301,21 +466,33 @@ class InsertPropertyTitleFieldWidget extends HookConsumerWidget {
     final state =
         ref.watch(insertPropertyProvider.select((value) => value.title));
     final textController = controller ?? useTextEditingController(text: state);
-    useMemoized(() {
-      textController.addListener(() {
-        Future.microtask(() => notifier.onTitleChanged(textController.text));
-      });
-      return null;
-    });
-
-    ref.listen(insertPropertyProvider.select((value) => value.title),
-        (previous, current) {
-      if (previous != current) {
-        if (current != textController.text) {
-          Future.microtask(() => textController.text = current);
+    useEffect(
+      () {
+        void listener() {
+          final newText = textController.text;
+          // Only update if the values actually differ to prevent loops
+          if (state != newText) {
+            notifier.onTitleChanged(newText);
+          }
         }
+
+        textController.addListener(listener);
+        return () => textController.removeListener(listener);
+      },
+      [textController],
+    );
+
+    useEffect(() {
+      if (state != textController.text) {
+        // Preserve cursor position when updating text
+        final selection = textController.selection;
+        textController.value = TextEditingValue(
+          text: state,
+          selection: selection,
+        );
       }
-    });
+      return null;
+    }, [state]);
 
     final showValidation = ref.watch(
         insertPropertyProvider.select((value) => value.status.isFailure));
@@ -358,22 +535,33 @@ class InsertPropertyDescriptionFieldWidget extends HookConsumerWidget {
     final state =
         ref.watch(insertPropertyProvider.select((value) => value.description));
     final textController = controller ?? useTextEditingController(text: state);
-    useMemoized(() {
-      textController.addListener(() {
-        Future.microtask(
-            () => notifier.onDescriptionChanged(textController.text));
-      });
-      return null;
-    });
-
-    ref.listen(insertPropertyProvider.select((value) => value.description),
-        (previous, current) {
-      if (previous != current) {
-        if (current != textController.text) {
-          Future.microtask(() => textController.text = current);
+    useEffect(
+      () {
+        void listener() {
+          final newText = textController.text;
+          // Only update if the values actually differ to prevent loops
+          if (state != newText) {
+            notifier.onDescriptionChanged(newText);
+          }
         }
+
+        textController.addListener(listener);
+        return () => textController.removeListener(listener);
+      },
+      [textController],
+    );
+
+    useEffect(() {
+      if (state != textController.text) {
+        // Preserve cursor position when updating text
+        final selection = textController.selection;
+        textController.value = TextEditingValue(
+          text: state,
+          selection: selection,
+        );
       }
-    });
+      return null;
+    }, [state]);
 
     final showValidation = ref.watch(
         insertPropertyProvider.select((value) => value.status.isFailure));
@@ -941,13 +1129,19 @@ class _UpdatePropertyFamilyParam {
 
 bool _debugCheckHasUpdatePropertyFormWidget(BuildContext context) {
   assert(() {
-    if (context.widget is! UpdatePropertyFormWidget &&
-        context.findAncestorWidgetOfExactType<UpdatePropertyFormWidget>() ==
-            null) {
+    if ((context.widget is! UpdatePropertyFormWidget &&
+            context.findAncestorWidgetOfExactType<UpdatePropertyFormWidget>() ==
+                null) &&
+        (context.widget is! UpdatePropertyFormBuilderWidget &&
+            context.findAncestorWidgetOfExactType<
+                    UpdatePropertyFormBuilderWidget>() ==
+                null)) {
       throw FlutterError.fromParts(<DiagnosticsNode>[
-        ErrorSummary('No UpdatePropertyFormWidget found'),
+        ErrorSummary(
+            'No UpdatePropertyFormWidget or UpdatePropertyFormBuilderWidget found'),
         ErrorDescription(
-            '${context.widget.runtimeType} widgets require a UpdatePropertyFormWidget widget ancestor.'),
+          '${context.widget.runtimeType} widgets require a UpdatePropertyFormWidget or UpdatePropertyFormBuilderWidget widget ancestor.',
+        ),
       ]);
     }
     return true;
@@ -964,20 +1158,26 @@ typedef UpdatePropertyFormChildBuilder = Widget Function(
   Future<ProviderStatus<void>> Function() submit,
 );
 
-/// Base form widget for [UpdateProperty] provider
-///
-/// It required to add this as parent widget of fields widget if [UpdateProperty] is a family provider
-/// , otherwise it's optional
 class UpdatePropertyFormWidget extends HookConsumerWidget {
+  /// Base form widget for [UpdateProperty] provider
+  ///
+  /// It required to add this as parent widget of fields widget if [UpdateProperty] is a family provider
+  /// , otherwise it's optional
   const UpdatePropertyFormWidget({
     super.key,
     this.formKey,
+    this.autovalidateMode,
+    this.onPopInvokedWithResult,
+    this.onChanged,
     required this.initial,
     required this.builder,
   });
 
   /// Form key. If null it will be created by widget
   final GlobalKey<FormState>? formKey;
+  final AutovalidateMode? autovalidateMode;
+  final void Function(bool, Object?)? onPopInvokedWithResult;
+  final void Function()? onChanged;
 
   final PropertyModel initial;
 
@@ -999,7 +1199,8 @@ class UpdatePropertyFormWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cachedFormKey = useMemoized(() => formKey ?? GlobalKey<FormState>());
+    final cachedFormKey =
+        useMemoized(() => formKey ?? GlobalKey<FormState>(), [formKey]);
     final family = _UpdatePropertyFamilyParam(initial: initial);
 
     final status = ref.watch(
@@ -1013,6 +1214,9 @@ class UpdatePropertyFormWidget extends HookConsumerWidget {
       overrides: [_updatePropertyFamilyParamProvider.overrideWithValue(family)],
       child: Form(
         key: cachedFormKey,
+        onChanged: onChanged,
+        autovalidateMode: autovalidateMode,
+        onPopInvokedWithResult: onPopInvokedWithResult,
         child: builder(
           ref,
           cachedFormKey,
@@ -1031,6 +1235,164 @@ final _updatePropertyFamilyParamProvider =
     Provider<_UpdatePropertyFamilyParam>((ref) {
   throw 'You need to add [UpdatePropertyFormWidget] as your parent. This allow to internal override family provider param';
 });
+
+/// Form builder widget for [UpdateProperty] provider
+class UpdatePropertyFormBuilderWidget extends ConsumerWidget {
+  const UpdatePropertyFormBuilderWidget({
+    super.key,
+    required this.initial,
+    required this.builder,
+    this.child,
+  });
+
+  final PropertyModel initial;
+  final Widget Function(
+    BuildContext context,
+    WidgetRef ref,
+    ProviderStatus<void> status,
+    UpdateProperty notifier,
+    Widget? child,
+  ) builder;
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final family = _UpdatePropertyFamilyParam(initial: initial);
+
+    return ProviderScope(
+      overrides: [_updatePropertyFamilyParamProvider.overrideWithValue(family)],
+      child: Consumer(
+        child: this.child,
+        builder: (context, ref, child) {
+          final notifier =
+              ref.watch(updatePropertyProvider(family.initial).notifier);
+          final status = ref.watch(updatePropertyProvider(family.initial)
+              .select((value) => value.status));
+          return builder(
+            context,
+            ref,
+            status,
+            notifier,
+            child,
+          );
+        },
+      ),
+    );
+  }
+}
+
+/// Widget for manage for [UpdateProperty] provider status
+class UpdatePropertyStatusWidget extends ConsumerWidget {
+  const UpdatePropertyStatusWidget({
+    super.key,
+    required this.builder,
+    this.child,
+  });
+
+  final Widget Function(
+    BuildContext context,
+    WidgetRef ref,
+    ProviderStatus<void> status,
+    UpdateProperty notifier,
+    Widget? child,
+  ) builder;
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdatePropertyFormWidget(context));
+    final family = ref.watch(_updatePropertyFamilyParamProvider);
+    final notifier = ref.watch(updatePropertyProvider(family.initial).notifier);
+    final status = ref.watch(
+        updatePropertyProvider(family.initial).select((value) => value.status));
+
+    return builder(context, ref, status, notifier, child);
+  }
+}
+
+/// Widget for manage for [UpdateProperty] provider state
+class UpdatePropertyStateWidget extends ConsumerWidget {
+  const UpdatePropertyStateWidget({
+    super.key,
+    required this.builder,
+    this.child,
+  });
+
+  final Widget Function(
+    BuildContext context,
+    WidgetRef ref,
+    UpdatePropertyState state,
+    UpdateProperty notifier,
+    Widget? child,
+  ) builder;
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdatePropertyFormWidget(context));
+    final family = ref.watch(_updatePropertyFamilyParamProvider);
+    final notifier = ref.watch(updatePropertyProvider(family.initial).notifier);
+    final state = ref.watch(updatePropertyProvider(family.initial));
+
+    return builder(context, ref, state, notifier, child);
+  }
+}
+
+/// Widget that manages [UpdateProperty] provider state with a selector to optimize performance by reducing unnecessary rebuilds.
+/// The selector allows watching only specific parts of the state that are needed.
+class UpdatePropertySelectWidget<Selected> extends ConsumerWidget {
+  const UpdatePropertySelectWidget({
+    super.key,
+    required this.selector,
+    required this.builder,
+    this.child,
+  });
+
+  final Selected Function(UpdatePropertyState state) selector;
+  final Widget Function(
+    BuildContext context,
+    WidgetRef ref,
+    Selected selected,
+    UpdateProperty notifier,
+    Widget? child,
+  ) builder;
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdatePropertyFormWidget(context));
+    final family = ref.watch(_updatePropertyFamilyParamProvider);
+    final notifier = ref.watch(updatePropertyProvider(family.initial).notifier);
+    final selected =
+        ref.watch(updatePropertyProvider(family.initial).select(selector));
+
+    return builder(context, ref, selected, notifier, child);
+  }
+}
+
+/// Widget that expose [UpdateProperty] provider notifier manage the state
+/// using this ensure the state is correct map even it is family provider
+class UpdatePropertyNotifierWidget extends ConsumerWidget {
+  const UpdatePropertyNotifierWidget({
+    super.key,
+    required this.builder,
+  });
+
+  final Widget Function(
+    BuildContext context,
+    WidgetRef ref,
+    UpdateProperty notifier,
+  ) builder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    assert(_debugCheckHasUpdatePropertyFormWidget(context));
+    final family = ref.watch(_updatePropertyFamilyParamProvider);
+    final notifier = ref.watch(updatePropertyProvider(family.initial).notifier);
+
+    return builder(context, ref, notifier);
+  }
+}
 
 typedef UpdatePropertyPropertyListingTypeChildBuilder = Widget Function(
   WidgetRef ref,
@@ -1237,22 +1599,33 @@ class UpdatePropertyTitleFieldWidget extends HookConsumerWidget {
     final state = ref.watch(
         updatePropertyProvider(family.initial).select((value) => value.title));
     final textController = controller ?? useTextEditingController(text: state);
-    useMemoized(() {
-      textController.addListener(() {
-        Future.microtask(() => notifier.onTitleChanged(textController.text));
-      });
-      return null;
-    });
-
-    ref.listen(
-        updatePropertyProvider(family.initial).select((value) => value.title),
-        (previous, current) {
-      if (previous != current) {
-        if (current != textController.text) {
-          Future.microtask(() => textController.text = current);
+    useEffect(
+      () {
+        void listener() {
+          final newText = textController.text;
+          // Only update if the values actually differ to prevent loops
+          if (state != newText) {
+            notifier.onTitleChanged(newText);
+          }
         }
+
+        textController.addListener(listener);
+        return () => textController.removeListener(listener);
+      },
+      [textController],
+    );
+
+    useEffect(() {
+      if (state != textController.text) {
+        // Preserve cursor position when updating text
+        final selection = textController.selection;
+        textController.value = TextEditingValue(
+          text: state,
+          selection: selection,
+        );
       }
-    });
+      return null;
+    }, [state]);
 
     final showValidation = ref.watch(updatePropertyProvider(family.initial)
         .select((value) => value.status.isFailure));
@@ -1295,23 +1668,33 @@ class UpdatePropertyDescriptionFieldWidget extends HookConsumerWidget {
     final state = ref.watch(updatePropertyProvider(family.initial)
         .select((value) => value.description));
     final textController = controller ?? useTextEditingController(text: state);
-    useMemoized(() {
-      textController.addListener(() {
-        Future.microtask(
-            () => notifier.onDescriptionChanged(textController.text));
-      });
-      return null;
-    });
-
-    ref.listen(
-        updatePropertyProvider(family.initial)
-            .select((value) => value.description), (previous, current) {
-      if (previous != current) {
-        if (current != textController.text) {
-          Future.microtask(() => textController.text = current);
+    useEffect(
+      () {
+        void listener() {
+          final newText = textController.text;
+          // Only update if the values actually differ to prevent loops
+          if (state != newText) {
+            notifier.onDescriptionChanged(newText);
+          }
         }
+
+        textController.addListener(listener);
+        return () => textController.removeListener(listener);
+      },
+      [textController],
+    );
+
+    useEffect(() {
+      if (state != textController.text) {
+        // Preserve cursor position when updating text
+        final selection = textController.selection;
+        textController.value = TextEditingValue(
+          text: state,
+          selection: selection,
+        );
       }
-    });
+      return null;
+    }, [state]);
 
     final showValidation = ref.watch(updatePropertyProvider(family.initial)
         .select((value) => value.status.isFailure));

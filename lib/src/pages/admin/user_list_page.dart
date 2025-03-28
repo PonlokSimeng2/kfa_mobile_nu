@@ -181,14 +181,14 @@ class UserListPage extends HookConsumerWidget {
                           close();
 
                           if (result.isSuccess) {
-                            BotToast.showText(text: 'Admin Unassigned');
+                            BotToast.showText(text: 'Admin Unapproved');
                           }
 
                           if (result.isFailure) {
                             BotToast.showText(text: result.failure!.message());
                           }
                         },
-                        child: const Text('Unassign Admin'),
+                        child: const Text('Unapprove User'),
                       );
                     }
                     return const SizedBox.shrink();

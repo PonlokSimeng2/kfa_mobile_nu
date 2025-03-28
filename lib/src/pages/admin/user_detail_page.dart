@@ -315,10 +315,13 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
 
                       return currentUser.when(
                         data: (admin) {
-                          // Check if current admin is the owner who approved the user
-                          final isOwnerAdmin = admin != null &&
-                              widget.user.managedBy != null &&
-                              admin.id == widget.user.managedBy!.id;
+                          // Check if current admin is either:
+                          // 1. The owner who approved the user (managedBy), OR
+                          // 2. A super admin
+                          final canUpdatePassword = admin != null &&
+                              (admin.isSuperAdmin ||
+                                  (widget.user.managedBy != null &&
+                                      admin.id == widget.user.managedBy!.id));
 
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -381,10 +384,10 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                                       },
                                     ),
                                   ),
-                                  enabled: isOwnerAdmin,
+                                  enabled: canUpdatePassword,
                                   validator: (value) {
-                                    if (!isOwnerAdmin) {
-                                      return 'Only the approving admin can update password';
+                                    if (!canUpdatePassword) {
+                                      return 'Only the approving admin or super admin can update password';
                                     }
                                     if (value == null || value.isEmpty) {
                                       return r'Strong password at least 6 characters (Aa1#85...)';
@@ -400,7 +403,7 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                               SizedBox(
                                 height: 50,
                                 child: GFButton(
-                                  onPressed: isOwnerAdmin
+                                  onPressed: canUpdatePassword
                                       ? () async {
                                           if (!_formKey.currentState!
                                               .validate()) {
@@ -442,8 +445,9 @@ class _UserDetailPageState extends ConsumerState<UserDetailPage> {
                                         }
                                       : null,
                                   text: 'Update',
-                                  color:
-                                      isOwnerAdmin ? Colors.blue : Colors.grey,
+                                  color: canUpdatePassword
+                                      ? Colors.blue
+                                      : Colors.grey,
                                 ),
                               ),
                             ],

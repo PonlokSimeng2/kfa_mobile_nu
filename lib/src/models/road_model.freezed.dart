@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,87 +10,57 @@ part of 'road_model.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-RoadModel _$RoadModelFromJson(Map<String, dynamic> json) {
-  return _RoadModel.fromJson(json);
-}
 
 /// @nodoc
 mixin _$RoadModel {
-  int get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-
-  /// Serializes this RoadModel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  int get id;
+  String get name;
 
   /// Create a copy of RoadModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $RoadModelCopyWith<RoadModel> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $RoadModelCopyWith<$Res> {
-  factory $RoadModelCopyWith(RoadModel value, $Res Function(RoadModel) then) =
-      _$RoadModelCopyWithImpl<$Res, RoadModel>;
-  @useResult
-  $Res call({int id, String name});
-}
-
-/// @nodoc
-class _$RoadModelCopyWithImpl<$Res, $Val extends RoadModel>
-    implements $RoadModelCopyWith<$Res> {
-  _$RoadModelCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of RoadModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $RoadModelCopyWith<RoadModel> get copyWith =>
+      _$RoadModelCopyWithImpl<RoadModel>(this as RoadModel, _$identity);
+
+  /// Serializes this RoadModel to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? id = null,
-    Object? name = null,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is RoadModel &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, name);
+
+  @override
+  String toString() {
+    return 'RoadModel(id: $id, name: $name)';
   }
 }
 
 /// @nodoc
-abstract class _$$RoadModelImplCopyWith<$Res>
-    implements $RoadModelCopyWith<$Res> {
-  factory _$$RoadModelImplCopyWith(
-          _$RoadModelImpl value, $Res Function(_$RoadModelImpl) then) =
-      __$$RoadModelImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $RoadModelCopyWith<$Res> {
+  factory $RoadModelCopyWith(RoadModel value, $Res Function(RoadModel) _then) =
+      _$RoadModelCopyWithImpl;
   @useResult
   $Res call({int id, String name});
 }
 
 /// @nodoc
-class __$$RoadModelImplCopyWithImpl<$Res>
-    extends _$RoadModelCopyWithImpl<$Res, _$RoadModelImpl>
-    implements _$$RoadModelImplCopyWith<$Res> {
-  __$$RoadModelImplCopyWithImpl(
-      _$RoadModelImpl _value, $Res Function(_$RoadModelImpl) _then)
-      : super(_value, _then);
+class _$RoadModelCopyWithImpl<$Res> implements $RoadModelCopyWith<$Res> {
+  _$RoadModelCopyWithImpl(this._self, this._then);
+
+  final RoadModel _self;
+  final $Res Function(RoadModel) _then;
 
   /// Create a copy of RoadModel
   /// with the given fields replaced by the non-null parameter values.
@@ -99,13 +70,13 @@ class __$$RoadModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
   }) {
-    return _then(_$RoadModelImpl(
+    return _then(_self.copyWith(
       id: null == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
       name: null == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
     ));
@@ -115,27 +86,36 @@ class __$$RoadModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 @TableModel('roads')
-class _$RoadModelImpl extends _RoadModel {
-  _$RoadModelImpl({required this.id, required this.name}) : super._();
-
-  factory _$RoadModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$RoadModelImplFromJson(json);
+class _RoadModel extends RoadModel {
+  _RoadModel({required this.id, required this.name}) : super._();
+  factory _RoadModel.fromJson(Map<String, dynamic> json) =>
+      _$RoadModelFromJson(json);
 
   @override
   final int id;
   @override
   final String name;
 
+  /// Create a copy of RoadModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'RoadModel(id: $id, name: $name)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$RoadModelCopyWith<_RoadModel> get copyWith =>
+      __$RoadModelCopyWithImpl<_RoadModel>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$RoadModelToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$RoadModelImpl &&
+            other is _RoadModel &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name));
   }
@@ -144,39 +124,49 @@ class _$RoadModelImpl extends _RoadModel {
   @override
   int get hashCode => Object.hash(runtimeType, id, name);
 
-  /// Create a copy of RoadModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$RoadModelImplCopyWith<_$RoadModelImpl> get copyWith =>
-      __$$RoadModelImplCopyWithImpl<_$RoadModelImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$RoadModelImplToJson(
-      this,
-    );
+  String toString() {
+    return 'RoadModel(id: $id, name: $name)';
   }
 }
 
-abstract class _RoadModel extends RoadModel {
-  factory _RoadModel({required final int id, required final String name}) =
-      _$RoadModelImpl;
-  _RoadModel._() : super._();
-
-  factory _RoadModel.fromJson(Map<String, dynamic> json) =
-      _$RoadModelImpl.fromJson;
-
+/// @nodoc
+abstract mixin class _$RoadModelCopyWith<$Res>
+    implements $RoadModelCopyWith<$Res> {
+  factory _$RoadModelCopyWith(
+          _RoadModel value, $Res Function(_RoadModel) _then) =
+      __$RoadModelCopyWithImpl;
   @override
-  int get id;
-  @override
-  String get name;
+  @useResult
+  $Res call({int id, String name});
+}
+
+/// @nodoc
+class __$RoadModelCopyWithImpl<$Res> implements _$RoadModelCopyWith<$Res> {
+  __$RoadModelCopyWithImpl(this._self, this._then);
+
+  final _RoadModel _self;
+  final $Res Function(_RoadModel) _then;
 
   /// Create a copy of RoadModel
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$RoadModelImplCopyWith<_$RoadModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? id = null,
+    Object? name = null,
+  }) {
+    return _then(_RoadModel(
+      id: null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
+
+// dart format on

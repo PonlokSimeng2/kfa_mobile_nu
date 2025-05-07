@@ -16,7 +16,7 @@ part 'bank_model.g.dart';
   ],
 )
 @freezed
-class BankModel with _$BankModel {
+sealed class BankModel with _$BankModel {
   const BankModel._();
 
   @TableModel(BankTable.table)

@@ -8,15 +8,13 @@ part of 'property_type_model.schema.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PropertyTypeModelImpl _$$PropertyTypeModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$PropertyTypeModelImpl(
+_PropertyTypeModel _$PropertyTypeModelFromJson(Map<String, dynamic> json) =>
+    _PropertyTypeModel(
       id: (json['id'] as num).toInt(),
       name: json['name'] as String,
     );
 
-Map<String, dynamic> _$$PropertyTypeModelImplToJson(
-        _$PropertyTypeModelImpl instance) =>
+Map<String, dynamic> _$PropertyTypeModelToJson(_PropertyTypeModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:kfa_mobile_nu/src/models/user_model.dart';
 import '../../constaints.dart';
 import '../helpers/build_context_helper.dart';
 import '../providers/auth_provider.dart';
@@ -67,16 +68,10 @@ class _LoginState extends ConsumerState<LoginPage> {
                     : kPrimaryColor,
               ),
             ),
-            const SizedBox(
-              height: 10.0,
-            ),
-            const SizedBox(
-              height: 30.0,
-            ),
+            const SizedBox(height: 10.0),
+            const SizedBox(height: 30.0),
             ((status == false) ? input(context) : output(context)),
-            const SizedBox(
-              height: 10.0,
-            ),
+            const SizedBox(height: 10.0),
             SizedBox(
               width: 150,
               child: AnimatedButton(
@@ -85,157 +80,164 @@ class _LoginState extends ConsumerState<LoginPage> {
                     ? themeData.primaryColorLight
                     : kPrimaryColor,
                 pressEvent: () async {
-                  _formKey.currentState?.save();
+                  // Validate form
                   if (!_formKey.currentState!.validate()) return;
+                  _formKey.currentState?.save();
 
                   final close = BotToast.showLoading();
-                  final provider = ref.read(authProvider.notifier);
-                  final errorOrNull = await provider.login(
-                    emailCtr.text.trim(),
-                    passwordCtr.text.trim(),
-                  );
-                  close();
-
-                  if (errorOrNull == null && context.mounted) {
-                    // cache success login
-                    final cache = ref.read(sharePrefProvider);
-                    cache.setString(
-                      _cacheEmailKey,
+                  try {
+                    final provider = ref.read(authProvider.notifier);
+                    final loginResult = await provider.login(
                       emailCtr.text.trim(),
-                    );
-                    cache.setString(
-                      _cachePasswordKey,
                       passwordCtr.text.trim(),
                     );
 
-                    if (widget.openAsPage) {
+                    if (!mounted) return;
+
+                    if (loginResult == null) {
+                      // Successful login
+                      final cache = ref.read(sharePrefProvider);
+                      await cache.setString(
+                          _cacheEmailKey, emailCtr.text.trim());
+                      await cache.setString(
+                          _cachePasswordKey, passwordCtr.text.trim());
+
+                      if (widget.openAsPage && mounted) {
+                        _showSuccessDialog(context);
+                      }
+                    } else {
+                      // Handle error cases
+                      _handleLoginError(context, loginResult);
+                    }
+                  } catch (e) {
+                    if (mounted) {
                       AwesomeDialog(
                         context: context,
-                        animType: AnimType.leftSlide,
+                        dialogType: DialogType.error,
+                        animType: AnimType.rightSlide,
                         headerAnimationLoop: false,
-                        dialogType: DialogType.success,
-                        dismissOnTouchOutside: true,
-                        showCloseIcon: false,
-                        title: "Login Successfully!",
-                        autoHide: const Duration(seconds: 3),
-                        onDismissCallback: (type) {
-                          if (context.mounted) {
-                            context.pushReplace((context) => const HomePage());
-                          }
-                        },
+                        title: 'Unexpected Error',
+                        desc: 'An unexpected error occurred during login',
+                        btnOkIcon: Icons.cancel,
+                        btnOkColor: Colors.red,
                       ).show();
-                    } else {
-                      BotToast.showText(text: "Login Successfully!");
                     }
-                  } else {
-                    AwesomeDialog(
-                      context: context,
-                      dialogType: DialogType.error,
-                      animType: AnimType.rightSlide,
-                      headerAnimationLoop: false,
-                      title: 'Login Failed!',
-                      btnOkIcon: Icons.cancel,
-                      btnOkColor: Colors.red,
-                    ).show();
+                  } finally {
+                    close();
                   }
                 },
               ),
             ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            if (!kIsWeb)
-              Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: "Don't have any account? ",
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: context.isDarkMode
-                            ? themeData.hintColor
-                            : kTextLightColor,
-                      ),
-                    ),
-                    TextSpan(
-                      text: 'Register',
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          context.push((_) => const RegisterPage());
-                        },
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: context.isDarkMode
-                            ? themeData.primaryColorLight
-                            : kImageColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            if (!kIsWeb)
-              Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: "Forgot your password? ",
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: context.isDarkMode
-                            ? themeData.hintColor
-                            : kTextLightColor,
-                      ),
-                    ),
-                    TextSpan(
-                      text: 'Reset',
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          context.push((_) => const ForgotPasswordPage());
-                        },
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: context.isDarkMode
-                            ? themeData.primaryColorLight
-                            : kImageColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            else
-              (Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: "Forgot your password? ",
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: context.isDarkMode
-                            ? themeData.hintColor
-                            : kTextLightColor,
-                      ),
-                    ),
-                    TextSpan(
-                      text: 'Reset',
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          context.push((_) => const ForgotPasswordPage());
-                        },
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: context.isDarkMode
-                            ? themeData.primaryColorLight
-                            : kImageColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              )),
+            const SizedBox(height: 20.0),
+            if (!kIsWeb) _buildRegisterText(context, themeData),
+            if (!kIsWeb) _buildForgotPasswordText(context, themeData),
           ],
         ),
+      ),
+    );
+  }
+
+  void _showSuccessDialog(BuildContext context) {
+    AwesomeDialog(
+      context: context,
+      animType: AnimType.leftSlide,
+      headerAnimationLoop: false,
+      dialogType: DialogType.success,
+      dismissOnTouchOutside: true,
+      showCloseIcon: false,
+      title: "Login Successfully!",
+      autoHide: const Duration(seconds: 3),
+      onDismissCallback: (type) {
+        if (mounted) {
+          context.pushReplace((context) => const HomePage());
+        }
+      },
+    ).show();
+  }
+
+  void _handleLoginError(BuildContext context, dynamic error) async {
+    if (error is UserModel && !error.active) {
+      // Handle deactivated account
+      // await provider.logout();
+      if (mounted) {
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.warning,
+          animType: AnimType.rightSlide,
+          headerAnimationLoop: false,
+          title: 'Account Deactivated',
+          desc: 'Your account has been deactivated. Please contact support.',
+          btnOkIcon: Icons.contact_support,
+          btnOkColor: Colors.orange,
+        ).show();
+      }
+    } else if (mounted) {
+      // Handle other errors
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        headerAnimationLoop: false,
+        title: 'Login Failed',
+        desc: error.toString(),
+        btnOkIcon: Icons.cancel,
+        btnOkColor: Colors.red,
+      ).show();
+    }
+  }
+
+  Widget _buildRegisterText(BuildContext context, ThemeData themeData) {
+    return Text.rich(
+      TextSpan(
+        children: [
+          TextSpan(
+            text: "Don't have any account? ",
+            style: TextStyle(
+              fontSize: 16.0,
+              color: context.isDarkMode ? themeData.hintColor : kTextLightColor,
+            ),
+          ),
+          TextSpan(
+            text: 'Register',
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => context.push((_) => const RegisterPage()),
+            style: TextStyle(
+              fontSize: 16.0,
+              color: context.isDarkMode
+                  ? themeData.primaryColorLight
+                  : kImageColor,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildForgotPasswordText(BuildContext context, ThemeData themeData) {
+    return Text.rich(
+      TextSpan(
+        children: [
+          TextSpan(
+            text: "Forgot your password? ",
+            style: TextStyle(
+              fontSize: 16.0,
+              color: context.isDarkMode ? themeData.hintColor : kTextLightColor,
+            ),
+          ),
+          TextSpan(
+            text: 'Reset',
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => context.push((_) => const ForgotPasswordPage()),
+            style: TextStyle(
+              fontSize: 16.0,
+              color: context.isDarkMode
+                  ? themeData.primaryColorLight
+                  : kImageColor,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -255,7 +257,8 @@ class _LoginState extends ConsumerState<LoginPage> {
               filled: true,
               labelText: 'Email',
               labelStyle: TextStyle(
-                  color: context.isDarkMode ? themeData.hintColor : null,),
+                color: context.isDarkMode ? themeData.hintColor : null,
+              ),
               prefixIcon: Icon(
                 Icons.email,
                 color: context.isDarkMode
@@ -295,9 +298,10 @@ class _LoginState extends ConsumerState<LoginPage> {
               ),
             ),
             style: TextStyle(
-                color: context.isDarkMode
-                    ? themeData.textTheme.bodyLarge?.color
-                    : null,),
+              color: context.isDarkMode
+                  ? themeData.textTheme.bodyLarge?.color
+                  : null,
+            ),
             validator: (input) {
               if (input == null || input.isEmpty) {
                 return 'require *';
@@ -319,7 +323,8 @@ class _LoginState extends ConsumerState<LoginPage> {
               filled: true,
               labelText: 'Enter password',
               labelStyle: TextStyle(
-                  color: context.isDarkMode ? themeData.hintColor : null,),
+                color: context.isDarkMode ? themeData.hintColor : null,
+              ),
               prefixIcon: Icon(
                 Icons.key,
                 color: context.isDarkMode
@@ -373,9 +378,10 @@ class _LoginState extends ConsumerState<LoginPage> {
               ),
             ),
             style: TextStyle(
-                color: context.isDarkMode
-                    ? themeData.textTheme.bodyLarge?.color
-                    : null,),
+              color: context.isDarkMode
+                  ? themeData.textTheme.bodyLarge?.color
+                  : null,
+            ),
             validator: (input) {
               if (input == null || input.isEmpty) {
                 return 'require *';
@@ -403,7 +409,8 @@ class _LoginState extends ConsumerState<LoginPage> {
               filled: true,
               labelText: 'Email',
               labelStyle: TextStyle(
-                  color: context.isDarkMode ? themeData.hintColor : null,),
+                color: context.isDarkMode ? themeData.hintColor : null,
+              ),
               prefixIcon: Icon(
                 Icons.email,
                 color: context.isDarkMode
@@ -443,9 +450,10 @@ class _LoginState extends ConsumerState<LoginPage> {
               ),
             ),
             style: TextStyle(
-                color: context.isDarkMode
-                    ? themeData.textTheme.bodyLarge?.color
-                    : null,),
+              color: context.isDarkMode
+                  ? themeData.textTheme.bodyLarge?.color
+                  : null,
+            ),
             validator: (input) {
               if (input == null || input.isEmpty) {
                 return 'require *';
@@ -467,7 +475,8 @@ class _LoginState extends ConsumerState<LoginPage> {
               filled: true,
               labelText: 'Enter password',
               labelStyle: TextStyle(
-                  color: context.isDarkMode ? themeData.hintColor : null,),
+                color: context.isDarkMode ? themeData.hintColor : null,
+              ),
               prefixIcon: Icon(
                 Icons.key,
                 color: context.isDarkMode

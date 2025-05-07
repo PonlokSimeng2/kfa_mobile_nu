@@ -8,9 +8,8 @@ part of 'property_like_model.schema.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PropertyLikeModelImpl _$$PropertyLikeModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$PropertyLikeModelImpl(
+_PropertyLikeModel _$PropertyLikeModelFromJson(Map<String, dynamic> json) =>
+    _PropertyLikeModel(
       id: PropertyViewId.fromJson(json['id']),
       propertyId: json['property_id'] as String,
       userId: json['user_id'] as String,
@@ -18,8 +17,7 @@ _$PropertyLikeModelImpl _$$PropertyLikeModelImplFromJson(
       user: UserModel.fromJson(json['user'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$PropertyLikeModelImplToJson(
-        _$PropertyLikeModelImpl instance) =>
+Map<String, dynamic> _$PropertyLikeModelToJson(_PropertyLikeModel instance) =>
     <String, dynamic>{
       'id': instance.id.toJson(),
       'property_id': instance.propertyId,

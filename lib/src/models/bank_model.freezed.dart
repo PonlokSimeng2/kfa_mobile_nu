@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,88 +10,53 @@ part of 'bank_model.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-BankModel _$BankModelFromJson(Map<String, dynamic> json) {
-  return _BankModel.fromJson(json);
-}
 
 /// @nodoc
 mixin _$BankModel {
   @JsonKey(name: BankTable.id)
-  int get id => throw _privateConstructorUsedError;
+  int get id;
   @JsonKey(name: BankTable.name)
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @JsonKey(name: BankTable.bankBranch)
-  String? get bankBranch => throw _privateConstructorUsedError;
-
-  /// Serializes this BankModel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  String? get bankBranch;
 
   /// Create a copy of BankModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $BankModelCopyWith<BankModel> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $BankModelCopyWith<$Res> {
-  factory $BankModelCopyWith(BankModel value, $Res Function(BankModel) then) =
-      _$BankModelCopyWithImpl<$Res, BankModel>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: BankTable.id) int id,
-      @JsonKey(name: BankTable.name) String name,
-      @JsonKey(name: BankTable.bankBranch) String? bankBranch});
-}
-
-/// @nodoc
-class _$BankModelCopyWithImpl<$Res, $Val extends BankModel>
-    implements $BankModelCopyWith<$Res> {
-  _$BankModelCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of BankModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $BankModelCopyWith<BankModel> get copyWith =>
+      _$BankModelCopyWithImpl<BankModel>(this as BankModel, _$identity);
+
+  /// Serializes this BankModel to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? bankBranch = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      bankBranch: freezed == bankBranch
-          ? _value.bankBranch
-          : bankBranch // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is BankModel &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.bankBranch, bankBranch) ||
+                other.bankBranch == bankBranch));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, name, bankBranch);
+
+  @override
+  String toString() {
+    return 'BankModel(id: $id, name: $name, bankBranch: $bankBranch)';
   }
 }
 
 /// @nodoc
-abstract class _$$BankModelImplCopyWith<$Res>
-    implements $BankModelCopyWith<$Res> {
-  factory _$$BankModelImplCopyWith(
-          _$BankModelImpl value, $Res Function(_$BankModelImpl) then) =
-      __$$BankModelImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $BankModelCopyWith<$Res> {
+  factory $BankModelCopyWith(BankModel value, $Res Function(BankModel) _then) =
+      _$BankModelCopyWithImpl;
   @useResult
   $Res call(
       {@JsonKey(name: BankTable.id) int id,
@@ -99,12 +65,11 @@ abstract class _$$BankModelImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$BankModelImplCopyWithImpl<$Res>
-    extends _$BankModelCopyWithImpl<$Res, _$BankModelImpl>
-    implements _$$BankModelImplCopyWith<$Res> {
-  __$$BankModelImplCopyWithImpl(
-      _$BankModelImpl _value, $Res Function(_$BankModelImpl) _then)
-      : super(_value, _then);
+class _$BankModelCopyWithImpl<$Res> implements $BankModelCopyWith<$Res> {
+  _$BankModelCopyWithImpl(this._self, this._then);
+
+  final BankModel _self;
+  final $Res Function(BankModel) _then;
 
   /// Create a copy of BankModel
   /// with the given fields replaced by the non-null parameter values.
@@ -115,17 +80,17 @@ class __$$BankModelImplCopyWithImpl<$Res>
     Object? name = null,
     Object? bankBranch = freezed,
   }) {
-    return _then(_$BankModelImpl(
+    return _then(_self.copyWith(
       id: null == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
       name: null == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
       bankBranch: freezed == bankBranch
-          ? _value.bankBranch
+          ? _self.bankBranch
           : bankBranch // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
@@ -135,15 +100,14 @@ class __$$BankModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 @TableModel(BankTable.table)
-class _$BankModelImpl extends _BankModel {
-  _$BankModelImpl(
+class _BankModel extends BankModel {
+  _BankModel(
       {@JsonKey(name: BankTable.id) required this.id,
       @JsonKey(name: BankTable.name) required this.name,
       @JsonKey(name: BankTable.bankBranch) required this.bankBranch})
       : super._();
-
-  factory _$BankModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$BankModelImplFromJson(json);
+  factory _BankModel.fromJson(Map<String, dynamic> json) =>
+      _$BankModelFromJson(json);
 
   @override
   @JsonKey(name: BankTable.id)
@@ -155,16 +119,26 @@ class _$BankModelImpl extends _BankModel {
   @JsonKey(name: BankTable.bankBranch)
   final String? bankBranch;
 
+  /// Create a copy of BankModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'BankModel(id: $id, name: $name, bankBranch: $bankBranch)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$BankModelCopyWith<_BankModel> get copyWith =>
+      __$BankModelCopyWithImpl<_BankModel>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$BankModelToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$BankModelImpl &&
+            other is _BankModel &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.bankBranch, bankBranch) ||
@@ -175,47 +149,57 @@ class _$BankModelImpl extends _BankModel {
   @override
   int get hashCode => Object.hash(runtimeType, id, name, bankBranch);
 
-  /// Create a copy of BankModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$BankModelImplCopyWith<_$BankModelImpl> get copyWith =>
-      __$$BankModelImplCopyWithImpl<_$BankModelImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$BankModelImplToJson(
-      this,
-    );
+  String toString() {
+    return 'BankModel(id: $id, name: $name, bankBranch: $bankBranch)';
   }
 }
 
-abstract class _BankModel extends BankModel {
-  factory _BankModel(
-      {@JsonKey(name: BankTable.id) required final int id,
-      @JsonKey(name: BankTable.name) required final String name,
-      @JsonKey(name: BankTable.bankBranch)
-      required final String? bankBranch}) = _$BankModelImpl;
-  _BankModel._() : super._();
+/// @nodoc
+abstract mixin class _$BankModelCopyWith<$Res>
+    implements $BankModelCopyWith<$Res> {
+  factory _$BankModelCopyWith(
+          _BankModel value, $Res Function(_BankModel) _then) =
+      __$BankModelCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: BankTable.id) int id,
+      @JsonKey(name: BankTable.name) String name,
+      @JsonKey(name: BankTable.bankBranch) String? bankBranch});
+}
 
-  factory _BankModel.fromJson(Map<String, dynamic> json) =
-      _$BankModelImpl.fromJson;
+/// @nodoc
+class __$BankModelCopyWithImpl<$Res> implements _$BankModelCopyWith<$Res> {
+  __$BankModelCopyWithImpl(this._self, this._then);
 
-  @override
-  @JsonKey(name: BankTable.id)
-  int get id;
-  @override
-  @JsonKey(name: BankTable.name)
-  String get name;
-  @override
-  @JsonKey(name: BankTable.bankBranch)
-  String? get bankBranch;
+  final _BankModel _self;
+  final $Res Function(_BankModel) _then;
 
   /// Create a copy of BankModel
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$BankModelImplCopyWith<_$BankModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? id = null,
+    Object? name = null,
+    Object? bankBranch = freezed,
+  }) {
+    return _then(_BankModel(
+      id: null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      bankBranch: freezed == bankBranch
+          ? _self.bankBranch
+          : bankBranch // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
+
+// dart format on

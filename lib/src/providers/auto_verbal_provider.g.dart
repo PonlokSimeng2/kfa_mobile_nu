@@ -618,43 +618,42 @@ class InsertAutoVerbalBankBranchFieldWidget extends HookConsumerWidget {
     final state = ref.watch(
         insertAutoVerbalProvider(fromProperty: family.fromProperty)
             .select((value) => value.bankBranch));
-    final textController =
-        controller ?? useTextEditingController(text: state ?? '');
-    useEffect(
-      () {
-        void listener() {
-          final newText =
-              textController.text.isEmpty ? null : textController.text;
-          // Only update if the values actually differ to prevent loops
-          if (state != newText) {
-            notifier.onBankBranchChanged(newText);
-          }
-        }
+    final controller =
+        this.controller ?? useTextEditingController(text: state ?? '');
 
-        textController.addListener(listener);
-        return () => textController.removeListener(listener);
-      },
-      [textController],
-    );
-
-    useEffect(() {
-      if (state != textController.text) {
-        // Preserve cursor position when updating text
-        final selection = textController.selection;
-        textController.value = TextEditingValue(
-          text: state ?? '',
-          selection: selection,
-        );
+    // Listen for provider changes
+    ref.listen(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.bankBranch), (
+      previous,
+      next,
+    ) {
+      if (previous != next && controller.text != next) {
+        controller.text = next ?? '';
       }
-      return null;
-    }, [state]);
+    });
+
+    // Setup text listener
+    useEffect(() {
+      void listener() {
+        final currentValue = ref
+            .read(insertAutoVerbalProvider(fromProperty: family.fromProperty))
+            .bankBranch;
+        if (currentValue != controller.text) {
+          notifier.onBankBranchChanged(controller.text);
+        }
+      }
+
+      controller.addListener(listener);
+      return () => controller.removeListener(listener);
+    }, [controller]);
 
     final showValidation = ref.watch(
         insertAutoVerbalProvider(fromProperty: family.fromProperty)
             .select((value) => value.status.isFailure));
     return builder(
       ref,
-      textController,
+      controller,
       state,
       notifier.onBankBranchChanged,
       showValidation,
@@ -692,43 +691,42 @@ class InsertAutoVerbalOwnerNameFieldWidget extends HookConsumerWidget {
     final state = ref.watch(
         insertAutoVerbalProvider(fromProperty: family.fromProperty)
             .select((value) => value.ownerName));
-    final textController =
-        controller ?? useTextEditingController(text: state ?? '');
-    useEffect(
-      () {
-        void listener() {
-          final newText =
-              textController.text.isEmpty ? null : textController.text;
-          // Only update if the values actually differ to prevent loops
-          if (state != newText) {
-            notifier.onOwnerNameChanged(newText);
-          }
-        }
+    final controller =
+        this.controller ?? useTextEditingController(text: state ?? '');
 
-        textController.addListener(listener);
-        return () => textController.removeListener(listener);
-      },
-      [textController],
-    );
-
-    useEffect(() {
-      if (state != textController.text) {
-        // Preserve cursor position when updating text
-        final selection = textController.selection;
-        textController.value = TextEditingValue(
-          text: state ?? '',
-          selection: selection,
-        );
+    // Listen for provider changes
+    ref.listen(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.ownerName), (
+      previous,
+      next,
+    ) {
+      if (previous != next && controller.text != next) {
+        controller.text = next ?? '';
       }
-      return null;
-    }, [state]);
+    });
+
+    // Setup text listener
+    useEffect(() {
+      void listener() {
+        final currentValue = ref
+            .read(insertAutoVerbalProvider(fromProperty: family.fromProperty))
+            .ownerName;
+        if (currentValue != controller.text) {
+          notifier.onOwnerNameChanged(controller.text);
+        }
+      }
+
+      controller.addListener(listener);
+      return () => controller.removeListener(listener);
+    }, [controller]);
 
     final showValidation = ref.watch(
         insertAutoVerbalProvider(fromProperty: family.fromProperty)
             .select((value) => value.status.isFailure));
     return builder(
       ref,
-      textController,
+      controller,
       state,
       notifier.onOwnerNameChanged,
       showValidation,
@@ -766,43 +764,42 @@ class InsertAutoVerbalOwnerPhoneFieldWidget extends HookConsumerWidget {
     final state = ref.watch(
         insertAutoVerbalProvider(fromProperty: family.fromProperty)
             .select((value) => value.ownerPhone));
-    final textController =
-        controller ?? useTextEditingController(text: state ?? '');
-    useEffect(
-      () {
-        void listener() {
-          final newText =
-              textController.text.isEmpty ? null : textController.text;
-          // Only update if the values actually differ to prevent loops
-          if (state != newText) {
-            notifier.onOwnerPhoneChanged(newText);
-          }
-        }
+    final controller =
+        this.controller ?? useTextEditingController(text: state ?? '');
 
-        textController.addListener(listener);
-        return () => textController.removeListener(listener);
-      },
-      [textController],
-    );
-
-    useEffect(() {
-      if (state != textController.text) {
-        // Preserve cursor position when updating text
-        final selection = textController.selection;
-        textController.value = TextEditingValue(
-          text: state ?? '',
-          selection: selection,
-        );
+    // Listen for provider changes
+    ref.listen(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.ownerPhone), (
+      previous,
+      next,
+    ) {
+      if (previous != next && controller.text != next) {
+        controller.text = next ?? '';
       }
-      return null;
-    }, [state]);
+    });
+
+    // Setup text listener
+    useEffect(() {
+      void listener() {
+        final currentValue = ref
+            .read(insertAutoVerbalProvider(fromProperty: family.fromProperty))
+            .ownerPhone;
+        if (currentValue != controller.text) {
+          notifier.onOwnerPhoneChanged(controller.text);
+        }
+      }
+
+      controller.addListener(listener);
+      return () => controller.removeListener(listener);
+    }, [controller]);
 
     final showValidation = ref.watch(
         insertAutoVerbalProvider(fromProperty: family.fromProperty)
             .select((value) => value.status.isFailure));
     return builder(
       ref,
-      textController,
+      controller,
       state,
       notifier.onOwnerPhoneChanged,
       showValidation,
@@ -840,43 +837,42 @@ class InsertAutoVerbalBankOfficerNameFieldWidget extends HookConsumerWidget {
     final state = ref.watch(
         insertAutoVerbalProvider(fromProperty: family.fromProperty)
             .select((value) => value.bankOfficerName));
-    final textController =
-        controller ?? useTextEditingController(text: state ?? '');
-    useEffect(
-      () {
-        void listener() {
-          final newText =
-              textController.text.isEmpty ? null : textController.text;
-          // Only update if the values actually differ to prevent loops
-          if (state != newText) {
-            notifier.onBankOfficerNameChanged(newText);
-          }
-        }
+    final controller =
+        this.controller ?? useTextEditingController(text: state ?? '');
 
-        textController.addListener(listener);
-        return () => textController.removeListener(listener);
-      },
-      [textController],
-    );
-
-    useEffect(() {
-      if (state != textController.text) {
-        // Preserve cursor position when updating text
-        final selection = textController.selection;
-        textController.value = TextEditingValue(
-          text: state ?? '',
-          selection: selection,
-        );
+    // Listen for provider changes
+    ref.listen(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.bankOfficerName), (
+      previous,
+      next,
+    ) {
+      if (previous != next && controller.text != next) {
+        controller.text = next ?? '';
       }
-      return null;
-    }, [state]);
+    });
+
+    // Setup text listener
+    useEffect(() {
+      void listener() {
+        final currentValue = ref
+            .read(insertAutoVerbalProvider(fromProperty: family.fromProperty))
+            .bankOfficerName;
+        if (currentValue != controller.text) {
+          notifier.onBankOfficerNameChanged(controller.text);
+        }
+      }
+
+      controller.addListener(listener);
+      return () => controller.removeListener(listener);
+    }, [controller]);
 
     final showValidation = ref.watch(
         insertAutoVerbalProvider(fromProperty: family.fromProperty)
             .select((value) => value.status.isFailure));
     return builder(
       ref,
-      textController,
+      controller,
       state,
       notifier.onBankOfficerNameChanged,
       showValidation,
@@ -914,43 +910,42 @@ class InsertAutoVerbalBankOfficerPhoneFieldWidget extends HookConsumerWidget {
     final state = ref.watch(
         insertAutoVerbalProvider(fromProperty: family.fromProperty)
             .select((value) => value.bankOfficerPhone));
-    final textController =
-        controller ?? useTextEditingController(text: state ?? '');
-    useEffect(
-      () {
-        void listener() {
-          final newText =
-              textController.text.isEmpty ? null : textController.text;
-          // Only update if the values actually differ to prevent loops
-          if (state != newText) {
-            notifier.onBankOfficerPhoneChanged(newText);
-          }
-        }
+    final controller =
+        this.controller ?? useTextEditingController(text: state ?? '');
 
-        textController.addListener(listener);
-        return () => textController.removeListener(listener);
-      },
-      [textController],
-    );
-
-    useEffect(() {
-      if (state != textController.text) {
-        // Preserve cursor position when updating text
-        final selection = textController.selection;
-        textController.value = TextEditingValue(
-          text: state ?? '',
-          selection: selection,
-        );
+    // Listen for provider changes
+    ref.listen(
+        insertAutoVerbalProvider(fromProperty: family.fromProperty)
+            .select((value) => value.bankOfficerPhone), (
+      previous,
+      next,
+    ) {
+      if (previous != next && controller.text != next) {
+        controller.text = next ?? '';
       }
-      return null;
-    }, [state]);
+    });
+
+    // Setup text listener
+    useEffect(() {
+      void listener() {
+        final currentValue = ref
+            .read(insertAutoVerbalProvider(fromProperty: family.fromProperty))
+            .bankOfficerPhone;
+        if (currentValue != controller.text) {
+          notifier.onBankOfficerPhoneChanged(controller.text);
+        }
+      }
+
+      controller.addListener(listener);
+      return () => controller.removeListener(listener);
+    }, [controller]);
 
     final showValidation = ref.watch(
         insertAutoVerbalProvider(fromProperty: family.fromProperty)
             .select((value) => value.status.isFailure));
     return builder(
       ref,
-      textController,
+      controller,
       state,
       notifier.onBankOfficerPhoneChanged,
       showValidation,
@@ -2119,40 +2114,39 @@ class UpdateAutoVerbalBankBranchFieldWidget extends HookConsumerWidget {
         ref.watch(updateAutoVerbalProvider(family.initial).notifier);
     final state = ref.watch(updateAutoVerbalProvider(family.initial)
         .select((value) => value.bankBranch));
-    final textController = controller ?? useTextEditingController(text: state);
-    useEffect(
-      () {
-        void listener() {
-          final newText = textController.text;
-          // Only update if the values actually differ to prevent loops
-          if (state != newText) {
-            notifier.onBankBranchChanged(newText);
-          }
-        }
+    final controller = this.controller ?? useTextEditingController(text: state);
 
-        textController.addListener(listener);
-        return () => textController.removeListener(listener);
-      },
-      [textController],
-    );
-
-    useEffect(() {
-      if (state != textController.text) {
-        // Preserve cursor position when updating text
-        final selection = textController.selection;
-        textController.value = TextEditingValue(
-          text: state,
-          selection: selection,
-        );
+    // Listen for provider changes
+    ref.listen(
+        updateAutoVerbalProvider(family.initial)
+            .select((value) => value.bankBranch), (
+      previous,
+      next,
+    ) {
+      if (previous != next && controller.text != next) {
+        controller.text = next ?? '';
       }
-      return null;
-    }, [state]);
+    });
+
+    // Setup text listener
+    useEffect(() {
+      void listener() {
+        final currentValue =
+            ref.read(updateAutoVerbalProvider(family.initial)).bankBranch;
+        if (currentValue != controller.text) {
+          notifier.onBankBranchChanged(controller.text);
+        }
+      }
+
+      controller.addListener(listener);
+      return () => controller.removeListener(listener);
+    }, [controller]);
 
     final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
         .select((value) => value.status.isFailure));
     return builder(
       ref,
-      textController,
+      controller,
       state,
       notifier.onBankBranchChanged,
       showValidation,
@@ -2189,40 +2183,39 @@ class UpdateAutoVerbalOwnerNameFieldWidget extends HookConsumerWidget {
         ref.watch(updateAutoVerbalProvider(family.initial).notifier);
     final state = ref.watch(updateAutoVerbalProvider(family.initial)
         .select((value) => value.ownerName));
-    final textController = controller ?? useTextEditingController(text: state);
-    useEffect(
-      () {
-        void listener() {
-          final newText = textController.text;
-          // Only update if the values actually differ to prevent loops
-          if (state != newText) {
-            notifier.onOwnerNameChanged(newText);
-          }
-        }
+    final controller = this.controller ?? useTextEditingController(text: state);
 
-        textController.addListener(listener);
-        return () => textController.removeListener(listener);
-      },
-      [textController],
-    );
-
-    useEffect(() {
-      if (state != textController.text) {
-        // Preserve cursor position when updating text
-        final selection = textController.selection;
-        textController.value = TextEditingValue(
-          text: state,
-          selection: selection,
-        );
+    // Listen for provider changes
+    ref.listen(
+        updateAutoVerbalProvider(family.initial)
+            .select((value) => value.ownerName), (
+      previous,
+      next,
+    ) {
+      if (previous != next && controller.text != next) {
+        controller.text = next ?? '';
       }
-      return null;
-    }, [state]);
+    });
+
+    // Setup text listener
+    useEffect(() {
+      void listener() {
+        final currentValue =
+            ref.read(updateAutoVerbalProvider(family.initial)).ownerName;
+        if (currentValue != controller.text) {
+          notifier.onOwnerNameChanged(controller.text);
+        }
+      }
+
+      controller.addListener(listener);
+      return () => controller.removeListener(listener);
+    }, [controller]);
 
     final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
         .select((value) => value.status.isFailure));
     return builder(
       ref,
-      textController,
+      controller,
       state,
       notifier.onOwnerNameChanged,
       showValidation,
@@ -2259,40 +2252,39 @@ class UpdateAutoVerbalOwnerPhoneFieldWidget extends HookConsumerWidget {
         ref.watch(updateAutoVerbalProvider(family.initial).notifier);
     final state = ref.watch(updateAutoVerbalProvider(family.initial)
         .select((value) => value.ownerPhone));
-    final textController = controller ?? useTextEditingController(text: state);
-    useEffect(
-      () {
-        void listener() {
-          final newText = textController.text;
-          // Only update if the values actually differ to prevent loops
-          if (state != newText) {
-            notifier.onOwnerPhoneChanged(newText);
-          }
-        }
+    final controller = this.controller ?? useTextEditingController(text: state);
 
-        textController.addListener(listener);
-        return () => textController.removeListener(listener);
-      },
-      [textController],
-    );
-
-    useEffect(() {
-      if (state != textController.text) {
-        // Preserve cursor position when updating text
-        final selection = textController.selection;
-        textController.value = TextEditingValue(
-          text: state,
-          selection: selection,
-        );
+    // Listen for provider changes
+    ref.listen(
+        updateAutoVerbalProvider(family.initial)
+            .select((value) => value.ownerPhone), (
+      previous,
+      next,
+    ) {
+      if (previous != next && controller.text != next) {
+        controller.text = next ?? '';
       }
-      return null;
-    }, [state]);
+    });
+
+    // Setup text listener
+    useEffect(() {
+      void listener() {
+        final currentValue =
+            ref.read(updateAutoVerbalProvider(family.initial)).ownerPhone;
+        if (currentValue != controller.text) {
+          notifier.onOwnerPhoneChanged(controller.text);
+        }
+      }
+
+      controller.addListener(listener);
+      return () => controller.removeListener(listener);
+    }, [controller]);
 
     final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
         .select((value) => value.status.isFailure));
     return builder(
       ref,
-      textController,
+      controller,
       state,
       notifier.onOwnerPhoneChanged,
       showValidation,
@@ -2329,40 +2321,39 @@ class UpdateAutoVerbalBankOfficerNameFieldWidget extends HookConsumerWidget {
         ref.watch(updateAutoVerbalProvider(family.initial).notifier);
     final state = ref.watch(updateAutoVerbalProvider(family.initial)
         .select((value) => value.bankOfficerName));
-    final textController = controller ?? useTextEditingController(text: state);
-    useEffect(
-      () {
-        void listener() {
-          final newText = textController.text;
-          // Only update if the values actually differ to prevent loops
-          if (state != newText) {
-            notifier.onBankOfficerNameChanged(newText);
-          }
-        }
+    final controller = this.controller ?? useTextEditingController(text: state);
 
-        textController.addListener(listener);
-        return () => textController.removeListener(listener);
-      },
-      [textController],
-    );
-
-    useEffect(() {
-      if (state != textController.text) {
-        // Preserve cursor position when updating text
-        final selection = textController.selection;
-        textController.value = TextEditingValue(
-          text: state,
-          selection: selection,
-        );
+    // Listen for provider changes
+    ref.listen(
+        updateAutoVerbalProvider(family.initial)
+            .select((value) => value.bankOfficerName), (
+      previous,
+      next,
+    ) {
+      if (previous != next && controller.text != next) {
+        controller.text = next ?? '';
       }
-      return null;
-    }, [state]);
+    });
+
+    // Setup text listener
+    useEffect(() {
+      void listener() {
+        final currentValue =
+            ref.read(updateAutoVerbalProvider(family.initial)).bankOfficerName;
+        if (currentValue != controller.text) {
+          notifier.onBankOfficerNameChanged(controller.text);
+        }
+      }
+
+      controller.addListener(listener);
+      return () => controller.removeListener(listener);
+    }, [controller]);
 
     final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
         .select((value) => value.status.isFailure));
     return builder(
       ref,
-      textController,
+      controller,
       state,
       notifier.onBankOfficerNameChanged,
       showValidation,
@@ -2399,40 +2390,39 @@ class UpdateAutoVerbalBankOfficerPhoneFieldWidget extends HookConsumerWidget {
         ref.watch(updateAutoVerbalProvider(family.initial).notifier);
     final state = ref.watch(updateAutoVerbalProvider(family.initial)
         .select((value) => value.bankOfficerPhone));
-    final textController = controller ?? useTextEditingController(text: state);
-    useEffect(
-      () {
-        void listener() {
-          final newText = textController.text;
-          // Only update if the values actually differ to prevent loops
-          if (state != newText) {
-            notifier.onBankOfficerPhoneChanged(newText);
-          }
-        }
+    final controller = this.controller ?? useTextEditingController(text: state);
 
-        textController.addListener(listener);
-        return () => textController.removeListener(listener);
-      },
-      [textController],
-    );
-
-    useEffect(() {
-      if (state != textController.text) {
-        // Preserve cursor position when updating text
-        final selection = textController.selection;
-        textController.value = TextEditingValue(
-          text: state,
-          selection: selection,
-        );
+    // Listen for provider changes
+    ref.listen(
+        updateAutoVerbalProvider(family.initial)
+            .select((value) => value.bankOfficerPhone), (
+      previous,
+      next,
+    ) {
+      if (previous != next && controller.text != next) {
+        controller.text = next ?? '';
       }
-      return null;
-    }, [state]);
+    });
+
+    // Setup text listener
+    useEffect(() {
+      void listener() {
+        final currentValue =
+            ref.read(updateAutoVerbalProvider(family.initial)).bankOfficerPhone;
+        if (currentValue != controller.text) {
+          notifier.onBankOfficerPhoneChanged(controller.text);
+        }
+      }
+
+      controller.addListener(listener);
+      return () => controller.removeListener(listener);
+    }, [controller]);
 
     final showValidation = ref.watch(updateAutoVerbalProvider(family.initial)
         .select((value) => value.status.isFailure));
     return builder(
       ref,
-      textController,
+      controller,
       state,
       notifier.onBankOfficerPhoneChanged,
       showValidation,

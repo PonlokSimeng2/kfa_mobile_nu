@@ -8,9 +8,8 @@ part of 'auto_verbal_model.schema.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AutoVerbalModelImpl _$$AutoVerbalModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$AutoVerbalModelImpl(
+_AutoVerbalModel _$AutoVerbalModelFromJson(Map<String, dynamic> json) =>
+    _AutoVerbalModel(
       id: (json['id'] as num).toInt(),
       status: $enumDecode(_$PropertyAndAutoVerbalStatusEnumMap, json['status']),
       autoVerbalId: json['auto_verbal_id'] as String,
@@ -61,8 +60,7 @@ _$AutoVerbalModelImpl _$$AutoVerbalModelImplFromJson(
           : RoadModel.fromJson(json['road'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$AutoVerbalModelImplToJson(
-        _$AutoVerbalModelImpl instance) =>
+Map<String, dynamic> _$AutoVerbalModelToJson(_AutoVerbalModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'status': _$PropertyAndAutoVerbalStatusEnumMap[instance.status]!,
@@ -107,9 +105,9 @@ const _$PropertyAndAutoVerbalStatusEnumMap = {
   PropertyAndAutoVerbalStatus.approved: 'approved',
 };
 
-_$CreateAutoVerbalParamImpl _$$CreateAutoVerbalParamImplFromJson(
+_CreateAutoVerbalParam _$CreateAutoVerbalParamFromJson(
         Map<String, dynamic> json) =>
-    _$CreateAutoVerbalParamImpl(
+    _CreateAutoVerbalParam(
       image: (json['images'] as List<dynamic>).map((e) => e as String).toList(),
       bankBranch: json['bankbranch'] as String?,
       latitude: (json['latitude'] as num).toDouble(),
@@ -138,8 +136,8 @@ _$CreateAutoVerbalParamImpl _$$CreateAutoVerbalParamImplFromJson(
       userId: json['user_id'] as String,
     );
 
-Map<String, dynamic> _$$CreateAutoVerbalParamImplToJson(
-        _$CreateAutoVerbalParamImpl instance) =>
+Map<String, dynamic> _$CreateAutoVerbalParamToJson(
+        _CreateAutoVerbalParam instance) =>
     <String, dynamic>{
       'images': instance.image,
       'bankbranch': instance.bankBranch,
@@ -169,9 +167,9 @@ Map<String, dynamic> _$$CreateAutoVerbalParamImplToJson(
       'user_id': instance.userId,
     };
 
-_$UpdateAutoVerbalParamImpl _$$UpdateAutoVerbalParamImplFromJson(
+_UpdateAutoVerbalParam _$UpdateAutoVerbalParamFromJson(
         Map<String, dynamic> json) =>
-    _$UpdateAutoVerbalParamImpl(
+    _UpdateAutoVerbalParam(
       status: $enumDecode(_$PropertyAndAutoVerbalStatusEnumMap, json['status']),
       image: (json['images'] as List<dynamic>).map((e) => e as String).toList(),
       bankBranch: json['bankbranch'] as String?,
@@ -201,8 +199,8 @@ _$UpdateAutoVerbalParamImpl _$$UpdateAutoVerbalParamImplFromJson(
       bankId: (json['bank_id'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$UpdateAutoVerbalParamImplToJson(
-        _$UpdateAutoVerbalParamImpl instance) =>
+Map<String, dynamic> _$UpdateAutoVerbalParamToJson(
+        _UpdateAutoVerbalParam instance) =>
     <String, dynamic>{
       'status': _$PropertyAndAutoVerbalStatusEnumMap[instance.status]!,
       'images': instance.image,

@@ -28,7 +28,7 @@ class _RegisterState extends ConsumerState<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _otpController = TextEditingController();
-// Password validation rules
+  // Password validation rules
   bool _hasMinLength = false;
   bool _hasUppercase = false;
   bool _hasLowercase = false;
@@ -89,8 +89,11 @@ class _RegisterState extends ConsumerState<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
+    // Use MediaQuery to calculate safe padding for keyboard
+    final bottomPadding = MediaQuery.of(context).viewInsets.bottom;
+
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // Don't use resizeToAvoidBottomInset: false here as we want the UI to adjust for the keyboard
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
         elevation: 0,
@@ -110,302 +113,323 @@ class _RegisterState extends ConsumerState<RegisterPage> {
           ),
         ),
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  _buildProfileImagePicker(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    controller: _firstNameController,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      labelText: 'First Name',
-                      prefixIcon: const Icon(
-                        Icons.person,
-                        color: kPrimaryColor,
+      body: GestureDetector(
+        // Close keyboard when tapping outside of text fields
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            // Make sure SingleChildScrollView adapts to keyboard
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            scrollDirection: Axis.vertical,
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Padding(
+              // Add bottom padding to ensure form fields don't get hidden behind keyboard
+              padding: EdgeInsets.only(
+                  bottom: bottomPadding > 0 ? bottomPadding : 20),
+              child: Container(
+                padding: const EdgeInsets.all(20),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 20,
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: kPrimaryColor, width: 2.0),
-                        borderRadius: BorderRadius.circular(10.0),
+                      _buildProfileImagePicker(),
+                      const SizedBox(
+                        height: 20,
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: kPrimaryColor, width: 1.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 1.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 2.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your first name';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    controller: _lastNameController,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      labelText: 'Last Name',
-                      prefixIcon: const Icon(
-                        Icons.person,
-                        color: kPrimaryColor,
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: kPrimaryColor, width: 2.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: kPrimaryColor, width: 1.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 1.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 2.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your last name';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      labelText: 'Email',
-                      prefixIcon: const Icon(
-                        Icons.email,
-                        color: kPrimaryColor,
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: kPrimaryColor, width: 2.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: kPrimaryColor, width: 1.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 1.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 2.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your email';
-                      }
-                      if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                          .hasMatch(value)) {
-                        return 'Please enter a valid email address with @';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    onChanged: _updatePasswordStrength,
-                    keyboardType: TextInputType.visiblePassword,
-                    controller: _passwordController,
-                    obscureText: _isObscure,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      labelText: 'Password',
-                      prefixIcon: const Icon(
-                        Icons.lock,
-                        color: kPrimaryColor,
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: kPrimaryColor, width: 2.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: kPrimaryColor, width: 1.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 1.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 2.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          color: context.isDarkMode
-                              ? themeData.primaryColorLight
-                              : kImageColor,
-                          _isObscure ? Icons.visibility : Icons.visibility_off,
+                      TextFormField(
+                        controller: _firstNameController,
+                        decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled: true,
+                          labelText: 'First Name',
+                          prefixIcon: const Icon(
+                            Icons.person,
+                            color: kPrimaryColor,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: kPrimaryColor, width: 2.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: kPrimaryColor, width: 1.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.red, width: 1.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.red, width: 2.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
                         ),
-                        onPressed: () {
-                          setState(() {
-                            _isObscure = !_isObscure;
-                          });
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your first name';
+                          }
+                          return null;
                         },
                       ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return r'Strong password at least 6 characters (Aa1#85...)';
-                      }
-                      if (!_isPasswordStrong(value)) {
-                        return r'Strong password at least 6 characters (Aa1#85...)';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    controller: _phoneController,
-                    keyboardType: TextInputType.phone,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      labelText: 'Phone Number',
-                      prefixIcon: const Icon(
-                        Icons.phone,
-                        color: kPrimaryColor,
+                      const SizedBox(
+                        height: 20,
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: kPrimaryColor, width: 2.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: kPrimaryColor, width: 1.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 1.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 2.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your phone number';
-                      }
-                      if (!RegExp(r'^\+?[\d\s-]+$').hasMatch(value)) {
-                        return 'Please enter a valid phone number';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          _handleSubmit();
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: kPrimaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                      ),
-                      child: const Text(
-                        'Register',
-                        style: TextStyle(fontSize: 18, color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      text: "Already have an account? ",
-                      style: const TextStyle(color: Colors.black),
-                      children: [
-                        TextSpan(
-                          text: "Login",
-                          style: const TextStyle(
+                      TextFormField(
+                        controller: _lastNameController,
+                        decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled: true,
+                          labelText: 'Last Name',
+                          prefixIcon: const Icon(
+                            Icons.person,
                             color: kPrimaryColor,
-                            fontWeight: FontWeight.bold,
                           ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const LoginPage(),
-                                ),
-                              );
-                            },
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: kPrimaryColor, width: 2.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: kPrimaryColor, width: 1.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.red, width: 1.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.red, width: 2.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
                         ),
-                      ],
-                    ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your last name';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        controller: _emailController,
+                        decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled: true,
+                          labelText: 'Email',
+                          prefixIcon: const Icon(
+                            Icons.email,
+                            color: kPrimaryColor,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: kPrimaryColor, width: 2.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: kPrimaryColor, width: 1.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.red, width: 1.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.red, width: 2.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your email';
+                          }
+                          if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                              .hasMatch(value)) {
+                            return 'Please enter a valid email address with @';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        onChanged: _updatePasswordStrength,
+                        keyboardType: TextInputType.visiblePassword,
+                        controller: _passwordController,
+                        obscureText: _isObscure,
+                        decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled: true,
+                          labelText: 'Password',
+                          prefixIcon: const Icon(
+                            Icons.lock,
+                            color: kPrimaryColor,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: kPrimaryColor, width: 2.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: kPrimaryColor, width: 1.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.red, width: 1.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.red, width: 2.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              color: context.isDarkMode
+                                  ? themeData.primaryColorLight
+                                  : kImageColor,
+                              _isObscure
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _isObscure = !_isObscure;
+                              });
+                            },
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return r'Strong password at least 6 characters (Aa1#85...)';
+                          }
+                          if (!_isPasswordStrong(value)) {
+                            return r'Strong password at least 6 characters (Aa1#85...)';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        controller: _phoneController,
+                        keyboardType: TextInputType.phone,
+                        decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled: true,
+                          labelText: 'Phone Number',
+                          prefixIcon: const Icon(
+                            Icons.phone,
+                            color: kPrimaryColor,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: kPrimaryColor, width: 2.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: kPrimaryColor, width: 1.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.red, width: 1.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.red, width: 2.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your phone number';
+                          }
+                          if (!RegExp(r'^\+?[\d\s-]+$').hasMatch(value)) {
+                            return 'Please enter a valid phone number';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              _handleSubmit();
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: kPrimaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                          ),
+                          child: const Text(
+                            'Register',
+                            style: TextStyle(fontSize: 18, color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                          text: "Already have an account? ",
+                          style: TextStyle(
+                              color: context.isDarkMode
+                                  ? Colors.white
+                                  : Colors.black),
+                          children: [
+                            TextSpan(
+                              text: "Login",
+                              style: const TextStyle(
+                                color: kPrimaryColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const LoginPage(),
+                                    ),
+                                  );
+                                },
+                            ),
+                          ],
+                        ),
+                      ),
+                      // Add some extra padding at the bottom to ensure last elements
+                      // are visible when keyboard is shown
+                      const SizedBox(height: 40),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),

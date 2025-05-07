@@ -1,3 +1,4 @@
+// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -83,11 +84,31 @@ class PropertyCommentId extends Identity<int> {
   factory PropertyCommentId.fromValue(int value) {
     return PropertyCommentId._(value);
   }
+
+  /// Creates an instance of PropertyCommentId with a value of -1.
+  /// This is used to represent an empty or invalid PropertyCommentId for placeholder or default values of form fields.
+  /// WARNING: This is not a valid PropertyCommentId access it value through [value] or [call] will throw an error.
+  factory PropertyCommentId.empty() => PropertyCommentId._(-1);
+}
+
+/// Base class of this schema, this is the parent of all generated models in this schema
+abstract class BasePropertyCommentSchema {}
+
+/// Base model class for this schema, this includes all properties of the base model, and get inherited by all generated models in this schema where [inheritAllFromBase()] is called and without any excepted fields.
+abstract class IPropertyCommentModel {
+  PropertyCommentId get id;
+  int get propertyId;
+  String get userId;
+  DateTime get createdAt;
+  String get content;
+  UserModel get user;
 }
 
 /// Base model class for PropertyCommentModel.
 @freezed
-class PropertyCommentModel with _$PropertyCommentModel {
+sealed class PropertyCommentModel
+    with _$PropertyCommentModel
+    implements BasePropertyCommentSchema, IPropertyCommentModel {
   const PropertyCommentModel._();
 
   /// Constructor for PropertyCommentModel.

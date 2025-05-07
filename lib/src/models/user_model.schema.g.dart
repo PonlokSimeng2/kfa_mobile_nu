@@ -8,15 +8,14 @@ part of 'user_model.schema.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
-    _$UserModelImpl(
+_UserModel _$UserModelFromJson(Map<String, dynamic> json) => _UserModel(
       id: json['id'] as String,
       userId: json['user_id'] as String,
       photo: json['photo'] as String?,
-      firstName: json['first_name'] as String,
-      lastName: json['last_name'] as String,
+      rawFirstName: json['first_name'] as String?,
+      rawLastName: json['last_name'] as String?,
       email: json['email'] as String,
-      phone: json['phone'] as String,
+      rawPhone: json['phone'] as String?,
       vpoints: (json['vpoints'] as num).toInt(),
       role: $enumDecode(_$UserRoleEnumMap, json['role']),
       joinedAt: DateTime.parse(json['joined_at'] as String),
@@ -26,15 +25,15 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
           : UserLiteModel.fromJson(json['managedBy'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
+Map<String, dynamic> _$UserModelToJson(_UserModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'user_id': instance.userId,
       'photo': instance.photo,
-      'first_name': instance.firstName,
-      'last_name': instance.lastName,
+      'first_name': instance.rawFirstName,
+      'last_name': instance.rawLastName,
       'email': instance.email,
-      'phone': instance.phone,
+      'phone': instance.rawPhone,
       'vpoints': instance.vpoints,
       'role': _$UserRoleEnumMap[instance.role]!,
       'joined_at': instance.joinedAt.toIso8601String(),
@@ -48,20 +47,20 @@ const _$UserRoleEnumMap = {
   UserRole.superAdmin: 'superAdmin',
 };
 
-_$UserLiteModelImpl _$$UserLiteModelImplFromJson(Map<String, dynamic> json) =>
-    _$UserLiteModelImpl(
+_UserLiteModel _$UserLiteModelFromJson(Map<String, dynamic> json) =>
+    _UserLiteModel(
       id: json['id'] as String,
       photo: json['photo'] as String?,
-      firstName: json['first_name'] as String,
-      lastName: json['last_name'] as String,
+      rawFirstName: json['first_name'] as String?,
+      rawLastName: json['last_name'] as String?,
     );
 
-Map<String, dynamic> _$$UserLiteModelImplToJson(_$UserLiteModelImpl instance) =>
+Map<String, dynamic> _$UserLiteModelToJson(_UserLiteModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'photo': instance.photo,
-      'first_name': instance.firstName,
-      'last_name': instance.lastName,
+      'first_name': instance.rawFirstName,
+      'last_name': instance.rawLastName,
     };
 
 // **************************************************************************

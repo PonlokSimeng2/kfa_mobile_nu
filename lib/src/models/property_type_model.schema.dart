@@ -1,3 +1,4 @@
+// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -35,9 +36,20 @@ class PropertyTypeTable {
   static const String name = "name";
 }
 
+/// Base class of this schema, this is the parent of all generated models in this schema
+abstract class BasePropertyTypeSchema {}
+
+/// Base model class for this schema, this includes all properties of the base model, and get inherited by all generated models in this schema where [inheritAllFromBase()] is called and without any excepted fields.
+abstract class IPropertyTypeModel {
+  int get id;
+  String get name;
+}
+
 /// Base model class for PropertyTypeModel.
 @freezed
-class PropertyTypeModel with _$PropertyTypeModel {
+sealed class PropertyTypeModel
+    with _$PropertyTypeModel
+    implements BasePropertyTypeSchema, IPropertyTypeModel {
   const PropertyTypeModel._();
 
   /// Constructor for PropertyTypeModel.

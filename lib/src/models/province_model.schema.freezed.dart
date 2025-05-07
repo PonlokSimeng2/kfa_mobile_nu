@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,81 +10,51 @@ part of 'province_model.schema.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-ProvinceModel _$ProvinceModelFromJson(Map<String, dynamic> json) {
-  return _ProvinceModel.fromJson(json);
-}
 
 /// @nodoc
 mixin _$ProvinceModel {
   @JsonKey(name: ProvinceModel.idKey)
-  int get id => throw _privateConstructorUsedError;
+  int get id;
   @JsonKey(name: ProvinceModel.nameKey)
-  String get name => throw _privateConstructorUsedError;
-
-  /// Serializes this ProvinceModel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  String get name;
 
   /// Create a copy of ProvinceModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $ProvinceModelCopyWith<ProvinceModel> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ProvinceModelCopyWith<$Res> {
-  factory $ProvinceModelCopyWith(
-          ProvinceModel value, $Res Function(ProvinceModel) then) =
-      _$ProvinceModelCopyWithImpl<$Res, ProvinceModel>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: ProvinceModel.idKey) int id,
-      @JsonKey(name: ProvinceModel.nameKey) String name});
-}
-
-/// @nodoc
-class _$ProvinceModelCopyWithImpl<$Res, $Val extends ProvinceModel>
-    implements $ProvinceModelCopyWith<$Res> {
-  _$ProvinceModelCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of ProvinceModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $ProvinceModelCopyWith<ProvinceModel> get copyWith =>
+      _$ProvinceModelCopyWithImpl<ProvinceModel>(
+          this as ProvinceModel, _$identity);
+
+  /// Serializes this ProvinceModel to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? id = null,
-    Object? name = null,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ProvinceModel &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, name);
+
+  @override
+  String toString() {
+    return 'ProvinceModel(id: $id, name: $name)';
   }
 }
 
 /// @nodoc
-abstract class _$$ProvinceModelImplCopyWith<$Res>
-    implements $ProvinceModelCopyWith<$Res> {
-  factory _$$ProvinceModelImplCopyWith(
-          _$ProvinceModelImpl value, $Res Function(_$ProvinceModelImpl) then) =
-      __$$ProvinceModelImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $ProvinceModelCopyWith<$Res> {
+  factory $ProvinceModelCopyWith(
+          ProvinceModel value, $Res Function(ProvinceModel) _then) =
+      _$ProvinceModelCopyWithImpl;
   @useResult
   $Res call(
       {@JsonKey(name: ProvinceModel.idKey) int id,
@@ -91,12 +62,12 @@ abstract class _$$ProvinceModelImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ProvinceModelImplCopyWithImpl<$Res>
-    extends _$ProvinceModelCopyWithImpl<$Res, _$ProvinceModelImpl>
-    implements _$$ProvinceModelImplCopyWith<$Res> {
-  __$$ProvinceModelImplCopyWithImpl(
-      _$ProvinceModelImpl _value, $Res Function(_$ProvinceModelImpl) _then)
-      : super(_value, _then);
+class _$ProvinceModelCopyWithImpl<$Res>
+    implements $ProvinceModelCopyWith<$Res> {
+  _$ProvinceModelCopyWithImpl(this._self, this._then);
+
+  final ProvinceModel _self;
+  final $Res Function(ProvinceModel) _then;
 
   /// Create a copy of ProvinceModel
   /// with the given fields replaced by the non-null parameter values.
@@ -106,13 +77,13 @@ class __$$ProvinceModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
   }) {
-    return _then(_$ProvinceModelImpl(
+    return _then(_self.copyWith(
       id: null == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
       name: null == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
     ));
@@ -123,14 +94,13 @@ class __$$ProvinceModelImplCopyWithImpl<$Res>
 
 @TableModel(ProvinceModel.tableName)
 @JsonSerializable(explicitToJson: true)
-class _$ProvinceModelImpl extends _ProvinceModel {
-  const _$ProvinceModelImpl(
+class _ProvinceModel extends ProvinceModel {
+  const _ProvinceModel(
       {@JsonKey(name: ProvinceModel.idKey) required this.id,
       @JsonKey(name: ProvinceModel.nameKey) required this.name})
       : super._();
-
-  factory _$ProvinceModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ProvinceModelImplFromJson(json);
+  factory _ProvinceModel.fromJson(Map<String, dynamic> json) =>
+      _$ProvinceModelFromJson(json);
 
   @override
   @JsonKey(name: ProvinceModel.idKey)
@@ -139,16 +109,26 @@ class _$ProvinceModelImpl extends _ProvinceModel {
   @JsonKey(name: ProvinceModel.nameKey)
   final String name;
 
+  /// Create a copy of ProvinceModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'ProvinceModel(id: $id, name: $name)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ProvinceModelCopyWith<_ProvinceModel> get copyWith =>
+      __$ProvinceModelCopyWithImpl<_ProvinceModel>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$ProvinceModelToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ProvinceModelImpl &&
+            other is _ProvinceModel &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name));
   }
@@ -157,43 +137,52 @@ class _$ProvinceModelImpl extends _ProvinceModel {
   @override
   int get hashCode => Object.hash(runtimeType, id, name);
 
-  /// Create a copy of ProvinceModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$ProvinceModelImplCopyWith<_$ProvinceModelImpl> get copyWith =>
-      __$$ProvinceModelImplCopyWithImpl<_$ProvinceModelImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ProvinceModelImplToJson(
-      this,
-    );
+  String toString() {
+    return 'ProvinceModel(id: $id, name: $name)';
   }
 }
 
-abstract class _ProvinceModel extends ProvinceModel {
-  const factory _ProvinceModel(
-          {@JsonKey(name: ProvinceModel.idKey) required final int id,
-          @JsonKey(name: ProvinceModel.nameKey) required final String name}) =
-      _$ProvinceModelImpl;
-  const _ProvinceModel._() : super._();
-
-  factory _ProvinceModel.fromJson(Map<String, dynamic> json) =
-      _$ProvinceModelImpl.fromJson;
-
+/// @nodoc
+abstract mixin class _$ProvinceModelCopyWith<$Res>
+    implements $ProvinceModelCopyWith<$Res> {
+  factory _$ProvinceModelCopyWith(
+          _ProvinceModel value, $Res Function(_ProvinceModel) _then) =
+      __$ProvinceModelCopyWithImpl;
   @override
-  @JsonKey(name: ProvinceModel.idKey)
-  int get id;
-  @override
-  @JsonKey(name: ProvinceModel.nameKey)
-  String get name;
+  @useResult
+  $Res call(
+      {@JsonKey(name: ProvinceModel.idKey) int id,
+      @JsonKey(name: ProvinceModel.nameKey) String name});
+}
+
+/// @nodoc
+class __$ProvinceModelCopyWithImpl<$Res>
+    implements _$ProvinceModelCopyWith<$Res> {
+  __$ProvinceModelCopyWithImpl(this._self, this._then);
+
+  final _ProvinceModel _self;
+  final $Res Function(_ProvinceModel) _then;
 
   /// Create a copy of ProvinceModel
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ProvinceModelImplCopyWith<_$ProvinceModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? id = null,
+    Object? name = null,
+  }) {
+    return _then(_ProvinceModel(
+      id: null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
+
+// dart format on

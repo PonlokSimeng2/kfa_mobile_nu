@@ -8,13 +8,12 @@ part of 'road_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$RoadModelImpl _$$RoadModelImplFromJson(Map<String, dynamic> json) =>
-    _$RoadModelImpl(
+_RoadModel _$RoadModelFromJson(Map<String, dynamic> json) => _RoadModel(
       id: (json['id'] as num).toInt(),
       name: json['name'] as String,
     );
 
-Map<String, dynamic> _$$RoadModelImplToJson(_$RoadModelImpl instance) =>
+Map<String, dynamic> _$RoadModelToJson(_RoadModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

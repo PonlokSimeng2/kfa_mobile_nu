@@ -465,40 +465,36 @@ class InsertPropertyTitleFieldWidget extends HookConsumerWidget {
     final notifier = ref.watch(insertPropertyProvider.notifier);
     final state =
         ref.watch(insertPropertyProvider.select((value) => value.title));
-    final textController = controller ?? useTextEditingController(text: state);
-    useEffect(
-      () {
-        void listener() {
-          final newText = textController.text;
-          // Only update if the values actually differ to prevent loops
-          if (state != newText) {
-            notifier.onTitleChanged(newText);
-          }
-        }
+    final controller = this.controller ?? useTextEditingController(text: state);
 
-        textController.addListener(listener);
-        return () => textController.removeListener(listener);
-      },
-      [textController],
-    );
-
-    useEffect(() {
-      if (state != textController.text) {
-        // Preserve cursor position when updating text
-        final selection = textController.selection;
-        textController.value = TextEditingValue(
-          text: state,
-          selection: selection,
-        );
+    // Listen for provider changes
+    ref.listen(insertPropertyProvider.select((value) => value.title), (
+      previous,
+      next,
+    ) {
+      if (previous != next && controller.text != next) {
+        controller.text = next ?? '';
       }
-      return null;
-    }, [state]);
+    });
+
+    // Setup text listener
+    useEffect(() {
+      void listener() {
+        final currentValue = ref.read(insertPropertyProvider).title;
+        if (currentValue != controller.text) {
+          notifier.onTitleChanged(controller.text);
+        }
+      }
+
+      controller.addListener(listener);
+      return () => controller.removeListener(listener);
+    }, [controller]);
 
     final showValidation = ref.watch(
         insertPropertyProvider.select((value) => value.status.isFailure));
     return builder(
       ref,
-      textController,
+      controller,
       state,
       notifier.onTitleChanged,
       showValidation,
@@ -534,40 +530,36 @@ class InsertPropertyDescriptionFieldWidget extends HookConsumerWidget {
     final notifier = ref.watch(insertPropertyProvider.notifier);
     final state =
         ref.watch(insertPropertyProvider.select((value) => value.description));
-    final textController = controller ?? useTextEditingController(text: state);
-    useEffect(
-      () {
-        void listener() {
-          final newText = textController.text;
-          // Only update if the values actually differ to prevent loops
-          if (state != newText) {
-            notifier.onDescriptionChanged(newText);
-          }
-        }
+    final controller = this.controller ?? useTextEditingController(text: state);
 
-        textController.addListener(listener);
-        return () => textController.removeListener(listener);
-      },
-      [textController],
-    );
-
-    useEffect(() {
-      if (state != textController.text) {
-        // Preserve cursor position when updating text
-        final selection = textController.selection;
-        textController.value = TextEditingValue(
-          text: state,
-          selection: selection,
-        );
+    // Listen for provider changes
+    ref.listen(insertPropertyProvider.select((value) => value.description), (
+      previous,
+      next,
+    ) {
+      if (previous != next && controller.text != next) {
+        controller.text = next ?? '';
       }
-      return null;
-    }, [state]);
+    });
+
+    // Setup text listener
+    useEffect(() {
+      void listener() {
+        final currentValue = ref.read(insertPropertyProvider).description;
+        if (currentValue != controller.text) {
+          notifier.onDescriptionChanged(controller.text);
+        }
+      }
+
+      controller.addListener(listener);
+      return () => controller.removeListener(listener);
+    }, [controller]);
 
     final showValidation = ref.watch(
         insertPropertyProvider.select((value) => value.status.isFailure));
     return builder(
       ref,
-      textController,
+      controller,
       state,
       notifier.onDescriptionChanged,
       showValidation,
@@ -1598,40 +1590,38 @@ class UpdatePropertyTitleFieldWidget extends HookConsumerWidget {
     final notifier = ref.watch(updatePropertyProvider(family.initial).notifier);
     final state = ref.watch(
         updatePropertyProvider(family.initial).select((value) => value.title));
-    final textController = controller ?? useTextEditingController(text: state);
-    useEffect(
-      () {
-        void listener() {
-          final newText = textController.text;
-          // Only update if the values actually differ to prevent loops
-          if (state != newText) {
-            notifier.onTitleChanged(newText);
-          }
-        }
+    final controller = this.controller ?? useTextEditingController(text: state);
 
-        textController.addListener(listener);
-        return () => textController.removeListener(listener);
-      },
-      [textController],
-    );
-
-    useEffect(() {
-      if (state != textController.text) {
-        // Preserve cursor position when updating text
-        final selection = textController.selection;
-        textController.value = TextEditingValue(
-          text: state,
-          selection: selection,
-        );
+    // Listen for provider changes
+    ref.listen(
+        updatePropertyProvider(family.initial).select((value) => value.title), (
+      previous,
+      next,
+    ) {
+      if (previous != next && controller.text != next) {
+        controller.text = next ?? '';
       }
-      return null;
-    }, [state]);
+    });
+
+    // Setup text listener
+    useEffect(() {
+      void listener() {
+        final currentValue =
+            ref.read(updatePropertyProvider(family.initial)).title;
+        if (currentValue != controller.text) {
+          notifier.onTitleChanged(controller.text);
+        }
+      }
+
+      controller.addListener(listener);
+      return () => controller.removeListener(listener);
+    }, [controller]);
 
     final showValidation = ref.watch(updatePropertyProvider(family.initial)
         .select((value) => value.status.isFailure));
     return builder(
       ref,
-      textController,
+      controller,
       state,
       notifier.onTitleChanged,
       showValidation,
@@ -1667,40 +1657,39 @@ class UpdatePropertyDescriptionFieldWidget extends HookConsumerWidget {
     final notifier = ref.watch(updatePropertyProvider(family.initial).notifier);
     final state = ref.watch(updatePropertyProvider(family.initial)
         .select((value) => value.description));
-    final textController = controller ?? useTextEditingController(text: state);
-    useEffect(
-      () {
-        void listener() {
-          final newText = textController.text;
-          // Only update if the values actually differ to prevent loops
-          if (state != newText) {
-            notifier.onDescriptionChanged(newText);
-          }
-        }
+    final controller = this.controller ?? useTextEditingController(text: state);
 
-        textController.addListener(listener);
-        return () => textController.removeListener(listener);
-      },
-      [textController],
-    );
-
-    useEffect(() {
-      if (state != textController.text) {
-        // Preserve cursor position when updating text
-        final selection = textController.selection;
-        textController.value = TextEditingValue(
-          text: state,
-          selection: selection,
-        );
+    // Listen for provider changes
+    ref.listen(
+        updatePropertyProvider(family.initial)
+            .select((value) => value.description), (
+      previous,
+      next,
+    ) {
+      if (previous != next && controller.text != next) {
+        controller.text = next ?? '';
       }
-      return null;
-    }, [state]);
+    });
+
+    // Setup text listener
+    useEffect(() {
+      void listener() {
+        final currentValue =
+            ref.read(updatePropertyProvider(family.initial)).description;
+        if (currentValue != controller.text) {
+          notifier.onDescriptionChanged(controller.text);
+        }
+      }
+
+      controller.addListener(listener);
+      return () => controller.removeListener(listener);
+    }, [controller]);
 
     final showValidation = ref.watch(updatePropertyProvider(family.initial)
         .select((value) => value.status.isFailure));
     return builder(
       ref,
-      textController,
+      controller,
       state,
       notifier.onDescriptionChanged,
       showValidation,

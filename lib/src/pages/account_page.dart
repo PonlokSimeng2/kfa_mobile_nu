@@ -962,10 +962,10 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             onPressed: () async {
               final updatedUser = UserModel(
                 id: ref.read(currentUserProvider).value!.id,
-                firstName: _firstNameController.text,
-                lastName: _lastNameController.text,
+                rawFirstName: _firstNameController.text,
+                rawLastName: _lastNameController.text,
                 email: _emailController.text,
-                phone: _phoneController.text,
+                rawPhone: _phoneController.text,
                 userId: '',
                 photo: '',
                 vpoints: 0,

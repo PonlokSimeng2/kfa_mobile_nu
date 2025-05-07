@@ -1,3 +1,4 @@
+// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -54,9 +55,24 @@ class VPointTransactionTable {
   static const String createdAt = "created_at";
 }
 
+/// Base class of this schema, this is the parent of all generated models in this schema
+abstract class BaseVPointTransactionSchema {}
+
+/// Base model class for this schema, this includes all properties of the base model, and get inherited by all generated models in this schema where [inheritAllFromBase()] is called and without any excepted fields.
+abstract class IVPointTransactionModel {
+  int get id;
+  String get transactionId;
+  String get type;
+  String get userId;
+  int get vpoints;
+  DateTime get createdAt;
+}
+
 /// Base model class for VPointTransactionModel.
 @freezed
-class VPointTransactionModel with _$VPointTransactionModel {
+sealed class VPointTransactionModel
+    with _$VPointTransactionModel
+    implements BaseVPointTransactionSchema, IVPointTransactionModel {
   const VPointTransactionModel._();
 
   /// Constructor for VPointTransactionModel.

@@ -8,13 +8,13 @@ part of 'province_model.schema.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ProvinceModelImpl _$$ProvinceModelImplFromJson(Map<String, dynamic> json) =>
-    _$ProvinceModelImpl(
+_ProvinceModel _$ProvinceModelFromJson(Map<String, dynamic> json) =>
+    _ProvinceModel(
       id: (json['id'] as num).toInt(),
       name: json['name'] as String,
     );
 
-Map<String, dynamic> _$$ProvinceModelImplToJson(_$ProvinceModelImpl instance) =>
+Map<String, dynamic> _$ProvinceModelToJson(_ProvinceModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

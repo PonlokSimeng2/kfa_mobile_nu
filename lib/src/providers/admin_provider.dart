@@ -233,3 +233,17 @@ class UnAssignAdmin extends _$UnAssignAdmin {
     );
   }
 }
+
+@riverpod
+class UpdateUserAdmin extends _$UpdateUserAdmin {
+  @override
+  ProviderStatus<void> build(String userId) => const ProviderStatus.initial();
+
+  Future<ProviderStatus<void>> call(String? adminId) async {
+    if (adminId == null) {
+      return await ref.read(unAssignAdminProvider(userId).notifier).call();
+    } else {
+      return await ref.read(assignAdminProvider(userId).notifier).call(adminId);
+    }
+  }
+}

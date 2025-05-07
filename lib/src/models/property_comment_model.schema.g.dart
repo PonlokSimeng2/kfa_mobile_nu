@@ -8,9 +8,9 @@ part of 'property_comment_model.schema.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PropertyCommentModelImpl _$$PropertyCommentModelImplFromJson(
+_PropertyCommentModel _$PropertyCommentModelFromJson(
         Map<String, dynamic> json) =>
-    _$PropertyCommentModelImpl(
+    _PropertyCommentModel(
       id: PropertyCommentId.fromJson(json['id']),
       propertyId: (json['property_id'] as num).toInt(),
       userId: json['user_id'] as String,
@@ -19,8 +19,8 @@ _$PropertyCommentModelImpl _$$PropertyCommentModelImplFromJson(
       user: UserModel.fromJson(json['user'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$PropertyCommentModelImplToJson(
-        _$PropertyCommentModelImpl instance) =>
+Map<String, dynamic> _$PropertyCommentModelToJson(
+        _PropertyCommentModel instance) =>
     <String, dynamic>{
       'id': instance.id.toJson(),
       'property_id': instance.propertyId,

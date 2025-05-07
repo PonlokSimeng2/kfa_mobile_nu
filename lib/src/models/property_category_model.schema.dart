@@ -1,3 +1,4 @@
+// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -44,9 +45,22 @@ class PropertyCategoryTable {
   static const String totalRent = "rent_count";
 }
 
+/// Base class of this schema, this is the parent of all generated models in this schema
+abstract class BasePropertyCategorySchema {}
+
+/// Base model class for this schema, this includes all properties of the base model, and get inherited by all generated models in this schema where [inheritAllFromBase()] is called and without any excepted fields.
+abstract class IPropertyCategoryModel {
+  int get id;
+  String get name;
+  int? get totalSale;
+  int? get totalRent;
+}
+
 /// Base model class for PropertyCategoryModel.
 @freezed
-class PropertyCategoryModel with _$PropertyCategoryModel {
+sealed class PropertyCategoryModel
+    with _$PropertyCategoryModel
+    implements BasePropertyCategorySchema, IPropertyCategoryModel {
   const PropertyCategoryModel._();
 
   /// Constructor for PropertyCategoryModel.

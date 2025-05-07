@@ -30,19 +30,56 @@ class Auth extends _$Auth {
 
   Future<String?> login(String email, String password) async {
     try {
+      // 1. Sign in with email and password
       final result = await ref
           .watch(supabaseProvider)
           .client
           .auth
           .signInWithPassword(email: email, password: password);
+
+      // 2. Check if user exists (null safety)
+      if (result.user == null) {
+        return 'Authentication failed: User not found';
+      }
       final userId = result.user!.id;
+
+      // 3. Fetch user data from your users table
+      final userResponse = await ref
+          .watch(supabaseProvider)
+          .client
+          .from('users')
+          .select()
+          .eq('id', userId)
+          .maybeSingle();
+
+      // 4. Check if user exists in your table
+      if (userResponse == null) {
+        return 'User profile not found in database';
+      }
+
+      // 5. Safely check active status with null coalescing
+      final isActive = (userResponse['active'] as bool?) ?? false;
+      if (!isActive) {
+        // Sign out if account is inactive
+        await ref.watch(supabaseProvider).client.auth.signOut();
+        return 'Your account has been deactivated. Please contact support.';
+      }
+
+      // 6. Proceed with admin checks and initialization
       await _ensureAdmin(userId);
       ref.invalidateSelf();
-      await _initializeOneSignal(result.user!.id);
+      await _initializeOneSignal(userId);
+
       return null;
+    } on AuthException catch (e) {
+      log("Auth error during login", error: e);
+      return e.message;
+    } on PostgrestException catch (e) {
+      log("Database error during login", error: e);
+      return 'Failed to verify user status';
     } catch (e) {
-      log("Error login", error: e);
-      return e.toString();
+      log("Unexpected error during login", error: e);
+      return 'An unexpected error occurred';
     }
   }
 

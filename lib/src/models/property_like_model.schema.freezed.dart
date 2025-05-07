@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,44 +10,64 @@ part of 'property_like_model.schema.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-PropertyLikeModel _$PropertyLikeModelFromJson(Map<String, dynamic> json) {
-  return _PropertyLikeModel.fromJson(json);
-}
 
 /// @nodoc
 mixin _$PropertyLikeModel {
   @JsonKey(name: PropertyLikeModel.idKey)
-  PropertyViewId get id => throw _privateConstructorUsedError;
+  PropertyViewId get id;
   @JsonKey(name: PropertyLikeModel.propertyIdKey)
-  String get propertyId => throw _privateConstructorUsedError;
+  String get propertyId;
   @JsonKey(name: PropertyLikeModel.userIdKey)
-  String get userId => throw _privateConstructorUsedError;
+  String get userId;
   @JsonKey(name: PropertyLikeModel.createdAtKey)
-  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime get createdAt;
   @JoinedColumn(foreignKey: "user_id", candidateKey: null)
   @JsonKey(name: PropertyLikeModel.userKey)
-  UserModel get user => throw _privateConstructorUsedError;
-
-  /// Serializes this PropertyLikeModel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  UserModel get user;
 
   /// Create a copy of PropertyLikeModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $PropertyLikeModelCopyWith<PropertyLikeModel> get copyWith =>
-      throw _privateConstructorUsedError;
+      _$PropertyLikeModelCopyWithImpl<PropertyLikeModel>(
+          this as PropertyLikeModel, _$identity);
+
+  /// Serializes this PropertyLikeModel to a JSON map.
+  Map<String, dynamic> toJson();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is PropertyLikeModel &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.propertyId, propertyId) ||
+                other.propertyId == propertyId) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.user, user) || other.user == user));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, id, propertyId, userId, createdAt, user);
+
+  @override
+  String toString() {
+    return 'PropertyLikeModel(id: $id, propertyId: $propertyId, userId: $userId, createdAt: $createdAt, user: $user)';
+  }
 }
 
 /// @nodoc
-abstract class $PropertyLikeModelCopyWith<$Res> {
+abstract mixin class $PropertyLikeModelCopyWith<$Res> {
   factory $PropertyLikeModelCopyWith(
-          PropertyLikeModel value, $Res Function(PropertyLikeModel) then) =
-      _$PropertyLikeModelCopyWithImpl<$Res, PropertyLikeModel>;
+          PropertyLikeModel value, $Res Function(PropertyLikeModel) _then) =
+      _$PropertyLikeModelCopyWithImpl;
   @useResult
   $Res call(
       {@JsonKey(name: PropertyLikeModel.idKey) PropertyViewId id,
@@ -61,14 +82,12 @@ abstract class $PropertyLikeModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$PropertyLikeModelCopyWithImpl<$Res, $Val extends PropertyLikeModel>
+class _$PropertyLikeModelCopyWithImpl<$Res>
     implements $PropertyLikeModelCopyWith<$Res> {
-  _$PropertyLikeModelCopyWithImpl(this._value, this._then);
+  _$PropertyLikeModelCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final PropertyLikeModel _self;
+  final $Res Function(PropertyLikeModel) _then;
 
   /// Create a copy of PropertyLikeModel
   /// with the given fields replaced by the non-null parameter values.
@@ -81,28 +100,28 @@ class _$PropertyLikeModelCopyWithImpl<$Res, $Val extends PropertyLikeModel>
     Object? createdAt = null,
     Object? user = null,
   }) {
-    return _then(_value.copyWith(
+    return _then(_self.copyWith(
       id: null == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as PropertyViewId,
       propertyId: null == propertyId
-          ? _value.propertyId
+          ? _self.propertyId
           : propertyId // ignore: cast_nullable_to_non_nullable
               as String,
       userId: null == userId
-          ? _value.userId
+          ? _self.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
       createdAt: null == createdAt
-          ? _value.createdAt
+          ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
       user: null == user
-          ? _value.user
+          ? _self.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserModel,
-    ) as $Val);
+    ));
   }
 
   /// Create a copy of PropertyLikeModel
@@ -110,74 +129,9 @@ class _$PropertyLikeModelCopyWithImpl<$Res, $Val extends PropertyLikeModel>
   @override
   @pragma('vm:prefer-inline')
   $UserModelCopyWith<$Res> get user {
-    return $UserModelCopyWith<$Res>(_value.user, (value) {
-      return _then(_value.copyWith(user: value) as $Val);
+    return $UserModelCopyWith<$Res>(_self.user, (value) {
+      return _then(_self.copyWith(user: value));
     });
-  }
-}
-
-/// @nodoc
-abstract class _$$PropertyLikeModelImplCopyWith<$Res>
-    implements $PropertyLikeModelCopyWith<$Res> {
-  factory _$$PropertyLikeModelImplCopyWith(_$PropertyLikeModelImpl value,
-          $Res Function(_$PropertyLikeModelImpl) then) =
-      __$$PropertyLikeModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(name: PropertyLikeModel.idKey) PropertyViewId id,
-      @JsonKey(name: PropertyLikeModel.propertyIdKey) String propertyId,
-      @JsonKey(name: PropertyLikeModel.userIdKey) String userId,
-      @JsonKey(name: PropertyLikeModel.createdAtKey) DateTime createdAt,
-      @JoinedColumn(foreignKey: "user_id", candidateKey: null)
-      @JsonKey(name: PropertyLikeModel.userKey)
-      UserModel user});
-
-  @override
-  $UserModelCopyWith<$Res> get user;
-}
-
-/// @nodoc
-class __$$PropertyLikeModelImplCopyWithImpl<$Res>
-    extends _$PropertyLikeModelCopyWithImpl<$Res, _$PropertyLikeModelImpl>
-    implements _$$PropertyLikeModelImplCopyWith<$Res> {
-  __$$PropertyLikeModelImplCopyWithImpl(_$PropertyLikeModelImpl _value,
-      $Res Function(_$PropertyLikeModelImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of PropertyLikeModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? propertyId = null,
-    Object? userId = null,
-    Object? createdAt = null,
-    Object? user = null,
-  }) {
-    return _then(_$PropertyLikeModelImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as PropertyViewId,
-      propertyId: null == propertyId
-          ? _value.propertyId
-          : propertyId // ignore: cast_nullable_to_non_nullable
-              as String,
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      user: null == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as UserModel,
-    ));
   }
 }
 
@@ -185,8 +139,8 @@ class __$$PropertyLikeModelImplCopyWithImpl<$Res>
 
 @TableModel(PropertyLikeModel.tableName)
 @JsonSerializable(explicitToJson: true)
-class _$PropertyLikeModelImpl extends _PropertyLikeModel {
-  const _$PropertyLikeModelImpl(
+class _PropertyLikeModel extends PropertyLikeModel {
+  const _PropertyLikeModel(
       {@JsonKey(name: PropertyLikeModel.idKey) required this.id,
       @JsonKey(name: PropertyLikeModel.propertyIdKey) required this.propertyId,
       @JsonKey(name: PropertyLikeModel.userIdKey) required this.userId,
@@ -195,9 +149,8 @@ class _$PropertyLikeModelImpl extends _PropertyLikeModel {
       @JsonKey(name: PropertyLikeModel.userKey)
       required this.user})
       : super._();
-
-  factory _$PropertyLikeModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PropertyLikeModelImplFromJson(json);
+  factory _PropertyLikeModel.fromJson(Map<String, dynamic> json) =>
+      _$PropertyLikeModelFromJson(json);
 
   @override
   @JsonKey(name: PropertyLikeModel.idKey)
@@ -216,16 +169,26 @@ class _$PropertyLikeModelImpl extends _PropertyLikeModel {
   @JsonKey(name: PropertyLikeModel.userKey)
   final UserModel user;
 
+  /// Create a copy of PropertyLikeModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'PropertyLikeModel(id: $id, propertyId: $propertyId, userId: $userId, createdAt: $createdAt, user: $user)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$PropertyLikeModelCopyWith<_PropertyLikeModel> get copyWith =>
+      __$PropertyLikeModelCopyWithImpl<_PropertyLikeModel>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$PropertyLikeModelToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PropertyLikeModelImpl &&
+            other is _PropertyLikeModel &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.propertyId, propertyId) ||
                 other.propertyId == propertyId) &&
@@ -240,60 +203,85 @@ class _$PropertyLikeModelImpl extends _PropertyLikeModel {
   int get hashCode =>
       Object.hash(runtimeType, id, propertyId, userId, createdAt, user);
 
-  /// Create a copy of PropertyLikeModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$PropertyLikeModelImplCopyWith<_$PropertyLikeModelImpl> get copyWith =>
-      __$$PropertyLikeModelImplCopyWithImpl<_$PropertyLikeModelImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PropertyLikeModelImplToJson(
-      this,
-    );
+  String toString() {
+    return 'PropertyLikeModel(id: $id, propertyId: $propertyId, userId: $userId, createdAt: $createdAt, user: $user)';
   }
 }
 
-abstract class _PropertyLikeModel extends PropertyLikeModel {
-  const factory _PropertyLikeModel(
-      {@JsonKey(name: PropertyLikeModel.idKey) required final PropertyViewId id,
-      @JsonKey(name: PropertyLikeModel.propertyIdKey)
-      required final String propertyId,
-      @JsonKey(name: PropertyLikeModel.userIdKey) required final String userId,
-      @JsonKey(name: PropertyLikeModel.createdAtKey)
-      required final DateTime createdAt,
+/// @nodoc
+abstract mixin class _$PropertyLikeModelCopyWith<$Res>
+    implements $PropertyLikeModelCopyWith<$Res> {
+  factory _$PropertyLikeModelCopyWith(
+          _PropertyLikeModel value, $Res Function(_PropertyLikeModel) _then) =
+      __$PropertyLikeModelCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: PropertyLikeModel.idKey) PropertyViewId id,
+      @JsonKey(name: PropertyLikeModel.propertyIdKey) String propertyId,
+      @JsonKey(name: PropertyLikeModel.userIdKey) String userId,
+      @JsonKey(name: PropertyLikeModel.createdAtKey) DateTime createdAt,
       @JoinedColumn(foreignKey: "user_id", candidateKey: null)
       @JsonKey(name: PropertyLikeModel.userKey)
-      required final UserModel user}) = _$PropertyLikeModelImpl;
-  const _PropertyLikeModel._() : super._();
-
-  factory _PropertyLikeModel.fromJson(Map<String, dynamic> json) =
-      _$PropertyLikeModelImpl.fromJson;
+      UserModel user});
 
   @override
-  @JsonKey(name: PropertyLikeModel.idKey)
-  PropertyViewId get id;
-  @override
-  @JsonKey(name: PropertyLikeModel.propertyIdKey)
-  String get propertyId;
-  @override
-  @JsonKey(name: PropertyLikeModel.userIdKey)
-  String get userId;
-  @override
-  @JsonKey(name: PropertyLikeModel.createdAtKey)
-  DateTime get createdAt;
-  @override
-  @JoinedColumn(foreignKey: "user_id", candidateKey: null)
-  @JsonKey(name: PropertyLikeModel.userKey)
-  UserModel get user;
+  $UserModelCopyWith<$Res> get user;
+}
+
+/// @nodoc
+class __$PropertyLikeModelCopyWithImpl<$Res>
+    implements _$PropertyLikeModelCopyWith<$Res> {
+  __$PropertyLikeModelCopyWithImpl(this._self, this._then);
+
+  final _PropertyLikeModel _self;
+  final $Res Function(_PropertyLikeModel) _then;
 
   /// Create a copy of PropertyLikeModel
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PropertyLikeModelImplCopyWith<_$PropertyLikeModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? id = null,
+    Object? propertyId = null,
+    Object? userId = null,
+    Object? createdAt = null,
+    Object? user = null,
+  }) {
+    return _then(_PropertyLikeModel(
+      id: null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as PropertyViewId,
+      propertyId: null == propertyId
+          ? _self.propertyId
+          : propertyId // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: null == userId
+          ? _self.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdAt: null == createdAt
+          ? _self.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      user: null == user
+          ? _self.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserModel,
+    ));
+  }
+
+  /// Create a copy of PropertyLikeModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UserModelCopyWith<$Res> get user {
+    return $UserModelCopyWith<$Res>(_self.user, (value) {
+      return _then(_self.copyWith(user: value));
+    });
+  }
 }
+
+// dart format on

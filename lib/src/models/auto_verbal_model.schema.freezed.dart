@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,107 +10,213 @@ part of 'auto_verbal_model.schema.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-AutoVerbalModel _$AutoVerbalModelFromJson(Map<String, dynamic> json) {
-  return _AutoVerbalModel.fromJson(json);
-}
 
 /// @nodoc
 mixin _$AutoVerbalModel {
   @JsonKey(name: AutoVerbalModel.idKey)
-  int get id => throw _privateConstructorUsedError;
+  int get id;
   @JsonKey(name: AutoVerbalModel.statusKey)
-  PropertyAndAutoVerbalStatus get status => throw _privateConstructorUsedError;
+  PropertyAndAutoVerbalStatus get status;
   @JsonKey(name: AutoVerbalModel.autoVerbalIdKey)
-  String get autoVerbalId => throw _privateConstructorUsedError;
+  String get autoVerbalId;
   @JsonKey(name: AutoVerbalModel.imageKey)
-  List<String> get image => throw _privateConstructorUsedError;
+  List<String> get image;
   @JsonKey(name: AutoVerbalModel.bankBranchKey)
-  String? get bankBranch => throw _privateConstructorUsedError;
+  String? get bankBranch;
   @JsonKey(name: AutoVerbalModel.latitudeKey)
-  double get latitude => throw _privateConstructorUsedError;
+  double get latitude;
   @JsonKey(name: AutoVerbalModel.longitudeKey)
-  double get longitude => throw _privateConstructorUsedError;
+  double get longitude;
   @JsonKey(name: AutoVerbalModel.ownerNameKey)
-  String get ownerName => throw _privateConstructorUsedError;
+  String get ownerName;
   @JsonKey(name: AutoVerbalModel.ownerPhoneKey)
-  String get ownerPhone => throw _privateConstructorUsedError;
+  String get ownerPhone;
   @JsonKey(name: AutoVerbalModel.bankOfficerNameKey)
-  String? get bankOfficerName => throw _privateConstructorUsedError;
+  String? get bankOfficerName;
   @JsonKey(name: AutoVerbalModel.bankOfficerPhoneKey)
-  String? get bankOfficerPhone => throw _privateConstructorUsedError;
+  String? get bankOfficerPhone;
   @JsonKey(name: AutoVerbalModel.createdAtKey)
-  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime get createdAt;
   @JsonKey(name: AutoVerbalModel.approvedAtKey)
-  DateTime? get approvedAt => throw _privateConstructorUsedError;
+  DateTime? get approvedAt;
   @JsonKey(name: AutoVerbalModel.rejectAtKey)
-  DateTime? get rejectAt => throw _privateConstructorUsedError;
+  DateTime? get rejectAt;
   @JsonKey(name: AutoVerbalModel.rejectReasonKey)
-  String? get rejectReason => throw _privateConstructorUsedError;
+  String? get rejectReason;
   @JsonKey(name: AutoVerbalModel.minValueKey)
-  double get minValue => throw _privateConstructorUsedError;
+  double get minValue;
   @JsonKey(name: AutoVerbalModel.maxValueKey)
-  double get maxValue => throw _privateConstructorUsedError;
+  double get maxValue;
   @JsonKey(name: AutoVerbalModel.minValueSqmKey)
-  double get minValueSqm => throw _privateConstructorUsedError;
+  double get minValueSqm;
   @JsonKey(name: AutoVerbalModel.maxValueSqmKey)
-  double get maxValueSqm => throw _privateConstructorUsedError;
+  double get maxValueSqm;
   @JsonKey(name: AutoVerbalModel.areaKey)
-  double get area => throw _privateConstructorUsedError;
+  double get area;
   @JsonKey(name: AutoVerbalModel.buildinglengthKey)
-  double? get buildinglength => throw _privateConstructorUsedError;
+  double? get buildinglength;
   @JsonKey(name: AutoVerbalModel.buildingwidthKey)
-  double? get buildingwidth => throw _privateConstructorUsedError;
+  double? get buildingwidth;
   @JsonKey(name: AutoVerbalModel.landlengthKey)
-  double get landlength => throw _privateConstructorUsedError;
+  double get landlength;
   @JsonKey(name: AutoVerbalModel.landwidthKey)
-  double get landwidth => throw _privateConstructorUsedError;
+  double get landwidth;
   @JsonKey(name: AutoVerbalModel.bedKey)
-  int? get bed => throw _privateConstructorUsedError;
+  int? get bed;
   @JsonKey(name: AutoVerbalModel.bathKey)
-  int? get bath => throw _privateConstructorUsedError;
+  int? get bath;
   @JsonKey(name: AutoVerbalModel.livingroomKey)
-  int? get livingroom => throw _privateConstructorUsedError;
+  int? get livingroom;
   @JsonKey(name: AutoVerbalModel.floorKey)
-  int? get floor => throw _privateConstructorUsedError;
+  int? get floor;
   @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
   @JsonKey(name: AutoVerbalModel.propertyTypeKey)
-  PropertyTypeModel get propertyType => throw _privateConstructorUsedError;
+  PropertyTypeModel get propertyType;
   @JoinedColumn(foreignKey: "bank_id", candidateKey: null)
   @JsonKey(name: AutoVerbalModel.bankKey)
-  BankModel? get bank => throw _privateConstructorUsedError;
+  BankModel? get bank;
   @JoinedColumn(foreignKey: null, candidateKey: "auto_verbals_user_id_fkey")
   @JsonKey(name: AutoVerbalModel.userKey)
-  UserModel? get user => throw _privateConstructorUsedError;
+  UserModel? get user;
   @JoinedColumn(foreignKey: "approved_by", candidateKey: null)
   @JsonKey(name: AutoVerbalModel.approvedByKey)
-  UserModel? get approvedBy => throw _privateConstructorUsedError;
+  UserModel? get approvedBy;
   @JoinedColumn(foreignKey: "province_id", candidateKey: null)
   @JsonKey(name: AutoVerbalModel.provinceKey)
-  ProvinceModel get province => throw _privateConstructorUsedError;
+  ProvinceModel get province;
   @JoinedColumn(foreignKey: "road_id", candidateKey: null)
   @JsonKey(name: AutoVerbalModel.roadKey)
-  RoadModel? get road => throw _privateConstructorUsedError;
-
-  /// Serializes this AutoVerbalModel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  RoadModel? get road;
 
   /// Create a copy of AutoVerbalModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $AutoVerbalModelCopyWith<AutoVerbalModel> get copyWith =>
-      throw _privateConstructorUsedError;
+      _$AutoVerbalModelCopyWithImpl<AutoVerbalModel>(
+          this as AutoVerbalModel, _$identity);
+
+  /// Serializes this AutoVerbalModel to a JSON map.
+  Map<String, dynamic> toJson();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is AutoVerbalModel &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.autoVerbalId, autoVerbalId) ||
+                other.autoVerbalId == autoVerbalId) &&
+            const DeepCollectionEquality().equals(other.image, image) &&
+            (identical(other.bankBranch, bankBranch) ||
+                other.bankBranch == bankBranch) &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
+            (identical(other.ownerName, ownerName) ||
+                other.ownerName == ownerName) &&
+            (identical(other.ownerPhone, ownerPhone) ||
+                other.ownerPhone == ownerPhone) &&
+            (identical(other.bankOfficerName, bankOfficerName) ||
+                other.bankOfficerName == bankOfficerName) &&
+            (identical(other.bankOfficerPhone, bankOfficerPhone) ||
+                other.bankOfficerPhone == bankOfficerPhone) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.approvedAt, approvedAt) ||
+                other.approvedAt == approvedAt) &&
+            (identical(other.rejectAt, rejectAt) ||
+                other.rejectAt == rejectAt) &&
+            (identical(other.rejectReason, rejectReason) ||
+                other.rejectReason == rejectReason) &&
+            (identical(other.minValue, minValue) ||
+                other.minValue == minValue) &&
+            (identical(other.maxValue, maxValue) ||
+                other.maxValue == maxValue) &&
+            (identical(other.minValueSqm, minValueSqm) ||
+                other.minValueSqm == minValueSqm) &&
+            (identical(other.maxValueSqm, maxValueSqm) ||
+                other.maxValueSqm == maxValueSqm) &&
+            (identical(other.area, area) || other.area == area) &&
+            (identical(other.buildinglength, buildinglength) ||
+                other.buildinglength == buildinglength) &&
+            (identical(other.buildingwidth, buildingwidth) ||
+                other.buildingwidth == buildingwidth) &&
+            (identical(other.landlength, landlength) ||
+                other.landlength == landlength) &&
+            (identical(other.landwidth, landwidth) ||
+                other.landwidth == landwidth) &&
+            (identical(other.bed, bed) || other.bed == bed) &&
+            (identical(other.bath, bath) || other.bath == bath) &&
+            (identical(other.livingroom, livingroom) ||
+                other.livingroom == livingroom) &&
+            (identical(other.floor, floor) || other.floor == floor) &&
+            (identical(other.propertyType, propertyType) ||
+                other.propertyType == propertyType) &&
+            (identical(other.bank, bank) || other.bank == bank) &&
+            (identical(other.user, user) || other.user == user) &&
+            (identical(other.approvedBy, approvedBy) ||
+                other.approvedBy == approvedBy) &&
+            (identical(other.province, province) ||
+                other.province == province) &&
+            (identical(other.road, road) || other.road == road));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        status,
+        autoVerbalId,
+        const DeepCollectionEquality().hash(image),
+        bankBranch,
+        latitude,
+        longitude,
+        ownerName,
+        ownerPhone,
+        bankOfficerName,
+        bankOfficerPhone,
+        createdAt,
+        approvedAt,
+        rejectAt,
+        rejectReason,
+        minValue,
+        maxValue,
+        minValueSqm,
+        maxValueSqm,
+        area,
+        buildinglength,
+        buildingwidth,
+        landlength,
+        landwidth,
+        bed,
+        bath,
+        livingroom,
+        floor,
+        propertyType,
+        bank,
+        user,
+        approvedBy,
+        province,
+        road
+      ]);
+
+  @override
+  String toString() {
+    return 'AutoVerbalModel(id: $id, status: $status, autoVerbalId: $autoVerbalId, image: $image, bankBranch: $bankBranch, latitude: $latitude, longitude: $longitude, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, createdAt: $createdAt, approvedAt: $approvedAt, rejectAt: $rejectAt, rejectReason: $rejectReason, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, area: $area, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, propertyType: $propertyType, bank: $bank, user: $user, approvedBy: $approvedBy, province: $province, road: $road)';
+  }
 }
 
 /// @nodoc
-abstract class $AutoVerbalModelCopyWith<$Res> {
+abstract mixin class $AutoVerbalModelCopyWith<$Res> {
   factory $AutoVerbalModelCopyWith(
-          AutoVerbalModel value, $Res Function(AutoVerbalModel) then) =
-      _$AutoVerbalModelCopyWithImpl<$Res, AutoVerbalModel>;
+          AutoVerbalModel value, $Res Function(AutoVerbalModel) _then) =
+      _$AutoVerbalModelCopyWithImpl;
   @useResult
   $Res call(
       {@JsonKey(name: AutoVerbalModel.idKey) int id,
@@ -171,14 +278,12 @@ abstract class $AutoVerbalModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
+class _$AutoVerbalModelCopyWithImpl<$Res>
     implements $AutoVerbalModelCopyWith<$Res> {
-  _$AutoVerbalModelCopyWithImpl(this._value, this._then);
+  _$AutoVerbalModelCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final AutoVerbalModel _self;
+  final $Res Function(AutoVerbalModel) _then;
 
   /// Create a copy of AutoVerbalModel
   /// with the given fields replaced by the non-null parameter values.
@@ -220,144 +325,144 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
     Object? province = null,
     Object? road = freezed,
   }) {
-    return _then(_value.copyWith(
+    return _then(_self.copyWith(
       id: null == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
       status: null == status
-          ? _value.status
+          ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as PropertyAndAutoVerbalStatus,
       autoVerbalId: null == autoVerbalId
-          ? _value.autoVerbalId
+          ? _self.autoVerbalId
           : autoVerbalId // ignore: cast_nullable_to_non_nullable
               as String,
       image: null == image
-          ? _value.image
+          ? _self.image
           : image // ignore: cast_nullable_to_non_nullable
               as List<String>,
       bankBranch: freezed == bankBranch
-          ? _value.bankBranch
+          ? _self.bankBranch
           : bankBranch // ignore: cast_nullable_to_non_nullable
               as String?,
       latitude: null == latitude
-          ? _value.latitude
+          ? _self.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as double,
       longitude: null == longitude
-          ? _value.longitude
+          ? _self.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
       ownerName: null == ownerName
-          ? _value.ownerName
+          ? _self.ownerName
           : ownerName // ignore: cast_nullable_to_non_nullable
               as String,
       ownerPhone: null == ownerPhone
-          ? _value.ownerPhone
+          ? _self.ownerPhone
           : ownerPhone // ignore: cast_nullable_to_non_nullable
               as String,
       bankOfficerName: freezed == bankOfficerName
-          ? _value.bankOfficerName
+          ? _self.bankOfficerName
           : bankOfficerName // ignore: cast_nullable_to_non_nullable
               as String?,
       bankOfficerPhone: freezed == bankOfficerPhone
-          ? _value.bankOfficerPhone
+          ? _self.bankOfficerPhone
           : bankOfficerPhone // ignore: cast_nullable_to_non_nullable
               as String?,
       createdAt: null == createdAt
-          ? _value.createdAt
+          ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
       approvedAt: freezed == approvedAt
-          ? _value.approvedAt
+          ? _self.approvedAt
           : approvedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       rejectAt: freezed == rejectAt
-          ? _value.rejectAt
+          ? _self.rejectAt
           : rejectAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       rejectReason: freezed == rejectReason
-          ? _value.rejectReason
+          ? _self.rejectReason
           : rejectReason // ignore: cast_nullable_to_non_nullable
               as String?,
       minValue: null == minValue
-          ? _value.minValue
+          ? _self.minValue
           : minValue // ignore: cast_nullable_to_non_nullable
               as double,
       maxValue: null == maxValue
-          ? _value.maxValue
+          ? _self.maxValue
           : maxValue // ignore: cast_nullable_to_non_nullable
               as double,
       minValueSqm: null == minValueSqm
-          ? _value.minValueSqm
+          ? _self.minValueSqm
           : minValueSqm // ignore: cast_nullable_to_non_nullable
               as double,
       maxValueSqm: null == maxValueSqm
-          ? _value.maxValueSqm
+          ? _self.maxValueSqm
           : maxValueSqm // ignore: cast_nullable_to_non_nullable
               as double,
       area: null == area
-          ? _value.area
+          ? _self.area
           : area // ignore: cast_nullable_to_non_nullable
               as double,
       buildinglength: freezed == buildinglength
-          ? _value.buildinglength
+          ? _self.buildinglength
           : buildinglength // ignore: cast_nullable_to_non_nullable
               as double?,
       buildingwidth: freezed == buildingwidth
-          ? _value.buildingwidth
+          ? _self.buildingwidth
           : buildingwidth // ignore: cast_nullable_to_non_nullable
               as double?,
       landlength: null == landlength
-          ? _value.landlength
+          ? _self.landlength
           : landlength // ignore: cast_nullable_to_non_nullable
               as double,
       landwidth: null == landwidth
-          ? _value.landwidth
+          ? _self.landwidth
           : landwidth // ignore: cast_nullable_to_non_nullable
               as double,
       bed: freezed == bed
-          ? _value.bed
+          ? _self.bed
           : bed // ignore: cast_nullable_to_non_nullable
               as int?,
       bath: freezed == bath
-          ? _value.bath
+          ? _self.bath
           : bath // ignore: cast_nullable_to_non_nullable
               as int?,
       livingroom: freezed == livingroom
-          ? _value.livingroom
+          ? _self.livingroom
           : livingroom // ignore: cast_nullable_to_non_nullable
               as int?,
       floor: freezed == floor
-          ? _value.floor
+          ? _self.floor
           : floor // ignore: cast_nullable_to_non_nullable
               as int?,
       propertyType: null == propertyType
-          ? _value.propertyType
+          ? _self.propertyType
           : propertyType // ignore: cast_nullable_to_non_nullable
               as PropertyTypeModel,
       bank: freezed == bank
-          ? _value.bank
+          ? _self.bank
           : bank // ignore: cast_nullable_to_non_nullable
               as BankModel?,
       user: freezed == user
-          ? _value.user
+          ? _self.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserModel?,
       approvedBy: freezed == approvedBy
-          ? _value.approvedBy
+          ? _self.approvedBy
           : approvedBy // ignore: cast_nullable_to_non_nullable
               as UserModel?,
       province: null == province
-          ? _value.province
+          ? _self.province
           : province // ignore: cast_nullable_to_non_nullable
               as ProvinceModel,
       road: freezed == road
-          ? _value.road
+          ? _self.road
           : road // ignore: cast_nullable_to_non_nullable
               as RoadModel?,
-    ) as $Val);
+    ));
   }
 
   /// Create a copy of AutoVerbalModel
@@ -365,8 +470,8 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
   @override
   @pragma('vm:prefer-inline')
   $PropertyTypeModelCopyWith<$Res> get propertyType {
-    return $PropertyTypeModelCopyWith<$Res>(_value.propertyType, (value) {
-      return _then(_value.copyWith(propertyType: value) as $Val);
+    return $PropertyTypeModelCopyWith<$Res>(_self.propertyType, (value) {
+      return _then(_self.copyWith(propertyType: value));
     });
   }
 
@@ -375,12 +480,12 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
   @override
   @pragma('vm:prefer-inline')
   $BankModelCopyWith<$Res>? get bank {
-    if (_value.bank == null) {
+    if (_self.bank == null) {
       return null;
     }
 
-    return $BankModelCopyWith<$Res>(_value.bank!, (value) {
-      return _then(_value.copyWith(bank: value) as $Val);
+    return $BankModelCopyWith<$Res>(_self.bank!, (value) {
+      return _then(_self.copyWith(bank: value));
     });
   }
 
@@ -389,12 +494,12 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
   @override
   @pragma('vm:prefer-inline')
   $UserModelCopyWith<$Res>? get user {
-    if (_value.user == null) {
+    if (_self.user == null) {
       return null;
     }
 
-    return $UserModelCopyWith<$Res>(_value.user!, (value) {
-      return _then(_value.copyWith(user: value) as $Val);
+    return $UserModelCopyWith<$Res>(_self.user!, (value) {
+      return _then(_self.copyWith(user: value));
     });
   }
 
@@ -403,12 +508,12 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
   @override
   @pragma('vm:prefer-inline')
   $UserModelCopyWith<$Res>? get approvedBy {
-    if (_value.approvedBy == null) {
+    if (_self.approvedBy == null) {
       return null;
     }
 
-    return $UserModelCopyWith<$Res>(_value.approvedBy!, (value) {
-      return _then(_value.copyWith(approvedBy: value) as $Val);
+    return $UserModelCopyWith<$Res>(_self.approvedBy!, (value) {
+      return _then(_self.copyWith(approvedBy: value));
     });
   }
 
@@ -417,8 +522,8 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
   @override
   @pragma('vm:prefer-inline')
   $ProvinceModelCopyWith<$Res> get province {
-    return $ProvinceModelCopyWith<$Res>(_value.province, (value) {
-      return _then(_value.copyWith(province: value) as $Val);
+    return $ProvinceModelCopyWith<$Res>(_self.province, (value) {
+      return _then(_self.copyWith(province: value));
     });
   }
 
@@ -427,275 +532,13 @@ class _$AutoVerbalModelCopyWithImpl<$Res, $Val extends AutoVerbalModel>
   @override
   @pragma('vm:prefer-inline')
   $RoadModelCopyWith<$Res>? get road {
-    if (_value.road == null) {
+    if (_self.road == null) {
       return null;
     }
 
-    return $RoadModelCopyWith<$Res>(_value.road!, (value) {
-      return _then(_value.copyWith(road: value) as $Val);
+    return $RoadModelCopyWith<$Res>(_self.road!, (value) {
+      return _then(_self.copyWith(road: value));
     });
-  }
-}
-
-/// @nodoc
-abstract class _$$AutoVerbalModelImplCopyWith<$Res>
-    implements $AutoVerbalModelCopyWith<$Res> {
-  factory _$$AutoVerbalModelImplCopyWith(_$AutoVerbalModelImpl value,
-          $Res Function(_$AutoVerbalModelImpl) then) =
-      __$$AutoVerbalModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(name: AutoVerbalModel.idKey) int id,
-      @JsonKey(name: AutoVerbalModel.statusKey)
-      PropertyAndAutoVerbalStatus status,
-      @JsonKey(name: AutoVerbalModel.autoVerbalIdKey) String autoVerbalId,
-      @JsonKey(name: AutoVerbalModel.imageKey) List<String> image,
-      @JsonKey(name: AutoVerbalModel.bankBranchKey) String? bankBranch,
-      @JsonKey(name: AutoVerbalModel.latitudeKey) double latitude,
-      @JsonKey(name: AutoVerbalModel.longitudeKey) double longitude,
-      @JsonKey(name: AutoVerbalModel.ownerNameKey) String ownerName,
-      @JsonKey(name: AutoVerbalModel.ownerPhoneKey) String ownerPhone,
-      @JsonKey(name: AutoVerbalModel.bankOfficerNameKey)
-      String? bankOfficerName,
-      @JsonKey(name: AutoVerbalModel.bankOfficerPhoneKey)
-      String? bankOfficerPhone,
-      @JsonKey(name: AutoVerbalModel.createdAtKey) DateTime createdAt,
-      @JsonKey(name: AutoVerbalModel.approvedAtKey) DateTime? approvedAt,
-      @JsonKey(name: AutoVerbalModel.rejectAtKey) DateTime? rejectAt,
-      @JsonKey(name: AutoVerbalModel.rejectReasonKey) String? rejectReason,
-      @JsonKey(name: AutoVerbalModel.minValueKey) double minValue,
-      @JsonKey(name: AutoVerbalModel.maxValueKey) double maxValue,
-      @JsonKey(name: AutoVerbalModel.minValueSqmKey) double minValueSqm,
-      @JsonKey(name: AutoVerbalModel.maxValueSqmKey) double maxValueSqm,
-      @JsonKey(name: AutoVerbalModel.areaKey) double area,
-      @JsonKey(name: AutoVerbalModel.buildinglengthKey) double? buildinglength,
-      @JsonKey(name: AutoVerbalModel.buildingwidthKey) double? buildingwidth,
-      @JsonKey(name: AutoVerbalModel.landlengthKey) double landlength,
-      @JsonKey(name: AutoVerbalModel.landwidthKey) double landwidth,
-      @JsonKey(name: AutoVerbalModel.bedKey) int? bed,
-      @JsonKey(name: AutoVerbalModel.bathKey) int? bath,
-      @JsonKey(name: AutoVerbalModel.livingroomKey) int? livingroom,
-      @JsonKey(name: AutoVerbalModel.floorKey) int? floor,
-      @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
-      @JsonKey(name: AutoVerbalModel.propertyTypeKey)
-      PropertyTypeModel propertyType,
-      @JoinedColumn(foreignKey: "bank_id", candidateKey: null)
-      @JsonKey(name: AutoVerbalModel.bankKey)
-      BankModel? bank,
-      @JoinedColumn(foreignKey: null, candidateKey: "auto_verbals_user_id_fkey")
-      @JsonKey(name: AutoVerbalModel.userKey)
-      UserModel? user,
-      @JoinedColumn(foreignKey: "approved_by", candidateKey: null)
-      @JsonKey(name: AutoVerbalModel.approvedByKey)
-      UserModel? approvedBy,
-      @JoinedColumn(foreignKey: "province_id", candidateKey: null)
-      @JsonKey(name: AutoVerbalModel.provinceKey)
-      ProvinceModel province,
-      @JoinedColumn(foreignKey: "road_id", candidateKey: null)
-      @JsonKey(name: AutoVerbalModel.roadKey)
-      RoadModel? road});
-
-  @override
-  $PropertyTypeModelCopyWith<$Res> get propertyType;
-  @override
-  $BankModelCopyWith<$Res>? get bank;
-  @override
-  $UserModelCopyWith<$Res>? get user;
-  @override
-  $UserModelCopyWith<$Res>? get approvedBy;
-  @override
-  $ProvinceModelCopyWith<$Res> get province;
-  @override
-  $RoadModelCopyWith<$Res>? get road;
-}
-
-/// @nodoc
-class __$$AutoVerbalModelImplCopyWithImpl<$Res>
-    extends _$AutoVerbalModelCopyWithImpl<$Res, _$AutoVerbalModelImpl>
-    implements _$$AutoVerbalModelImplCopyWith<$Res> {
-  __$$AutoVerbalModelImplCopyWithImpl(
-      _$AutoVerbalModelImpl _value, $Res Function(_$AutoVerbalModelImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of AutoVerbalModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? status = null,
-    Object? autoVerbalId = null,
-    Object? image = null,
-    Object? bankBranch = freezed,
-    Object? latitude = null,
-    Object? longitude = null,
-    Object? ownerName = null,
-    Object? ownerPhone = null,
-    Object? bankOfficerName = freezed,
-    Object? bankOfficerPhone = freezed,
-    Object? createdAt = null,
-    Object? approvedAt = freezed,
-    Object? rejectAt = freezed,
-    Object? rejectReason = freezed,
-    Object? minValue = null,
-    Object? maxValue = null,
-    Object? minValueSqm = null,
-    Object? maxValueSqm = null,
-    Object? area = null,
-    Object? buildinglength = freezed,
-    Object? buildingwidth = freezed,
-    Object? landlength = null,
-    Object? landwidth = null,
-    Object? bed = freezed,
-    Object? bath = freezed,
-    Object? livingroom = freezed,
-    Object? floor = freezed,
-    Object? propertyType = null,
-    Object? bank = freezed,
-    Object? user = freezed,
-    Object? approvedBy = freezed,
-    Object? province = null,
-    Object? road = freezed,
-  }) {
-    return _then(_$AutoVerbalModelImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as PropertyAndAutoVerbalStatus,
-      autoVerbalId: null == autoVerbalId
-          ? _value.autoVerbalId
-          : autoVerbalId // ignore: cast_nullable_to_non_nullable
-              as String,
-      image: null == image
-          ? _value._image
-          : image // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      bankBranch: freezed == bankBranch
-          ? _value.bankBranch
-          : bankBranch // ignore: cast_nullable_to_non_nullable
-              as String?,
-      latitude: null == latitude
-          ? _value.latitude
-          : latitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      longitude: null == longitude
-          ? _value.longitude
-          : longitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      ownerName: null == ownerName
-          ? _value.ownerName
-          : ownerName // ignore: cast_nullable_to_non_nullable
-              as String,
-      ownerPhone: null == ownerPhone
-          ? _value.ownerPhone
-          : ownerPhone // ignore: cast_nullable_to_non_nullable
-              as String,
-      bankOfficerName: freezed == bankOfficerName
-          ? _value.bankOfficerName
-          : bankOfficerName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      bankOfficerPhone: freezed == bankOfficerPhone
-          ? _value.bankOfficerPhone
-          : bankOfficerPhone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      approvedAt: freezed == approvedAt
-          ? _value.approvedAt
-          : approvedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      rejectAt: freezed == rejectAt
-          ? _value.rejectAt
-          : rejectAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      rejectReason: freezed == rejectReason
-          ? _value.rejectReason
-          : rejectReason // ignore: cast_nullable_to_non_nullable
-              as String?,
-      minValue: null == minValue
-          ? _value.minValue
-          : minValue // ignore: cast_nullable_to_non_nullable
-              as double,
-      maxValue: null == maxValue
-          ? _value.maxValue
-          : maxValue // ignore: cast_nullable_to_non_nullable
-              as double,
-      minValueSqm: null == minValueSqm
-          ? _value.minValueSqm
-          : minValueSqm // ignore: cast_nullable_to_non_nullable
-              as double,
-      maxValueSqm: null == maxValueSqm
-          ? _value.maxValueSqm
-          : maxValueSqm // ignore: cast_nullable_to_non_nullable
-              as double,
-      area: null == area
-          ? _value.area
-          : area // ignore: cast_nullable_to_non_nullable
-              as double,
-      buildinglength: freezed == buildinglength
-          ? _value.buildinglength
-          : buildinglength // ignore: cast_nullable_to_non_nullable
-              as double?,
-      buildingwidth: freezed == buildingwidth
-          ? _value.buildingwidth
-          : buildingwidth // ignore: cast_nullable_to_non_nullable
-              as double?,
-      landlength: null == landlength
-          ? _value.landlength
-          : landlength // ignore: cast_nullable_to_non_nullable
-              as double,
-      landwidth: null == landwidth
-          ? _value.landwidth
-          : landwidth // ignore: cast_nullable_to_non_nullable
-              as double,
-      bed: freezed == bed
-          ? _value.bed
-          : bed // ignore: cast_nullable_to_non_nullable
-              as int?,
-      bath: freezed == bath
-          ? _value.bath
-          : bath // ignore: cast_nullable_to_non_nullable
-              as int?,
-      livingroom: freezed == livingroom
-          ? _value.livingroom
-          : livingroom // ignore: cast_nullable_to_non_nullable
-              as int?,
-      floor: freezed == floor
-          ? _value.floor
-          : floor // ignore: cast_nullable_to_non_nullable
-              as int?,
-      propertyType: null == propertyType
-          ? _value.propertyType
-          : propertyType // ignore: cast_nullable_to_non_nullable
-              as PropertyTypeModel,
-      bank: freezed == bank
-          ? _value.bank
-          : bank // ignore: cast_nullable_to_non_nullable
-              as BankModel?,
-      user: freezed == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as UserModel?,
-      approvedBy: freezed == approvedBy
-          ? _value.approvedBy
-          : approvedBy // ignore: cast_nullable_to_non_nullable
-              as UserModel?,
-      province: null == province
-          ? _value.province
-          : province // ignore: cast_nullable_to_non_nullable
-              as ProvinceModel,
-      road: freezed == road
-          ? _value.road
-          : road // ignore: cast_nullable_to_non_nullable
-              as RoadModel?,
-    ));
   }
 }
 
@@ -703,8 +546,8 @@ class __$$AutoVerbalModelImplCopyWithImpl<$Res>
 
 @TableModel(AutoVerbalModel.tableName)
 @JsonSerializable(explicitToJson: true)
-class _$AutoVerbalModelImpl extends _AutoVerbalModel {
-  const _$AutoVerbalModelImpl(
+class _AutoVerbalModel extends AutoVerbalModel {
+  const _AutoVerbalModel(
       {@JsonKey(name: AutoVerbalModel.idKey) required this.id,
       @JsonKey(name: AutoVerbalModel.statusKey) required this.status,
       @JsonKey(name: AutoVerbalModel.autoVerbalIdKey)
@@ -760,9 +603,8 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
       required this.road})
       : _image = image,
         super._();
-
-  factory _$AutoVerbalModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AutoVerbalModelImplFromJson(json);
+  factory _AutoVerbalModel.fromJson(Map<String, dynamic> json) =>
+      _$AutoVerbalModelFromJson(json);
 
   @override
   @JsonKey(name: AutoVerbalModel.idKey)
@@ -879,16 +721,26 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
   @JsonKey(name: AutoVerbalModel.roadKey)
   final RoadModel? road;
 
+  /// Create a copy of AutoVerbalModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'AutoVerbalModel(id: $id, status: $status, autoVerbalId: $autoVerbalId, image: $image, bankBranch: $bankBranch, latitude: $latitude, longitude: $longitude, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, createdAt: $createdAt, approvedAt: $approvedAt, rejectAt: $rejectAt, rejectReason: $rejectReason, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, area: $area, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, propertyType: $propertyType, bank: $bank, user: $user, approvedBy: $approvedBy, province: $province, road: $road)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$AutoVerbalModelCopyWith<_AutoVerbalModel> get copyWith =>
+      __$AutoVerbalModelCopyWithImpl<_AutoVerbalModel>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$AutoVerbalModelToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AutoVerbalModelImpl &&
+            other is _AutoVerbalModel &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.autoVerbalId, autoVerbalId) ||
@@ -989,486 +841,510 @@ class _$AutoVerbalModelImpl extends _AutoVerbalModel {
         road
       ]);
 
-  /// Create a copy of AutoVerbalModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$AutoVerbalModelImplCopyWith<_$AutoVerbalModelImpl> get copyWith =>
-      __$$AutoVerbalModelImplCopyWithImpl<_$AutoVerbalModelImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$AutoVerbalModelImplToJson(
-      this,
-    );
+  String toString() {
+    return 'AutoVerbalModel(id: $id, status: $status, autoVerbalId: $autoVerbalId, image: $image, bankBranch: $bankBranch, latitude: $latitude, longitude: $longitude, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, createdAt: $createdAt, approvedAt: $approvedAt, rejectAt: $rejectAt, rejectReason: $rejectReason, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, area: $area, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, propertyType: $propertyType, bank: $bank, user: $user, approvedBy: $approvedBy, province: $province, road: $road)';
   }
 }
 
-abstract class _AutoVerbalModel extends AutoVerbalModel {
-  const factory _AutoVerbalModel(
-      {@JsonKey(name: AutoVerbalModel.idKey) required final int id,
+/// @nodoc
+abstract mixin class _$AutoVerbalModelCopyWith<$Res>
+    implements $AutoVerbalModelCopyWith<$Res> {
+  factory _$AutoVerbalModelCopyWith(
+          _AutoVerbalModel value, $Res Function(_AutoVerbalModel) _then) =
+      __$AutoVerbalModelCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: AutoVerbalModel.idKey) int id,
       @JsonKey(name: AutoVerbalModel.statusKey)
-      required final PropertyAndAutoVerbalStatus status,
-      @JsonKey(name: AutoVerbalModel.autoVerbalIdKey)
-      required final String autoVerbalId,
-      @JsonKey(name: AutoVerbalModel.imageKey)
-      required final List<String> image,
-      @JsonKey(name: AutoVerbalModel.bankBranchKey)
-      required final String? bankBranch,
-      @JsonKey(name: AutoVerbalModel.latitudeKey)
-      required final double latitude,
-      @JsonKey(name: AutoVerbalModel.longitudeKey)
-      required final double longitude,
-      @JsonKey(name: AutoVerbalModel.ownerNameKey)
-      required final String ownerName,
-      @JsonKey(name: AutoVerbalModel.ownerPhoneKey)
-      required final String ownerPhone,
+      PropertyAndAutoVerbalStatus status,
+      @JsonKey(name: AutoVerbalModel.autoVerbalIdKey) String autoVerbalId,
+      @JsonKey(name: AutoVerbalModel.imageKey) List<String> image,
+      @JsonKey(name: AutoVerbalModel.bankBranchKey) String? bankBranch,
+      @JsonKey(name: AutoVerbalModel.latitudeKey) double latitude,
+      @JsonKey(name: AutoVerbalModel.longitudeKey) double longitude,
+      @JsonKey(name: AutoVerbalModel.ownerNameKey) String ownerName,
+      @JsonKey(name: AutoVerbalModel.ownerPhoneKey) String ownerPhone,
       @JsonKey(name: AutoVerbalModel.bankOfficerNameKey)
-      required final String? bankOfficerName,
+      String? bankOfficerName,
       @JsonKey(name: AutoVerbalModel.bankOfficerPhoneKey)
-      required final String? bankOfficerPhone,
-      @JsonKey(name: AutoVerbalModel.createdAtKey)
-      required final DateTime createdAt,
-      @JsonKey(name: AutoVerbalModel.approvedAtKey)
-      required final DateTime? approvedAt,
-      @JsonKey(name: AutoVerbalModel.rejectAtKey)
-      required final DateTime? rejectAt,
-      @JsonKey(name: AutoVerbalModel.rejectReasonKey)
-      required final String? rejectReason,
-      @JsonKey(name: AutoVerbalModel.minValueKey)
-      required final double minValue,
-      @JsonKey(name: AutoVerbalModel.maxValueKey)
-      required final double maxValue,
-      @JsonKey(name: AutoVerbalModel.minValueSqmKey)
-      required final double minValueSqm,
-      @JsonKey(name: AutoVerbalModel.maxValueSqmKey)
-      required final double maxValueSqm,
-      @JsonKey(name: AutoVerbalModel.areaKey) required final double area,
-      @JsonKey(name: AutoVerbalModel.buildinglengthKey)
-      required final double? buildinglength,
-      @JsonKey(name: AutoVerbalModel.buildingwidthKey)
-      required final double? buildingwidth,
-      @JsonKey(name: AutoVerbalModel.landlengthKey)
-      required final double landlength,
-      @JsonKey(name: AutoVerbalModel.landwidthKey)
-      required final double landwidth,
-      @JsonKey(name: AutoVerbalModel.bedKey) required final int? bed,
-      @JsonKey(name: AutoVerbalModel.bathKey) required final int? bath,
-      @JsonKey(name: AutoVerbalModel.livingroomKey)
-      required final int? livingroom,
-      @JsonKey(name: AutoVerbalModel.floorKey) required final int? floor,
+      String? bankOfficerPhone,
+      @JsonKey(name: AutoVerbalModel.createdAtKey) DateTime createdAt,
+      @JsonKey(name: AutoVerbalModel.approvedAtKey) DateTime? approvedAt,
+      @JsonKey(name: AutoVerbalModel.rejectAtKey) DateTime? rejectAt,
+      @JsonKey(name: AutoVerbalModel.rejectReasonKey) String? rejectReason,
+      @JsonKey(name: AutoVerbalModel.minValueKey) double minValue,
+      @JsonKey(name: AutoVerbalModel.maxValueKey) double maxValue,
+      @JsonKey(name: AutoVerbalModel.minValueSqmKey) double minValueSqm,
+      @JsonKey(name: AutoVerbalModel.maxValueSqmKey) double maxValueSqm,
+      @JsonKey(name: AutoVerbalModel.areaKey) double area,
+      @JsonKey(name: AutoVerbalModel.buildinglengthKey) double? buildinglength,
+      @JsonKey(name: AutoVerbalModel.buildingwidthKey) double? buildingwidth,
+      @JsonKey(name: AutoVerbalModel.landlengthKey) double landlength,
+      @JsonKey(name: AutoVerbalModel.landwidthKey) double landwidth,
+      @JsonKey(name: AutoVerbalModel.bedKey) int? bed,
+      @JsonKey(name: AutoVerbalModel.bathKey) int? bath,
+      @JsonKey(name: AutoVerbalModel.livingroomKey) int? livingroom,
+      @JsonKey(name: AutoVerbalModel.floorKey) int? floor,
       @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
       @JsonKey(name: AutoVerbalModel.propertyTypeKey)
-      required final PropertyTypeModel propertyType,
+      PropertyTypeModel propertyType,
       @JoinedColumn(foreignKey: "bank_id", candidateKey: null)
       @JsonKey(name: AutoVerbalModel.bankKey)
-      required final BankModel? bank,
+      BankModel? bank,
       @JoinedColumn(foreignKey: null, candidateKey: "auto_verbals_user_id_fkey")
       @JsonKey(name: AutoVerbalModel.userKey)
-      required final UserModel? user,
+      UserModel? user,
       @JoinedColumn(foreignKey: "approved_by", candidateKey: null)
       @JsonKey(name: AutoVerbalModel.approvedByKey)
-      required final UserModel? approvedBy,
+      UserModel? approvedBy,
       @JoinedColumn(foreignKey: "province_id", candidateKey: null)
       @JsonKey(name: AutoVerbalModel.provinceKey)
-      required final ProvinceModel province,
+      ProvinceModel province,
       @JoinedColumn(foreignKey: "road_id", candidateKey: null)
       @JsonKey(name: AutoVerbalModel.roadKey)
-      required final RoadModel? road}) = _$AutoVerbalModelImpl;
-  const _AutoVerbalModel._() : super._();
-
-  factory _AutoVerbalModel.fromJson(Map<String, dynamic> json) =
-      _$AutoVerbalModelImpl.fromJson;
+      RoadModel? road});
 
   @override
-  @JsonKey(name: AutoVerbalModel.idKey)
-  int get id;
+  $PropertyTypeModelCopyWith<$Res> get propertyType;
   @override
-  @JsonKey(name: AutoVerbalModel.statusKey)
-  PropertyAndAutoVerbalStatus get status;
+  $BankModelCopyWith<$Res>? get bank;
   @override
-  @JsonKey(name: AutoVerbalModel.autoVerbalIdKey)
-  String get autoVerbalId;
+  $UserModelCopyWith<$Res>? get user;
   @override
-  @JsonKey(name: AutoVerbalModel.imageKey)
-  List<String> get image;
+  $UserModelCopyWith<$Res>? get approvedBy;
   @override
-  @JsonKey(name: AutoVerbalModel.bankBranchKey)
-  String? get bankBranch;
+  $ProvinceModelCopyWith<$Res> get province;
   @override
-  @JsonKey(name: AutoVerbalModel.latitudeKey)
-  double get latitude;
-  @override
-  @JsonKey(name: AutoVerbalModel.longitudeKey)
-  double get longitude;
-  @override
-  @JsonKey(name: AutoVerbalModel.ownerNameKey)
-  String get ownerName;
-  @override
-  @JsonKey(name: AutoVerbalModel.ownerPhoneKey)
-  String get ownerPhone;
-  @override
-  @JsonKey(name: AutoVerbalModel.bankOfficerNameKey)
-  String? get bankOfficerName;
-  @override
-  @JsonKey(name: AutoVerbalModel.bankOfficerPhoneKey)
-  String? get bankOfficerPhone;
-  @override
-  @JsonKey(name: AutoVerbalModel.createdAtKey)
-  DateTime get createdAt;
-  @override
-  @JsonKey(name: AutoVerbalModel.approvedAtKey)
-  DateTime? get approvedAt;
-  @override
-  @JsonKey(name: AutoVerbalModel.rejectAtKey)
-  DateTime? get rejectAt;
-  @override
-  @JsonKey(name: AutoVerbalModel.rejectReasonKey)
-  String? get rejectReason;
-  @override
-  @JsonKey(name: AutoVerbalModel.minValueKey)
-  double get minValue;
-  @override
-  @JsonKey(name: AutoVerbalModel.maxValueKey)
-  double get maxValue;
-  @override
-  @JsonKey(name: AutoVerbalModel.minValueSqmKey)
-  double get minValueSqm;
-  @override
-  @JsonKey(name: AutoVerbalModel.maxValueSqmKey)
-  double get maxValueSqm;
-  @override
-  @JsonKey(name: AutoVerbalModel.areaKey)
-  double get area;
-  @override
-  @JsonKey(name: AutoVerbalModel.buildinglengthKey)
-  double? get buildinglength;
-  @override
-  @JsonKey(name: AutoVerbalModel.buildingwidthKey)
-  double? get buildingwidth;
-  @override
-  @JsonKey(name: AutoVerbalModel.landlengthKey)
-  double get landlength;
-  @override
-  @JsonKey(name: AutoVerbalModel.landwidthKey)
-  double get landwidth;
-  @override
-  @JsonKey(name: AutoVerbalModel.bedKey)
-  int? get bed;
-  @override
-  @JsonKey(name: AutoVerbalModel.bathKey)
-  int? get bath;
-  @override
-  @JsonKey(name: AutoVerbalModel.livingroomKey)
-  int? get livingroom;
-  @override
-  @JsonKey(name: AutoVerbalModel.floorKey)
-  int? get floor;
-  @override
-  @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
-  @JsonKey(name: AutoVerbalModel.propertyTypeKey)
-  PropertyTypeModel get propertyType;
-  @override
-  @JoinedColumn(foreignKey: "bank_id", candidateKey: null)
-  @JsonKey(name: AutoVerbalModel.bankKey)
-  BankModel? get bank;
-  @override
-  @JoinedColumn(foreignKey: null, candidateKey: "auto_verbals_user_id_fkey")
-  @JsonKey(name: AutoVerbalModel.userKey)
-  UserModel? get user;
-  @override
-  @JoinedColumn(foreignKey: "approved_by", candidateKey: null)
-  @JsonKey(name: AutoVerbalModel.approvedByKey)
-  UserModel? get approvedBy;
-  @override
-  @JoinedColumn(foreignKey: "province_id", candidateKey: null)
-  @JsonKey(name: AutoVerbalModel.provinceKey)
-  ProvinceModel get province;
-  @override
-  @JoinedColumn(foreignKey: "road_id", candidateKey: null)
-  @JsonKey(name: AutoVerbalModel.roadKey)
-  RoadModel? get road;
+  $RoadModelCopyWith<$Res>? get road;
+}
+
+/// @nodoc
+class __$AutoVerbalModelCopyWithImpl<$Res>
+    implements _$AutoVerbalModelCopyWith<$Res> {
+  __$AutoVerbalModelCopyWithImpl(this._self, this._then);
+
+  final _AutoVerbalModel _self;
+  final $Res Function(_AutoVerbalModel) _then;
 
   /// Create a copy of AutoVerbalModel
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AutoVerbalModelImplCopyWith<_$AutoVerbalModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? id = null,
+    Object? status = null,
+    Object? autoVerbalId = null,
+    Object? image = null,
+    Object? bankBranch = freezed,
+    Object? latitude = null,
+    Object? longitude = null,
+    Object? ownerName = null,
+    Object? ownerPhone = null,
+    Object? bankOfficerName = freezed,
+    Object? bankOfficerPhone = freezed,
+    Object? createdAt = null,
+    Object? approvedAt = freezed,
+    Object? rejectAt = freezed,
+    Object? rejectReason = freezed,
+    Object? minValue = null,
+    Object? maxValue = null,
+    Object? minValueSqm = null,
+    Object? maxValueSqm = null,
+    Object? area = null,
+    Object? buildinglength = freezed,
+    Object? buildingwidth = freezed,
+    Object? landlength = null,
+    Object? landwidth = null,
+    Object? bed = freezed,
+    Object? bath = freezed,
+    Object? livingroom = freezed,
+    Object? floor = freezed,
+    Object? propertyType = null,
+    Object? bank = freezed,
+    Object? user = freezed,
+    Object? approvedBy = freezed,
+    Object? province = null,
+    Object? road = freezed,
+  }) {
+    return _then(_AutoVerbalModel(
+      id: null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      status: null == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as PropertyAndAutoVerbalStatus,
+      autoVerbalId: null == autoVerbalId
+          ? _self.autoVerbalId
+          : autoVerbalId // ignore: cast_nullable_to_non_nullable
+              as String,
+      image: null == image
+          ? _self._image
+          : image // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      bankBranch: freezed == bankBranch
+          ? _self.bankBranch
+          : bankBranch // ignore: cast_nullable_to_non_nullable
+              as String?,
+      latitude: null == latitude
+          ? _self.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: null == longitude
+          ? _self.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      ownerName: null == ownerName
+          ? _self.ownerName
+          : ownerName // ignore: cast_nullable_to_non_nullable
+              as String,
+      ownerPhone: null == ownerPhone
+          ? _self.ownerPhone
+          : ownerPhone // ignore: cast_nullable_to_non_nullable
+              as String,
+      bankOfficerName: freezed == bankOfficerName
+          ? _self.bankOfficerName
+          : bankOfficerName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bankOfficerPhone: freezed == bankOfficerPhone
+          ? _self.bankOfficerPhone
+          : bankOfficerPhone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: null == createdAt
+          ? _self.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      approvedAt: freezed == approvedAt
+          ? _self.approvedAt
+          : approvedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      rejectAt: freezed == rejectAt
+          ? _self.rejectAt
+          : rejectAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      rejectReason: freezed == rejectReason
+          ? _self.rejectReason
+          : rejectReason // ignore: cast_nullable_to_non_nullable
+              as String?,
+      minValue: null == minValue
+          ? _self.minValue
+          : minValue // ignore: cast_nullable_to_non_nullable
+              as double,
+      maxValue: null == maxValue
+          ? _self.maxValue
+          : maxValue // ignore: cast_nullable_to_non_nullable
+              as double,
+      minValueSqm: null == minValueSqm
+          ? _self.minValueSqm
+          : minValueSqm // ignore: cast_nullable_to_non_nullable
+              as double,
+      maxValueSqm: null == maxValueSqm
+          ? _self.maxValueSqm
+          : maxValueSqm // ignore: cast_nullable_to_non_nullable
+              as double,
+      area: null == area
+          ? _self.area
+          : area // ignore: cast_nullable_to_non_nullable
+              as double,
+      buildinglength: freezed == buildinglength
+          ? _self.buildinglength
+          : buildinglength // ignore: cast_nullable_to_non_nullable
+              as double?,
+      buildingwidth: freezed == buildingwidth
+          ? _self.buildingwidth
+          : buildingwidth // ignore: cast_nullable_to_non_nullable
+              as double?,
+      landlength: null == landlength
+          ? _self.landlength
+          : landlength // ignore: cast_nullable_to_non_nullable
+              as double,
+      landwidth: null == landwidth
+          ? _self.landwidth
+          : landwidth // ignore: cast_nullable_to_non_nullable
+              as double,
+      bed: freezed == bed
+          ? _self.bed
+          : bed // ignore: cast_nullable_to_non_nullable
+              as int?,
+      bath: freezed == bath
+          ? _self.bath
+          : bath // ignore: cast_nullable_to_non_nullable
+              as int?,
+      livingroom: freezed == livingroom
+          ? _self.livingroom
+          : livingroom // ignore: cast_nullable_to_non_nullable
+              as int?,
+      floor: freezed == floor
+          ? _self.floor
+          : floor // ignore: cast_nullable_to_non_nullable
+              as int?,
+      propertyType: null == propertyType
+          ? _self.propertyType
+          : propertyType // ignore: cast_nullable_to_non_nullable
+              as PropertyTypeModel,
+      bank: freezed == bank
+          ? _self.bank
+          : bank // ignore: cast_nullable_to_non_nullable
+              as BankModel?,
+      user: freezed == user
+          ? _self.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserModel?,
+      approvedBy: freezed == approvedBy
+          ? _self.approvedBy
+          : approvedBy // ignore: cast_nullable_to_non_nullable
+              as UserModel?,
+      province: null == province
+          ? _self.province
+          : province // ignore: cast_nullable_to_non_nullable
+              as ProvinceModel,
+      road: freezed == road
+          ? _self.road
+          : road // ignore: cast_nullable_to_non_nullable
+              as RoadModel?,
+    ));
+  }
 
-CreateAutoVerbalParam _$CreateAutoVerbalParamFromJson(
-    Map<String, dynamic> json) {
-  return _CreateAutoVerbalParam.fromJson(json);
+  /// Create a copy of AutoVerbalModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PropertyTypeModelCopyWith<$Res> get propertyType {
+    return $PropertyTypeModelCopyWith<$Res>(_self.propertyType, (value) {
+      return _then(_self.copyWith(propertyType: value));
+    });
+  }
+
+  /// Create a copy of AutoVerbalModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $BankModelCopyWith<$Res>? get bank {
+    if (_self.bank == null) {
+      return null;
+    }
+
+    return $BankModelCopyWith<$Res>(_self.bank!, (value) {
+      return _then(_self.copyWith(bank: value));
+    });
+  }
+
+  /// Create a copy of AutoVerbalModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UserModelCopyWith<$Res>? get user {
+    if (_self.user == null) {
+      return null;
+    }
+
+    return $UserModelCopyWith<$Res>(_self.user!, (value) {
+      return _then(_self.copyWith(user: value));
+    });
+  }
+
+  /// Create a copy of AutoVerbalModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UserModelCopyWith<$Res>? get approvedBy {
+    if (_self.approvedBy == null) {
+      return null;
+    }
+
+    return $UserModelCopyWith<$Res>(_self.approvedBy!, (value) {
+      return _then(_self.copyWith(approvedBy: value));
+    });
+  }
+
+  /// Create a copy of AutoVerbalModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProvinceModelCopyWith<$Res> get province {
+    return $ProvinceModelCopyWith<$Res>(_self.province, (value) {
+      return _then(_self.copyWith(province: value));
+    });
+  }
+
+  /// Create a copy of AutoVerbalModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $RoadModelCopyWith<$Res>? get road {
+    if (_self.road == null) {
+      return null;
+    }
+
+    return $RoadModelCopyWith<$Res>(_self.road!, (value) {
+      return _then(_self.copyWith(road: value));
+    });
+  }
 }
 
 /// @nodoc
 mixin _$CreateAutoVerbalParam {
   @JsonKey(name: CreateAutoVerbalParam.imageKey)
-  List<String> get image => throw _privateConstructorUsedError;
+  List<String> get image;
   @JsonKey(name: CreateAutoVerbalParam.bankBranchKey)
-  String? get bankBranch => throw _privateConstructorUsedError;
+  String? get bankBranch;
   @JsonKey(name: CreateAutoVerbalParam.latitudeKey)
-  double get latitude => throw _privateConstructorUsedError;
+  double get latitude;
   @JsonKey(name: CreateAutoVerbalParam.longitudeKey)
-  double get longitude => throw _privateConstructorUsedError;
+  double get longitude;
   @JsonKey(name: CreateAutoVerbalParam.ownerNameKey)
-  String get ownerName => throw _privateConstructorUsedError;
+  String get ownerName;
   @JsonKey(name: CreateAutoVerbalParam.ownerPhoneKey)
-  String get ownerPhone => throw _privateConstructorUsedError;
+  String get ownerPhone;
   @JsonKey(name: CreateAutoVerbalParam.bankOfficerNameKey)
-  String? get bankOfficerName => throw _privateConstructorUsedError;
+  String? get bankOfficerName;
   @JsonKey(name: CreateAutoVerbalParam.bankOfficerPhoneKey)
-  String? get bankOfficerPhone => throw _privateConstructorUsedError;
+  String? get bankOfficerPhone;
   @JsonKey(name: CreateAutoVerbalParam.minValueKey)
-  double get minValue => throw _privateConstructorUsedError;
+  double get minValue;
   @JsonKey(name: CreateAutoVerbalParam.maxValueKey)
-  double get maxValue => throw _privateConstructorUsedError;
+  double get maxValue;
   @JsonKey(name: CreateAutoVerbalParam.minValueSqmKey)
-  double get minValueSqm => throw _privateConstructorUsedError;
+  double get minValueSqm;
   @JsonKey(name: CreateAutoVerbalParam.maxValueSqmKey)
-  double get maxValueSqm => throw _privateConstructorUsedError;
+  double get maxValueSqm;
   @JsonKey(name: CreateAutoVerbalParam.areaKey)
-  double get area => throw _privateConstructorUsedError;
+  double get area;
   @JsonKey(name: CreateAutoVerbalParam.buildinglengthKey)
-  double? get buildinglength => throw _privateConstructorUsedError;
+  double? get buildinglength;
   @JsonKey(name: CreateAutoVerbalParam.buildingwidthKey)
-  double? get buildingwidth => throw _privateConstructorUsedError;
+  double? get buildingwidth;
   @JsonKey(name: CreateAutoVerbalParam.landlengthKey)
-  double get landlength => throw _privateConstructorUsedError;
+  double get landlength;
   @JsonKey(name: CreateAutoVerbalParam.landwidthKey)
-  double get landwidth => throw _privateConstructorUsedError;
+  double get landwidth;
   @JsonKey(name: CreateAutoVerbalParam.bedKey)
-  int? get bed => throw _privateConstructorUsedError;
+  int? get bed;
   @JsonKey(name: CreateAutoVerbalParam.bathKey)
-  int? get bath => throw _privateConstructorUsedError;
+  int? get bath;
   @JsonKey(name: CreateAutoVerbalParam.livingroomKey)
-  int? get livingroom => throw _privateConstructorUsedError;
+  int? get livingroom;
   @JsonKey(name: CreateAutoVerbalParam.floorKey)
-  int? get floor => throw _privateConstructorUsedError;
+  int? get floor;
   @JsonKey(name: CreateAutoVerbalParam.propertyTypeIdKey)
-  int get propertyTypeId => throw _privateConstructorUsedError;
+  int get propertyTypeId;
   @JsonKey(name: CreateAutoVerbalParam.provinceIdKey)
-  int get provinceId => throw _privateConstructorUsedError;
+  int get provinceId;
   @JsonKey(name: CreateAutoVerbalParam.roadIdKey)
-  int? get roadId => throw _privateConstructorUsedError;
+  int? get roadId;
   @JsonKey(name: CreateAutoVerbalParam.bankIdKey)
-  int? get bankId => throw _privateConstructorUsedError;
+  int? get bankId;
   @JsonKey(name: CreateAutoVerbalParam.userIdKey)
-  String get userId => throw _privateConstructorUsedError;
-
-  /// Serializes this CreateAutoVerbalParam to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  String get userId;
 
   /// Create a copy of CreateAutoVerbalParam
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $CreateAutoVerbalParamCopyWith<CreateAutoVerbalParam> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $CreateAutoVerbalParamCopyWith<$Res> {
-  factory $CreateAutoVerbalParamCopyWith(CreateAutoVerbalParam value,
-          $Res Function(CreateAutoVerbalParam) then) =
-      _$CreateAutoVerbalParamCopyWithImpl<$Res, CreateAutoVerbalParam>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: CreateAutoVerbalParam.imageKey) List<String> image,
-      @JsonKey(name: CreateAutoVerbalParam.bankBranchKey) String? bankBranch,
-      @JsonKey(name: CreateAutoVerbalParam.latitudeKey) double latitude,
-      @JsonKey(name: CreateAutoVerbalParam.longitudeKey) double longitude,
-      @JsonKey(name: CreateAutoVerbalParam.ownerNameKey) String ownerName,
-      @JsonKey(name: CreateAutoVerbalParam.ownerPhoneKey) String ownerPhone,
-      @JsonKey(name: CreateAutoVerbalParam.bankOfficerNameKey)
-      String? bankOfficerName,
-      @JsonKey(name: CreateAutoVerbalParam.bankOfficerPhoneKey)
-      String? bankOfficerPhone,
-      @JsonKey(name: CreateAutoVerbalParam.minValueKey) double minValue,
-      @JsonKey(name: CreateAutoVerbalParam.maxValueKey) double maxValue,
-      @JsonKey(name: CreateAutoVerbalParam.minValueSqmKey) double minValueSqm,
-      @JsonKey(name: CreateAutoVerbalParam.maxValueSqmKey) double maxValueSqm,
-      @JsonKey(name: CreateAutoVerbalParam.areaKey) double area,
-      @JsonKey(name: CreateAutoVerbalParam.buildinglengthKey)
-      double? buildinglength,
-      @JsonKey(name: CreateAutoVerbalParam.buildingwidthKey)
-      double? buildingwidth,
-      @JsonKey(name: CreateAutoVerbalParam.landlengthKey) double landlength,
-      @JsonKey(name: CreateAutoVerbalParam.landwidthKey) double landwidth,
-      @JsonKey(name: CreateAutoVerbalParam.bedKey) int? bed,
-      @JsonKey(name: CreateAutoVerbalParam.bathKey) int? bath,
-      @JsonKey(name: CreateAutoVerbalParam.livingroomKey) int? livingroom,
-      @JsonKey(name: CreateAutoVerbalParam.floorKey) int? floor,
-      @JsonKey(name: CreateAutoVerbalParam.propertyTypeIdKey)
-      int propertyTypeId,
-      @JsonKey(name: CreateAutoVerbalParam.provinceIdKey) int provinceId,
-      @JsonKey(name: CreateAutoVerbalParam.roadIdKey) int? roadId,
-      @JsonKey(name: CreateAutoVerbalParam.bankIdKey) int? bankId,
-      @JsonKey(name: CreateAutoVerbalParam.userIdKey) String userId});
-}
-
-/// @nodoc
-class _$CreateAutoVerbalParamCopyWithImpl<$Res,
-        $Val extends CreateAutoVerbalParam>
-    implements $CreateAutoVerbalParamCopyWith<$Res> {
-  _$CreateAutoVerbalParamCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of CreateAutoVerbalParam
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $CreateAutoVerbalParamCopyWith<CreateAutoVerbalParam> get copyWith =>
+      _$CreateAutoVerbalParamCopyWithImpl<CreateAutoVerbalParam>(
+          this as CreateAutoVerbalParam, _$identity);
+
+  /// Serializes this CreateAutoVerbalParam to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? image = null,
-    Object? bankBranch = freezed,
-    Object? latitude = null,
-    Object? longitude = null,
-    Object? ownerName = null,
-    Object? ownerPhone = null,
-    Object? bankOfficerName = freezed,
-    Object? bankOfficerPhone = freezed,
-    Object? minValue = null,
-    Object? maxValue = null,
-    Object? minValueSqm = null,
-    Object? maxValueSqm = null,
-    Object? area = null,
-    Object? buildinglength = freezed,
-    Object? buildingwidth = freezed,
-    Object? landlength = null,
-    Object? landwidth = null,
-    Object? bed = freezed,
-    Object? bath = freezed,
-    Object? livingroom = freezed,
-    Object? floor = freezed,
-    Object? propertyTypeId = null,
-    Object? provinceId = null,
-    Object? roadId = freezed,
-    Object? bankId = freezed,
-    Object? userId = null,
-  }) {
-    return _then(_value.copyWith(
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      bankBranch: freezed == bankBranch
-          ? _value.bankBranch
-          : bankBranch // ignore: cast_nullable_to_non_nullable
-              as String?,
-      latitude: null == latitude
-          ? _value.latitude
-          : latitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      longitude: null == longitude
-          ? _value.longitude
-          : longitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      ownerName: null == ownerName
-          ? _value.ownerName
-          : ownerName // ignore: cast_nullable_to_non_nullable
-              as String,
-      ownerPhone: null == ownerPhone
-          ? _value.ownerPhone
-          : ownerPhone // ignore: cast_nullable_to_non_nullable
-              as String,
-      bankOfficerName: freezed == bankOfficerName
-          ? _value.bankOfficerName
-          : bankOfficerName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      bankOfficerPhone: freezed == bankOfficerPhone
-          ? _value.bankOfficerPhone
-          : bankOfficerPhone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      minValue: null == minValue
-          ? _value.minValue
-          : minValue // ignore: cast_nullable_to_non_nullable
-              as double,
-      maxValue: null == maxValue
-          ? _value.maxValue
-          : maxValue // ignore: cast_nullable_to_non_nullable
-              as double,
-      minValueSqm: null == minValueSqm
-          ? _value.minValueSqm
-          : minValueSqm // ignore: cast_nullable_to_non_nullable
-              as double,
-      maxValueSqm: null == maxValueSqm
-          ? _value.maxValueSqm
-          : maxValueSqm // ignore: cast_nullable_to_non_nullable
-              as double,
-      area: null == area
-          ? _value.area
-          : area // ignore: cast_nullable_to_non_nullable
-              as double,
-      buildinglength: freezed == buildinglength
-          ? _value.buildinglength
-          : buildinglength // ignore: cast_nullable_to_non_nullable
-              as double?,
-      buildingwidth: freezed == buildingwidth
-          ? _value.buildingwidth
-          : buildingwidth // ignore: cast_nullable_to_non_nullable
-              as double?,
-      landlength: null == landlength
-          ? _value.landlength
-          : landlength // ignore: cast_nullable_to_non_nullable
-              as double,
-      landwidth: null == landwidth
-          ? _value.landwidth
-          : landwidth // ignore: cast_nullable_to_non_nullable
-              as double,
-      bed: freezed == bed
-          ? _value.bed
-          : bed // ignore: cast_nullable_to_non_nullable
-              as int?,
-      bath: freezed == bath
-          ? _value.bath
-          : bath // ignore: cast_nullable_to_non_nullable
-              as int?,
-      livingroom: freezed == livingroom
-          ? _value.livingroom
-          : livingroom // ignore: cast_nullable_to_non_nullable
-              as int?,
-      floor: freezed == floor
-          ? _value.floor
-          : floor // ignore: cast_nullable_to_non_nullable
-              as int?,
-      propertyTypeId: null == propertyTypeId
-          ? _value.propertyTypeId
-          : propertyTypeId // ignore: cast_nullable_to_non_nullable
-              as int,
-      provinceId: null == provinceId
-          ? _value.provinceId
-          : provinceId // ignore: cast_nullable_to_non_nullable
-              as int,
-      roadId: freezed == roadId
-          ? _value.roadId
-          : roadId // ignore: cast_nullable_to_non_nullable
-              as int?,
-      bankId: freezed == bankId
-          ? _value.bankId
-          : bankId // ignore: cast_nullable_to_non_nullable
-              as int?,
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is CreateAutoVerbalParam &&
+            const DeepCollectionEquality().equals(other.image, image) &&
+            (identical(other.bankBranch, bankBranch) ||
+                other.bankBranch == bankBranch) &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
+            (identical(other.ownerName, ownerName) ||
+                other.ownerName == ownerName) &&
+            (identical(other.ownerPhone, ownerPhone) ||
+                other.ownerPhone == ownerPhone) &&
+            (identical(other.bankOfficerName, bankOfficerName) ||
+                other.bankOfficerName == bankOfficerName) &&
+            (identical(other.bankOfficerPhone, bankOfficerPhone) ||
+                other.bankOfficerPhone == bankOfficerPhone) &&
+            (identical(other.minValue, minValue) ||
+                other.minValue == minValue) &&
+            (identical(other.maxValue, maxValue) ||
+                other.maxValue == maxValue) &&
+            (identical(other.minValueSqm, minValueSqm) ||
+                other.minValueSqm == minValueSqm) &&
+            (identical(other.maxValueSqm, maxValueSqm) ||
+                other.maxValueSqm == maxValueSqm) &&
+            (identical(other.area, area) || other.area == area) &&
+            (identical(other.buildinglength, buildinglength) ||
+                other.buildinglength == buildinglength) &&
+            (identical(other.buildingwidth, buildingwidth) ||
+                other.buildingwidth == buildingwidth) &&
+            (identical(other.landlength, landlength) ||
+                other.landlength == landlength) &&
+            (identical(other.landwidth, landwidth) ||
+                other.landwidth == landwidth) &&
+            (identical(other.bed, bed) || other.bed == bed) &&
+            (identical(other.bath, bath) || other.bath == bath) &&
+            (identical(other.livingroom, livingroom) ||
+                other.livingroom == livingroom) &&
+            (identical(other.floor, floor) || other.floor == floor) &&
+            (identical(other.propertyTypeId, propertyTypeId) ||
+                other.propertyTypeId == propertyTypeId) &&
+            (identical(other.provinceId, provinceId) ||
+                other.provinceId == provinceId) &&
+            (identical(other.roadId, roadId) || other.roadId == roadId) &&
+            (identical(other.bankId, bankId) || other.bankId == bankId) &&
+            (identical(other.userId, userId) || other.userId == userId));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        const DeepCollectionEquality().hash(image),
+        bankBranch,
+        latitude,
+        longitude,
+        ownerName,
+        ownerPhone,
+        bankOfficerName,
+        bankOfficerPhone,
+        minValue,
+        maxValue,
+        minValueSqm,
+        maxValueSqm,
+        area,
+        buildinglength,
+        buildingwidth,
+        landlength,
+        landwidth,
+        bed,
+        bath,
+        livingroom,
+        floor,
+        propertyTypeId,
+        provinceId,
+        roadId,
+        bankId,
+        userId
+      ]);
+
+  @override
+  String toString() {
+    return 'CreateAutoVerbalParam(image: $image, bankBranch: $bankBranch, latitude: $latitude, longitude: $longitude, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, area: $area, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, propertyTypeId: $propertyTypeId, provinceId: $provinceId, roadId: $roadId, bankId: $bankId, userId: $userId)';
   }
 }
 
 /// @nodoc
-abstract class _$$CreateAutoVerbalParamImplCopyWith<$Res>
-    implements $CreateAutoVerbalParamCopyWith<$Res> {
-  factory _$$CreateAutoVerbalParamImplCopyWith(
-          _$CreateAutoVerbalParamImpl value,
-          $Res Function(_$CreateAutoVerbalParamImpl) then) =
-      __$$CreateAutoVerbalParamImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $CreateAutoVerbalParamCopyWith<$Res> {
+  factory $CreateAutoVerbalParamCopyWith(CreateAutoVerbalParam value,
+          $Res Function(CreateAutoVerbalParam) _then) =
+      _$CreateAutoVerbalParamCopyWithImpl;
   @useResult
   $Res call(
       {@JsonKey(name: CreateAutoVerbalParam.imageKey) List<String> image,
@@ -1505,13 +1381,12 @@ abstract class _$$CreateAutoVerbalParamImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$CreateAutoVerbalParamImplCopyWithImpl<$Res>
-    extends _$CreateAutoVerbalParamCopyWithImpl<$Res,
-        _$CreateAutoVerbalParamImpl>
-    implements _$$CreateAutoVerbalParamImplCopyWith<$Res> {
-  __$$CreateAutoVerbalParamImplCopyWithImpl(_$CreateAutoVerbalParamImpl _value,
-      $Res Function(_$CreateAutoVerbalParamImpl) _then)
-      : super(_value, _then);
+class _$CreateAutoVerbalParamCopyWithImpl<$Res>
+    implements $CreateAutoVerbalParamCopyWith<$Res> {
+  _$CreateAutoVerbalParamCopyWithImpl(this._self, this._then);
+
+  final CreateAutoVerbalParam _self;
+  final $Res Function(CreateAutoVerbalParam) _then;
 
   /// Create a copy of CreateAutoVerbalParam
   /// with the given fields replaced by the non-null parameter values.
@@ -1545,109 +1420,109 @@ class __$$CreateAutoVerbalParamImplCopyWithImpl<$Res>
     Object? bankId = freezed,
     Object? userId = null,
   }) {
-    return _then(_$CreateAutoVerbalParamImpl(
+    return _then(_self.copyWith(
       image: null == image
-          ? _value._image
+          ? _self.image
           : image // ignore: cast_nullable_to_non_nullable
               as List<String>,
       bankBranch: freezed == bankBranch
-          ? _value.bankBranch
+          ? _self.bankBranch
           : bankBranch // ignore: cast_nullable_to_non_nullable
               as String?,
       latitude: null == latitude
-          ? _value.latitude
+          ? _self.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as double,
       longitude: null == longitude
-          ? _value.longitude
+          ? _self.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
       ownerName: null == ownerName
-          ? _value.ownerName
+          ? _self.ownerName
           : ownerName // ignore: cast_nullable_to_non_nullable
               as String,
       ownerPhone: null == ownerPhone
-          ? _value.ownerPhone
+          ? _self.ownerPhone
           : ownerPhone // ignore: cast_nullable_to_non_nullable
               as String,
       bankOfficerName: freezed == bankOfficerName
-          ? _value.bankOfficerName
+          ? _self.bankOfficerName
           : bankOfficerName // ignore: cast_nullable_to_non_nullable
               as String?,
       bankOfficerPhone: freezed == bankOfficerPhone
-          ? _value.bankOfficerPhone
+          ? _self.bankOfficerPhone
           : bankOfficerPhone // ignore: cast_nullable_to_non_nullable
               as String?,
       minValue: null == minValue
-          ? _value.minValue
+          ? _self.minValue
           : minValue // ignore: cast_nullable_to_non_nullable
               as double,
       maxValue: null == maxValue
-          ? _value.maxValue
+          ? _self.maxValue
           : maxValue // ignore: cast_nullable_to_non_nullable
               as double,
       minValueSqm: null == minValueSqm
-          ? _value.minValueSqm
+          ? _self.minValueSqm
           : minValueSqm // ignore: cast_nullable_to_non_nullable
               as double,
       maxValueSqm: null == maxValueSqm
-          ? _value.maxValueSqm
+          ? _self.maxValueSqm
           : maxValueSqm // ignore: cast_nullable_to_non_nullable
               as double,
       area: null == area
-          ? _value.area
+          ? _self.area
           : area // ignore: cast_nullable_to_non_nullable
               as double,
       buildinglength: freezed == buildinglength
-          ? _value.buildinglength
+          ? _self.buildinglength
           : buildinglength // ignore: cast_nullable_to_non_nullable
               as double?,
       buildingwidth: freezed == buildingwidth
-          ? _value.buildingwidth
+          ? _self.buildingwidth
           : buildingwidth // ignore: cast_nullable_to_non_nullable
               as double?,
       landlength: null == landlength
-          ? _value.landlength
+          ? _self.landlength
           : landlength // ignore: cast_nullable_to_non_nullable
               as double,
       landwidth: null == landwidth
-          ? _value.landwidth
+          ? _self.landwidth
           : landwidth // ignore: cast_nullable_to_non_nullable
               as double,
       bed: freezed == bed
-          ? _value.bed
+          ? _self.bed
           : bed // ignore: cast_nullable_to_non_nullable
               as int?,
       bath: freezed == bath
-          ? _value.bath
+          ? _self.bath
           : bath // ignore: cast_nullable_to_non_nullable
               as int?,
       livingroom: freezed == livingroom
-          ? _value.livingroom
+          ? _self.livingroom
           : livingroom // ignore: cast_nullable_to_non_nullable
               as int?,
       floor: freezed == floor
-          ? _value.floor
+          ? _self.floor
           : floor // ignore: cast_nullable_to_non_nullable
               as int?,
       propertyTypeId: null == propertyTypeId
-          ? _value.propertyTypeId
+          ? _self.propertyTypeId
           : propertyTypeId // ignore: cast_nullable_to_non_nullable
               as int,
       provinceId: null == provinceId
-          ? _value.provinceId
+          ? _self.provinceId
           : provinceId // ignore: cast_nullable_to_non_nullable
               as int,
       roadId: freezed == roadId
-          ? _value.roadId
+          ? _self.roadId
           : roadId // ignore: cast_nullable_to_non_nullable
               as int?,
       bankId: freezed == bankId
-          ? _value.bankId
+          ? _self.bankId
           : bankId // ignore: cast_nullable_to_non_nullable
               as int?,
       userId: null == userId
-          ? _value.userId
+          ? _self.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
     ));
@@ -1657,8 +1532,8 @@ class __$$CreateAutoVerbalParamImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$CreateAutoVerbalParamImpl extends _CreateAutoVerbalParam {
-  const _$CreateAutoVerbalParamImpl(
+class _CreateAutoVerbalParam extends CreateAutoVerbalParam {
+  const _CreateAutoVerbalParam(
       {@JsonKey(name: CreateAutoVerbalParam.imageKey)
       required final List<String> image,
       @JsonKey(name: CreateAutoVerbalParam.bankBranchKey)
@@ -1703,9 +1578,8 @@ class _$CreateAutoVerbalParamImpl extends _CreateAutoVerbalParam {
       @JsonKey(name: CreateAutoVerbalParam.userIdKey) required this.userId})
       : _image = image,
         super._();
-
-  factory _$CreateAutoVerbalParamImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CreateAutoVerbalParamImplFromJson(json);
+  factory _CreateAutoVerbalParam.fromJson(Map<String, dynamic> json) =>
+      _$CreateAutoVerbalParamFromJson(json);
 
   final List<String> _image;
   @override
@@ -1792,16 +1666,27 @@ class _$CreateAutoVerbalParamImpl extends _CreateAutoVerbalParam {
   @JsonKey(name: CreateAutoVerbalParam.userIdKey)
   final String userId;
 
+  /// Create a copy of CreateAutoVerbalParam
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'CreateAutoVerbalParam(image: $image, bankBranch: $bankBranch, latitude: $latitude, longitude: $longitude, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, area: $area, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, propertyTypeId: $propertyTypeId, provinceId: $provinceId, roadId: $roadId, bankId: $bankId, userId: $userId)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$CreateAutoVerbalParamCopyWith<_CreateAutoVerbalParam> get copyWith =>
+      __$CreateAutoVerbalParamCopyWithImpl<_CreateAutoVerbalParam>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$CreateAutoVerbalParamToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CreateAutoVerbalParamImpl &&
+            other is _CreateAutoVerbalParam &&
             const DeepCollectionEquality().equals(other._image, _image) &&
             (identical(other.bankBranch, bankBranch) ||
                 other.bankBranch == bankBranch) &&
@@ -1880,444 +1765,368 @@ class _$CreateAutoVerbalParamImpl extends _CreateAutoVerbalParam {
         userId
       ]);
 
-  /// Create a copy of CreateAutoVerbalParam
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$CreateAutoVerbalParamImplCopyWith<_$CreateAutoVerbalParamImpl>
-      get copyWith => __$$CreateAutoVerbalParamImplCopyWithImpl<
-          _$CreateAutoVerbalParamImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$CreateAutoVerbalParamImplToJson(
-      this,
-    );
+  String toString() {
+    return 'CreateAutoVerbalParam(image: $image, bankBranch: $bankBranch, latitude: $latitude, longitude: $longitude, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, area: $area, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, propertyTypeId: $propertyTypeId, provinceId: $provinceId, roadId: $roadId, bankId: $bankId, userId: $userId)';
   }
 }
 
-abstract class _CreateAutoVerbalParam extends CreateAutoVerbalParam {
-  const factory _CreateAutoVerbalParam(
-      {@JsonKey(name: CreateAutoVerbalParam.imageKey)
-      required final List<String> image,
-      @JsonKey(name: CreateAutoVerbalParam.bankBranchKey)
-      required final String? bankBranch,
-      @JsonKey(name: CreateAutoVerbalParam.latitudeKey)
-      required final double latitude,
-      @JsonKey(name: CreateAutoVerbalParam.longitudeKey)
-      required final double longitude,
-      @JsonKey(name: CreateAutoVerbalParam.ownerNameKey)
-      required final String ownerName,
-      @JsonKey(name: CreateAutoVerbalParam.ownerPhoneKey)
-      required final String ownerPhone,
+/// @nodoc
+abstract mixin class _$CreateAutoVerbalParamCopyWith<$Res>
+    implements $CreateAutoVerbalParamCopyWith<$Res> {
+  factory _$CreateAutoVerbalParamCopyWith(_CreateAutoVerbalParam value,
+          $Res Function(_CreateAutoVerbalParam) _then) =
+      __$CreateAutoVerbalParamCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: CreateAutoVerbalParam.imageKey) List<String> image,
+      @JsonKey(name: CreateAutoVerbalParam.bankBranchKey) String? bankBranch,
+      @JsonKey(name: CreateAutoVerbalParam.latitudeKey) double latitude,
+      @JsonKey(name: CreateAutoVerbalParam.longitudeKey) double longitude,
+      @JsonKey(name: CreateAutoVerbalParam.ownerNameKey) String ownerName,
+      @JsonKey(name: CreateAutoVerbalParam.ownerPhoneKey) String ownerPhone,
       @JsonKey(name: CreateAutoVerbalParam.bankOfficerNameKey)
-      required final String? bankOfficerName,
+      String? bankOfficerName,
       @JsonKey(name: CreateAutoVerbalParam.bankOfficerPhoneKey)
-      required final String? bankOfficerPhone,
-      @JsonKey(name: CreateAutoVerbalParam.minValueKey)
-      required final double minValue,
-      @JsonKey(name: CreateAutoVerbalParam.maxValueKey)
-      required final double maxValue,
-      @JsonKey(name: CreateAutoVerbalParam.minValueSqmKey)
-      required final double minValueSqm,
-      @JsonKey(name: CreateAutoVerbalParam.maxValueSqmKey)
-      required final double maxValueSqm,
-      @JsonKey(name: CreateAutoVerbalParam.areaKey) required final double area,
+      String? bankOfficerPhone,
+      @JsonKey(name: CreateAutoVerbalParam.minValueKey) double minValue,
+      @JsonKey(name: CreateAutoVerbalParam.maxValueKey) double maxValue,
+      @JsonKey(name: CreateAutoVerbalParam.minValueSqmKey) double minValueSqm,
+      @JsonKey(name: CreateAutoVerbalParam.maxValueSqmKey) double maxValueSqm,
+      @JsonKey(name: CreateAutoVerbalParam.areaKey) double area,
       @JsonKey(name: CreateAutoVerbalParam.buildinglengthKey)
-      required final double? buildinglength,
+      double? buildinglength,
       @JsonKey(name: CreateAutoVerbalParam.buildingwidthKey)
-      required final double? buildingwidth,
-      @JsonKey(name: CreateAutoVerbalParam.landlengthKey)
-      required final double landlength,
-      @JsonKey(name: CreateAutoVerbalParam.landwidthKey)
-      required final double landwidth,
-      @JsonKey(name: CreateAutoVerbalParam.bedKey) required final int? bed,
-      @JsonKey(name: CreateAutoVerbalParam.bathKey) required final int? bath,
-      @JsonKey(name: CreateAutoVerbalParam.livingroomKey)
-      required final int? livingroom,
-      @JsonKey(name: CreateAutoVerbalParam.floorKey) required final int? floor,
+      double? buildingwidth,
+      @JsonKey(name: CreateAutoVerbalParam.landlengthKey) double landlength,
+      @JsonKey(name: CreateAutoVerbalParam.landwidthKey) double landwidth,
+      @JsonKey(name: CreateAutoVerbalParam.bedKey) int? bed,
+      @JsonKey(name: CreateAutoVerbalParam.bathKey) int? bath,
+      @JsonKey(name: CreateAutoVerbalParam.livingroomKey) int? livingroom,
+      @JsonKey(name: CreateAutoVerbalParam.floorKey) int? floor,
       @JsonKey(name: CreateAutoVerbalParam.propertyTypeIdKey)
-      required final int propertyTypeId,
-      @JsonKey(name: CreateAutoVerbalParam.provinceIdKey)
-      required final int provinceId,
-      @JsonKey(name: CreateAutoVerbalParam.roadIdKey)
-      required final int? roadId,
-      @JsonKey(name: CreateAutoVerbalParam.bankIdKey)
-      required final int? bankId,
-      @JsonKey(name: CreateAutoVerbalParam.userIdKey)
-      required final String userId}) = _$CreateAutoVerbalParamImpl;
-  const _CreateAutoVerbalParam._() : super._();
+      int propertyTypeId,
+      @JsonKey(name: CreateAutoVerbalParam.provinceIdKey) int provinceId,
+      @JsonKey(name: CreateAutoVerbalParam.roadIdKey) int? roadId,
+      @JsonKey(name: CreateAutoVerbalParam.bankIdKey) int? bankId,
+      @JsonKey(name: CreateAutoVerbalParam.userIdKey) String userId});
+}
 
-  factory _CreateAutoVerbalParam.fromJson(Map<String, dynamic> json) =
-      _$CreateAutoVerbalParamImpl.fromJson;
+/// @nodoc
+class __$CreateAutoVerbalParamCopyWithImpl<$Res>
+    implements _$CreateAutoVerbalParamCopyWith<$Res> {
+  __$CreateAutoVerbalParamCopyWithImpl(this._self, this._then);
 
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.imageKey)
-  List<String> get image;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.bankBranchKey)
-  String? get bankBranch;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.latitudeKey)
-  double get latitude;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.longitudeKey)
-  double get longitude;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.ownerNameKey)
-  String get ownerName;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.ownerPhoneKey)
-  String get ownerPhone;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.bankOfficerNameKey)
-  String? get bankOfficerName;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.bankOfficerPhoneKey)
-  String? get bankOfficerPhone;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.minValueKey)
-  double get minValue;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.maxValueKey)
-  double get maxValue;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.minValueSqmKey)
-  double get minValueSqm;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.maxValueSqmKey)
-  double get maxValueSqm;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.areaKey)
-  double get area;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.buildinglengthKey)
-  double? get buildinglength;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.buildingwidthKey)
-  double? get buildingwidth;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.landlengthKey)
-  double get landlength;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.landwidthKey)
-  double get landwidth;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.bedKey)
-  int? get bed;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.bathKey)
-  int? get bath;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.livingroomKey)
-  int? get livingroom;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.floorKey)
-  int? get floor;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.propertyTypeIdKey)
-  int get propertyTypeId;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.provinceIdKey)
-  int get provinceId;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.roadIdKey)
-  int? get roadId;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.bankIdKey)
-  int? get bankId;
-  @override
-  @JsonKey(name: CreateAutoVerbalParam.userIdKey)
-  String get userId;
+  final _CreateAutoVerbalParam _self;
+  final $Res Function(_CreateAutoVerbalParam) _then;
 
   /// Create a copy of CreateAutoVerbalParam
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CreateAutoVerbalParamImplCopyWith<_$CreateAutoVerbalParamImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-UpdateAutoVerbalParam _$UpdateAutoVerbalParamFromJson(
-    Map<String, dynamic> json) {
-  return _UpdateAutoVerbalParam.fromJson(json);
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? image = null,
+    Object? bankBranch = freezed,
+    Object? latitude = null,
+    Object? longitude = null,
+    Object? ownerName = null,
+    Object? ownerPhone = null,
+    Object? bankOfficerName = freezed,
+    Object? bankOfficerPhone = freezed,
+    Object? minValue = null,
+    Object? maxValue = null,
+    Object? minValueSqm = null,
+    Object? maxValueSqm = null,
+    Object? area = null,
+    Object? buildinglength = freezed,
+    Object? buildingwidth = freezed,
+    Object? landlength = null,
+    Object? landwidth = null,
+    Object? bed = freezed,
+    Object? bath = freezed,
+    Object? livingroom = freezed,
+    Object? floor = freezed,
+    Object? propertyTypeId = null,
+    Object? provinceId = null,
+    Object? roadId = freezed,
+    Object? bankId = freezed,
+    Object? userId = null,
+  }) {
+    return _then(_CreateAutoVerbalParam(
+      image: null == image
+          ? _self._image
+          : image // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      bankBranch: freezed == bankBranch
+          ? _self.bankBranch
+          : bankBranch // ignore: cast_nullable_to_non_nullable
+              as String?,
+      latitude: null == latitude
+          ? _self.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: null == longitude
+          ? _self.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      ownerName: null == ownerName
+          ? _self.ownerName
+          : ownerName // ignore: cast_nullable_to_non_nullable
+              as String,
+      ownerPhone: null == ownerPhone
+          ? _self.ownerPhone
+          : ownerPhone // ignore: cast_nullable_to_non_nullable
+              as String,
+      bankOfficerName: freezed == bankOfficerName
+          ? _self.bankOfficerName
+          : bankOfficerName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bankOfficerPhone: freezed == bankOfficerPhone
+          ? _self.bankOfficerPhone
+          : bankOfficerPhone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      minValue: null == minValue
+          ? _self.minValue
+          : minValue // ignore: cast_nullable_to_non_nullable
+              as double,
+      maxValue: null == maxValue
+          ? _self.maxValue
+          : maxValue // ignore: cast_nullable_to_non_nullable
+              as double,
+      minValueSqm: null == minValueSqm
+          ? _self.minValueSqm
+          : minValueSqm // ignore: cast_nullable_to_non_nullable
+              as double,
+      maxValueSqm: null == maxValueSqm
+          ? _self.maxValueSqm
+          : maxValueSqm // ignore: cast_nullable_to_non_nullable
+              as double,
+      area: null == area
+          ? _self.area
+          : area // ignore: cast_nullable_to_non_nullable
+              as double,
+      buildinglength: freezed == buildinglength
+          ? _self.buildinglength
+          : buildinglength // ignore: cast_nullable_to_non_nullable
+              as double?,
+      buildingwidth: freezed == buildingwidth
+          ? _self.buildingwidth
+          : buildingwidth // ignore: cast_nullable_to_non_nullable
+              as double?,
+      landlength: null == landlength
+          ? _self.landlength
+          : landlength // ignore: cast_nullable_to_non_nullable
+              as double,
+      landwidth: null == landwidth
+          ? _self.landwidth
+          : landwidth // ignore: cast_nullable_to_non_nullable
+              as double,
+      bed: freezed == bed
+          ? _self.bed
+          : bed // ignore: cast_nullable_to_non_nullable
+              as int?,
+      bath: freezed == bath
+          ? _self.bath
+          : bath // ignore: cast_nullable_to_non_nullable
+              as int?,
+      livingroom: freezed == livingroom
+          ? _self.livingroom
+          : livingroom // ignore: cast_nullable_to_non_nullable
+              as int?,
+      floor: freezed == floor
+          ? _self.floor
+          : floor // ignore: cast_nullable_to_non_nullable
+              as int?,
+      propertyTypeId: null == propertyTypeId
+          ? _self.propertyTypeId
+          : propertyTypeId // ignore: cast_nullable_to_non_nullable
+              as int,
+      provinceId: null == provinceId
+          ? _self.provinceId
+          : provinceId // ignore: cast_nullable_to_non_nullable
+              as int,
+      roadId: freezed == roadId
+          ? _self.roadId
+          : roadId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      bankId: freezed == bankId
+          ? _self.bankId
+          : bankId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      userId: null == userId
+          ? _self.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 mixin _$UpdateAutoVerbalParam {
   @JsonKey(name: UpdateAutoVerbalParam.statusKey)
-  PropertyAndAutoVerbalStatus get status => throw _privateConstructorUsedError;
+  PropertyAndAutoVerbalStatus get status;
   @JsonKey(name: UpdateAutoVerbalParam.imageKey)
-  List<String> get image => throw _privateConstructorUsedError;
+  List<String> get image;
   @JsonKey(name: UpdateAutoVerbalParam.bankBranchKey)
-  String? get bankBranch => throw _privateConstructorUsedError;
+  String? get bankBranch;
   @JsonKey(name: UpdateAutoVerbalParam.latitudeKey)
-  double get latitude => throw _privateConstructorUsedError;
+  double get latitude;
   @JsonKey(name: UpdateAutoVerbalParam.longitudeKey)
-  double get longitude => throw _privateConstructorUsedError;
+  double get longitude;
   @JsonKey(name: UpdateAutoVerbalParam.ownerNameKey)
-  String get ownerName => throw _privateConstructorUsedError;
+  String get ownerName;
   @JsonKey(name: UpdateAutoVerbalParam.ownerPhoneKey)
-  String get ownerPhone => throw _privateConstructorUsedError;
+  String get ownerPhone;
   @JsonKey(name: UpdateAutoVerbalParam.bankOfficerNameKey)
-  String? get bankOfficerName => throw _privateConstructorUsedError;
+  String? get bankOfficerName;
   @JsonKey(name: UpdateAutoVerbalParam.bankOfficerPhoneKey)
-  String? get bankOfficerPhone => throw _privateConstructorUsedError;
+  String? get bankOfficerPhone;
   @JsonKey(name: UpdateAutoVerbalParam.createdAtKey)
-  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime get createdAt;
   @JsonKey(name: UpdateAutoVerbalParam.minValueKey)
-  double get minValue => throw _privateConstructorUsedError;
+  double get minValue;
   @JsonKey(name: UpdateAutoVerbalParam.maxValueKey)
-  double get maxValue => throw _privateConstructorUsedError;
+  double get maxValue;
   @JsonKey(name: UpdateAutoVerbalParam.minValueSqmKey)
-  double get minValueSqm => throw _privateConstructorUsedError;
+  double get minValueSqm;
   @JsonKey(name: UpdateAutoVerbalParam.maxValueSqmKey)
-  double get maxValueSqm => throw _privateConstructorUsedError;
+  double get maxValueSqm;
   @JsonKey(name: UpdateAutoVerbalParam.areaKey)
-  double get area => throw _privateConstructorUsedError;
+  double get area;
   @JsonKey(name: UpdateAutoVerbalParam.buildinglengthKey)
-  double? get buildinglength => throw _privateConstructorUsedError;
+  double? get buildinglength;
   @JsonKey(name: UpdateAutoVerbalParam.buildingwidthKey)
-  double? get buildingwidth => throw _privateConstructorUsedError;
+  double? get buildingwidth;
   @JsonKey(name: UpdateAutoVerbalParam.landlengthKey)
-  double get landlength => throw _privateConstructorUsedError;
+  double get landlength;
   @JsonKey(name: UpdateAutoVerbalParam.landwidthKey)
-  double get landwidth => throw _privateConstructorUsedError;
+  double get landwidth;
   @JsonKey(name: UpdateAutoVerbalParam.bedKey)
-  int? get bed => throw _privateConstructorUsedError;
+  int? get bed;
   @JsonKey(name: UpdateAutoVerbalParam.bathKey)
-  int? get bath => throw _privateConstructorUsedError;
+  int? get bath;
   @JsonKey(name: UpdateAutoVerbalParam.livingroomKey)
-  int? get livingroom => throw _privateConstructorUsedError;
+  int? get livingroom;
   @JsonKey(name: UpdateAutoVerbalParam.floorKey)
-  int? get floor => throw _privateConstructorUsedError;
+  int? get floor;
   @JsonKey(name: UpdateAutoVerbalParam.propertyTypeIdKey)
-  int get propertyTypeId => throw _privateConstructorUsedError;
+  int get propertyTypeId;
   @JsonKey(name: UpdateAutoVerbalParam.provinceIdKey)
-  int get provinceId => throw _privateConstructorUsedError;
+  int get provinceId;
   @JsonKey(name: UpdateAutoVerbalParam.roadIdKey)
-  int? get roadId => throw _privateConstructorUsedError;
+  int? get roadId;
   @JsonKey(name: UpdateAutoVerbalParam.bankIdKey)
-  int? get bankId => throw _privateConstructorUsedError;
-
-  /// Serializes this UpdateAutoVerbalParam to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  int? get bankId;
 
   /// Create a copy of UpdateAutoVerbalParam
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $UpdateAutoVerbalParamCopyWith<UpdateAutoVerbalParam> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $UpdateAutoVerbalParamCopyWith<$Res> {
-  factory $UpdateAutoVerbalParamCopyWith(UpdateAutoVerbalParam value,
-          $Res Function(UpdateAutoVerbalParam) then) =
-      _$UpdateAutoVerbalParamCopyWithImpl<$Res, UpdateAutoVerbalParam>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: UpdateAutoVerbalParam.statusKey)
-      PropertyAndAutoVerbalStatus status,
-      @JsonKey(name: UpdateAutoVerbalParam.imageKey) List<String> image,
-      @JsonKey(name: UpdateAutoVerbalParam.bankBranchKey) String? bankBranch,
-      @JsonKey(name: UpdateAutoVerbalParam.latitudeKey) double latitude,
-      @JsonKey(name: UpdateAutoVerbalParam.longitudeKey) double longitude,
-      @JsonKey(name: UpdateAutoVerbalParam.ownerNameKey) String ownerName,
-      @JsonKey(name: UpdateAutoVerbalParam.ownerPhoneKey) String ownerPhone,
-      @JsonKey(name: UpdateAutoVerbalParam.bankOfficerNameKey)
-      String? bankOfficerName,
-      @JsonKey(name: UpdateAutoVerbalParam.bankOfficerPhoneKey)
-      String? bankOfficerPhone,
-      @JsonKey(name: UpdateAutoVerbalParam.createdAtKey) DateTime createdAt,
-      @JsonKey(name: UpdateAutoVerbalParam.minValueKey) double minValue,
-      @JsonKey(name: UpdateAutoVerbalParam.maxValueKey) double maxValue,
-      @JsonKey(name: UpdateAutoVerbalParam.minValueSqmKey) double minValueSqm,
-      @JsonKey(name: UpdateAutoVerbalParam.maxValueSqmKey) double maxValueSqm,
-      @JsonKey(name: UpdateAutoVerbalParam.areaKey) double area,
-      @JsonKey(name: UpdateAutoVerbalParam.buildinglengthKey)
-      double? buildinglength,
-      @JsonKey(name: UpdateAutoVerbalParam.buildingwidthKey)
-      double? buildingwidth,
-      @JsonKey(name: UpdateAutoVerbalParam.landlengthKey) double landlength,
-      @JsonKey(name: UpdateAutoVerbalParam.landwidthKey) double landwidth,
-      @JsonKey(name: UpdateAutoVerbalParam.bedKey) int? bed,
-      @JsonKey(name: UpdateAutoVerbalParam.bathKey) int? bath,
-      @JsonKey(name: UpdateAutoVerbalParam.livingroomKey) int? livingroom,
-      @JsonKey(name: UpdateAutoVerbalParam.floorKey) int? floor,
-      @JsonKey(name: UpdateAutoVerbalParam.propertyTypeIdKey)
-      int propertyTypeId,
-      @JsonKey(name: UpdateAutoVerbalParam.provinceIdKey) int provinceId,
-      @JsonKey(name: UpdateAutoVerbalParam.roadIdKey) int? roadId,
-      @JsonKey(name: UpdateAutoVerbalParam.bankIdKey) int? bankId});
-}
-
-/// @nodoc
-class _$UpdateAutoVerbalParamCopyWithImpl<$Res,
-        $Val extends UpdateAutoVerbalParam>
-    implements $UpdateAutoVerbalParamCopyWith<$Res> {
-  _$UpdateAutoVerbalParamCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of UpdateAutoVerbalParam
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $UpdateAutoVerbalParamCopyWith<UpdateAutoVerbalParam> get copyWith =>
+      _$UpdateAutoVerbalParamCopyWithImpl<UpdateAutoVerbalParam>(
+          this as UpdateAutoVerbalParam, _$identity);
+
+  /// Serializes this UpdateAutoVerbalParam to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? status = null,
-    Object? image = null,
-    Object? bankBranch = freezed,
-    Object? latitude = null,
-    Object? longitude = null,
-    Object? ownerName = null,
-    Object? ownerPhone = null,
-    Object? bankOfficerName = freezed,
-    Object? bankOfficerPhone = freezed,
-    Object? createdAt = null,
-    Object? minValue = null,
-    Object? maxValue = null,
-    Object? minValueSqm = null,
-    Object? maxValueSqm = null,
-    Object? area = null,
-    Object? buildinglength = freezed,
-    Object? buildingwidth = freezed,
-    Object? landlength = null,
-    Object? landwidth = null,
-    Object? bed = freezed,
-    Object? bath = freezed,
-    Object? livingroom = freezed,
-    Object? floor = freezed,
-    Object? propertyTypeId = null,
-    Object? provinceId = null,
-    Object? roadId = freezed,
-    Object? bankId = freezed,
-  }) {
-    return _then(_value.copyWith(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as PropertyAndAutoVerbalStatus,
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      bankBranch: freezed == bankBranch
-          ? _value.bankBranch
-          : bankBranch // ignore: cast_nullable_to_non_nullable
-              as String?,
-      latitude: null == latitude
-          ? _value.latitude
-          : latitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      longitude: null == longitude
-          ? _value.longitude
-          : longitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      ownerName: null == ownerName
-          ? _value.ownerName
-          : ownerName // ignore: cast_nullable_to_non_nullable
-              as String,
-      ownerPhone: null == ownerPhone
-          ? _value.ownerPhone
-          : ownerPhone // ignore: cast_nullable_to_non_nullable
-              as String,
-      bankOfficerName: freezed == bankOfficerName
-          ? _value.bankOfficerName
-          : bankOfficerName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      bankOfficerPhone: freezed == bankOfficerPhone
-          ? _value.bankOfficerPhone
-          : bankOfficerPhone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      minValue: null == minValue
-          ? _value.minValue
-          : minValue // ignore: cast_nullable_to_non_nullable
-              as double,
-      maxValue: null == maxValue
-          ? _value.maxValue
-          : maxValue // ignore: cast_nullable_to_non_nullable
-              as double,
-      minValueSqm: null == minValueSqm
-          ? _value.minValueSqm
-          : minValueSqm // ignore: cast_nullable_to_non_nullable
-              as double,
-      maxValueSqm: null == maxValueSqm
-          ? _value.maxValueSqm
-          : maxValueSqm // ignore: cast_nullable_to_non_nullable
-              as double,
-      area: null == area
-          ? _value.area
-          : area // ignore: cast_nullable_to_non_nullable
-              as double,
-      buildinglength: freezed == buildinglength
-          ? _value.buildinglength
-          : buildinglength // ignore: cast_nullable_to_non_nullable
-              as double?,
-      buildingwidth: freezed == buildingwidth
-          ? _value.buildingwidth
-          : buildingwidth // ignore: cast_nullable_to_non_nullable
-              as double?,
-      landlength: null == landlength
-          ? _value.landlength
-          : landlength // ignore: cast_nullable_to_non_nullable
-              as double,
-      landwidth: null == landwidth
-          ? _value.landwidth
-          : landwidth // ignore: cast_nullable_to_non_nullable
-              as double,
-      bed: freezed == bed
-          ? _value.bed
-          : bed // ignore: cast_nullable_to_non_nullable
-              as int?,
-      bath: freezed == bath
-          ? _value.bath
-          : bath // ignore: cast_nullable_to_non_nullable
-              as int?,
-      livingroom: freezed == livingroom
-          ? _value.livingroom
-          : livingroom // ignore: cast_nullable_to_non_nullable
-              as int?,
-      floor: freezed == floor
-          ? _value.floor
-          : floor // ignore: cast_nullable_to_non_nullable
-              as int?,
-      propertyTypeId: null == propertyTypeId
-          ? _value.propertyTypeId
-          : propertyTypeId // ignore: cast_nullable_to_non_nullable
-              as int,
-      provinceId: null == provinceId
-          ? _value.provinceId
-          : provinceId // ignore: cast_nullable_to_non_nullable
-              as int,
-      roadId: freezed == roadId
-          ? _value.roadId
-          : roadId // ignore: cast_nullable_to_non_nullable
-              as int?,
-      bankId: freezed == bankId
-          ? _value.bankId
-          : bankId // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is UpdateAutoVerbalParam &&
+            (identical(other.status, status) || other.status == status) &&
+            const DeepCollectionEquality().equals(other.image, image) &&
+            (identical(other.bankBranch, bankBranch) ||
+                other.bankBranch == bankBranch) &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
+            (identical(other.ownerName, ownerName) ||
+                other.ownerName == ownerName) &&
+            (identical(other.ownerPhone, ownerPhone) ||
+                other.ownerPhone == ownerPhone) &&
+            (identical(other.bankOfficerName, bankOfficerName) ||
+                other.bankOfficerName == bankOfficerName) &&
+            (identical(other.bankOfficerPhone, bankOfficerPhone) ||
+                other.bankOfficerPhone == bankOfficerPhone) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.minValue, minValue) ||
+                other.minValue == minValue) &&
+            (identical(other.maxValue, maxValue) ||
+                other.maxValue == maxValue) &&
+            (identical(other.minValueSqm, minValueSqm) ||
+                other.minValueSqm == minValueSqm) &&
+            (identical(other.maxValueSqm, maxValueSqm) ||
+                other.maxValueSqm == maxValueSqm) &&
+            (identical(other.area, area) || other.area == area) &&
+            (identical(other.buildinglength, buildinglength) ||
+                other.buildinglength == buildinglength) &&
+            (identical(other.buildingwidth, buildingwidth) ||
+                other.buildingwidth == buildingwidth) &&
+            (identical(other.landlength, landlength) ||
+                other.landlength == landlength) &&
+            (identical(other.landwidth, landwidth) ||
+                other.landwidth == landwidth) &&
+            (identical(other.bed, bed) || other.bed == bed) &&
+            (identical(other.bath, bath) || other.bath == bath) &&
+            (identical(other.livingroom, livingroom) ||
+                other.livingroom == livingroom) &&
+            (identical(other.floor, floor) || other.floor == floor) &&
+            (identical(other.propertyTypeId, propertyTypeId) ||
+                other.propertyTypeId == propertyTypeId) &&
+            (identical(other.provinceId, provinceId) ||
+                other.provinceId == provinceId) &&
+            (identical(other.roadId, roadId) || other.roadId == roadId) &&
+            (identical(other.bankId, bankId) || other.bankId == bankId));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        status,
+        const DeepCollectionEquality().hash(image),
+        bankBranch,
+        latitude,
+        longitude,
+        ownerName,
+        ownerPhone,
+        bankOfficerName,
+        bankOfficerPhone,
+        createdAt,
+        minValue,
+        maxValue,
+        minValueSqm,
+        maxValueSqm,
+        area,
+        buildinglength,
+        buildingwidth,
+        landlength,
+        landwidth,
+        bed,
+        bath,
+        livingroom,
+        floor,
+        propertyTypeId,
+        provinceId,
+        roadId,
+        bankId
+      ]);
+
+  @override
+  String toString() {
+    return 'UpdateAutoVerbalParam(status: $status, image: $image, bankBranch: $bankBranch, latitude: $latitude, longitude: $longitude, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, createdAt: $createdAt, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, area: $area, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, propertyTypeId: $propertyTypeId, provinceId: $provinceId, roadId: $roadId, bankId: $bankId)';
   }
 }
 
 /// @nodoc
-abstract class _$$UpdateAutoVerbalParamImplCopyWith<$Res>
-    implements $UpdateAutoVerbalParamCopyWith<$Res> {
-  factory _$$UpdateAutoVerbalParamImplCopyWith(
-          _$UpdateAutoVerbalParamImpl value,
-          $Res Function(_$UpdateAutoVerbalParamImpl) then) =
-      __$$UpdateAutoVerbalParamImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $UpdateAutoVerbalParamCopyWith<$Res> {
+  factory $UpdateAutoVerbalParamCopyWith(UpdateAutoVerbalParam value,
+          $Res Function(UpdateAutoVerbalParam) _then) =
+      _$UpdateAutoVerbalParamCopyWithImpl;
   @useResult
   $Res call(
       {@JsonKey(name: UpdateAutoVerbalParam.statusKey)
@@ -2356,13 +2165,12 @@ abstract class _$$UpdateAutoVerbalParamImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$UpdateAutoVerbalParamImplCopyWithImpl<$Res>
-    extends _$UpdateAutoVerbalParamCopyWithImpl<$Res,
-        _$UpdateAutoVerbalParamImpl>
-    implements _$$UpdateAutoVerbalParamImplCopyWith<$Res> {
-  __$$UpdateAutoVerbalParamImplCopyWithImpl(_$UpdateAutoVerbalParamImpl _value,
-      $Res Function(_$UpdateAutoVerbalParamImpl) _then)
-      : super(_value, _then);
+class _$UpdateAutoVerbalParamCopyWithImpl<$Res>
+    implements $UpdateAutoVerbalParamCopyWith<$Res> {
+  _$UpdateAutoVerbalParamCopyWithImpl(this._self, this._then);
+
+  final UpdateAutoVerbalParam _self;
+  final $Res Function(UpdateAutoVerbalParam) _then;
 
   /// Create a copy of UpdateAutoVerbalParam
   /// with the given fields replaced by the non-null parameter values.
@@ -2397,113 +2205,113 @@ class __$$UpdateAutoVerbalParamImplCopyWithImpl<$Res>
     Object? roadId = freezed,
     Object? bankId = freezed,
   }) {
-    return _then(_$UpdateAutoVerbalParamImpl(
+    return _then(_self.copyWith(
       status: null == status
-          ? _value.status
+          ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as PropertyAndAutoVerbalStatus,
       image: null == image
-          ? _value._image
+          ? _self.image
           : image // ignore: cast_nullable_to_non_nullable
               as List<String>,
       bankBranch: freezed == bankBranch
-          ? _value.bankBranch
+          ? _self.bankBranch
           : bankBranch // ignore: cast_nullable_to_non_nullable
               as String?,
       latitude: null == latitude
-          ? _value.latitude
+          ? _self.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as double,
       longitude: null == longitude
-          ? _value.longitude
+          ? _self.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
       ownerName: null == ownerName
-          ? _value.ownerName
+          ? _self.ownerName
           : ownerName // ignore: cast_nullable_to_non_nullable
               as String,
       ownerPhone: null == ownerPhone
-          ? _value.ownerPhone
+          ? _self.ownerPhone
           : ownerPhone // ignore: cast_nullable_to_non_nullable
               as String,
       bankOfficerName: freezed == bankOfficerName
-          ? _value.bankOfficerName
+          ? _self.bankOfficerName
           : bankOfficerName // ignore: cast_nullable_to_non_nullable
               as String?,
       bankOfficerPhone: freezed == bankOfficerPhone
-          ? _value.bankOfficerPhone
+          ? _self.bankOfficerPhone
           : bankOfficerPhone // ignore: cast_nullable_to_non_nullable
               as String?,
       createdAt: null == createdAt
-          ? _value.createdAt
+          ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
       minValue: null == minValue
-          ? _value.minValue
+          ? _self.minValue
           : minValue // ignore: cast_nullable_to_non_nullable
               as double,
       maxValue: null == maxValue
-          ? _value.maxValue
+          ? _self.maxValue
           : maxValue // ignore: cast_nullable_to_non_nullable
               as double,
       minValueSqm: null == minValueSqm
-          ? _value.minValueSqm
+          ? _self.minValueSqm
           : minValueSqm // ignore: cast_nullable_to_non_nullable
               as double,
       maxValueSqm: null == maxValueSqm
-          ? _value.maxValueSqm
+          ? _self.maxValueSqm
           : maxValueSqm // ignore: cast_nullable_to_non_nullable
               as double,
       area: null == area
-          ? _value.area
+          ? _self.area
           : area // ignore: cast_nullable_to_non_nullable
               as double,
       buildinglength: freezed == buildinglength
-          ? _value.buildinglength
+          ? _self.buildinglength
           : buildinglength // ignore: cast_nullable_to_non_nullable
               as double?,
       buildingwidth: freezed == buildingwidth
-          ? _value.buildingwidth
+          ? _self.buildingwidth
           : buildingwidth // ignore: cast_nullable_to_non_nullable
               as double?,
       landlength: null == landlength
-          ? _value.landlength
+          ? _self.landlength
           : landlength // ignore: cast_nullable_to_non_nullable
               as double,
       landwidth: null == landwidth
-          ? _value.landwidth
+          ? _self.landwidth
           : landwidth // ignore: cast_nullable_to_non_nullable
               as double,
       bed: freezed == bed
-          ? _value.bed
+          ? _self.bed
           : bed // ignore: cast_nullable_to_non_nullable
               as int?,
       bath: freezed == bath
-          ? _value.bath
+          ? _self.bath
           : bath // ignore: cast_nullable_to_non_nullable
               as int?,
       livingroom: freezed == livingroom
-          ? _value.livingroom
+          ? _self.livingroom
           : livingroom // ignore: cast_nullable_to_non_nullable
               as int?,
       floor: freezed == floor
-          ? _value.floor
+          ? _self.floor
           : floor // ignore: cast_nullable_to_non_nullable
               as int?,
       propertyTypeId: null == propertyTypeId
-          ? _value.propertyTypeId
+          ? _self.propertyTypeId
           : propertyTypeId // ignore: cast_nullable_to_non_nullable
               as int,
       provinceId: null == provinceId
-          ? _value.provinceId
+          ? _self.provinceId
           : provinceId // ignore: cast_nullable_to_non_nullable
               as int,
       roadId: freezed == roadId
-          ? _value.roadId
+          ? _self.roadId
           : roadId // ignore: cast_nullable_to_non_nullable
               as int?,
       bankId: freezed == bankId
-          ? _value.bankId
+          ? _self.bankId
           : bankId // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
@@ -2513,8 +2321,8 @@ class __$$UpdateAutoVerbalParamImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$UpdateAutoVerbalParamImpl extends _UpdateAutoVerbalParam {
-  const _$UpdateAutoVerbalParamImpl(
+class _UpdateAutoVerbalParam extends UpdateAutoVerbalParam {
+  const _UpdateAutoVerbalParam(
       {@JsonKey(name: UpdateAutoVerbalParam.statusKey) required this.status,
       @JsonKey(name: UpdateAutoVerbalParam.imageKey)
       required final List<String> image,
@@ -2561,9 +2369,8 @@ class _$UpdateAutoVerbalParamImpl extends _UpdateAutoVerbalParam {
       @JsonKey(name: UpdateAutoVerbalParam.bankIdKey) required this.bankId})
       : _image = image,
         super._();
-
-  factory _$UpdateAutoVerbalParamImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UpdateAutoVerbalParamImplFromJson(json);
+  factory _UpdateAutoVerbalParam.fromJson(Map<String, dynamic> json) =>
+      _$UpdateAutoVerbalParamFromJson(json);
 
   @override
   @JsonKey(name: UpdateAutoVerbalParam.statusKey)
@@ -2653,16 +2460,27 @@ class _$UpdateAutoVerbalParamImpl extends _UpdateAutoVerbalParam {
   @JsonKey(name: UpdateAutoVerbalParam.bankIdKey)
   final int? bankId;
 
+  /// Create a copy of UpdateAutoVerbalParam
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'UpdateAutoVerbalParam(status: $status, image: $image, bankBranch: $bankBranch, latitude: $latitude, longitude: $longitude, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, createdAt: $createdAt, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, area: $area, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, propertyTypeId: $propertyTypeId, provinceId: $provinceId, roadId: $roadId, bankId: $bankId)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$UpdateAutoVerbalParamCopyWith<_UpdateAutoVerbalParam> get copyWith =>
+      __$UpdateAutoVerbalParamCopyWithImpl<_UpdateAutoVerbalParam>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$UpdateAutoVerbalParamToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UpdateAutoVerbalParamImpl &&
+            other is _UpdateAutoVerbalParam &&
             (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality().equals(other._image, _image) &&
             (identical(other.bankBranch, bankBranch) ||
@@ -2744,166 +2562,208 @@ class _$UpdateAutoVerbalParamImpl extends _UpdateAutoVerbalParam {
         bankId
       ]);
 
-  /// Create a copy of UpdateAutoVerbalParam
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$UpdateAutoVerbalParamImplCopyWith<_$UpdateAutoVerbalParamImpl>
-      get copyWith => __$$UpdateAutoVerbalParamImplCopyWithImpl<
-          _$UpdateAutoVerbalParamImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$UpdateAutoVerbalParamImplToJson(
-      this,
-    );
+  String toString() {
+    return 'UpdateAutoVerbalParam(status: $status, image: $image, bankBranch: $bankBranch, latitude: $latitude, longitude: $longitude, ownerName: $ownerName, ownerPhone: $ownerPhone, bankOfficerName: $bankOfficerName, bankOfficerPhone: $bankOfficerPhone, createdAt: $createdAt, minValue: $minValue, maxValue: $maxValue, minValueSqm: $minValueSqm, maxValueSqm: $maxValueSqm, area: $area, buildinglength: $buildinglength, buildingwidth: $buildingwidth, landlength: $landlength, landwidth: $landwidth, bed: $bed, bath: $bath, livingroom: $livingroom, floor: $floor, propertyTypeId: $propertyTypeId, provinceId: $provinceId, roadId: $roadId, bankId: $bankId)';
   }
 }
 
-abstract class _UpdateAutoVerbalParam extends UpdateAutoVerbalParam {
-  const factory _UpdateAutoVerbalParam(
+/// @nodoc
+abstract mixin class _$UpdateAutoVerbalParamCopyWith<$Res>
+    implements $UpdateAutoVerbalParamCopyWith<$Res> {
+  factory _$UpdateAutoVerbalParamCopyWith(_UpdateAutoVerbalParam value,
+          $Res Function(_UpdateAutoVerbalParam) _then) =
+      __$UpdateAutoVerbalParamCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
       {@JsonKey(name: UpdateAutoVerbalParam.statusKey)
-      required final PropertyAndAutoVerbalStatus status,
-      @JsonKey(name: UpdateAutoVerbalParam.imageKey)
-      required final List<String> image,
-      @JsonKey(name: UpdateAutoVerbalParam.bankBranchKey)
-      required final String? bankBranch,
-      @JsonKey(name: UpdateAutoVerbalParam.latitudeKey)
-      required final double latitude,
-      @JsonKey(name: UpdateAutoVerbalParam.longitudeKey)
-      required final double longitude,
-      @JsonKey(name: UpdateAutoVerbalParam.ownerNameKey)
-      required final String ownerName,
-      @JsonKey(name: UpdateAutoVerbalParam.ownerPhoneKey)
-      required final String ownerPhone,
+      PropertyAndAutoVerbalStatus status,
+      @JsonKey(name: UpdateAutoVerbalParam.imageKey) List<String> image,
+      @JsonKey(name: UpdateAutoVerbalParam.bankBranchKey) String? bankBranch,
+      @JsonKey(name: UpdateAutoVerbalParam.latitudeKey) double latitude,
+      @JsonKey(name: UpdateAutoVerbalParam.longitudeKey) double longitude,
+      @JsonKey(name: UpdateAutoVerbalParam.ownerNameKey) String ownerName,
+      @JsonKey(name: UpdateAutoVerbalParam.ownerPhoneKey) String ownerPhone,
       @JsonKey(name: UpdateAutoVerbalParam.bankOfficerNameKey)
-      required final String? bankOfficerName,
+      String? bankOfficerName,
       @JsonKey(name: UpdateAutoVerbalParam.bankOfficerPhoneKey)
-      required final String? bankOfficerPhone,
-      @JsonKey(name: UpdateAutoVerbalParam.createdAtKey)
-      required final DateTime createdAt,
-      @JsonKey(name: UpdateAutoVerbalParam.minValueKey)
-      required final double minValue,
-      @JsonKey(name: UpdateAutoVerbalParam.maxValueKey)
-      required final double maxValue,
-      @JsonKey(name: UpdateAutoVerbalParam.minValueSqmKey)
-      required final double minValueSqm,
-      @JsonKey(name: UpdateAutoVerbalParam.maxValueSqmKey)
-      required final double maxValueSqm,
-      @JsonKey(name: UpdateAutoVerbalParam.areaKey) required final double area,
+      String? bankOfficerPhone,
+      @JsonKey(name: UpdateAutoVerbalParam.createdAtKey) DateTime createdAt,
+      @JsonKey(name: UpdateAutoVerbalParam.minValueKey) double minValue,
+      @JsonKey(name: UpdateAutoVerbalParam.maxValueKey) double maxValue,
+      @JsonKey(name: UpdateAutoVerbalParam.minValueSqmKey) double minValueSqm,
+      @JsonKey(name: UpdateAutoVerbalParam.maxValueSqmKey) double maxValueSqm,
+      @JsonKey(name: UpdateAutoVerbalParam.areaKey) double area,
       @JsonKey(name: UpdateAutoVerbalParam.buildinglengthKey)
-      required final double? buildinglength,
+      double? buildinglength,
       @JsonKey(name: UpdateAutoVerbalParam.buildingwidthKey)
-      required final double? buildingwidth,
-      @JsonKey(name: UpdateAutoVerbalParam.landlengthKey)
-      required final double landlength,
-      @JsonKey(name: UpdateAutoVerbalParam.landwidthKey)
-      required final double landwidth,
-      @JsonKey(name: UpdateAutoVerbalParam.bedKey) required final int? bed,
-      @JsonKey(name: UpdateAutoVerbalParam.bathKey) required final int? bath,
-      @JsonKey(name: UpdateAutoVerbalParam.livingroomKey)
-      required final int? livingroom,
-      @JsonKey(name: UpdateAutoVerbalParam.floorKey) required final int? floor,
+      double? buildingwidth,
+      @JsonKey(name: UpdateAutoVerbalParam.landlengthKey) double landlength,
+      @JsonKey(name: UpdateAutoVerbalParam.landwidthKey) double landwidth,
+      @JsonKey(name: UpdateAutoVerbalParam.bedKey) int? bed,
+      @JsonKey(name: UpdateAutoVerbalParam.bathKey) int? bath,
+      @JsonKey(name: UpdateAutoVerbalParam.livingroomKey) int? livingroom,
+      @JsonKey(name: UpdateAutoVerbalParam.floorKey) int? floor,
       @JsonKey(name: UpdateAutoVerbalParam.propertyTypeIdKey)
-      required final int propertyTypeId,
-      @JsonKey(name: UpdateAutoVerbalParam.provinceIdKey)
-      required final int provinceId,
-      @JsonKey(name: UpdateAutoVerbalParam.roadIdKey)
-      required final int? roadId,
-      @JsonKey(name: UpdateAutoVerbalParam.bankIdKey)
-      required final int? bankId}) = _$UpdateAutoVerbalParamImpl;
-  const _UpdateAutoVerbalParam._() : super._();
+      int propertyTypeId,
+      @JsonKey(name: UpdateAutoVerbalParam.provinceIdKey) int provinceId,
+      @JsonKey(name: UpdateAutoVerbalParam.roadIdKey) int? roadId,
+      @JsonKey(name: UpdateAutoVerbalParam.bankIdKey) int? bankId});
+}
 
-  factory _UpdateAutoVerbalParam.fromJson(Map<String, dynamic> json) =
-      _$UpdateAutoVerbalParamImpl.fromJson;
+/// @nodoc
+class __$UpdateAutoVerbalParamCopyWithImpl<$Res>
+    implements _$UpdateAutoVerbalParamCopyWith<$Res> {
+  __$UpdateAutoVerbalParamCopyWithImpl(this._self, this._then);
 
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.statusKey)
-  PropertyAndAutoVerbalStatus get status;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.imageKey)
-  List<String> get image;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.bankBranchKey)
-  String? get bankBranch;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.latitudeKey)
-  double get latitude;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.longitudeKey)
-  double get longitude;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.ownerNameKey)
-  String get ownerName;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.ownerPhoneKey)
-  String get ownerPhone;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.bankOfficerNameKey)
-  String? get bankOfficerName;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.bankOfficerPhoneKey)
-  String? get bankOfficerPhone;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.createdAtKey)
-  DateTime get createdAt;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.minValueKey)
-  double get minValue;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.maxValueKey)
-  double get maxValue;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.minValueSqmKey)
-  double get minValueSqm;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.maxValueSqmKey)
-  double get maxValueSqm;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.areaKey)
-  double get area;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.buildinglengthKey)
-  double? get buildinglength;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.buildingwidthKey)
-  double? get buildingwidth;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.landlengthKey)
-  double get landlength;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.landwidthKey)
-  double get landwidth;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.bedKey)
-  int? get bed;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.bathKey)
-  int? get bath;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.livingroomKey)
-  int? get livingroom;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.floorKey)
-  int? get floor;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.propertyTypeIdKey)
-  int get propertyTypeId;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.provinceIdKey)
-  int get provinceId;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.roadIdKey)
-  int? get roadId;
-  @override
-  @JsonKey(name: UpdateAutoVerbalParam.bankIdKey)
-  int? get bankId;
+  final _UpdateAutoVerbalParam _self;
+  final $Res Function(_UpdateAutoVerbalParam) _then;
 
   /// Create a copy of UpdateAutoVerbalParam
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$UpdateAutoVerbalParamImplCopyWith<_$UpdateAutoVerbalParamImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? status = null,
+    Object? image = null,
+    Object? bankBranch = freezed,
+    Object? latitude = null,
+    Object? longitude = null,
+    Object? ownerName = null,
+    Object? ownerPhone = null,
+    Object? bankOfficerName = freezed,
+    Object? bankOfficerPhone = freezed,
+    Object? createdAt = null,
+    Object? minValue = null,
+    Object? maxValue = null,
+    Object? minValueSqm = null,
+    Object? maxValueSqm = null,
+    Object? area = null,
+    Object? buildinglength = freezed,
+    Object? buildingwidth = freezed,
+    Object? landlength = null,
+    Object? landwidth = null,
+    Object? bed = freezed,
+    Object? bath = freezed,
+    Object? livingroom = freezed,
+    Object? floor = freezed,
+    Object? propertyTypeId = null,
+    Object? provinceId = null,
+    Object? roadId = freezed,
+    Object? bankId = freezed,
+  }) {
+    return _then(_UpdateAutoVerbalParam(
+      status: null == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as PropertyAndAutoVerbalStatus,
+      image: null == image
+          ? _self._image
+          : image // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      bankBranch: freezed == bankBranch
+          ? _self.bankBranch
+          : bankBranch // ignore: cast_nullable_to_non_nullable
+              as String?,
+      latitude: null == latitude
+          ? _self.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: null == longitude
+          ? _self.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      ownerName: null == ownerName
+          ? _self.ownerName
+          : ownerName // ignore: cast_nullable_to_non_nullable
+              as String,
+      ownerPhone: null == ownerPhone
+          ? _self.ownerPhone
+          : ownerPhone // ignore: cast_nullable_to_non_nullable
+              as String,
+      bankOfficerName: freezed == bankOfficerName
+          ? _self.bankOfficerName
+          : bankOfficerName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bankOfficerPhone: freezed == bankOfficerPhone
+          ? _self.bankOfficerPhone
+          : bankOfficerPhone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: null == createdAt
+          ? _self.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      minValue: null == minValue
+          ? _self.minValue
+          : minValue // ignore: cast_nullable_to_non_nullable
+              as double,
+      maxValue: null == maxValue
+          ? _self.maxValue
+          : maxValue // ignore: cast_nullable_to_non_nullable
+              as double,
+      minValueSqm: null == minValueSqm
+          ? _self.minValueSqm
+          : minValueSqm // ignore: cast_nullable_to_non_nullable
+              as double,
+      maxValueSqm: null == maxValueSqm
+          ? _self.maxValueSqm
+          : maxValueSqm // ignore: cast_nullable_to_non_nullable
+              as double,
+      area: null == area
+          ? _self.area
+          : area // ignore: cast_nullable_to_non_nullable
+              as double,
+      buildinglength: freezed == buildinglength
+          ? _self.buildinglength
+          : buildinglength // ignore: cast_nullable_to_non_nullable
+              as double?,
+      buildingwidth: freezed == buildingwidth
+          ? _self.buildingwidth
+          : buildingwidth // ignore: cast_nullable_to_non_nullable
+              as double?,
+      landlength: null == landlength
+          ? _self.landlength
+          : landlength // ignore: cast_nullable_to_non_nullable
+              as double,
+      landwidth: null == landwidth
+          ? _self.landwidth
+          : landwidth // ignore: cast_nullable_to_non_nullable
+              as double,
+      bed: freezed == bed
+          ? _self.bed
+          : bed // ignore: cast_nullable_to_non_nullable
+              as int?,
+      bath: freezed == bath
+          ? _self.bath
+          : bath // ignore: cast_nullable_to_non_nullable
+              as int?,
+      livingroom: freezed == livingroom
+          ? _self.livingroom
+          : livingroom // ignore: cast_nullable_to_non_nullable
+              as int?,
+      floor: freezed == floor
+          ? _self.floor
+          : floor // ignore: cast_nullable_to_non_nullable
+              as int?,
+      propertyTypeId: null == propertyTypeId
+          ? _self.propertyTypeId
+          : propertyTypeId // ignore: cast_nullable_to_non_nullable
+              as int,
+      provinceId: null == provinceId
+          ? _self.provinceId
+          : provinceId // ignore: cast_nullable_to_non_nullable
+              as int,
+      roadId: freezed == roadId
+          ? _self.roadId
+          : roadId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      bankId: freezed == bankId
+          ? _self.bankId
+          : bankId // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
 }
+
+// dart format on

@@ -8,8 +8,8 @@ part of 'property_model.schema.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PropertyModelImpl _$$PropertyModelImplFromJson(Map<String, dynamic> json) =>
-    _$PropertyModelImpl(
+_PropertyModel _$PropertyModelFromJson(Map<String, dynamic> json) =>
+    _PropertyModel(
       id: (json['id'] as num).toInt(),
       status: $enumDecode(_$PropertyAndAutoVerbalStatusEnumMap, json['status']),
       propertyId: json['property_id'] as String,
@@ -58,7 +58,7 @@ _$PropertyModelImpl _$$PropertyModelImplFromJson(Map<String, dynamic> json) =>
       user: UserModel.fromJson(json['user'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$PropertyModelImplToJson(_$PropertyModelImpl instance) =>
+Map<String, dynamic> _$PropertyModelToJson(_PropertyModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'status': _$PropertyAndAutoVerbalStatusEnumMap[instance.status]!,
@@ -110,9 +110,8 @@ const _$PropertyListingTypeEnumMap = {
   PropertyListingType.rent: 'rent',
 };
 
-_$CreatePropertyParamImpl _$$CreatePropertyParamImplFromJson(
-        Map<String, dynamic> json) =>
-    _$CreatePropertyParamImpl(
+_CreatePropertyParam _$CreatePropertyParamFromJson(Map<String, dynamic> json) =>
+    _CreatePropertyParam(
       listingType:
           $enumDecode(_$PropertyListingTypeEnumMap, json['listing_type']),
       images:
@@ -138,8 +137,8 @@ _$CreatePropertyParamImpl _$$CreatePropertyParamImplFromJson(
       provinceId: (json['province_id'] as num).toInt(),
     );
 
-Map<String, dynamic> _$$CreatePropertyParamImplToJson(
-        _$CreatePropertyParamImpl instance) =>
+Map<String, dynamic> _$CreatePropertyParamToJson(
+        _CreatePropertyParam instance) =>
     <String, dynamic>{
       'listing_type': _$PropertyListingTypeEnumMap[instance.listingType]!,
       'images': instance.images,
@@ -164,9 +163,8 @@ Map<String, dynamic> _$$CreatePropertyParamImplToJson(
       'province_id': instance.provinceId,
     };
 
-_$UpdatePropertyParamImpl _$$UpdatePropertyParamImplFromJson(
-        Map<String, dynamic> json) =>
-    _$UpdatePropertyParamImpl(
+_UpdatePropertyParam _$UpdatePropertyParamFromJson(Map<String, dynamic> json) =>
+    _UpdatePropertyParam(
       listingType:
           $enumDecode(_$PropertyListingTypeEnumMap, json['listing_type']),
       images:
@@ -193,8 +191,8 @@ _$UpdatePropertyParamImpl _$$UpdatePropertyParamImplFromJson(
       provinceId: (json['province_id'] as num).toInt(),
     );
 
-Map<String, dynamic> _$$UpdatePropertyParamImplToJson(
-        _$UpdatePropertyParamImpl instance) =>
+Map<String, dynamic> _$UpdatePropertyParamToJson(
+        _UpdatePropertyParam instance) =>
     <String, dynamic>{
       'listing_type': _$PropertyListingTypeEnumMap[instance.listingType]!,
       'images': instance.images,

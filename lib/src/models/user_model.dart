@@ -17,10 +17,10 @@ class UserSchema extends KimappSchema {
   final id = Field<String>('id');
   final userId = Field<String>('user_id');
   final photo = Field<String?>('photo');
-  final firstName = Field<String>('first_name');
-  final lastName = Field<String>('last_name');
+  final rawFirstName = Field<String?>('first_name');
+  final rawLastName = Field<String?>('last_name');
   final email = Field<String>('email');
-  final phone = Field<String>('phone');
+  final rawPhone = Field<String?>('phone');
   final vpoints = Field<int>('vpoints');
   final role = Field<UserRole>('role');
   final joinedAt = Field<DateTime>('joined_at');
@@ -33,8 +33,8 @@ class UserSchema extends KimappSchema {
         Model('UserLiteModel').table().addFields({
           'id': id,
           'photo': photo,
-          'firstName': firstName,
-          'lastName': lastName,
+          'firstName': rawFirstName,
+          'lastName': rawLastName,
         }),
       ];
 }
@@ -45,6 +45,16 @@ extension UserModelX on UserModel {
   bool get isAdmin => role.isAdmin;
   bool get isUser => role == UserRole.user;
   bool get forAdmin => isAdmin || isSuperAdmin;
+
+  String get firstName => rawFirstName ?? 'N/A';
+  String get lastName => rawLastName ?? 'N/A';
+  String get phone => rawPhone ?? 'N/A';
+}
+
+extension UserLiteModelX on UserLiteModel {
+  String get fullName => '$firstName $lastName';
+  String get firstName => rawFirstName ?? 'N/A';
+  String get lastName => rawLastName ?? 'N/A';
 }
 
 extension UserRoleX on UserRole {

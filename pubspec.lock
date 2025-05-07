@@ -257,6 +257,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.0"
+  cli_config:
+    dependency: transitive
+    description:
+      name: cli_config
+      sha256: ac20a183a07002b700f0c25e61b7ee46b23c309d76ab7b7640a028f18e4d99ec
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
   cli_util:
     dependency: transitive
     description:
@@ -301,10 +309,10 @@ packages:
     dependency: transitive
     description:
       name: coverage
-      sha256: e3493833ea012784c740e341952298f1cc77f1f01b1bbc3eb4eecf6984fb7f43
+      sha256: "7436ae7fbbf8f09c70079ce132a0a8ca67e197d5b8da3e441bc89af708c5a13b"
       url: "https://pub.dev"
     source: hosted
-    version: "1.11.1"
+    version: "1.13.0"
   cross_file:
     dependency: transitive
     description:
@@ -1106,19 +1114,19 @@ packages:
     description:
       path: "packages/kimapp"
       ref: master
-      resolved-ref: f345da5ae7bb69f8f0b5a5d50e49d7b89d2ad4a1
+      resolved-ref: c064c8c6b744c357a6501be444577bb1de0da8b6
       url: "https://github.com/pckimlong/kimapp.git"
     source: git
-    version: "0.0.2"
+    version: "0.0.3"
   kimapp_generator:
     dependency: "direct dev"
     description:
       path: "packages/kimapp_generator"
       ref: master
-      resolved-ref: f345da5ae7bb69f8f0b5a5d50e49d7b89d2ad4a1
+      resolved-ref: c064c8c6b744c357a6501be444577bb1de0da8b6
       url: "https://github.com/pckimlong/kimapp.git"
     source: git
-    version: "0.0.1+1"
+    version: "0.0.2"
   leak_tracker:
     dependency: transitive
     description:

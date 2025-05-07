@@ -1119,5 +1119,152 @@ class _UnAssignAdminProviderElement extends AutoDisposeNotifierProviderElement<
   @override
   String get userId => (origin as UnAssignAdminProvider).userId;
 }
+
+String _$updateUserAdminHash() => r'cff017204a89d55c870c59a92c12314951862ed2';
+
+abstract class _$UpdateUserAdmin
+    extends BuildlessAutoDisposeNotifier<ProviderStatus<void>> {
+  late final String userId;
+
+  ProviderStatus<void> build(
+    String userId,
+  );
+}
+
+/// See also [UpdateUserAdmin].
+@ProviderFor(UpdateUserAdmin)
+const updateUserAdminProvider = UpdateUserAdminFamily();
+
+/// See also [UpdateUserAdmin].
+class UpdateUserAdminFamily extends Family<ProviderStatus<void>> {
+  /// See also [UpdateUserAdmin].
+  const UpdateUserAdminFamily();
+
+  /// See also [UpdateUserAdmin].
+  UpdateUserAdminProvider call(
+    String userId,
+  ) {
+    return UpdateUserAdminProvider(
+      userId,
+    );
+  }
+
+  @override
+  UpdateUserAdminProvider getProviderOverride(
+    covariant UpdateUserAdminProvider provider,
+  ) {
+    return call(
+      provider.userId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'updateUserAdminProvider';
+}
+
+/// See also [UpdateUserAdmin].
+class UpdateUserAdminProvider extends AutoDisposeNotifierProviderImpl<
+    UpdateUserAdmin, ProviderStatus<void>> {
+  /// See also [UpdateUserAdmin].
+  UpdateUserAdminProvider(
+    String userId,
+  ) : this._internal(
+          () => UpdateUserAdmin()..userId = userId,
+          from: updateUserAdminProvider,
+          name: r'updateUserAdminProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$updateUserAdminHash,
+          dependencies: UpdateUserAdminFamily._dependencies,
+          allTransitiveDependencies:
+              UpdateUserAdminFamily._allTransitiveDependencies,
+          userId: userId,
+        );
+
+  UpdateUserAdminProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.userId,
+  }) : super.internal();
+
+  final String userId;
+
+  @override
+  ProviderStatus<void> runNotifierBuild(
+    covariant UpdateUserAdmin notifier,
+  ) {
+    return notifier.build(
+      userId,
+    );
+  }
+
+  @override
+  Override overrideWith(UpdateUserAdmin Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: UpdateUserAdminProvider._internal(
+        () => create()..userId = userId,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        userId: userId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeNotifierProviderElement<UpdateUserAdmin, ProviderStatus<void>>
+      createElement() {
+    return _UpdateUserAdminProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is UpdateUserAdminProvider && other.userId == userId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, userId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin UpdateUserAdminRef
+    on AutoDisposeNotifierProviderRef<ProviderStatus<void>> {
+  /// The parameter `userId` of this provider.
+  String get userId;
+}
+
+class _UpdateUserAdminProviderElement
+    extends AutoDisposeNotifierProviderElement<UpdateUserAdmin,
+        ProviderStatus<void>> with UpdateUserAdminRef {
+  _UpdateUserAdminProviderElement(super.provider);
+
+  @override
+  String get userId => (origin as UpdateUserAdminProvider).userId;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -1,4 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:kfa_mobile_nu/src/models/models.dart';
 import 'package:kfa_mobile_nu/src/providers/user_provider.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

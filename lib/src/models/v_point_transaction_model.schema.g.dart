@@ -8,9 +8,9 @@ part of 'v_point_transaction_model.schema.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$VPointTransactionModelImpl _$$VPointTransactionModelImplFromJson(
+_VPointTransactionModel _$VPointTransactionModelFromJson(
         Map<String, dynamic> json) =>
-    _$VPointTransactionModelImpl(
+    _VPointTransactionModel(
       id: (json['id'] as num).toInt(),
       transactionId: json['transaction_id'] as String,
       type: json['type'] as String,
@@ -19,8 +19,8 @@ _$VPointTransactionModelImpl _$$VPointTransactionModelImplFromJson(
       createdAt: DateTime.parse(json['created_at'] as String),
     );
 
-Map<String, dynamic> _$$VPointTransactionModelImplToJson(
-        _$VPointTransactionModelImpl instance) =>
+Map<String, dynamic> _$VPointTransactionModelToJson(
+        _VPointTransactionModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'transaction_id': instance.transactionId,

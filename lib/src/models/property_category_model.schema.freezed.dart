@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,100 +10,59 @@ part of 'property_category_model.schema.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-PropertyCategoryModel _$PropertyCategoryModelFromJson(
-    Map<String, dynamic> json) {
-  return _PropertyCategoryModel.fromJson(json);
-}
 
 /// @nodoc
 mixin _$PropertyCategoryModel {
   @JsonKey(name: PropertyCategoryModel.idKey)
-  int get id => throw _privateConstructorUsedError;
+  int get id;
   @JsonKey(name: PropertyCategoryModel.nameKey)
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @JsonKey(name: PropertyCategoryModel.totalSaleKey)
-  int? get totalSale => throw _privateConstructorUsedError;
+  int? get totalSale;
   @JsonKey(name: PropertyCategoryModel.totalRentKey)
-  int? get totalRent => throw _privateConstructorUsedError;
-
-  /// Serializes this PropertyCategoryModel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  int? get totalRent;
 
   /// Create a copy of PropertyCategoryModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $PropertyCategoryModelCopyWith<PropertyCategoryModel> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $PropertyCategoryModelCopyWith<$Res> {
-  factory $PropertyCategoryModelCopyWith(PropertyCategoryModel value,
-          $Res Function(PropertyCategoryModel) then) =
-      _$PropertyCategoryModelCopyWithImpl<$Res, PropertyCategoryModel>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: PropertyCategoryModel.idKey) int id,
-      @JsonKey(name: PropertyCategoryModel.nameKey) String name,
-      @JsonKey(name: PropertyCategoryModel.totalSaleKey) int? totalSale,
-      @JsonKey(name: PropertyCategoryModel.totalRentKey) int? totalRent});
-}
-
-/// @nodoc
-class _$PropertyCategoryModelCopyWithImpl<$Res,
-        $Val extends PropertyCategoryModel>
-    implements $PropertyCategoryModelCopyWith<$Res> {
-  _$PropertyCategoryModelCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of PropertyCategoryModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $PropertyCategoryModelCopyWith<PropertyCategoryModel> get copyWith =>
+      _$PropertyCategoryModelCopyWithImpl<PropertyCategoryModel>(
+          this as PropertyCategoryModel, _$identity);
+
+  /// Serializes this PropertyCategoryModel to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? totalSale = freezed,
-    Object? totalRent = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      totalSale: freezed == totalSale
-          ? _value.totalSale
-          : totalSale // ignore: cast_nullable_to_non_nullable
-              as int?,
-      totalRent: freezed == totalRent
-          ? _value.totalRent
-          : totalRent // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is PropertyCategoryModel &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.totalSale, totalSale) ||
+                other.totalSale == totalSale) &&
+            (identical(other.totalRent, totalRent) ||
+                other.totalRent == totalRent));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, name, totalSale, totalRent);
+
+  @override
+  String toString() {
+    return 'PropertyCategoryModel(id: $id, name: $name, totalSale: $totalSale, totalRent: $totalRent)';
   }
 }
 
 /// @nodoc
-abstract class _$$PropertyCategoryModelImplCopyWith<$Res>
-    implements $PropertyCategoryModelCopyWith<$Res> {
-  factory _$$PropertyCategoryModelImplCopyWith(
-          _$PropertyCategoryModelImpl value,
-          $Res Function(_$PropertyCategoryModelImpl) then) =
-      __$$PropertyCategoryModelImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $PropertyCategoryModelCopyWith<$Res> {
+  factory $PropertyCategoryModelCopyWith(PropertyCategoryModel value,
+          $Res Function(PropertyCategoryModel) _then) =
+      _$PropertyCategoryModelCopyWithImpl;
   @useResult
   $Res call(
       {@JsonKey(name: PropertyCategoryModel.idKey) int id,
@@ -112,13 +72,12 @@ abstract class _$$PropertyCategoryModelImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$PropertyCategoryModelImplCopyWithImpl<$Res>
-    extends _$PropertyCategoryModelCopyWithImpl<$Res,
-        _$PropertyCategoryModelImpl>
-    implements _$$PropertyCategoryModelImplCopyWith<$Res> {
-  __$$PropertyCategoryModelImplCopyWithImpl(_$PropertyCategoryModelImpl _value,
-      $Res Function(_$PropertyCategoryModelImpl) _then)
-      : super(_value, _then);
+class _$PropertyCategoryModelCopyWithImpl<$Res>
+    implements $PropertyCategoryModelCopyWith<$Res> {
+  _$PropertyCategoryModelCopyWithImpl(this._self, this._then);
+
+  final PropertyCategoryModel _self;
+  final $Res Function(PropertyCategoryModel) _then;
 
   /// Create a copy of PropertyCategoryModel
   /// with the given fields replaced by the non-null parameter values.
@@ -130,21 +89,21 @@ class __$$PropertyCategoryModelImplCopyWithImpl<$Res>
     Object? totalSale = freezed,
     Object? totalRent = freezed,
   }) {
-    return _then(_$PropertyCategoryModelImpl(
+    return _then(_self.copyWith(
       id: null == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
       name: null == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
       totalSale: freezed == totalSale
-          ? _value.totalSale
+          ? _self.totalSale
           : totalSale // ignore: cast_nullable_to_non_nullable
               as int?,
       totalRent: freezed == totalRent
-          ? _value.totalRent
+          ? _self.totalRent
           : totalRent // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
@@ -155,8 +114,8 @@ class __$$PropertyCategoryModelImplCopyWithImpl<$Res>
 
 @TableModel(PropertyCategoryModel.tableName)
 @JsonSerializable(explicitToJson: true)
-class _$PropertyCategoryModelImpl extends _PropertyCategoryModel {
-  const _$PropertyCategoryModelImpl(
+class _PropertyCategoryModel extends PropertyCategoryModel {
+  const _PropertyCategoryModel(
       {@JsonKey(name: PropertyCategoryModel.idKey) required this.id,
       @JsonKey(name: PropertyCategoryModel.nameKey) required this.name,
       @JsonKey(name: PropertyCategoryModel.totalSaleKey)
@@ -164,9 +123,8 @@ class _$PropertyCategoryModelImpl extends _PropertyCategoryModel {
       @JsonKey(name: PropertyCategoryModel.totalRentKey)
       required this.totalRent})
       : super._();
-
-  factory _$PropertyCategoryModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PropertyCategoryModelImplFromJson(json);
+  factory _PropertyCategoryModel.fromJson(Map<String, dynamic> json) =>
+      _$PropertyCategoryModelFromJson(json);
 
   @override
   @JsonKey(name: PropertyCategoryModel.idKey)
@@ -181,16 +139,27 @@ class _$PropertyCategoryModelImpl extends _PropertyCategoryModel {
   @JsonKey(name: PropertyCategoryModel.totalRentKey)
   final int? totalRent;
 
+  /// Create a copy of PropertyCategoryModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'PropertyCategoryModel(id: $id, name: $name, totalSale: $totalSale, totalRent: $totalRent)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$PropertyCategoryModelCopyWith<_PropertyCategoryModel> get copyWith =>
+      __$PropertyCategoryModelCopyWithImpl<_PropertyCategoryModel>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$PropertyCategoryModelToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PropertyCategoryModelImpl &&
+            other is _PropertyCategoryModel &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.totalSale, totalSale) ||
@@ -203,53 +172,64 @@ class _$PropertyCategoryModelImpl extends _PropertyCategoryModel {
   @override
   int get hashCode => Object.hash(runtimeType, id, name, totalSale, totalRent);
 
-  /// Create a copy of PropertyCategoryModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$PropertyCategoryModelImplCopyWith<_$PropertyCategoryModelImpl>
-      get copyWith => __$$PropertyCategoryModelImplCopyWithImpl<
-          _$PropertyCategoryModelImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PropertyCategoryModelImplToJson(
-      this,
-    );
+  String toString() {
+    return 'PropertyCategoryModel(id: $id, name: $name, totalSale: $totalSale, totalRent: $totalRent)';
   }
 }
 
-abstract class _PropertyCategoryModel extends PropertyCategoryModel {
-  const factory _PropertyCategoryModel(
-      {@JsonKey(name: PropertyCategoryModel.idKey) required final int id,
-      @JsonKey(name: PropertyCategoryModel.nameKey) required final String name,
-      @JsonKey(name: PropertyCategoryModel.totalSaleKey)
-      required final int? totalSale,
-      @JsonKey(name: PropertyCategoryModel.totalRentKey)
-      required final int? totalRent}) = _$PropertyCategoryModelImpl;
-  const _PropertyCategoryModel._() : super._();
+/// @nodoc
+abstract mixin class _$PropertyCategoryModelCopyWith<$Res>
+    implements $PropertyCategoryModelCopyWith<$Res> {
+  factory _$PropertyCategoryModelCopyWith(_PropertyCategoryModel value,
+          $Res Function(_PropertyCategoryModel) _then) =
+      __$PropertyCategoryModelCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: PropertyCategoryModel.idKey) int id,
+      @JsonKey(name: PropertyCategoryModel.nameKey) String name,
+      @JsonKey(name: PropertyCategoryModel.totalSaleKey) int? totalSale,
+      @JsonKey(name: PropertyCategoryModel.totalRentKey) int? totalRent});
+}
 
-  factory _PropertyCategoryModel.fromJson(Map<String, dynamic> json) =
-      _$PropertyCategoryModelImpl.fromJson;
+/// @nodoc
+class __$PropertyCategoryModelCopyWithImpl<$Res>
+    implements _$PropertyCategoryModelCopyWith<$Res> {
+  __$PropertyCategoryModelCopyWithImpl(this._self, this._then);
 
-  @override
-  @JsonKey(name: PropertyCategoryModel.idKey)
-  int get id;
-  @override
-  @JsonKey(name: PropertyCategoryModel.nameKey)
-  String get name;
-  @override
-  @JsonKey(name: PropertyCategoryModel.totalSaleKey)
-  int? get totalSale;
-  @override
-  @JsonKey(name: PropertyCategoryModel.totalRentKey)
-  int? get totalRent;
+  final _PropertyCategoryModel _self;
+  final $Res Function(_PropertyCategoryModel) _then;
 
   /// Create a copy of PropertyCategoryModel
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PropertyCategoryModelImplCopyWith<_$PropertyCategoryModelImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? id = null,
+    Object? name = null,
+    Object? totalSale = freezed,
+    Object? totalRent = freezed,
+  }) {
+    return _then(_PropertyCategoryModel(
+      id: null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      totalSale: freezed == totalSale
+          ? _self.totalSale
+          : totalSale // ignore: cast_nullable_to_non_nullable
+              as int?,
+      totalRent: freezed == totalRent
+          ? _self.totalRent
+          : totalRent // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
 }
+
+// dart format on

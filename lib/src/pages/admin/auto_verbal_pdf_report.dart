@@ -13,20 +13,23 @@ Future<Uint8List> generateAutoVerbalPdf(
   final pdf = pw.Document(version: PdfVersion.pdf_1_4, compress: true);
   final font = await PdfGoogleFonts.robotoSlabBlack();
   final font1 = await PdfGoogleFonts.tinosRegular();
-  final ByteData bytes = await rootBundle.load('assets/images/New_KFA_Logo_pdf.png');
+  final ByteData bytes =
+      await rootBundle.load('assets/images/New_KFA_Logo_pdf.png');
   final Uint8List byteList = bytes.buffer.asUint8List();
   final Uint8List bytes1 =
-      (await NetworkAssetBundle(Uri.parse(data.image.first)).load(data.image.first))
+      (await NetworkAssetBundle(Uri.parse(data.image.first))
+              .load(data.image.first))
           .buffer
           .asUint8List();
   final imageUrl =
-      'https://maps.googleapis.com/maps/api/staticmap?center=${data.latitude},${data.longitude}&zoom=16&size=1080x920&maptype=hybrid&markers=color:red%7C%7C${data.latitude},${data.longitude}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI';
+      'https://maps.googleapis.com/maps/api/staticmap?center=${data.latitude},${data.longitude}&zoom=16&size=1080x920&maptype=hybrid&markers=color:red%7C%7C${data.latitude},${data.longitude}&key=AIzaSyCGCz6uMqNF0uSRyyuMaWJIC1tnNcw4Y4k';
 
   final response = await http.get(Uri.parse(imageUrl));
   final Uint8List imageData = response.bodyBytes;
 
   Future<pw.PageTheme> myPageTheme(PdfPageFormat format) async {
-    final bgShape = await rootBundle.loadString('assets/images/Letter En-Kh.svg');
+    final bgShape =
+        await rootBundle.loadString('assets/images/Letter En-Kh.svg');
 
     format = format.applyMargin(
       left: 2.0 * PdfPageFormat.cm,
@@ -96,7 +99,7 @@ Future<Uint8List> generateAutoVerbalPdf(
                                   child: pw.BarcodeWidget(
                                     barcode: pw.Barcode.qrCode(),
                                     data:
-                                        'https://maps.googleapis.com/maps/api/staticmap?center=${data.latitude},${data.longitude}&zoom=16&size=1080x920&maptype=hybrid&markers=color:red%7C%7C${data.latitude},${data.longitude}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',
+                                        'https://maps.googleapis.com/maps/api/staticmap?center=${data.latitude},${data.longitude}&zoom=16&size=1080x920&maptype=hybrid&markers=color:red%7C%7C${data.latitude},${data.longitude}&key=AIzaSyCGCz6uMqNF0uSRyyuMaWJIC1tnNcw4Y4k',
                                   ),
                                 ),
                                 pw.Text(
@@ -653,7 +656,8 @@ Future<Uint8List> generateAutoVerbalPdf(
                           child: pw.Container(
                             padding: const pw.EdgeInsets.all(2),
                             alignment: pw.Alignment.centerRight,
-                            decoration: pw.BoxDecoration(border: pw.Border.all()),
+                            decoration:
+                                pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text(
                               "Property Value(Estimate) ",
                               style: pw.TextStyle(
@@ -670,7 +674,8 @@ Future<Uint8List> generateAutoVerbalPdf(
                           child: pw.Container(
                             padding: const pw.EdgeInsets.all(2),
                             alignment: pw.Alignment.centerLeft,
-                            decoration: pw.BoxDecoration(border: pw.Border.all()),
+                            decoration:
+                                pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text(
                               'USD ${data.minValue * data.area}',
                               style: pw.TextStyle(fontSize: 10, font: font1),
@@ -683,7 +688,8 @@ Future<Uint8List> generateAutoVerbalPdf(
                           child: pw.Container(
                             padding: const pw.EdgeInsets.all(2),
                             alignment: pw.Alignment.centerLeft,
-                            decoration: pw.BoxDecoration(border: pw.Border.all()),
+                            decoration:
+                                pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text(
                               'USD ${data.maxValue * data.area}',
                               style: pw.TextStyle(fontSize: 10, font: font1),

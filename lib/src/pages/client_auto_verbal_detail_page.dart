@@ -18,7 +18,8 @@ class ClientDetailAutoVerbalPage extends StatefulHookConsumerWidget {
   const ClientDetailAutoVerbalPage({super.key, required this.data});
   final AutoVerbalModel data;
   @override
-  ConsumerState<ClientDetailAutoVerbalPage> createState() => _detail_searchingState();
+  ConsumerState<ClientDetailAutoVerbalPage> createState() =>
+      _detail_searchingState();
 }
 
 // ignore: camel_case_types
@@ -92,20 +93,23 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
     final pdf = pw.Document(version: PdfVersion.pdf_1_4, compress: true);
     final font = await PdfGoogleFonts.robotoSlabBlack();
     final font1 = await PdfGoogleFonts.tinosRegular();
-    final ByteData bytes = await rootBundle.load('assets/images/New_KFA_Logo_pdf.png');
+    final ByteData bytes =
+        await rootBundle.load('assets/images/New_KFA_Logo_pdf.png');
     final Uint8List byteList = bytes.buffer.asUint8List();
     final Uint8List bytes1 =
-        (await NetworkAssetBundle(Uri.parse(data.image.first)).load(data.image.first))
+        (await NetworkAssetBundle(Uri.parse(data.image.first))
+                .load(data.image.first))
             .buffer
             .asUint8List();
     final imageUrl =
-        'https://maps.googleapis.com/maps/api/staticmap?center=${data.latitude},${data.longitude}&zoom=16&size=1080x920&maptype=hybrid&markers=color:red%7C%7C${data.latitude},${data.longitude}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI';
+        'https://maps.googleapis.com/maps/api/staticmap?center=${data.latitude},${data.longitude}&zoom=16&size=1080x920&maptype=hybrid&markers=color:red%7C%7C${data.latitude},${data.longitude}&key=AIzaSyCGCz6uMqNF0uSRyyuMaWJIC1tnNcw4Y4k';
 
     final response = await http.get(Uri.parse(imageUrl));
     final Uint8List imageData = response.bodyBytes;
 
     Future<pw.PageTheme> myPageTheme(PdfPageFormat format) async {
-      final bgShape = await rootBundle.loadString('assets/images/Letter En-Kh.svg');
+      final bgShape =
+          await rootBundle.loadString('assets/images/Letter En-Kh.svg');
 
       format = format.applyMargin(
         left: 2.0 * PdfPageFormat.cm,
@@ -180,7 +184,8 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                                   ),
                                   pw.Text(
                                     'location map',
-                                    style: pw.TextStyle(fontSize: 7, font: font1),
+                                    style:
+                                        pw.TextStyle(fontSize: 7, font: font1),
                                   ),
                                 ],
                               ),
@@ -656,7 +661,8 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                             child: pw.Container(
                               padding: pw.EdgeInsets.all(2),
                               alignment: pw.Alignment.centerLeft,
-                              decoration: pw.BoxDecoration(border: pw.Border.all()),
+                              decoration:
+                                  pw.BoxDecoration(border: pw.Border.all()),
                               child: pw.Text(
                                 '${data.area}/sqm',
                                 style: pw.TextStyle(
@@ -674,7 +680,8 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                             child: pw.Container(
                               padding: pw.EdgeInsets.all(2),
                               alignment: pw.Alignment.centerLeft,
-                              decoration: pw.BoxDecoration(border: pw.Border.all()),
+                              decoration:
+                                  pw.BoxDecoration(border: pw.Border.all()),
                               child: pw.Text(
                                 'USD ${data.minValue}',
                                 style: pw.TextStyle(
@@ -692,7 +699,8 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                             child: pw.Container(
                               padding: pw.EdgeInsets.all(2),
                               alignment: pw.Alignment.centerLeft,
-                              decoration: pw.BoxDecoration(border: pw.Border.all()),
+                              decoration:
+                                  pw.BoxDecoration(border: pw.Border.all()),
                               child: pw.Text(
                                 'USD ${data.maxValue}',
                                 style: pw.TextStyle(
@@ -710,7 +718,8 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                             child: pw.Container(
                               padding: pw.EdgeInsets.all(2),
                               alignment: pw.Alignment.centerLeft,
-                              decoration: pw.BoxDecoration(border: pw.Border.all()),
+                              decoration:
+                                  pw.BoxDecoration(border: pw.Border.all()),
                               child: pw.Text(
                                 'USD ${data.minValue * data.area}',
                                 style: pw.TextStyle(
@@ -728,7 +737,8 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                             child: pw.Container(
                               padding: pw.EdgeInsets.all(2),
                               alignment: pw.Alignment.centerLeft,
-                              decoration: pw.BoxDecoration(border: pw.Border.all()),
+                              decoration:
+                                  pw.BoxDecoration(border: pw.Border.all()),
                               child: pw.Text(
                                 'USD ${data.maxValue * data.area}',
                                 style: pw.TextStyle(
@@ -751,7 +761,8 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                               child: pw.Container(
                                 padding: pw.EdgeInsets.all(2),
                                 alignment: pw.Alignment.centerRight,
-                                decoration: pw.BoxDecoration(border: pw.Border.all()),
+                                decoration:
+                                    pw.BoxDecoration(border: pw.Border.all()),
                                 child: pw.Text(
                                   "Property Value(Estimate) ",
                                   style: pw.TextStyle(
@@ -769,10 +780,12 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                               child: pw.Container(
                                 padding: pw.EdgeInsets.all(2),
                                 alignment: pw.Alignment.centerLeft,
-                                decoration: pw.BoxDecoration(border: pw.Border.all()),
+                                decoration:
+                                    pw.BoxDecoration(border: pw.Border.all()),
                                 child: pw.Text(
                                   'USD ${data.minValue * data.area}',
-                                  style: pw.TextStyle(fontSize: 10, font: font1),
+                                  style:
+                                      pw.TextStyle(fontSize: 10, font: font1),
                                 ),
                                 height: 20,
                                 //color: Colors.blue,
@@ -783,10 +796,12 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                               child: pw.Container(
                                 padding: pw.EdgeInsets.all(2),
                                 alignment: pw.Alignment.centerLeft,
-                                decoration: pw.BoxDecoration(border: pw.Border.all()),
+                                decoration:
+                                    pw.BoxDecoration(border: pw.Border.all()),
                                 child: pw.Text(
                                   'USD ${data.maxValue * data.area}',
-                                  style: pw.TextStyle(fontSize: 10, font: font1),
+                                  style:
+                                      pw.TextStyle(fontSize: 10, font: font1),
                                 ),
                                 height: 20,
                                 //color: Colors.blue,
@@ -1079,7 +1094,7 @@ class _detail_searchingState extends ConsumerState<ClientDetailAutoVerbalPage> {
                         borderRadius: BorderRadius.circular(2),
                         image: DecorationImage(
                           image: NetworkImage(
-                            'https://maps.googleapis.com/maps/api/staticmap?center=$latitude,$longitude&zoom=16&size=1080x920&maptype=hybrid&markers=color:red%7C%7C$latitude,$longitude&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',
+                            'https://maps.googleapis.com/maps/api/staticmap?center=$latitude,$longitude&zoom=16&size=1080x920&maptype=hybrid&markers=color:red%7C%7C$latitude,$longitude&key=AIzaSyCGCz6uMqNF0uSRyyuMaWJIC1tnNcw4Y4k',
                           ),
                           fit: BoxFit.cover,
                         ),

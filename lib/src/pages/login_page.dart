@@ -130,7 +130,7 @@ class _LoginState extends ConsumerState<LoginPage> {
             ),
             const SizedBox(height: 20.0),
             if (!kIsWeb) _buildRegisterText(context, themeData),
-            if (!kIsWeb) _buildForgotPasswordText(context, themeData),
+            _buildForgotPasswordText(context, themeData),
           ],
         ),
       ),

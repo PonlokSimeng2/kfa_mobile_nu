@@ -2,16 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kfa_mobile_nu/src/helpers/date_time_helper.dart';
-import 'package:kfa_mobile_nu/src/models/property_model.schema.dart';
-import 'package:kfa_mobile_nu/src/models/property_type_model.schema.dart';
-import 'package:kfa_mobile_nu/src/models/province_model.schema.dart';
 import 'package:kfa_mobile_nu/src/providers/report_provider.dart';
 import 'package:path/path.dart' as p;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
 import '../../exports.dart';
-import '../models/base.dart';
-import '../models/property_model.dart';
 import 'auth_provider.dart';
 
 part 'property_provider.freezed.dart';

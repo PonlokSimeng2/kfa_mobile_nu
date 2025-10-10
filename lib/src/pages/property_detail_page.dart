@@ -394,6 +394,7 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
   }
 
   Widget _buildContactInfo() {
+    final phone = widget.data.user?.phone;
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -403,9 +404,11 @@ class PropertyDetailPageState extends ConsumerState<PropertyDetailPage> {
           const SizedBox(height: 8),
           ListTile(
             leading: const Icon(Icons.phone),
-            title: Text(widget.data.user.phone),
+            title: Text(phone ?? 'No contact available'),
             onTap: () async {
-              launchUrl(Uri.parse('tel:${widget.data.user.phone}'));
+              if (phone != null) {
+                launchUrl(Uri.parse('tel:$phone'));
+              }
             },
           ),
         ],

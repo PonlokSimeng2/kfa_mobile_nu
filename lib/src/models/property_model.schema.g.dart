@@ -48,14 +48,19 @@ _PropertyModel _$PropertyModelFromJson(Map<String, dynamic> json) =>
       likeCount: (json['like_count'] as num).toInt(),
       autoVerbalAdded: json['auto_verbal_added'] as bool,
       hiddenFromHomePage: json['hidden_from_home_page'] as bool,
-      propertyType: PropertyTypeModel.fromJson(
-          json['propertyType'] as Map<String, dynamic>),
-      province:
-          ProvinceModel.fromJson(json['province'] as Map<String, dynamic>),
+      propertyType: json['propertyType'] == null
+          ? null
+          : PropertyTypeModel.fromJson(
+              json['propertyType'] as Map<String, dynamic>),
+      province: json['province'] == null
+          ? null
+          : ProvinceModel.fromJson(json['province'] as Map<String, dynamic>),
       approvedBy: json['approvedBy'] == null
           ? null
           : UserModel.fromJson(json['approvedBy'] as Map<String, dynamic>),
-      user: UserModel.fromJson(json['user'] as Map<String, dynamic>),
+      user: json['user'] == null
+          ? null
+          : UserModel.fromJson(json['user'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$PropertyModelToJson(_PropertyModel instance) =>
@@ -92,10 +97,10 @@ Map<String, dynamic> _$PropertyModelToJson(_PropertyModel instance) =>
       'like_count': instance.likeCount,
       'auto_verbal_added': instance.autoVerbalAdded,
       'hidden_from_home_page': instance.hiddenFromHomePage,
-      'propertyType': instance.propertyType.toJson(),
-      'province': instance.province.toJson(),
+      'propertyType': instance.propertyType?.toJson(),
+      'province': instance.province?.toJson(),
       'approvedBy': instance.approvedBy?.toJson(),
-      'user': instance.user.toJson(),
+      'user': instance.user?.toJson(),
     };
 
 const _$PropertyAndAutoVerbalStatusEnumMap = {

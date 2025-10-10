@@ -55,7 +55,7 @@ dependencies:
   geocoding: ^3.0.0
   geolocator: ^13.0.2
   geolocator_android: ^4.5.5
-  getwidget: ^6.0.0
+  getwidget: ^7.0.0
   google_fonts: ^6.2.1
   google_maps_flutter: ^2.9.0
   hooks_riverpod: ^2.5.1
@@ -67,7 +67,7 @@ dependencies:
   kimapp:
     git:
       url: https://github.com/pckimlong/kimapp.git
-      ref: master
+      ref: c064c8c6b744c357a6501be444577bb1de0da8b6
       path: packages/kimapp
   line_awesome_flutter: ^3.0.1
   location: ^8.0.0
@@ -108,7 +108,7 @@ dev_dependencies:
   kimapp_generator:
     git:
       url: https://github.com/pckimlong/kimapp.git
-      ref: master
+      ref: c064c8c6b744c357a6501be444577bb1de0da8b6
       path: packages/kimapp_generator
   retrofit_generator: ^9.1.7
   riverpod_generator: ^2.4.0

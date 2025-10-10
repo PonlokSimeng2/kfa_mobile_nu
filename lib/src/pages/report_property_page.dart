@@ -246,7 +246,7 @@ class _ReportPropertyPageState extends ConsumerState<ReportPropertyPage> {
                     .map(
                       (property) => [
                         property.propertyId.toString(),
-                        property.propertyType.name,
+                        property.propertyType?.name ?? 'N/A',
                         '\$${NumberFormat('#,##0.00').format(property.price)}',
                         property.listingType.name,
                         DateFormat('yyyy-MM-dd').format(property.createdAt),
@@ -483,8 +483,8 @@ class _PropertyDataSource extends DataTableSource {
                     )
                   : const Icon(Icons.image_not_supported),
             ),
-            DataCell(Text(property.propertyType.name)),
-            DataCell(Text(property.province.name)),
+            DataCell(Text(property.propertyType?.name ?? 'N/A')),
+            DataCell(Text(property.province?.name ?? 'N/A')),
             DataCell(
               Text('\$${NumberFormat('#,##0.00').format(property.price)}'),
             ),

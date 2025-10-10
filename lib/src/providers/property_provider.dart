@@ -303,6 +303,7 @@ sealed class UpdatePropertyState
   UpdatePropertyParam toParam({
     required List<String> imageUrls,
     required String userId,
+    required DateTime createdAt,
   }) {
     return UpdatePropertyParam(
       listingType: propertyListingType,
@@ -326,7 +327,7 @@ sealed class UpdatePropertyState
       userId: userId,
       provinceId: province!.id,
       propertyTypeId: propertyType!.id,
-      createdAt: DateTime.now(),
+      createdAt: createdAt,
     );
   }
 
@@ -398,7 +399,7 @@ class UpdateProperty extends _$UpdateProperty with _$UpdatePropertyForm {
         await sb
             .from(PropertyModel.table.tableName)
             .update(
-              state.toParam(imageUrls: imageUrls, userId: userId).toJson(),
+              state.toParam(imageUrls: imageUrls, userId: userId, createdAt: initial.createdAt).toJson(),
             )
             .eq(PropertyTable.id, initial.id);
       },

@@ -190,13 +190,13 @@ class PropertyTable {
 
   /// Column: property_type_id
   /// This is a join key for field propertyType.
-  /// Data type: `PropertyTypeModel`
+  /// Data type: `PropertyTypeModel?`
   /// Key: `propertyType`
   static const String propertyType = "propertyType";
 
   /// Column: province_id
   /// This is a join key for field province.
-  /// Data type: `ProvinceModel`
+  /// Data type: `ProvinceModel?`
   /// Key: `province`
   static const String province = "province";
 
@@ -208,7 +208,7 @@ class PropertyTable {
 
   /// Column: user_id
   /// This is a join key for field user.
-  /// Data type: `UserModel`
+  /// Data type: `UserModel?`
   /// Key: `user`
   static const String user = "user";
 }
@@ -250,10 +250,10 @@ abstract class IPropertyModel {
   int get likeCount;
   bool get autoVerbalAdded;
   bool get hiddenFromHomePage;
-  PropertyTypeModel get propertyType;
-  ProvinceModel get province;
+  PropertyTypeModel? get propertyType;
+  ProvinceModel? get province;
   UserModel? get approvedBy;
-  UserModel get user;
+  UserModel? get user;
 }
 
 /// Base model class for PropertyModel.
@@ -302,10 +302,10 @@ sealed class PropertyModel
   /// - int likeCount : JsonKey('like_count')
   /// - bool autoVerbalAdded : JsonKey('auto_verbal_added')
   /// - bool hiddenFromHomePage : JsonKey('hidden_from_home_page')
-  /// - PropertyTypeModel propertyType : JsonKey('propertyType')
-  /// - ProvinceModel province : JsonKey('province')
+  /// - PropertyTypeModel? propertyType : JsonKey('propertyType')
+  /// - ProvinceModel? province : JsonKey('province')
   /// - UserModel? approvedBy : JsonKey('approvedBy')
-  /// - UserModel user : JsonKey('user')
+  /// - UserModel? user : JsonKey('user')
   @TableModel(PropertyModel.tableName)
   @JsonSerializable(explicitToJson: true)
   const factory PropertyModel({
@@ -347,16 +347,16 @@ sealed class PropertyModel
     required bool hiddenFromHomePage,
     @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
     @JsonKey(name: PropertyModel.propertyTypeKey)
-    required PropertyTypeModel propertyType,
+    required PropertyTypeModel? propertyType,
     @JoinedColumn(foreignKey: "province_id", candidateKey: null)
     @JsonKey(name: PropertyModel.provinceKey)
-    required ProvinceModel province,
+    required ProvinceModel? province,
     @JoinedColumn(foreignKey: null, candidateKey: "properties_approved_by_fkey")
     @JsonKey(name: PropertyModel.approvedByKey)
     required UserModel? approvedBy,
     @JoinedColumn(foreignKey: "user_id", candidateKey: null)
     @JsonKey(name: PropertyModel.userKey)
-    required UserModel user,
+    required UserModel? user,
   }) = _PropertyModel;
 
   /// Creates an instance of PropertyModel from a JSON map.

@@ -166,31 +166,26 @@ class __PropertyListPageState extends ConsumerState<_PropertyListPage> {
 class _GridView extends ConsumerWidget {
   const _GridView();
 
-  @override
+ @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return GridView.builder(
-      padding: const EdgeInsets.all(8),
-      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 250,
-        childAspectRatio: 0.75,
-        mainAxisSpacing: 10,
-        crossAxisSpacing: 10,
-      ),
-      itemBuilder: (context, index) {
-        final paginated = ref.watch(
-          propertyAtIndexProvider(
-            index: index,
-            filter: ref.watch(_filterProvider),
+    final filter = ref.watch(_filterProvider);
+    final propertiesAsync = ref.watch(propertyListProvider(page: 0, filter: filter));
+
+    return propertiesAsync.when(
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (error, stack) => Center(child: Text('Error: $error')),
+      data: (properties) {
+        return GridView.builder(
+          padding: const EdgeInsets.all(8),
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 250,
+            childAspectRatio: 0.75,
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
           ),
-        );
-        return paginated?.whenOrNull(
-          loading: (isFirstItem) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          },
-          data: (item) {
-            return _buildPropertyCard(context, item);
+          itemCount: properties.length,
+          itemBuilder: (context, index) {
+            return _buildPropertyCard(context, properties[index]);
           },
         );
       },

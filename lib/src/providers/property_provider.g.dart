@@ -2527,7 +2527,7 @@ final insertPropertyProvider =
 );
 
 typedef _$InsertProperty = AutoDisposeNotifier<InsertPropertyState>;
-String _$updatePropertyHash() => r'676fb17ca135cea8c4715307f7bdfb17cd868d0e';
+String _$updatePropertyHash() => r'651519028b8b2811192226f609fa6e8da9e27ead';
 
 abstract class _$UpdateProperty
     extends BuildlessAutoDisposeNotifier<UpdatePropertyState> {

@@ -51,7 +51,7 @@ class _AdminPropertyDetailPageState
     }
 
     final currentUserId = ref.watch(authProvider);
-    final isCurrentUserOwner = widget.property.user.id == currentUserId;
+    final isCurrentUserOwner = widget.property.user?.id == currentUserId;
 
     return Scaffold(
       appBar: AppBar(
@@ -166,7 +166,7 @@ class _AdminPropertyDetailPageState
                   const SliverToBoxAdapter(child: SizedBox(height: 8)),
                   SliverToBoxAdapter(
                     child: Text(
-                      '${widget.property.propertyType.name} for ${widget.property.listingType.name}',
+                      '${widget.property.propertyType?.name ?? 'N/A'} for ${widget.property.listingType.name}',
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ),
@@ -236,7 +236,7 @@ class _AdminPropertyDetailPageState
                             ),
                             _buildDetailRow(
                               'Location',
-                              widget.property.province.name,
+                              widget.property.province?.name ?? 'N/A',
                             ),
                           ],
                         ),
@@ -246,7 +246,7 @@ class _AdminPropertyDetailPageState
                   const SliverToBoxAdapter(child: SizedBox(height: 24)),
                   SliverToBoxAdapter(
                     child: Text(
-                      'Submitted by: ${widget.property.user.fullName}',
+                      'Submitted by: ${widget.property.user?.fullName ?? 'N/A'}',
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ),

@@ -47,10 +47,10 @@ class PropertySchema extends KimappSchema {
   final hiddenFromHomePage = Field<bool>('hidden_from_home_page');
 
   // Joins
-  final propertyType = Field.join<PropertyTypeModel>().withForeignKey('property_type_id');
-  final province = Field.join<ProvinceModel>().withForeignKey('province_id');
+  final propertyType = Field.join<PropertyTypeModel?>().withForeignKey('property_type_id');
+  final province = Field.join<ProvinceModel?>().withForeignKey('province_id');
   final approvedBy = Field.join<UserModel?>().withCandidateKey('properties_approved_by_fkey');
-  final user = Field.join<UserModel>().withForeignKey('user_id');
+  final user = Field.join<UserModel?>().withForeignKey('user_id');
 
   @override
   List<Model> get models {

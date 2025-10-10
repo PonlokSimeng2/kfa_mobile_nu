@@ -81,16 +81,16 @@ mixin _$PropertyModel {
   bool get hiddenFromHomePage;
   @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
   @JsonKey(name: PropertyModel.propertyTypeKey)
-  PropertyTypeModel get propertyType;
+  PropertyTypeModel? get propertyType;
   @JoinedColumn(foreignKey: "province_id", candidateKey: null)
   @JsonKey(name: PropertyModel.provinceKey)
-  ProvinceModel get province;
+  ProvinceModel? get province;
   @JoinedColumn(foreignKey: null, candidateKey: "properties_approved_by_fkey")
   @JsonKey(name: PropertyModel.approvedByKey)
   UserModel? get approvedBy;
   @JoinedColumn(foreignKey: "user_id", candidateKey: null)
   @JsonKey(name: PropertyModel.userKey)
-  UserModel get user;
+  UserModel? get user;
 
   /// Create a copy of PropertyModel
   /// with the given fields replaced by the non-null parameter values.
@@ -264,22 +264,22 @@ abstract mixin class $PropertyModelCopyWith<$Res> {
       bool hiddenFromHomePage,
       @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
       @JsonKey(name: PropertyModel.propertyTypeKey)
-      PropertyTypeModel propertyType,
+      PropertyTypeModel? propertyType,
       @JoinedColumn(foreignKey: "province_id", candidateKey: null)
       @JsonKey(name: PropertyModel.provinceKey)
-      ProvinceModel province,
+      ProvinceModel? province,
       @JoinedColumn(
           foreignKey: null, candidateKey: "properties_approved_by_fkey")
       @JsonKey(name: PropertyModel.approvedByKey)
       UserModel? approvedBy,
       @JoinedColumn(foreignKey: "user_id", candidateKey: null)
       @JsonKey(name: PropertyModel.userKey)
-      UserModel user});
+      UserModel? user});
 
-  $PropertyTypeModelCopyWith<$Res> get propertyType;
-  $ProvinceModelCopyWith<$Res> get province;
+  $PropertyTypeModelCopyWith<$Res>? get propertyType;
+  $ProvinceModelCopyWith<$Res>? get province;
   $UserModelCopyWith<$Res>? get approvedBy;
-  $UserModelCopyWith<$Res> get user;
+  $UserModelCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -327,10 +327,10 @@ class _$PropertyModelCopyWithImpl<$Res>
     Object? likeCount = null,
     Object? autoVerbalAdded = null,
     Object? hiddenFromHomePage = null,
-    Object? propertyType = null,
-    Object? province = null,
+    Object? propertyType = freezed,
+    Object? province = freezed,
     Object? approvedBy = freezed,
-    Object? user = null,
+    Object? user = freezed,
   }) {
     return _then(_self.copyWith(
       id: null == id
@@ -461,22 +461,22 @@ class _$PropertyModelCopyWithImpl<$Res>
           ? _self.hiddenFromHomePage
           : hiddenFromHomePage // ignore: cast_nullable_to_non_nullable
               as bool,
-      propertyType: null == propertyType
+      propertyType: freezed == propertyType
           ? _self.propertyType
           : propertyType // ignore: cast_nullable_to_non_nullable
-              as PropertyTypeModel,
-      province: null == province
+              as PropertyTypeModel?,
+      province: freezed == province
           ? _self.province
           : province // ignore: cast_nullable_to_non_nullable
-              as ProvinceModel,
+              as ProvinceModel?,
       approvedBy: freezed == approvedBy
           ? _self.approvedBy
           : approvedBy // ignore: cast_nullable_to_non_nullable
               as UserModel?,
-      user: null == user
+      user: freezed == user
           ? _self.user
           : user // ignore: cast_nullable_to_non_nullable
-              as UserModel,
+              as UserModel?,
     ));
   }
 
@@ -484,8 +484,12 @@ class _$PropertyModelCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $PropertyTypeModelCopyWith<$Res> get propertyType {
-    return $PropertyTypeModelCopyWith<$Res>(_self.propertyType, (value) {
+  $PropertyTypeModelCopyWith<$Res>? get propertyType {
+    if (_self.propertyType == null) {
+      return null;
+    }
+
+    return $PropertyTypeModelCopyWith<$Res>(_self.propertyType!, (value) {
       return _then(_self.copyWith(propertyType: value));
     });
   }
@@ -494,8 +498,12 @@ class _$PropertyModelCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $ProvinceModelCopyWith<$Res> get province {
-    return $ProvinceModelCopyWith<$Res>(_self.province, (value) {
+  $ProvinceModelCopyWith<$Res>? get province {
+    if (_self.province == null) {
+      return null;
+    }
+
+    return $ProvinceModelCopyWith<$Res>(_self.province!, (value) {
       return _then(_self.copyWith(province: value));
     });
   }
@@ -518,8 +526,12 @@ class _$PropertyModelCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $UserModelCopyWith<$Res> get user {
-    return $UserModelCopyWith<$Res>(_self.user, (value) {
+  $UserModelCopyWith<$Res>? get user {
+    if (_self.user == null) {
+      return null;
+    }
+
+    return $UserModelCopyWith<$Res>(_self.user!, (value) {
       return _then(_self.copyWith(user: value));
     });
   }
@@ -690,11 +702,11 @@ class _PropertyModel extends PropertyModel {
   @override
   @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
   @JsonKey(name: PropertyModel.propertyTypeKey)
-  final PropertyTypeModel propertyType;
+  final PropertyTypeModel? propertyType;
   @override
   @JoinedColumn(foreignKey: "province_id", candidateKey: null)
   @JsonKey(name: PropertyModel.provinceKey)
-  final ProvinceModel province;
+  final ProvinceModel? province;
   @override
   @JoinedColumn(foreignKey: null, candidateKey: "properties_approved_by_fkey")
   @JsonKey(name: PropertyModel.approvedByKey)
@@ -702,7 +714,7 @@ class _PropertyModel extends PropertyModel {
   @override
   @JoinedColumn(foreignKey: "user_id", candidateKey: null)
   @JsonKey(name: PropertyModel.userKey)
-  final UserModel user;
+  final UserModel? user;
 
   /// Create a copy of PropertyModel
   /// with the given fields replaced by the non-null parameter values.
@@ -882,26 +894,26 @@ abstract mixin class _$PropertyModelCopyWith<$Res>
       bool hiddenFromHomePage,
       @JoinedColumn(foreignKey: "property_type_id", candidateKey: null)
       @JsonKey(name: PropertyModel.propertyTypeKey)
-      PropertyTypeModel propertyType,
+      PropertyTypeModel? propertyType,
       @JoinedColumn(foreignKey: "province_id", candidateKey: null)
       @JsonKey(name: PropertyModel.provinceKey)
-      ProvinceModel province,
+      ProvinceModel? province,
       @JoinedColumn(
           foreignKey: null, candidateKey: "properties_approved_by_fkey")
       @JsonKey(name: PropertyModel.approvedByKey)
       UserModel? approvedBy,
       @JoinedColumn(foreignKey: "user_id", candidateKey: null)
       @JsonKey(name: PropertyModel.userKey)
-      UserModel user});
+      UserModel? user});
 
   @override
-  $PropertyTypeModelCopyWith<$Res> get propertyType;
+  $PropertyTypeModelCopyWith<$Res>? get propertyType;
   @override
-  $ProvinceModelCopyWith<$Res> get province;
+  $ProvinceModelCopyWith<$Res>? get province;
   @override
   $UserModelCopyWith<$Res>? get approvedBy;
   @override
-  $UserModelCopyWith<$Res> get user;
+  $UserModelCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -949,10 +961,10 @@ class __$PropertyModelCopyWithImpl<$Res>
     Object? likeCount = null,
     Object? autoVerbalAdded = null,
     Object? hiddenFromHomePage = null,
-    Object? propertyType = null,
-    Object? province = null,
+    Object? propertyType = freezed,
+    Object? province = freezed,
     Object? approvedBy = freezed,
-    Object? user = null,
+    Object? user = freezed,
   }) {
     return _then(_PropertyModel(
       id: null == id
@@ -1083,22 +1095,22 @@ class __$PropertyModelCopyWithImpl<$Res>
           ? _self.hiddenFromHomePage
           : hiddenFromHomePage // ignore: cast_nullable_to_non_nullable
               as bool,
-      propertyType: null == propertyType
+      propertyType: freezed == propertyType
           ? _self.propertyType
           : propertyType // ignore: cast_nullable_to_non_nullable
-              as PropertyTypeModel,
-      province: null == province
+              as PropertyTypeModel?,
+      province: freezed == province
           ? _self.province
           : province // ignore: cast_nullable_to_non_nullable
-              as ProvinceModel,
+              as ProvinceModel?,
       approvedBy: freezed == approvedBy
           ? _self.approvedBy
           : approvedBy // ignore: cast_nullable_to_non_nullable
               as UserModel?,
-      user: null == user
+      user: freezed == user
           ? _self.user
           : user // ignore: cast_nullable_to_non_nullable
-              as UserModel,
+              as UserModel?,
     ));
   }
 
@@ -1106,8 +1118,12 @@ class __$PropertyModelCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $PropertyTypeModelCopyWith<$Res> get propertyType {
-    return $PropertyTypeModelCopyWith<$Res>(_self.propertyType, (value) {
+  $PropertyTypeModelCopyWith<$Res>? get propertyType {
+    if (_self.propertyType == null) {
+      return null;
+    }
+
+    return $PropertyTypeModelCopyWith<$Res>(_self.propertyType!, (value) {
       return _then(_self.copyWith(propertyType: value));
     });
   }
@@ -1116,8 +1132,12 @@ class __$PropertyModelCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $ProvinceModelCopyWith<$Res> get province {
-    return $ProvinceModelCopyWith<$Res>(_self.province, (value) {
+  $ProvinceModelCopyWith<$Res>? get province {
+    if (_self.province == null) {
+      return null;
+    }
+
+    return $ProvinceModelCopyWith<$Res>(_self.province!, (value) {
       return _then(_self.copyWith(province: value));
     });
   }
@@ -1140,8 +1160,12 @@ class __$PropertyModelCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $UserModelCopyWith<$Res> get user {
-    return $UserModelCopyWith<$Res>(_self.user, (value) {
+  $UserModelCopyWith<$Res>? get user {
+    if (_self.user == null) {
+      return null;
+    }
+
+    return $UserModelCopyWith<$Res>(_self.user!, (value) {
       return _then(_self.copyWith(user: value));
     });
   }

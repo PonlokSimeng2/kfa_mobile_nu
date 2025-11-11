@@ -23,7 +23,6 @@ class AccountPage extends ConsumerStatefulWidget {
 const _cachePasswordKey = "cached-password-key";
 
 class _AccountPageState extends ConsumerState<AccountPage> {
-  XFile? _file;
   Uint8List? _imageBytes;
   final bool _isObscure = true;
   final ImagePicker _picker = ImagePicker();
@@ -246,10 +245,10 @@ class _AccountPageState extends ConsumerState<AccountPage> {
       return const Center(child: Text('No user data available'));
     }
 
-    _firstNameController.text = user.firstName ?? '';
-    _lastNameController.text = user.lastName ?? '';
-    _emailController.text = user.email ?? '';
-    _phoneController.text = user.phone ?? '';
+    _firstNameController.text = user.firstName;
+    _lastNameController.text = user.lastName;
+    _emailController.text = user.email;
+    _phoneController.text = user.phone;
 
     return SingleChildScrollView(
       child: Column(
@@ -436,21 +435,21 @@ class _AccountPageState extends ConsumerState<AccountPage> {
           _buildInputField(
             icon: Icons.person,
             label: 'First Name',
-            initialValue: user.firstName ?? '',
+            initialValue: user.firstName,
             onChanged: (value) => _firstNameController.text = value,
           ),
           const SizedBox(height: 24),
           _buildInputField(
             icon: Icons.person_outline,
             label: 'Last Name',
-            initialValue: user.lastName ?? '',
+            initialValue: user.lastName,
             onChanged: (value) => _lastNameController.text = value,
           ),
           const SizedBox(height: 24),
           _buildInputField(
             icon: Icons.phone_android,
             label: 'Phone',
-            initialValue: user.phone ?? '',
+            initialValue: user.phone,
             onChanged: (value) => _phoneController.text = value,
             keyboardType: TextInputType.phone,
           ),
@@ -458,7 +457,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
           _buildInputField(
             icon: Icons.alternate_email,
             label: 'Email',
-            initialValue: user.email ?? '',
+            initialValue: user.email,
             onChanged: (value) => _emailController.text = value,
             keyboardType: TextInputType.emailAddress,
           ),

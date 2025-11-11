@@ -253,7 +253,7 @@ class _MapPickerState extends ConsumerState<MapPicker> {
         .then((Position position) {
       setState(() => _getAddressFromLatLng(position));
     }).catchError((e) {
-      debugPrint(e);
+      debugPrint(e.toString());
     });
   }
 

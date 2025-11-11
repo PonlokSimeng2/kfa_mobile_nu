@@ -22,20 +22,20 @@ typedef OnChangeCallback = void Function(dynamic value);
 class Google_map extends StatefulWidget {
   const Google_map({
     super.key,
-    // required this.c_id,
-    required this.district,
-    required this.commune,
-    // required this.province,
-    required this.log,
-    required this.lat,
-    //this.image_map
+    // // required this.c_id,
+    // required this.district,
+    // required this.commune,
+    // // required this.province,
+    // required this.log,
+    // required this.lat,
+    // //this.image_map
   });
   // final String c_id;
   // final OnChangeCallback province;
-  final OnChangeCallback district;
-  final OnChangeCallback commune;
-  final OnChangeCallback log;
-  final OnChangeCallback lat;
+  // final OnChangeCallback district;
+  // final OnChangeCallback commune;
+  // final OnChangeCallback log;
+  // final OnChangeCallback lat;
   // final OnChangeCallback? image_map;
 
   @override
@@ -43,7 +43,7 @@ class Google_map extends StatefulWidget {
 }
 
 const kGoogleApiKey =
-    'AIzaSyCYY4ONLxyCkQkueOWSlu4TjuyCH3QNkQ8&callback=initMapVerbal';
+    'AIzaSyCOu5a3tlXao1XgiVfKW-K2NxloT0ZJqAI&callback=initMapVerbal';
 final homeScaffoldKey = GlobalKey<ScaffoldState>();
 
 class _SearchPlacesScreenState extends State<Google_map> {
@@ -99,7 +99,7 @@ class _SearchPlacesScreenState extends State<Google_map> {
         .then((Position position) {
       setState(() => _getAddressFromLatLng(position));
     }).catchError((e) {
-      debugPrint(e);
+      debugPrint(e.toString());
     });
   }
 
@@ -199,7 +199,7 @@ class _SearchPlacesScreenState extends State<Google_map> {
           icon: Icon(Icons.keyboard_backspace),
           onPressed: () async {
             final response = await http.get(Uri.parse(
-                'https://maps.googleapis.com/maps/api/staticmap?center=${latitude},${longitude}&zoom=19&size=720x720&maptype=hybrid&markers=color:red%7Clabel:K%7C${latitude},${longitude}&key=AIzaSyCYY4ONLxyCkQkueOWSlu4TjuyCH3QNkQ8',),);
+                'https://maps.googleapis.com/maps/api/staticmap?center=${latitude},${longitude}&zoom=19&size=720x720&maptype=hybrid&markers=color:red%7Clabel:K%7C${latitude},${longitude}&key=AIzaSyDrBDesShwmQA7DAPcwDfOAOjLYXqL4HK4',),);
             final bytes = response.bodyBytes;
             get_bytes = Uint8List.fromList(bytes);
             setState(() {
@@ -496,7 +496,7 @@ class _SearchPlacesScreenState extends State<Google_map> {
 
   Future<void> Find_by_piont(double la, double lo) async {
     final response = await http.get(Uri.parse(
-        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$la,$lo&key=AIzaSyCYY4ONLxyCkQkueOWSlu4TjuyCH3QNkQ8',),);
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$la,$lo&key=AIzaSyCOu5a3tlXao1XgiVfKW-K2NxloT0ZJqAI',),);
 
     if (response.statusCode == 200) {
       // Successful response

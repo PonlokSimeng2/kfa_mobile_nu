@@ -1,4 +1,4 @@
-package com.psimeng.kfa_mobile_nu
+package com.plsimeng.kfa_mobile_nu
 
 import io.flutter.embedding.android.FlutterActivity
 

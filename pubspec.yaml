@@ -16,7 +16,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+9
+version: 1.0.2+11
 
 environment:
   sdk: ">=3.5.0 <4.0.0"
@@ -105,11 +105,11 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
-  kimapp_generator:
-    git:
-      url: https://github.com/pckimlong/kimapp.git
-      ref: c064c8c6b744c357a6501be444577bb1de0da8b6
-      path: packages/kimapp_generator
+  # kimapp_generator:
+  #   git:
+  #     url: https://github.com/pckimlong/kimapp.git
+  #     ref: c064c8c6b744c357a6501be444577bb1de0da8b6
+  #     path: packages/kimapp_generator
   retrofit_generator: ^9.1.7
   riverpod_generator: ^2.4.0
   riverpod_lint: ^2.3.7
